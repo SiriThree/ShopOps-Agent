@@ -10,7 +10,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStatus;
-import com.sirithree.shopops.admin.agent.service.AgentEngineService;
+import com.sirithree.shopops.admin.agent.service.AgentTaskDispatcher;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
 import com.sirithree.shopops.admin.agent.service.TaskStatusTransitionValidator;
 import com.sirithree.shopops.common.api.CommonPage;
@@ -36,10 +36,10 @@ public class InMemoryAgentTaskService implements AgentTaskService {
     private final Map<Long, List<AgentTaskStepDto>> steps = new ConcurrentHashMap<>();
     private final Map<Long, List<AgentTaskEventDto>> events = new ConcurrentHashMap<>();
     private final Map<Long, AgentTaskCreateParam> originalParams = new ConcurrentHashMap<>();
-    private final AgentEngineService agentEngineService;
+    private final AgentTaskDispatcher agentTaskDispatcher;
 
-    public InMemoryAgentTaskService(AgentEngineService agentEngineService) {
-        this.agentEngineService = agentEngineService;
+    public InMemoryAgentTaskService(AgentTaskDispatcher agentTaskDispatcher) {
+        this.agentTaskDispatcher = agentTaskDispatcher;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
             context.setTraceId(traceId);
             context.setCreateParam(param);
             seedSteps(taskId);
-            AgentExecutionResult result = agentEngineService.executeTask(context);
+            AgentExecutionResult result = agentTaskDispatcher.dispatch(context);
             task.setReportId(result.getReportId());
             transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
             task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())

@@ -10,7 +10,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStatus;
-import com.sirithree.shopops.admin.agent.service.AgentEngineService;
+import com.sirithree.shopops.admin.agent.service.AgentTaskDispatcher;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
 import com.sirithree.shopops.admin.agent.service.TaskStatusTransitionValidator;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
@@ -37,18 +37,18 @@ public class JdbcAgentTaskService implements AgentTaskService {
     private final AgentTaskMapper agentTaskMapper;
     private final AgentTaskStepMapper agentTaskStepMapper;
     private final AgentTaskEventMapper agentTaskEventMapper;
-    private final AgentEngineService agentEngineService;
+    private final AgentTaskDispatcher agentTaskDispatcher;
     private final JacksonJsonSupport jsonSupport;
 
     public JdbcAgentTaskService(AgentTaskMapper agentTaskMapper,
                                 AgentTaskStepMapper agentTaskStepMapper,
                                 AgentTaskEventMapper agentTaskEventMapper,
-                                AgentEngineService agentEngineService,
+                                AgentTaskDispatcher agentTaskDispatcher,
                                 JacksonJsonSupport jsonSupport) {
         this.agentTaskMapper = agentTaskMapper;
         this.agentTaskStepMapper = agentTaskStepMapper;
         this.agentTaskEventMapper = agentTaskEventMapper;
-        this.agentEngineService = agentEngineService;
+        this.agentTaskDispatcher = agentTaskDispatcher;
         this.jsonSupport = jsonSupport;
     }
 
@@ -70,7 +70,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
             context.setTraceId(task.getTraceId());
             context.setCreateParam(param);
             context.setStepIdByStepNo(stepIdByStepNo);
-            AgentExecutionResult result = agentEngineService.executeTask(context);
+            AgentExecutionResult result = agentTaskDispatcher.dispatch(context);
 
             task.setReportId(result.getReportId());
             transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);

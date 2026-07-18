@@ -37,6 +37,8 @@ mybatis:
 
 shopops:
   persistence: memory
+  agent:
+    dispatch-mode: sync
   bootstrap:
     legacy-enabled: false
   p0:
