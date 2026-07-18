@@ -50,12 +50,12 @@ Ollama / OpenAI-compatible Models / Ecommerce Platforms
 
 ## Documents
 
-- [Enterprise Platform Design](docs/ShopOps%20Agent企业级平台实现方案.md)
+- [Enterprise Platform Design](docs/ShopOps%20Agent企业级平台实现方�?md)
 - [Enterprise Database ER Design](docs/ShopOps%20Agent企业级数据库ER设计.md)
-- [Backend API and Service Design](docs/ShopOps%20Agent后端API与服务设计.md)
-- [Daily Review P0 Main Flow Design](docs/ShopOps%20每日经营复盘P0主链路实现设计.md)
-- [Local Development Guide](docs/本地开发启动指南.md)
-- [Original Platform-Level Design Report](ShopOps%20Agent平台级详细设计报告.md)
+- [Backend API and Service Design](docs/ShopOps%20Agent后端API与服务设�?md)
+- [Daily Review P0 Main Flow Design](docs/ShopOps%20每日经营复盘P0主链路实现设�?md)
+- [Local Development Guide](docs/本地开发启动指�?md)
+- [Original Platform-Level Design Report](ShopOps%20Agent平台级详细设计报�?md)
 
 ## SQL
 
@@ -134,13 +134,11 @@ shopops:
   persistence: memory # memory or jdbc
 ```
 
-To use MyBatis persistence:
+To use the development MyBatis/Flyway persistence profile:
 
-1. Create database `shopops_agent`.
-2. Execute [P0 Schema](sql/shopops_p0_schema.sql).
-3. Execute [P0 Seed Data](sql/shopops_p0_seed.sql).
-4. Update datasource credentials in `shopops-admin/src/main/resources/application.yml`.
-5. Set `shopops.persistence=jdbc`.
+1. Start the development infrastructure with Docker Compose.
+2. Run the backend with the `dev` Spring profile.
+3. Flyway applies the P0/P1 schema and seed data from `shopops-admin/src/main/resources/db/migration`.
 
 The JDBC mode currently persists:
 
@@ -152,6 +150,10 @@ agent_task_event
 tool_call_log
 operation_report
 trace_span
+product
+shop_order
+shop_order_item
+product_comment
 ```
 
 Trace instrumentation currently covers:
@@ -164,13 +166,20 @@ agent.verifier
 tool.<toolCode>
 ```
 
-When `shopops.persistence=jdbc`, the application also bootstraps the four P0 tool definitions if they are missing from `mcp_tool`.
+When `shopops.persistence=jdbc`, schema and seed data are owned by Flyway migrations. The legacy startup bootstrap runners are disabled by default and can only be enabled with `shopops.bootstrap.legacy-enabled=true`.
 
 Run locally with Java 17 and Maven:
 
 ```bash
 mvn clean install -DskipTests
 mvn -pl shopops-admin spring-boot:run
+```
+
+Run against Docker MySQL with Flyway migrations:
+
+```bash
+mvn clean install -DskipTests
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 ```
 
 Create a daily review task:

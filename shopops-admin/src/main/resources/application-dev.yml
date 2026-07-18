@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "${SHOPOPS_DATASOURCE_URL:jdbc:mysql://localhost:3306/shopops_agent?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}"
+    username: ${SHOPOPS_DATASOURCE_USERNAME:root}
+    password: ${SHOPOPS_DATASOURCE_PASSWORD:root}
+    hikari:
+      initialization-fail-timeout: ${SHOPOPS_DATASOURCE_INITIALIZATION_FAIL_TIMEOUT:1}
+  data:
+    redis:
+      host: ${SHOPOPS_REDIS_HOST:localhost}
+      port: ${SHOPOPS_REDIS_PORT:6379}
+  rabbitmq:
+    host: ${SHOPOPS_RABBITMQ_HOST:localhost}
+    port: ${SHOPOPS_RABBITMQ_PORT:5672}
+    username: ${SHOPOPS_RABBITMQ_USERNAME:shopops}
+    password: ${SHOPOPS_RABBITMQ_PASSWORD:shopops}
+
+shopops:
+  persistence: jdbc
+  flyway:
+    enabled: ${SHOPOPS_FLYWAY_ENABLED:true}
+    baseline-version: ${SHOPOPS_FLYWAY_BASELINE_VERSION:3}

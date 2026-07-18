@@ -15,12 +15,17 @@ RabbitMQ localhost:5672
 RabbitMQ Management UI http://localhost:15672 / shopops:shopops
 ```
 
-The MySQL container initializes the P0 schema and seed data from `sql/`.
+The MySQL container only creates the `shopops_agent` database. Schema and seed data are applied by Flyway when `shopops-admin` starts with the `dev` profile.
 
-If you need to re-run SQL initialization from scratch:
+Run the backend against these local services:
+
+```bash
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
+```
+
+If you need to reset local infrastructure data from scratch:
 
 ```bash
 docker compose -f deploy/docker-compose.dev.yml down -v
 docker compose -f deploy/docker-compose.dev.yml up -d
 ```
-
