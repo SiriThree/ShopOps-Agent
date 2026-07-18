@@ -54,6 +54,7 @@ Ollama / OpenAI-compatible Models / Ecommerce Platforms
 - [Enterprise Database ER Design](docs/ShopOps%20Agent企业级数据库ER设计.md)
 - [Backend API and Service Design](docs/ShopOps%20Agent后端API与服务设计.md)
 - [Daily Review P0 Main Flow Design](docs/ShopOps%20每日经营复盘P0主链路实现设计.md)
+- [Local Development Guide](docs/本地开发启动指南.md)
 - [Original Platform-Level Design Report](ShopOps%20Agent平台级详细设计报告.md)
 
 ## SQL
@@ -119,6 +120,12 @@ shopops-admin
 
 P0 currently uses in-memory services so the main flow can be validated before MyBatis persistence is wired in.
 MyBatis dependencies, datasource configuration, P0 persistence models, and mapper interfaces have been added as the next persistence layer foundation.
+
+Start development infrastructure:
+
+```bash
+docker compose -f deploy/docker-compose.dev.yml up -d
+```
 
 Persistence mode:
 
