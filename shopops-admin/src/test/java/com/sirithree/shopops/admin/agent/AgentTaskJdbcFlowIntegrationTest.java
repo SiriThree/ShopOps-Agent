@@ -66,6 +66,14 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         Map<String, Object> traceData = dataOf(get("/api/tasks/" + taskId + "/trace"));
         assertThat((List<Object>) traceData.get("spans")).hasSizeGreaterThanOrEqualTo(7);
         assertThat((List<Object>) traceData.get("toolCalls")).hasSize(4);
+
+        Map<String, Object> healthData = dataOf(get("/api/system/health"));
+        Map<String, Object> checks = castMap(healthData.get("checks"));
+        Map<String, Object> database = castMap(checks.get("database"));
+        assertThat(healthData.get("status")).isEqualTo("UP");
+        assertThat(healthData.get("persistence")).isEqualTo("jdbc");
+        assertThat(database.get("status")).isEqualTo("UP");
+        assertThat(database.get("mode")).isEqualTo("REQUIRED");
     }
 
     private Map<String, Object> stepOutput(List<Map<String, Object>> steps, String toolCode) {

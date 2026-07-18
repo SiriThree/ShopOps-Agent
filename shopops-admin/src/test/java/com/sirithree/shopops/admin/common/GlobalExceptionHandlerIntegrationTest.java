@@ -95,6 +95,31 @@ class GlobalExceptionHandlerIntegrationTest {
         assertThat(response.getHeaders().getFirst("X-Request-Id")).startsWith("req_");
     }
 
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldReturnSystemHealthInMemoryMode() {
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url("/api/system/health"),
+                HttpMethod.GET,
+                new HttpEntity<>(defaultHeaders()),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get("code")).isEqualTo(200);
+
+        Map<String, Object> data = (Map<String, Object>) response.getBody().get("data");
+        Map<String, Object> checks = (Map<String, Object>) data.get("checks");
+        Map<String, Object> database = (Map<String, Object>) checks.get("database");
+        Map<String, Object> toolRegistry = (Map<String, Object>) checks.get("toolRegistry");
+
+        assertThat(data.get("status")).isEqualTo("UP");
+        assertThat(data.get("persistence")).isEqualTo("memory");
+        assertThat(database.get("mode")).isEqualTo("SKIPPED");
+        assertThat(toolRegistry.get("status")).isEqualTo("UP");
+    }
+
     private HttpHeaders defaultHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Tenant-Id", "1");
