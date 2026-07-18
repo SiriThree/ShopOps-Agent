@@ -125,4 +125,23 @@ public interface AgentTaskMapper {
                                       @Param("queuedBefore") LocalDateTime queuedBefore,
                                       @Param("runningBefore") LocalDateTime runningBefore,
                                       @Param("limit") Integer limit);
+
+    @Select("""
+            SELECT status AS taskStatus, COUNT(*) AS taskCount
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+            GROUP BY status
+            """)
+    List<java.util.Map<String, Object>> countGroupByStatus(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId);
+
+    @Select("""
+            SELECT CAST(COALESCE(AVG(TIMESTAMPDIFF(MICROSECOND, started_at, finished_at) / 1000), 0) AS SIGNED)
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND started_at IS NOT NULL
+              AND finished_at IS NOT NULL
+            """)
+    Long selectAverageLatencyMs(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId);
 }

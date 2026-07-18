@@ -72,6 +72,21 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         assertThat((List<Object>) traceData.get("spans")).hasSizeGreaterThanOrEqualTo(7);
         assertThat((List<Object>) traceData.get("toolCalls")).hasSize(4);
 
+        Map<String, Object> adminDetail = dataOf(get("/api/admin/agent/tasks/" + taskId + "/detail"));
+        assertThat(castMap(adminDetail.get("task")).get("taskId")).isEqualTo(taskId);
+        assertThat((List<Object>) adminDetail.get("steps")).hasSize(4);
+        assertThat((List<Object>) adminDetail.get("events")).isNotEmpty();
+        assertThat(castMap(adminDetail.get("report")).get("reportId")).isEqualTo(reportId);
+        assertThat((List<Object>) adminDetail.get("spans")).hasSizeGreaterThanOrEqualTo(7);
+        assertThat((List<Object>) adminDetail.get("toolCalls")).hasSize(4);
+
+        Map<String, Object> adminMetrics = dataOf(get("/api/admin/agent/tasks/metrics"));
+        assertThat(((Number) adminMetrics.get("total")).longValue()).isGreaterThanOrEqualTo(1L);
+        assertThat(((Number) adminMetrics.get("success")).longValue()).isGreaterThanOrEqualTo(1L);
+        assertThat(((Number) adminMetrics.get("successRate")).doubleValue()).isGreaterThan(0.0d);
+        assertThat(((Number) adminMetrics.get("avgLatencyMs")).longValue()).isGreaterThanOrEqualTo(0L);
+        assertThat(castMap(adminMetrics.get("statusBreakdown"))).containsKey("SUCCESS");
+
         Map<String, Object> toolCallPage = dataOf(get("/api/tools/call-logs?taskId=" + taskId + "&status=SUCCESS&pageNum=1&pageSize=2"));
         assertThat(toolCallPage.get("total")).isEqualTo(4);
         assertThat((List<Map<String, Object>>) toolCallPage.get("list")).hasSize(2);
