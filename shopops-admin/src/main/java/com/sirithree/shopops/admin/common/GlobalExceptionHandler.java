@@ -1,0 +1,73 @@
+package com.sirithree.shopops.admin.common;
+
+import com.sirithree.shopops.common.api.CommonResult;
+import jakarta.validation.ConstraintViolationException;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<CommonResult<?>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        String message = ex.getBindingResult().getFieldErrors().stream()
+                .map(this::fieldErrorMessage)
+                .collect(Collectors.joining("; "));
+        return badRequest(message.isBlank() ? "请求参数校验失败" : message);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<CommonResult<?>> handleConstraintViolation(ConstraintViolationException ex) {
+        String message = ex.getConstraintViolations().stream()
+                .map(violation -> violation.getPropertyPath() + " " + violation.getMessage())
+                .collect(Collectors.joining("; "));
+        return badRequest(message.isBlank() ? "请求参数校验失败" : message);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<CommonResult<?>> handleMissingServletRequestParameter(MissingServletRequestParameterException ex) {
+        return badRequest("缺少请求参数: " + ex.getParameterName());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<CommonResult<?>> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        return badRequest("请求参数类型错误: " + ex.getName());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<CommonResult<?>> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
+        return badRequest("请求体格式错误");
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<CommonResult<?>> handleIllegalArgument(IllegalArgumentException ex) {
+        return badRequest(ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<CommonResult<?>> handleException(Exception ex) {
+        LOGGER.error("Unhandled request exception", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(CommonResult.failed("系统异常，请稍后重试"));
+    }
+
+    private ResponseEntity<CommonResult<?>> badRequest(String message) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(CommonResult.validateFailed(message));
+    }
+
+    private String fieldErrorMessage(FieldError error) {
+        return error.getField() + " " + (error.getDefaultMessage() == null ? "不合法" : error.getDefaultMessage());
+    }
+}
