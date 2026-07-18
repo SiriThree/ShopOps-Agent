@@ -5,6 +5,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
@@ -27,8 +28,10 @@ import org.springframework.stereotype.Service;
 @ConditionalOnProperty(name = "shopops.persistence", havingValue = "memory", matchIfMissing = true)
 public class InMemoryAgentTaskService implements AgentTaskService {
     private final AtomicLong taskIdGenerator = new AtomicLong(10001);
+    private final AtomicLong eventIdGenerator = new AtomicLong(1);
     private final Map<Long, AgentTaskDto> tasks = new ConcurrentHashMap<>();
     private final Map<Long, List<AgentTaskStepDto>> steps = new ConcurrentHashMap<>();
+    private final Map<Long, List<AgentTaskEventDto>> events = new ConcurrentHashMap<>();
     private final Map<Long, AgentTaskCreateParam> originalParams = new ConcurrentHashMap<>();
     private final AgentEngineService agentEngineService;
 
@@ -54,9 +57,11 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         task.setTraceId(traceId);
         tasks.put(taskId, task);
         originalParams.put(taskId, param);
+        appendEvent(task, null, "CREATED", "TASK_CREATED", userId);
 
         try {
             task.setStatus("RUNNING");
+            appendEvent(task, "CREATED", "RUNNING", "TASK_STARTED", userId);
             AgentTaskContext context = new AgentTaskContext();
             context.setTenantId(tenantId);
             context.setShopId(shopId);
@@ -71,9 +76,11 @@ public class InMemoryAgentTaskService implements AgentTaskService {
             task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
                     ? "Daily review report generated with degraded evidence"
                     : "Daily review report generated");
+            appendEvent(task, "RUNNING", task.getStatus(), "TASK_FINISHED", userId);
         } catch (RuntimeException ex) {
             task.setStatus("FAILED");
             task.setErrorMessage(ex.getMessage());
+            appendEvent(task, "RUNNING", "FAILED", "TASK_FAILED", userId);
         }
 
         return new AgentTaskCreateResult(taskId, taskNo, task.getStatus(), traceId);
@@ -89,6 +96,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         if (param == null) {
             throw new IllegalArgumentException("原任务缺少请求快照，无法重试");
         }
+        appendEvent(original, original.getStatus(), original.getStatus(), "TASK_RETRY_REQUESTED", userId);
         return createTask(tenantId, shopId, userId, param);
     }
 
@@ -119,6 +127,13 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         return steps.getOrDefault(taskId, List.of());
     }
 
+    @Override
+    public List<AgentTaskEventDto> listEvents(Long tenantId, Long shopId, Long taskId) {
+        return getTask(tenantId, shopId, taskId)
+                .map(task -> events.getOrDefault(taskId, List.of()))
+                .orElseGet(List::of);
+    }
+
     private void seedSteps(Long taskId) {
         List<AgentTaskStepDto> taskSteps = new ArrayList<>();
         taskSteps.add(step(taskId, 1, "Query order summary", "order.query_summary"));
@@ -137,5 +152,17 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         step.setToolCode(toolCode);
         step.setStatus("SUCCESS");
         return step;
+    }
+
+    private void appendEvent(AgentTaskDto task, String fromStatus, String toStatus, String eventType, Long operatorId) {
+        AgentTaskEventDto event = new AgentTaskEventDto();
+        event.setEventId(eventIdGenerator.getAndIncrement());
+        event.setTaskId(task.getTaskId());
+        event.setEventType(eventType);
+        event.setFromStatus(fromStatus);
+        event.setToStatus(toStatus);
+        event.setOperatorId(operatorId);
+        event.setCreatedAt(LocalDateTime.now());
+        events.computeIfAbsent(task.getTaskId(), ignored -> new ArrayList<>()).add(event);
     }
 }

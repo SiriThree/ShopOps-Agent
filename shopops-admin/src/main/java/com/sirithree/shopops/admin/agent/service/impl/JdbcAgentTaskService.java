@@ -5,6 +5,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
@@ -129,6 +130,11 @@ public class JdbcAgentTaskService implements AgentTaskService {
         return agentTaskStepMapper.listByTaskId(tenantId, shopId, taskId).stream().map(this::toStepDto).toList();
     }
 
+    @Override
+    public List<AgentTaskEventDto> listEvents(Long tenantId, Long shopId, Long taskId) {
+        return agentTaskEventMapper.listByTaskId(tenantId, shopId, taskId).stream().map(this::toEventDto).toList();
+    }
+
     private AgentTask newTask(Long tenantId, Long shopId, Long userId, AgentTaskCreateParam param) {
         AgentTask task = new AgentTask();
         task.setTenantId(tenantId);
@@ -216,6 +222,19 @@ public class JdbcAgentTaskService implements AgentTaskService {
         dto.setInput(step.getInputJson());
         dto.setOutput(step.getOutputJson());
         dto.setErrorMessage(step.getErrorMessage());
+        return dto;
+    }
+
+    private AgentTaskEventDto toEventDto(AgentTaskEvent event) {
+        AgentTaskEventDto dto = new AgentTaskEventDto();
+        dto.setEventId(event.getId());
+        dto.setTaskId(event.getTaskId());
+        dto.setEventType(event.getEventType());
+        dto.setFromStatus(event.getFromStatus());
+        dto.setToStatus(event.getToStatus());
+        dto.setEventData(jsonSupport.toMap(event.getEventDataJson()));
+        dto.setOperatorId(event.getOperatorId());
+        dto.setCreatedAt(event.getCreatedAt());
         return dto;
     }
 }

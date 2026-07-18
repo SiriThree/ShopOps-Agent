@@ -3,6 +3,7 @@ package com.sirithree.shopops.admin.agent.controller;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
@@ -58,5 +59,11 @@ public class AgentTaskController {
     public CommonResult<List<AgentTaskStepDto>> listSteps(@PathVariable Long taskId) {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(agentTaskService.listSteps(context.getTenantId(), context.getShopId(), taskId));
+    }
+
+    @GetMapping("/{taskId}/events")
+    public CommonResult<List<AgentTaskEventDto>> listEvents(@PathVariable Long taskId) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(agentTaskService.listEvents(context.getTenantId(), context.getShopId(), taskId));
     }
 }

@@ -3,6 +3,7 @@ package com.sirithree.shopops.admin.agent.service;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.common.api.CommonPage;
@@ -19,4 +20,6 @@ public interface AgentTaskService {
     Optional<AgentTaskDto> getTask(Long tenantId, Long shopId, Long taskId);
 
     List<AgentTaskStepDto> listSteps(Long tenantId, Long shopId, Long taskId);
+
+    List<AgentTaskEventDto> listEvents(Long tenantId, Long shopId, Long taskId);
 }
