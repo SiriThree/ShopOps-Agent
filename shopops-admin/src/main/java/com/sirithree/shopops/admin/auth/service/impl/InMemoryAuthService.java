@@ -3,9 +3,11 @@ package com.sirithree.shopops.admin.auth.service.impl;
 import com.sirithree.shopops.admin.auth.domain.AuthAuditEventCreateCommand;
 import com.sirithree.shopops.admin.auth.domain.LoginParam;
 import com.sirithree.shopops.admin.auth.domain.LoginResult;
+import com.sirithree.shopops.admin.auth.domain.TokenSessionCreateCommand;
 import com.sirithree.shopops.admin.auth.service.AuthAuditService;
 import com.sirithree.shopops.admin.auth.service.AuthService;
 import com.sirithree.shopops.admin.auth.service.PasswordHashService;
+import com.sirithree.shopops.admin.auth.service.TokenSessionService;
 import com.sirithree.shopops.admin.auth.service.TokenService;
 import com.sirithree.shopops.admin.common.context.RequestContext;
 import com.sirithree.shopops.admin.common.context.RequestContextHolder;
@@ -24,6 +26,7 @@ public class InMemoryAuthService implements AuthService {
     private final PasswordHashService passwordHashService;
     private final TokenService tokenService;
     private final AuthAuditService authAuditService;
+    private final TokenSessionService tokenSessionService;
     private final Map<String, DevUser> users = Map.of(
             "admin", new DevUser(1L, "admin", List.of("ADMIN")),
             "operator", new DevUser(2L, "operator", List.of("OPERATOR")),
@@ -32,10 +35,12 @@ public class InMemoryAuthService implements AuthService {
 
     public InMemoryAuthService(PasswordHashService passwordHashService,
                                TokenService tokenService,
-                               AuthAuditService authAuditService) {
+                               AuthAuditService authAuditService,
+                               TokenSessionService tokenSessionService) {
         this.passwordHashService = passwordHashService;
         this.tokenService = tokenService;
         this.authAuditService = authAuditService;
+        this.tokenSessionService = tokenSessionService;
     }
 
     @Override
@@ -52,9 +57,23 @@ public class InMemoryAuthService implements AuthService {
                 user.username(),
                 user.roles()
         );
+        createTokenSession(token, param, user);
         recordLogin(param, user.userId(), user.username(), "SUCCESS", null);
         return LoginResult.of(token.value(), token.expiresAt(), param.getTenantId(), param.getShopId(),
                 user.userId(), user.username(), user.roles());
+    }
+
+    private void createTokenSession(TokenService.IssuedToken token, LoginParam param, DevUser user) {
+        TokenSessionCreateCommand command = new TokenSessionCreateCommand();
+        command.setTokenId(token.tokenId());
+        command.setTenantId(param.getTenantId());
+        command.setShopId(param.getShopId());
+        command.setUserId(user.userId());
+        command.setUsername(user.username());
+        command.setRoles(user.roles());
+        command.setIssuedAt(token.issuedAt());
+        command.setExpiresAt(token.expiresAt());
+        tokenSessionService.createSession(command);
     }
 
     private void recordLogin(LoginParam param, Long userId, String username, String status, String failureReason) {

@@ -3,13 +3,14 @@ package com.sirithree.shopops.admin.auth.domain;
 import java.time.Instant;
 import java.util.List;
 
-public class TokenPrincipal {
+public class TokenSessionCreateCommand {
     private String tokenId;
     private Long tenantId;
     private Long shopId;
     private Long userId;
     private String username;
     private List<String> roles;
+    private Instant issuedAt;
     private Instant expiresAt;
 
     public String getTokenId() { return tokenId; }
@@ -24,6 +25,8 @@ public class TokenPrincipal {
     public void setUsername(String username) { this.username = username; }
     public List<String> getRoles() { return roles; }
     public void setRoles(List<String> roles) { this.roles = roles; }
+    public Instant getIssuedAt() { return issuedAt; }
+    public void setIssuedAt(Instant issuedAt) { this.issuedAt = issuedAt; }
     public Instant getExpiresAt() { return expiresAt; }
     public void setExpiresAt(Instant expiresAt) { this.expiresAt = expiresAt; }
 }

@@ -11,6 +11,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +34,9 @@ public class TokenService {
     }
 
     public IssuedToken issue(Long tenantId, Long shopId, Long userId, String username, List<String> roles) {
-        Instant expiresAt = Instant.now().plus(ttl);
+        String tokenId = UUID.randomUUID().toString().replace("-", "");
+        Instant issuedAt = Instant.now();
+        Instant expiresAt = issuedAt.plus(ttl);
         Map<String, Object> header = Map.of("alg", "HS256", "typ", "SHOPOPS");
         Map<String, Object> payload = Map.of(
                 "tenantId", tenantId,
@@ -41,12 +44,13 @@ public class TokenService {
                 "userId", userId,
                 "username", username,
                 "roles", roles,
+                "jti", tokenId,
                 "exp", expiresAt.getEpochSecond()
         );
         String headerPart = encodeJson(header);
         String payloadPart = encodeJson(payload);
         String signature = sign(headerPart + "." + payloadPart);
-        return new IssuedToken(headerPart + "." + payloadPart + "." + signature, expiresAt);
+        return new IssuedToken(headerPart + "." + payloadPart + "." + signature, tokenId, issuedAt, expiresAt);
     }
 
     public Optional<TokenPrincipal> parse(String token) {
@@ -69,6 +73,11 @@ public class TokenService {
                 return Optional.empty();
             }
             TokenPrincipal principal = new TokenPrincipal();
+            Object tokenId = payload.get("jti");
+            if (tokenId == null || String.valueOf(tokenId).isBlank()) {
+                return Optional.empty();
+            }
+            principal.setTokenId(String.valueOf(tokenId));
             principal.setTenantId(longValue(payload.get("tenantId")));
             principal.setShopId(longValue(payload.get("shopId")));
             principal.setUserId(longValue(payload.get("userId")));
@@ -124,7 +133,7 @@ public class TokenService {
         }
     }
 
-    public record IssuedToken(String value, Instant expiresAt) {
+    public record IssuedToken(String value, String tokenId, Instant issuedAt, Instant expiresAt) {
     }
 
     private static final class MessageDigestSupport {

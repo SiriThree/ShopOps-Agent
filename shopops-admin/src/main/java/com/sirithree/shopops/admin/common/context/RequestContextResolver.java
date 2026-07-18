@@ -5,6 +5,7 @@ import com.sirithree.shopops.admin.auth.domain.TokenPrincipal;
 import com.sirithree.shopops.admin.auth.domain.UserRoleProfile;
 import com.sirithree.shopops.admin.auth.exception.AuthenticationException;
 import com.sirithree.shopops.admin.auth.service.AuthAuditService;
+import com.sirithree.shopops.admin.auth.service.TokenSessionService;
 import com.sirithree.shopops.admin.auth.service.TokenService;
 import com.sirithree.shopops.admin.auth.service.UserRoleService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,15 +29,18 @@ public class RequestContextResolver {
     private final UserRoleService userRoleService;
     private final TokenService tokenService;
     private final AuthAuditService authAuditService;
+    private final TokenSessionService tokenSessionService;
     private final boolean headerDevMode;
 
     public RequestContextResolver(UserRoleService userRoleService,
                                   TokenService tokenService,
                                   AuthAuditService authAuditService,
+                                  TokenSessionService tokenSessionService,
                                   @Value("${shopops.auth.header-dev-mode:true}") boolean headerDevMode) {
         this.userRoleService = userRoleService;
         this.tokenService = tokenService;
         this.authAuditService = authAuditService;
+        this.tokenSessionService = tokenSessionService;
         this.headerDevMode = headerDevMode;
     }
 
@@ -50,7 +54,12 @@ public class RequestContextResolver {
                 throw new AuthenticationException("Invalid bearer token");
             }
             TokenPrincipal principal = parsedPrincipal.get();
+            if (!tokenSessionService.validateAndTouch(principal)) {
+                recordAuthenticationFailure(request, requestId, "BEARER", "Token session is inactive");
+                throw new AuthenticationException("Token session is inactive");
+            }
             return new RequestContext(
+                    principal.getTokenId(),
                     principal.getTenantId(),
                     principal.getShopId(),
                     principal.getUserId(),
