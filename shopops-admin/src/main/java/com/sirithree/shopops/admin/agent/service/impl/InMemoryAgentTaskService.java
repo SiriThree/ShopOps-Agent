@@ -5,12 +5,15 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
+import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -70,6 +73,22 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         }
 
         return new AgentTaskCreateResult(taskId, taskNo, task.getStatus(), traceId);
+    }
+
+    @Override
+    public CommonPage<AgentTaskDto> listTasks(Long tenantId, Long shopId, AgentTaskQueryParam param) {
+        AgentTaskQueryParam query = param == null ? new AgentTaskQueryParam() : param;
+        List<AgentTaskDto> filtered = tasks.values().stream()
+                .filter(task -> tenantId.equals(task.getTenantId()) && shopId.equals(task.getShopId()))
+                .filter(task -> query.getStatus() == null || query.getStatus().isBlank() || query.getStatus().equals(task.getStatus()))
+                .filter(task -> query.getTaskType() == null || query.getTaskType().isBlank() || query.getTaskType().equals(task.getTaskType()))
+                .sorted(Comparator.comparing(AgentTaskDto::getTaskId).reversed())
+                .toList();
+        List<AgentTaskDto> pageList = filtered.stream()
+                .skip(query.offset())
+                .limit(query.safePageSize())
+                .toList();
+        return CommonPage.of(pageList, query.safePageNum(), query.safePageSize(), (long) filtered.size());
     }
 
     @Override

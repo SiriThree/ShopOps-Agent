@@ -30,6 +30,12 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         assertThat(taskData.get("status")).isEqualTo("SUCCESS");
         assertThat(taskData.get("reportId")).isNotNull();
 
+        Map<String, Object> taskPage = dataOf(get("/api/agent/tasks?status=SUCCESS&taskType=daily_review&pageNum=1&pageSize=10"));
+        assertThat(((Number) taskPage.get("total")).longValue()).isGreaterThanOrEqualTo(1L);
+        assertThat((List<Map<String, Object>>) taskPage.get("list"))
+                .extracting(task -> task.get("taskId"))
+                .contains(taskId);
+
         List<Map<String, Object>> steps = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/steps"));
         assertThat(steps).hasSize(4);
         assertThat(steps).extracting(step -> step.get("status")).containsOnly("SUCCESS");

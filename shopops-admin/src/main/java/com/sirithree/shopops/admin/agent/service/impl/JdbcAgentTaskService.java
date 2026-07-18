@@ -5,6 +5,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import com.sirithree.shopops.common.api.CommonPage;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
@@ -91,6 +93,23 @@ public class JdbcAgentTaskService implements AgentTaskService {
         }
 
         return new AgentTaskCreateResult(task.getId(), task.getTaskNo(), task.getStatus(), task.getTraceId());
+    }
+
+    @Override
+    public CommonPage<AgentTaskDto> listTasks(Long tenantId, Long shopId, AgentTaskQueryParam param) {
+        AgentTaskQueryParam query = param == null ? new AgentTaskQueryParam() : param;
+        List<AgentTaskDto> list = agentTaskMapper.listByPage(
+                        tenantId,
+                        shopId,
+                        query.getStatus(),
+                        query.getTaskType(),
+                        query.offset(),
+                        query.safePageSize()
+                ).stream()
+                .map(this::toDto)
+                .toList();
+        Long total = agentTaskMapper.countByPage(tenantId, shopId, query.getStatus(), query.getTaskType());
+        return CommonPage.of(list, query.safePageNum(), query.safePageSize(), total);
     }
 
     @Override

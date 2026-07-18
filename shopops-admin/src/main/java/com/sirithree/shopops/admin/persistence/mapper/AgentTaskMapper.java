@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.persistence.mapper;
 
 import com.sirithree.shopops.admin.persistence.model.AgentTask;
+import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -32,6 +33,48 @@ public interface AgentTaskMapper {
               AND shop_id = #{shopId}
             """)
     AgentTask selectById(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("id") Long id);
+
+    @Select("""
+            <script>
+            SELECT *
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              <if test="status != null and status != ''">
+                AND status = #{status}
+              </if>
+              <if test="taskType != null and taskType != ''">
+                AND task_type = #{taskType}
+              </if>
+            ORDER BY id DESC
+            LIMIT #{limit} OFFSET #{offset}
+            </script>
+            """)
+    List<AgentTask> listByPage(@Param("tenantId") Long tenantId,
+                               @Param("shopId") Long shopId,
+                               @Param("status") String status,
+                               @Param("taskType") String taskType,
+                               @Param("offset") Integer offset,
+                               @Param("limit") Integer limit);
+
+    @Select("""
+            <script>
+            SELECT COUNT(*)
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              <if test="status != null and status != ''">
+                AND status = #{status}
+              </if>
+              <if test="taskType != null and taskType != ''">
+                AND task_type = #{taskType}
+              </if>
+            </script>
+            """)
+    Long countByPage(@Param("tenantId") Long tenantId,
+                     @Param("shopId") Long shopId,
+                     @Param("status") String status,
+                     @Param("taskType") String taskType);
 
     @Update("""
             UPDATE agent_task

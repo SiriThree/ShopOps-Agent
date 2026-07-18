@@ -3,10 +3,12 @@ package com.sirithree.shopops.admin.agent.controller;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
 import com.sirithree.shopops.admin.common.context.RequestContext;
 import com.sirithree.shopops.admin.common.context.RequestContextHolder;
+import com.sirithree.shopops.common.api.CommonPage;
 import com.sirithree.shopops.common.api.CommonResult;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -30,6 +32,12 @@ public class AgentTaskController {
     public CommonResult<AgentTaskCreateResult> createTask(@Valid @RequestBody AgentTaskCreateParam param) {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(agentTaskService.createTask(context.getTenantId(), context.getShopId(), context.getUserId(), param));
+    }
+
+    @GetMapping
+    public CommonResult<CommonPage<AgentTaskDto>> listTasks(AgentTaskQueryParam param) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(agentTaskService.listTasks(context.getTenantId(), context.getShopId(), param));
     }
 
     @GetMapping("/{taskId}")
