@@ -1,6 +1,6 @@
 -- ShopOps Agent P1 business schema and seed data
 -- Target: MySQL 8.x
--- Scope: replace mock order/comment tools with real business data.
+-- Scope: replace mock order/comment/product candidate tools with real business data.
 
 SET NAMES utf8mb4;
 
