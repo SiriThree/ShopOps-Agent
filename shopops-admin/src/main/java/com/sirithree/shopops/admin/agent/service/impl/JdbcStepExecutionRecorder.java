@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.agent.service.impl;
 
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
+import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
 import com.sirithree.shopops.admin.agent.service.StepExecutionRecorder;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.persistence.mapper.AgentTaskStepMapper;
@@ -23,7 +24,7 @@ public class JdbcStepExecutionRecorder implements StepExecutionRecorder {
     @Override
     public void running(AgentTaskContext context, Long stepId, Object input) {
         AgentTaskStep step = base(context, stepId);
-        step.setStatus("RUNNING");
+        step.setStatus(AgentStepStatus.RUNNING.name());
         step.setInputJson(jsonSupport.toJson(input));
         step.setStartedAt(LocalDateTime.now());
         agentTaskStepMapper.updateExecutionState(step);
@@ -32,7 +33,7 @@ public class JdbcStepExecutionRecorder implements StepExecutionRecorder {
     @Override
     public void success(AgentTaskContext context, Long stepId, Object output) {
         AgentTaskStep step = base(context, stepId);
-        step.setStatus("SUCCESS");
+        step.setStatus(AgentStepStatus.SUCCESS.name());
         step.setOutputJson(jsonSupport.toJson(output));
         step.setFinishedAt(LocalDateTime.now());
         agentTaskStepMapper.updateExecutionState(step);
@@ -41,7 +42,7 @@ public class JdbcStepExecutionRecorder implements StepExecutionRecorder {
     @Override
     public void failed(AgentTaskContext context, Long stepId, String errorCode, String errorMessage) {
         AgentTaskStep step = base(context, stepId);
-        step.setStatus("FAILED");
+        step.setStatus(AgentStepStatus.FAILED.name());
         step.setErrorCode(errorCode);
         step.setErrorMessage(errorMessage);
         step.setFinishedAt(LocalDateTime.now());

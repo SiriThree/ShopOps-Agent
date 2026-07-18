@@ -8,8 +8,11 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
+import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskStatus;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
+import com.sirithree.shopops.admin.agent.service.TaskStatusTransitionValidator;
 import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,15 +56,15 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         task.setTaskNo(taskNo);
         task.setTaskType(param.getTaskType());
         task.setUserInput(param.getUserInput());
-        task.setStatus("CREATED");
+        task.setStatus(AgentTaskStatus.CREATED.name());
         task.setTraceId(traceId);
         tasks.put(taskId, task);
         originalParams.put(taskId, param);
-        appendEvent(task, null, "CREATED", "TASK_CREATED", userId);
+        appendEvent(task, null, AgentTaskStatus.CREATED.name(), "TASK_CREATED", userId);
 
         try {
-            task.setStatus("RUNNING");
-            appendEvent(task, "CREATED", "RUNNING", "TASK_STARTED", userId);
+            transitionTask(task, AgentTaskStatus.RUNNING);
+            appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
             AgentTaskContext context = new AgentTaskContext();
             context.setTenantId(tenantId);
             context.setShopId(shopId);
@@ -72,15 +75,15 @@ public class InMemoryAgentTaskService implements AgentTaskService {
             seedSteps(taskId);
             AgentExecutionResult result = agentEngineService.executeTask(context);
             task.setReportId(result.getReportId());
-            task.setStatus(Boolean.TRUE.equals(result.getDegraded()) ? "DEGRADED" : "SUCCESS");
+            transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
             task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
                     ? "Daily review report generated with degraded evidence"
                     : "Daily review report generated");
-            appendEvent(task, "RUNNING", task.getStatus(), "TASK_FINISHED", userId);
+            appendEvent(task, AgentTaskStatus.RUNNING.name(), task.getStatus(), "TASK_FINISHED", userId);
         } catch (RuntimeException ex) {
-            task.setStatus("FAILED");
+            transitionTask(task, AgentTaskStatus.FAILED);
             task.setErrorMessage(ex.getMessage());
-            appendEvent(task, "RUNNING", "FAILED", "TASK_FAILED", userId);
+            appendEvent(task, AgentTaskStatus.RUNNING.name(), AgentTaskStatus.FAILED.name(), "TASK_FAILED", userId);
         }
 
         return new AgentTaskCreateResult(taskId, taskNo, task.getStatus(), traceId);
@@ -150,8 +153,13 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         step.setStepNo(stepNo);
         step.setStepName(stepName);
         step.setToolCode(toolCode);
-        step.setStatus("SUCCESS");
+        step.setStatus(AgentStepStatus.SUCCESS.name());
         return step;
+    }
+
+    private void transitionTask(AgentTaskDto task, AgentTaskStatus toStatus) {
+        TaskStatusTransitionValidator.requireTransition(task.getStatus(), toStatus);
+        task.setStatus(toStatus.name());
     }
 
     private void appendEvent(AgentTaskDto task, String fromStatus, String toStatus, String eventType, Long operatorId) {

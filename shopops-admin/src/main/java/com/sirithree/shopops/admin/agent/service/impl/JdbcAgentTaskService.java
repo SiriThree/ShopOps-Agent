@@ -8,8 +8,11 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
+import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskStatus;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
+import com.sirithree.shopops.admin.agent.service.TaskStatusTransitionValidator;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.persistence.mapper.AgentTaskEventMapper;
 import com.sirithree.shopops.admin.persistence.mapper.AgentTaskMapper;
@@ -53,7 +56,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
     public AgentTaskCreateResult createTask(Long tenantId, Long shopId, Long userId, AgentTaskCreateParam param) {
         AgentTask task = newTask(tenantId, shopId, userId, param);
         agentTaskMapper.insert(task);
-        appendEvent(task, null, "CREATED", "TASK_CREATED", userId);
+        appendEvent(task, null, AgentTaskStatus.CREATED.name(), "TASK_CREATED", userId);
 
         try {
             startTask(task, userId);
@@ -70,20 +73,20 @@ public class JdbcAgentTaskService implements AgentTaskService {
             AgentExecutionResult result = agentEngineService.executeTask(context);
 
             task.setReportId(result.getReportId());
-            task.setStatus(Boolean.TRUE.equals(result.getDegraded()) ? "DEGRADED" : "SUCCESS");
+            transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
             task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
                     ? "Daily review report generated with degraded evidence"
                     : "Daily review report generated");
             task.setFinishedAt(LocalDateTime.now());
             agentTaskMapper.updateExecutionState(task);
-            appendEvent(task, "RUNNING", task.getStatus(), "TASK_FINISHED", userId);
+            appendEvent(task, AgentTaskStatus.RUNNING.name(), task.getStatus(), "TASK_FINISHED", userId);
         } catch (RuntimeException ex) {
-            task.setStatus("FAILED");
+            transitionTask(task, AgentTaskStatus.FAILED);
             task.setErrorCode("TASK_EXECUTE_ERROR");
             task.setErrorMessage(ex.getMessage());
             task.setFinishedAt(LocalDateTime.now());
             agentTaskMapper.updateExecutionState(task);
-            appendEvent(task, "RUNNING", "FAILED", "TASK_FAILED", userId);
+            appendEvent(task, AgentTaskStatus.RUNNING.name(), AgentTaskStatus.FAILED.name(), "TASK_FAILED", userId);
         }
 
         return new AgentTaskCreateResult(task.getId(), task.getTaskNo(), task.getStatus(), task.getTraceId());
@@ -143,7 +146,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
         task.setTaskNo("TASK" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")));
         task.setTaskType(param.getTaskType());
         task.setUserInput(param.getUserInput());
-        task.setStatus("CREATED");
+        task.setStatus(AgentTaskStatus.CREATED.name());
         task.setPriority(5);
         task.setPlanJson(jsonSupport.toJson(param));
         task.setTraceId("tr_" + UUID.randomUUID().toString().replace("-", ""));
@@ -152,10 +155,10 @@ public class JdbcAgentTaskService implements AgentTaskService {
     }
 
     private void startTask(AgentTask task, Long userId) {
-        task.setStatus("RUNNING");
+        transitionTask(task, AgentTaskStatus.RUNNING);
         task.setStartedAt(LocalDateTime.now());
         agentTaskMapper.updateExecutionState(task);
-        appendEvent(task, "CREATED", "RUNNING", "TASK_STARTED", userId);
+        appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
     }
 
     private Map<Integer, Long> seedSteps(AgentTask task) {
@@ -175,10 +178,15 @@ public class JdbcAgentTaskService implements AgentTaskService {
         step.setStepNo(stepNo);
         step.setStepName(stepName);
         step.setToolCode(toolCode);
-        step.setStatus("PENDING");
+        step.setStatus(AgentStepStatus.PENDING.name());
         step.setRetryCount(0);
         agentTaskStepMapper.insert(step);
         return step.getId();
+    }
+
+    private void transitionTask(AgentTask task, AgentTaskStatus toStatus) {
+        TaskStatusTransitionValidator.requireTransition(task.getStatus(), toStatus);
+        task.setStatus(toStatus.name());
     }
 
     private void appendEvent(AgentTask task, String fromStatus, String toStatus, String eventType, Long userId) {
