@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,10 +25,14 @@ public class RequestContextResolver {
 
     private final UserRoleService userRoleService;
     private final TokenService tokenService;
+    private final boolean headerDevMode;
 
-    public RequestContextResolver(UserRoleService userRoleService, TokenService tokenService) {
+    public RequestContextResolver(UserRoleService userRoleService,
+                                  TokenService tokenService,
+                                  @Value("${shopops.auth.header-dev-mode:true}") boolean headerDevMode) {
         this.userRoleService = userRoleService;
         this.tokenService = tokenService;
+        this.headerDevMode = headerDevMode;
     }
 
     public RequestContext resolve(HttpServletRequest request) {
@@ -47,6 +52,12 @@ public class RequestContextResolver {
                     true
             );
         }
+        if (!headerDevMode) {
+            if (isLoginRequest(request)) {
+                return anonymousContext(requestId);
+            }
+            throw new AuthenticationException("Bearer token is required");
+        }
 
         Long tenantId = longHeader(request, HEADER_TENANT_ID, 1L);
         Long shopId = longHeader(request, HEADER_SHOP_ID, 1L);
@@ -56,6 +67,15 @@ public class RequestContextResolver {
         List<String> roles = roles(request.getHeader(HEADER_USER_ROLES), userRoleProfile);
         String authType = authType(request.getHeader(HEADER_AUTHORIZATION));
         return new RequestContext(tenantId, shopId, userId, requestId, username, roles, authType, true);
+    }
+
+    private boolean isLoginRequest(HttpServletRequest request) {
+        return "POST".equalsIgnoreCase(request.getMethod())
+                && "/api/admin/auth/login".equals(request.getRequestURI());
+    }
+
+    private RequestContext anonymousContext(String requestId) {
+        return new RequestContext(0L, 0L, 0L, requestId, "anonymous", List.of(), "ANONYMOUS", false);
     }
 
     private Optional<String> bearerToken(HttpServletRequest request) {

@@ -48,6 +48,10 @@ shopops:
       dead-letter-routing-key: agent.task.execute.dead
   bootstrap:
     legacy-enabled: false
+  auth:
+    header-dev-mode: true
+    token-secret: ${SHOPOPS_AUTH_TOKEN_SECRET:shopops-dev-token-secret-change-me}
+    token-ttl-seconds: ${SHOPOPS_AUTH_TOKEN_TTL_SECONDS:7200}
   p0:
     tenant-id: 1
     shop-id: 1
