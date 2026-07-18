@@ -43,6 +43,9 @@ shopops:
       exchange: shopops.agent.exchange
       queue: shopops.agent.task.execute
       routing-key: agent.task.execute
+      dead-letter-exchange: shopops.agent.dlx
+      dead-letter-queue: shopops.agent.task.execute.dlq
+      dead-letter-routing-key: agent.task.execute.dead
   bootstrap:
     legacy-enabled: false
   p0:

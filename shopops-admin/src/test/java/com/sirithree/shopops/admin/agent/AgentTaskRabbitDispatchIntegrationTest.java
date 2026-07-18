@@ -2,11 +2,14 @@ package com.sirithree.shopops.admin.agent;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.sirithree.shopops.admin.agent.domain.AgentTaskDispatchMessage;
+import com.sirithree.shopops.admin.agent.service.impl.JdbcAgentTaskExecutionWorker;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @EnabledIfSystemProperty(named = "shopops.rabbitmq.it", matches = "true")
@@ -22,6 +25,9 @@ import org.springframework.boot.test.context.SpringBootTest;
         }
 )
 class AgentTaskRabbitDispatchIntegrationTest extends AbstractAgentTaskFlowIntegrationTest {
+    @Autowired
+    private JdbcAgentTaskExecutionWorker executionWorker;
+
     @Test
     @SuppressWarnings("unchecked")
     void shouldDispatchAndExecuteTaskViaRabbitMq() throws InterruptedException {
@@ -39,6 +45,12 @@ class AgentTaskRabbitDispatchIntegrationTest extends AbstractAgentTaskFlowIntegr
         List<Map<String, Object>> events = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/events"));
         assertThat(events).extracting(event -> event.get("eventType"))
                 .containsExactly("TASK_CREATED", "TASK_QUEUED", "TASK_STARTED", "TASK_FINISHED");
+
+        executionWorker.execute(duplicateMessage(createData));
+        List<Map<String, Object>> eventsAfterDuplicate = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/events"));
+        assertThat(eventsAfterDuplicate).hasSize(events.size());
+        assertThat(eventsAfterDuplicate).extracting(event -> event.get("eventType"))
+                .containsExactly("TASK_CREATED", "TASK_QUEUED", "TASK_STARTED", "TASK_FINISHED");
     }
 
     private Map<String, Object> awaitTaskStatus(Integer taskId, String expectedStatus, Duration timeout) throws InterruptedException {
@@ -50,5 +62,15 @@ class AgentTaskRabbitDispatchIntegrationTest extends AbstractAgentTaskFlowIntegr
         }
         assertThat(taskData.get("status")).isEqualTo(expectedStatus);
         return taskData;
+    }
+
+    private AgentTaskDispatchMessage duplicateMessage(Map<String, Object> createData) {
+        AgentTaskDispatchMessage message = new AgentTaskDispatchMessage();
+        message.setTenantId(1L);
+        message.setShopId(1L);
+        message.setUserId(1L);
+        message.setTaskId(((Number) createData.get("taskId")).longValue());
+        message.setTraceId(createData.get("traceId").toString());
+        return message;
     }
 }

@@ -50,12 +50,14 @@ public class JdbcAgentTaskExecutionWorker {
         if (currentStatus == AgentTaskStatus.SUCCESS || currentStatus == AgentTaskStatus.FAILED || currentStatus == AgentTaskStatus.DEGRADED) {
             return;
         }
-        if (currentStatus == AgentTaskStatus.RUNNING) {
+        if (currentStatus != AgentTaskStatus.QUEUED) {
             return;
         }
 
         try {
-            startTask(task, message.getUserId());
+            if (!startQueuedTask(task, message.getUserId())) {
+                return;
+            }
             AgentExecutionResult result = agentEngineService.executeTask(buildContext(task, message));
             finishTask(task, result, message.getUserId());
         } catch (RuntimeException ex) {
@@ -84,12 +86,23 @@ public class JdbcAgentTaskExecutionWorker {
         return context;
     }
 
-    private void startTask(AgentTask task, Long userId) {
-        String fromStatus = task.getStatus();
-        transitionTask(task, AgentTaskStatus.RUNNING);
-        task.setStartedAt(LocalDateTime.now());
-        agentTaskMapper.updateExecutionState(task);
-        appendEvent(task, fromStatus, AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
+    private boolean startQueuedTask(AgentTask task, Long userId) {
+        LocalDateTime startedAt = LocalDateTime.now();
+        int updated = agentTaskMapper.updateStatusIfCurrent(
+                task.getTenantId(),
+                task.getShopId(),
+                task.getId(),
+                AgentTaskStatus.QUEUED.name(),
+                AgentTaskStatus.RUNNING.name(),
+                startedAt
+        );
+        if (updated == 0) {
+            return false;
+        }
+        task.setStatus(AgentTaskStatus.RUNNING.name());
+        task.setStartedAt(startedAt);
+        appendEvent(task, AgentTaskStatus.QUEUED.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
+        return true;
     }
 
     private void finishTask(AgentTask task, AgentExecutionResult result, Long userId) {

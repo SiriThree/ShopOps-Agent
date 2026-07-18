@@ -90,4 +90,20 @@ public interface AgentTaskMapper {
               AND shop_id = #{shopId}
             """)
     int updateExecutionState(AgentTask task);
+
+    @Update("""
+            UPDATE agent_task
+            SET status = #{toStatus},
+                started_at = #{startedAt}
+            WHERE id = #{id}
+              AND tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND status = #{fromStatus}
+            """)
+    int updateStatusIfCurrent(@Param("tenantId") Long tenantId,
+                              @Param("shopId") Long shopId,
+                              @Param("id") Long id,
+                              @Param("fromStatus") String fromStatus,
+                              @Param("toStatus") String toStatus,
+                              @Param("startedAt") java.time.LocalDateTime startedAt);
 }
