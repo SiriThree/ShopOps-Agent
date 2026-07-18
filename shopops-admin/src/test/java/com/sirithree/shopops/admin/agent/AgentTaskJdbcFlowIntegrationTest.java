@@ -112,6 +112,15 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         assertThat(((Number) adminMetrics.get("avgLatencyMs")).longValue()).isGreaterThanOrEqualTo(0L);
         assertThat(castMap(adminMetrics.get("statusBreakdown"))).containsKey("SUCCESS");
 
+        Map<String, Object> dashboardSummary = dataOf(get("/api/admin/dashboard/summary"));
+        Map<String, Object> dashboardTaskMetrics = castMap(dashboardSummary.get("taskMetrics"));
+        assertThat(((Number) dashboardTaskMetrics.get("success")).longValue()).isGreaterThanOrEqualTo(1L);
+        assertThat(((Number) dashboardSummary.get("reportTotal")).longValue()).isGreaterThanOrEqualTo(1L);
+        assertThat(((Number) dashboardSummary.get("toolCallTotal")).longValue()).isGreaterThanOrEqualTo(4L);
+        assertThat(((Number) dashboardSummary.get("toolCallFailed")).longValue()).isGreaterThanOrEqualTo(0L);
+        assertThat((List<Object>) dashboardSummary.get("recentFailedEvents")).isNotNull();
+        assertThat(dashboardSummary.get("generatedAt")).isNotNull();
+
         Map<String, Object> toolCallPage = dataOf(get("/api/tools/call-logs?taskId=" + taskId + "&status=SUCCESS&pageNum=1&pageSize=2"));
         assertThat(toolCallPage.get("total")).isEqualTo(4);
         assertThat((List<Map<String, Object>>) toolCallPage.get("list")).hasSize(2);
