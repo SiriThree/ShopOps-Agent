@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -199,8 +200,27 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         event.setEventType(eventType);
         event.setFromStatus(fromStatus);
         event.setToStatus(toStatus);
+        event.setEventData(eventData(task, eventType));
         event.setOperatorId(operatorId);
         event.setCreatedAt(LocalDateTime.now());
         events.computeIfAbsent(task.getTaskId(), ignored -> new ArrayList<>()).add(event);
+    }
+
+    private Map<String, Object> eventData(AgentTaskDto task, String eventType) {
+        Map<String, Object> data = new LinkedHashMap<>();
+        putIfPresent(data, "taskNo", task.getTaskNo());
+        putIfPresent(data, "taskType", task.getTaskType());
+        putIfPresent(data, "traceId", task.getTraceId());
+        putIfPresent(data, "reportId", task.getReportId());
+        putIfPresent(data, "errorCode", task.getErrorCode());
+        putIfPresent(data, "errorMessage", task.getErrorMessage());
+        putIfPresent(data, "eventType", eventType);
+        return data;
+    }
+
+    private void putIfPresent(Map<String, Object> data, String key, Object value) {
+        if (value != null) {
+            data.put(key, value);
+        }
     }
 }

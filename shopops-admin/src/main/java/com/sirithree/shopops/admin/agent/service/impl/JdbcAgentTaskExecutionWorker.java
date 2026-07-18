@@ -15,6 +15,7 @@ import com.sirithree.shopops.admin.persistence.model.AgentTask;
 import com.sirithree.shopops.admin.persistence.model.AgentTaskEvent;
 import com.sirithree.shopops.admin.persistence.model.AgentTaskStep;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -139,8 +140,27 @@ public class JdbcAgentTaskExecutionWorker {
         event.setEventType(eventType);
         event.setFromStatus(fromStatus);
         event.setToStatus(toStatus);
+        event.setEventDataJson(jsonSupport.toJson(eventData(task, eventType)));
         event.setOperatorId(userId);
         event.setCreatedAt(LocalDateTime.now());
         agentTaskEventMapper.insert(event);
+    }
+
+    private Map<String, Object> eventData(AgentTask task, String eventType) {
+        Map<String, Object> data = new LinkedHashMap<>();
+        putIfPresent(data, "taskNo", task.getTaskNo());
+        putIfPresent(data, "taskType", task.getTaskType());
+        putIfPresent(data, "traceId", task.getTraceId());
+        putIfPresent(data, "reportId", task.getReportId());
+        putIfPresent(data, "errorCode", task.getErrorCode());
+        putIfPresent(data, "errorMessage", task.getErrorMessage());
+        putIfPresent(data, "eventType", eventType);
+        return data;
+    }
+
+    private void putIfPresent(Map<String, Object> data, String key, Object value) {
+        if (value != null) {
+            data.put(key, value);
+        }
     }
 }

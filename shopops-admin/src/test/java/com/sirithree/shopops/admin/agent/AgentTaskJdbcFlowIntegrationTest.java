@@ -128,6 +128,16 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         List<Map<String, Object>> events = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/events"));
         assertThat(events).extracting(event -> event.get("eventType"))
                 .containsExactly("TASK_CREATED", "TASK_STARTED", "TASK_FINISHED");
+        assertThat(events)
+                .extracting(event -> castMap(event.get("eventData")).get("traceId"))
+                .containsOnly(traceId);
+
+        Map<String, Object> adminEventPage = dataOf(get("/api/admin/agent/tasks/events?taskId=" + taskId
+                + "&eventType=TASK_FINISHED&operatorId=1&pageNum=1&pageSize=10"));
+        assertThat(adminEventPage.get("total")).isEqualTo(1);
+        Map<String, Object> finishedEvent = ((List<Map<String, Object>>) adminEventPage.get("list")).get(0);
+        assertThat(finishedEvent.get("eventType")).isEqualTo("TASK_FINISHED");
+        assertThat(castMap(finishedEvent.get("eventData")).get("reportId")).isEqualTo(reportId);
 
         Map<String, Object> retryData = dataOf(post("/api/agent/tasks/" + taskId + "/retry"));
         assertThat(retryData.get("status")).isEqualTo("SUCCESS");
@@ -136,6 +146,11 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         List<Map<String, Object>> eventsAfterRetry = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/events"));
         assertThat(eventsAfterRetry).extracting(event -> event.get("eventType"))
                 .containsExactly("TASK_CREATED", "TASK_STARTED", "TASK_FINISHED", "TASK_RETRY_REQUESTED");
+        Map<String, Object> retryEventPage = dataOf(get("/api/admin/agent/tasks/events?taskId=" + taskId
+                + "&eventType=TASK_RETRY_REQUESTED&pageNum=1&pageSize=10"));
+        assertThat(retryEventPage.get("total")).isEqualTo(1);
+        assertThat(castMap(((List<Map<String, Object>>) retryEventPage.get("list")).get(0).get("eventData")).get("taskNo"))
+                .isEqualTo(taskNo);
 
         Integer retryTaskId = ((Number) retryData.get("taskId")).intValue();
         Map<String, Object> retryTaskData = dataOf(get("/api/agent/tasks/" + retryTaskId));
