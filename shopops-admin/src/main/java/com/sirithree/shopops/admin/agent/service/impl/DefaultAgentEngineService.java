@@ -46,7 +46,9 @@ public class DefaultAgentEngineService implements AgentEngineService {
 
             String executorSpan = startSpan(context, rootSpan, "executor", "agent.executor", "task", context.getTaskId(), "execute plan");
             activeChildSpan = executorSpan;
+            context.setExecutorSpanId(executorSpan);
             AgentExecutionResult result = executorService.execute(context, plan);
+            context.setExecutorSpanId(null);
             traceService.finishSpan(context.getTraceId(), executorSpan, "SUCCESS", "reportId=" + result.getReportId(), null);
             activeChildSpan = null;
 

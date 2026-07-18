@@ -29,7 +29,7 @@ public interface TraceSpanMapper {
             UPDATE trace_span
             SET status = #{status},
                 output_summary = #{outputSummary},
-                latency_ms = #{latencyMs},
+                latency_ms = TIMESTAMPDIFF(MICROSECOND, started_at, #{finishedAt}) / 1000,
                 error_message = #{errorMessage},
                 finished_at = #{finishedAt}
             WHERE trace_id = #{traceId}

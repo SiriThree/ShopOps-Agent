@@ -38,14 +38,14 @@ public interface AgentTaskStepMapper {
     @Update("""
             UPDATE agent_task_step
             SET status = #{status},
-                input_json = #{inputJson},
-                output_json = #{outputJson},
-                retry_count = #{retryCount},
-                approval_id = #{approvalId},
-                error_code = #{errorCode},
-                error_message = #{errorMessage},
-                started_at = #{startedAt},
-                finished_at = #{finishedAt}
+                input_json = COALESCE(#{inputJson}, input_json),
+                output_json = COALESCE(#{outputJson}, output_json),
+                retry_count = COALESCE(#{retryCount}, retry_count),
+                approval_id = COALESCE(#{approvalId}, approval_id),
+                error_code = COALESCE(#{errorCode}, error_code),
+                error_message = COALESCE(#{errorMessage}, error_message),
+                started_at = COALESCE(#{startedAt}, started_at),
+                finished_at = COALESCE(#{finishedAt}, finished_at)
             WHERE id = #{id}
               AND tenant_id = #{tenantId}
               AND shop_id = #{shopId}

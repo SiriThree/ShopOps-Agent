@@ -5,6 +5,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentPlan;
 import com.sirithree.shopops.admin.agent.domain.AgentPlanStep;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.service.AgentExecutorService;
+import com.sirithree.shopops.admin.agent.service.StepExecutionRecorder;
 import com.sirithree.shopops.admin.report.domain.OperationReportDto;
 import com.sirithree.shopops.admin.report.service.OperationReportService;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
@@ -19,11 +20,14 @@ import org.springframework.stereotype.Service;
 public class SequentialAgentExecutorService implements AgentExecutorService {
     private final ToolGatewayService toolGatewayService;
     private final OperationReportService operationReportService;
+    private final StepExecutionRecorder stepExecutionRecorder;
 
     public SequentialAgentExecutorService(ToolGatewayService toolGatewayService,
-                                          OperationReportService operationReportService) {
+                                          OperationReportService operationReportService,
+                                          StepExecutionRecorder stepExecutionRecorder) {
         this.toolGatewayService = toolGatewayService;
         this.operationReportService = operationReportService;
+        this.stepExecutionRecorder = stepExecutionRecorder;
     }
 
     @Override
@@ -38,11 +42,14 @@ public class SequentialAgentExecutorService implements AgentExecutorService {
 
         for (AgentPlanStep step : plan.getSteps()) {
             Object input = buildInput(context, step, dataByTool);
-            ToolInvokeResult result = toolGatewayService.invoke(toToolContext(context, step.getStepNo().longValue()), step.getToolCode(), input);
+            Long stepId = context.resolveStepId(step.getStepNo());
+            stepExecutionRecorder.running(context, stepId, input);
+            ToolInvokeResult result = toolGatewayService.invoke(toToolContext(context, stepId), step.getToolCode(), input);
             results.put(step.getToolCode(), result);
             executionResult.setStepResults(results);
 
             if (!Boolean.TRUE.equals(result.getSuccess())) {
+                stepExecutionRecorder.failed(context, stepId, result.getErrorCode(), result.getErrorMessage());
                 if ("order.query_summary".equals(step.getToolCode()) || "report.generate_daily_review".equals(step.getToolCode())) {
                     executionResult.setErrorMessage(result.getErrorMessage());
                     return executionResult;
@@ -52,6 +59,7 @@ public class SequentialAgentExecutorService implements AgentExecutorService {
             }
 
             dataByTool.put(step.getToolCode(), result.getData());
+            stepExecutionRecorder.success(context, stepId, result.getData());
             if ("report.generate_daily_review".equals(step.getToolCode())) {
                 OperationReportDto report = operationReportService.createDailyReviewReport(
                         context.getTenantId(),
@@ -77,6 +85,7 @@ public class SequentialAgentExecutorService implements AgentExecutorService {
         toolContext.setTaskId(context.getTaskId());
         toolContext.setStepId(stepId);
         toolContext.setTraceId(context.getTraceId());
+        toolContext.setParentSpanId(context.getExecutorSpanId());
         toolContext.setManualInvoke(false);
         return toolContext;
     }

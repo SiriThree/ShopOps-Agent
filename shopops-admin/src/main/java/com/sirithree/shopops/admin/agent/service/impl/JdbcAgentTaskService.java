@@ -17,6 +17,8 @@ import com.sirithree.shopops.admin.persistence.model.AgentTaskStep;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -61,7 +63,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
             task.setStartedAt(LocalDateTime.now());
             agentTaskMapper.updateExecutionState(task);
             appendEvent(task, "CREATED", "RUNNING", "TASK_STARTED", userId);
-            seedSteps(task);
+            Map<Integer, Long> stepIdByStepNo = seedSteps(task);
 
             AgentTaskContext context = new AgentTaskContext();
             context.setTenantId(tenantId);
@@ -70,6 +72,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
             context.setTaskId(task.getId());
             context.setTraceId(task.getTraceId());
             context.setCreateParam(param);
+            context.setStepIdByStepNo(stepIdByStepNo);
             AgentExecutionResult result = agentEngineService.executeTask(context);
 
             task.setReportId(result.getReportId());
@@ -100,14 +103,16 @@ public class JdbcAgentTaskService implements AgentTaskService {
         return agentTaskStepMapper.listByTaskId(tenantId, shopId, taskId).stream().map(this::toStepDto).toList();
     }
 
-    private void seedSteps(AgentTask task) {
-        insertStep(task, 1, "查询订单核心指标", "order.query_summary");
-        insertStep(task, 2, "查询差评风险", "comment.query_negative");
-        insertStep(task, 3, "查询待优化商品", "product.query_candidates");
-        insertStep(task, 4, "生成经营复盘报告", "report.generate_daily_review");
+    private Map<Integer, Long> seedSteps(AgentTask task) {
+        Map<Integer, Long> stepIdByStepNo = new HashMap<>();
+        stepIdByStepNo.put(1, insertStep(task, 1, "查询订单核心指标", "order.query_summary"));
+        stepIdByStepNo.put(2, insertStep(task, 2, "查询差评风险", "comment.query_negative"));
+        stepIdByStepNo.put(3, insertStep(task, 3, "查询待优化商品", "product.query_candidates"));
+        stepIdByStepNo.put(4, insertStep(task, 4, "生成经营复盘报告", "report.generate_daily_review"));
+        return stepIdByStepNo;
     }
 
-    private void insertStep(AgentTask task, int stepNo, String stepName, String toolCode) {
+    private Long insertStep(AgentTask task, int stepNo, String stepName, String toolCode) {
         AgentTaskStep step = new AgentTaskStep();
         step.setTenantId(task.getTenantId());
         step.setShopId(task.getShopId());
@@ -118,6 +123,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
         step.setStatus("PENDING");
         step.setRetryCount(0);
         agentTaskStepMapper.insert(step);
+        return step.getId();
     }
 
     private void appendEvent(AgentTask task, String fromStatus, String toStatus, String eventType, Long userId) {

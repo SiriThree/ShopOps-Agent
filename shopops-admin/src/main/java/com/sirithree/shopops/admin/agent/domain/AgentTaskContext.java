@@ -7,6 +7,8 @@ public class AgentTaskContext {
     private Long taskId;
     private String traceId;
     private AgentTaskCreateParam createParam;
+    private java.util.Map<Integer, Long> stepIdByStepNo = new java.util.HashMap<>();
+    private String executorSpanId;
 
     public Long getTenantId() {
         return tenantId;
@@ -54,5 +56,25 @@ public class AgentTaskContext {
 
     public void setCreateParam(AgentTaskCreateParam createParam) {
         this.createParam = createParam;
+    }
+
+    public java.util.Map<Integer, Long> getStepIdByStepNo() {
+        return stepIdByStepNo;
+    }
+
+    public void setStepIdByStepNo(java.util.Map<Integer, Long> stepIdByStepNo) {
+        this.stepIdByStepNo = stepIdByStepNo;
+    }
+
+    public Long resolveStepId(Integer stepNo) {
+        return stepIdByStepNo.getOrDefault(stepNo, stepNo.longValue());
+    }
+
+    public String getExecutorSpanId() {
+        return executorSpanId;
+    }
+
+    public void setExecutorSpanId(String executorSpanId) {
+        this.executorSpanId = executorSpanId;
     }
 }
