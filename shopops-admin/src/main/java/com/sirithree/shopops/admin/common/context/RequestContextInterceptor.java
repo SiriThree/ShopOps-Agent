@@ -2,7 +2,6 @@ package com.sirithree.shopops.admin.common.context;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -14,27 +13,22 @@ public class RequestContextInterceptor implements HandlerInterceptor {
     private static final Logger ACCESS_LOGGER = LoggerFactory.getLogger("SHOPOPS_ACCESS");
     private static final String ATTR_STARTED_AT = RequestContextInterceptor.class.getName() + ".STARTED_AT";
 
-    public static final String HEADER_TENANT_ID = "X-Tenant-Id";
-    public static final String HEADER_SHOP_ID = "X-Shop-Id";
-    public static final String HEADER_USER_ID = "X-User-Id";
-    public static final String HEADER_REQUEST_ID = "X-Request-Id";
+    private final RequestContextResolver requestContextResolver;
+
+    public RequestContextInterceptor(RequestContextResolver requestContextResolver) {
+        this.requestContextResolver = requestContextResolver;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         request.setAttribute(ATTR_STARTED_AT, System.currentTimeMillis());
-        String requestId = headerOrDefault(request, HEADER_REQUEST_ID, "req_" + UUID.randomUUID().toString().replace("-", ""));
-        RequestContext context = new RequestContext(
-                longHeader(request, HEADER_TENANT_ID, 1L),
-                longHeader(request, HEADER_SHOP_ID, 1L),
-                longHeader(request, HEADER_USER_ID, 1L),
-                requestId
-        );
+        RequestContext context = requestContextResolver.resolve(request);
         RequestContextHolder.set(context);
         MDC.put("tenantId", String.valueOf(context.getTenantId()));
         MDC.put("shopId", String.valueOf(context.getShopId()));
         MDC.put("userId", String.valueOf(context.getUserId()));
         MDC.put("requestId", context.getRequestId());
-        response.setHeader(HEADER_REQUEST_ID, context.getRequestId());
+        response.setHeader(RequestContextResolver.HEADER_REQUEST_ID, context.getRequestId());
         return true;
     }
 
@@ -69,23 +63,6 @@ public class RequestContextInterceptor implements HandlerInterceptor {
             RequestContextHolder.clear();
             MDC.clear();
         }
-    }
-
-    private Long longHeader(HttpServletRequest request, String name, Long defaultValue) {
-        String value = request.getHeader(name);
-        if (value == null || value.isBlank()) {
-            return defaultValue;
-        }
-        try {
-            return Long.parseLong(value);
-        } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException("请求头类型错误: " + name);
-        }
-    }
-
-    private String headerOrDefault(HttpServletRequest request, String name, String defaultValue) {
-        String value = request.getHeader(name);
-        return value == null || value.isBlank() ? defaultValue : value;
     }
 
     private long startedAt(HttpServletRequest request) {

@@ -2,6 +2,7 @@ package com.sirithree.shopops.admin.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,35 @@ class GlobalExceptionHandlerIntegrationTest {
 
         assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
         assertThat(response.getHeaders().getFirst("X-Request-Id")).startsWith("req_");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldReturnCurrentUserContext() {
+        HttpHeaders headers = defaultHeaders();
+        headers.set("X-User-Name", "ops-admin");
+        headers.set("X-User-Roles", "ADMIN,OPERATOR");
+        headers.setBearerAuth("dev-token");
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url("/api/admin/auth/me"),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get("code")).isEqualTo(200);
+
+        Map<String, Object> data = (Map<String, Object>) response.getBody().get("data");
+        assertThat(data.get("tenantId")).isEqualTo(1);
+        assertThat(data.get("shopId")).isEqualTo(1);
+        assertThat(data.get("userId")).isEqualTo(1);
+        assertThat(data.get("username")).isEqualTo("ops-admin");
+        assertThat((List<String>) data.get("roles")).contains("ADMIN", "OPERATOR");
+        assertThat(data.get("authType")).isEqualTo("BEARER");
+        assertThat(data.get("authenticated")).isEqualTo(true);
     }
 
     @Test
