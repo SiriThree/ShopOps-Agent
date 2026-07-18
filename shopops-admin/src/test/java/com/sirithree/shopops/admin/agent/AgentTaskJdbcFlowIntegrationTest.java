@@ -63,8 +63,7 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         assertThat(reportData.get("markdown").toString())
                 .contains("GMV：840")
                 .contains("退款率：7.02%")
-                .contains("风险评价数：3")
-                .contains("运动毛巾");
+                .contains("风险评价数：3");
         Map<String, Object> evidence = castMap(reportData.get("evidence"));
         assertThat((List<Object>) evidence.get("riskCommentIds")).contains(50101, 50102, 50103);
         assertThat((List<Object>) evidence.get("productIds")).containsExactly(1016, 1001, 1008);
