@@ -1,12 +1,13 @@
 package com.sirithree.shopops.admin.tool.controller;
 
+import com.sirithree.shopops.admin.common.context.RequestContext;
+import com.sirithree.shopops.admin.common.context.RequestContextHolder;
 import com.sirithree.shopops.admin.tool.domain.McpToolDto;
 import com.sirithree.shopops.admin.tool.service.McpToolService;
 import com.sirithree.shopops.common.api.CommonResult;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,14 +21,15 @@ public class McpToolController {
     }
 
     @GetMapping
-    public CommonResult<List<McpToolDto>> listTools(@RequestHeader(value = "X-Tenant-Id", defaultValue = "1") Long tenantId) {
-        return CommonResult.success(mcpToolService.listTools(tenantId));
+    public CommonResult<List<McpToolDto>> listTools() {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(mcpToolService.listTools(context.getTenantId()));
     }
 
     @GetMapping("/{toolCode}")
-    public CommonResult<McpToolDto> getTool(@RequestHeader(value = "X-Tenant-Id", defaultValue = "1") Long tenantId,
-                                            @PathVariable String toolCode) {
-        McpToolDto tool = mcpToolService.getTool(tenantId, toolCode);
+    public CommonResult<McpToolDto> getTool(@PathVariable String toolCode) {
+        RequestContext context = RequestContextHolder.current();
+        McpToolDto tool = mcpToolService.getTool(context.getTenantId(), toolCode);
         if (tool == null) {
             return CommonResult.failed("工具不存在");
         }

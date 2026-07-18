@@ -1,5 +1,7 @@
 package com.sirithree.shopops.admin.tool.controller;
 
+import com.sirithree.shopops.admin.common.context.RequestContext;
+import com.sirithree.shopops.admin.common.context.RequestContextHolder;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.admin.tool.service.ToolCallLogService;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,15 +29,13 @@ public class ToolInvokeController {
     }
 
     @PostMapping("/{toolCode}/invoke")
-    public CommonResult<ToolInvokeResult> invoke(@RequestHeader(value = "X-Tenant-Id", defaultValue = "1") Long tenantId,
-                                                 @RequestHeader(value = "X-Shop-Id", defaultValue = "1") Long shopId,
-                                                 @RequestHeader(value = "X-User-Id", defaultValue = "1") Long userId,
-                                                 @PathVariable String toolCode,
+    public CommonResult<ToolInvokeResult> invoke(@PathVariable String toolCode,
                                                  @RequestBody Map<String, Object> input) {
+        RequestContext requestContext = RequestContextHolder.current();
         ToolInvokeContext context = new ToolInvokeContext();
-        context.setTenantId(tenantId);
-        context.setShopId(shopId);
-        context.setUserId(userId);
+        context.setTenantId(requestContext.getTenantId());
+        context.setShopId(requestContext.getShopId());
+        context.setUserId(requestContext.getUserId());
         context.setTraceId("tr_manual_" + UUID.randomUUID().toString().replace("-", ""));
         context.setManualInvoke(true);
         return CommonResult.success(toolGatewayService.invoke(context, toolCode, input));

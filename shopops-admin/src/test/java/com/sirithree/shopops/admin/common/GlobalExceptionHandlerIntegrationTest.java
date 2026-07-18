@@ -64,6 +64,24 @@ class GlobalExceptionHandlerIntegrationTest {
         assertThat(response.getBody().get("message").toString()).contains("X-Tenant-Id");
     }
 
+    @Test
+    void shouldReturnRequestIdHeaderFromRequestContext() {
+        HttpHeaders headers = defaultHeaders();
+        headers.set("X-Request-Id", "req_test_001");
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url("/api/tools"),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getHeaders().getFirst("X-Request-Id")).isEqualTo("req_test_001");
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get("code")).isEqualTo(200);
+    }
+
     private HttpHeaders defaultHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Tenant-Id", "1");
