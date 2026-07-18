@@ -34,7 +34,7 @@ public class TraceController {
                         "task", task,
                         "spans", traceService.listSpans(context.getTenantId(), task.getTraceId()),
                         "steps", agentTaskService.listSteps(context.getTenantId(), context.getShopId(), taskId),
-                        "toolCalls", toolCallLogService.listByTaskId(taskId)
+                        "toolCalls", toolCallLogService.listByTaskId(context.getTenantId(), context.getShopId(), taskId)
                 )))
                 .orElseGet(() -> CommonResult.failed("任务不存在"));
     }

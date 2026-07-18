@@ -37,10 +37,52 @@ public interface ToolCallLogMapper {
     int finish(ToolCallLog log);
 
     @Select("""
+            <script>
             SELECT *
             FROM tool_call_log
-            WHERE task_id = #{taskId}
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              <if test="taskId != null">
+                AND task_id = #{taskId}
+              </if>
+              <if test="status != null and status != ''">
+                AND status = #{status}
+              </if>
+              <if test="toolCode != null and toolCode != ''">
+                AND tool_code = #{toolCode}
+              </if>
             ORDER BY id
+            LIMIT #{limit} OFFSET #{offset}
+            </script>
             """)
-    List<ToolCallLog> listByTaskId(@Param("taskId") Long taskId);
+    List<ToolCallLog> listByPage(@Param("tenantId") Long tenantId,
+                                 @Param("shopId") Long shopId,
+                                 @Param("taskId") Long taskId,
+                                 @Param("status") String status,
+                                 @Param("toolCode") String toolCode,
+                                 @Param("offset") Integer offset,
+                                 @Param("limit") Integer limit);
+
+    @Select("""
+            <script>
+            SELECT COUNT(*)
+            FROM tool_call_log
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              <if test="taskId != null">
+                AND task_id = #{taskId}
+              </if>
+              <if test="status != null and status != ''">
+                AND status = #{status}
+              </if>
+              <if test="toolCode != null and toolCode != ''">
+                AND tool_code = #{toolCode}
+              </if>
+            </script>
+            """)
+    Long countByPage(@Param("tenantId") Long tenantId,
+                     @Param("shopId") Long shopId,
+                     @Param("taskId") Long taskId,
+                     @Param("status") String status,
+                     @Param("toolCode") String toolCode);
 }

@@ -1,9 +1,10 @@
 package com.sirithree.shopops.admin.tool.service.impl;
 
+import com.sirithree.shopops.admin.tool.domain.ToolCallLogQueryParam;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.service.ToolCallLogService;
+import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,10 +59,27 @@ public class InMemoryToolCallLogService implements ToolCallLogService {
     }
 
     @Override
-    public List<Map<String, Object>> listByTaskId(Long taskId) {
-        return logs.values().stream()
-                .filter(log -> taskId.equals(log.get("taskId")))
+    public CommonPage<Map<String, Object>> list(Long tenantId, Long shopId, ToolCallLogQueryParam param) {
+        ToolCallLogQueryParam query = param == null ? new ToolCallLogQueryParam() : param;
+        List<Map<String, Object>> filtered = logs.values().stream()
+                .filter(log -> tenantId.equals(log.get("tenantId")) && shopId.equals(log.get("shopId")))
+                .filter(log -> query.getTaskId() == null || query.getTaskId().equals(log.get("taskId")))
+                .filter(log -> query.getStatus() == null || query.getStatus().isBlank() || query.getStatus().equals(log.get("status")))
+                .filter(log -> query.getToolCode() == null || query.getToolCode().isBlank() || query.getToolCode().equals(log.get("toolCode")))
                 .sorted((left, right) -> Long.compare((Long) left.get("id"), (Long) right.get("id")))
                 .toList();
+        List<Map<String, Object>> pageList = filtered.stream()
+                .skip(query.offset())
+                .limit(query.safePageSize())
+                .toList();
+        return CommonPage.of(pageList, query.safePageNum(), query.safePageSize(), (long) filtered.size());
+    }
+
+    @Override
+    public List<Map<String, Object>> listByTaskId(Long tenantId, Long shopId, Long taskId) {
+        ToolCallLogQueryParam query = new ToolCallLogQueryParam();
+        query.setTaskId(taskId);
+        query.setPageSize(100);
+        return list(tenantId, shopId, query).getList();
     }
 }

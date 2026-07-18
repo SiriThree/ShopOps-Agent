@@ -3,9 +3,12 @@ package com.sirithree.shopops.admin.tool.service.impl;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.persistence.mapper.ToolCallLogMapper;
 import com.sirithree.shopops.admin.persistence.model.ToolCallLog;
+import com.sirithree.shopops.admin.tool.domain.ToolCallLogQueryParam;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.service.ToolCallLogService;
+import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -64,20 +67,53 @@ public class JdbcToolCallLogService implements ToolCallLogService {
     }
 
     @Override
-    public List<Map<String, Object>> listByTaskId(Long taskId) {
-        return toolCallLogMapper.listByTaskId(taskId).stream()
-                .map(log -> Map.<String, Object>of(
-                        "id", log.getId(),
-                        "taskId", log.getTaskId(),
-                        "stepId", log.getStepId(),
-                        "traceId", log.getTraceId(),
-                        "spanId", log.getSpanId(),
-                        "toolCode", log.getToolCode(),
-                        "status", log.getStatus(),
-                        "input", jsonSupport.toMap(log.getInputJson()),
-                        "output", jsonSupport.toMap(log.getOutputJson()),
-                        "latencyMs", log.getLatencyMs() == null ? 0 : log.getLatencyMs()
-                ))
+    public CommonPage<Map<String, Object>> list(Long tenantId, Long shopId, ToolCallLogQueryParam param) {
+        ToolCallLogQueryParam query = param == null ? new ToolCallLogQueryParam() : param;
+        List<Map<String, Object>> list = toolCallLogMapper.listByPage(
+                        tenantId,
+                        shopId,
+                        query.getTaskId(),
+                        query.getStatus(),
+                        query.getToolCode(),
+                        query.offset(),
+                        query.safePageSize()
+                ).stream()
+                .map(this::toMap)
                 .toList();
+        Long total = toolCallLogMapper.countByPage(
+                tenantId,
+                shopId,
+                query.getTaskId(),
+                query.getStatus(),
+                query.getToolCode()
+        );
+        return CommonPage.of(list, query.safePageNum(), query.safePageSize(), total);
+    }
+
+    @Override
+    public List<Map<String, Object>> listByTaskId(Long tenantId, Long shopId, Long taskId) {
+        ToolCallLogQueryParam query = new ToolCallLogQueryParam();
+        query.setTaskId(taskId);
+        query.setPageSize(100);
+        return list(tenantId, shopId, query).getList();
+    }
+
+    private Map<String, Object> toMap(ToolCallLog log) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("id", log.getId());
+        result.put("taskId", log.getTaskId());
+        result.put("stepId", log.getStepId());
+        result.put("traceId", log.getTraceId());
+        result.put("spanId", log.getSpanId());
+        result.put("toolCode", log.getToolCode());
+        result.put("status", log.getStatus());
+        result.put("input", jsonSupport.toMap(log.getInputJson()));
+        result.put("output", jsonSupport.toMap(log.getOutputJson()));
+        result.put("latencyMs", log.getLatencyMs() == null ? 0 : log.getLatencyMs());
+        result.put("retryCount", log.getRetryCount() == null ? 0 : log.getRetryCount());
+        result.put("errorCode", log.getErrorCode());
+        result.put("errorMessage", log.getErrorMessage());
+        result.put("createdAt", log.getCreatedAt());
+        return result;
     }
 }

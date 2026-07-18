@@ -1,6 +1,8 @@
 package com.sirithree.shopops.admin.tool.service;
 
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
+import com.sirithree.shopops.admin.tool.domain.ToolCallLogQueryParam;
+import com.sirithree.shopops.common.api.CommonPage;
 import java.util.List;
 import java.util.Map;
 
@@ -11,5 +13,7 @@ public interface ToolCallLogService {
 
     void failed(Long logId, String errorCode, String errorMessage, long latencyMs);
 
-    List<Map<String, Object>> listByTaskId(Long taskId);
+    CommonPage<Map<String, Object>> list(Long tenantId, Long shopId, ToolCallLogQueryParam param);
+
+    List<Map<String, Object>> listByTaskId(Long tenantId, Long shopId, Long taskId);
 }

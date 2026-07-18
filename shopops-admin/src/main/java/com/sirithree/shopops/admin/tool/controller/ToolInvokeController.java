@@ -2,8 +2,10 @@ package com.sirithree.shopops.admin.tool.controller;
 
 import com.sirithree.shopops.admin.common.context.RequestContext;
 import com.sirithree.shopops.admin.common.context.RequestContextHolder;
+import com.sirithree.shopops.admin.tool.domain.ToolCallLogQueryParam;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
+import com.sirithree.shopops.common.api.CommonPage;
 import com.sirithree.shopops.admin.tool.service.ToolCallLogService;
 import com.sirithree.shopops.admin.tool.service.ToolGatewayService;
 import com.sirithree.shopops.common.api.CommonResult;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -42,7 +43,8 @@ public class ToolInvokeController {
     }
 
     @GetMapping("/call-logs")
-    public CommonResult<?> listCallLogs(@RequestParam Long taskId) {
-        return CommonResult.success(toolCallLogService.listByTaskId(taskId));
+    public CommonResult<CommonPage<Map<String, Object>>> listCallLogs(ToolCallLogQueryParam param) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(toolCallLogService.list(context.getTenantId(), context.getShopId(), param));
     }
 }
