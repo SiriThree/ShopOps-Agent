@@ -17,6 +17,15 @@ spring:
     password: ${SHOPOPS_DATASOURCE_PASSWORD:root}
     hikari:
       initialization-fail-timeout: -1
+  data:
+    redis:
+      host: ${SHOPOPS_REDIS_HOST:localhost}
+      port: ${SHOPOPS_REDIS_PORT:6379}
+  rabbitmq:
+    host: ${SHOPOPS_RABBITMQ_HOST:localhost}
+    port: ${SHOPOPS_RABBITMQ_PORT:5672}
+    username: ${SHOPOPS_RABBITMQ_USERNAME:shopops}
+    password: ${SHOPOPS_RABBITMQ_PASSWORD:shopops}
 
 springdoc:
   swagger-ui:

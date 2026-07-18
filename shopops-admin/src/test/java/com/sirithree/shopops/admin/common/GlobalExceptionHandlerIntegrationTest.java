@@ -112,11 +112,17 @@ class GlobalExceptionHandlerIntegrationTest {
         Map<String, Object> data = (Map<String, Object>) response.getBody().get("data");
         Map<String, Object> checks = (Map<String, Object>) data.get("checks");
         Map<String, Object> database = (Map<String, Object>) checks.get("database");
+        Map<String, Object> flyway = (Map<String, Object>) checks.get("flyway");
+        Map<String, Object> redis = (Map<String, Object>) checks.get("redis");
+        Map<String, Object> rabbitmq = (Map<String, Object>) checks.get("rabbitmq");
         Map<String, Object> toolRegistry = (Map<String, Object>) checks.get("toolRegistry");
 
         assertThat(data.get("status")).isEqualTo("UP");
         assertThat(data.get("persistence")).isEqualTo("memory");
         assertThat(database.get("mode")).isEqualTo("SKIPPED");
+        assertThat(flyway.get("mode")).isEqualTo("SKIPPED");
+        assertThat(redis.get("mode")).isEqualTo("SKIPPED");
+        assertThat(rabbitmq.get("mode")).isEqualTo("SKIPPED");
         assertThat(toolRegistry.get("status")).isEqualTo("UP");
     }
 

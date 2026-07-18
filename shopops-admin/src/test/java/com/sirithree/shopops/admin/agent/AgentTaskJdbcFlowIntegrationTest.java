@@ -85,10 +85,19 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         Map<String, Object> healthData = dataOf(get("/api/system/health"));
         Map<String, Object> checks = castMap(healthData.get("checks"));
         Map<String, Object> database = castMap(checks.get("database"));
+        Map<String, Object> flyway = castMap(checks.get("flyway"));
+        Map<String, Object> redis = castMap(checks.get("redis"));
+        Map<String, Object> rabbitmq = castMap(checks.get("rabbitmq"));
         assertThat(healthData.get("status")).isEqualTo("UP");
         assertThat(healthData.get("persistence")).isEqualTo("jdbc");
         assertThat(database.get("status")).isEqualTo("UP");
         assertThat(database.get("mode")).isEqualTo("REQUIRED");
+        assertThat(flyway.get("status")).isEqualTo("UP");
+        assertThat(flyway.get("version")).isNotNull();
+        assertThat(redis.get("status")).isEqualTo("UP");
+        assertThat(redis.get("ping")).isEqualTo("PONG");
+        assertThat(rabbitmq.get("status")).isEqualTo("UP");
+        assertThat(rabbitmq.get("open")).isEqualTo(true);
 
         List<Map<String, Object>> events = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/events"));
         assertThat(events).extracting(event -> event.get("eventType"))
