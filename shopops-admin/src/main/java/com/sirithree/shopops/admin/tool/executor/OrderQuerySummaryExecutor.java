@@ -1,13 +1,22 @@
 package com.sirithree.shopops.admin.tool.executor;
 
+import com.sirithree.shopops.admin.business.service.OrderMetricsService;
+import com.sirithree.shopops.admin.business.support.ToolInputParser;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.admin.tool.service.ToolExecutor;
+import java.time.LocalDate;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrderQuerySummaryExecutor implements ToolExecutor {
+    private final OrderMetricsService orderMetricsService;
+
+    public OrderQuerySummaryExecutor(OrderMetricsService orderMetricsService) {
+        this.orderMetricsService = orderMetricsService;
+    }
+
     @Override
     public String toolCode() {
         return "order.query_summary";
@@ -15,15 +24,11 @@ public class OrderQuerySummaryExecutor implements ToolExecutor {
 
     @Override
     public ToolInvokeResult execute(ToolInvokeContext context, Object input) {
-        Map<String, Object> data = Map.of(
-                "gmv", 128936.50,
-                "orderCount", 842,
-                "refundAmount", 5360.00,
-                "refundRate", 0.0416,
-                "avgOrderAmount", 153.13,
-                "compareYesterday", Map.of("gmvGrowth", 0.083, "orderGrowth", 0.057),
-                "compareSevenDayAvg", Map.of("gmvGrowth", 0.026, "refundRateDelta", -0.004)
-        );
+        Map<String, Object> inputMap = ToolInputParser.asMap(input);
+        Long shopId = ToolInputParser.longValue(inputMap, "shopId", context.getShopId());
+        LocalDate startDate = ToolInputParser.dateValue(inputMap, "startDate");
+        LocalDate endDate = ToolInputParser.dateValue(inputMap, "endDate");
+        Map<String, Object> data = orderMetricsService.querySummary(context.getTenantId(), shopId, startDate, endDate);
         return ToolInvokeResult.success(data, null);
     }
 }
