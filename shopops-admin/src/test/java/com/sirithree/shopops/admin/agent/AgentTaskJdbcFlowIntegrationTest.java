@@ -67,6 +67,8 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         Map<String, Object> evidence = castMap(reportData.get("evidence"));
         assertThat((List<Object>) evidence.get("riskCommentIds")).contains(50101, 50102, 50103);
         assertThat((List<Object>) evidence.get("productIds")).containsExactly(1016, 1001, 1008);
+        assertThat(reportData.get("createdBy")).isEqualTo(1);
+        assertThat(reportData.get("createdAt")).isNotNull();
 
         Map<String, Object> traceData = dataOf(get("/api/tasks/" + taskId + "/trace"));
         assertThat((List<Object>) traceData.get("spans")).hasSizeGreaterThanOrEqualTo(7);
@@ -74,6 +76,18 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
 
         String taskNo = taskData.get("taskNo").toString();
         String traceId = taskData.get("traceId").toString();
+        String reportNo = reportData.get("reportNo").toString();
+        Map<String, Object> reportPage = dataOf(get("/api/reports?taskId=" + taskId
+                + "&reportNo=" + reportNo
+                + "&reportType=daily_review"
+                + "&traceId=" + traceId
+                + "&status=SUCCESS"
+                + "&createdBy=1&pageNum=1&pageSize=10"));
+        assertThat(reportPage.get("total")).isEqualTo(1);
+        assertThat((List<Map<String, Object>>) reportPage.get("list"))
+                .extracting(report -> report.get("reportId"))
+                .containsExactly(reportId);
+
         Map<String, Object> adminTaskPage = dataOf(get("/api/admin/agent/tasks?taskNo=" + taskNo
                 + "&traceId=" + traceId
                 + "&reportId=" + reportId

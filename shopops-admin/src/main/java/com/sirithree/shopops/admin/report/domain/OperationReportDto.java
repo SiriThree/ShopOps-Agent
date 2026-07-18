@@ -1,7 +1,11 @@
 package com.sirithree.shopops.admin.report.domain;
 
+import java.time.LocalDateTime;
+
 public class OperationReportDto {
     private Long reportId;
+    private Long tenantId;
+    private Long shopId;
     private Long taskId;
     private String reportNo;
     private String reportType;
@@ -10,6 +14,9 @@ public class OperationReportDto {
     private Object evidence;
     private String traceId;
     private String status;
+    private Long createdBy;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Long getReportId() {
         return reportId;
@@ -17,6 +24,22 @@ public class OperationReportDto {
 
     public void setReportId(Long reportId) {
         this.reportId = reportId;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 
     public Long getTaskId() {
@@ -81,5 +104,29 @@ public class OperationReportDto {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

@@ -4,9 +4,12 @@ import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.persistence.mapper.OperationReportMapper;
 import com.sirithree.shopops.admin.persistence.model.OperationReport;
 import com.sirithree.shopops.admin.report.domain.OperationReportDto;
+import com.sirithree.shopops.admin.report.domain.OperationReportQueryParam;
 import com.sirithree.shopops.admin.report.service.OperationReportService;
+import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -45,6 +48,22 @@ public class JdbcOperationReportService implements OperationReportService {
     }
 
     @Override
+    public CommonPage<OperationReportDto> listReports(Long tenantId, Long shopId, OperationReportQueryParam param) {
+        OperationReportQueryParam query = param == null ? new OperationReportQueryParam() : param;
+        List<OperationReportDto> list = operationReportMapper.listByPage(
+                        tenantId,
+                        shopId,
+                        query,
+                        query.offset(),
+                        query.safePageSize()
+                ).stream()
+                .map(this::toDto)
+                .toList();
+        Long total = operationReportMapper.countByPage(tenantId, shopId, query);
+        return CommonPage.of(list, query.safePageNum(), query.safePageSize(), total);
+    }
+
+    @Override
     public Optional<OperationReportDto> getReport(Long tenantId, Long shopId, Long reportId) {
         OperationReport report = operationReportMapper.selectById(tenantId, shopId, reportId);
         return Optional.ofNullable(report).map(this::toDto);
@@ -53,6 +72,8 @@ public class JdbcOperationReportService implements OperationReportService {
     private OperationReportDto toDto(OperationReport report) {
         OperationReportDto dto = new OperationReportDto();
         dto.setReportId(report.getId());
+        dto.setTenantId(report.getTenantId());
+        dto.setShopId(report.getShopId());
         dto.setTaskId(report.getTaskId());
         dto.setReportNo(report.getReportNo());
         dto.setReportType(report.getReportType());
@@ -61,6 +82,9 @@ public class JdbcOperationReportService implements OperationReportService {
         dto.setEvidence(jsonSupport.toMap(report.getEvidenceJson()));
         dto.setTraceId(report.getTraceId());
         dto.setStatus(report.getStatus());
+        dto.setCreatedBy(report.getCreatedBy());
+        dto.setCreatedAt(report.getCreatedAt());
+        dto.setUpdatedAt(report.getUpdatedAt());
         return dto;
     }
 }
