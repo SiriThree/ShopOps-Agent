@@ -35,23 +35,33 @@ public class DefaultAgentEngineService implements AgentEngineService {
     @Override
     public AgentExecutionResult executeTask(AgentTaskContext context) {
         String rootSpan = startSpan(context, null, "agent", "agent.task", "task", context.getTaskId(), context.getCreateParam().getUserInput());
+        String activeChildSpan = null;
         try {
             String plannerSpan = startSpan(context, rootSpan, "planner", "agent.planner", "task", context.getTaskId(), context.getCreateParam().getTaskType());
+            activeChildSpan = plannerSpan;
             AgentPlan plan = plannerService.createPlan(context);
             planValidator.validate(context, plan);
             traceService.finishSpan(context.getTraceId(), plannerSpan, "SUCCESS", "steps=" + plan.getSteps().size(), null);
+            activeChildSpan = null;
 
             String executorSpan = startSpan(context, rootSpan, "executor", "agent.executor", "task", context.getTaskId(), "execute plan");
+            activeChildSpan = executorSpan;
             AgentExecutionResult result = executorService.execute(context, plan);
             traceService.finishSpan(context.getTraceId(), executorSpan, "SUCCESS", "reportId=" + result.getReportId(), null);
+            activeChildSpan = null;
 
             String verifierSpan = startSpan(context, rootSpan, "verifier", "agent.verifier", "task", context.getTaskId(), "verify result");
+            activeChildSpan = verifierSpan;
             verifierService.verify(context, result);
             traceService.finishSpan(context.getTraceId(), verifierSpan, "SUCCESS", "verification passed", null);
+            activeChildSpan = null;
 
             traceService.finishSpan(context.getTraceId(), rootSpan, "SUCCESS", "task finished", null);
             return result;
         } catch (RuntimeException ex) {
+            if (activeChildSpan != null) {
+                traceService.finishSpan(context.getTraceId(), activeChildSpan, "FAILED", null, ex.getMessage());
+            }
             traceService.finishSpan(context.getTraceId(), rootSpan, "FAILED", null, ex.getMessage());
             throw ex;
         }

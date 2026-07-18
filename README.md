@@ -164,6 +164,8 @@ agent.verifier
 tool.<toolCode>
 ```
 
+When `shopops.persistence=jdbc`, the application also bootstraps the four P0 tool definitions if they are missing from `mcp_tool`.
+
 Run locally with Java 17 and Maven:
 
 ```bash
