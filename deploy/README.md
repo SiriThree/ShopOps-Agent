@@ -23,6 +23,20 @@ Run the backend against these local services:
 mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 ```
 
+Run the backend with RabbitMQ async task dispatch:
+
+```bash
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev" "-Dspring-boot.run.arguments=--shopops.agent.dispatch-mode=rabbitmq"
+```
+
+In the default `sync` dispatch mode, task creation returns after execution finishes. In `rabbitmq` mode, task creation returns `QUEUED`, then the RabbitMQ consumer executes the task and updates it to `SUCCESS`, `DEGRADED`, or `FAILED`.
+
+Optional RabbitMQ integration verification:
+
+```bash
+mvn -pl shopops-admin test "-Dshopops.rabbitmq.it=true" "-Dtest=AgentTaskRabbitDispatchIntegrationTest"
+```
+
 If you need to reset local infrastructure data from scratch:
 
 ```bash

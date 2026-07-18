@@ -1,5 +1,6 @@
 package com.sirithree.shopops.admin.agent.service.impl;
 
+import com.sirithree.shopops.admin.agent.domain.AgentDispatchResult;
 import com.sirithree.shopops.admin.agent.domain.AgentExecutionResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
@@ -59,7 +60,6 @@ public class JdbcAgentTaskService implements AgentTaskService {
         appendEvent(task, null, AgentTaskStatus.CREATED.name(), "TASK_CREATED", userId);
 
         try {
-            startTask(task, userId);
             Map<Integer, Long> stepIdByStepNo = seedSteps(task);
 
             AgentTaskContext context = new AgentTaskContext();
@@ -70,7 +70,16 @@ public class JdbcAgentTaskService implements AgentTaskService {
             context.setTraceId(task.getTraceId());
             context.setCreateParam(param);
             context.setStepIdByStepNo(stepIdByStepNo);
-            AgentExecutionResult result = agentTaskDispatcher.dispatch(context);
+
+            if (agentTaskDispatcher.isAsynchronous()) {
+                queueTask(task, userId);
+                agentTaskDispatcher.dispatch(context);
+                return new AgentTaskCreateResult(task.getId(), task.getTaskNo(), task.getStatus(), task.getTraceId());
+            }
+
+            startTask(task, userId);
+            AgentDispatchResult dispatchResult = agentTaskDispatcher.dispatch(context);
+            AgentExecutionResult result = dispatchResult.getExecutionResult();
 
             task.setReportId(result.getReportId());
             transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
@@ -81,12 +90,13 @@ public class JdbcAgentTaskService implements AgentTaskService {
             agentTaskMapper.updateExecutionState(task);
             appendEvent(task, AgentTaskStatus.RUNNING.name(), task.getStatus(), "TASK_FINISHED", userId);
         } catch (RuntimeException ex) {
+            String fromStatus = task.getStatus();
             transitionTask(task, AgentTaskStatus.FAILED);
             task.setErrorCode("TASK_EXECUTE_ERROR");
             task.setErrorMessage(ex.getMessage());
             task.setFinishedAt(LocalDateTime.now());
             agentTaskMapper.updateExecutionState(task);
-            appendEvent(task, AgentTaskStatus.RUNNING.name(), AgentTaskStatus.FAILED.name(), "TASK_FAILED", userId);
+            appendEvent(task, fromStatus, AgentTaskStatus.FAILED.name(), "TASK_FAILED", userId);
         }
 
         return new AgentTaskCreateResult(task.getId(), task.getTaskNo(), task.getStatus(), task.getTraceId());
@@ -159,6 +169,12 @@ public class JdbcAgentTaskService implements AgentTaskService {
         task.setStartedAt(LocalDateTime.now());
         agentTaskMapper.updateExecutionState(task);
         appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
+    }
+
+    private void queueTask(AgentTask task, Long userId) {
+        transitionTask(task, AgentTaskStatus.QUEUED);
+        agentTaskMapper.updateExecutionState(task);
+        appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.QUEUED.name(), "TASK_QUEUED", userId);
     }
 
     private Map<Integer, Long> seedSteps(AgentTask task) {

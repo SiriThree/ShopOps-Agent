@@ -39,6 +39,10 @@ shopops:
   persistence: memory
   agent:
     dispatch-mode: sync
+    rabbitmq:
+      exchange: shopops.agent.exchange
+      queue: shopops.agent.task.execute
+      routing-key: agent.task.execute
   bootstrap:
     legacy-enabled: false
   p0:

@@ -4,6 +4,7 @@ import java.util.Set;
 
 public enum AgentTaskStatus {
     CREATED,
+    QUEUED,
     RUNNING,
     SUCCESS,
     FAILED,
@@ -14,7 +15,8 @@ public enum AgentTaskStatus {
             return false;
         }
         return switch (this) {
-            case CREATED -> Set.of(RUNNING, FAILED).contains(target);
+            case CREATED -> Set.of(QUEUED, RUNNING, FAILED).contains(target);
+            case QUEUED -> Set.of(RUNNING, FAILED).contains(target);
             case RUNNING -> Set.of(SUCCESS, FAILED, DEGRADED).contains(target);
             case SUCCESS, FAILED, DEGRADED -> false;
         };

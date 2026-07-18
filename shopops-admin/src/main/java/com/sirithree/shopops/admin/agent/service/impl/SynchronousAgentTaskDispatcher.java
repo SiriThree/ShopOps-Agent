@@ -1,5 +1,6 @@
 package com.sirithree.shopops.admin.agent.service.impl;
 
+import com.sirithree.shopops.admin.agent.domain.AgentDispatchResult;
 import com.sirithree.shopops.admin.agent.domain.AgentExecutionResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
@@ -17,7 +18,13 @@ public class SynchronousAgentTaskDispatcher implements AgentTaskDispatcher {
     }
 
     @Override
-    public AgentExecutionResult dispatch(AgentTaskContext context) {
-        return agentEngineService.executeTask(context);
+    public boolean isAsynchronous() {
+        return false;
+    }
+
+    @Override
+    public AgentDispatchResult dispatch(AgentTaskContext context) {
+        AgentExecutionResult executionResult = agentEngineService.executeTask(context);
+        return AgentDispatchResult.completed(executionResult);
     }
 }
