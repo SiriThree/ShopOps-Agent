@@ -2,12 +2,12 @@ package com.sirithree.shopops.admin.tool.component;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConditionalOnProperty(name = "shopops.persistence", havingValue = "jdbc")
+@ConditionalOnExpression("'${shopops.persistence:memory}' == 'jdbc' && '${shopops.bootstrap.legacy-enabled:false}' == 'true'")
 public class P0ToolBootstrapRunner implements ApplicationRunner {
     private final JdbcTemplate jdbcTemplate;
 

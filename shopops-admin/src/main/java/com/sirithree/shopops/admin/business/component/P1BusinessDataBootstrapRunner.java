@@ -1,12 +1,12 @@
 package com.sirithree.shopops.admin.business.component;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConditionalOnProperty(name = "shopops.persistence", havingValue = "jdbc")
+@ConditionalOnExpression("'${shopops.persistence:memory}' == 'jdbc' && '${shopops.bootstrap.legacy-enabled:false}' == 'true'")
 public class P1BusinessDataBootstrapRunner implements CommandLineRunner {
     private final JdbcTemplate jdbcTemplate;
 

@@ -28,6 +28,8 @@ mybatis:
 
 shopops:
   persistence: memory
+  bootstrap:
+    legacy-enabled: false
   p0:
     tenant-id: 1
     shop-id: 1
