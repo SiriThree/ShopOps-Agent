@@ -167,7 +167,8 @@ tool.<toolCode>
 Run locally with Java 17 and Maven:
 
 ```bash
-mvn -pl shopops-admin -am spring-boot:run
+mvn clean install -DskipTests
+mvn -pl shopops-admin spring-boot:run
 ```
 
 Create a daily review task:
