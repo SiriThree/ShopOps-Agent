@@ -1,8 +1,11 @@
 package com.sirithree.shopops.admin.common.context;
 
+import com.sirithree.shopops.admin.auth.domain.UserRoleProfile;
+import com.sirithree.shopops.admin.auth.service.UserRoleService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +19,20 @@ public class RequestContextResolver {
     public static final String HEADER_REQUEST_ID = "X-Request-Id";
     public static final String HEADER_AUTHORIZATION = "Authorization";
 
+    private final UserRoleService userRoleService;
+
+    public RequestContextResolver(UserRoleService userRoleService) {
+        this.userRoleService = userRoleService;
+    }
+
     public RequestContext resolve(HttpServletRequest request) {
         Long tenantId = longHeader(request, HEADER_TENANT_ID, 1L);
         Long shopId = longHeader(request, HEADER_SHOP_ID, 1L);
         Long userId = longHeader(request, HEADER_USER_ID, 1L);
         String requestId = headerOrDefault(request, HEADER_REQUEST_ID, generateRequestId());
-        String username = headerOrDefault(request, HEADER_USER_NAME, "user-" + userId);
-        List<String> roles = roles(request.getHeader(HEADER_USER_ROLES));
+        Optional<UserRoleProfile> userRoleProfile = userRoleService.getUserRoleProfile(tenantId, shopId, userId);
+        String username = username(request, userId, userRoleProfile);
+        List<String> roles = roles(request.getHeader(HEADER_USER_ROLES), userRoleProfile);
         String authType = authType(request.getHeader(HEADER_AUTHORIZATION));
         return new RequestContext(tenantId, shopId, userId, requestId, username, roles, authType, true);
     }
@@ -39,9 +49,23 @@ public class RequestContextResolver {
         }
     }
 
-    private List<String> roles(String value) {
+    private String username(HttpServletRequest request, Long userId, Optional<UserRoleProfile> userRoleProfile) {
+        String usernameHeader = request.getHeader(HEADER_USER_NAME);
+        if (usernameHeader != null && !usernameHeader.isBlank()) {
+            return usernameHeader;
+        }
+        return userRoleProfile
+                .map(UserRoleProfile::getUsername)
+                .filter(username -> !username.isBlank())
+                .orElse("user-" + userId);
+    }
+
+    private List<String> roles(String value, Optional<UserRoleProfile> userRoleProfile) {
         if (value == null || value.isBlank()) {
-            return List.of("ADMIN");
+            return userRoleProfile
+                    .map(UserRoleProfile::getRoles)
+                    .filter(roles -> !roles.isEmpty())
+                    .orElseGet(() -> List.of("ADMIN"));
         }
         List<String> parsedRoles = Arrays.stream(value.split(","))
                 .map(String::trim)

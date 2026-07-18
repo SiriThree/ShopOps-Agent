@@ -7,6 +7,11 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @EnabledIfSystemProperty(named = "shopops.jdbc.it", matches = "true")
 @SpringBootTest(
@@ -179,6 +184,43 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         Map<String, Object> retryTaskData = dataOf(get("/api/agent/tasks/" + retryTaskId));
         assertThat(retryTaskData.get("status")).isEqualTo("SUCCESS");
         assertThat(retryTaskData.get("reportId")).isNotNull();
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldResolveViewerRoleFromJdbcMembershipWhenRoleHeaderIsMissing() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Tenant-Id", "1");
+        headers.set("X-Shop-Id", "1");
+        headers.set("X-User-Id", "3");
+
+        ResponseEntity<Map> meResponse = restTemplate.exchange(
+                url("/api/admin/auth/me"),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                Map.class
+        );
+
+        assertThat(meResponse.getStatusCode().is2xxSuccessful()).isTrue();
+        Map<String, Object> meData = dataOf(meResponse.getBody());
+        assertThat(meData.get("username")).isEqualTo("viewer");
+        assertThat((List<String>) meData.get("roles")).contains("VIEWER");
+
+        Map<String, Object> request = Map.of(
+                "taskType", "daily_review",
+                "userInput", "daily review",
+                "dateRange", Map.of("start", "2026-07-18", "end", "2026-07-18")
+        );
+        ResponseEntity<Map> createResponse = restTemplate.exchange(
+                url("/api/agent/tasks"),
+                HttpMethod.POST,
+                new HttpEntity<>(request, headers),
+                Map.class
+        );
+
+        assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        assertThat(createResponse.getBody()).isNotNull();
+        assertThat(createResponse.getBody().get("code")).isEqualTo(403);
     }
 
     private Map<String, Object> stepOutput(List<Map<String, Object>> steps, String toolCode) {

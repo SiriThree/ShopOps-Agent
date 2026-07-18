@@ -1,0 +1,36 @@
+package com.sirithree.shopops.admin.persistence.mapper;
+
+import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+@Mapper
+public interface AuthUserMapper {
+    @Select("""
+            SELECT username
+            FROM user_account
+            WHERE id = #{userId}
+              AND status = 1
+            LIMIT 1
+            """)
+    String selectUsernameById(@Param("userId") Long userId);
+
+    @Select("""
+            SELECT role_code
+            FROM tenant_member
+            WHERE tenant_id = #{tenantId}
+              AND user_id = #{userId}
+              AND status = 1
+            UNION
+            SELECT role_code
+            FROM shop_member
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND user_id = #{userId}
+              AND status = 1
+            """)
+    List<String> listActiveRoleCodes(@Param("tenantId") Long tenantId,
+                                     @Param("shopId") Long shopId,
+                                     @Param("userId") Long userId);
+}
