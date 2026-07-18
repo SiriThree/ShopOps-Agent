@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface AgentTaskService {
     AgentTaskCreateResult createTask(Long tenantId, Long shopId, Long userId, AgentTaskCreateParam param);
 
+    AgentTaskCreateResult retryTask(Long tenantId, Long shopId, Long userId, Long taskId);
+
     CommonPage<AgentTaskDto> listTasks(Long tenantId, Long shopId, AgentTaskQueryParam param);
 
     Optional<AgentTaskDto> getTask(Long tenantId, Long shopId, Long taskId);

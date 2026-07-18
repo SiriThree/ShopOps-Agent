@@ -9,20 +9,21 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
+import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.persistence.mapper.AgentTaskEventMapper;
 import com.sirithree.shopops.admin.persistence.mapper.AgentTaskMapper;
 import com.sirithree.shopops.admin.persistence.mapper.AgentTaskStepMapper;
 import com.sirithree.shopops.admin.persistence.model.AgentTask;
 import com.sirithree.shopops.admin.persistence.model.AgentTaskEvent;
 import com.sirithree.shopops.admin.persistence.model.AgentTaskStep;
+import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import com.sirithree.shopops.common.api.CommonPage;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
@@ -33,38 +34,28 @@ public class JdbcAgentTaskService implements AgentTaskService {
     private final AgentTaskStepMapper agentTaskStepMapper;
     private final AgentTaskEventMapper agentTaskEventMapper;
     private final AgentEngineService agentEngineService;
+    private final JacksonJsonSupport jsonSupport;
 
     public JdbcAgentTaskService(AgentTaskMapper agentTaskMapper,
                                 AgentTaskStepMapper agentTaskStepMapper,
                                 AgentTaskEventMapper agentTaskEventMapper,
-                                AgentEngineService agentEngineService) {
+                                AgentEngineService agentEngineService,
+                                JacksonJsonSupport jsonSupport) {
         this.agentTaskMapper = agentTaskMapper;
         this.agentTaskStepMapper = agentTaskStepMapper;
         this.agentTaskEventMapper = agentTaskEventMapper;
         this.agentEngineService = agentEngineService;
+        this.jsonSupport = jsonSupport;
     }
 
     @Override
     public AgentTaskCreateResult createTask(Long tenantId, Long shopId, Long userId, AgentTaskCreateParam param) {
-        AgentTask task = new AgentTask();
-        task.setTenantId(tenantId);
-        task.setShopId(shopId);
-        task.setUserId(userId);
-        task.setTaskNo("TASK" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")));
-        task.setTaskType(param.getTaskType());
-        task.setUserInput(param.getUserInput());
-        task.setStatus("CREATED");
-        task.setPriority(5);
-        task.setTraceId("tr_" + UUID.randomUUID().toString().replace("-", ""));
-        task.setCreatedAt(LocalDateTime.now());
+        AgentTask task = newTask(tenantId, shopId, userId, param);
         agentTaskMapper.insert(task);
         appendEvent(task, null, "CREATED", "TASK_CREATED", userId);
 
         try {
-            task.setStatus("RUNNING");
-            task.setStartedAt(LocalDateTime.now());
-            agentTaskMapper.updateExecutionState(task);
-            appendEvent(task, "CREATED", "RUNNING", "TASK_STARTED", userId);
+            startTask(task, userId);
             Map<Integer, Long> stepIdByStepNo = seedSteps(task);
 
             AgentTaskContext context = new AgentTaskContext();
@@ -79,7 +70,9 @@ public class JdbcAgentTaskService implements AgentTaskService {
 
             task.setReportId(result.getReportId());
             task.setStatus(Boolean.TRUE.equals(result.getDegraded()) ? "DEGRADED" : "SUCCESS");
-            task.setResultSummary(Boolean.TRUE.equals(result.getDegraded()) ? "报告已降级生成" : "每日经营复盘已生成");
+            task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
+                    ? "Daily review report generated with degraded evidence"
+                    : "Daily review report generated");
             task.setFinishedAt(LocalDateTime.now());
             agentTaskMapper.updateExecutionState(task);
             appendEvent(task, "RUNNING", task.getStatus(), "TASK_FINISHED", userId);
@@ -93,6 +86,20 @@ public class JdbcAgentTaskService implements AgentTaskService {
         }
 
         return new AgentTaskCreateResult(task.getId(), task.getTaskNo(), task.getStatus(), task.getTraceId());
+    }
+
+    @Override
+    public AgentTaskCreateResult retryTask(Long tenantId, Long shopId, Long userId, Long taskId) {
+        AgentTask original = agentTaskMapper.selectById(tenantId, shopId, taskId);
+        if (original == null) {
+            throw new IllegalArgumentException("任务不存在");
+        }
+        AgentTaskCreateParam param = jsonSupport.fromJson(original.getPlanJson(), AgentTaskCreateParam.class);
+        if (param == null) {
+            throw new IllegalArgumentException("原任务缺少请求快照，无法重试");
+        }
+        appendEvent(original, original.getStatus(), original.getStatus(), "TASK_RETRY_REQUESTED", userId);
+        return createTask(tenantId, shopId, userId, param);
     }
 
     @Override
@@ -122,12 +129,35 @@ public class JdbcAgentTaskService implements AgentTaskService {
         return agentTaskStepMapper.listByTaskId(tenantId, shopId, taskId).stream().map(this::toStepDto).toList();
     }
 
+    private AgentTask newTask(Long tenantId, Long shopId, Long userId, AgentTaskCreateParam param) {
+        AgentTask task = new AgentTask();
+        task.setTenantId(tenantId);
+        task.setShopId(shopId);
+        task.setUserId(userId);
+        task.setTaskNo("TASK" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")));
+        task.setTaskType(param.getTaskType());
+        task.setUserInput(param.getUserInput());
+        task.setStatus("CREATED");
+        task.setPriority(5);
+        task.setPlanJson(jsonSupport.toJson(param));
+        task.setTraceId("tr_" + UUID.randomUUID().toString().replace("-", ""));
+        task.setCreatedAt(LocalDateTime.now());
+        return task;
+    }
+
+    private void startTask(AgentTask task, Long userId) {
+        task.setStatus("RUNNING");
+        task.setStartedAt(LocalDateTime.now());
+        agentTaskMapper.updateExecutionState(task);
+        appendEvent(task, "CREATED", "RUNNING", "TASK_STARTED", userId);
+    }
+
     private Map<Integer, Long> seedSteps(AgentTask task) {
         Map<Integer, Long> stepIdByStepNo = new HashMap<>();
-        stepIdByStepNo.put(1, insertStep(task, 1, "查询订单核心指标", "order.query_summary"));
-        stepIdByStepNo.put(2, insertStep(task, 2, "查询差评风险", "comment.query_negative"));
-        stepIdByStepNo.put(3, insertStep(task, 3, "查询待优化商品", "product.query_candidates"));
-        stepIdByStepNo.put(4, insertStep(task, 4, "生成经营复盘报告", "report.generate_daily_review"));
+        stepIdByStepNo.put(1, insertStep(task, 1, "Query order summary", "order.query_summary"));
+        stepIdByStepNo.put(2, insertStep(task, 2, "Query negative comments", "comment.query_negative"));
+        stepIdByStepNo.put(3, insertStep(task, 3, "Query product candidates", "product.query_candidates"));
+        stepIdByStepNo.put(4, insertStep(task, 4, "Generate daily review report", "report.generate_daily_review"));
         return stepIdByStepNo;
     }
 

@@ -39,4 +39,15 @@ public class JacksonJsonSupport {
             throw new IllegalArgumentException("JSON 反序列化失败", ex);
         }
     }
+
+    public <T> T fromJson(String json, Class<T> valueType) {
+        if (json == null || json.isBlank()) {
+            return null;
+        }
+        try {
+            return objectMapper.readValue(json, valueType);
+        } catch (JsonProcessingException ex) {
+            throw new IllegalArgumentException("JSON 反序列化失败", ex);
+        }
+    }
 }

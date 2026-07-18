@@ -29,6 +29,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
     private final AtomicLong taskIdGenerator = new AtomicLong(10001);
     private final Map<Long, AgentTaskDto> tasks = new ConcurrentHashMap<>();
     private final Map<Long, List<AgentTaskStepDto>> steps = new ConcurrentHashMap<>();
+    private final Map<Long, AgentTaskCreateParam> originalParams = new ConcurrentHashMap<>();
     private final AgentEngineService agentEngineService;
 
     public InMemoryAgentTaskService(AgentEngineService agentEngineService) {
@@ -52,6 +53,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         task.setStatus("CREATED");
         task.setTraceId(traceId);
         tasks.put(taskId, task);
+        originalParams.put(taskId, param);
 
         try {
             task.setStatus("RUNNING");
@@ -66,13 +68,28 @@ public class InMemoryAgentTaskService implements AgentTaskService {
             AgentExecutionResult result = agentEngineService.executeTask(context);
             task.setReportId(result.getReportId());
             task.setStatus(Boolean.TRUE.equals(result.getDegraded()) ? "DEGRADED" : "SUCCESS");
-            task.setResultSummary(Boolean.TRUE.equals(result.getDegraded()) ? "报告已降级生成" : "每日经营复盘已生成");
+            task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
+                    ? "Daily review report generated with degraded evidence"
+                    : "Daily review report generated");
         } catch (RuntimeException ex) {
             task.setStatus("FAILED");
             task.setErrorMessage(ex.getMessage());
         }
 
         return new AgentTaskCreateResult(taskId, taskNo, task.getStatus(), traceId);
+    }
+
+    @Override
+    public AgentTaskCreateResult retryTask(Long tenantId, Long shopId, Long userId, Long taskId) {
+        AgentTaskDto original = tasks.get(taskId);
+        if (original == null || !tenantId.equals(original.getTenantId()) || !shopId.equals(original.getShopId())) {
+            throw new IllegalArgumentException("任务不存在");
+        }
+        AgentTaskCreateParam param = originalParams.get(taskId);
+        if (param == null) {
+            throw new IllegalArgumentException("原任务缺少请求快照，无法重试");
+        }
+        return createTask(tenantId, shopId, userId, param);
     }
 
     @Override
@@ -104,10 +121,10 @@ public class InMemoryAgentTaskService implements AgentTaskService {
 
     private void seedSteps(Long taskId) {
         List<AgentTaskStepDto> taskSteps = new ArrayList<>();
-        taskSteps.add(step(taskId, 1, "查询订单核心指标", "order.query_summary"));
-        taskSteps.add(step(taskId, 2, "查询差评风险", "comment.query_negative"));
-        taskSteps.add(step(taskId, 3, "查询待优化商品", "product.query_candidates"));
-        taskSteps.add(step(taskId, 4, "生成经营复盘报告", "report.generate_daily_review"));
+        taskSteps.add(step(taskId, 1, "Query order summary", "order.query_summary"));
+        taskSteps.add(step(taskId, 2, "Query negative comments", "comment.query_negative"));
+        taskSteps.add(step(taskId, 3, "Query product candidates", "product.query_candidates"));
+        taskSteps.add(step(taskId, 4, "Generate daily review report", "report.generate_daily_review"));
         steps.put(taskId, taskSteps);
     }
 

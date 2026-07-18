@@ -45,5 +45,14 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
         Map<String, Object> traceData = dataOf(get("/api/tasks/" + taskId + "/trace"));
         assertThat((List<Object>) traceData.get("spans")).isNotEmpty();
         assertThat((List<Object>) traceData.get("toolCalls")).hasSize(4);
+
+        Map<String, Object> retryData = dataOf(post("/api/agent/tasks/" + taskId + "/retry"));
+        assertThat(retryData.get("status")).isEqualTo("SUCCESS");
+        assertThat(retryData.get("taskId")).isNotEqualTo(taskId);
+
+        Integer retryTaskId = ((Number) retryData.get("taskId")).intValue();
+        Map<String, Object> retryTaskData = dataOf(get("/api/agent/tasks/" + retryTaskId));
+        assertThat(retryTaskData.get("status")).isEqualTo("SUCCESS");
+        assertThat(retryTaskData.get("reportId")).isNotNull();
     }
 }

@@ -34,6 +34,12 @@ public class AgentTaskController {
         return CommonResult.success(agentTaskService.createTask(context.getTenantId(), context.getShopId(), context.getUserId(), param));
     }
 
+    @PostMapping("/{taskId}/retry")
+    public CommonResult<AgentTaskCreateResult> retryTask(@PathVariable Long taskId) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(agentTaskService.retryTask(context.getTenantId(), context.getShopId(), context.getUserId(), taskId));
+    }
+
     @GetMapping
     public CommonResult<CommonPage<AgentTaskDto>> listTasks(AgentTaskQueryParam param) {
         RequestContext context = RequestContextHolder.current();
