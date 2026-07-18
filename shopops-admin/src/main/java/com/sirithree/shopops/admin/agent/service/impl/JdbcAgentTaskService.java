@@ -8,6 +8,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskRecoveryResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStatus;
@@ -24,6 +25,7 @@ import com.sirithree.shopops.admin.persistence.model.AgentTaskStep;
 import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,6 +119,37 @@ public class JdbcAgentTaskService implements AgentTaskService {
     }
 
     @Override
+    public AgentTaskRecoveryResult requeueStaleTasks(Long tenantId, Long shopId, Long userId, Integer queuedTimeoutMinutes, Integer runningTimeoutMinutes, Integer limit) {
+        AgentTaskRecoveryResult result = new AgentTaskRecoveryResult();
+        if (!agentTaskDispatcher.isAsynchronous()) {
+            return result;
+        }
+
+        int safeQueuedTimeout = safePositive(queuedTimeoutMinutes, 10, 1, 1440);
+        int safeRunningTimeout = safePositive(runningTimeoutMinutes, 30, 1, 1440);
+        int safeLimit = safePositive(limit, 20, 1, 100);
+        LocalDateTime now = LocalDateTime.now();
+        List<AgentTask> staleTasks = agentTaskMapper.listStaleInFlight(
+                tenantId,
+                shopId,
+                now.minusMinutes(safeQueuedTimeout),
+                now.minusMinutes(safeRunningTimeout),
+                safeLimit
+        );
+        result.setScannedCount(staleTasks.size());
+
+        List<Long> requeuedTaskIds = new ArrayList<>();
+        for (AgentTask task : staleTasks) {
+            if (requeueStaleTask(task, userId)) {
+                requeuedTaskIds.add(task.getId());
+            }
+        }
+        result.setRequeuedCount(requeuedTaskIds.size());
+        result.setTaskIds(requeuedTaskIds);
+        return result;
+    }
+
+    @Override
     public CommonPage<AgentTaskDto> listTasks(Long tenantId, Long shopId, AgentTaskQueryParam param) {
         AgentTaskQueryParam query = param == null ? new AgentTaskQueryParam() : param;
         List<AgentTaskDto> list = agentTaskMapper.listByPage(
@@ -175,6 +208,52 @@ public class JdbcAgentTaskService implements AgentTaskService {
         transitionTask(task, AgentTaskStatus.QUEUED);
         agentTaskMapper.updateExecutionState(task);
         appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.QUEUED.name(), "TASK_QUEUED", userId);
+    }
+
+    private boolean requeueStaleTask(AgentTask task, Long userId) {
+        String fromStatus = task.getStatus();
+        if (AgentTaskStatus.RUNNING.name().equals(fromStatus)) {
+            int updated = agentTaskMapper.updateStatusIfCurrent(
+                    task.getTenantId(),
+                    task.getShopId(),
+                    task.getId(),
+                    AgentTaskStatus.RUNNING.name(),
+                    AgentTaskStatus.QUEUED.name(),
+                    null
+            );
+            if (updated == 0) {
+                return false;
+            }
+            task.setStatus(AgentTaskStatus.QUEUED.name());
+            task.setStartedAt(null);
+        } else if (!AgentTaskStatus.QUEUED.name().equals(fromStatus)) {
+            return false;
+        }
+
+        dispatchExistingTask(task);
+        appendEvent(task, fromStatus, AgentTaskStatus.QUEUED.name(), "TASK_REQUEUED", userId);
+        return true;
+    }
+
+    private void dispatchExistingTask(AgentTask task) {
+        AgentTaskContext context = new AgentTaskContext();
+        context.setTenantId(task.getTenantId());
+        context.setShopId(task.getShopId());
+        context.setUserId(task.getUserId());
+        context.setTaskId(task.getId());
+        context.setTraceId(task.getTraceId());
+        agentTaskDispatcher.dispatch(context);
+    }
+
+    private int safePositive(Integer value, int defaultValue, int min, int max) {
+        int safeValue = value == null ? defaultValue : value;
+        if (safeValue < min) {
+            return min;
+        }
+        if (safeValue > max) {
+            return max;
+        }
+        return safeValue;
     }
 
     private Map<Integer, Long> seedSteps(AgentTask task) {

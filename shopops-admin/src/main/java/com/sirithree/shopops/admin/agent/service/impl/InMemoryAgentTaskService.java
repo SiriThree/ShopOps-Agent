@@ -8,6 +8,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskRecoveryResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStatus;
@@ -112,6 +113,11 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         }
         appendEvent(original, original.getStatus(), original.getStatus(), "TASK_RETRY_REQUESTED", userId);
         return createTask(tenantId, shopId, userId, param);
+    }
+
+    @Override
+    public AgentTaskRecoveryResult requeueStaleTasks(Long tenantId, Long shopId, Long userId, Integer queuedTimeoutMinutes, Integer runningTimeoutMinutes, Integer limit) {
+        return new AgentTaskRecoveryResult();
     }
 
     @Override

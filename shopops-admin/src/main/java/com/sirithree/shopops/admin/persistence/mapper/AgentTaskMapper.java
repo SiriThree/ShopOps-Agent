@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.persistence.mapper;
 
 import com.sirithree.shopops.admin.persistence.model.AgentTask;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -105,5 +106,23 @@ public interface AgentTaskMapper {
                               @Param("id") Long id,
                               @Param("fromStatus") String fromStatus,
                               @Param("toStatus") String toStatus,
-                              @Param("startedAt") java.time.LocalDateTime startedAt);
+                              @Param("startedAt") LocalDateTime startedAt);
+
+    @Select("""
+            SELECT *
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND (
+                (status = 'QUEUED' AND created_at <= #{queuedBefore})
+                OR (status = 'RUNNING' AND started_at <= #{runningBefore})
+              )
+            ORDER BY id ASC
+            LIMIT #{limit}
+            """)
+    List<AgentTask> listStaleInFlight(@Param("tenantId") Long tenantId,
+                                      @Param("shopId") Long shopId,
+                                      @Param("queuedBefore") LocalDateTime queuedBefore,
+                                      @Param("runningBefore") LocalDateTime runningBefore,
+                                      @Param("limit") Integer limit);
 }

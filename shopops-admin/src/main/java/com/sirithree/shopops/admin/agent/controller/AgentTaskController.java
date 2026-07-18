@@ -5,6 +5,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskRecoveryResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
 import com.sirithree.shopops.admin.common.context.RequestContext;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,6 +41,21 @@ public class AgentTaskController {
     public CommonResult<AgentTaskCreateResult> retryTask(@PathVariable Long taskId) {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(agentTaskService.retryTask(context.getTenantId(), context.getShopId(), context.getUserId(), taskId));
+    }
+
+    @PostMapping("/stale/requeue")
+    public CommonResult<AgentTaskRecoveryResult> requeueStaleTasks(@RequestParam(defaultValue = "10") Integer queuedTimeoutMinutes,
+                                                                   @RequestParam(defaultValue = "30") Integer runningTimeoutMinutes,
+                                                                   @RequestParam(defaultValue = "20") Integer limit) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(agentTaskService.requeueStaleTasks(
+                context.getTenantId(),
+                context.getShopId(),
+                context.getUserId(),
+                queuedTimeoutMinutes,
+                runningTimeoutMinutes,
+                limit
+        ));
     }
 
     @GetMapping
