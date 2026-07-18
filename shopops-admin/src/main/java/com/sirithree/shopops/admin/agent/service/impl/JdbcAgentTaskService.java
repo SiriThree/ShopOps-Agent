@@ -155,14 +155,13 @@ public class JdbcAgentTaskService implements AgentTaskService {
         List<AgentTaskDto> list = agentTaskMapper.listByPage(
                         tenantId,
                         shopId,
-                        query.getStatus(),
-                        query.getTaskType(),
+                        query,
                         query.offset(),
                         query.safePageSize()
                 ).stream()
                 .map(this::toDto)
                 .toList();
-        Long total = agentTaskMapper.countByPage(tenantId, shopId, query.getStatus(), query.getTaskType());
+        Long total = agentTaskMapper.countByPage(tenantId, shopId, query);
         return CommonPage.of(list, query.safePageNum(), query.safePageSize(), total);
     }
 
@@ -310,7 +309,11 @@ public class JdbcAgentTaskService implements AgentTaskService {
         dto.setTraceId(task.getTraceId());
         dto.setReportId(task.getReportId());
         dto.setResultSummary(task.getResultSummary());
+        dto.setErrorCode(task.getErrorCode());
         dto.setErrorMessage(task.getErrorMessage());
+        dto.setCreatedAt(task.getCreatedAt());
+        dto.setStartedAt(task.getStartedAt());
+        dto.setFinishedAt(task.getFinishedAt());
         return dto;
     }
 

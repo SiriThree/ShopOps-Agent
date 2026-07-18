@@ -60,6 +60,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         task.setUserInput(param.getUserInput());
         task.setStatus(AgentTaskStatus.CREATED.name());
         task.setTraceId(traceId);
+        task.setCreatedAt(LocalDateTime.now());
         tasks.put(taskId, task);
         originalParams.put(taskId, param);
         appendEvent(task, null, AgentTaskStatus.CREATED.name(), "TASK_CREATED", userId);
@@ -82,6 +83,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
             }
 
             transitionTask(task, AgentTaskStatus.RUNNING);
+            task.setStartedAt(LocalDateTime.now());
             appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
             AgentDispatchResult dispatchResult = agentTaskDispatcher.dispatch(context);
             AgentExecutionResult result = dispatchResult.getExecutionResult();
@@ -90,11 +92,14 @@ public class InMemoryAgentTaskService implements AgentTaskService {
             task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
                     ? "Daily review report generated with degraded evidence"
                     : "Daily review report generated");
+            task.setFinishedAt(LocalDateTime.now());
             appendEvent(task, AgentTaskStatus.RUNNING.name(), task.getStatus(), "TASK_FINISHED", userId);
         } catch (RuntimeException ex) {
             String fromStatus = task.getStatus();
             transitionTask(task, AgentTaskStatus.FAILED);
+            task.setErrorCode("TASK_EXECUTE_ERROR");
             task.setErrorMessage(ex.getMessage());
+            task.setFinishedAt(LocalDateTime.now());
             appendEvent(task, fromStatus, AgentTaskStatus.FAILED.name(), "TASK_FAILED", userId);
         }
 
@@ -127,6 +132,14 @@ public class InMemoryAgentTaskService implements AgentTaskService {
                 .filter(task -> tenantId.equals(task.getTenantId()) && shopId.equals(task.getShopId()))
                 .filter(task -> query.getStatus() == null || query.getStatus().isBlank() || query.getStatus().equals(task.getStatus()))
                 .filter(task -> query.getTaskType() == null || query.getTaskType().isBlank() || query.getTaskType().equals(task.getTaskType()))
+                .filter(task -> query.getTaskNo() == null || query.getTaskNo().isBlank() || query.getTaskNo().equals(task.getTaskNo()))
+                .filter(task -> query.getUserId() == null || query.getUserId().equals(task.getUserId()))
+                .filter(task -> query.getTraceId() == null || query.getTraceId().isBlank() || query.getTraceId().equals(task.getTraceId()))
+                .filter(task -> query.getReportId() == null || query.getReportId().equals(task.getReportId()))
+                .filter(task -> query.getCreatedStart() == null || (task.getCreatedAt() != null && !task.getCreatedAt().isBefore(query.getCreatedStart())))
+                .filter(task -> query.getCreatedEnd() == null || (task.getCreatedAt() != null && !task.getCreatedAt().isAfter(query.getCreatedEnd())))
+                .filter(task -> query.getFinishedStart() == null || (task.getFinishedAt() != null && !task.getFinishedAt().isBefore(query.getFinishedStart())))
+                .filter(task -> query.getFinishedEnd() == null || (task.getFinishedAt() != null && !task.getFinishedAt().isAfter(query.getFinishedEnd())))
                 .sorted(Comparator.comparing(AgentTaskDto::getTaskId).reversed())
                 .toList();
         List<AgentTaskDto> pageList = filtered.stream()

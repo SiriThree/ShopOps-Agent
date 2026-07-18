@@ -1,5 +1,6 @@
 package com.sirithree.shopops.admin.persistence.mapper;
 
+import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.persistence.model.AgentTask;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,11 +42,35 @@ public interface AgentTaskMapper {
             FROM agent_task
             WHERE tenant_id = #{tenantId}
               AND shop_id = #{shopId}
-              <if test="status != null and status != ''">
-                AND status = #{status}
+              <if test="query.status != null and query.status != ''">
+                AND status = #{query.status}
               </if>
-              <if test="taskType != null and taskType != ''">
-                AND task_type = #{taskType}
+              <if test="query.taskType != null and query.taskType != ''">
+                AND task_type = #{query.taskType}
+              </if>
+              <if test="query.taskNo != null and query.taskNo != ''">
+                AND task_no = #{query.taskNo}
+              </if>
+              <if test="query.userId != null">
+                AND user_id = #{query.userId}
+              </if>
+              <if test="query.traceId != null and query.traceId != ''">
+                AND trace_id = #{query.traceId}
+              </if>
+              <if test="query.reportId != null">
+                AND report_id = #{query.reportId}
+              </if>
+              <if test="query.createdStart != null">
+                AND created_at &gt;= #{query.createdStart}
+              </if>
+              <if test="query.createdEnd != null">
+                AND created_at &lt;= #{query.createdEnd}
+              </if>
+              <if test="query.finishedStart != null">
+                AND finished_at &gt;= #{query.finishedStart}
+              </if>
+              <if test="query.finishedEnd != null">
+                AND finished_at &lt;= #{query.finishedEnd}
               </if>
             ORDER BY id DESC
             LIMIT #{limit} OFFSET #{offset}
@@ -53,8 +78,7 @@ public interface AgentTaskMapper {
             """)
     List<AgentTask> listByPage(@Param("tenantId") Long tenantId,
                                @Param("shopId") Long shopId,
-                               @Param("status") String status,
-                               @Param("taskType") String taskType,
+                               @Param("query") AgentTaskQueryParam query,
                                @Param("offset") Integer offset,
                                @Param("limit") Integer limit);
 
@@ -64,18 +88,41 @@ public interface AgentTaskMapper {
             FROM agent_task
             WHERE tenant_id = #{tenantId}
               AND shop_id = #{shopId}
-              <if test="status != null and status != ''">
-                AND status = #{status}
+              <if test="query.status != null and query.status != ''">
+                AND status = #{query.status}
               </if>
-              <if test="taskType != null and taskType != ''">
-                AND task_type = #{taskType}
+              <if test="query.taskType != null and query.taskType != ''">
+                AND task_type = #{query.taskType}
+              </if>
+              <if test="query.taskNo != null and query.taskNo != ''">
+                AND task_no = #{query.taskNo}
+              </if>
+              <if test="query.userId != null">
+                AND user_id = #{query.userId}
+              </if>
+              <if test="query.traceId != null and query.traceId != ''">
+                AND trace_id = #{query.traceId}
+              </if>
+              <if test="query.reportId != null">
+                AND report_id = #{query.reportId}
+              </if>
+              <if test="query.createdStart != null">
+                AND created_at &gt;= #{query.createdStart}
+              </if>
+              <if test="query.createdEnd != null">
+                AND created_at &lt;= #{query.createdEnd}
+              </if>
+              <if test="query.finishedStart != null">
+                AND finished_at &gt;= #{query.finishedStart}
+              </if>
+              <if test="query.finishedEnd != null">
+                AND finished_at &lt;= #{query.finishedEnd}
               </if>
             </script>
             """)
     Long countByPage(@Param("tenantId") Long tenantId,
                      @Param("shopId") Long shopId,
-                     @Param("status") String status,
-                     @Param("taskType") String taskType);
+                     @Param("query") AgentTaskQueryParam query);
 
     @Update("""
             UPDATE agent_task

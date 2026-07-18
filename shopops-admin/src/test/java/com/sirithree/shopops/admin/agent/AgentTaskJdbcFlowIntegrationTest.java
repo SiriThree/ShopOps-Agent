@@ -72,6 +72,17 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         assertThat((List<Object>) traceData.get("spans")).hasSizeGreaterThanOrEqualTo(7);
         assertThat((List<Object>) traceData.get("toolCalls")).hasSize(4);
 
+        String taskNo = taskData.get("taskNo").toString();
+        String traceId = taskData.get("traceId").toString();
+        Map<String, Object> adminTaskPage = dataOf(get("/api/admin/agent/tasks?taskNo=" + taskNo
+                + "&traceId=" + traceId
+                + "&reportId=" + reportId
+                + "&userId=1&pageNum=1&pageSize=10"));
+        assertThat(adminTaskPage.get("total")).isEqualTo(1);
+        assertThat((List<Map<String, Object>>) adminTaskPage.get("list"))
+                .extracting(task -> task.get("taskId"))
+                .containsExactly(taskId);
+
         Map<String, Object> adminDetail = dataOf(get("/api/admin/agent/tasks/" + taskId + "/detail"));
         assertThat(castMap(adminDetail.get("task")).get("taskId")).isEqualTo(taskId);
         assertThat((List<Object>) adminDetail.get("steps")).hasSize(4);

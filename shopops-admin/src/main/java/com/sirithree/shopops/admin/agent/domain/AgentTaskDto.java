@@ -1,5 +1,7 @@
 package com.sirithree.shopops.admin.agent.domain;
 
+import java.time.LocalDateTime;
+
 public class AgentTaskDto {
     private Long taskId;
     private Long tenantId;
@@ -12,7 +14,11 @@ public class AgentTaskDto {
     private String traceId;
     private Long reportId;
     private String resultSummary;
+    private String errorCode;
     private String errorMessage;
+    private LocalDateTime createdAt;
+    private LocalDateTime startedAt;
+    private LocalDateTime finishedAt;
 
     public Long getTaskId() {
         return taskId;
@@ -102,11 +108,43 @@ public class AgentTaskDto {
         this.resultSummary = resultSummary;
     }
 
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
     public String getErrorMessage() {
         return errorMessage;
     }
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getStartedAt() {
+        return startedAt;
+    }
+
+    public void setStartedAt(LocalDateTime startedAt) {
+        this.startedAt = startedAt;
+    }
+
+    public LocalDateTime getFinishedAt() {
+        return finishedAt;
+    }
+
+    public void setFinishedAt(LocalDateTime finishedAt) {
+        this.finishedAt = finishedAt;
     }
 }

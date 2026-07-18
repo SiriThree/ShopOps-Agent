@@ -44,6 +44,11 @@ public class DefaultAgentTaskAdminService implements AgentTaskAdminService {
     }
 
     @Override
+    public CommonPage<AgentTaskDto> listTasks(Long tenantId, Long shopId, AgentTaskQueryParam param) {
+        return agentTaskService.listTasks(tenantId, shopId, param);
+    }
+
+    @Override
     public Optional<AgentTaskDetailDto> getTaskDetail(Long tenantId, Long shopId, Long taskId) {
         return agentTaskService.getTask(tenantId, shopId, taskId).map(task -> {
             AgentTaskDetailDto detail = new AgentTaskDetailDto();
