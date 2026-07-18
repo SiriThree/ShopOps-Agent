@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,15 +22,18 @@ public class DefaultToolGatewayService implements ToolGatewayService {
     private final ToolCallLogService toolCallLogService;
     private final TraceService traceService;
     private final Map<String, ToolExecutor> executors;
+    private final String failCode;
 
     public DefaultToolGatewayService(McpToolService mcpToolService,
                                      ToolCallLogService toolCallLogService,
                                      TraceService traceService,
-                                     List<ToolExecutor> executors) {
+                                     List<ToolExecutor> executors,
+                                     @Value("${shopops.tool.fail-code:}") String failCode) {
         this.mcpToolService = mcpToolService;
         this.toolCallLogService = toolCallLogService;
         this.traceService = traceService;
         this.executors = executors.stream().collect(Collectors.toMap(ToolExecutor::toolCode, Function.identity()));
+        this.failCode = failCode;
     }
 
     @Override
@@ -38,6 +42,9 @@ public class DefaultToolGatewayService implements ToolGatewayService {
         String spanId = startToolSpan(context, toolCode);
         Long logId = toolCallLogService.start(context, toolCode, input);
         try {
+            if (toolCode.equals(failCode)) {
+                return fail(context, spanId, logId, started, "TOOL_FAILURE_INJECTED", "Simulated tool failure: " + toolCode);
+            }
             McpToolDto tool = mcpToolService.getTool(context.getTenantId(), toolCode);
             if (tool == null) {
                 return fail(context, spanId, logId, started, "TOOL_NOT_FOUND", "工具不存在: " + toolCode);

@@ -49,6 +49,12 @@ public class DefaultAgentEngineService implements AgentEngineService {
             context.setExecutorSpanId(executorSpan);
             AgentExecutionResult result = executorService.execute(context, plan);
             context.setExecutorSpanId(null);
+            if (!Boolean.TRUE.equals(result.getSuccess())) {
+                String errorMessage = result.getErrorMessage() == null ? "Task execution failed" : result.getErrorMessage();
+                traceService.finishSpan(context.getTraceId(), executorSpan, "FAILED", null, errorMessage);
+                activeChildSpan = null;
+                throw new IllegalStateException(errorMessage);
+            }
             traceService.finishSpan(context.getTraceId(), executorSpan, "SUCCESS", "reportId=" + result.getReportId(), null);
             activeChildSpan = null;
 
