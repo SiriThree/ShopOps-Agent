@@ -82,6 +82,19 @@ class GlobalExceptionHandlerIntegrationTest {
         assertThat(response.getBody().get("code")).isEqualTo(200);
     }
 
+    @Test
+    void shouldGenerateRequestIdWhenHeaderIsMissing() {
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url("/api/tools"),
+                HttpMethod.GET,
+                new HttpEntity<>(defaultHeaders()),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getHeaders().getFirst("X-Request-Id")).startsWith("req_");
+    }
+
     private HttpHeaders defaultHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Tenant-Id", "1");

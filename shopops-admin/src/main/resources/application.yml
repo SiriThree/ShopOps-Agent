@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%thread] [%X{requestId:-} tenant=%X{tenantId:-} shop=%X{shopId:-} user=%X{userId:-}] %logger{36} - %msg%n"
+
 spring:
   application:
     name: shopops-admin
