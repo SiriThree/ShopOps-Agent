@@ -126,6 +126,62 @@ class GlobalExceptionHandlerIntegrationTest {
     }
 
     @Test
+    void shouldAllowViewerToReadTools() {
+        HttpHeaders headers = defaultHeaders();
+        headers.set("X-User-Roles", "VIEWER");
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url("/api/tools"),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get("code")).isEqualTo(200);
+    }
+
+    @Test
+    void shouldDenyViewerWhenCreatingTask() {
+        HttpHeaders headers = defaultHeaders();
+        headers.set("X-User-Roles", "VIEWER");
+        Map<String, Object> request = Map.of(
+                "taskType", "daily_review",
+                "userInput", "daily review",
+                "dateRange", Map.of("start", "2026-07-18", "end", "2026-07-18")
+        );
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url("/api/agent/tasks"),
+                HttpMethod.POST,
+                new HttpEntity<>(request, headers),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get("code")).isEqualTo(403);
+    }
+
+    @Test
+    void shouldDenyViewerWhenInvokingToolManually() {
+        HttpHeaders headers = defaultHeaders();
+        headers.set("X-User-Roles", "VIEWER");
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url("/api/tools/order.query_summary/invoke"),
+                HttpMethod.POST,
+                new HttpEntity<>(Map.of(), headers),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get("code")).isEqualTo(403);
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
     void shouldReturnSystemHealthInMemoryMode() {
         ResponseEntity<Map> response = restTemplate.exchange(

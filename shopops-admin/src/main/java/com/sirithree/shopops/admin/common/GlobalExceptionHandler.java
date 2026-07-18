@@ -1,6 +1,8 @@
 package com.sirithree.shopops.admin.common;
 
+import com.sirithree.shopops.admin.auth.exception.AccessDeniedException;
 import com.sirithree.shopops.common.api.CommonResult;
+import com.sirithree.shopops.common.api.ResultCode;
 import jakarta.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -53,6 +55,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<CommonResult<?>> handleIllegalArgument(IllegalArgumentException ex) {
         return badRequest(ex.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<CommonResult<?>> handleAccessDenied(AccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(CommonResult.failed(ResultCode.FORBIDDEN));
     }
 
     @ExceptionHandler(Exception.class)

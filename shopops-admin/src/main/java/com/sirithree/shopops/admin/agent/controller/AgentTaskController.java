@@ -8,6 +8,8 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskRecoveryResult;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStepDto;
 import com.sirithree.shopops.admin.agent.service.AgentTaskService;
+import com.sirithree.shopops.admin.auth.annotation.RequireRole;
+import com.sirithree.shopops.admin.auth.domain.AuthRole;
 import com.sirithree.shopops.admin.common.context.RequestContext;
 import com.sirithree.shopops.admin.common.context.RequestContextHolder;
 import com.sirithree.shopops.common.api.CommonPage;
@@ -32,18 +34,21 @@ public class AgentTaskController {
     }
 
     @PostMapping
+    @RequireRole(AuthRole.OPERATOR)
     public CommonResult<AgentTaskCreateResult> createTask(@Valid @RequestBody AgentTaskCreateParam param) {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(agentTaskService.createTask(context.getTenantId(), context.getShopId(), context.getUserId(), param));
     }
 
     @PostMapping("/{taskId}/retry")
+    @RequireRole(AuthRole.ADMIN)
     public CommonResult<AgentTaskCreateResult> retryTask(@PathVariable Long taskId) {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(agentTaskService.retryTask(context.getTenantId(), context.getShopId(), context.getUserId(), taskId));
     }
 
     @PostMapping("/stale/requeue")
+    @RequireRole(AuthRole.ADMIN)
     public CommonResult<AgentTaskRecoveryResult> requeueStaleTasks(@RequestParam(defaultValue = "10") Integer queuedTimeoutMinutes,
                                                                    @RequestParam(defaultValue = "30") Integer runningTimeoutMinutes,
                                                                    @RequestParam(defaultValue = "20") Integer limit) {

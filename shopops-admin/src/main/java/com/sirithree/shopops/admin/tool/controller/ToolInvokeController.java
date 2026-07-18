@@ -1,5 +1,7 @@
 package com.sirithree.shopops.admin.tool.controller;
 
+import com.sirithree.shopops.admin.auth.annotation.RequireRole;
+import com.sirithree.shopops.admin.auth.domain.AuthRole;
 import com.sirithree.shopops.admin.common.context.RequestContext;
 import com.sirithree.shopops.admin.common.context.RequestContextHolder;
 import com.sirithree.shopops.admin.tool.domain.ToolCallLogQueryParam;
@@ -30,6 +32,7 @@ public class ToolInvokeController {
     }
 
     @PostMapping("/{toolCode}/invoke")
+    @RequireRole(AuthRole.ADMIN)
     public CommonResult<ToolInvokeResult> invoke(@PathVariable String toolCode,
                                                  @RequestBody Map<String, Object> input) {
         RequestContext requestContext = RequestContextHolder.current();
