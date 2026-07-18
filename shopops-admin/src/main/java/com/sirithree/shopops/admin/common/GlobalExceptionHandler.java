@@ -1,9 +1,14 @@
 package com.sirithree.shopops.admin.common;
 
+import com.sirithree.shopops.admin.auth.domain.AuthAuditEventCreateCommand;
 import com.sirithree.shopops.admin.auth.exception.AccessDeniedException;
 import com.sirithree.shopops.admin.auth.exception.AuthenticationException;
+import com.sirithree.shopops.admin.auth.service.AuthAuditService;
+import com.sirithree.shopops.admin.common.context.RequestContext;
+import com.sirithree.shopops.admin.common.context.RequestContextHolder;
 import com.sirithree.shopops.common.api.CommonResult;
 import com.sirithree.shopops.common.api.ResultCode;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -21,6 +26,11 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private final AuthAuditService authAuditService;
+
+    public GlobalExceptionHandler(AuthAuditService authAuditService) {
+        this.authAuditService = authAuditService;
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CommonResult<?>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
@@ -59,7 +69,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<CommonResult<?>> handleAccessDenied(AccessDeniedException ex) {
+    public ResponseEntity<CommonResult<?>> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
+        recordAccessDenied(ex, request);
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(CommonResult.failed(ResultCode.FORBIDDEN));
     }
@@ -84,5 +95,41 @@ public class GlobalExceptionHandler {
 
     private String fieldErrorMessage(FieldError error) {
         return error.getField() + " " + (error.getDefaultMessage() == null ? "不合法" : error.getDefaultMessage());
+    }
+
+    private void recordAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
+        RequestContext context = currentContext();
+        if (context == null) {
+            return;
+        }
+        AuthAuditEventCreateCommand command = new AuthAuditEventCreateCommand();
+        command.setTenantId(context.getTenantId());
+        command.setShopId(context.getShopId());
+        command.setUserId(context.getUserId());
+        command.setUsername(context.getUsername());
+        command.setEventType("ACCESS_DENIED");
+        command.setEventStatus("FAILURE");
+        command.setAuthType(context.getAuthType());
+        command.setRequestId(context.getRequestId());
+        command.setClientIp(clientIp(request));
+        command.setUserAgent(request.getHeader("User-Agent"));
+        command.setFailureReason(ex.getMessage());
+        authAuditService.record(command);
+    }
+
+    private RequestContext currentContext() {
+        try {
+            return RequestContextHolder.current();
+        } catch (IllegalStateException ex) {
+            return null;
+        }
+    }
+
+    private String clientIp(HttpServletRequest request) {
+        String forwardedFor = request.getHeader("X-Forwarded-For");
+        if (forwardedFor != null && !forwardedFor.isBlank()) {
+            return forwardedFor.split(",")[0].trim();
+        }
+        return request.getRemoteAddr();
     }
 }

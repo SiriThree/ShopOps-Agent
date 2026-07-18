@@ -1,8 +1,10 @@
 package com.sirithree.shopops.admin.common.context;
 
+import com.sirithree.shopops.admin.auth.domain.AuthAuditEventCreateCommand;
 import com.sirithree.shopops.admin.auth.domain.TokenPrincipal;
 import com.sirithree.shopops.admin.auth.domain.UserRoleProfile;
 import com.sirithree.shopops.admin.auth.exception.AuthenticationException;
+import com.sirithree.shopops.admin.auth.service.AuthAuditService;
 import com.sirithree.shopops.admin.auth.service.TokenService;
 import com.sirithree.shopops.admin.auth.service.UserRoleService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,13 +27,16 @@ public class RequestContextResolver {
 
     private final UserRoleService userRoleService;
     private final TokenService tokenService;
+    private final AuthAuditService authAuditService;
     private final boolean headerDevMode;
 
     public RequestContextResolver(UserRoleService userRoleService,
                                   TokenService tokenService,
+                                  AuthAuditService authAuditService,
                                   @Value("${shopops.auth.header-dev-mode:true}") boolean headerDevMode) {
         this.userRoleService = userRoleService;
         this.tokenService = tokenService;
+        this.authAuditService = authAuditService;
         this.headerDevMode = headerDevMode;
     }
 
@@ -39,8 +44,12 @@ public class RequestContextResolver {
         String requestId = headerOrDefault(request, HEADER_REQUEST_ID, generateRequestId());
         Optional<String> bearerToken = bearerToken(request);
         if (bearerToken.isPresent()) {
-            TokenPrincipal principal = tokenService.parse(bearerToken.get())
-                    .orElseThrow(() -> new AuthenticationException("Invalid bearer token"));
+            Optional<TokenPrincipal> parsedPrincipal = tokenService.parse(bearerToken.get());
+            if (parsedPrincipal.isEmpty()) {
+                recordAuthenticationFailure(request, requestId, "BEARER", "Invalid bearer token");
+                throw new AuthenticationException("Invalid bearer token");
+            }
+            TokenPrincipal principal = parsedPrincipal.get();
             return new RequestContext(
                     principal.getTenantId(),
                     principal.getShopId(),
@@ -56,6 +65,7 @@ public class RequestContextResolver {
             if (isLoginRequest(request)) {
                 return anonymousContext(requestId);
             }
+            recordAuthenticationFailure(request, requestId, "BEARER", "Bearer token is required");
             throw new AuthenticationException("Bearer token is required");
         }
 
@@ -76,6 +86,22 @@ public class RequestContextResolver {
 
     private RequestContext anonymousContext(String requestId) {
         return new RequestContext(0L, 0L, 0L, requestId, "anonymous", List.of(), "ANONYMOUS", false);
+    }
+
+    private void recordAuthenticationFailure(HttpServletRequest request, String requestId, String authType, String reason) {
+        AuthAuditEventCreateCommand command = new AuthAuditEventCreateCommand();
+        command.setTenantId(longHeaderOrDefault(request, HEADER_TENANT_ID, 0L));
+        command.setShopId(longHeaderOrDefault(request, HEADER_SHOP_ID, 0L));
+        command.setUserId(longHeaderOrDefault(request, HEADER_USER_ID, null));
+        command.setUsername(request.getHeader(HEADER_USER_NAME));
+        command.setEventType("AUTHENTICATION");
+        command.setEventStatus("FAILURE");
+        command.setAuthType(authType);
+        command.setRequestId(requestId);
+        command.setClientIp(clientIp(request));
+        command.setUserAgent(request.getHeader("User-Agent"));
+        command.setFailureReason(reason);
+        authAuditService.record(command);
     }
 
     private Optional<String> bearerToken(HttpServletRequest request) {
@@ -101,6 +127,26 @@ public class RequestContextResolver {
         } catch (NumberFormatException ex) {
             throw new IllegalArgumentException("Invalid request header type: " + name);
         }
+    }
+
+    private Long longHeaderOrDefault(HttpServletRequest request, String name, Long defaultValue) {
+        String value = request.getHeader(name);
+        if (value == null || value.isBlank()) {
+            return defaultValue;
+        }
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException ex) {
+            return defaultValue;
+        }
+    }
+
+    private String clientIp(HttpServletRequest request) {
+        String forwardedFor = request.getHeader("X-Forwarded-For");
+        if (forwardedFor != null && !forwardedFor.isBlank()) {
+            return forwardedFor.split(",")[0].trim();
+        }
+        return request.getRemoteAddr();
     }
 
     private String username(HttpServletRequest request, Long userId, Optional<UserRoleProfile> userRoleProfile) {
