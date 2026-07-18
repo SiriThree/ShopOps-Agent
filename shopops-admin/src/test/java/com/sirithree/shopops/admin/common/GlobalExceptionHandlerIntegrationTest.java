@@ -102,7 +102,6 @@ class GlobalExceptionHandlerIntegrationTest {
         HttpHeaders headers = defaultHeaders();
         headers.set("X-User-Name", "ops-admin");
         headers.set("X-User-Roles", "ADMIN,OPERATOR");
-        headers.setBearerAuth("dev-token");
 
         ResponseEntity<Map> response = restTemplate.exchange(
                 url("/api/admin/auth/me"),
@@ -121,8 +120,65 @@ class GlobalExceptionHandlerIntegrationTest {
         assertThat(data.get("userId")).isEqualTo(1);
         assertThat(data.get("username")).isEqualTo("ops-admin");
         assertThat((List<String>) data.get("roles")).contains("ADMIN", "OPERATOR");
-        assertThat(data.get("authType")).isEqualTo("BEARER");
+        assertThat(data.get("authType")).isEqualTo("HEADER");
         assertThat(data.get("authenticated")).isEqualTo(true);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldLoginAndResolveCurrentUserFromBearerToken() {
+        Map<String, Object> loginRequest = Map.of(
+                "username", "operator",
+                "password", "shopops123",
+                "tenantId", 1,
+                "shopId", 1
+        );
+
+        ResponseEntity<Map> loginResponse = restTemplate.exchange(
+                url("/api/admin/auth/login"),
+                HttpMethod.POST,
+                new HttpEntity<>(loginRequest),
+                Map.class
+        );
+
+        assertThat(loginResponse.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(loginResponse.getBody()).isNotNull();
+        Map<String, Object> loginData = (Map<String, Object>) loginResponse.getBody().get("data");
+        String accessToken = loginData.get("accessToken").toString();
+        assertThat(accessToken).isNotBlank();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+        ResponseEntity<Map> meResponse = restTemplate.exchange(
+                url("/api/admin/auth/me"),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                Map.class
+        );
+
+        assertThat(meResponse.getStatusCode().is2xxSuccessful()).isTrue();
+        Map<String, Object> meData = (Map<String, Object>) meResponse.getBody().get("data");
+        assertThat(meData.get("userId")).isEqualTo(2);
+        assertThat(meData.get("username")).isEqualTo("operator");
+        assertThat((List<String>) meData.get("roles")).contains("OPERATOR");
+        assertThat(meData.get("authType")).isEqualTo("BEARER");
+    }
+
+    @Test
+    void shouldRejectInvalidBearerToken() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth("invalid-token");
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url("/api/admin/auth/me"),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().get("code")).isEqualTo(401);
     }
 
     @Test

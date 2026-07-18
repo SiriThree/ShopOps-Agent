@@ -1,5 +1,6 @@
 package com.sirithree.shopops.admin.persistence.mapper;
 
+import com.sirithree.shopops.admin.auth.domain.LoginUserRecord;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +16,15 @@ public interface AuthUserMapper {
             LIMIT 1
             """)
     String selectUsernameById(@Param("userId") Long userId);
+
+    @Select("""
+            SELECT id AS user_id, username, password_hash
+            FROM user_account
+            WHERE username = #{username}
+              AND status = 1
+            LIMIT 1
+            """)
+    LoginUserRecord selectLoginUserByUsername(@Param("username") String username);
 
     @Select("""
             SELECT role_code

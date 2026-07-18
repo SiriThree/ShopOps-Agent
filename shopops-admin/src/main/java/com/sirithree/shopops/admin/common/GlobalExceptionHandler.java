@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.common;
 
 import com.sirithree.shopops.admin.auth.exception.AccessDeniedException;
+import com.sirithree.shopops.admin.auth.exception.AuthenticationException;
 import com.sirithree.shopops.common.api.CommonResult;
 import com.sirithree.shopops.common.api.ResultCode;
 import jakarta.validation.ConstraintViolationException;
@@ -61,6 +62,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CommonResult<?>> handleAccessDenied(AccessDeniedException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(CommonResult.failed(ResultCode.FORBIDDEN));
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<CommonResult<?>> handleAuthentication(AuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(CommonResult.failed(ResultCode.UNAUTHORIZED));
     }
 
     @ExceptionHandler(Exception.class)

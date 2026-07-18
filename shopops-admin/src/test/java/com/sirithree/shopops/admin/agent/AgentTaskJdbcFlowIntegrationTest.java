@@ -223,6 +223,57 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         assertThat(createResponse.getBody().get("code")).isEqualTo(403);
     }
 
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldLoginViewerAndDenyWriteWithBearerTokenOnly() {
+        Map<String, Object> loginRequest = Map.of(
+                "username", "viewer",
+                "password", "shopops123",
+                "tenantId", 1,
+                "shopId", 1
+        );
+        ResponseEntity<Map> loginResponse = restTemplate.exchange(
+                url("/api/admin/auth/login"),
+                HttpMethod.POST,
+                new HttpEntity<>(loginRequest),
+                Map.class
+        );
+
+        assertThat(loginResponse.getStatusCode().is2xxSuccessful()).isTrue();
+        Map<String, Object> loginData = dataOf(loginResponse.getBody());
+        String accessToken = loginData.get("accessToken").toString();
+        assertThat(accessToken).isNotBlank();
+
+        HttpHeaders tokenHeaders = new HttpHeaders();
+        tokenHeaders.setBearerAuth(accessToken);
+        ResponseEntity<Map> meResponse = restTemplate.exchange(
+                url("/api/admin/auth/me"),
+                HttpMethod.GET,
+                new HttpEntity<>(tokenHeaders),
+                Map.class
+        );
+        Map<String, Object> meData = dataOf(meResponse.getBody());
+        assertThat(meData.get("userId")).isEqualTo(3);
+        assertThat(meData.get("username")).isEqualTo("viewer");
+        assertThat((List<String>) meData.get("roles")).contains("VIEWER");
+
+        Map<String, Object> request = Map.of(
+                "taskType", "daily_review",
+                "userInput", "daily review",
+                "dateRange", Map.of("start", "2026-07-18", "end", "2026-07-18")
+        );
+        ResponseEntity<Map> createResponse = restTemplate.exchange(
+                url("/api/agent/tasks"),
+                HttpMethod.POST,
+                new HttpEntity<>(request, tokenHeaders),
+                Map.class
+        );
+
+        assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        assertThat(createResponse.getBody()).isNotNull();
+        assertThat(createResponse.getBody().get("code")).isEqualTo(403);
+    }
+
     private Map<String, Object> stepOutput(List<Map<String, Object>> steps, String toolCode) {
         return steps.stream()
                 .filter(step -> toolCode.equals(step.get("toolCode")))

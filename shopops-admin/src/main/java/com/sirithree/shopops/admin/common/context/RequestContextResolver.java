@@ -1,6 +1,9 @@
 package com.sirithree.shopops.admin.common.context;
 
+import com.sirithree.shopops.admin.auth.domain.TokenPrincipal;
 import com.sirithree.shopops.admin.auth.domain.UserRoleProfile;
+import com.sirithree.shopops.admin.auth.exception.AuthenticationException;
+import com.sirithree.shopops.admin.auth.service.TokenService;
 import com.sirithree.shopops.admin.auth.service.UserRoleService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -20,21 +23,52 @@ public class RequestContextResolver {
     public static final String HEADER_AUTHORIZATION = "Authorization";
 
     private final UserRoleService userRoleService;
+    private final TokenService tokenService;
 
-    public RequestContextResolver(UserRoleService userRoleService) {
+    public RequestContextResolver(UserRoleService userRoleService, TokenService tokenService) {
         this.userRoleService = userRoleService;
+        this.tokenService = tokenService;
     }
 
     public RequestContext resolve(HttpServletRequest request) {
+        String requestId = headerOrDefault(request, HEADER_REQUEST_ID, generateRequestId());
+        Optional<String> bearerToken = bearerToken(request);
+        if (bearerToken.isPresent()) {
+            TokenPrincipal principal = tokenService.parse(bearerToken.get())
+                    .orElseThrow(() -> new AuthenticationException("Invalid bearer token"));
+            return new RequestContext(
+                    principal.getTenantId(),
+                    principal.getShopId(),
+                    principal.getUserId(),
+                    requestId,
+                    principal.getUsername(),
+                    principal.getRoles(),
+                    "BEARER",
+                    true
+            );
+        }
+
         Long tenantId = longHeader(request, HEADER_TENANT_ID, 1L);
         Long shopId = longHeader(request, HEADER_SHOP_ID, 1L);
         Long userId = longHeader(request, HEADER_USER_ID, 1L);
-        String requestId = headerOrDefault(request, HEADER_REQUEST_ID, generateRequestId());
         Optional<UserRoleProfile> userRoleProfile = userRoleService.getUserRoleProfile(tenantId, shopId, userId);
         String username = username(request, userId, userRoleProfile);
         List<String> roles = roles(request.getHeader(HEADER_USER_ROLES), userRoleProfile);
         String authType = authType(request.getHeader(HEADER_AUTHORIZATION));
         return new RequestContext(tenantId, shopId, userId, requestId, username, roles, authType, true);
+    }
+
+    private Optional<String> bearerToken(HttpServletRequest request) {
+        String authorization = request.getHeader(HEADER_AUTHORIZATION);
+        if (authorization == null || authorization.isBlank()) {
+            return Optional.empty();
+        }
+        String trimmed = authorization.trim();
+        if (!trimmed.startsWith("Bearer ")) {
+            return Optional.empty();
+        }
+        String token = trimmed.substring("Bearer ".length()).trim();
+        return token.isBlank() ? Optional.empty() : Optional.of(token);
     }
 
     private Long longHeader(HttpServletRequest request, String name, Long defaultValue) {
