@@ -20,7 +20,9 @@ import org.springframework.http.ResponseEntity;
                 "shopops.persistence=jdbc",
                 "spring.datasource.url=jdbc:mysql://localhost:3306/shopops_agent?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true",
                 "spring.datasource.username=root",
-                "spring.datasource.password=root"
+                "spring.datasource.password=root",
+                "spring.datasource.hikari.initialization-fail-timeout=1",
+                "spring.datasource.hikari.connection-timeout=3000"
         }
 )
 class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationTest {
@@ -180,6 +182,26 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         assertThat(castMap(((List<Map<String, Object>>) retryEventPage.get("list")).get(0).get("eventData")).get("taskNo"))
                 .isEqualTo(taskNo);
 
+        Map<String, Object> elevatedRiskTimeline = dataOf(get("/api/admin/audit/timeline?elevatedRisk=true&pageNum=1&pageSize=20"));
+        assertThat(((Number) elevatedRiskTimeline.get("total")).longValue()).isGreaterThanOrEqualTo(1L);
+        assertThat((List<Map<String, Object>>) elevatedRiskTimeline.get("list"))
+                .extracting(event -> event.get("riskLevel"))
+                .doesNotContain("LOW", "UNKNOWN")
+                .contains("MEDIUM");
+
+        ResponseEntity<String> elevatedRiskCsv = restTemplate.exchange(
+                url("/api/admin/audit/export.csv?elevatedRisk=true"),
+                HttpMethod.GET,
+                new HttpEntity<>(null, adminHeaders()),
+                String.class
+        );
+        assertThat(elevatedRiskCsv.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(elevatedRiskCsv.getBody())
+                .contains("TASK_RETRY_REQUESTED")
+                .contains("MEDIUM")
+                .doesNotContain(",LOW,")
+                .doesNotContain(",UNKNOWN,");
+
         Integer retryTaskId = ((Number) retryData.get("taskId")).intValue();
         Map<String, Object> retryTaskData = dataOf(get("/api/agent/tasks/" + retryTaskId));
         assertThat(retryTaskData.get("status")).isEqualTo("SUCCESS");
@@ -280,5 +302,14 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
                 .findFirst()
                 .map(step -> mapValue(step.get("output")))
                 .orElseThrow();
+    }
+
+    private HttpHeaders adminHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Tenant-Id", "1");
+        headers.set("X-Shop-Id", "1");
+        headers.set("X-User-Id", "1");
+        headers.set("X-User-Roles", "ADMIN");
+        return headers;
     }
 }

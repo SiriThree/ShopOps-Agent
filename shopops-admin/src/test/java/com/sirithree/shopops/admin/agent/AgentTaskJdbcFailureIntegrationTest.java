@@ -16,7 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
                 "shopops.tool.fail-code=order.query_summary",
                 "spring.datasource.url=jdbc:mysql://localhost:3306/shopops_agent?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true",
                 "spring.datasource.username=root",
-                "spring.datasource.password=root"
+                "spring.datasource.password=root",
+                "spring.datasource.hikari.initialization-fail-timeout=1",
+                "spring.datasource.hikari.connection-timeout=3000"
         }
 )
 class AgentTaskJdbcFailureIntegrationTest extends AbstractAgentTaskFlowIntegrationTest {

@@ -24,7 +24,9 @@ import org.springframework.http.ResponseEntity;
                 "shopops.auth.header-dev-mode=false",
                 "spring.datasource.url=jdbc:mysql://localhost:3306/shopops_agent?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true",
                 "spring.datasource.username=root",
-                "spring.datasource.password=root"
+                "spring.datasource.password=root",
+                "spring.datasource.hikari.initialization-fail-timeout=1",
+                "spring.datasource.hikari.connection-timeout=3000"
         }
 )
 class AuthTokenLifecycleJdbcIntegrationTest {
