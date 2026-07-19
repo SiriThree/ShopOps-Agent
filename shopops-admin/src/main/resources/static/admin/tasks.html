@@ -30,7 +30,7 @@
       letter-spacing: 0;
     }
 
-    button, input, select { font: inherit; }
+    button, input, select, textarea { font: inherit; }
 
     button {
       min-height: 34px;
@@ -47,14 +47,24 @@
       color: #ffffff;
     }
 
-    input, select {
+    input, select, textarea {
       width: 100%;
-      min-height: 34px;
       border: 1px solid var(--line);
       border-radius: 6px;
-      padding: 6px 9px;
       background: #ffffff;
       color: var(--ink);
+    }
+
+    input, select {
+      min-height: 34px;
+      padding: 6px 9px;
+    }
+
+    textarea {
+      min-height: 82px;
+      padding: 9px;
+      resize: vertical;
+      line-height: 1.45;
     }
 
     label {
@@ -253,6 +263,7 @@
 
     tbody tr { cursor: pointer; }
     tbody tr:hover { background: #f8fbfa; }
+    tbody tr.selected { background: #eef6f4; }
 
     .summary-cell {
       max-width: 260px;
@@ -313,6 +324,24 @@
       gap: 8px;
     }
 
+    .form-grid {
+      display: grid;
+      gap: 9px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .event-line {
       display: grid;
       grid-template-columns: 84px minmax(0, 1fr) 76px;
@@ -368,7 +397,7 @@
         padding-right: 14px;
       }
 
-      .context-grid, .filters, .metrics {
+      .context-grid, .filters, .metrics, .form-row {
         grid-template-columns: 1fr 1fr;
       }
 
@@ -539,8 +568,37 @@
         <aside class="side">
           <section class="panel">
             <div class="panel-title">
+              <h2>Create Task</h2>
+              <button id="resetCreate" type="button">Reset</button>
+            </div>
+            <form class="form-grid" id="createForm" autocomplete="off">
+              <label>Type
+                <input id="createTaskType" value="daily_review" required>
+              </label>
+              <div class="form-row">
+                <label>Start
+                  <input id="startDate" type="date" required>
+                </label>
+                <label>End
+                  <input id="endDate" type="date" required>
+                </label>
+              </div>
+              <label>User Input
+                <textarea id="userInput" required>Generate a daily operating review for the selected date range.</textarea>
+              </label>
+              <div class="button-row">
+                <button id="requeueStale" type="button">Requeue Stale</button>
+                <button class="primary" type="submit">Create</button>
+              </div>
+            </form>
+          </section>
+          <section class="panel">
+            <div class="panel-title">
               <h2>Task Detail</h2>
-              <button id="clearDetail" type="button">Clear</button>
+              <div class="button-row">
+                <button id="retryTask" type="button">Retry</button>
+                <button id="clearDetail" type="button">Clear</button>
+              </div>
             </div>
             <pre class="detail-box" id="detailBox">Select a task row</pre>
           </section>
@@ -557,7 +615,7 @@
   </div>
 
   <script>
-    const state = { pageNum: 1, pageSize: 20, total: 0 };
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedTaskId: "" };
     const $ = (id) => document.getElementById(id);
 
     function headers() {
@@ -569,8 +627,8 @@
       };
     }
 
-    async function api(path) {
-      const response = await fetch(path, { headers: headers() });
+    async function api(path, options = {}) {
+      const response = await fetch(path, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
@@ -625,7 +683,7 @@
       const data = await api(`/api/admin/agent/tasks?${filters().toString()}`);
       state.total = number(data.total);
       $("taskBody").innerHTML = (data.list || []).map((task) => `
-        <tr data-task-id="${escapeAttr(task.taskId)}">
+        <tr data-task-id="${escapeAttr(task.taskId)}" class="${String(task.taskId) === String(state.selectedTaskId) ? "selected" : ""}">
           <td>${escapeHtml(task.taskNo || task.taskId || "")}</td>
           <td>${escapeHtml(task.taskType || "")}</td>
           <td><span class="badge ${statusClass(task.status)}">${escapeHtml(task.status || "")}</span></td>
@@ -656,13 +714,85 @@
       if (!taskId) {
         return;
       }
+      state.selectedTaskId = taskId;
       $("detailBox").textContent = "Loading...";
       try {
         const data = await api(`/api/admin/agent/tasks/${encodeURIComponent(taskId)}/detail`);
         $("detailBox").textContent = JSON.stringify(data, null, 2);
+        markSelectedTask();
       } catch (error) {
         $("detailBox").textContent = error.message;
       }
+    }
+
+    async function createTask(event) {
+      event.preventDefault();
+      setStatus("Creating task");
+      try {
+        const payload = {
+          taskType: $("createTaskType").value.trim(),
+          userInput: $("userInput").value.trim(),
+          dateRange: {
+            start: $("startDate").value,
+            end: $("endDate").value
+          }
+        };
+        const data = await api("/api/agent/tasks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        state.pageNum = 1;
+        state.selectedTaskId = data.taskId;
+        await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
+        await loadDetail(data.taskId);
+        setStatus(`Created ${data.taskNo || data.taskId}`);
+      } catch (error) {
+        setStatus(error.message);
+      }
+    }
+
+    async function retrySelectedTask() {
+      if (!state.selectedTaskId) {
+        setStatus("Select a task first");
+        return;
+      }
+      setStatus("Retrying task");
+      try {
+        const data = await api(`/api/agent/tasks/${encodeURIComponent(state.selectedTaskId)}/retry`, { method: "POST" });
+        state.pageNum = 1;
+        state.selectedTaskId = data.taskId;
+        await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
+        await loadDetail(data.taskId);
+        setStatus(`Retry created ${data.taskNo || data.taskId}`);
+      } catch (error) {
+        setStatus(error.message);
+      }
+    }
+
+    async function requeueStaleTasks() {
+      setStatus("Requeueing stale tasks");
+      try {
+        const data = await api("/api/agent/tasks/stale/requeue?queuedTimeoutMinutes=10&runningTimeoutMinutes=30&limit=20", { method: "POST" });
+        await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
+        $("detailBox").textContent = JSON.stringify(data, null, 2);
+        setStatus(`Requeued ${data.requeuedCount || 0} stale tasks`);
+      } catch (error) {
+        setStatus(error.message);
+      }
+    }
+
+    function resetCreateForm() {
+      $("createTaskType").value = "daily_review";
+      $("userInput").value = "Generate a daily operating review for the selected date range.";
+      setDefaultDates();
+    }
+
+    function setDefaultDates() {
+      const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000);
+      const value = yesterday.toISOString().slice(0, 10);
+      $("startDate").value = value;
+      $("endDate").value = value;
     }
 
     function applyQuickFilter(name) {
@@ -694,6 +824,12 @@
       $("userId").value = "1";
       $("roles").value = "ADMIN";
       refreshAll();
+    }
+
+    function markSelectedTask() {
+      document.querySelectorAll("tr[data-task-id]").forEach((row) => {
+        row.classList.toggle("selected", String(row.dataset.taskId) === String(state.selectedTaskId));
+      });
     }
 
     function metric(label, value) {
@@ -752,9 +888,15 @@
     });
 
     $("resetFilters").addEventListener("click", resetFilters);
+    $("createForm").addEventListener("submit", createTask);
+    $("resetCreate").addEventListener("click", resetCreateForm);
+    $("retryTask").addEventListener("click", retrySelectedTask);
+    $("requeueStale").addEventListener("click", requeueStaleTasks);
     $("refreshEvents").addEventListener("click", loadEvents);
     $("clearDetail").addEventListener("click", () => {
+      state.selectedTaskId = "";
       $("detailBox").textContent = "Select a task row";
+      markSelectedTask();
     });
 
     document.querySelector(".quick-actions").addEventListener("click", (event) => {
@@ -789,6 +931,7 @@
       }
     });
 
+    resetCreateForm();
     refreshAll();
   </script>
 </body>
