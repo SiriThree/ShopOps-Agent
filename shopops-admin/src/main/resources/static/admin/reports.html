@@ -317,6 +317,13 @@
       font-size: 15px;
     }
 
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .link-row {
       display: flex;
       gap: 8px;
@@ -587,14 +594,20 @@
           <section class="panel">
             <div class="panel-title">
               <h2>Report Preview</h2>
-              <button id="clearPreview" type="button">Clear</button>
+              <div class="button-row">
+                <button id="copyReport" type="button">Copy</button>
+                <button id="clearPreview" type="button">Clear</button>
+              </div>
             </div>
             <div class="markdown-box" id="markdownBox">Select a report row</div>
           </section>
           <section class="panel">
             <div class="panel-title">
               <h2>Evidence</h2>
-              <button id="copyTrace" type="button">Trace</button>
+              <div class="button-row">
+                <button id="copyEvidence" type="button">Copy</button>
+                <button id="copyTrace" type="button">Trace</button>
+              </div>
             </div>
             <div class="summary-box" id="evidenceSummary"></div>
             <pre class="detail-box" id="evidenceBox">Select a report row</pre>
@@ -900,6 +913,37 @@
       $("statusLine").textContent = message;
     }
 
+    async function copyText(text, label) {
+      const value = String(text || "").trim();
+      if (!value || value === "Select a report row" || value === "Loading...") {
+        setStatus(`Nothing to copy from ${label}`);
+        return;
+      }
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          fallbackCopy(value);
+        }
+        setStatus(`${label} copied`);
+      } catch (error) {
+        fallbackCopy(value);
+        setStatus(`${label} copied`);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
     function emptyRow(colspan, title, message) {
       return `
         <tr>
@@ -960,6 +1004,8 @@
     });
 
     $("resetFilters").addEventListener("click", resetFilters);
+    $("copyReport").addEventListener("click", () => copyText($("markdownBox").textContent, "Report preview"));
+    $("copyEvidence").addEventListener("click", () => copyText($("evidenceBox").textContent, "Evidence"));
 
     $("clearPreview").addEventListener("click", () => {
       $("markdownBox").textContent = "Select a report row";

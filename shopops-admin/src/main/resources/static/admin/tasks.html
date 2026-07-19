@@ -645,6 +645,7 @@
             <div class="panel-title">
               <h2>Task Detail</h2>
               <div class="button-row">
+                <button id="copyDetail" type="button">Copy</button>
                 <button id="retryTask" type="button">Retry</button>
                 <button id="clearDetail" type="button">Clear</button>
               </div>
@@ -997,6 +998,37 @@
       $("statusLine").textContent = message;
     }
 
+    async function copyText(text, label) {
+      const value = String(text || "").trim();
+      if (!value || value === "Select a task row" || value === "Loading...") {
+        setStatus(`Nothing to copy from ${label}`);
+        return;
+      }
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          fallbackCopy(value);
+        }
+        setStatus(`${label} copied`);
+      } catch (error) {
+        fallbackCopy(value);
+        setStatus(`${label} copied`);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
     function emptyRow(colspan, title, message) {
       return `
         <tr>
@@ -1063,6 +1095,7 @@
     $("resetFilters").addEventListener("click", resetFilters);
     $("createForm").addEventListener("submit", createTask);
     $("resetCreate").addEventListener("click", resetCreateForm);
+    $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Task detail"));
     $("retryTask").addEventListener("click", retrySelectedTask);
     $("requeueStale").addEventListener("click", requeueStaleTasks);
     $("refreshEvents").addEventListener("click", loadEvents);

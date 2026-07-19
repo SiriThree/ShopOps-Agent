@@ -241,6 +241,13 @@
       font-size: 15px;
     }
 
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .link-row {
       display: flex;
       gap: 8px;
@@ -604,7 +611,10 @@
           <section class="panel">
             <div class="panel-title">
               <h2>Tool Detail</h2>
-              <button id="clearDetail" type="button">Clear</button>
+              <div class="button-row">
+                <button id="copyToolDetail" type="button">Copy</button>
+                <button id="clearDetail" type="button">Clear</button>
+              </div>
             </div>
             <div class="summary-box" id="toolSummary"></div>
             <pre class="detail-box" id="detailBox">Select a tool row</pre>
@@ -613,7 +623,10 @@
           <section class="panel">
             <div class="panel-title">
               <h2>Manual Invoke</h2>
-              <button id="useSelectedTool" type="button">Use Selected</button>
+              <div class="button-row">
+                <button id="copyInvokeResult" type="button">Copy Result</button>
+                <button id="useSelectedTool" type="button">Use Selected</button>
+              </div>
             </div>
             <form id="invokeForm" autocomplete="off">
               <label>Tool Code
@@ -635,7 +648,10 @@
           <section class="panel">
             <div class="panel-title">
               <h2>Log Payload</h2>
-              <button id="clearLogPayload" type="button">Clear</button>
+              <div class="button-row">
+                <button id="copyLogPayload" type="button">Copy</button>
+                <button id="clearLogPayload" type="button">Clear</button>
+              </div>
             </div>
             <div class="summary-box" id="logSummary"></div>
             <pre class="detail-box" id="logPayloadBox">Select a call log row</pre>
@@ -952,6 +968,37 @@
       $("statusLine").textContent = message;
     }
 
+    async function copyText(text, label) {
+      const value = String(text || "").trim();
+      if (!value || value === "Select a tool row" || value === "Select a call log row" || value === "No invocation yet" || value === "Loading..." || value === "Running...") {
+        setStatus(`Nothing to copy from ${label}`);
+        return;
+      }
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          fallbackCopy(value);
+        }
+        setStatus(`${label} copied`);
+      } catch (error) {
+        fallbackCopy(value);
+        setStatus(`${label} copied`);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
     function emptyRow(colspan, title, message) {
       return `
         <tr>
@@ -1033,6 +1080,9 @@
     });
     $("resetFilters").addEventListener("click", resetFilters);
     $("invokeForm").addEventListener("submit", invokeTool);
+    $("copyToolDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Tool detail"));
+    $("copyInvokeResult").addEventListener("click", () => copyText($("invokeResult").textContent, "Invoke result"));
+    $("copyLogPayload").addEventListener("click", () => copyText($("logPayloadBox").textContent, "Log payload"));
 
     $("clearDetail").addEventListener("click", () => {
       state.selectedToolCode = "";

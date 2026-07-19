@@ -207,6 +207,13 @@
       font-size: 15px;
     }
 
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .risk-bars { display: grid; gap: 9px; }
 
     .risk-bar {
@@ -683,7 +690,10 @@
           <section class="panel">
             <div class="panel-title">
               <h2>事件详情</h2>
-              <button id="clearDetail" class="icon" type="button" title="清空详情" aria-label="清空详情">×</button>
+              <div class="button-row">
+                <button id="copyDetail" type="button">Copy</button>
+                <button id="clearDetail" class="icon" type="button" title="清空详情" aria-label="清空详情">×</button>
+              </div>
             </div>
             <div class="summary-box" id="eventSummary"></div>
             <pre class="detail-box" id="detailBox">选择一条时间线事件</pre>
@@ -953,6 +963,37 @@
       $("statusLine").textContent = message;
     }
 
+    async function copyText(text, label) {
+      const value = String(text || "").trim();
+      if (!value || value === "选择一条时间线事件" || value === "加载中...") {
+        setStatus(`Nothing to copy from ${label}`);
+        return;
+      }
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          fallbackCopy(value);
+        }
+        setStatus(`${label} copied`);
+      } catch (error) {
+        fallbackCopy(value);
+        setStatus(`${label} copied`);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
     function applyStoredSession() {
       const session = authSession();
       if (session.user) {
@@ -1104,6 +1145,7 @@
       renderSessionLine();
       refreshAll();
     });
+    $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Audit detail"));
     $("clearDetail").addEventListener("click", () => {
       $("eventSummary").innerHTML = "";
       $("detailBox").textContent = "选择一条时间线事件";

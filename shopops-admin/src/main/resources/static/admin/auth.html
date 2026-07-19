@@ -523,7 +523,10 @@
           <section class="panel">
             <div class="panel-title">
               <h2>Current User</h2>
-              <button id="maskToken" type="button">Reveal</button>
+              <div class="button-row">
+                <button id="copyUser" type="button">Copy</button>
+                <button id="maskToken" type="button">Reveal</button>
+              </div>
             </div>
             <pre class="detail-box" id="userBox">No session loaded</pre>
           </section>
@@ -543,7 +546,10 @@
         <section class="panel">
           <div class="panel-title">
             <h2>Auth Audit Events</h2>
-            <button id="refreshEvents" type="button">Refresh</button>
+            <div class="button-row">
+              <button id="copyEventDetail" type="button">Copy Detail</button>
+              <button id="refreshEvents" type="button">Refresh</button>
+            </div>
           </div>
           <div class="table-wrap">
             <table>
@@ -857,6 +863,37 @@
       $("statusLine").textContent = message;
     }
 
+    async function copyText(text, label) {
+      const value = String(text || "").trim();
+      if (!value || value === "No session loaded" || value === "Select an auth event row" || value === "Loading...") {
+        setStatus(`Nothing to copy from ${label}`);
+        return;
+      }
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          fallbackCopy(value);
+        }
+        setStatus(`${label} copied`);
+      } catch (error) {
+        fallbackCopy(value);
+        setStatus(`${label} copied`);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
     function emptyRow(colspan, title, message) {
       return `
         <tr>
@@ -918,6 +955,8 @@
     $("logout").addEventListener("click", logout);
     $("applyToken").addEventListener("click", applyToken);
     $("clearToken").addEventListener("click", () => clearStoredSession(true));
+    $("copyUser").addEventListener("click", () => copyText($("userBox").textContent, "Current user"));
+    $("copyEventDetail").addEventListener("click", () => copyText($("eventDetailBox").textContent, "Auth event detail"));
     $("copyTokenToHeader").addEventListener("click", () => {
       $("storedToken").value = state.token;
       setStatus("Token copied to field");
