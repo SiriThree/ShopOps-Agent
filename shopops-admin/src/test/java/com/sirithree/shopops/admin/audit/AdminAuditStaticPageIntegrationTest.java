@@ -56,6 +56,8 @@ class AdminAuditStaticPageIntegrationTest {
                 .contains("empty-state")
                 .contains("data-retry-list")
                 .contains("errorRow")
+                .contains("withBusy")
+                .contains("Downloading")
                 .contains("id=\"copyDetail\"")
                 .contains("copyText")
                 .contains("navigator.clipboard")

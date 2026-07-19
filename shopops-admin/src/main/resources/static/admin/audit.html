@@ -963,6 +963,21 @@
       $("statusLine").textContent = message;
     }
 
+    async function withBusy(button, busyText, action) {
+      if (button.disabled) {
+        return;
+      }
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    }
+
     async function copyText(text, label) {
       const value = String(text || "").trim();
       if (!value || value === "选择一条时间线事件" || value === "加载中...") {
@@ -1127,7 +1142,7 @@
     });
 
     $("refreshRisk").addEventListener("click", loadRisk);
-    $("exportBtn").addEventListener("click", loadExport);
+    $("exportBtn").addEventListener("click", () => withBusy($("exportBtn"), "Downloading", loadExport));
     document.querySelector(".quick-actions").addEventListener("click", (event) => {
       const button = event.target.closest("button[data-quick-filter]");
       if (button) {

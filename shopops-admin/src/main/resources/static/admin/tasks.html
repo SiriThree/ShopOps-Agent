@@ -637,7 +637,7 @@
               </label>
               <div class="button-row">
                 <button id="requeueStale" type="button">Requeue Stale</button>
-                <button class="primary" type="submit">Create</button>
+                <button id="createTaskSubmit" class="primary" type="submit">Create</button>
               </div>
             </form>
           </section>
@@ -998,6 +998,21 @@
       $("statusLine").textContent = message;
     }
 
+    async function withBusy(button, busyText, action) {
+      if (button.disabled) {
+        return;
+      }
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    }
+
     async function copyText(text, label) {
       const value = String(text || "").trim();
       if (!value || value === "Select a task row" || value === "Loading...") {
@@ -1093,11 +1108,14 @@
     });
 
     $("resetFilters").addEventListener("click", resetFilters);
-    $("createForm").addEventListener("submit", createTask);
+    $("createForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      withBusy($("createTaskSubmit"), "Creating", () => createTask(event));
+    });
     $("resetCreate").addEventListener("click", resetCreateForm);
     $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Task detail"));
-    $("retryTask").addEventListener("click", retrySelectedTask);
-    $("requeueStale").addEventListener("click", requeueStaleTasks);
+    $("retryTask").addEventListener("click", () => withBusy($("retryTask"), "Retrying", retrySelectedTask));
+    $("requeueStale").addEventListener("click", () => withBusy($("requeueStale"), "Requeueing", requeueStaleTasks));
     $("refreshEvents").addEventListener("click", loadEvents);
     $("clearDetail").addEventListener("click", () => {
       state.selectedTaskId = "";

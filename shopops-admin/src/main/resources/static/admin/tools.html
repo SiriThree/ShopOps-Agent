@@ -639,7 +639,7 @@
               </label>
               <div class="invoke-actions">
                 <span class="status-line" id="invokeStatus"></span>
-                <button class="primary" type="submit">Invoke</button>
+                <button id="invokeSubmit" class="primary" type="submit">Invoke</button>
               </div>
             </form>
             <pre class="result-box" id="invokeResult">No invocation yet</pre>
@@ -968,6 +968,21 @@
       $("statusLine").textContent = message;
     }
 
+    async function withBusy(button, busyText, action) {
+      if (button.disabled) {
+        return;
+      }
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    }
+
     async function copyText(text, label) {
       const value = String(text || "").trim();
       if (!value || value === "Select a tool row" || value === "Select a call log row" || value === "No invocation yet" || value === "Loading..." || value === "Running...") {
@@ -1079,7 +1094,10 @@
       loadLogs();
     });
     $("resetFilters").addEventListener("click", resetFilters);
-    $("invokeForm").addEventListener("submit", invokeTool);
+    $("invokeForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      withBusy($("invokeSubmit"), "Invoking", () => invokeTool(event));
+    });
     $("copyToolDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Tool detail"));
     $("copyInvokeResult").addEventListener("click", () => copyText($("invokeResult").textContent, "Invoke result"));
     $("copyLogPayload").addEventListener("click", () => copyText($("logPayloadBox").textContent, "Log payload"));

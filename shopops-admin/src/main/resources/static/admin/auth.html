@@ -515,7 +515,7 @@
               </label>
               <div class="button-row">
                 <button id="logout" type="button">Logout</button>
-                <button class="primary" type="submit">Login</button>
+                <button id="loginSubmit" class="primary" type="submit">Login</button>
               </div>
             </form>
           </section>
@@ -757,7 +757,7 @@
       }
     }
 
-    function applyToken() {
+    async function applyToken() {
       state.token = $("storedToken").value.trim();
       if (state.token) {
         localStorage.setItem(TOKEN_KEY, state.token);
@@ -765,7 +765,7 @@
         localStorage.removeItem(TOKEN_KEY);
       }
       renderToken();
-      loadCurrentUser();
+      await loadCurrentUser();
     }
 
     function clearStoredSession(refresh = true) {
@@ -863,6 +863,21 @@
       $("statusLine").textContent = message;
     }
 
+    async function withBusy(button, busyText, action) {
+      if (button.disabled) {
+        return;
+      }
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    }
+
     async function copyText(text, label) {
       const value = String(text || "").trim();
       if (!value || value === "No session loaded" || value === "Select an auth event row" || value === "Loading...") {
@@ -950,10 +965,13 @@
       return escapeHtml(value || "");
     }
 
-    $("loginForm").addEventListener("submit", login);
-    $("loadMe").addEventListener("click", loadCurrentUser);
-    $("logout").addEventListener("click", logout);
-    $("applyToken").addEventListener("click", applyToken);
+    $("loginForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      withBusy($("loginSubmit"), "Logging in", () => login(event));
+    });
+    $("loadMe").addEventListener("click", () => withBusy($("loadMe"), "Loading", loadCurrentUser));
+    $("logout").addEventListener("click", () => withBusy($("logout"), "Logging out", logout));
+    $("applyToken").addEventListener("click", () => withBusy($("applyToken"), "Applying", applyToken));
     $("clearToken").addEventListener("click", () => clearStoredSession(true));
     $("copyUser").addEventListener("click", () => copyText($("userBox").textContent, "Current user"));
     $("copyEventDetail").addEventListener("click", () => copyText($("eventDetailBox").textContent, "Auth event detail"));
