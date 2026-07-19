@@ -153,6 +153,19 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .contains("TOOL,TOOL_CALL,SUCCESS")
                 .contains("tool_call_log");
 
+        ResponseEntity<String> elevatedRiskCsv = restTemplate.exchange(
+                url("/api/admin/audit/export.csv?elevatedRisk=true"),
+                HttpMethod.GET,
+                new HttpEntity<>(null, adminHeaders()),
+                String.class
+        );
+        assertThat(elevatedRiskCsv.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(elevatedRiskCsv.getBody())
+                .contains("TASK_RETRY_REQUESTED")
+                .contains("MEDIUM")
+                .doesNotContain(",LOW,")
+                .doesNotContain(",UNKNOWN,");
+
         Integer retryTaskId = ((Number) retryData.get("taskId")).intValue();
         Map<String, Object> retryTaskData = dataOf(get("/api/agent/tasks/" + retryTaskId));
         assertThat(retryTaskData.get("status")).isEqualTo("SUCCESS");
