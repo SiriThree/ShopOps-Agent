@@ -410,6 +410,58 @@
       }
 
       .filters button, .context-grid button { width: 100%; }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: grid;
+        gap: 8px;
+      }
+
+      tbody tr {
+        display: grid;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+
+      tbody td {
+        display: grid;
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 8px;
+        white-space: normal;
+      }
+
+      tbody td::before {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      tbody td:nth-child(1)::before { content: "Time"; }
+      tbody td:nth-child(2)::before { content: "Source"; }
+      tbody td:nth-child(3)::before { content: "Type"; }
+      tbody td:nth-child(4)::before { content: "Status"; }
+      tbody td:nth-child(5)::before { content: "Risk"; }
+      tbody td:nth-child(6)::before { content: "User"; }
+      tbody td:nth-child(7)::before { content: "Task"; }
+      tbody td:nth-child(8)::before { content: "Trace"; }
+      tbody td:nth-child(9)::before { content: "Summary"; }
+
+      .summary-cell {
+        max-width: none;
+      }
     }
   </style>
 </head>
