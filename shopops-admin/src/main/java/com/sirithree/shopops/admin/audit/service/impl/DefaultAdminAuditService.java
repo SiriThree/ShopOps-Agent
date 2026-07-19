@@ -4,6 +4,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventQueryParam;
 import com.sirithree.shopops.admin.agent.service.AgentTaskAdminService;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditOverviewDto;
+import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineDetailDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineEventDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineQueryParam;
 import com.sirithree.shopops.admin.audit.service.AdminAuditService;
@@ -21,6 +22,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -85,6 +87,19 @@ public class DefaultAdminAuditService implements AdminAuditService {
         return CommonPage.of(pageList, query.safePageNum(), query.safePageSize(), (long) filtered.size());
     }
 
+    @Override
+    public Optional<AdminAuditTimelineDetailDto> getTimelineDetail(Long tenantId, Long shopId, String source, String resourceId) {
+        if (source == null || resourceId == null || resourceId.isBlank()) {
+            return Optional.empty();
+        }
+        return switch (source.toUpperCase()) {
+            case "AUTH" -> authTimelineDetail(tenantId, shopId, resourceId);
+            case "TASK" -> taskTimelineDetail(tenantId, shopId, resourceId);
+            case "TOOL" -> toolTimelineDetail(tenantId, shopId, resourceId);
+            default -> Optional.empty();
+        };
+    }
+
     private long authEventTotal(Long tenantId, Long shopId, String eventStatus) {
         AuthAuditEventQueryParam query = new AuthAuditEventQueryParam();
         query.setEventStatus(eventStatus);
@@ -145,6 +160,20 @@ public class DefaultAdminAuditService implements AdminAuditService {
                 .toList();
     }
 
+    private Optional<AdminAuditTimelineDetailDto> authTimelineDetail(Long tenantId, Long shopId, String resourceId) {
+        Long eventId = parseLong(resourceId);
+        if (eventId == null) {
+            return Optional.empty();
+        }
+        AuthAuditEventQueryParam query = new AuthAuditEventQueryParam();
+        query.setEventId(eventId);
+        query.setPageNum(1);
+        query.setPageSize(1);
+        return authAuditService.listEvents(tenantId, shopId, query).getList().stream()
+                .findFirst()
+                .map(event -> detail(authTimelineEvent(event), Map.of("authAuditEvent", event), Map.of()));
+    }
+
     private List<AdminAuditTimelineEventDto> taskTimelineEvents(Long tenantId, Long shopId, AdminAuditTimelineQueryParam query) {
         AgentTaskEventQueryParam taskQuery = new AgentTaskEventQueryParam();
         taskQuery.setTaskId(query.getTaskId());
@@ -158,6 +187,28 @@ public class DefaultAdminAuditService implements AdminAuditService {
                 .map(this::taskTimelineEvent)
                 .filter(event -> matches(query.getEventStatus(), event.getEventStatus()))
                 .toList();
+    }
+
+    private Optional<AdminAuditTimelineDetailDto> taskTimelineDetail(Long tenantId, Long shopId, String resourceId) {
+        Long taskId = parseLong(resourceId);
+        if (taskId == null) {
+            return Optional.empty();
+        }
+        return agentTaskAdminService.getTaskDetail(tenantId, shopId, taskId)
+                .map(taskDetail -> {
+                    AgentTaskEventDto latestEvent = taskDetail.getEvents().stream()
+                            .max(Comparator.comparing(AgentTaskEventDto::getCreatedAt, Comparator.nullsLast(Comparator.naturalOrder())))
+                            .orElse(null);
+                    AdminAuditTimelineEventDto event = latestEvent == null ? taskResourceEvent(taskId) : taskTimelineEvent(latestEvent);
+                    Map<String, Object> resource = new LinkedHashMap<>();
+                    resource.put("taskDetail", taskDetail);
+                    Map<String, Object> context = new LinkedHashMap<>();
+                    context.put("traceId", taskDetail.getTask().getTraceId());
+                    context.put("reportId", taskDetail.getTask().getReportId());
+                    context.put("toolCallCount", taskDetail.getToolCalls().size());
+                    context.put("spanCount", taskDetail.getSpans().size());
+                    return detail(event, resource, context);
+                });
     }
 
     private List<AdminAuditTimelineEventDto> toolTimelineEvents(Long tenantId, Long shopId, AdminAuditTimelineQueryParam query) {
@@ -176,6 +227,32 @@ public class DefaultAdminAuditService implements AdminAuditService {
                 .filter(event -> query.getCreatedStart() == null || event.getCreatedAt() == null || !event.getCreatedAt().isBefore(query.getCreatedStart()))
                 .filter(event -> query.getCreatedEnd() == null || event.getCreatedAt() == null || !event.getCreatedAt().isAfter(query.getCreatedEnd()))
                 .toList();
+    }
+
+    private Optional<AdminAuditTimelineDetailDto> toolTimelineDetail(Long tenantId, Long shopId, String resourceId) {
+        Long logId = parseLong(resourceId);
+        if (logId == null) {
+            return Optional.empty();
+        }
+        ToolCallLogQueryParam query = new ToolCallLogQueryParam();
+        query.setLogId(logId);
+        query.setPageNum(1);
+        query.setPageSize(1);
+        return toolCallLogService.list(tenantId, shopId, query).getList().stream()
+                .findFirst()
+                .map(log -> {
+                    AdminAuditTimelineEventDto event = toolTimelineEvent(tenantId, log);
+                    Map<String, Object> resource = new LinkedHashMap<>();
+                    resource.put("toolCallLog", log);
+                    Map<String, Object> context = new LinkedHashMap<>();
+                    putIfPresent(context, "tool", mcpToolService.getTool(tenantId, event.getToolCode()));
+                    Long taskId = event.getTaskId();
+                    if (taskId != null) {
+                        agentTaskAdminService.getTaskDetail(tenantId, shopId, taskId)
+                                .ifPresent(taskDetail -> context.put("taskDetail", taskDetail));
+                    }
+                    return detail(event, resource, context);
+                });
     }
 
     private AdminAuditTimelineEventDto authTimelineEvent(AuthAuditEventDto source) {
@@ -250,6 +327,30 @@ public class DefaultAdminAuditService implements AdminAuditService {
         return event;
     }
 
+    private AdminAuditTimelineEventDto taskResourceEvent(Long taskId) {
+        AdminAuditTimelineEventDto event = new AdminAuditTimelineEventDto();
+        event.setSource("TASK");
+        event.setEventId("task:" + taskId);
+        event.setEventType("TASK_DETAIL");
+        event.setEventStatus("SUCCESS");
+        event.setTaskId(taskId);
+        event.setResourceType("agent_task");
+        event.setResourceId(String.valueOf(taskId));
+        event.setRiskLevel("LOW");
+        event.setSummary("TASK_DETAIL");
+        return event;
+    }
+
+    private AdminAuditTimelineDetailDto detail(AdminAuditTimelineEventDto event,
+                                               Map<String, Object> resource,
+                                               Map<String, Object> context) {
+        AdminAuditTimelineDetailDto detail = new AdminAuditTimelineDetailDto();
+        detail.setEvent(event);
+        detail.setResource(resource);
+        detail.setContext(context);
+        return detail;
+    }
+
     private boolean includesSource(AdminAuditTimelineQueryParam query, String source) {
         return query.getSource() == null || query.getSource().isBlank() || source.equalsIgnoreCase(query.getSource());
     }
@@ -313,6 +414,14 @@ public class DefaultAdminAuditService implements AdminAuditService {
             return null;
         }
         return Long.valueOf(value.toString());
+    }
+
+    private Long parseLong(String value) {
+        try {
+            return Long.valueOf(value);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
     }
 
     private String stringValue(Object value) {

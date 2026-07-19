@@ -47,6 +47,7 @@ public class InMemoryAuthAuditService implements AuthAuditService {
         List<AuthAuditEventDto> filtered = events.stream()
                 .filter(event -> tenantId.equals(event.getTenantId()))
                 .filter(event -> shopId.equals(event.getShopId()))
+                .filter(event -> query.getEventId() == null || query.getEventId().equals(event.getEventId()))
                 .filter(event -> matches(query.getEventType(), event.getEventType()))
                 .filter(event -> matches(query.getEventStatus(), event.getEventStatus()))
                 .filter(event -> query.getUserId() == null || query.getUserId().equals(event.getUserId()))

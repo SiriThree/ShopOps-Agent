@@ -72,6 +72,7 @@ public class JdbcToolCallLogService implements ToolCallLogService {
         List<Map<String, Object>> list = toolCallLogMapper.listByPage(
                         tenantId,
                         shopId,
+                        query.getLogId(),
                         query.getTaskId(),
                         query.getStatus(),
                         query.getToolCode(),
@@ -83,6 +84,7 @@ public class JdbcToolCallLogService implements ToolCallLogService {
         Long total = toolCallLogMapper.countByPage(
                 tenantId,
                 shopId,
+                query.getLogId(),
                 query.getTaskId(),
                 query.getStatus(),
                 query.getToolCode()

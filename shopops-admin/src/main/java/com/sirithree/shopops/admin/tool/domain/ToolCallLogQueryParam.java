@@ -1,11 +1,20 @@
 package com.sirithree.shopops.admin.tool.domain;
 
 public class ToolCallLogQueryParam {
+    private Long logId;
     private Long taskId;
     private String status;
     private String toolCode;
     private Integer pageNum = 1;
     private Integer pageSize = 20;
+
+    public Long getLogId() {
+        return logId;
+    }
+
+    public void setLogId(Long logId) {
+        this.logId = logId;
+    }
 
     public Long getTaskId() {
         return taskId;

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class AuthAuditEventQueryParam {
+    private Long eventId;
     private String eventType;
     private String eventStatus;
     private Long userId;
@@ -16,6 +17,8 @@ public class AuthAuditEventQueryParam {
     private Integer pageNum = 1;
     private Integer pageSize = 10;
 
+    public Long getEventId() { return eventId; }
+    public void setEventId(Long eventId) { this.eventId = eventId; }
     public String getEventType() { return eventType; }
     public void setEventType(String eventType) { this.eventType = eventType; }
     public String getEventStatus() { return eventStatus; }

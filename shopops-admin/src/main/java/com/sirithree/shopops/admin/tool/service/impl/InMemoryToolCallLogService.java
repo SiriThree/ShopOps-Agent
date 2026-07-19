@@ -63,6 +63,7 @@ public class InMemoryToolCallLogService implements ToolCallLogService {
         ToolCallLogQueryParam query = param == null ? new ToolCallLogQueryParam() : param;
         List<Map<String, Object>> filtered = logs.values().stream()
                 .filter(log -> tenantId.equals(log.get("tenantId")) && shopId.equals(log.get("shopId")))
+                .filter(log -> query.getLogId() == null || query.getLogId().equals(log.get("id")))
                 .filter(log -> query.getTaskId() == null || query.getTaskId().equals(log.get("taskId")))
                 .filter(log -> query.getStatus() == null || query.getStatus().isBlank() || query.getStatus().equals(log.get("status")))
                 .filter(log -> query.getToolCode() == null || query.getToolCode().isBlank() || query.getToolCode().equals(log.get("toolCode")))

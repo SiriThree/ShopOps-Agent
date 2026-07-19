@@ -28,6 +28,9 @@ public interface AuthAuditEventMapper {
             FROM auth_audit_event
             WHERE tenant_id = #{tenantId}
               AND shop_id = #{shopId}
+              <if test="param.eventId != null">
+                AND id = #{param.eventId}
+              </if>
               <if test="param.eventType != null and param.eventType != ''">
                 AND event_type = #{param.eventType}
               </if>
@@ -65,6 +68,9 @@ public interface AuthAuditEventMapper {
             FROM auth_audit_event
             WHERE tenant_id = #{tenantId}
               AND shop_id = #{shopId}
+              <if test="param.eventId != null">
+                AND id = #{param.eventId}
+              </if>
               <if test="param.eventType != null and param.eventType != ''">
                 AND event_type = #{param.eventType}
               </if>

@@ -8,6 +8,7 @@ P4 当前覆盖：
 
 - 管理端审计总览：`GET /api/admin/audit/overview`
 - 管理端统一审计时间线：`GET /api/admin/audit/timeline`
+- 管理端审计事件详情：`GET /api/admin/audit/timeline/{source}/{resourceId}`
 - 统一聚合来源：
   - `AUTH`：认证与授权审计事件
   - `TASK`：Agent 任务生命周期事件
@@ -138,7 +139,35 @@ GET /api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=20
 | TASK | agent_task | task ID | 根据任务事件类型推导 |
 | TOOL | tool_call_log | tool call log ID | 优先来自日志，其次来自工具注册表 |
 
-## 5. PowerShell 验收示例
+## 5. 审计事件详情接口
+
+```http
+GET /api/admin/audit/timeline/{source}/{resourceId}
+```
+
+路径参数：
+
+```text
+source: AUTH / TASK / TOOL
+resourceId: 时间线事件返回的 resourceId
+```
+
+返回结构：
+
+```text
+event
+resource
+context
+```
+
+预期：
+
+- `AUTH` 详情返回认证审计事件原始数据。
+- `TASK` 详情返回任务详情聚合数据，包括 task、steps、events、report、spans、toolCalls。
+- `TOOL` 详情返回工具调用日志，并在 context 中补充工具元数据和关联任务详情。
+- 未找到事件时返回业务失败结果。
+
+## 6. PowerShell 验收示例
 
 启动后端后，可使用本地 Header 开发模式直接访问：
 
@@ -164,6 +193,11 @@ Invoke-RestMethod `
   -Method Get `
   -Uri "http://localhost:8080/api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=10" `
   -Headers $headers
+
+Invoke-RestMethod `
+  -Method Get `
+  -Uri "http://localhost:8080/api/admin/audit/timeline/TOOL/{toolCallLogId}" `
+  -Headers $headers
 ```
 
 严格 Bearer 模式下应改用：
@@ -174,7 +208,7 @@ $headers = @{
 }
 ```
 
-## 6. 自动化验收命令
+## 7. 自动化验收命令
 
 常规测试：
 
@@ -191,24 +225,25 @@ mvn -pl shopops-admin -am test
 - 工具时间线支持 `eventStatus=SUCCESS`。
 - 工具时间线支持 `riskLevel=low`。
 - 时间线事件包含 `resourceType` 与 `riskLevel`。
+- 审计详情接口支持 `TASK` 与 `TOOL` 资源下钻。
 
-## 7. P4 当前结论
+## 8. P4 当前结论
 
 P4 已经从分散的审计接口推进到统一审计中心入口：
 
 - 总览接口可支撑审计中心首页。
 - 时间线接口可支撑审计列表页。
+- 详情接口可支撑审计事件下钻页。
 - 事件来源、资源定位、风险等级已经标准化。
 - 当前实现复用已有服务，不新增数据库结构，适合作为低风险增量。
 
-## 8. 下一阶段建议
+## 9. 下一阶段建议
 
 后续可以继续扩展：
 
 ```text
-1. 增加审计事件详情接口：GET /api/admin/audit/timeline/{source}/{resourceId}
-2. 增加高风险操作聚合视图
-3. 增加导出型查询 DTO
-4. 增加 JDBC 模式下更大分页的数据库侧 union 查询
-5. 前端管理台对接审计中心页面
+1. 增加高风险操作聚合视图
+2. 增加导出型查询 DTO
+3. 增加 JDBC 模式下更大分页的数据库侧 union 查询
+4. 前端管理台对接审计中心页面
 ```

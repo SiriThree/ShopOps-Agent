@@ -42,6 +42,9 @@ public interface ToolCallLogMapper {
             FROM tool_call_log
             WHERE tenant_id = #{tenantId}
               AND shop_id = #{shopId}
+              <if test="logId != null">
+                AND id = #{logId}
+              </if>
               <if test="taskId != null">
                 AND task_id = #{taskId}
               </if>
@@ -57,6 +60,7 @@ public interface ToolCallLogMapper {
             """)
     List<ToolCallLog> listByPage(@Param("tenantId") Long tenantId,
                                  @Param("shopId") Long shopId,
+                                 @Param("logId") Long logId,
                                  @Param("taskId") Long taskId,
                                  @Param("status") String status,
                                  @Param("toolCode") String toolCode,
@@ -69,6 +73,9 @@ public interface ToolCallLogMapper {
             FROM tool_call_log
             WHERE tenant_id = #{tenantId}
               AND shop_id = #{shopId}
+              <if test="logId != null">
+                AND id = #{logId}
+              </if>
               <if test="taskId != null">
                 AND task_id = #{taskId}
               </if>
@@ -82,6 +89,7 @@ public interface ToolCallLogMapper {
             """)
     Long countByPage(@Param("tenantId") Long tenantId,
                      @Param("shopId") Long shopId,
+                     @Param("logId") Long logId,
                      @Param("taskId") Long taskId,
                      @Param("status") String status,
                      @Param("toolCode") String toolCode);

@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.audit.controller;
 
 import com.sirithree.shopops.admin.audit.domain.AdminAuditOverviewDto;
+import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineDetailDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineEventDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineQueryParam;
 import com.sirithree.shopops.admin.audit.service.AdminAuditService;
@@ -11,6 +12,7 @@ import com.sirithree.shopops.admin.common.context.RequestContextHolder;
 import com.sirithree.shopops.common.api.CommonPage;
 import com.sirithree.shopops.common.api.CommonResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +36,14 @@ public class AdminAuditController {
     public CommonResult<CommonPage<AdminAuditTimelineEventDto>> listTimeline(AdminAuditTimelineQueryParam param) {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(adminAuditService.listTimeline(context.getTenantId(), context.getShopId(), param));
+    }
+
+    @GetMapping("/timeline/{source}/{resourceId}")
+    public CommonResult<AdminAuditTimelineDetailDto> getTimelineDetail(@PathVariable String source,
+                                                                       @PathVariable String resourceId) {
+        RequestContext context = RequestContextHolder.current();
+        return adminAuditService.getTimelineDetail(context.getTenantId(), context.getShopId(), source, resourceId)
+                .map(CommonResult::success)
+                .orElseGet(() -> CommonResult.failed("Audit event not found"));
     }
 }

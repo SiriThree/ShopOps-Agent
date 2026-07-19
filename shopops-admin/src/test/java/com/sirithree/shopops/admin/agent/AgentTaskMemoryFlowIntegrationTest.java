@@ -83,6 +83,21 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .extracting(event -> event.get("riskLevel"))
                 .containsOnly("low");
 
+        List<Map<String, Object>> toolAuditEvents = (List<Map<String, Object>>) toolAuditTimeline.get("list");
+        String toolAuditResourceId = toolAuditEvents.get(0).get("resourceId").toString();
+        Map<String, Object> toolAuditDetail = dataOf(get("/api/admin/audit/timeline/TOOL/" + toolAuditResourceId));
+        assertThat((Map<String, Object>) toolAuditDetail.get("event"))
+                .containsEntry("source", "TOOL")
+                .containsEntry("resourceType", "tool_call_log");
+        assertThat((Map<String, Object>) toolAuditDetail.get("resource")).containsKey("toolCallLog");
+        assertThat((Map<String, Object>) toolAuditDetail.get("context")).containsKey("taskDetail");
+
+        Map<String, Object> taskAuditDetail = dataOf(get("/api/admin/audit/timeline/TASK/" + taskId));
+        assertThat((Map<String, Object>) taskAuditDetail.get("event"))
+                .containsEntry("source", "TASK")
+                .containsEntry("resourceType", "agent_task");
+        assertThat((Map<String, Object>) taskAuditDetail.get("resource")).containsKey("taskDetail");
+
         List<Map<String, Object>> events = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/events"));
         assertThat(events).extracting(event -> event.get("eventType"))
                 .containsExactly("TASK_CREATED", "TASK_STARTED", "TASK_FINISHED");
