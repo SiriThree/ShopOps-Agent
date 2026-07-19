@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShopOps Agent Tasks</title>
+  <title>ShopOps Reports</title>
   <style>
     :root {
       color-scheme: light;
@@ -143,7 +143,7 @@
 
     .metrics {
       display: grid;
-      grid-template-columns: repeat(5, minmax(130px, 1fr));
+      grid-template-columns: repeat(4, minmax(130px, 1fr));
       gap: 10px;
     }
 
@@ -188,32 +188,12 @@
       min-width: 0;
       padding: 0 24px 24px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 380px;
+      grid-template-columns: minmax(0, 1fr) 420px;
       gap: 14px;
       align-items: start;
     }
 
-    .panel {
-      min-width: 0;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-    }
-
-    .panel-title {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .panel-title h2 {
-      margin: 0;
-      color: var(--ink);
-      font-size: 15px;
-    }
+    .reports-column { min-width: 0; }
 
     .table-wrap {
       width: 100%;
@@ -224,11 +204,9 @@
       background: var(--panel);
     }
 
-    .tasks-column { min-width: 0; }
-
     table {
       width: 100%;
-      min-width: 960px;
+      min-width: 920px;
       border-collapse: collapse;
     }
 
@@ -255,7 +233,7 @@
     tbody tr:hover { background: #f8fbfa; }
 
     .summary-cell {
-      max-width: 260px;
+      max-width: 280px;
       white-space: normal;
       overflow-wrap: anywhere;
     }
@@ -282,11 +260,6 @@
       color: var(--red);
     }
 
-    .badge.running, .badge.pending {
-      background: #fff6df;
-      color: var(--amber);
-    }
-
     .side {
       position: sticky;
       top: 14px;
@@ -294,8 +267,30 @@
       gap: 14px;
     }
 
-    .detail-box {
-      max-height: 390px;
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .detail-box, .markdown-box {
+      max-height: 360px;
       overflow: auto;
       border: 1px solid var(--line);
       border-radius: 6px;
@@ -308,30 +303,9 @@
       overflow-wrap: anywhere;
     }
 
-    .event-list {
-      display: grid;
-      gap: 8px;
-    }
-
-    .event-line {
-      display: grid;
-      grid-template-columns: 84px minmax(0, 1fr) 76px;
-      gap: 8px;
-      align-items: center;
-      font-size: 12px;
-      color: var(--muted);
-      border-bottom: 1px solid #eef1f4;
-      padding-bottom: 8px;
-    }
-
-    .event-line:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .event-line strong {
-      color: var(--ink);
-      overflow-wrap: anywhere;
+    .markdown-box {
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.55;
     }
 
     .status-line {
@@ -401,7 +375,7 @@
 
       tbody td {
         display: grid;
-        grid-template-columns: 72px minmax(0, 1fr);
+        grid-template-columns: 74px minmax(0, 1fr);
         gap: 8px;
         white-space: normal;
       }
@@ -412,14 +386,13 @@
         font-weight: 600;
       }
 
-      tbody td:nth-child(1)::before { content: "Task"; }
-      tbody td:nth-child(2)::before { content: "Type"; }
-      tbody td:nth-child(3)::before { content: "Status"; }
-      tbody td:nth-child(4)::before { content: "User"; }
-      tbody td:nth-child(5)::before { content: "Report"; }
+      tbody td:nth-child(1)::before { content: "Report"; }
+      tbody td:nth-child(2)::before { content: "Title"; }
+      tbody td:nth-child(3)::before { content: "Type"; }
+      tbody td:nth-child(4)::before { content: "Status"; }
+      tbody td:nth-child(5)::before { content: "Task"; }
       tbody td:nth-child(6)::before { content: "Trace"; }
       tbody td:nth-child(7)::before { content: "Created"; }
-      tbody td:nth-child(8)::before { content: "Summary"; }
 
       .summary-cell {
         max-width: none;
@@ -436,9 +409,9 @@
       </div>
       <nav class="nav" aria-label="Admin navigation">
         <a href="/admin/dashboard.html">Dashboard</a>
-        <a class="active" href="/admin/tasks.html">Agent Tasks</a>
+        <a href="/admin/tasks.html">Agent Tasks</a>
         <a href="/admin/audit.html">Audit Center</a>
-        <a href="/admin/reports.html">Reports</a>
+        <a class="active" href="/admin/reports.html">Reports</a>
         <a href="#">Tools</a>
       </nav>
     </aside>
@@ -446,8 +419,8 @@
     <main class="main">
       <header class="topbar">
         <div>
-          <h1>Agent Tasks</h1>
-          <div class="subtitle">Operational task queue, execution status, and event stream</div>
+          <h1>Reports</h1>
+          <div class="subtitle">Generated operation reports, evidence, trace links, and task context</div>
         </div>
         <form class="context-grid" id="contextForm">
           <label>Tenant
@@ -473,57 +446,53 @@
           <label>Status
             <select id="status">
               <option value="">All</option>
-              <option value="PENDING">Pending</option>
-              <option value="RUNNING">Running</option>
               <option value="SUCCESS">Success</option>
               <option value="FAILED">Failed</option>
             </select>
           </label>
           <label>Type
-            <input id="taskType" placeholder="daily_review">
+            <input id="reportType" placeholder="daily_review">
           </label>
-          <label>Task No
-            <input id="taskNo">
+          <label>Report No
+            <input id="reportNo">
           </label>
-          <label>User ID
-            <input id="filterUserId" inputmode="numeric">
+          <label>Task ID
+            <input id="taskId" inputmode="numeric">
           </label>
           <label>Trace ID
             <input id="traceId">
           </label>
-          <label>Report ID
-            <input id="reportId" inputmode="numeric">
+          <label>Created By
+            <input id="createdBy" inputmode="numeric">
           </label>
           <button class="primary" type="submit">Search</button>
           <button id="resetFilters" type="button">Reset</button>
         </form>
-        <div class="quick-actions" aria-label="Task quick filters">
+        <div class="quick-actions" aria-label="Report quick filters">
           <span>Quick filters</span>
-          <button type="button" data-quick-filter="running">Running</button>
-          <button type="button" data-quick-filter="failed">Failed</button>
           <button type="button" data-quick-filter="success">Success</button>
+          <button type="button" data-quick-filter="daily">Daily Review</button>
           <button type="button" data-quick-filter="clear">Clear</button>
         </div>
         <div class="status-line" id="statusLine"></div>
       </section>
 
       <section class="content">
-        <div class="tasks-column">
+        <div class="reports-column">
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Task</th>
+                  <th>Report</th>
+                  <th>Title</th>
                   <th>Type</th>
                   <th>Status</th>
-                  <th>User</th>
-                  <th>Report</th>
+                  <th>Task</th>
                   <th>Trace</th>
                   <th>Created</th>
-                  <th>Summary</th>
                 </tr>
               </thead>
-              <tbody id="taskBody"></tbody>
+              <tbody id="reportBody"></tbody>
             </table>
           </div>
           <div class="pager">
@@ -538,17 +507,17 @@
         <aside class="side">
           <section class="panel">
             <div class="panel-title">
-              <h2>Task Detail</h2>
-              <button id="clearDetail" type="button">Clear</button>
+              <h2>Report Preview</h2>
+              <button id="clearPreview" type="button">Clear</button>
             </div>
-            <pre class="detail-box" id="detailBox">Select a task row</pre>
+            <div class="markdown-box" id="markdownBox">Select a report row</div>
           </section>
           <section class="panel">
             <div class="panel-title">
-              <h2>Recent Events</h2>
-              <button id="refreshEvents" type="button">Refresh</button>
+              <h2>Evidence</h2>
+              <button id="copyTrace" type="button">Trace</button>
             </div>
-            <div class="event-list" id="eventList"></div>
+            <pre class="detail-box" id="evidenceBox">Select a report row</pre>
           </section>
         </aside>
       </section>
@@ -585,11 +554,11 @@
       params.set("pageNum", state.pageNum);
       params.set("pageSize", state.pageSize);
       add(params, "status", $("status").value);
-      add(params, "taskType", $("taskType").value);
-      add(params, "taskNo", $("taskNo").value);
-      add(params, "userId", $("filterUserId").value);
+      add(params, "reportType", $("reportType").value);
+      add(params, "reportNo", $("reportNo").value);
+      add(params, "taskId", $("taskId").value);
       add(params, "traceId", $("traceId").value);
-      add(params, "reportId", $("reportId").value);
+      add(params, "createdBy", $("createdBy").value);
       return params;
     }
 
@@ -600,67 +569,68 @@
     }
 
     async function refreshAll() {
-      setStatus("Loading tasks");
+      setStatus("Loading reports");
       try {
-        await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
-        setStatus("Tasks refreshed");
+        await loadReports();
+        setStatus("Reports refreshed");
       } catch (error) {
         setStatus(error.message);
       }
     }
 
-    async function loadMetrics() {
-      const metrics = await api("/api/admin/agent/tasks/metrics");
-      $("metrics").innerHTML = [
-        ["Total", metrics.total],
-        ["Pending", metrics.statusBreakdown?.PENDING],
-        ["Running", metrics.statusBreakdown?.RUNNING],
-        ["Success", metrics.success],
-        ["Failed", metrics.failed]
-      ].map(([label, value]) => metric(label, value)).join("");
-    }
-
-    async function loadTasks() {
-      const data = await api(`/api/admin/agent/tasks?${filters().toString()}`);
+    async function loadReports() {
+      const data = await api(`/api/reports?${filters().toString()}`);
       state.total = number(data.total);
-      $("taskBody").innerHTML = (data.list || []).map((task) => `
-        <tr data-task-id="${escapeAttr(task.taskId)}">
-          <td>${escapeHtml(task.taskNo || task.taskId || "")}</td>
-          <td>${escapeHtml(task.taskType || "")}</td>
-          <td><span class="badge ${statusClass(task.status)}">${escapeHtml(task.status || "")}</span></td>
-          <td>${escapeHtml(task.userId || "")}</td>
-          <td>${escapeHtml(task.reportId || "")}</td>
-          <td>${escapeHtml(task.traceId || "")}</td>
-          <td>${formatTime(task.createdAt)}</td>
-          <td class="summary-cell">${escapeHtml(task.resultSummary || task.errorMessage || task.userInput || "")}</td>
+      const list = data.list || [];
+      renderMetrics(list, state.total);
+      $("reportBody").innerHTML = list.map((report) => `
+        <tr data-report-id="${escapeAttr(report.reportId)}">
+          <td>${escapeHtml(report.reportNo || report.reportId || "")}</td>
+          <td class="summary-cell">${escapeHtml(report.title || "")}</td>
+          <td>${escapeHtml(report.reportType || "")}</td>
+          <td><span class="badge ${statusClass(report.status)}">${escapeHtml(report.status || "")}</span></td>
+          <td>${escapeHtml(report.taskId || "")}</td>
+          <td>${escapeHtml(report.traceId || "")}</td>
+          <td>${formatTime(report.createdAt)}</td>
         </tr>
-      `).join("") || `<tr><td colspan="8">No tasks found. <button type="button" data-empty-reset>Clear filters</button></td></tr>`;
+      `).join("") || `<tr><td colspan="7">No reports found. <button type="button" data-empty-reset>Clear filters</button></td></tr>`;
       $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
       $("prevPage").disabled = state.pageNum <= 1;
       $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
     }
 
-    async function loadEvents() {
-      const data = await api("/api/admin/agent/tasks/events?pageNum=1&pageSize=8");
-      $("eventList").innerHTML = (data.list || []).map((event) => `
-        <div class="event-line">
-          <span>${formatTime(event.createdAt)}</span>
-          <strong>${escapeHtml(event.eventType || "")}</strong>
-          <span class="badge ${eventStatusClass(event.eventType)}">${escapeHtml(event.toStatus || event.eventStatus || "")}</span>
-        </div>
-      `).join("") || `<div class="status-line">No recent task events</div>`;
+    function renderMetrics(list, total) {
+      const success = list.filter((report) => report.status === "SUCCESS").length;
+      const failed = list.filter((report) => report.status === "FAILED").length;
+      const daily = list.filter((report) => report.reportType === "daily_review").length;
+      $("metrics").innerHTML = [
+        ["Total", total],
+        ["Current Page", list.length],
+        ["Success", success],
+        ["Daily Review", daily || failed]
+      ].map(([label, value]) => metric(label, value)).join("");
     }
 
-    async function loadDetail(taskId) {
-      if (!taskId) {
+    async function loadDetail(reportId) {
+      if (!reportId) {
         return;
       }
-      $("detailBox").textContent = "Loading...";
+      $("markdownBox").textContent = "Loading...";
+      $("evidenceBox").textContent = "Loading...";
       try {
-        const data = await api(`/api/admin/agent/tasks/${encodeURIComponent(taskId)}/detail`);
-        $("detailBox").textContent = JSON.stringify(data, null, 2);
+        const report = await api(`/api/reports/${encodeURIComponent(reportId)}`);
+        $("markdownBox").textContent = report.markdown || "No markdown";
+        $("evidenceBox").textContent = JSON.stringify({
+          reportId: report.reportId,
+          reportNo: report.reportNo,
+          taskId: report.taskId,
+          traceId: report.traceId,
+          evidence: report.evidence
+        }, null, 2);
+        $("copyTrace").dataset.traceId = report.traceId || "";
       } catch (error) {
-        $("detailBox").textContent = error.message;
+        $("markdownBox").textContent = error.message;
+        $("evidenceBox").textContent = error.message;
       }
     }
 
@@ -670,21 +640,19 @@
         return;
       }
       $("filterForm").reset();
-      if (name === "running") {
-        $("status").value = "RUNNING";
-      } else if (name === "failed") {
-        $("status").value = "FAILED";
-      } else if (name === "success") {
+      if (name === "success") {
         $("status").value = "SUCCESS";
+      } else if (name === "daily") {
+        $("reportType").value = "daily_review";
       }
       state.pageNum = 1;
-      loadTasks();
+      loadReports();
     }
 
     function resetFilters() {
       $("filterForm").reset();
       state.pageNum = 1;
-      loadTasks();
+      loadReports();
     }
 
     function resetContext() {
@@ -720,10 +688,6 @@
       return String(value || "").toLowerCase();
     }
 
-    function eventStatusClass(eventType) {
-      return eventType === "TASK_FAILED" ? "failure" : "success";
-    }
-
     function escapeHtml(value) {
       return String(value)
         .replaceAll("&", "&amp;")
@@ -747,13 +711,24 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      loadTasks();
+      loadReports();
     });
 
     $("resetFilters").addEventListener("click", resetFilters);
-    $("refreshEvents").addEventListener("click", loadEvents);
-    $("clearDetail").addEventListener("click", () => {
-      $("detailBox").textContent = "Select a task row";
+
+    $("clearPreview").addEventListener("click", () => {
+      $("markdownBox").textContent = "Select a report row";
+      $("evidenceBox").textContent = "Select a report row";
+      $("copyTrace").dataset.traceId = "";
+    });
+
+    $("copyTrace").addEventListener("click", () => {
+      const traceId = $("copyTrace").dataset.traceId;
+      if (traceId) {
+        $("traceId").value = traceId;
+        state.pageNum = 1;
+        loadReports();
+      }
     });
 
     document.querySelector(".quick-actions").addEventListener("click", (event) => {
@@ -766,25 +741,25 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        loadTasks();
+        loadReports();
       }
     });
 
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        loadTasks();
+        loadReports();
       }
     });
 
-    $("taskBody").addEventListener("click", (event) => {
+    $("reportBody").addEventListener("click", (event) => {
       if (event.target.closest("button[data-empty-reset]")) {
         resetFilters();
         return;
       }
-      const row = event.target.closest("tr[data-task-id]");
+      const row = event.target.closest("tr[data-report-id]");
       if (row) {
-        loadDetail(row.dataset.taskId);
+        loadDetail(row.dataset.reportId);
       }
     });
 
