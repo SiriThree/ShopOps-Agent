@@ -145,6 +145,13 @@
       align-items: end;
     }
 
+    .context-session {
+      grid-column: 1 / -1;
+      min-height: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
     .toolbar {
       padding: 16px 24px;
       display: grid;
@@ -535,6 +542,7 @@
           </label>
           <button class="primary" type="submit">Refresh</button>
           <button id="resetContext" type="button">Reset</button>
+          <div class="context-session" id="sessionLine">Header context</div>
         </form>
       </header>
 
@@ -661,16 +669,23 @@
   </div>
 
   <script>
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
     const state = { pageNum: 1, pageSize: 20, total: 0, selectedTaskId: "", selectedReportId: "", selectedTraceId: "" };
     const $ = (id) => document.getElementById(id);
 
     function headers() {
-      return {
+      const result = {
         "X-Tenant-Id": $("tenantId").value || "1",
         "X-Shop-Id": $("shopId").value || "1",
         "X-User-Id": $("userId").value || "1",
         "X-User-Roles": $("roles").value || "ADMIN"
       };
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        result.Authorization = `Bearer ${token}`;
+      }
+      return result;
     }
 
     async function api(path, options = {}) {
@@ -892,7 +907,39 @@
       $("shopId").value = "1";
       $("userId").value = "1";
       $("roles").value = "ADMIN";
+      renderSessionLine();
       refreshAll();
+    }
+
+    function applyStoredSession() {
+      const session = authSession();
+      if (session.user) {
+        $("tenantId").value = session.user.tenantId || $("tenantId").value || "1";
+        $("shopId").value = session.user.shopId || $("shopId").value || "1";
+        $("userId").value = session.user.userId || $("userId").value || "1";
+        $("roles").value = roleValue(session.user.roles);
+      }
+      renderSessionLine(session);
+    }
+
+    function renderSessionLine(session = authSession()) {
+      $("sessionLine").textContent = session.token
+        ? `Bearer session loaded${session.user?.username ? ` for ${session.user.username}` : ""}`
+        : "Header context";
+    }
+
+    function authSession() {
+      let user = null;
+      try {
+        user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+      } catch (error) {
+        user = null;
+      }
+      return { token: localStorage.getItem(TOKEN_KEY) || "", user };
+    }
+
+    function roleValue(roles) {
+      return Array.isArray(roles) ? roles.join(",") : (roles || "ADMIN");
     }
 
     function markSelectedTask() {
@@ -1066,6 +1113,7 @@
     });
 
     resetCreateForm();
+    applyStoredSession();
     applyInitialQuery();
     updateContextLinks();
     refreshAll();
