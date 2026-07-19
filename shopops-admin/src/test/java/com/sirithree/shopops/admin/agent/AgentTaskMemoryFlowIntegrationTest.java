@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -127,9 +131,33 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .extracting(row -> row.get("source"))
                 .containsOnly("TOOL");
 
+        ResponseEntity<String> toolAuditCsv = restTemplate.exchange(
+                url("/api/admin/audit/export.csv?source=TOOL&eventStatus=SUCCESS"),
+                HttpMethod.GET,
+                new HttpEntity<>(null, adminHeaders()),
+                String.class
+        );
+        assertThat(toolAuditCsv.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(toolAuditCsv.getHeaders().getFirst(HttpHeaders.CONTENT_DISPOSITION))
+                .contains("shopops-audit-")
+                .contains(".csv");
+        assertThat(toolAuditCsv.getBody())
+                .startsWith("createdAt,source,eventType,eventStatus,riskLevel")
+                .contains("TOOL,TOOL_CALL,SUCCESS")
+                .contains("tool_call_log");
+
         Integer retryTaskId = ((Number) retryData.get("taskId")).intValue();
         Map<String, Object> retryTaskData = dataOf(get("/api/agent/tasks/" + retryTaskId));
         assertThat(retryTaskData.get("status")).isEqualTo("SUCCESS");
         assertThat(retryTaskData.get("reportId")).isNotNull();
+    }
+
+    private HttpHeaders adminHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Tenant-Id", "1");
+        headers.set("X-Shop-Id", "1");
+        headers.set("X-User-Id", "1");
+        headers.set("X-User-Roles", "ADMIN");
+        return headers;
     }
 }

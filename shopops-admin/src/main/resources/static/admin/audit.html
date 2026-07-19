@@ -673,18 +673,34 @@
     }
 
     async function loadExport() {
-      $("exportBox").textContent = "生成中...";
+      $("exportBox").textContent = "Downloading...";
       try {
-        const data = await api(`/api/admin/audit/export?${filters().toString()}`);
-        $("exportBox").textContent = JSON.stringify({
-          fileName: data.fileName,
-          rowCount: data.rowCount,
-          columns: data.columns,
-          rows: (data.rows || []).slice(0, 5)
-        }, null, 2);
+        const response = await fetch(`/api/admin/audit/export.csv?${filters().toString()}`, { headers: headers() });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const blob = await response.blob();
+        const fileName = exportFileName(response.headers.get("Content-Disposition"));
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(link.href);
+        $("exportBox").textContent = `Downloaded ${fileName}\n${blob.size} bytes`;
       } catch (error) {
         $("exportBox").textContent = error.message;
       }
+    }
+
+    function exportFileName(contentDisposition) {
+      const fallback = `shopops-audit-${new Date().toISOString().slice(0, 10)}.csv`;
+      if (!contentDisposition) {
+        return fallback;
+      }
+      const match = contentDisposition.match(/filename="?([^";]+)"?/i);
+      return match ? match[1] : fallback;
     }
 
     function number(value) {
