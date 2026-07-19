@@ -238,6 +238,27 @@
       overflow-wrap: anywhere;
     }
 
+    .empty-state {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      white-space: normal;
+    }
+
+    .empty-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .empty-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -642,30 +663,40 @@
 
     async function loadReports() {
       syncUrl();
-      const data = await api(`/api/reports?${filters().toString()}`);
-      state.total = number(data.total);
-      const list = data.list || [];
-      renderMetrics(list, state.total);
-      $("reportBody").innerHTML = list.map((report) => `
-        <tr data-report-id="${escapeAttr(report.reportId)}">
-          <td>${escapeHtml(report.reportNo || report.reportId || "")}</td>
-          <td class="summary-cell">${escapeHtml(report.title || "")}</td>
-          <td>${escapeHtml(report.reportType || "")}</td>
-          <td><span class="badge ${statusClass(report.status)}">${escapeHtml(report.status || "")}</span></td>
-          <td>${escapeHtml(report.taskId || "")}</td>
-          <td>${escapeHtml(report.traceId || "")}</td>
-          <td>${formatTime(report.createdAt)}</td>
-        </tr>
-      `).join("") || `<tr><td colspan="7">No reports found. <button type="button" data-empty-reset>Clear filters</button></td></tr>`;
-      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
-      $("prevPage").disabled = state.pageNum <= 1;
-      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
-      if (state.selectedReportId) {
-        const selected = document.querySelector(`tr[data-report-id="${CSS.escape(String(state.selectedReportId))}"]`);
-        if (selected) {
-          selected.style.background = "#eef6f4";
+      try {
+        const data = await api(`/api/reports?${filters().toString()}`);
+        state.total = number(data.total);
+        const list = data.list || [];
+        renderMetrics(list, state.total);
+        $("reportBody").innerHTML = list.map((report) => `
+          <tr data-report-id="${escapeAttr(report.reportId)}">
+            <td>${escapeHtml(report.reportNo || report.reportId || "")}</td>
+            <td class="summary-cell">${escapeHtml(report.title || "")}</td>
+            <td>${escapeHtml(report.reportType || "")}</td>
+            <td><span class="badge ${statusClass(report.status)}">${escapeHtml(report.status || "")}</span></td>
+            <td>${escapeHtml(report.taskId || "")}</td>
+            <td>${escapeHtml(report.traceId || "")}</td>
+            <td>${formatTime(report.createdAt)}</td>
+          </tr>
+        `).join("") || emptyRow(7, "No reports found", "Try clearing filters or refreshing reports.");
+        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+        $("prevPage").disabled = state.pageNum <= 1;
+        $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+        if (state.selectedReportId) {
+          const selected = document.querySelector(`tr[data-report-id="${CSS.escape(String(state.selectedReportId))}"]`);
+          if (selected) {
+            selected.style.background = "#eef6f4";
+          }
+          loadDetail(state.selectedReportId);
         }
-        loadDetail(state.selectedReportId);
+      } catch (error) {
+        state.total = 0;
+        renderMetrics([], 0);
+        $("reportBody").innerHTML = errorRow(7, "Unable to load reports", error.message);
+        $("pageInfo").textContent = "Report list unavailable";
+        $("prevPage").disabled = true;
+        $("nextPage").disabled = true;
+        throw error;
       }
     }
 
@@ -822,6 +853,27 @@
       $("statusLine").textContent = message;
     }
 
+    function emptyRow(colspan, title, message) {
+      return `
+        <tr>
+          <td colspan="${colspan}">
+            <div class="empty-state">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(message)}</span>
+              <div class="empty-actions">
+                <button type="button" data-empty-reset>Clear filters</button>
+                <button type="button" data-retry-list>Refresh</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function errorRow(colspan, title, message) {
+      return emptyRow(colspan, title, message || "Check the service and try again.");
+    }
+
     function number(value) {
       return Number(value || 0);
     }
@@ -907,6 +959,10 @@
     $("reportBody").addEventListener("click", (event) => {
       if (event.target.closest("button[data-empty-reset]")) {
         resetFilters();
+        return;
+      }
+      if (event.target.closest("button[data-retry-list]")) {
+        loadReports();
         return;
       }
       const row = event.target.closest("tr[data-report-id]");

@@ -271,6 +271,27 @@
       overflow-wrap: anywhere;
     }
 
+    .empty-state {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      white-space: normal;
+    }
+
+    .empty-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .empty-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -712,23 +733,32 @@
 
     async function loadTasks() {
       syncUrl();
-      const data = await api(`/api/admin/agent/tasks?${filters().toString()}`);
-      state.total = number(data.total);
-      $("taskBody").innerHTML = (data.list || []).map((task) => `
-        <tr data-task-id="${escapeAttr(task.taskId)}" class="${String(task.taskId) === String(state.selectedTaskId) ? "selected" : ""}">
-          <td>${escapeHtml(task.taskNo || task.taskId || "")}</td>
-          <td>${escapeHtml(task.taskType || "")}</td>
-          <td><span class="badge ${statusClass(task.status)}">${escapeHtml(task.status || "")}</span></td>
-          <td>${escapeHtml(task.userId || "")}</td>
-          <td>${escapeHtml(task.reportId || "")}</td>
-          <td>${escapeHtml(task.traceId || "")}</td>
-          <td>${formatTime(task.createdAt)}</td>
-          <td class="summary-cell">${escapeHtml(task.resultSummary || task.errorMessage || task.userInput || "")}</td>
-        </tr>
-      `).join("") || `<tr><td colspan="8">No tasks found. <button type="button" data-empty-reset>Clear filters</button></td></tr>`;
-      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
-      $("prevPage").disabled = state.pageNum <= 1;
-      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      try {
+        const data = await api(`/api/admin/agent/tasks?${filters().toString()}`);
+        state.total = number(data.total);
+        $("taskBody").innerHTML = (data.list || []).map((task) => `
+          <tr data-task-id="${escapeAttr(task.taskId)}" class="${String(task.taskId) === String(state.selectedTaskId) ? "selected" : ""}">
+            <td>${escapeHtml(task.taskNo || task.taskId || "")}</td>
+            <td>${escapeHtml(task.taskType || "")}</td>
+            <td><span class="badge ${statusClass(task.status)}">${escapeHtml(task.status || "")}</span></td>
+            <td>${escapeHtml(task.userId || "")}</td>
+            <td>${escapeHtml(task.reportId || "")}</td>
+            <td>${escapeHtml(task.traceId || "")}</td>
+            <td>${formatTime(task.createdAt)}</td>
+            <td class="summary-cell">${escapeHtml(task.resultSummary || task.errorMessage || task.userInput || "")}</td>
+          </tr>
+        `).join("") || emptyRow(8, "No tasks found", "Try clearing filters or refreshing the task queue.");
+        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+        $("prevPage").disabled = state.pageNum <= 1;
+        $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      } catch (error) {
+        state.total = 0;
+        $("taskBody").innerHTML = errorRow(8, "Unable to load tasks", error.message);
+        $("pageInfo").textContent = "Task list unavailable";
+        $("prevPage").disabled = true;
+        $("nextPage").disabled = true;
+        throw error;
+      }
     }
 
     async function loadEvents() {
@@ -920,6 +950,27 @@
       $("statusLine").textContent = message;
     }
 
+    function emptyRow(colspan, title, message) {
+      return `
+        <tr>
+          <td colspan="${colspan}">
+            <div class="empty-state">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(message)}</span>
+              <div class="empty-actions">
+                <button type="button" data-empty-reset>Clear filters</button>
+                <button type="button" data-retry-list>Refresh</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function errorRow(colspan, title, message) {
+      return emptyRow(colspan, title, message || "Check the service and try again.");
+    }
+
     function number(value) {
       return Number(value || 0);
     }
@@ -1002,6 +1053,10 @@
     $("taskBody").addEventListener("click", (event) => {
       if (event.target.closest("button[data-empty-reset]")) {
         resetFilters();
+        return;
+      }
+      if (event.target.closest("button[data-retry-list]")) {
+        loadTasks();
         return;
       }
       const row = event.target.closest("tr[data-task-id]");

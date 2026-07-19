@@ -300,6 +300,27 @@
       overflow-wrap: anywhere;
     }
 
+    .empty-state {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      white-space: normal;
+    }
+
+    .empty-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .empty-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -788,24 +809,33 @@
 
     async function loadTimeline() {
       syncUrl();
-      const data = await api(`/api/admin/audit/timeline?${filters().toString()}`);
-      state.total = number(data.total);
-      $("timelineBody").innerHTML = (data.list || []).map((event) => `
-        <tr data-source="${escapeAttr(event.source)}" data-resource-id="${escapeAttr(event.resourceId)}">
-          <td>${formatTime(event.createdAt)}</td>
-          <td><span class="badge">${escapeHtml(event.source || "")}</span></td>
-          <td>${escapeHtml(event.eventType || "")}</td>
-          <td><span class="badge ${statusClass(event.eventStatus)}">${escapeHtml(event.eventStatus || "")}</span></td>
-          <td><span class="badge ${riskClass(event.riskLevel)}">${escapeHtml(event.riskLevel || "UNKNOWN")}</span></td>
-          <td>${escapeHtml(event.username || event.userId || "")}</td>
-          <td>${escapeHtml(event.taskId || "")}</td>
-          <td>${escapeHtml(event.traceId || "")}</td>
-          <td class="summary-cell">${escapeHtml(event.summary || "")}</td>
-        </tr>
-      `).join("") || `<tr><td colspan="9">暂无数据。<button type="button" data-empty-reset>清空筛选</button></td></tr>`;
-      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} · ${state.total} rows`;
-      $("prevPage").disabled = state.pageNum <= 1;
-      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      try {
+        const data = await api(`/api/admin/audit/timeline?${filters().toString()}`);
+        state.total = number(data.total);
+        $("timelineBody").innerHTML = (data.list || []).map((event) => `
+          <tr data-source="${escapeAttr(event.source)}" data-resource-id="${escapeAttr(event.resourceId)}">
+            <td>${formatTime(event.createdAt)}</td>
+            <td><span class="badge">${escapeHtml(event.source || "")}</span></td>
+            <td>${escapeHtml(event.eventType || "")}</td>
+            <td><span class="badge ${statusClass(event.eventStatus)}">${escapeHtml(event.eventStatus || "")}</span></td>
+            <td><span class="badge ${riskClass(event.riskLevel)}">${escapeHtml(event.riskLevel || "UNKNOWN")}</span></td>
+            <td>${escapeHtml(event.username || event.userId || "")}</td>
+            <td>${escapeHtml(event.taskId || "")}</td>
+            <td>${escapeHtml(event.traceId || "")}</td>
+            <td class="summary-cell">${escapeHtml(event.summary || "")}</td>
+          </tr>
+        `).join("") || emptyRow(9, "暂无数据", "可以清空筛选或刷新审计时间线。");
+        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} · ${state.total} rows`;
+        $("prevPage").disabled = state.pageNum <= 1;
+        $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      } catch (error) {
+        state.total = 0;
+        $("timelineBody").innerHTML = errorRow(9, "审计时间线加载失败", error.message);
+        $("pageInfo").textContent = "Audit timeline unavailable";
+        $("prevPage").disabled = true;
+        $("nextPage").disabled = true;
+        throw error;
+      }
     }
 
     async function loadDetail(source, resourceId) {
@@ -911,6 +941,27 @@
 
     function setStatus(message) {
       $("statusLine").textContent = message;
+    }
+
+    function emptyRow(colspan, title, message) {
+      return `
+        <tr>
+          <td colspan="${colspan}">
+            <div class="empty-state">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(message)}</span>
+              <div class="empty-actions">
+                <button type="button" data-empty-reset>清空筛选</button>
+                <button type="button" data-retry-list>刷新</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function errorRow(colspan, title, message) {
+      return emptyRow(colspan, title, message || "请检查服务状态后重试。");
     }
 
     async function loadExport() {
@@ -1031,6 +1082,10 @@
     $("timelineBody").addEventListener("click", (event) => {
       if (event.target.closest("button[data-empty-reset]")) {
         resetFilters();
+        return;
+      }
+      if (event.target.closest("button[data-retry-list]")) {
+        loadTimeline();
         return;
       }
       const row = event.target.closest("tr[data-source]");

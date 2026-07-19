@@ -328,6 +328,27 @@
       max-width: 260px;
     }
 
+    .empty-state {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      white-space: normal;
+    }
+
+    .empty-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .empty-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -659,20 +680,27 @@
     }
 
     async function loadTools() {
-      const list = await api("/api/tools");
-      state.tools = Array.isArray(list) ? list : [];
-      $("toolBody").innerHTML = state.tools.map((tool) => `
-        <tr data-tool-code="${escapeAttr(tool.toolCode)}" class="${tool.toolCode === state.selectedToolCode ? "selected" : ""}">
-          <td class="code-cell">${escapeHtml(tool.toolCode || "")}</td>
-          <td>${escapeHtml(tool.toolName || "")}</td>
-          <td>${escapeHtml(tool.category || "")}</td>
-          <td><span class="badge ${riskClass(tool.riskLevel)}">${escapeHtml(tool.riskLevel || "")}</span></td>
-          <td><span class="badge ${tool.needApproval ? "approval" : "low"}">${tool.needApproval ? "Required" : "No"}</span></td>
-          <td><span class="badge ${tool.enabled ? "enabled" : "disabled"}">${tool.enabled ? "Enabled" : "Disabled"}</span></td>
-          <td>${escapeHtml(tool.version || "")}</td>
-        </tr>
-      `).join("") || `<tr><td colspan="7">No tools found</td></tr>`;
-      renderMetrics();
+      try {
+        const list = await api("/api/tools");
+        state.tools = Array.isArray(list) ? list : [];
+        $("toolBody").innerHTML = state.tools.map((tool) => `
+          <tr data-tool-code="${escapeAttr(tool.toolCode)}" class="${tool.toolCode === state.selectedToolCode ? "selected" : ""}">
+            <td class="code-cell">${escapeHtml(tool.toolCode || "")}</td>
+            <td>${escapeHtml(tool.toolName || "")}</td>
+            <td>${escapeHtml(tool.category || "")}</td>
+            <td><span class="badge ${riskClass(tool.riskLevel)}">${escapeHtml(tool.riskLevel || "")}</span></td>
+            <td><span class="badge ${tool.needApproval ? "approval" : "low"}">${tool.needApproval ? "Required" : "No"}</span></td>
+            <td><span class="badge ${tool.enabled ? "enabled" : "disabled"}">${tool.enabled ? "Enabled" : "Disabled"}</span></td>
+            <td>${escapeHtml(tool.version || "")}</td>
+          </tr>
+        `).join("") || registryEmptyRow("No tools found", "Refresh the registry or check service configuration.");
+        renderMetrics();
+      } catch (error) {
+        state.tools = [];
+        $("toolBody").innerHTML = registryEmptyRow("Unable to load tools", error.message || "Check the service and try again.");
+        renderMetrics();
+        throw error;
+      }
     }
 
     async function loadToolDetail(toolCode) {
@@ -704,25 +732,35 @@
     async function loadLogs() {
       state.pageSize = number($("pageSize").value) || 20;
       syncUrl();
-      const data = await api(`/api/tools/call-logs?${logFilters().toString()}`);
-      state.total = number(data.total);
-      const list = data.list || [];
-      $("logBody").innerHTML = list.map((log) => `
-        <tr data-log="${escapeAttr(JSON.stringify(log))}">
-          <td>${escapeHtml(log.id || "")}</td>
-          <td class="code-cell">${escapeHtml(log.toolCode || "")}</td>
-          <td><span class="badge ${statusClass(log.status)}">${escapeHtml(log.status || "")}</span></td>
-          <td>${escapeHtml(log.taskId || "")}</td>
-          <td class="code-cell">${escapeHtml(log.traceId || "")}</td>
-          <td>${number(log.latencyMs)} ms</td>
-          <td>${escapeHtml(log.errorCode || log.errorMessage || "")}</td>
-          <td>${formatTime(log.createdAt)}</td>
-        </tr>
-      `).join("") || `<tr><td colspan="8">No call logs found. <button type="button" data-empty-reset>Clear filters</button></td></tr>`;
-      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
-      $("prevPage").disabled = state.pageNum <= 1;
-      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
-      renderMetrics();
+      try {
+        const data = await api(`/api/tools/call-logs?${logFilters().toString()}`);
+        state.total = number(data.total);
+        const list = data.list || [];
+        $("logBody").innerHTML = list.map((log) => `
+          <tr data-log="${escapeAttr(JSON.stringify(log))}">
+            <td>${escapeHtml(log.id || "")}</td>
+            <td class="code-cell">${escapeHtml(log.toolCode || "")}</td>
+            <td><span class="badge ${statusClass(log.status)}">${escapeHtml(log.status || "")}</span></td>
+            <td>${escapeHtml(log.taskId || "")}</td>
+            <td class="code-cell">${escapeHtml(log.traceId || "")}</td>
+            <td>${number(log.latencyMs)} ms</td>
+            <td>${escapeHtml(log.errorCode || log.errorMessage || "")}</td>
+            <td>${formatTime(log.createdAt)}</td>
+          </tr>
+        `).join("") || emptyRow(8, "No call logs found", "Try clearing filters or refreshing call logs.");
+        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+        $("prevPage").disabled = state.pageNum <= 1;
+        $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+        renderMetrics();
+      } catch (error) {
+        state.total = 0;
+        $("logBody").innerHTML = errorRow(8, "Unable to load call logs", error.message);
+        $("pageInfo").textContent = "Call logs unavailable";
+        $("prevPage").disabled = true;
+        $("nextPage").disabled = true;
+        renderMetrics();
+        throw error;
+      }
     }
 
     async function invokeTool(event) {
@@ -867,6 +905,43 @@
       $("statusLine").textContent = message;
     }
 
+    function emptyRow(colspan, title, message) {
+      return `
+        <tr>
+          <td colspan="${colspan}">
+            <div class="empty-state">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(message)}</span>
+              <div class="empty-actions">
+                <button type="button" data-empty-reset>Clear filters</button>
+                <button type="button" data-retry-list>Refresh</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function registryEmptyRow(title, message) {
+      return `
+        <tr>
+          <td colspan="7">
+            <div class="empty-state">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(message)}</span>
+              <div class="empty-actions">
+                <button type="button" data-retry-list>Refresh</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function errorRow(colspan, title, message) {
+      return emptyRow(colspan, title, message || "Check the service and try again.");
+    }
+
     function number(value) {
       return Number(value || 0);
     }
@@ -934,6 +1009,10 @@
     });
 
     $("toolBody").addEventListener("click", (event) => {
+      if (event.target.closest("button[data-retry-list]")) {
+        loadTools();
+        return;
+      }
       const row = event.target.closest("tr[data-tool-code]");
       if (row) {
         loadToolDetail(row.dataset.toolCode);
@@ -943,6 +1022,10 @@
     $("logBody").addEventListener("click", (event) => {
       if (event.target.closest("button[data-empty-reset]")) {
         resetFilters();
+        return;
+      }
+      if (event.target.closest("button[data-retry-list]")) {
+        loadLogs();
         return;
       }
       const row = event.target.closest("tr[data-log]");
