@@ -232,6 +232,18 @@
       align-items: end;
     }
 
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .quick-actions span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
     .content {
       min-width: 0;
       padding: 0 24px 24px;
@@ -341,6 +353,11 @@
       color: var(--muted);
       border-bottom: 1px solid #eef1f4;
       padding-bottom: 8px;
+      cursor: pointer;
+    }
+
+    .event-line:hover {
+      color: var(--ink);
     }
 
     .event-line strong {
@@ -485,6 +502,13 @@
           <button class="primary" type="submit">查询</button>
           <button id="resetFilters" type="button">重置</button>
         </form>
+        <div class="quick-actions" aria-label="Audit quick filters">
+          <span>快捷筛选</span>
+          <button type="button" data-quick-filter="failed">失败事件</button>
+          <button type="button" data-quick-filter="high-risk">高风险</button>
+          <button type="button" data-quick-filter="tool">工具调用</button>
+          <button type="button" data-quick-filter="clear">清空筛选</button>
+        </div>
         <div class="status-line" id="statusLine"></div>
       </section>
 
@@ -594,12 +618,12 @@
     }
 
     async function refreshAll() {
-      $("statusLine").textContent = "加载中...";
+      setStatus("加载中...");
       try {
         await Promise.all([loadOverview(), loadRisk(), loadTimeline()]);
-        $("statusLine").textContent = `已刷新 ${new Date().toLocaleTimeString()}`;
+        setStatus(`已刷新 ${new Date().toLocaleTimeString()}`);
       } catch (error) {
-        $("statusLine").textContent = error.message;
+        setStatus(`加载失败：${error.message}`);
       }
     }
 
@@ -630,7 +654,7 @@
         `;
       }).join("");
       $("highRiskEvents").innerHTML = (data.recentElevatedRiskEvents || []).slice(0, 8).map((event) => `
-        <div class="event-line">
+        <div class="event-line" data-source="${escapeAttr(event.source)}" data-resource-id="${escapeAttr(event.resourceId)}" title="查看详情">
           <span>${escapeHtml(event.source || "")}</span>
           <strong>${escapeHtml(event.summary || event.eventType || "")}</strong>
           <span class="badge ${riskClass(event.riskLevel)}">${escapeHtml(event.riskLevel || "UNKNOWN")}</span>
@@ -653,7 +677,7 @@
           <td>${escapeHtml(event.traceId || "")}</td>
           <td class="summary-cell">${escapeHtml(event.summary || "")}</td>
         </tr>
-      `).join("") || `<tr><td colspan="9">暂无数据</td></tr>`;
+      `).join("") || `<tr><td colspan="9">暂无数据。<button type="button" data-empty-reset>清空筛选</button></td></tr>`;
       $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} · ${state.total} rows`;
       $("prevPage").disabled = state.pageNum <= 1;
       $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
@@ -670,6 +694,33 @@
       } catch (error) {
         $("detailBox").textContent = error.message;
       }
+    }
+
+    function applyQuickFilter(name) {
+      if (name === "clear") {
+        resetFilters();
+      } else {
+        $("filterForm").reset();
+        if (name === "failed") {
+          $("eventStatus").value = "FAILURE";
+        } else if (name === "high-risk") {
+          $("riskLevel").value = "HIGH";
+        } else if (name === "tool") {
+          $("source").value = "TOOL";
+        }
+        state.pageNum = 1;
+        loadTimeline();
+      }
+    }
+
+    function resetFilters() {
+      $("filterForm").reset();
+      state.pageNum = 1;
+      loadTimeline();
+    }
+
+    function setStatus(message) {
+      $("statusLine").textContent = message;
     }
 
     async function loadExport() {
@@ -745,13 +796,23 @@
     });
 
     $("resetFilters").addEventListener("click", () => {
-      $("filterForm").reset();
-      state.pageNum = 1;
-      loadTimeline();
+      resetFilters();
     });
 
     $("refreshRisk").addEventListener("click", loadRisk);
     $("exportBtn").addEventListener("click", loadExport);
+    document.querySelector(".quick-actions").addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-quick-filter]");
+      if (button) {
+        applyQuickFilter(button.dataset.quickFilter);
+      }
+    });
+    $("highRiskEvents").addEventListener("click", (event) => {
+      const item = event.target.closest(".event-line[data-source]");
+      if (item) {
+        loadDetail(item.dataset.source, item.dataset.resourceId);
+      }
+    });
     $("clearToken").addEventListener("click", () => {
       $("token").value = "";
       refreshAll();
@@ -772,6 +833,10 @@
       }
     });
     $("timelineBody").addEventListener("click", (event) => {
+      if (event.target.closest("button[data-empty-reset]")) {
+        resetFilters();
+        return;
+      }
       const row = event.target.closest("tr[data-source]");
       if (row) {
         loadDetail(row.dataset.source, row.dataset.resourceId);
