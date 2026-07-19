@@ -672,6 +672,11 @@
       return params;
     }
 
+    function syncUrl() {
+      const query = filters().toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
+    }
+
     async function api(path) {
       const response = await fetch(path, { headers: headers() });
       const body = await response.json();
@@ -727,6 +732,7 @@
     }
 
     async function loadTimeline() {
+      syncUrl();
       const data = await api(`/api/admin/audit/timeline?${filters().toString()}`);
       state.total = number(data.total);
       $("timelineBody").innerHTML = (data.list || []).map((event) => `
@@ -791,9 +797,16 @@
       setIfPresent("taskId", params.get("taskId"));
       setIfPresent("traceId", params.get("traceId"));
       setIfPresent("toolCode", params.get("toolCode"));
+      state.pageNum = positiveInt(params.get("pageNum"), 1);
+      state.pageSize = positiveInt(params.get("pageSize"), 20);
       if (params.get("elevatedRisk") === "true") {
         $("riskLevel").value = "ELEVATED";
       }
+    }
+
+    function positiveInt(value, fallback) {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
     }
 
     function setIfPresent(id, value) {

@@ -560,7 +560,13 @@
       add(params, "taskId", $("taskId").value);
       add(params, "traceId", $("traceId").value);
       add(params, "createdBy", $("createdBy").value);
+      add(params, "reportId", state.selectedReportId);
       return params;
+    }
+
+    function syncUrl() {
+      const query = filters().toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
     }
 
     function add(params, key, value) {
@@ -580,6 +586,7 @@
     }
 
     async function loadReports() {
+      syncUrl();
       const data = await api(`/api/reports?${filters().toString()}`);
       state.total = number(data.total);
       const list = data.list || [];
@@ -602,9 +609,8 @@
         const selected = document.querySelector(`tr[data-report-id="${CSS.escape(String(state.selectedReportId))}"]`);
         if (selected) {
           selected.style.background = "#eef6f4";
-          loadDetail(state.selectedReportId);
-          state.selectedReportId = "";
         }
+        loadDetail(state.selectedReportId);
       }
     }
 
@@ -680,7 +686,14 @@
       setIfPresent("taskId", params.get("taskId"));
       setIfPresent("traceId", params.get("traceId"));
       setIfPresent("createdBy", params.get("createdBy"));
+      state.pageNum = positiveInt(params.get("pageNum"), 1);
+      state.pageSize = positiveInt(params.get("pageSize"), 20);
       state.selectedReportId = params.get("reportId") || "";
+    }
+
+    function positiveInt(value, fallback) {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
     }
 
     function setIfPresent(id, value) {
@@ -746,6 +759,8 @@
       $("markdownBox").textContent = "Select a report row";
       $("evidenceBox").textContent = "Select a report row";
       $("copyTrace").dataset.traceId = "";
+      state.selectedReportId = "";
+      syncUrl();
     });
 
     $("copyTrace").addEventListener("click", () => {
@@ -785,6 +800,8 @@
       }
       const row = event.target.closest("tr[data-report-id]");
       if (row) {
+        state.selectedReportId = row.dataset.reportId;
+        syncUrl();
         loadDetail(row.dataset.reportId);
       }
     });

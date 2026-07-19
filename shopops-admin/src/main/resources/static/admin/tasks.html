@@ -674,7 +674,13 @@
       add(params, "userId", $("filterUserId").value);
       add(params, "traceId", $("traceId").value);
       add(params, "reportId", $("reportId").value);
+      add(params, "taskId", state.selectedTaskId);
       return params;
+    }
+
+    function syncUrl() {
+      const query = filters().toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
     }
 
     function add(params, key, value) {
@@ -705,6 +711,7 @@
     }
 
     async function loadTasks() {
+      syncUrl();
       const data = await api(`/api/admin/agent/tasks?${filters().toString()}`);
       state.total = number(data.total);
       $("taskBody").innerHTML = (data.list || []).map((task) => `
@@ -740,6 +747,7 @@
         return;
       }
       state.selectedTaskId = taskId;
+      syncUrl();
       $("detailBox").textContent = "Loading...";
       try {
         const data = await api(`/api/admin/agent/tasks/${encodeURIComponent(taskId)}/detail`);
@@ -747,6 +755,7 @@
         state.selectedReportId = data.task?.reportId || "";
         state.selectedTraceId = data.task?.traceId || "";
         updateContextLinks();
+        syncUrl();
         markSelectedTask();
       } catch (error) {
         $("detailBox").textContent = error.message;
@@ -772,6 +781,7 @@
         });
         state.pageNum = 1;
         state.selectedTaskId = data.taskId;
+        syncUrl();
         await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
         await loadDetail(data.taskId);
         setStatus(`Created ${data.taskNo || data.taskId}`);
@@ -790,6 +800,7 @@
         const data = await api(`/api/agent/tasks/${encodeURIComponent(state.selectedTaskId)}/retry`, { method: "POST" });
         state.pageNum = 1;
         state.selectedTaskId = data.taskId;
+        syncUrl();
         await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
         await loadDetail(data.taskId);
         setStatus(`Retry created ${data.taskNo || data.taskId}`);
@@ -880,7 +891,14 @@
       setIfPresent("filterUserId", params.get("userId"));
       setIfPresent("traceId", params.get("traceId"));
       setIfPresent("reportId", params.get("reportId"));
+      state.pageNum = positiveInt(params.get("pageNum"), 1);
+      state.pageSize = positiveInt(params.get("pageSize"), 20);
       state.selectedTaskId = params.get("taskId") || "";
+    }
+
+    function positiveInt(value, fallback) {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
     }
 
     function setIfPresent(id, value) {
@@ -956,6 +974,7 @@
       state.selectedTraceId = "";
       $("detailBox").textContent = "Select a task row";
       updateContextLinks();
+      syncUrl();
       markSelectedTask();
     });
 

@@ -43,7 +43,7 @@ class AdminDashboardStaticPageIntegrationTest {
                 .contains("/api/system/health")
                 .contains("/api/admin/audit/high-risk")
                 .contains("/admin/tasks.html?status=FAILED")
-                .contains("/admin/tools.html?status=FAILURE")
+                .contains("/admin/tools.html?status=FAILED")
                 .contains("taskModuleHint")
                 .contains("auditModuleHint")
                 .contains("/admin/audit.html");
