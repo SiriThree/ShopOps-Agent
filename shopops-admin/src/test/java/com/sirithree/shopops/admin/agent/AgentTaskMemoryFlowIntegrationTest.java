@@ -110,6 +110,13 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
         assertThat(eventsAfterRetry).extracting(event -> event.get("eventType"))
                 .containsExactly("TASK_CREATED", "TASK_STARTED", "TASK_FINISHED", "TASK_RETRY_REQUESTED");
 
+        Map<String, Object> highRiskAudit = dataOf(get("/api/admin/audit/high-risk"));
+        assertThat(((Number) highRiskAudit.get("elevatedRiskTotal")).longValue()).isGreaterThanOrEqualTo(1L);
+        assertThat((Map<String, Object>) highRiskAudit.get("riskBreakdown")).containsKey("MEDIUM");
+        assertThat((List<Map<String, Object>>) highRiskAudit.get("recentElevatedRiskEvents"))
+                .extracting(event -> event.get("eventType"))
+                .contains("TASK_RETRY_REQUESTED");
+
         Integer retryTaskId = ((Number) retryData.get("taskId")).intValue();
         Map<String, Object> retryTaskData = dataOf(get("/api/agent/tasks/" + retryTaskId));
         assertThat(retryTaskData.get("status")).isEqualTo("SUCCESS");

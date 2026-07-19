@@ -7,6 +7,7 @@
 P4 当前覆盖：
 
 - 管理端审计总览：`GET /api/admin/audit/overview`
+- 管理端高风险操作聚合：`GET /api/admin/audit/high-risk`
 - 管理端统一审计时间线：`GET /api/admin/audit/timeline`
 - 管理端审计事件详情：`GET /api/admin/audit/timeline/{source}/{resourceId}`
 - 统一聚合来源：
@@ -60,6 +61,30 @@ generatedAt
 
 ## 3. 统一审计时间线接口
 
+## 3. 高风险操作聚合接口
+
+```http
+GET /api/admin/audit/high-risk
+```
+
+返回字段：
+
+```text
+total
+elevatedRiskTotal
+riskBreakdown
+recentElevatedRiskEvents
+generatedAt
+```
+
+用途：
+
+- 作为安全与治理视图入口。
+- 汇总 `HIGH / MEDIUM / LOW / UNKNOWN` 风险分布。
+- 返回最近非低风险事件，当前包括认证失败、权限拒绝、任务失败、任务重试、任务重排，以及未来高风险工具调用。
+
+## 4. 统一审计时间线接口
+
 ```http
 GET /api/admin/audit/timeline
 ```
@@ -82,7 +107,7 @@ pageNum
 pageSize
 ```
 
-### 3.1 按来源筛选
+### 4.1 按来源筛选
 
 ```http
 GET /api/admin/audit/timeline?source=AUTH&pageNum=1&pageSize=20
@@ -96,7 +121,7 @@ GET /api/admin/audit/timeline?source=TOOL&pageNum=1&pageSize=20
 - `source=TASK` 只返回任务事件。
 - `source=TOOL` 只返回工具调用事件。
 
-### 3.2 按状态筛选
+### 4.2 按状态筛选
 
 ```http
 GET /api/admin/audit/timeline?eventStatus=FAILURE&pageNum=1&pageSize=20
@@ -106,7 +131,7 @@ GET /api/admin/audit/timeline?eventStatus=FAILURE&pageNum=1&pageSize=20
 
 - 认证失败、权限拒绝、任务失败、工具调用失败等失败类事件可以被统一查询。
 
-### 3.3 按任务或 Trace 筛选
+### 4.3 按任务或 Trace 筛选
 
 ```http
 GET /api/admin/audit/timeline?taskId={taskId}&pageNum=1&pageSize=20
@@ -118,7 +143,7 @@ GET /api/admin/audit/timeline?traceId={traceId}&pageNum=1&pageSize=20
 - `taskId` 可定位某个 Agent 任务关联的任务事件与工具调用事件。
 - `traceId` 可跨任务事件、工具调用记录追踪同一次执行链路。
 
-### 3.4 按工具与风险等级筛选
+### 4.4 按工具与风险等级筛选
 
 ```http
 GET /api/admin/audit/timeline?source=TOOL&toolCode=product.query_candidates&pageNum=1&pageSize=20
@@ -131,7 +156,7 @@ GET /api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=20
 - `riskLevel` 可支持前端按风险等级高亮或筛选。
 - 工具调用事件的 `resourceType` 为 `tool_call_log`，`resourceId` 为工具调用日志 ID。
 
-## 4. 统一事件来源映射
+## 5. 统一事件来源映射
 
 | source | resourceType | resourceId | riskLevel 来源 |
 | --- | --- | --- | --- |
@@ -139,7 +164,7 @@ GET /api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=20
 | TASK | agent_task | task ID | 根据任务事件类型推导 |
 | TOOL | tool_call_log | tool call log ID | 优先来自日志，其次来自工具注册表 |
 
-## 5. 审计事件详情接口
+## 6. 审计事件详情接口
 
 ```http
 GET /api/admin/audit/timeline/{source}/{resourceId}
@@ -167,7 +192,7 @@ context
 - `TOOL` 详情返回工具调用日志，并在 context 中补充工具元数据和关联任务详情。
 - 未找到事件时返回业务失败结果。
 
-## 6. PowerShell 验收示例
+## 7. PowerShell 验收示例
 
 启动后端后，可使用本地 Header 开发模式直接访问：
 
@@ -191,6 +216,11 @@ Invoke-RestMethod `
 
 Invoke-RestMethod `
   -Method Get `
+  -Uri "http://localhost:8080/api/admin/audit/high-risk" `
+  -Headers $headers
+
+Invoke-RestMethod `
+  -Method Get `
   -Uri "http://localhost:8080/api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=10" `
   -Headers $headers
 
@@ -208,7 +238,7 @@ $headers = @{
 }
 ```
 
-## 7. 自动化验收命令
+## 8. 自动化验收命令
 
 常规测试：
 
@@ -226,24 +256,25 @@ mvn -pl shopops-admin -am test
 - 工具时间线支持 `riskLevel=low`。
 - 时间线事件包含 `resourceType` 与 `riskLevel`。
 - 审计详情接口支持 `TASK` 与 `TOOL` 资源下钻。
+- 高风险操作聚合接口返回风险分布与最近非低风险事件。
 
-## 8. P4 当前结论
+## 9. P4 当前结论
 
 P4 已经从分散的审计接口推进到统一审计中心入口：
 
 - 总览接口可支撑审计中心首页。
+- 高风险接口可支撑安全治理入口。
 - 时间线接口可支撑审计列表页。
 - 详情接口可支撑审计事件下钻页。
 - 事件来源、资源定位、风险等级已经标准化。
 - 当前实现复用已有服务，不新增数据库结构，适合作为低风险增量。
 
-## 9. 下一阶段建议
+## 10. 下一阶段建议
 
 后续可以继续扩展：
 
 ```text
-1. 增加高风险操作聚合视图
-2. 增加导出型查询 DTO
-3. 增加 JDBC 模式下更大分页的数据库侧 union 查询
-4. 前端管理台对接审计中心页面
+1. 增加导出型查询 DTO
+2. 增加 JDBC 模式下更大分页的数据库侧 union 查询
+3. 前端管理台对接审计中心页面
 ```

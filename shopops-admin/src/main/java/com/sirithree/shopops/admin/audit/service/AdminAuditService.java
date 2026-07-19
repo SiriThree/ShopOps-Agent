@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.audit.service;
 
 import com.sirithree.shopops.admin.audit.domain.AdminAuditOverviewDto;
+import com.sirithree.shopops.admin.audit.domain.AdminAuditRiskSummaryDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineDetailDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineEventDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineQueryParam;
@@ -13,4 +14,6 @@ public interface AdminAuditService {
     CommonPage<AdminAuditTimelineEventDto> listTimeline(Long tenantId, Long shopId, AdminAuditTimelineQueryParam param);
 
     Optional<AdminAuditTimelineDetailDto> getTimelineDetail(Long tenantId, Long shopId, String source, String resourceId);
+
+    AdminAuditRiskSummaryDto getRiskSummary(Long tenantId, Long shopId);
 }

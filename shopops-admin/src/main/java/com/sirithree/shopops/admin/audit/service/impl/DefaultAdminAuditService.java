@@ -4,6 +4,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventQueryParam;
 import com.sirithree.shopops.admin.agent.service.AgentTaskAdminService;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditOverviewDto;
+import com.sirithree.shopops.admin.audit.domain.AdminAuditRiskSummaryDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineDetailDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineEventDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineQueryParam;
@@ -98,6 +99,29 @@ public class DefaultAdminAuditService implements AdminAuditService {
             case "TOOL" -> toolTimelineDetail(tenantId, shopId, resourceId);
             default -> Optional.empty();
         };
+    }
+
+    @Override
+    public AdminAuditRiskSummaryDto getRiskSummary(Long tenantId, Long shopId) {
+        AdminAuditTimelineQueryParam query = new AdminAuditTimelineQueryParam();
+        query.setPageNum(1);
+        query.setPageSize(100);
+        CommonPage<AdminAuditTimelineEventDto> page = listTimeline(tenantId, shopId, query);
+        Map<String, Long> riskBreakdown = new LinkedHashMap<>();
+        for (AdminAuditTimelineEventDto event : page.getList()) {
+            riskBreakdown.merge(normalizedRiskLevel(event.getRiskLevel()), 1L, Long::sum);
+        }
+        List<AdminAuditTimelineEventDto> elevatedRiskEvents = page.getList().stream()
+                .filter(event -> isElevatedRisk(event.getRiskLevel()))
+                .limit(10)
+                .toList();
+        AdminAuditRiskSummaryDto summary = new AdminAuditRiskSummaryDto();
+        summary.setTotal(page.getTotal());
+        summary.setElevatedRiskTotal(elevatedRiskEvents.size());
+        summary.setRiskBreakdown(riskBreakdown);
+        summary.setRecentElevatedRiskEvents(elevatedRiskEvents);
+        summary.setGeneratedAt(LocalDateTime.now());
+        return summary;
     }
 
     private long authEventTotal(Long tenantId, Long shopId, String eventStatus) {
@@ -353,6 +377,15 @@ public class DefaultAdminAuditService implements AdminAuditService {
 
     private boolean includesSource(AdminAuditTimelineQueryParam query, String source) {
         return query.getSource() == null || query.getSource().isBlank() || source.equalsIgnoreCase(query.getSource());
+    }
+
+    private String normalizedRiskLevel(String riskLevel) {
+        return riskLevel == null || riskLevel.isBlank() ? "UNKNOWN" : riskLevel.toUpperCase();
+    }
+
+    private boolean isElevatedRisk(String riskLevel) {
+        String normalized = normalizedRiskLevel(riskLevel);
+        return !"LOW".equals(normalized) && !"UNKNOWN".equals(normalized);
     }
 
     private String taskEventStatus(AgentTaskEventDto event) {
