@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>ShopOps Auth</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --line: #d9dee6;
+      --text: #1f2933;
+      --muted: #667085;
+      --ink: #111827;
+      --green: #168a5b;
+      --red: #c24132;
+      --amber: #b7791f;
+      --teal: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, select { font: inherit; }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 9px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 10px;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .topbar {
+      min-width: 0;
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(320px, 520px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .session-actions {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .toolbar {
+      padding: 16px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .metric span { color: var(--muted); font-size: 12px; }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+      overflow-wrap: anywhere;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(100px, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .quick-actions span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 0 24px 24px;
+      display: grid;
+      grid-template-columns: 410px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .side {
+      min-width: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 9px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .table-wrap {
+      width: 100%;
+      max-width: 100%;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      min-width: 920px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f9fafb;
+      color: #475467;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    tbody tr { cursor: pointer; }
+    tbody tr:hover { background: #f8fbfa; }
+
+    .code-cell {
+      font-family: Consolas, "Courier New", monospace;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      max-width: 260px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f9fafb;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge.success, .badge.authenticated {
+      color: var(--green);
+      background: #ecfdf3;
+      border-color: #b7e4c7;
+    }
+
+    .badge.failure, .badge.anonymous {
+      color: var(--red);
+      background: #fff1f0;
+      border-color: #f4b8b2;
+    }
+
+    .badge.bearer, .badge.password {
+      color: var(--teal);
+      background: #e8f6f5;
+      border-color: #a6d8d4;
+    }
+
+    .badge.header {
+      color: var(--amber);
+      background: #fff8e6;
+      border-color: #efd08a;
+    }
+
+    .detail-box {
+      min-height: 156px;
+      max-height: 360px;
+      overflow: auto;
+      margin: 0;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0f1720;
+      color: #d7e0ea;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .token-box {
+      display: grid;
+      gap: 8px;
+    }
+
+    .status-line {
+      color: var(--muted);
+      font-size: 12px;
+      min-height: 18px;
+    }
+
+    .pager {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 1100px) {
+      .shell { grid-template-columns: 190px minmax(0, 1fr); }
+      .topbar, .content { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+      .filters { grid-template-columns: repeat(3, minmax(100px, 1fr)) auto auto; }
+    }
+
+    @media (max-width: 760px) {
+      .shell { display: block; }
+      .sidebar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        padding: 14px 16px;
+      }
+      .nav {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+      .nav a { white-space: nowrap; }
+      .topbar, .toolbar, .content { padding-left: 14px; padding-right: 14px; }
+      .topbar { gap: 12px; }
+      .session-actions, .filters, .form-row { grid-template-columns: 1fr 1fr; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      table { min-width: 780px; }
+      .button-row button, .quick-actions button { flex: 1 1 auto; }
+      .pager { justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps</strong>
+        <span>Admin Console</span>
+      </div>
+      <nav class="nav">
+        <a href="/admin/dashboard.html">Dashboard</a>
+        <a class="active" href="/admin/auth.html">Auth</a>
+        <a href="/admin/tasks.html">Tasks</a>
+        <a href="/admin/reports.html">Reports</a>
+        <a href="/admin/audit.html">Audit</a>
+        <a href="/admin/tools.html">Tools</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>Auth</h1>
+          <div class="subtitle" id="sessionLine">Checking session</div>
+        </div>
+        <div class="session-actions">
+          <label>Stored Token
+            <input id="storedToken" autocomplete="new-password">
+          </label>
+          <button class="primary" id="applyToken" type="button">Apply</button>
+          <button id="clearToken" type="button">Clear</button>
+        </div>
+      </header>
+
+      <section class="toolbar">
+        <div class="metrics" id="metrics"></div>
+        <form class="filters" id="filterForm" autocomplete="off">
+          <label>Event Type
+            <select id="eventType">
+              <option value="">All</option>
+              <option value="LOGIN">LOGIN</option>
+              <option value="LOGOUT">LOGOUT</option>
+              <option value="AUTHENTICATION">AUTHENTICATION</option>
+            </select>
+          </label>
+          <label>Status
+            <select id="eventStatus">
+              <option value="">All</option>
+              <option value="SUCCESS">SUCCESS</option>
+              <option value="FAILURE">FAILURE</option>
+            </select>
+          </label>
+          <label>Username
+            <input id="usernameFilter" placeholder="admin" autocomplete="new-password">
+          </label>
+          <label>User ID
+            <input id="userIdFilter" inputmode="numeric" autocomplete="new-password">
+          </label>
+          <label>Request ID
+            <input id="requestIdFilter" placeholder="req_" autocomplete="new-password">
+          </label>
+          <label>Page Size
+            <select id="pageSize">
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+            </select>
+          </label>
+          <button class="primary" type="submit">Search</button>
+          <button id="resetFilters" type="button">Reset</button>
+        </form>
+        <div class="quick-actions">
+          <span>Quick filters</span>
+          <button type="button" data-quick-filter="login">Login</button>
+          <button type="button" data-quick-filter="failure">Failures</button>
+          <button type="button" data-quick-filter="admin">Admin</button>
+          <button type="button" data-quick-filter="clear">Clear</button>
+        </div>
+        <div class="status-line" id="statusLine"></div>
+      </section>
+
+      <section class="content">
+        <aside class="side">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Login</h2>
+              <button id="loadMe" type="button">Me</button>
+            </div>
+            <form class="form-grid" id="loginForm" autocomplete="off">
+              <div class="form-row">
+                <label>Tenant
+                  <input id="tenantId" value="1" inputmode="numeric">
+                </label>
+                <label>Shop
+                  <input id="shopId" value="1" inputmode="numeric">
+                </label>
+              </div>
+              <label>Username
+                <input id="loginUsername" value="admin" autocomplete="username">
+              </label>
+              <label>Password
+                <input id="loginPassword" type="password" value="shopops123" autocomplete="current-password">
+              </label>
+              <div class="button-row">
+                <button id="logout" type="button">Logout</button>
+                <button class="primary" type="submit">Login</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Current User</h2>
+              <button id="maskToken" type="button">Reveal</button>
+            </div>
+            <pre class="detail-box" id="userBox">No session loaded</pre>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Token</h2>
+              <button id="copyTokenToHeader" type="button">Use Token</button>
+            </div>
+            <div class="token-box">
+              <pre class="detail-box" id="tokenBox">No token</pre>
+              <div class="status-line" id="tokenStatus"></div>
+            </div>
+          </section>
+        </aside>
+
+        <section class="panel">
+          <div class="panel-title">
+            <h2>Auth Audit Events</h2>
+            <button id="refreshEvents" type="button">Refresh</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>User</th>
+                  <th>Auth</th>
+                  <th>Request</th>
+                  <th>Client</th>
+                  <th>Failure</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody id="eventBody"></tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <button id="prevPage" type="button">Prev</button>
+            <span id="pageInfo">Page 1</span>
+            <button id="nextPage" type="button">Next</button>
+          </div>
+          <pre class="detail-box" id="eventDetailBox">Select an auth event row</pre>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
+    const state = { token: "", user: null, pageNum: 1, pageSize: 10, total: 0, tokenMasked: true };
+    const $ = (id) => document.getElementById(id);
+
+    function headers(json = false, includeAuth = true) {
+      const result = {
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": state.user?.userId || "1",
+        "X-User-Name": state.user?.username || $("loginUsername").value || "admin",
+        "X-User-Roles": (state.user?.roles || ["ADMIN"]).join(",")
+      };
+      if (json) {
+        result["Content-Type"] = "application/json";
+      }
+      if (includeAuth && state.token) {
+        result.Authorization = `Bearer ${state.token}`;
+      }
+      return result;
+    }
+
+    async function api(path, options = {}) {
+      const { skipAuth, ...requestOptions } = options;
+      const response = await fetch(path, {
+        ...requestOptions,
+        headers: { ...headers(options.body != null, !skipAuth), ...(options.headers || {}) }
+      });
+      const body = await response.json();
+      if (!response.ok || (body.code && body.code !== 200)) {
+        throw new Error(body.message || `HTTP ${response.status}`);
+      }
+      return body.data;
+    }
+
+    async function login(event) {
+      event.preventDefault();
+      setStatus("Logging in");
+      try {
+        const result = await api("/api/admin/auth/login", {
+          method: "POST",
+          skipAuth: true,
+          body: JSON.stringify({
+            tenantId: number($("tenantId").value) || 1,
+            shopId: number($("shopId").value) || 1,
+            username: $("loginUsername").value.trim(),
+            password: $("loginPassword").value
+          })
+        });
+        state.token = result.accessToken || "";
+        state.user = result.user || null;
+        localStorage.setItem(TOKEN_KEY, state.token);
+        localStorage.setItem(USER_KEY, JSON.stringify(state.user || {}));
+        $("storedToken").value = state.token;
+        renderSession(result);
+        await loadAuditEvents();
+        setStatus("Login successful");
+      } catch (error) {
+        setStatus(error.message);
+      }
+    }
+
+    async function loadCurrentUser() {
+      setStatus("Loading current user");
+      try {
+        const user = await api("/api/admin/auth/me");
+        state.user = user;
+        localStorage.setItem(USER_KEY, JSON.stringify(user || {}));
+        $("userBox").textContent = JSON.stringify(user, null, 2);
+        renderMetrics();
+        setSessionLine(user);
+        setStatus("Current user refreshed");
+      } catch (error) {
+        $("userBox").textContent = error.message;
+        setStatus(error.message);
+      }
+    }
+
+    async function logout() {
+      if (!state.token) {
+        setStatus("No bearer token");
+        return;
+      }
+      setStatus("Logging out");
+      try {
+        const result = await api("/api/admin/auth/logout", { method: "POST" });
+        $("userBox").textContent = JSON.stringify(result, null, 2);
+        clearStoredSession(false);
+        await loadAuditEvents();
+        setStatus("Logged out");
+      } catch (error) {
+        setStatus(error.message);
+      }
+    }
+
+    async function loadAuditEvents() {
+      state.pageSize = number($("pageSize").value) || 10;
+      const data = await api(`/api/admin/auth/audit-events?${filters().toString()}`);
+      state.total = number(data.total);
+      const list = data.list || [];
+      $("eventBody").innerHTML = list.map((event) => `
+        <tr data-event="${escapeAttr(JSON.stringify(event))}">
+          <td>${escapeHtml(event.eventId || "")}</td>
+          <td>${escapeHtml(event.eventType || "")}</td>
+          <td><span class="badge ${statusClass(event.eventStatus)}">${escapeHtml(event.eventStatus || "")}</span></td>
+          <td>${escapeHtml(event.username || event.userId || "")}</td>
+          <td><span class="badge ${statusClass(event.authType)}">${escapeHtml(event.authType || "")}</span></td>
+          <td class="code-cell">${escapeHtml(event.requestId || "")}</td>
+          <td>${escapeHtml(event.clientIp || "")}</td>
+          <td class="code-cell">${escapeHtml(event.failureReason || "")}</td>
+          <td>${formatTime(event.createdAt)}</td>
+        </tr>
+      `).join("") || `<tr><td colspan="9">No auth events found. <button type="button" data-empty-reset>Clear filters</button></td></tr>`;
+      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+      $("prevPage").disabled = state.pageNum <= 1;
+      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      renderMetrics();
+    }
+
+    function filters() {
+      const params = new URLSearchParams();
+      params.set("pageNum", state.pageNum);
+      params.set("pageSize", $("pageSize").value || state.pageSize);
+      add(params, "eventType", $("eventType").value);
+      add(params, "eventStatus", $("eventStatus").value);
+      add(params, "username", $("usernameFilter").value);
+      add(params, "userId", $("userIdFilter").value);
+      add(params, "requestId", $("requestIdFilter").value);
+      return params;
+    }
+
+    function add(params, key, value) {
+      if (value != null && String(value).trim() !== "") {
+        params.set(key, String(value).trim());
+      }
+    }
+
+    function applyToken() {
+      state.token = $("storedToken").value.trim();
+      if (state.token) {
+        localStorage.setItem(TOKEN_KEY, state.token);
+      } else {
+        localStorage.removeItem(TOKEN_KEY);
+      }
+      renderToken();
+      loadCurrentUser();
+    }
+
+    function clearStoredSession(refresh = true) {
+      state.token = "";
+      state.user = null;
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      $("storedToken").value = "";
+      renderSession(null);
+      if (refresh) {
+        loadAuditEvents();
+      }
+    }
+
+    function restoreSession() {
+      state.token = localStorage.getItem(TOKEN_KEY) || "";
+      $("storedToken").value = state.token;
+      try {
+        state.user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+      } catch (error) {
+        state.user = null;
+      }
+      renderSession(state.user ? { accessToken: state.token, user: state.user } : null);
+      loadCurrentUser();
+      loadAuditEvents();
+    }
+
+    function renderSession(loginResult) {
+      const user = loginResult?.user || state.user;
+      $("userBox").textContent = user ? JSON.stringify(user, null, 2) : "No session loaded";
+      renderToken();
+      setSessionLine(user);
+      renderMetrics();
+    }
+
+    function renderToken() {
+      if (!state.token) {
+        $("tokenBox").textContent = "No token";
+        $("tokenStatus").textContent = "";
+        return;
+      }
+      $("tokenBox").textContent = state.tokenMasked ? mask(state.token) : state.token;
+      $("tokenStatus").textContent = `${state.token.length} characters stored`;
+    }
+
+    function renderMetrics() {
+      const roles = state.user?.roles || [];
+      const authType = state.user?.authType || (state.token ? "BEARER" : "HEADER");
+      $("metrics").innerHTML = [
+        ["Session", state.user?.authenticated ? "Active" : state.token ? "Token" : "Header"],
+        ["Roles", roles.length],
+        ["Auth Type", authType],
+        ["Audit Events", state.total]
+      ].map(([label, value]) => metric(label, value)).join("");
+    }
+
+    function metric(label, value) {
+      return `
+        <div class="metric">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value)}</strong>
+        </div>
+      `;
+    }
+
+    function setSessionLine(user) {
+      $("sessionLine").textContent = user
+        ? `${user.username || "user"} / ${(user.roles || []).join(",") || "NO_ROLE"}`
+        : "Header dev context";
+    }
+
+    function applyQuickFilter(name) {
+      $("filterForm").reset();
+      state.pageNum = 1;
+      if (name === "login") {
+        $("eventType").value = "LOGIN";
+      } else if (name === "failure") {
+        $("eventStatus").value = "FAILURE";
+      } else if (name === "admin") {
+        $("usernameFilter").value = "admin";
+      } else if (name === "clear") {
+        resetFilters();
+        return;
+      }
+      loadAuditEvents();
+    }
+
+    function resetFilters() {
+      $("filterForm").reset();
+      state.pageNum = 1;
+      loadAuditEvents();
+    }
+
+    function setStatus(message) {
+      $("statusLine").textContent = message;
+    }
+
+    function mask(value) {
+      if (!value) {
+        return "";
+      }
+      if (value.length <= 18) {
+        return "*".repeat(value.length);
+      }
+      return `${value.slice(0, 10)}...${value.slice(-8)}`;
+    }
+
+    function number(value) {
+      return Number(value || 0);
+    }
+
+    function formatTime(value) {
+      return value ? String(value).replace("T", " ").slice(0, 19) : "";
+    }
+
+    function statusClass(value) {
+      return String(value || "").toLowerCase();
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value || "");
+    }
+
+    $("loginForm").addEventListener("submit", login);
+    $("loadMe").addEventListener("click", loadCurrentUser);
+    $("logout").addEventListener("click", logout);
+    $("applyToken").addEventListener("click", applyToken);
+    $("clearToken").addEventListener("click", () => clearStoredSession(true));
+    $("copyTokenToHeader").addEventListener("click", () => {
+      $("storedToken").value = state.token;
+      setStatus("Token copied to field");
+    });
+    $("maskToken").addEventListener("click", () => {
+      state.tokenMasked = !state.tokenMasked;
+      $("maskToken").textContent = state.tokenMasked ? "Reveal" : "Mask";
+      renderToken();
+    });
+    $("refreshEvents").addEventListener("click", loadAuditEvents);
+    $("filterForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.pageNum = 1;
+      loadAuditEvents();
+    });
+    $("resetFilters").addEventListener("click", resetFilters);
+    $("prevPage").addEventListener("click", () => {
+      if (state.pageNum > 1) {
+        state.pageNum -= 1;
+        loadAuditEvents();
+      }
+    });
+    $("nextPage").addEventListener("click", () => {
+      if (state.pageNum * state.pageSize < state.total) {
+        state.pageNum += 1;
+        loadAuditEvents();
+      }
+    });
+    $("eventBody").addEventListener("click", (event) => {
+      if (event.target.closest("button[data-empty-reset]")) {
+        resetFilters();
+        return;
+      }
+      const row = event.target.closest("tr[data-event]");
+      if (row) {
+        $("eventDetailBox").textContent = JSON.stringify(JSON.parse(row.dataset.event), null, 2);
+      }
+    });
+    document.querySelector(".quick-actions").addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-quick-filter]");
+      if (button) {
+        applyQuickFilter(button.dataset.quickFilter);
+      }
+    });
+
+    restoreSession();
+  </script>
+</body>
+</html>
