@@ -215,6 +215,28 @@
       line-height: 1;
     }
 
+    .panel-state {
+      min-height: 72px;
+      display: grid;
+      align-content: center;
+      gap: 6px;
+      padding: 14px;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      font-size: 13px;
+    }
+
+    .panel-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .metrics .panel-state {
+      grid-column: 1 / -1;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 360px;
@@ -515,18 +537,34 @@
 
     async function refreshAll() {
       setStatus("Loading dashboard");
-      try {
-        const [summary, health, risk] = await Promise.all([
-          api("/api/admin/dashboard/summary"),
-          api("/api/system/health"),
-          api("/api/admin/audit/high-risk")
-        ]);
-        renderSummary(summary);
-        renderHealth(health);
-        renderRisk(risk);
+      const [summary, health, risk] = await Promise.allSettled([
+        api("/api/admin/dashboard/summary"),
+        api("/api/system/health"),
+        api("/api/admin/audit/high-risk")
+      ]);
+      const failures = [];
+      if (summary.status === "fulfilled") {
+        renderSummary(summary.value);
+      } else {
+        failures.push("summary");
+        renderSummaryError(summary.reason);
+      }
+      if (health.status === "fulfilled") {
+        renderHealth(health.value);
+      } else {
+        failures.push("health");
+        renderHealthError(health.reason);
+      }
+      if (risk.status === "fulfilled") {
+        renderRisk(risk.value);
+      } else {
+        failures.push("risk");
+        renderRiskError(risk.reason);
+      }
+      if (failures.length) {
+        setStatus(`Dashboard partially refreshed: ${failures.join(", ")} unavailable`);
+      } else {
         setStatus("Dashboard refreshed");
-      } catch (error) {
-        setStatus(error.message);
       }
     }
 
@@ -566,6 +604,16 @@
       `).join("") || `<div class="status-line">No recent failed events</div>`;
     }
 
+    function renderSummaryError(error) {
+      $("generatedAt").textContent = "Summary unavailable";
+      $("metrics").innerHTML = unavailableState("Summary unavailable", error?.message || "Check the dashboard summary service.");
+      $("taskBars").innerHTML = unavailableState("Task operations unavailable", "Task metrics could not be loaded.");
+      $("failedEvents").innerHTML = unavailableState("Recent failures unavailable", "Failure events could not be loaded.");
+      $("taskModuleHint").textContent = "Open failed tasks";
+      $("reportModuleHint").textContent = "Open reports";
+      $("toolModuleHint").textContent = "Open failed calls";
+    }
+
     function renderHealth(health) {
       const checks = health.checks || {};
       $("healthStatus").textContent = `${health.status || "UNKNOWN"} / ${health.persistence || "memory"}`;
@@ -581,6 +629,11 @@
       }).join("");
     }
 
+    function renderHealthError(error) {
+      $("healthStatus").textContent = "Unavailable";
+      $("healthGrid").innerHTML = unavailableState("System health unavailable", error?.message || "Check the health service.");
+    }
+
     function renderRisk(risk) {
       const breakdown = risk.riskBreakdown || {};
       const total = Math.max(1, Object.values(breakdown).reduce((sum, value) => sum + number(value), 0));
@@ -589,6 +642,21 @@
       $("riskBars").innerHTML = ["HIGH", "MEDIUM", "LOW", "UNKNOWN"].map((level) =>
         bar(level, breakdown[level] || 0, (number(breakdown[level]) / total) * 100, riskClass(level))
       ).join("");
+    }
+
+    function renderRiskError(error) {
+      $("riskTotal").textContent = "Unavailable";
+      $("auditModuleHint").textContent = "Open failures";
+      $("riskBars").innerHTML = unavailableState("Audit risk unavailable", error?.message || "Check the audit risk service.");
+    }
+
+    function unavailableState(title, message) {
+      return `
+        <div class="panel-state">
+          <strong>${escapeHtml(title)}</strong>
+          <span>${escapeHtml(message)}</span>
+        </div>
+      `;
     }
 
     function metric(label, value) {
