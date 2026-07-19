@@ -117,6 +117,16 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .extracting(event -> event.get("eventType"))
                 .contains("TASK_RETRY_REQUESTED");
 
+        Map<String, Object> toolAuditExport = dataOf(get("/api/admin/audit/export?source=TOOL&eventStatus=SUCCESS"));
+        assertThat(toolAuditExport.get("contentType")).isEqualTo("text/csv");
+        assertThat(toolAuditExport.get("rowCount")).isEqualTo(8);
+        assertThat((List<String>) toolAuditExport.get("columns"))
+                .containsExactly("createdAt", "source", "eventType", "eventStatus", "riskLevel", "userId", "username",
+                        "taskId", "traceId", "toolCode", "requestId", "resourceType", "resourceId", "summary");
+        assertThat((List<Map<String, Object>>) toolAuditExport.get("rows"))
+                .extracting(row -> row.get("source"))
+                .containsOnly("TOOL");
+
         Integer retryTaskId = ((Number) retryData.get("taskId")).intValue();
         Map<String, Object> retryTaskData = dataOf(get("/api/agent/tasks/" + retryTaskId));
         assertThat(retryTaskData.get("status")).isEqualTo("SUCCESS");

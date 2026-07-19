@@ -3,6 +3,7 @@ package com.sirithree.shopops.admin.audit.service.impl;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventDto;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskEventQueryParam;
 import com.sirithree.shopops.admin.agent.service.AgentTaskAdminService;
+import com.sirithree.shopops.admin.audit.domain.AdminAuditExportDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditOverviewDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditRiskSummaryDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineDetailDto;
@@ -28,6 +29,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DefaultAdminAuditService implements AdminAuditService {
+    private static final List<String> EXPORT_COLUMNS = List.of(
+            "createdAt",
+            "source",
+            "eventType",
+            "eventStatus",
+            "riskLevel",
+            "userId",
+            "username",
+            "taskId",
+            "traceId",
+            "toolCode",
+            "requestId",
+            "resourceType",
+            "resourceId",
+            "summary"
+    );
+
     private final AuthAuditService authAuditService;
     private final AgentTaskAdminService agentTaskAdminService;
     private final ToolCallLogService toolCallLogService;
@@ -122,6 +140,24 @@ public class DefaultAdminAuditService implements AdminAuditService {
         summary.setRecentElevatedRiskEvents(elevatedRiskEvents);
         summary.setGeneratedAt(LocalDateTime.now());
         return summary;
+    }
+
+    @Override
+    public AdminAuditExportDto exportTimeline(Long tenantId, Long shopId, AdminAuditTimelineQueryParam param) {
+        AdminAuditTimelineQueryParam query = param == null ? new AdminAuditTimelineQueryParam() : param;
+        query.setPageNum(1);
+        query.setPageSize(100);
+        List<Map<String, Object>> rows = listTimeline(tenantId, shopId, query).getList().stream()
+                .map(this::exportRow)
+                .toList();
+        AdminAuditExportDto export = new AdminAuditExportDto();
+        export.setFileName("shopops-audit-" + LocalDateTime.now().toLocalDate() + ".csv");
+        export.setContentType("text/csv");
+        export.setColumns(EXPORT_COLUMNS);
+        export.setRows(rows);
+        export.setRowCount(rows.size());
+        export.setGeneratedAt(LocalDateTime.now());
+        return export;
     }
 
     private long authEventTotal(Long tenantId, Long shopId, String eventStatus) {
@@ -373,6 +409,25 @@ public class DefaultAdminAuditService implements AdminAuditService {
         detail.setResource(resource);
         detail.setContext(context);
         return detail;
+    }
+
+    private Map<String, Object> exportRow(AdminAuditTimelineEventDto event) {
+        Map<String, Object> row = new LinkedHashMap<>();
+        row.put("createdAt", event.getCreatedAt());
+        row.put("source", event.getSource());
+        row.put("eventType", event.getEventType());
+        row.put("eventStatus", event.getEventStatus());
+        row.put("riskLevel", event.getRiskLevel());
+        row.put("userId", event.getUserId());
+        row.put("username", event.getUsername());
+        row.put("taskId", event.getTaskId());
+        row.put("traceId", event.getTraceId());
+        row.put("toolCode", event.getToolCode());
+        row.put("requestId", event.getRequestId());
+        row.put("resourceType", event.getResourceType());
+        row.put("resourceId", event.getResourceId());
+        row.put("summary", event.getSummary());
+        return row;
     }
 
     private boolean includesSource(AdminAuditTimelineQueryParam query, String source) {

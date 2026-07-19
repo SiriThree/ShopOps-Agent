@@ -1,5 +1,6 @@
 package com.sirithree.shopops.admin.audit.controller;
 
+import com.sirithree.shopops.admin.audit.domain.AdminAuditExportDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditOverviewDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditRiskSummaryDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineDetailDto;
@@ -37,6 +38,12 @@ public class AdminAuditController {
     public CommonResult<AdminAuditRiskSummaryDto> getRiskSummary() {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(adminAuditService.getRiskSummary(context.getTenantId(), context.getShopId()));
+    }
+
+    @GetMapping("/export")
+    public CommonResult<AdminAuditExportDto> exportTimeline(AdminAuditTimelineQueryParam param) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(adminAuditService.exportTimeline(context.getTenantId(), context.getShopId(), param));
     }
 
     @GetMapping("/timeline")
