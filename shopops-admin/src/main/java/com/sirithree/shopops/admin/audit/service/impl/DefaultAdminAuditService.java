@@ -104,7 +104,7 @@ public class DefaultAdminAuditService implements AdminAuditService {
         }
         List<AdminAuditTimelineEventDto> filtered = events.stream()
                 .filter(event -> matches(query.getTraceId(), event.getTraceId()))
-                .filter(event -> matches(query.getRiskLevel(), event.getRiskLevel()))
+                .filter(event -> matchesRiskLevel(query.getRiskLevel(), event.getRiskLevel()))
                 .filter(event -> !Boolean.TRUE.equals(query.getElevatedRisk()) || isElevatedRisk(event.getRiskLevel()))
                 .filter(event -> query.getCreatedStart() == null || event.getCreatedAt() == null || !event.getCreatedAt().isBefore(query.getCreatedStart()))
                 .filter(event -> query.getCreatedEnd() == null || event.getCreatedAt() == null || !event.getCreatedAt().isAfter(query.getCreatedEnd()))
@@ -134,25 +134,36 @@ public class DefaultAdminAuditService implements AdminAuditService {
 
     @Override
     public AdminAuditRiskSummaryDto getRiskSummary(Long tenantId, Long shopId) {
-        AdminAuditTimelineQueryParam query = new AdminAuditTimelineQueryParam();
-        query.setPageNum(1);
-        query.setPageSize(100);
-        CommonPage<AdminAuditTimelineEventDto> page = listTimeline(tenantId, shopId, query);
-        Map<String, Long> riskBreakdown = new LinkedHashMap<>();
-        for (AdminAuditTimelineEventDto event : page.getList()) {
-            riskBreakdown.merge(normalizedRiskLevel(event.getRiskLevel()), 1L, Long::sum);
-        }
-        List<AdminAuditTimelineEventDto> elevatedRiskEvents = page.getList().stream()
-                .filter(event -> isElevatedRisk(event.getRiskLevel()))
-                .limit(10)
-                .toList();
+        CommonPage<AdminAuditTimelineEventDto> totalPage = timelineCount(tenantId, shopId, new AdminAuditTimelineQueryParam());
+        Map<String, Long> riskBreakdown = riskBreakdown(tenantId, shopId);
+        AdminAuditTimelineQueryParam elevatedRiskQuery = new AdminAuditTimelineQueryParam();
+        elevatedRiskQuery.setElevatedRisk(true);
+        elevatedRiskQuery.setPageNum(1);
+        elevatedRiskQuery.setPageSize(10);
+        CommonPage<AdminAuditTimelineEventDto> elevatedRiskPage = listTimeline(tenantId, shopId, elevatedRiskQuery);
         AdminAuditRiskSummaryDto summary = new AdminAuditRiskSummaryDto();
-        summary.setTotal(page.getTotal());
-        summary.setElevatedRiskTotal(elevatedRiskEvents.size());
+        summary.setTotal(totalPage.getTotal());
+        summary.setElevatedRiskTotal(elevatedRiskPage.getTotal());
         summary.setRiskBreakdown(riskBreakdown);
-        summary.setRecentElevatedRiskEvents(elevatedRiskEvents);
+        summary.setRecentElevatedRiskEvents(elevatedRiskPage.getList());
         summary.setGeneratedAt(LocalDateTime.now());
         return summary;
+    }
+
+    private CommonPage<AdminAuditTimelineEventDto> timelineCount(Long tenantId, Long shopId, AdminAuditTimelineQueryParam query) {
+        query.setPageNum(1);
+        query.setPageSize(1);
+        return listTimeline(tenantId, shopId, query);
+    }
+
+    private Map<String, Long> riskBreakdown(Long tenantId, Long shopId) {
+        Map<String, Long> riskBreakdown = new LinkedHashMap<>();
+        for (String riskLevel : List.of("HIGH", "MEDIUM", "LOW", "UNKNOWN")) {
+            AdminAuditTimelineQueryParam riskQuery = new AdminAuditTimelineQueryParam();
+            riskQuery.setRiskLevel(riskLevel);
+            riskBreakdown.put(riskLevel, timelineCount(tenantId, shopId, riskQuery).getTotal());
+        }
+        return riskBreakdown;
     }
 
     @Override
@@ -296,7 +307,7 @@ public class DefaultAdminAuditService implements AdminAuditService {
                 .filter(event -> matches(query.getEventType(), event.getEventType()))
                 .filter(event -> query.getUserId() == null || query.getUserId().equals(event.getUserId()))
                 .filter(event -> matches(query.getTraceId(), event.getTraceId()))
-                .filter(event -> matches(query.getRiskLevel(), event.getRiskLevel()))
+                .filter(event -> matchesRiskLevel(query.getRiskLevel(), event.getRiskLevel()))
                 .filter(event -> query.getCreatedStart() == null || event.getCreatedAt() == null || !event.getCreatedAt().isBefore(query.getCreatedStart()))
                 .filter(event -> query.getCreatedEnd() == null || event.getCreatedAt() == null || !event.getCreatedAt().isAfter(query.getCreatedEnd()))
                 .toList();
@@ -454,6 +465,10 @@ public class DefaultAdminAuditService implements AdminAuditService {
     private boolean isElevatedRisk(String riskLevel) {
         String normalized = normalizedRiskLevel(riskLevel);
         return !"LOW".equals(normalized) && !"UNKNOWN".equals(normalized);
+    }
+
+    private boolean matchesRiskLevel(String expected, String actual) {
+        return expected == null || expected.isBlank() || normalizedRiskLevel(expected).equals(normalizedRiskLevel(actual));
     }
 
     private String taskEventStatus(AgentTaskEventDto event) {

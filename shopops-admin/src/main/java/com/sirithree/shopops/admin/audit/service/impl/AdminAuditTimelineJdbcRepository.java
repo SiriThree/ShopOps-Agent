@@ -177,9 +177,9 @@ public class AdminAuditTimelineJdbcRepository {
         appendLongFilter(where, query.getTaskId(), "task_id");
         appendStringFilter(where, query.getTraceId(), "trace_id");
         appendStringFilter(where, query.getToolCode(), "tool_code");
-        appendStringFilter(where, query.getRiskLevel(), "risk_level");
+        appendRiskLevelFilter(where, query.getRiskLevel());
         if (Boolean.TRUE.equals(query.getElevatedRisk())) {
-            where.append("  AND risk_level NOT IN ('LOW', 'UNKNOWN')\n");
+            where.append("  AND UPPER(risk_level) NOT IN ('LOW', 'UNKNOWN')\n");
         }
         if (query.getCreatedStart() != null) {
             where.append("  AND created_at >= :createdStart\n");
@@ -202,7 +202,7 @@ public class AdminAuditTimelineJdbcRepository {
                 .addValue("taskId", query.getTaskId())
                 .addValue("traceId", blankToNull(query.getTraceId()))
                 .addValue("toolCode", blankToNull(query.getToolCode()))
-                .addValue("riskLevel", blankToNull(query.getRiskLevel()))
+                .addValue("riskLevel", normalizedRiskLevel(query.getRiskLevel()))
                 .addValue("createdStart", query.getCreatedStart())
                 .addValue("createdEnd", query.getCreatedEnd())
                 .addValue("offset", query.offset())
@@ -212,6 +212,12 @@ public class AdminAuditTimelineJdbcRepository {
     private void appendStringFilter(StringBuilder where, String value, String column) {
         if (value != null && !value.isBlank()) {
             where.append("  AND ").append(column).append(" = :").append(toParameterName(column)).append("\n");
+        }
+    }
+
+    private void appendRiskLevelFilter(StringBuilder where, String riskLevel) {
+        if (riskLevel != null && !riskLevel.isBlank()) {
+            where.append("  AND UPPER(risk_level) = :riskLevel\n");
         }
     }
 
@@ -263,6 +269,10 @@ public class AdminAuditTimelineJdbcRepository {
 
     private String blankToNull(String value) {
         return value == null || value.isBlank() ? null : value;
+    }
+
+    private String normalizedRiskLevel(String riskLevel) {
+        return riskLevel == null || riskLevel.isBlank() ? null : riskLevel.toUpperCase();
     }
 
     private Long longValue(Object value) {

@@ -127,6 +127,12 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .extracting(event -> event.get("riskLevel"))
                 .doesNotContain("LOW", "UNKNOWN")
                 .contains("MEDIUM");
+        assertThat(((Number) highRiskAudit.get("elevatedRiskTotal")).longValue())
+                .isEqualTo(((Number) elevatedRiskTimeline.get("total")).longValue());
+        long riskBreakdownTotal = ((Map<String, Object>) highRiskAudit.get("riskBreakdown")).values().stream()
+                .mapToLong(value -> ((Number) value).longValue())
+                .sum();
+        assertThat(riskBreakdownTotal).isEqualTo(((Number) highRiskAudit.get("total")).longValue());
 
         Map<String, Object> toolAuditExport = dataOf(get("/api/admin/audit/export?source=TOOL&eventStatus=SUCCESS"));
         assertThat(toolAuditExport.get("contentType")).isEqualTo("text/csv");

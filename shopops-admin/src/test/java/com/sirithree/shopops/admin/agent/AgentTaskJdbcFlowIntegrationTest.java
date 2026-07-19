@@ -188,6 +188,13 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
                 .extracting(event -> event.get("riskLevel"))
                 .doesNotContain("LOW", "UNKNOWN")
                 .contains("MEDIUM");
+        Map<String, Object> highRiskAudit = dataOf(get("/api/admin/audit/high-risk"));
+        assertThat(((Number) highRiskAudit.get("elevatedRiskTotal")).longValue())
+                .isEqualTo(((Number) elevatedRiskTimeline.get("total")).longValue());
+        long riskBreakdownTotal = ((Map<String, Object>) highRiskAudit.get("riskBreakdown")).values().stream()
+                .mapToLong(value -> ((Number) value).longValue())
+                .sum();
+        assertThat(riskBreakdownTotal).isEqualTo(((Number) highRiskAudit.get("total")).longValue());
 
         ResponseEntity<String> elevatedRiskCsv = restTemplate.exchange(
                 url("/api/admin/audit/export.csv?elevatedRisk=true"),
