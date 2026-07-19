@@ -539,7 +539,7 @@
               <option>100</option>
             </select>
           </label>
-          <button class="primary" type="submit">Search</button>
+          <button id="toolFilterSubmit" class="primary" type="submit">Search</button>
           <button id="resetFilters" type="button">Reset</button>
         </form>
         <div class="quick-actions">
@@ -863,10 +863,10 @@
       `;
     }
 
-    function resetFilters() {
+    async function resetFilters() {
       $("filterForm").reset();
       state.pageNum = 1;
-      loadLogs();
+      await loadLogs();
     }
 
     function resetContext() {
@@ -968,17 +968,20 @@
       $("statusLine").textContent = message;
     }
 
-    async function withBusy(button, busyText, action) {
+    async function withBusy(button, busyText, action, restoreDisabled = true) {
       if (button.disabled) {
         return;
       }
+      const originalDisabled = button.disabled;
       const originalText = button.textContent;
       button.disabled = true;
       button.textContent = busyText;
       try {
         return await action();
       } finally {
-        button.disabled = false;
+        if (restoreDisabled) {
+          button.disabled = originalDisabled;
+        }
         button.textContent = originalText;
       }
     }
@@ -1091,9 +1094,9 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      loadLogs();
+      withBusy($("toolFilterSubmit"), "Searching", loadLogs);
     });
-    $("resetFilters").addEventListener("click", resetFilters);
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
     $("invokeForm").addEventListener("submit", (event) => {
       event.preventDefault();
       withBusy($("invokeSubmit"), "Invoking", () => invokeTool(event));
@@ -1178,14 +1181,14 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        loadLogs();
+        withBusy($("prevPage"), "Loading", loadLogs, false);
       }
     });
 
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        loadLogs();
+        withBusy($("nextPage"), "Loading", loadLogs, false);
       }
     });
 

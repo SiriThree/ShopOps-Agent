@@ -551,7 +551,7 @@
           <label>Created By
             <input id="createdBy" inputmode="numeric">
           </label>
-          <button class="primary" type="submit">Search</button>
+          <button id="reportFilterSubmit" class="primary" type="submit">Search</button>
           <button id="resetFilters" type="button">Reset</button>
         </form>
         <div class="quick-actions" aria-label="Report quick filters">
@@ -809,10 +809,10 @@
       loadReports();
     }
 
-    function resetFilters() {
+    async function resetFilters() {
       $("filterForm").reset();
       state.pageNum = 1;
-      loadReports();
+      await loadReports();
     }
 
     function resetContext() {
@@ -913,6 +913,24 @@
       $("statusLine").textContent = message;
     }
 
+    async function withBusy(button, busyText, action, restoreDisabled = true) {
+      if (button.disabled) {
+        return;
+      }
+      const originalDisabled = button.disabled;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        if (restoreDisabled) {
+          button.disabled = originalDisabled;
+        }
+        button.textContent = originalText;
+      }
+    }
+
     async function copyText(text, label) {
       const value = String(text || "").trim();
       if (!value || value === "Select a report row" || value === "Loading...") {
@@ -1000,10 +1018,10 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      loadReports();
+      withBusy($("reportFilterSubmit"), "Searching", loadReports);
     });
 
-    $("resetFilters").addEventListener("click", resetFilters);
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
     $("copyReport").addEventListener("click", () => copyText($("markdownBox").textContent, "Report preview"));
     $("copyEvidence").addEventListener("click", () => copyText($("evidenceBox").textContent, "Evidence"));
 
@@ -1038,14 +1056,14 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        loadReports();
+        withBusy($("prevPage"), "Loading", loadReports, false);
       }
     });
 
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        loadReports();
+        withBusy($("nextPage"), "Loading", loadReports, false);
       }
     });
 

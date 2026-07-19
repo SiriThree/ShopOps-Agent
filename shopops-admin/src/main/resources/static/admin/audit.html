@@ -906,10 +906,10 @@
       }
     }
 
-    function resetFilters() {
+    async function resetFilters() {
       $("filterForm").reset();
       state.pageNum = 1;
-      loadTimeline();
+      await loadTimeline();
     }
 
     function applyInitialQuery() {
@@ -963,17 +963,20 @@
       $("statusLine").textContent = message;
     }
 
-    async function withBusy(button, busyText, action) {
+    async function withBusy(button, busyText, action, restoreDisabled = true) {
       if (button.disabled) {
         return;
       }
+      const originalDisabled = button.disabled;
       const originalText = button.textContent;
       button.disabled = true;
       button.textContent = busyText;
       try {
         return await action();
       } finally {
-        button.disabled = false;
+        if (restoreDisabled) {
+          button.disabled = originalDisabled;
+        }
         button.textContent = originalText;
       }
     }
@@ -1134,12 +1137,10 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      loadTimeline();
+      withBusy(document.querySelector("#filterForm button.primary"), "Searching", loadTimeline);
     });
 
-    $("resetFilters").addEventListener("click", () => {
-      resetFilters();
-    });
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
 
     $("refreshRisk").addEventListener("click", () => withBusy($("refreshRisk"), "Refreshing", loadRisk));
     $("exportBtn").addEventListener("click", () => withBusy($("exportBtn"), "Downloading", loadExport));
@@ -1173,13 +1174,13 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        loadTimeline();
+        withBusy($("prevPage"), "Loading", loadTimeline, false);
       }
     });
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        loadTimeline();
+        withBusy($("nextPage"), "Loading", loadTimeline, false);
       }
     });
     $("timelineBody").addEventListener("click", (event) => {

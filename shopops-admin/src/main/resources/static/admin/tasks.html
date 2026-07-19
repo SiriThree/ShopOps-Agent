@@ -573,7 +573,7 @@
           <label>Report ID
             <input id="reportId" inputmode="numeric">
           </label>
-          <button class="primary" type="submit">Search</button>
+          <button id="taskFilterSubmit" class="primary" type="submit">Search</button>
           <button id="resetFilters" type="button">Reset</button>
         </form>
         <div class="quick-actions" aria-label="Task quick filters">
@@ -897,10 +897,10 @@
       loadTasks();
     }
 
-    function resetFilters() {
+    async function resetFilters() {
       $("filterForm").reset();
       state.pageNum = 1;
-      loadTasks();
+      await loadTasks();
     }
 
     function resetContext() {
@@ -998,17 +998,20 @@
       $("statusLine").textContent = message;
     }
 
-    async function withBusy(button, busyText, action) {
+    async function withBusy(button, busyText, action, restoreDisabled = true) {
       if (button.disabled) {
         return;
       }
+      const originalDisabled = button.disabled;
       const originalText = button.textContent;
       button.disabled = true;
       button.textContent = busyText;
       try {
         return await action();
       } finally {
-        button.disabled = false;
+        if (restoreDisabled) {
+          button.disabled = originalDisabled;
+        }
         button.textContent = originalText;
       }
     }
@@ -1104,10 +1107,10 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      loadTasks();
+      withBusy($("taskFilterSubmit"), "Searching", loadTasks);
     });
 
-    $("resetFilters").addEventListener("click", resetFilters);
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
     $("createForm").addEventListener("submit", (event) => {
       event.preventDefault();
       withBusy($("createTaskSubmit"), "Creating", () => createTask(event));
@@ -1137,14 +1140,14 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        loadTasks();
+        withBusy($("prevPage"), "Loading", loadTasks, false);
       }
     });
 
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        loadTasks();
+        withBusy($("nextPage"), "Loading", loadTasks, false);
       }
     });
 

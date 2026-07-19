@@ -568,17 +568,20 @@
       }
     }
 
-    async function withBusy(button, busyText, action) {
+    async function withBusy(button, busyText, action, restoreDisabled = true) {
       if (button.disabled) {
         return;
       }
+      const originalDisabled = button.disabled;
       const originalText = button.textContent;
       button.disabled = true;
       button.textContent = busyText;
       try {
         return await action();
       } finally {
-        button.disabled = false;
+        if (restoreDisabled) {
+          button.disabled = originalDisabled;
+        }
         button.textContent = originalText;
       }
     }
