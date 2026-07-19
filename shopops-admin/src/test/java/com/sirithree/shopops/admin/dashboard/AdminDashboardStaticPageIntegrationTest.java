@@ -33,12 +33,19 @@ class AdminDashboardStaticPageIntegrationTest {
         assertThat(response.getBody())
                 .contains("ShopOps Admin Dashboard")
                 .contains("ShopOps Dashboard")
+                .contains("Admin modules")
+                .contains("Task Queue")
+                .contains("Tool Logs")
                 .contains("System Health")
                 .contains("Audit Risk")
                 .contains("Recent Failures")
                 .contains("/api/admin/dashboard/summary")
                 .contains("/api/system/health")
                 .contains("/api/admin/audit/high-risk")
+                .contains("/admin/tasks.html?status=FAILED")
+                .contains("/admin/tools.html?status=FAILURE")
+                .contains("taskModuleHint")
+                .contains("auditModuleHint")
                 .contains("/admin/audit.html");
     }
 }
