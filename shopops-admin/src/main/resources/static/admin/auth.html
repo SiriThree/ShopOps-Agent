@@ -285,6 +285,27 @@
       max-width: 260px;
     }
 
+    .empty-state {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      white-space: normal;
+    }
+
+    .empty-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .empty-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -651,26 +672,37 @@
 
     async function loadAuditEvents() {
       state.pageSize = number($("pageSize").value) || 10;
-      const data = await api(`/api/admin/auth/audit-events?${filters().toString()}`);
-      state.total = number(data.total);
-      const list = data.list || [];
-      $("eventBody").innerHTML = list.map((event) => `
-        <tr data-event="${escapeAttr(JSON.stringify(event))}">
-          <td>${escapeHtml(event.eventId || "")}</td>
-          <td>${escapeHtml(event.eventType || "")}</td>
-          <td><span class="badge ${statusClass(event.eventStatus)}">${escapeHtml(event.eventStatus || "")}</span></td>
-          <td>${escapeHtml(event.username || event.userId || "")}</td>
-          <td><span class="badge ${statusClass(event.authType)}">${escapeHtml(event.authType || "")}</span></td>
-          <td class="code-cell">${escapeHtml(event.requestId || "")}</td>
-          <td>${escapeHtml(event.clientIp || "")}</td>
-          <td class="code-cell">${escapeHtml(event.failureReason || "")}</td>
-          <td>${formatTime(event.createdAt)}</td>
-        </tr>
-      `).join("") || `<tr><td colspan="9">No auth events found. <button type="button" data-empty-reset>Clear filters</button></td></tr>`;
-      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
-      $("prevPage").disabled = state.pageNum <= 1;
-      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
-      renderMetrics();
+      syncUrl();
+      try {
+        const data = await api(`/api/admin/auth/audit-events?${filters().toString()}`);
+        state.total = number(data.total);
+        const list = data.list || [];
+        $("eventBody").innerHTML = list.map((event) => `
+          <tr data-event="${escapeAttr(JSON.stringify(event))}">
+            <td>${escapeHtml(event.eventId || "")}</td>
+            <td>${escapeHtml(event.eventType || "")}</td>
+            <td><span class="badge ${statusClass(event.eventStatus)}">${escapeHtml(event.eventStatus || "")}</span></td>
+            <td>${escapeHtml(event.username || event.userId || "")}</td>
+            <td><span class="badge ${statusClass(event.authType)}">${escapeHtml(event.authType || "")}</span></td>
+            <td class="code-cell">${escapeHtml(event.requestId || "")}</td>
+            <td>${escapeHtml(event.clientIp || "")}</td>
+            <td class="code-cell">${escapeHtml(event.failureReason || "")}</td>
+            <td>${formatTime(event.createdAt)}</td>
+          </tr>
+        `).join("") || emptyRow(9, "No auth events found", "Try clearing filters or refreshing auth events.");
+        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+        $("prevPage").disabled = state.pageNum <= 1;
+        $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+        renderMetrics();
+      } catch (error) {
+        state.total = 0;
+        $("eventBody").innerHTML = errorRow(9, "Unable to load auth events", error.message);
+        $("pageInfo").textContent = "Auth events unavailable";
+        $("prevPage").disabled = true;
+        $("nextPage").disabled = true;
+        renderMetrics();
+        setStatus(error.message);
+      }
     }
 
     function filters() {
@@ -688,6 +720,34 @@
     function add(params, key, value) {
       if (value != null && String(value).trim() !== "") {
         params.set(key, String(value).trim());
+      }
+    }
+
+    function syncUrl() {
+      const query = filters().toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
+    }
+
+    function applyInitialQuery() {
+      const params = new URLSearchParams(window.location.search);
+      setIfPresent("eventType", params.get("eventType"));
+      setIfPresent("eventStatus", params.get("eventStatus"));
+      setIfPresent("usernameFilter", params.get("username"));
+      setIfPresent("userIdFilter", params.get("userId"));
+      setIfPresent("requestIdFilter", params.get("requestId"));
+      state.pageNum = positiveInt(params.get("pageNum"), 1);
+      state.pageSize = positiveInt(params.get("pageSize"), 10);
+      $("pageSize").value = String(state.pageSize);
+    }
+
+    function positiveInt(value, fallback) {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+    }
+
+    function setIfPresent(id, value) {
+      if (value != null && $(id)) {
+        $(id).value = value;
       }
     }
 
@@ -797,6 +857,27 @@
       $("statusLine").textContent = message;
     }
 
+    function emptyRow(colspan, title, message) {
+      return `
+        <tr>
+          <td colspan="${colspan}">
+            <div class="empty-state">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(message)}</span>
+              <div class="empty-actions">
+                <button type="button" data-empty-reset>Clear filters</button>
+                <button type="button" data-retry-list>Refresh</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function errorRow(colspan, title, message) {
+      return emptyRow(colspan, title, message || "Check the service and try again.");
+    }
+
     function mask(value) {
       if (!value) {
         return "";
@@ -870,6 +951,10 @@
         resetFilters();
         return;
       }
+      if (event.target.closest("button[data-retry-list]")) {
+        loadAuditEvents();
+        return;
+      }
       const row = event.target.closest("tr[data-event]");
       if (row) {
         $("eventDetailBox").textContent = JSON.stringify(JSON.parse(row.dataset.event), null, 2);
@@ -882,6 +967,7 @@
       }
     });
 
+    applyInitialQuery();
     restoreSession();
   </script>
 </body>
