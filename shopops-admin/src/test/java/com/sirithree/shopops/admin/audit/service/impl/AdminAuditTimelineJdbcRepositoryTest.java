@@ -33,6 +33,7 @@ class AdminAuditTimelineJdbcRepositoryTest {
         query.setTaskId(10001L);
         query.setTraceId("trace_daily_review_10001");
         query.setRiskLevel("LOW");
+        query.setElevatedRisk(true);
         query.setCreatedStart(LocalDateTime.of(2026, 7, 18, 0, 0));
         query.setPageNum(2);
         query.setPageSize(25);
@@ -55,6 +56,7 @@ class AdminAuditTimelineJdbcRepositoryTest {
                 .contains("AND task_id = :taskId")
                 .contains("AND trace_id = :traceId")
                 .contains("AND risk_level = :riskLevel")
+                .contains("AND risk_level NOT IN ('LOW', 'UNKNOWN')")
                 .contains("AND created_at >= :createdStart")
                 .contains("ORDER BY created_at DESC, sortable_id DESC")
                 .contains("LIMIT :limit OFFSET :offset");

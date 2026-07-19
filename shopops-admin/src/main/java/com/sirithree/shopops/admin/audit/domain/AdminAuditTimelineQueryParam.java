@@ -13,6 +13,7 @@ public class AdminAuditTimelineQueryParam {
     private String traceId;
     private String toolCode;
     private String riskLevel;
+    private Boolean elevatedRisk;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdStart;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -90,6 +91,14 @@ public class AdminAuditTimelineQueryParam {
 
     public void setRiskLevel(String riskLevel) {
         this.riskLevel = riskLevel;
+    }
+
+    public Boolean getElevatedRisk() {
+        return elevatedRisk;
+    }
+
+    public void setElevatedRisk(Boolean elevatedRisk) {
+        this.elevatedRisk = elevatedRisk;
     }
 
     public LocalDateTime getCreatedStart() {

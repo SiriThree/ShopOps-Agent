@@ -178,6 +178,9 @@ public class AdminAuditTimelineJdbcRepository {
         appendStringFilter(where, query.getTraceId(), "trace_id");
         appendStringFilter(where, query.getToolCode(), "tool_code");
         appendStringFilter(where, query.getRiskLevel(), "risk_level");
+        if (Boolean.TRUE.equals(query.getElevatedRisk())) {
+            where.append("  AND risk_level NOT IN ('LOW', 'UNKNOWN')\n");
+        }
         if (query.getCreatedStart() != null) {
             where.append("  AND created_at >= :createdStart\n");
         }

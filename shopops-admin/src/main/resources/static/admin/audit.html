@@ -491,6 +491,7 @@
           <label>Risk
             <select id="riskLevel">
               <option value="">全部</option>
+              <option value="ELEVATED">中高风险</option>
               <option value="LOW">LOW</option>
               <option value="MEDIUM">MEDIUM</option>
               <option value="HIGH">HIGH</option>
@@ -511,7 +512,7 @@
         <div class="quick-actions" aria-label="Audit quick filters">
           <span>快捷筛选</span>
           <button type="button" data-quick-filter="failed">失败事件</button>
-          <button type="button" data-quick-filter="high-risk">高风险</button>
+          <button type="button" data-quick-filter="high-risk">中高风险</button>
           <button type="button" data-quick-filter="tool">工具调用</button>
           <button type="button" data-quick-filter="clear">清空筛选</button>
         </div>
@@ -608,7 +609,11 @@
       const params = new URLSearchParams();
       Object.entries(values).forEach(([key, value]) => {
         if (value !== undefined && value !== null && String(value).trim() !== "") {
-          params.set(key, value);
+          if (key === "riskLevel" && value === "ELEVATED") {
+            params.set("elevatedRisk", "true");
+          } else {
+            params.set(key, value);
+          }
         }
       });
       return params;
@@ -710,7 +715,7 @@
         if (name === "failed") {
           $("eventStatus").value = "FAILURE";
         } else if (name === "high-risk") {
-          $("riskLevel").value = "HIGH";
+          $("riskLevel").value = "ELEVATED";
         } else if (name === "tool") {
           $("source").value = "TOOL";
         }

@@ -36,6 +36,8 @@ class AdminAuditStaticPageIntegrationTest {
                 .contains("审计中心")
                 .contains("CSV 下载")
                 .contains("快捷筛选")
+                .contains("<option value=\"ELEVATED\">中高风险</option>")
+                .contains("elevatedRisk")
                 .contains("data-quick-filter=\"failed\"")
                 .contains("data-empty-reset")
                 .contains(".timeline-column")

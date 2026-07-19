@@ -105,6 +105,7 @@ public class DefaultAdminAuditService implements AdminAuditService {
         List<AdminAuditTimelineEventDto> filtered = events.stream()
                 .filter(event -> matches(query.getTraceId(), event.getTraceId()))
                 .filter(event -> matches(query.getRiskLevel(), event.getRiskLevel()))
+                .filter(event -> !Boolean.TRUE.equals(query.getElevatedRisk()) || isElevatedRisk(event.getRiskLevel()))
                 .filter(event -> query.getCreatedStart() == null || event.getCreatedAt() == null || !event.getCreatedAt().isBefore(query.getCreatedStart()))
                 .filter(event -> query.getCreatedEnd() == null || event.getCreatedAt() == null || !event.getCreatedAt().isAfter(query.getCreatedEnd()))
                 .sorted(Comparator.comparing(AdminAuditTimelineEventDto::getCreatedAt, Comparator.nullsLast(Comparator.naturalOrder()))

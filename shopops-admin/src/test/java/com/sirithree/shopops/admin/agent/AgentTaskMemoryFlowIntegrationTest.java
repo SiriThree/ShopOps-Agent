@@ -121,6 +121,13 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .extracting(event -> event.get("eventType"))
                 .contains("TASK_RETRY_REQUESTED");
 
+        Map<String, Object> elevatedRiskTimeline = dataOf(get("/api/admin/audit/timeline?elevatedRisk=true&pageNum=1&pageSize=20"));
+        assertThat(((Number) elevatedRiskTimeline.get("total")).longValue()).isGreaterThanOrEqualTo(1L);
+        assertThat((List<Map<String, Object>>) elevatedRiskTimeline.get("list"))
+                .extracting(event -> event.get("riskLevel"))
+                .doesNotContain("LOW", "UNKNOWN")
+                .contains("MEDIUM");
+
         Map<String, Object> toolAuditExport = dataOf(get("/api/admin/audit/export?source=TOOL&eventStatus=SUCCESS"));
         assertThat(toolAuditExport.get("contentType")).isEqualTo("text/csv");
         assertThat(toolAuditExport.get("rowCount")).isEqualTo(8);
