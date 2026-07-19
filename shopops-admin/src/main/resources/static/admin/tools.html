@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>ShopOps Tools</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --line: #d9dee6;
+      --text: #1f2933;
+      --muted: #667085;
+      --ink: #111827;
+      --green: #168a5b;
+      --red: #c24132;
+      --amber: #b7791f;
+      --teal: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, select, textarea { font: inherit; }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    input, select {
+      min-height: 34px;
+      padding: 6px 9px;
+    }
+
+    textarea {
+      min-height: 126px;
+      padding: 9px;
+      resize: vertical;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 10px;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .topbar {
+      min-width: 0;
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(360px, 680px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .toolbar {
+      padding: 16px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .metric span { color: var(--muted); font-size: 12px; }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(110px, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .quick-actions span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 0 24px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 410px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .main-column {
+      min-width: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      max-width: 100%;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      min-width: 860px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f9fafb;
+      color: #475467;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    tbody tr { cursor: pointer; }
+    tbody tr:hover { background: #f8fbfa; }
+    tr.selected { background: #eef6f4; }
+
+    .code-cell {
+      font-family: Consolas, "Courier New", monospace;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      max-width: 260px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f9fafb;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge.success, .badge.low, .badge.enabled {
+      color: var(--green);
+      background: #ecfdf3;
+      border-color: #b7e4c7;
+    }
+
+    .badge.failed, .badge.high, .badge.disabled {
+      color: var(--red);
+      background: #fff1f0;
+      border-color: #f4b8b2;
+    }
+
+    .badge.running, .badge.medium, .badge.approval {
+      color: var(--amber);
+      background: #fff8e6;
+      border-color: #efd08a;
+    }
+
+    .side {
+      min-width: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .detail-box, .result-box {
+      min-height: 130px;
+      max-height: 360px;
+      overflow: auto;
+      margin: 0;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0f1720;
+      color: #d7e0ea;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .invoke-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .pager {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status-line {
+      color: var(--muted);
+      font-size: 12px;
+      min-height: 18px;
+    }
+
+    @media (max-width: 1100px) {
+      .shell { grid-template-columns: 190px minmax(0, 1fr); }
+      .topbar, .content { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(3, minmax(130px, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .shell { display: block; }
+      .sidebar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        padding: 14px 16px;
+      }
+      .nav {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+      .nav a { white-space: nowrap; }
+      .topbar, .toolbar, .content { padding-left: 14px; padding-right: 14px; }
+      .topbar { gap: 12px; }
+      .context-grid, .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .quick-actions { align-items: stretch; }
+      .quick-actions button { flex: 1 1 auto; }
+      table { min-width: 760px; }
+      .pager { justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps</strong>
+        <span>Admin Console</span>
+      </div>
+      <nav class="nav">
+        <a href="/admin/dashboard.html">Dashboard</a>
+        <a href="/admin/tasks.html">Tasks</a>
+        <a href="/admin/reports.html">Reports</a>
+        <a href="/admin/audit.html">Audit</a>
+        <a class="active" href="/admin/tools.html">Tools</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>Tools</h1>
+          <div class="subtitle">Registry, manual invocation, and call history</div>
+        </div>
+        <form class="context-grid" id="contextForm" autocomplete="off">
+          <label>Tenant
+            <input id="tenantId" value="1" inputmode="numeric">
+          </label>
+          <label>Shop
+            <input id="shopId" value="1" inputmode="numeric">
+          </label>
+          <label>User
+            <input id="userId" value="1" inputmode="numeric">
+          </label>
+          <label>Roles
+            <input id="roles" value="ADMIN">
+          </label>
+          <button class="primary" type="submit">Apply</button>
+          <button id="resetContext" type="button">Reset</button>
+        </form>
+      </header>
+
+      <section class="toolbar">
+        <div class="metrics" id="metrics"></div>
+        <form class="filters" id="filterForm" autocomplete="off">
+          <label>Status
+            <select id="logStatus">
+              <option value="">All</option>
+              <option value="SUCCESS">SUCCESS</option>
+              <option value="FAILED">FAILED</option>
+              <option value="RUNNING">RUNNING</option>
+            </select>
+          </label>
+          <label>Tool Code
+            <input id="toolCodeFilter" placeholder="order.query_summary">
+          </label>
+          <label>Task ID
+            <input id="taskId" inputmode="numeric">
+          </label>
+          <label>Log ID
+            <input id="logId" inputmode="numeric">
+          </label>
+          <label>Page Size
+            <select id="pageSize">
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+            </select>
+          </label>
+          <button class="primary" type="submit">Search</button>
+          <button id="resetFilters" type="button">Reset</button>
+        </form>
+        <div class="quick-actions">
+          <span>Quick filters</span>
+          <button type="button" data-quick-filter="failed">Failed calls</button>
+          <button type="button" data-quick-filter="approval">Needs approval</button>
+          <button type="button" data-quick-filter="enabled">Enabled tools</button>
+          <button type="button" data-quick-filter="clear">Clear</button>
+        </div>
+        <div class="status-line" id="statusLine"></div>
+      </section>
+
+      <section class="content">
+        <div class="main-column">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Tool Registry</h2>
+              <button id="refreshTools" type="button">Refresh</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Risk</th>
+                    <th>Approval</th>
+                    <th>Enabled</th>
+                    <th>Version</th>
+                  </tr>
+                </thead>
+                <tbody id="toolBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Call Logs</h2>
+              <button id="refreshLogs" type="button">Refresh</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Log</th>
+                    <th>Tool</th>
+                    <th>Status</th>
+                    <th>Task</th>
+                    <th>Trace</th>
+                    <th>Latency</th>
+                    <th>Error</th>
+                    <th>Created</th>
+                  </tr>
+                </thead>
+                <tbody id="logBody"></tbody>
+              </table>
+            </div>
+            <div class="pager">
+              <button id="prevPage" type="button">Prev</button>
+              <span id="pageInfo">Page 1</span>
+              <button id="nextPage" type="button">Next</button>
+            </div>
+          </section>
+        </div>
+
+        <aside class="side">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Tool Detail</h2>
+              <button id="clearDetail" type="button">Clear</button>
+            </div>
+            <pre class="detail-box" id="detailBox">Select a tool row</pre>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Manual Invoke</h2>
+              <button id="useSelectedTool" type="button">Use Selected</button>
+            </div>
+            <form id="invokeForm" autocomplete="off">
+              <label>Tool Code
+                <input id="invokeToolCode" placeholder="order.query_summary" required>
+              </label>
+              <label>JSON Input
+                <textarea id="invokeInput">{
+  "days": 7
+}</textarea>
+              </label>
+              <div class="invoke-actions">
+                <span class="status-line" id="invokeStatus"></span>
+                <button class="primary" type="submit">Invoke</button>
+              </div>
+            </form>
+            <pre class="result-box" id="invokeResult">No invocation yet</pre>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Log Payload</h2>
+              <button id="clearLogPayload" type="button">Clear</button>
+            </div>
+            <pre class="detail-box" id="logPayloadBox">Select a call log row</pre>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const state = { pageNum: 1, pageSize: 20, total: 0, tools: [], selectedToolCode: "" };
+    const $ = (id) => document.getElementById(id);
+
+    function headers() {
+      return {
+        "Content-Type": "application/json",
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": $("userId").value || "1",
+        "X-User-Roles": $("roles").value || "ADMIN"
+      };
+    }
+
+    async function api(path, options = {}) {
+      const response = await fetch(path, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const body = await response.json();
+      if (body.code && body.code !== 200) {
+        throw new Error(body.message || `API ${body.code}`);
+      }
+      return body.data;
+    }
+
+    async function refreshAll() {
+      setStatus("Loading tools");
+      try {
+        await loadTools();
+        await loadLogs();
+        setStatus("Tools refreshed");
+      } catch (error) {
+        setStatus(error.message);
+      }
+    }
+
+    async function loadTools() {
+      const list = await api("/api/tools");
+      state.tools = Array.isArray(list) ? list : [];
+      $("toolBody").innerHTML = state.tools.map((tool) => `
+        <tr data-tool-code="${escapeAttr(tool.toolCode)}" class="${tool.toolCode === state.selectedToolCode ? "selected" : ""}">
+          <td class="code-cell">${escapeHtml(tool.toolCode || "")}</td>
+          <td>${escapeHtml(tool.toolName || "")}</td>
+          <td>${escapeHtml(tool.category || "")}</td>
+          <td><span class="badge ${riskClass(tool.riskLevel)}">${escapeHtml(tool.riskLevel || "")}</span></td>
+          <td><span class="badge ${tool.needApproval ? "approval" : "low"}">${tool.needApproval ? "Required" : "No"}</span></td>
+          <td><span class="badge ${tool.enabled ? "enabled" : "disabled"}">${tool.enabled ? "Enabled" : "Disabled"}</span></td>
+          <td>${escapeHtml(tool.version || "")}</td>
+        </tr>
+      `).join("") || `<tr><td colspan="7">No tools found</td></tr>`;
+      renderMetrics();
+    }
+
+    async function loadToolDetail(toolCode) {
+      if (!toolCode) {
+        return;
+      }
+      state.selectedToolCode = toolCode;
+      $("invokeToolCode").value = toolCode;
+      $("detailBox").textContent = "Loading...";
+      try {
+        const tool = await api(`/api/tools/${encodeURIComponent(toolCode)}`);
+        $("detailBox").textContent = JSON.stringify(tool, null, 2);
+        markSelectedTool();
+      } catch (error) {
+        $("detailBox").textContent = error.message;
+      }
+    }
+
+    async function loadLogs() {
+      state.pageSize = number($("pageSize").value) || 20;
+      const data = await api(`/api/tools/call-logs?${logFilters().toString()}`);
+      state.total = number(data.total);
+      const list = data.list || [];
+      $("logBody").innerHTML = list.map((log) => `
+        <tr data-log="${escapeAttr(JSON.stringify(log))}">
+          <td>${escapeHtml(log.id || "")}</td>
+          <td class="code-cell">${escapeHtml(log.toolCode || "")}</td>
+          <td><span class="badge ${statusClass(log.status)}">${escapeHtml(log.status || "")}</span></td>
+          <td>${escapeHtml(log.taskId || "")}</td>
+          <td class="code-cell">${escapeHtml(log.traceId || "")}</td>
+          <td>${number(log.latencyMs)} ms</td>
+          <td>${escapeHtml(log.errorCode || log.errorMessage || "")}</td>
+          <td>${formatTime(log.createdAt)}</td>
+        </tr>
+      `).join("") || `<tr><td colspan="8">No call logs found. <button type="button" data-empty-reset>Clear filters</button></td></tr>`;
+      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+      $("prevPage").disabled = state.pageNum <= 1;
+      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      renderMetrics();
+    }
+
+    async function invokeTool(event) {
+      event.preventDefault();
+      const toolCode = $("invokeToolCode").value.trim();
+      if (!toolCode) {
+        return;
+      }
+      $("invokeStatus").textContent = "Invoking";
+      $("invokeResult").textContent = "Running...";
+      try {
+        const input = JSON.parse($("invokeInput").value || "{}");
+        const result = await api(`/api/tools/${encodeURIComponent(toolCode)}/invoke`, {
+          method: "POST",
+          body: JSON.stringify(input)
+        });
+        $("invokeResult").textContent = JSON.stringify(result, null, 2);
+        $("invokeStatus").textContent = result.status || "Done";
+        state.pageNum = 1;
+        await loadLogs();
+      } catch (error) {
+        $("invokeStatus").textContent = "Failed";
+        $("invokeResult").textContent = error.message;
+      }
+    }
+
+    function logFilters() {
+      const params = new URLSearchParams();
+      params.set("pageNum", state.pageNum);
+      params.set("pageSize", $("pageSize").value || state.pageSize);
+      add(params, "status", $("logStatus").value);
+      add(params, "toolCode", $("toolCodeFilter").value);
+      add(params, "taskId", $("taskId").value);
+      add(params, "logId", $("logId").value);
+      return params;
+    }
+
+    function add(params, key, value) {
+      if (value != null && String(value).trim() !== "") {
+        params.set(key, String(value).trim());
+      }
+    }
+
+    function renderMetrics() {
+      const totalTools = state.tools.length;
+      const enabled = state.tools.filter((tool) => tool.enabled !== false).length;
+      const approval = state.tools.filter((tool) => tool.needApproval).length;
+      const highRisk = state.tools.filter((tool) => String(tool.riskLevel || "").toLowerCase() === "high").length;
+      $("metrics").innerHTML = [
+        ["Tools", totalTools],
+        ["Enabled", enabled],
+        ["Approval", approval],
+        ["High Risk", highRisk],
+        ["Call Logs", state.total]
+      ].map(([label, value]) => metric(label, value)).join("");
+    }
+
+    function metric(label, value) {
+      return `
+        <div class="metric">
+          <span>${escapeHtml(label)}</span>
+          <strong>${number(value)}</strong>
+        </div>
+      `;
+    }
+
+    function resetFilters() {
+      $("filterForm").reset();
+      state.pageNum = 1;
+      loadLogs();
+    }
+
+    function resetContext() {
+      $("tenantId").value = "1";
+      $("shopId").value = "1";
+      $("userId").value = "1";
+      $("roles").value = "ADMIN";
+      refreshAll();
+    }
+
+    function applyQuickFilter(name) {
+      $("filterForm").reset();
+      state.pageNum = 1;
+      if (name === "failed") {
+        $("logStatus").value = "FAILED";
+      } else if (name === "approval") {
+        const tool = state.tools.find((candidate) => candidate.needApproval);
+        if (tool) {
+          $("toolCodeFilter").value = tool.toolCode;
+        }
+      } else if (name === "enabled") {
+        const tool = state.tools.find((candidate) => candidate.enabled !== false);
+        if (tool) {
+          $("toolCodeFilter").value = tool.toolCode;
+        }
+      } else if (name === "clear") {
+        resetFilters();
+        return;
+      }
+      loadLogs();
+    }
+
+    function markSelectedTool() {
+      document.querySelectorAll("tr[data-tool-code]").forEach((row) => {
+        row.classList.toggle("selected", row.dataset.toolCode === state.selectedToolCode);
+      });
+    }
+
+    function setStatus(message) {
+      $("statusLine").textContent = message;
+    }
+
+    function number(value) {
+      return Number(value || 0);
+    }
+
+    function formatTime(value) {
+      return value ? String(value).replace("T", " ").slice(0, 19) : "";
+    }
+
+    function statusClass(value) {
+      return String(value || "").toLowerCase();
+    }
+
+    function riskClass(value) {
+      return String(value || "low").toLowerCase();
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value || "");
+    }
+
+    $("contextForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      refreshAll();
+    });
+
+    $("resetContext").addEventListener("click", resetContext);
+    $("refreshTools").addEventListener("click", loadTools);
+    $("refreshLogs").addEventListener("click", loadLogs);
+    $("filterForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.pageNum = 1;
+      loadLogs();
+    });
+    $("resetFilters").addEventListener("click", resetFilters);
+    $("invokeForm").addEventListener("submit", invokeTool);
+
+    $("clearDetail").addEventListener("click", () => {
+      state.selectedToolCode = "";
+      $("detailBox").textContent = "Select a tool row";
+      markSelectedTool();
+    });
+
+    $("useSelectedTool").addEventListener("click", () => {
+      if (state.selectedToolCode) {
+        $("invokeToolCode").value = state.selectedToolCode;
+      }
+    });
+
+    $("clearLogPayload").addEventListener("click", () => {
+      $("logPayloadBox").textContent = "Select a call log row";
+    });
+
+    $("toolBody").addEventListener("click", (event) => {
+      const row = event.target.closest("tr[data-tool-code]");
+      if (row) {
+        loadToolDetail(row.dataset.toolCode);
+      }
+    });
+
+    $("logBody").addEventListener("click", (event) => {
+      if (event.target.closest("button[data-empty-reset]")) {
+        resetFilters();
+        return;
+      }
+      const row = event.target.closest("tr[data-log]");
+      if (row) {
+        const log = JSON.parse(row.dataset.log);
+        $("logPayloadBox").textContent = JSON.stringify({
+          id: log.id,
+          toolCode: log.toolCode,
+          input: log.input,
+          output: log.output,
+          errorCode: log.errorCode,
+          errorMessage: log.errorMessage
+        }, null, 2);
+      }
+    });
+
+    document.querySelector(".quick-actions").addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-quick-filter]");
+      if (button) {
+        applyQuickFilter(button.dataset.quickFilter);
+      }
+    });
+
+    $("prevPage").addEventListener("click", () => {
+      if (state.pageNum > 1) {
+        state.pageNum -= 1;
+        loadLogs();
+      }
+    });
+
+    $("nextPage").addEventListener("click", () => {
+      if (state.pageNum * state.pageSize < state.total) {
+        state.pageNum += 1;
+        loadLogs();
+      }
+    });
+
+    refreshAll();
+  </script>
+</body>
+</html>
