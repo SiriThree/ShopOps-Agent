@@ -38,6 +38,8 @@ class AdminAuditStaticPageIntegrationTest {
                 .contains("快捷筛选")
                 .contains("<option value=\"ELEVATED\">中高风险</option>")
                 .contains("elevatedRisk")
+                .contains("applyInitialQuery")
+                .contains("new URLSearchParams(window.location.search)")
                 .contains("data-quick-filter=\"failed\"")
                 .contains("data-empty-reset")
                 .contains(".timeline-column")

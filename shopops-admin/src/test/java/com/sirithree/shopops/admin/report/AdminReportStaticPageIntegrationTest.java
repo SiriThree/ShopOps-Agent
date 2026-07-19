@@ -36,6 +36,8 @@ class AdminReportStaticPageIntegrationTest {
                 .contains("Evidence")
                 .contains("/api/reports")
                 .contains("/api/reports/${encodeURIComponent(reportId)}")
+                .contains("applyInitialQuery")
+                .contains("new URLSearchParams(window.location.search)")
                 .contains("data-quick-filter=\"daily\"")
                 .contains("/admin/dashboard.html")
                 .contains("/admin/tasks.html")

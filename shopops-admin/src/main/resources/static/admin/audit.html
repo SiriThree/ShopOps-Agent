@@ -783,6 +783,25 @@
       loadTimeline();
     }
 
+    function applyInitialQuery() {
+      const params = new URLSearchParams(window.location.search);
+      setIfPresent("source", params.get("source"));
+      setIfPresent("eventStatus", params.get("eventStatus"));
+      setIfPresent("riskLevel", params.get("riskLevel"));
+      setIfPresent("taskId", params.get("taskId"));
+      setIfPresent("traceId", params.get("traceId"));
+      setIfPresent("toolCode", params.get("toolCode"));
+      if (params.get("elevatedRisk") === "true") {
+        $("riskLevel").value = "ELEVATED";
+      }
+    }
+
+    function setIfPresent(id, value) {
+      if (value != null && $(id)) {
+        $(id).value = value;
+      }
+    }
+
     function setStatus(message) {
       $("statusLine").textContent = message;
     }
@@ -907,6 +926,7 @@
       }
     });
 
+    applyInitialQuery();
     refreshAll();
   </script>
 </body>

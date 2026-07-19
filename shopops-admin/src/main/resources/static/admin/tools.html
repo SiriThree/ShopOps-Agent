@@ -736,6 +736,24 @@
       refreshAll();
     }
 
+    function applyInitialQuery() {
+      const params = new URLSearchParams(window.location.search);
+      setIfPresent("logStatus", params.get("status"));
+      setIfPresent("toolCodeFilter", params.get("toolCode"));
+      setIfPresent("taskId", params.get("taskId"));
+      setIfPresent("logId", params.get("logId"));
+      state.selectedToolCode = params.get("toolCode") || "";
+      if (state.selectedToolCode) {
+        $("invokeToolCode").value = state.selectedToolCode;
+      }
+    }
+
+    function setIfPresent(id, value) {
+      if (value != null && $(id)) {
+        $(id).value = value;
+      }
+    }
+
     function applyQuickFilter(name) {
       $("filterForm").reset();
       state.pageNum = 1;
@@ -876,6 +894,7 @@
       }
     });
 
+    applyInitialQuery();
     refreshAll();
   </script>
 </body>

@@ -342,6 +342,26 @@
       justify-content: flex-end;
     }
 
+    .link-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .link-row a {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: var(--panel);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
     .event-line {
       display: grid;
       grid-template-columns: 84px minmax(0, 1fr) 76px;
@@ -601,6 +621,11 @@
               </div>
             </div>
             <pre class="detail-box" id="detailBox">Select a task row</pre>
+            <div class="link-row">
+              <a id="openReport" href="/admin/reports.html">Open Report</a>
+              <a id="openAudit" href="/admin/audit.html">Open Audit</a>
+              <a id="openToolLogs" href="/admin/tools.html">Tool Logs</a>
+            </div>
           </section>
           <section class="panel">
             <div class="panel-title">
@@ -615,7 +640,7 @@
   </div>
 
   <script>
-    const state = { pageNum: 1, pageSize: 20, total: 0, selectedTaskId: "" };
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedTaskId: "", selectedReportId: "", selectedTraceId: "" };
     const $ = (id) => document.getElementById(id);
 
     function headers() {
@@ -719,6 +744,9 @@
       try {
         const data = await api(`/api/admin/agent/tasks/${encodeURIComponent(taskId)}/detail`);
         $("detailBox").textContent = JSON.stringify(data, null, 2);
+        state.selectedReportId = data.task?.reportId || "";
+        state.selectedTraceId = data.task?.traceId || "";
+        updateContextLinks();
         markSelectedTask();
       } catch (error) {
         $("detailBox").textContent = error.message;
@@ -832,6 +860,35 @@
       });
     }
 
+    function updateContextLinks() {
+      $("openReport").href = state.selectedReportId
+        ? `/admin/reports.html?reportId=${encodeURIComponent(state.selectedReportId)}`
+        : "/admin/reports.html";
+      $("openAudit").href = state.selectedTaskId
+        ? `/admin/audit.html?source=TASK&taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : "/admin/audit.html";
+      $("openToolLogs").href = state.selectedTaskId
+        ? `/admin/tools.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : "/admin/tools.html";
+    }
+
+    function applyInitialQuery() {
+      const params = new URLSearchParams(window.location.search);
+      setIfPresent("status", params.get("status"));
+      setIfPresent("taskType", params.get("taskType"));
+      setIfPresent("taskNo", params.get("taskNo"));
+      setIfPresent("filterUserId", params.get("userId"));
+      setIfPresent("traceId", params.get("traceId"));
+      setIfPresent("reportId", params.get("reportId"));
+      state.selectedTaskId = params.get("taskId") || "";
+    }
+
+    function setIfPresent(id, value) {
+      if (value != null && $(id)) {
+        $(id).value = value;
+      }
+    }
+
     function metric(label, value) {
       return `
         <div class="metric">
@@ -895,7 +952,10 @@
     $("refreshEvents").addEventListener("click", loadEvents);
     $("clearDetail").addEventListener("click", () => {
       state.selectedTaskId = "";
+      state.selectedReportId = "";
+      state.selectedTraceId = "";
       $("detailBox").textContent = "Select a task row";
+      updateContextLinks();
       markSelectedTask();
     });
 
@@ -932,6 +992,8 @@
     });
 
     resetCreateForm();
+    applyInitialQuery();
+    updateContextLinks();
     refreshAll();
   </script>
 </body>

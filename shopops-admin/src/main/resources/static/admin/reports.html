@@ -526,7 +526,7 @@
   </div>
 
   <script>
-    const state = { pageNum: 1, pageSize: 20, total: 0 };
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedReportId: "" };
     const $ = (id) => document.getElementById(id);
 
     function headers() {
@@ -598,6 +598,14 @@
       $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
       $("prevPage").disabled = state.pageNum <= 1;
       $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      if (state.selectedReportId) {
+        const selected = document.querySelector(`tr[data-report-id="${CSS.escape(String(state.selectedReportId))}"]`);
+        if (selected) {
+          selected.style.background = "#eef6f4";
+          loadDetail(state.selectedReportId);
+          state.selectedReportId = "";
+        }
+      }
     }
 
     function renderMetrics(list, total) {
@@ -662,6 +670,23 @@
       $("userId").value = "1";
       $("roles").value = "ADMIN";
       refreshAll();
+    }
+
+    function applyInitialQuery() {
+      const params = new URLSearchParams(window.location.search);
+      setIfPresent("status", params.get("status"));
+      setIfPresent("reportType", params.get("reportType"));
+      setIfPresent("reportNo", params.get("reportNo"));
+      setIfPresent("taskId", params.get("taskId"));
+      setIfPresent("traceId", params.get("traceId"));
+      setIfPresent("createdBy", params.get("createdBy"));
+      state.selectedReportId = params.get("reportId") || "";
+    }
+
+    function setIfPresent(id, value) {
+      if (value != null && $(id)) {
+        $(id).value = value;
+      }
     }
 
     function metric(label, value) {
@@ -764,6 +789,7 @@
       }
     });
 
+    applyInitialQuery();
     refreshAll();
   </script>
 </body>

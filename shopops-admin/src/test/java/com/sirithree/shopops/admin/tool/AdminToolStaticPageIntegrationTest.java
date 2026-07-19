@@ -39,6 +39,8 @@ class AdminToolStaticPageIntegrationTest {
                 .contains("/api/tools/call-logs")
                 .contains("/api/tools/${encodeURIComponent(toolCode)}")
                 .contains("/invoke")
+                .contains("applyInitialQuery")
+                .contains("new URLSearchParams(window.location.search)")
                 .contains("data-quick-filter=\"failed\"")
                 .contains("/admin/dashboard.html")
                 .contains("/admin/tasks.html")
