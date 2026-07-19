@@ -56,6 +56,33 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .extracting(log -> log.get("toolCode"))
                 .containsExactly("product.query_candidates");
 
+        Map<String, Object> auditOverview = dataOf(get("/api/admin/audit/overview"));
+        assertThat(((Number) auditOverview.get("taskEventTotal")).longValue()).isGreaterThanOrEqualTo(3L);
+        assertThat(((Number) auditOverview.get("toolCallTotal")).longValue()).isEqualTo(4L);
+        assertThat((List<Map<String, Object>>) auditOverview.get("recentTaskEvents")).isNotEmpty();
+        assertThat((List<Map<String, Object>>) auditOverview.get("recentToolCalls")).hasSize(4);
+
+        Map<String, Object> auditTimeline = dataOf(get("/api/admin/audit/timeline?pageNum=1&pageSize=20"));
+        assertThat(((Number) auditTimeline.get("total")).longValue()).isGreaterThanOrEqualTo(7L);
+        assertThat((List<Map<String, Object>>) auditTimeline.get("list"))
+                .extracting(event -> event.get("source"))
+                .contains("TASK", "TOOL");
+
+        Map<String, Object> toolAuditTimeline = dataOf(get("/api/admin/audit/timeline?source=TOOL&eventStatus=SUCCESS&pageNum=1&pageSize=10"));
+        assertThat(toolAuditTimeline.get("total")).isEqualTo(4);
+        assertThat((List<Map<String, Object>>) toolAuditTimeline.get("list"))
+                .extracting(event -> event.get("eventType"))
+                .containsOnly("TOOL_CALL");
+        assertThat((List<Map<String, Object>>) toolAuditTimeline.get("list"))
+                .extracting(event -> event.get("resourceType"))
+                .containsOnly("tool_call_log");
+
+        Map<String, Object> lowRiskToolAuditTimeline = dataOf(get("/api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=10"));
+        assertThat(lowRiskToolAuditTimeline.get("total")).isEqualTo(4);
+        assertThat((List<Map<String, Object>>) lowRiskToolAuditTimeline.get("list"))
+                .extracting(event -> event.get("riskLevel"))
+                .containsOnly("low");
+
         List<Map<String, Object>> events = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/events"));
         assertThat(events).extracting(event -> event.get("eventType"))
                 .containsExactly("TASK_CREATED", "TASK_STARTED", "TASK_FINISHED");

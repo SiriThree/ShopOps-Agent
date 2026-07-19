@@ -1,0 +1,214 @@
+# ShopOps Agent P4 审计中心验收清单
+
+本文档用于验收 P4 阶段已经启动的管理端审计中心能力。P4 当前目标不是新增底层审计表，而是把 P2/P3 已经沉淀的认证审计、任务事件、工具调用日志聚合成前端可直接使用的审计中心入口。
+
+## 1. P4 当前能力范围
+
+P4 当前覆盖：
+
+- 管理端审计总览：`GET /api/admin/audit/overview`
+- 管理端统一审计时间线：`GET /api/admin/audit/timeline`
+- 统一聚合来源：
+  - `AUTH`：认证与授权审计事件
+  - `TASK`：Agent 任务生命周期事件
+  - `TOOL`：工具调用日志
+- 统一事件字段：
+  - `source`
+  - `eventId`
+  - `eventType`
+  - `eventStatus`
+  - `userId`
+  - `username`
+  - `taskId`
+  - `traceId`
+  - `toolCode`
+  - `requestId`
+  - `resourceType`
+  - `resourceId`
+  - `riskLevel`
+  - `summary`
+  - `detail`
+  - `createdAt`
+
+## 2. 审计总览接口
+
+```http
+GET /api/admin/audit/overview
+```
+
+返回字段：
+
+```text
+authEventTotal
+authFailureTotal
+taskEventTotal
+taskFailureTotal
+toolCallTotal
+toolCallFailed
+recentAuthEvents
+recentTaskEvents
+recentToolCalls
+generatedAt
+```
+
+用途：
+
+- 作为管理端审计中心首页入口。
+- 快速查看认证、任务、工具三个审计维度的总量与失败量。
+- 提供最近认证事件、任务事件、工具调用记录，方便一屏进入详情排查。
+
+## 3. 统一审计时间线接口
+
+```http
+GET /api/admin/audit/timeline
+```
+
+支持筛选：
+
+```text
+source
+eventType
+eventStatus
+userId
+username
+taskId
+traceId
+toolCode
+riskLevel
+createdStart
+createdEnd
+pageNum
+pageSize
+```
+
+### 3.1 按来源筛选
+
+```http
+GET /api/admin/audit/timeline?source=AUTH&pageNum=1&pageSize=20
+GET /api/admin/audit/timeline?source=TASK&pageNum=1&pageSize=20
+GET /api/admin/audit/timeline?source=TOOL&pageNum=1&pageSize=20
+```
+
+预期：
+
+- `source=AUTH` 只返回认证审计事件。
+- `source=TASK` 只返回任务事件。
+- `source=TOOL` 只返回工具调用事件。
+
+### 3.2 按状态筛选
+
+```http
+GET /api/admin/audit/timeline?eventStatus=FAILURE&pageNum=1&pageSize=20
+```
+
+预期：
+
+- 认证失败、权限拒绝、任务失败、工具调用失败等失败类事件可以被统一查询。
+
+### 3.3 按任务或 Trace 筛选
+
+```http
+GET /api/admin/audit/timeline?taskId={taskId}&pageNum=1&pageSize=20
+GET /api/admin/audit/timeline?traceId={traceId}&pageNum=1&pageSize=20
+```
+
+预期：
+
+- `taskId` 可定位某个 Agent 任务关联的任务事件与工具调用事件。
+- `traceId` 可跨任务事件、工具调用记录追踪同一次执行链路。
+
+### 3.4 按工具与风险等级筛选
+
+```http
+GET /api/admin/audit/timeline?source=TOOL&toolCode=product.query_candidates&pageNum=1&pageSize=20
+GET /api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=20
+```
+
+预期：
+
+- `toolCode` 可定位特定工具调用记录。
+- `riskLevel` 可支持前端按风险等级高亮或筛选。
+- 工具调用事件的 `resourceType` 为 `tool_call_log`，`resourceId` 为工具调用日志 ID。
+
+## 4. 统一事件来源映射
+
+| source | resourceType | resourceId | riskLevel 来源 |
+| --- | --- | --- | --- |
+| AUTH | auth_audit_event | auth audit event ID | 根据失败/拒绝类型推导 |
+| TASK | agent_task | task ID | 根据任务事件类型推导 |
+| TOOL | tool_call_log | tool call log ID | 优先来自日志，其次来自工具注册表 |
+
+## 5. PowerShell 验收示例
+
+启动后端后，可使用本地 Header 开发模式直接访问：
+
+```powershell
+$headers = @{
+  "X-Tenant-Id" = "1"
+  "X-Shop-Id" = "1"
+  "X-User-Id" = "1"
+  "X-User-Roles" = "ADMIN"
+}
+
+Invoke-RestMethod `
+  -Method Get `
+  -Uri "http://localhost:8080/api/admin/audit/overview" `
+  -Headers $headers
+
+Invoke-RestMethod `
+  -Method Get `
+  -Uri "http://localhost:8080/api/admin/audit/timeline?pageNum=1&pageSize=20" `
+  -Headers $headers
+
+Invoke-RestMethod `
+  -Method Get `
+  -Uri "http://localhost:8080/api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=10" `
+  -Headers $headers
+```
+
+严格 Bearer 模式下应改用：
+
+```powershell
+$headers = @{
+  Authorization = "Bearer $adminToken"
+}
+```
+
+## 6. 自动化验收命令
+
+常规测试：
+
+```powershell
+mvn -pl shopops-admin -am test
+```
+
+当前测试覆盖：
+
+- 每日复盘任务创建。
+- 工具调用日志生成。
+- 审计总览接口返回任务事件和工具调用统计。
+- 统一审计时间线返回 `TASK` 与 `TOOL` 来源事件。
+- 工具时间线支持 `eventStatus=SUCCESS`。
+- 工具时间线支持 `riskLevel=low`。
+- 时间线事件包含 `resourceType` 与 `riskLevel`。
+
+## 7. P4 当前结论
+
+P4 已经从分散的审计接口推进到统一审计中心入口：
+
+- 总览接口可支撑审计中心首页。
+- 时间线接口可支撑审计列表页。
+- 事件来源、资源定位、风险等级已经标准化。
+- 当前实现复用已有服务，不新增数据库结构，适合作为低风险增量。
+
+## 8. 下一阶段建议
+
+后续可以继续扩展：
+
+```text
+1. 增加审计事件详情接口：GET /api/admin/audit/timeline/{source}/{resourceId}
+2. 增加高风险操作聚合视图
+3. 增加导出型查询 DTO
+4. 增加 JDBC 模式下更大分页的数据库侧 union 查询
+5. 前端管理台对接审计中心页面
+```

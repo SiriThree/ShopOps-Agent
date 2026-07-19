@@ -107,6 +107,7 @@ public class JdbcToolCallLogService implements ToolCallLogService {
         result.put("spanId", log.getSpanId());
         result.put("toolCode", log.getToolCode());
         result.put("status", log.getStatus());
+        result.put("riskLevel", log.getRiskLevel());
         result.put("input", jsonSupport.toMap(log.getInputJson()));
         result.put("output", jsonSupport.toMap(log.getOutputJson()));
         result.put("latencyMs", log.getLatencyMs() == null ? 0 : log.getLatencyMs());
