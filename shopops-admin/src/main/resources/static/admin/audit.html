@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShopOps Audit Center</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --line: #d9dee6;
+      --text: #1f2933;
+      --muted: #667085;
+      --green: #168a5b;
+      --red: #c24132;
+      --amber: #b7791f;
+      --teal: #0f766e;
+      --ink: #111827;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, select { font: inherit; }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button.primary {
+      border-color: #111827;
+      background: #111827;
+      color: #ffffff;
+    }
+
+    button.icon {
+      width: 36px;
+      padding: 0;
+      display: inline-grid;
+      place-items: center;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 9px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 10px;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .topbar {
+      min-width: 0;
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(360px, 680px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .toolbar {
+      padding: 16px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .metric span { color: var(--muted); font-size: 12px; }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .risk-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .risk-bars { display: grid; gap: 9px; }
+
+    .risk-bar {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) 42px;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .track {
+      height: 8px;
+      border-radius: 999px;
+      background: #edf0f3;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: inherit;
+      min-width: 2px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(110px, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 0 24px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f9fafb;
+      color: #475467;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    tbody tr { cursor: pointer; }
+    tbody tr:hover { background: #f8fbfa; }
+
+    .summary-cell {
+      max-width: 260px;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #eef2f6;
+      color: #344054;
+    }
+
+    .badge.low, .badge.success {
+      background: #e7f6ef;
+      color: var(--green);
+    }
+
+    .badge.medium {
+      background: #fff6df;
+      color: var(--amber);
+    }
+
+    .badge.high, .badge.failure, .badge.failed {
+      background: #fdecea;
+      color: var(--red);
+    }
+
+    .side {
+      position: sticky;
+      top: 14px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .detail-box, .export-box {
+      max-height: 390px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fbfcfd;
+      padding: 10px;
+      color: #344054;
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .events-list { display: grid; gap: 8px; }
+
+    .event-line {
+      display: grid;
+      grid-template-columns: 78px minmax(0, 1fr) 70px;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      border-bottom: 1px solid #eef1f4;
+      padding-bottom: 8px;
+    }
+
+    .event-line strong {
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+
+    .status-line {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pager {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-top: 0;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .pager-actions { display: flex; gap: 8px; }
+
+    @media (max-width: 1100px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .topbar, .content, .risk-row { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(3, minmax(130px, 1fr)); }
+      .side { position: static; }
+    }
+
+    @media (max-width: 720px) {
+      .topbar, .toolbar, .content {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .context-grid, .filters, .metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .filters button, .context-grid button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps Agent</strong>
+        <span>Admin Console</span>
+      </div>
+      <nav class="nav" aria-label="Admin navigation">
+        <a href="#">Dashboard</a>
+        <a href="#">Agent Tasks</a>
+        <a class="active" href="/admin/audit.html">Audit Center</a>
+        <a href="#">Reports</a>
+        <a href="#">Tools</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>审计中心</h1>
+          <div class="subtitle">认证、任务、工具调用统一时间线</div>
+        </div>
+        <form id="contextForm" class="context-grid">
+          <label>Tenant
+            <input id="tenantId" value="1" inputmode="numeric">
+          </label>
+          <label>Shop
+            <input id="shopId" value="1" inputmode="numeric">
+          </label>
+          <label>User
+            <input id="userId" value="1" inputmode="numeric">
+          </label>
+          <label>Bearer
+            <input id="token" placeholder="access token">
+          </label>
+          <button class="primary" type="submit" title="刷新">刷新</button>
+          <button class="icon" id="clearToken" type="button" title="清空 Token" aria-label="清空 Token">×</button>
+        </form>
+      </header>
+
+      <section class="toolbar">
+        <div class="metrics" id="metrics"></div>
+        <div class="risk-row">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>风险分布</h2>
+              <span class="status-line" id="riskTotal"></span>
+            </div>
+            <div class="risk-bars" id="riskBars"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-title">
+              <h2>最近高风险</h2>
+              <button id="refreshRisk" class="icon" title="刷新高风险" aria-label="刷新高风险">↻</button>
+            </div>
+            <div class="events-list" id="highRiskEvents"></div>
+          </section>
+        </div>
+        <form id="filterForm" class="filters">
+          <label>Source
+            <select id="source">
+              <option value="">全部</option>
+              <option value="AUTH">AUTH</option>
+              <option value="TASK">TASK</option>
+              <option value="TOOL">TOOL</option>
+            </select>
+          </label>
+          <label>Status
+            <select id="eventStatus">
+              <option value="">全部</option>
+              <option value="SUCCESS">SUCCESS</option>
+              <option value="FAILURE">FAILURE</option>
+              <option value="FAILED">FAILED</option>
+            </select>
+          </label>
+          <label>Risk
+            <select id="riskLevel">
+              <option value="">全部</option>
+              <option value="LOW">LOW</option>
+              <option value="MEDIUM">MEDIUM</option>
+              <option value="HIGH">HIGH</option>
+            </select>
+          </label>
+          <label>Task ID
+            <input id="taskId" inputmode="numeric">
+          </label>
+          <label>Trace ID
+            <input id="traceId">
+          </label>
+          <label>Tool
+            <input id="toolCode">
+          </label>
+          <button class="primary" type="submit">查询</button>
+          <button id="resetFilters" type="button">重置</button>
+        </form>
+        <div class="status-line" id="statusLine"></div>
+      </section>
+
+      <section class="content">
+        <div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>时间</th>
+                  <th>来源</th>
+                  <th>类型</th>
+                  <th>状态</th>
+                  <th>风险</th>
+                  <th>用户</th>
+                  <th>任务</th>
+                  <th>Trace</th>
+                  <th>摘要</th>
+                </tr>
+              </thead>
+              <tbody id="timelineBody"></tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <span id="pageInfo">Page 1</span>
+            <div class="pager-actions">
+              <button id="prevPage" type="button">上一页</button>
+              <button id="nextPage" type="button">下一页</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="side">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>事件详情</h2>
+              <button id="clearDetail" class="icon" type="button" title="清空详情" aria-label="清空详情">×</button>
+            </div>
+            <pre class="detail-box" id="detailBox">选择一条时间线事件</pre>
+          </section>
+          <section class="panel">
+            <div class="panel-title">
+              <h2>导出预览</h2>
+              <button id="exportBtn" class="primary" type="button">生成</button>
+            </div>
+            <pre class="export-box" id="exportBox">等待生成</pre>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const state = { pageNum: 1, pageSize: 20, total: 0 };
+    const $ = (id) => document.getElementById(id);
+
+    const metricItems = [
+      ["authEventTotal", "认证事件"],
+      ["authFailureTotal", "认证失败"],
+      ["taskEventTotal", "任务事件"],
+      ["taskFailureTotal", "任务失败"],
+      ["toolCallTotal", "工具调用"],
+      ["toolCallFailed", "工具失败"]
+    ];
+
+    function headers() {
+      const token = $("token").value.trim();
+      const result = {
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": $("userId").value || "1",
+        "X-User-Roles": "ADMIN"
+      };
+      if (token) {
+        result.Authorization = `Bearer ${token}`;
+      }
+      return result;
+    }
+
+    function filters() {
+      const values = {
+        source: $("source").value,
+        eventStatus: $("eventStatus").value,
+        riskLevel: $("riskLevel").value,
+        taskId: $("taskId").value,
+        traceId: $("traceId").value,
+        toolCode: $("toolCode").value,
+        pageNum: state.pageNum,
+        pageSize: state.pageSize
+      };
+      const params = new URLSearchParams();
+      Object.entries(values).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && String(value).trim() !== "") {
+          params.set(key, value);
+        }
+      });
+      return params;
+    }
+
+    async function api(path) {
+      const response = await fetch(path, { headers: headers() });
+      const body = await response.json();
+      if (!response.ok || body.code !== 200) {
+        throw new Error(body.message || `HTTP ${response.status}`);
+      }
+      return body.data;
+    }
+
+    async function refreshAll() {
+      $("statusLine").textContent = "加载中...";
+      try {
+        await Promise.all([loadOverview(), loadRisk(), loadTimeline()]);
+        $("statusLine").textContent = `已刷新 ${new Date().toLocaleTimeString()}`;
+      } catch (error) {
+        $("statusLine").textContent = error.message;
+      }
+    }
+
+    async function loadOverview() {
+      const data = await api("/api/admin/audit/overview");
+      $("metrics").innerHTML = metricItems.map(([key, label]) => `
+        <div class="metric">
+          <span>${label}</span>
+          <strong>${number(data[key])}</strong>
+        </div>
+      `).join("");
+    }
+
+    async function loadRisk() {
+      const data = await api("/api/admin/audit/high-risk");
+      const breakdown = data.riskBreakdown || {};
+      const total = Math.max(1, Object.values(breakdown).reduce((sum, value) => sum + number(value), 0));
+      $("riskTotal").textContent = `${number(data.elevatedRiskTotal)} elevated / ${number(data.total)} total`;
+      $("riskBars").innerHTML = ["HIGH", "MEDIUM", "LOW", "UNKNOWN"].map((level) => {
+        const value = number(breakdown[level]);
+        const width = Math.max(2, Math.round((value / total) * 100));
+        return `
+          <div class="risk-bar">
+            <span>${level}</span>
+            <div class="track"><div class="fill" style="width:${width}%"></div></div>
+            <strong>${value}</strong>
+          </div>
+        `;
+      }).join("");
+      $("highRiskEvents").innerHTML = (data.recentElevatedRiskEvents || []).slice(0, 8).map((event) => `
+        <div class="event-line">
+          <span>${escapeHtml(event.source || "")}</span>
+          <strong>${escapeHtml(event.summary || event.eventType || "")}</strong>
+          <span class="badge ${riskClass(event.riskLevel)}">${escapeHtml(event.riskLevel || "UNKNOWN")}</span>
+        </div>
+      `).join("") || `<div class="status-line">暂无高风险事件</div>`;
+    }
+
+    async function loadTimeline() {
+      const data = await api(`/api/admin/audit/timeline?${filters().toString()}`);
+      state.total = number(data.total);
+      $("timelineBody").innerHTML = (data.list || []).map((event) => `
+        <tr data-source="${escapeAttr(event.source)}" data-resource-id="${escapeAttr(event.resourceId)}">
+          <td>${formatTime(event.createdAt)}</td>
+          <td><span class="badge">${escapeHtml(event.source || "")}</span></td>
+          <td>${escapeHtml(event.eventType || "")}</td>
+          <td><span class="badge ${statusClass(event.eventStatus)}">${escapeHtml(event.eventStatus || "")}</span></td>
+          <td><span class="badge ${riskClass(event.riskLevel)}">${escapeHtml(event.riskLevel || "UNKNOWN")}</span></td>
+          <td>${escapeHtml(event.username || event.userId || "")}</td>
+          <td>${escapeHtml(event.taskId || "")}</td>
+          <td>${escapeHtml(event.traceId || "")}</td>
+          <td class="summary-cell">${escapeHtml(event.summary || "")}</td>
+        </tr>
+      `).join("") || `<tr><td colspan="9">暂无数据</td></tr>`;
+      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} · ${state.total} rows`;
+      $("prevPage").disabled = state.pageNum <= 1;
+      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+    }
+
+    async function loadDetail(source, resourceId) {
+      if (!source || !resourceId) {
+        return;
+      }
+      $("detailBox").textContent = "加载中...";
+      try {
+        const data = await api(`/api/admin/audit/timeline/${encodeURIComponent(source)}/${encodeURIComponent(resourceId)}`);
+        $("detailBox").textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        $("detailBox").textContent = error.message;
+      }
+    }
+
+    async function loadExport() {
+      $("exportBox").textContent = "生成中...";
+      try {
+        const data = await api(`/api/admin/audit/export?${filters().toString()}`);
+        $("exportBox").textContent = JSON.stringify({
+          fileName: data.fileName,
+          rowCount: data.rowCount,
+          columns: data.columns,
+          rows: (data.rows || []).slice(0, 5)
+        }, null, 2);
+      } catch (error) {
+        $("exportBox").textContent = error.message;
+      }
+    }
+
+    function number(value) {
+      return Number(value || 0);
+    }
+
+    function formatTime(value) {
+      return value ? String(value).replace("T", " ").slice(0, 19) : "";
+    }
+
+    function statusClass(value) {
+      return String(value || "").toLowerCase();
+    }
+
+    function riskClass(value) {
+      return String(value || "unknown").toLowerCase();
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value || "");
+    }
+
+    $("contextForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.pageNum = 1;
+      refreshAll();
+    });
+
+    $("filterForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.pageNum = 1;
+      loadTimeline();
+    });
+
+    $("resetFilters").addEventListener("click", () => {
+      $("filterForm").reset();
+      state.pageNum = 1;
+      loadTimeline();
+    });
+
+    $("refreshRisk").addEventListener("click", loadRisk);
+    $("exportBtn").addEventListener("click", loadExport);
+    $("clearToken").addEventListener("click", () => {
+      $("token").value = "";
+      refreshAll();
+    });
+    $("clearDetail").addEventListener("click", () => {
+      $("detailBox").textContent = "选择一条时间线事件";
+    });
+    $("prevPage").addEventListener("click", () => {
+      if (state.pageNum > 1) {
+        state.pageNum -= 1;
+        loadTimeline();
+      }
+    });
+    $("nextPage").addEventListener("click", () => {
+      if (state.pageNum * state.pageSize < state.total) {
+        state.pageNum += 1;
+        loadTimeline();
+      }
+    });
+    $("timelineBody").addEventListener("click", (event) => {
+      const row = event.target.closest("tr[data-source]");
+      if (row) {
+        loadDetail(row.dataset.source, row.dataset.resourceId);
+      }
+    });
+
+    refreshAll();
+  </script>
+</body>
+</html>
