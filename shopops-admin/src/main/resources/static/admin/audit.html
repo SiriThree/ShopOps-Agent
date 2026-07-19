@@ -527,10 +527,10 @@
           </section>
           <section class="panel">
             <div class="panel-title">
-              <h2>导出预览</h2>
-              <button id="exportBtn" class="primary" type="button">生成</button>
+              <h2>CSV 下载</h2>
+              <button id="exportBtn" class="primary" type="button">下载 CSV</button>
             </div>
-            <pre class="export-box" id="exportBox">等待生成</pre>
+            <pre class="export-box" id="exportBox">等待下载</pre>
           </section>
         </aside>
       </section>
@@ -673,11 +673,11 @@
     }
 
     async function loadExport() {
-      $("exportBox").textContent = "Downloading...";
+      $("exportBox").textContent = "正在生成 CSV...";
       try {
         const response = await fetch(`/api/admin/audit/export.csv?${filters().toString()}`, { headers: headers() });
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
+          throw new Error(`下载失败：HTTP ${response.status}`);
         }
         const blob = await response.blob();
         const fileName = exportFileName(response.headers.get("Content-Disposition"));
@@ -688,7 +688,7 @@
         link.click();
         link.remove();
         URL.revokeObjectURL(link.href);
-        $("exportBox").textContent = `Downloaded ${fileName}\n${blob.size} bytes`;
+        $("exportBox").textContent = `已下载 ${fileName}\n文件大小 ${blob.size} bytes`;
       } catch (error) {
         $("exportBox").textContent = error.message;
       }
