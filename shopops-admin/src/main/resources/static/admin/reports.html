@@ -289,6 +289,26 @@
       font-size: 15px;
     }
 
+    .link-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .link-row a {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: var(--panel);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
     .detail-box, .markdown-box {
       max-height: 360px;
       overflow: auto;
@@ -519,6 +539,11 @@
               <button id="copyTrace" type="button">Trace</button>
             </div>
             <pre class="detail-box" id="evidenceBox">Select a report row</pre>
+            <div class="link-row">
+              <a id="openTask" href="/admin/tasks.html">Open Task</a>
+              <a id="openAudit" href="/admin/audit.html">Open Audit</a>
+              <a id="openToolLogs" href="/admin/tools.html">Tool Logs</a>
+            </div>
           </section>
         </aside>
       </section>
@@ -526,7 +551,7 @@
   </div>
 
   <script>
-    const state = { pageNum: 1, pageSize: 20, total: 0, selectedReportId: "" };
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedReportId: "", selectedTaskId: "", selectedTraceId: "" };
     const $ = (id) => document.getElementById(id);
 
     function headers() {
@@ -642,6 +667,10 @@
           traceId: report.traceId,
           evidence: report.evidence
         }, null, 2);
+        state.selectedTaskId = report.taskId || "";
+        state.selectedTraceId = report.traceId || "";
+        updateContextLinks();
+        syncUrl();
         $("copyTrace").dataset.traceId = report.traceId || "";
       } catch (error) {
         $("markdownBox").textContent = error.message;
@@ -689,6 +718,18 @@
       state.pageNum = positiveInt(params.get("pageNum"), 1);
       state.pageSize = positiveInt(params.get("pageSize"), 20);
       state.selectedReportId = params.get("reportId") || "";
+    }
+
+    function updateContextLinks() {
+      $("openTask").href = state.selectedTaskId
+        ? `/admin/tasks.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : "/admin/tasks.html";
+      $("openAudit").href = state.selectedTaskId
+        ? `/admin/audit.html?source=TASK&taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : (state.selectedTraceId ? `/admin/audit.html?traceId=${encodeURIComponent(state.selectedTraceId)}` : "/admin/audit.html");
+      $("openToolLogs").href = state.selectedTaskId
+        ? `/admin/tools.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : (state.selectedTraceId ? `/admin/tools.html?traceId=${encodeURIComponent(state.selectedTraceId)}` : "/admin/tools.html");
     }
 
     function positiveInt(value, fallback) {
@@ -760,6 +801,9 @@
       $("evidenceBox").textContent = "Select a report row";
       $("copyTrace").dataset.traceId = "";
       state.selectedReportId = "";
+      state.selectedTaskId = "";
+      state.selectedTraceId = "";
+      updateContextLinks();
       syncUrl();
     });
 
@@ -807,6 +851,7 @@
     });
 
     applyInitialQuery();
+    updateContextLinks();
     refreshAll();
   </script>
 </body>

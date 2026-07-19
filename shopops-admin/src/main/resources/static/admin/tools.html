@@ -234,6 +234,26 @@
       font-size: 15px;
     }
 
+    .link-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .link-row a {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: var(--panel);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
     .table-wrap {
       width: 100%;
       max-width: 100%;
@@ -559,6 +579,11 @@
               <button id="clearLogPayload" type="button">Clear</button>
             </div>
             <pre class="detail-box" id="logPayloadBox">Select a call log row</pre>
+            <div class="link-row">
+              <a id="openTask" href="/admin/tasks.html">Open Task</a>
+              <a id="openAudit" href="/admin/audit.html">Open Audit</a>
+              <a id="openReports" href="/admin/reports.html">Reports</a>
+            </div>
           </section>
         </aside>
       </section>
@@ -566,7 +591,7 @@
   </div>
 
   <script>
-    const state = { pageNum: 1, pageSize: 20, total: 0, tools: [], selectedToolCode: "" };
+    const state = { pageNum: 1, pageSize: 20, total: 0, tools: [], selectedToolCode: "", selectedTaskId: "", selectedTraceId: "" };
     const $ = (id) => document.getElementById(id);
 
     function headers() {
@@ -860,6 +885,9 @@
 
     $("clearLogPayload").addEventListener("click", () => {
       $("logPayloadBox").textContent = "Select a call log row";
+      state.selectedTaskId = "";
+      state.selectedTraceId = "";
+      updateContextLinks();
     });
 
     $("toolBody").addEventListener("click", (event) => {
@@ -877,6 +905,9 @@
       const row = event.target.closest("tr[data-log]");
       if (row) {
         const log = JSON.parse(row.dataset.log);
+        state.selectedTaskId = log.taskId || "";
+        state.selectedTraceId = log.traceId || "";
+        updateContextLinks();
         $("logPayloadBox").textContent = JSON.stringify({
           id: log.id,
           toolCode: log.toolCode,
@@ -909,7 +940,20 @@
       }
     });
 
+    function updateContextLinks() {
+      $("openTask").href = state.selectedTaskId
+        ? `/admin/tasks.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : "/admin/tasks.html";
+      $("openAudit").href = state.selectedTaskId
+        ? `/admin/audit.html?source=TASK&taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : (state.selectedTraceId ? `/admin/audit.html?traceId=${encodeURIComponent(state.selectedTraceId)}` : "/admin/audit.html");
+      $("openReports").href = state.selectedTaskId
+        ? `/admin/reports.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : (state.selectedTraceId ? `/admin/reports.html?traceId=${encodeURIComponent(state.selectedTraceId)}` : "/admin/reports.html");
+    }
+
     applyInitialQuery();
+    updateContextLinks();
     refreshAll();
   </script>
 </body>

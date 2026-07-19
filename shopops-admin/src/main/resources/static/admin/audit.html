@@ -348,6 +348,26 @@
       overflow-wrap: anywhere;
     }
 
+    .link-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .link-row a {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: var(--panel);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
     .events-list { display: grid; gap: 8px; }
 
     .event-line {
@@ -608,6 +628,11 @@
               <button id="clearDetail" class="icon" type="button" title="清空详情" aria-label="清空详情">×</button>
             </div>
             <pre class="detail-box" id="detailBox">选择一条时间线事件</pre>
+            <div class="link-row">
+              <a id="openTask" href="/admin/tasks.html">Open Task</a>
+              <a id="openReport" href="/admin/reports.html">Open Report</a>
+              <a id="openToolLogs" href="/admin/tools.html">Tool Logs</a>
+            </div>
           </section>
           <section class="panel">
             <div class="panel-title">
@@ -622,7 +647,7 @@
   </div>
 
   <script>
-    const state = { pageNum: 1, pageSize: 20, total: 0 };
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedTaskId: "", selectedReportId: "", selectedTraceId: "", selectedToolCode: "" };
     const $ = (id) => document.getElementById(id);
 
     const metricItems = [
@@ -761,6 +786,12 @@
       try {
         const data = await api(`/api/admin/audit/timeline/${encodeURIComponent(source)}/${encodeURIComponent(resourceId)}`);
         $("detailBox").textContent = JSON.stringify(data, null, 2);
+        const event = data.event || {};
+        state.selectedTaskId = event.taskId || data.context?.taskId || "";
+        state.selectedReportId = data.context?.reportId || event.detail?.eventData?.reportId || "";
+        state.selectedTraceId = event.traceId || data.context?.traceId || "";
+        state.selectedToolCode = event.toolCode || "";
+        updateContextLinks();
       } catch (error) {
         $("detailBox").textContent = error.message;
       }
@@ -813,6 +844,18 @@
       if (value != null && $(id)) {
         $(id).value = value;
       }
+    }
+
+    function updateContextLinks() {
+      $("openTask").href = state.selectedTaskId
+        ? `/admin/tasks.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : "/admin/tasks.html";
+      $("openReport").href = state.selectedReportId
+        ? `/admin/reports.html?reportId=${encodeURIComponent(state.selectedReportId)}`
+        : (state.selectedTaskId ? `/admin/reports.html?taskId=${encodeURIComponent(state.selectedTaskId)}` : "/admin/reports.html");
+      $("openToolLogs").href = state.selectedTaskId
+        ? `/admin/tools.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : (state.selectedToolCode ? `/admin/tools.html?toolCode=${encodeURIComponent(state.selectedToolCode)}` : "/admin/tools.html");
     }
 
     function setStatus(message) {
@@ -915,6 +958,11 @@
     });
     $("clearDetail").addEventListener("click", () => {
       $("detailBox").textContent = "选择一条时间线事件";
+      state.selectedTaskId = "";
+      state.selectedReportId = "";
+      state.selectedTraceId = "";
+      state.selectedToolCode = "";
+      updateContextLinks();
     });
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
@@ -940,6 +988,7 @@
     });
 
     applyInitialQuery();
+    updateContextLinks();
     refreshAll();
   </script>
 </body>
