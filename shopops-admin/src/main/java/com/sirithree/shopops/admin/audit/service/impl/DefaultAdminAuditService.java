@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,15 +51,18 @@ public class DefaultAdminAuditService implements AdminAuditService {
     private final AgentTaskAdminService agentTaskAdminService;
     private final ToolCallLogService toolCallLogService;
     private final McpToolService mcpToolService;
+    private final ObjectProvider<AdminAuditTimelineJdbcRepository> jdbcTimelineRepositoryProvider;
 
     public DefaultAdminAuditService(AuthAuditService authAuditService,
                                     AgentTaskAdminService agentTaskAdminService,
                                     ToolCallLogService toolCallLogService,
-                                    McpToolService mcpToolService) {
+                                    McpToolService mcpToolService,
+                                    ObjectProvider<AdminAuditTimelineJdbcRepository> jdbcTimelineRepositoryProvider) {
         this.authAuditService = authAuditService;
         this.agentTaskAdminService = agentTaskAdminService;
         this.toolCallLogService = toolCallLogService;
         this.mcpToolService = mcpToolService;
+        this.jdbcTimelineRepositoryProvider = jdbcTimelineRepositoryProvider;
     }
 
     @Override
@@ -79,6 +83,14 @@ public class DefaultAdminAuditService implements AdminAuditService {
 
     @Override
     public CommonPage<AdminAuditTimelineEventDto> listTimeline(Long tenantId, Long shopId, AdminAuditTimelineQueryParam param) {
+        AdminAuditTimelineJdbcRepository jdbcTimelineRepository = jdbcTimelineRepositoryProvider.getIfAvailable();
+        if (jdbcTimelineRepository != null) {
+            return jdbcTimelineRepository.listTimeline(tenantId, shopId, param);
+        }
+        return memoryTimeline(tenantId, shopId, param);
+    }
+
+    private CommonPage<AdminAuditTimelineEventDto> memoryTimeline(Long tenantId, Long shopId, AdminAuditTimelineQueryParam param) {
         AdminAuditTimelineQueryParam query = param == null ? new AdminAuditTimelineQueryParam() : param;
         List<AdminAuditTimelineEventDto> events = new ArrayList<>();
         if (includesSource(query, "AUTH")) {
