@@ -254,10 +254,16 @@
     }
 
     .table-wrap {
+      width: 100%;
+      max-width: 100%;
       overflow: auto;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
+    }
+
+    .timeline-column {
+      min-width: 0;
     }
 
     table {
@@ -513,7 +519,7 @@
       </section>
 
       <section class="content">
-        <div>
+        <div class="timeline-column">
           <div class="table-wrap">
             <table>
               <thead>

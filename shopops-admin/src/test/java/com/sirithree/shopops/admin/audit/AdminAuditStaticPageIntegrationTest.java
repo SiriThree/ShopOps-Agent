@@ -38,6 +38,8 @@ class AdminAuditStaticPageIntegrationTest {
                 .contains("快捷筛选")
                 .contains("data-quick-filter=\"failed\"")
                 .contains("data-empty-reset")
+                .contains(".timeline-column")
+                .contains("max-width: 100%")
                 .contains("/api/admin/audit/overview")
                 .contains("/api/admin/audit/timeline")
                 .contains("/api/admin/audit/high-risk")
