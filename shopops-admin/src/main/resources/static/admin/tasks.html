@@ -1116,7 +1116,7 @@
     $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Task detail"));
     $("retryTask").addEventListener("click", () => withBusy($("retryTask"), "Retrying", retrySelectedTask));
     $("requeueStale").addEventListener("click", () => withBusy($("requeueStale"), "Requeueing", requeueStaleTasks));
-    $("refreshEvents").addEventListener("click", loadEvents);
+    $("refreshEvents").addEventListener("click", () => withBusy($("refreshEvents"), "Refreshing", loadEvents));
     $("clearDetail").addEventListener("click", () => {
       state.selectedTaskId = "";
       state.selectedReportId = "";

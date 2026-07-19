@@ -49,6 +49,7 @@ class AdminTaskStaticPageIntegrationTest {
                 .contains("errorRow")
                 .contains("id=\"createTaskSubmit\"")
                 .contains("withBusy")
+                .contains("Refreshing")
                 .contains("Requeueing")
                 .contains("id=\"copyDetail\"")
                 .contains("copyText")

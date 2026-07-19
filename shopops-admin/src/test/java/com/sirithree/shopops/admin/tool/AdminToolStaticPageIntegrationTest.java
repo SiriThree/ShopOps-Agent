@@ -59,6 +59,7 @@ class AdminToolStaticPageIntegrationTest {
                 .contains("errorRow")
                 .contains("id=\"invokeSubmit\"")
                 .contains("withBusy")
+                .contains("Refreshing")
                 .contains("Invoking")
                 .contains("id=\"copyToolDetail\"")
                 .contains("id=\"copyInvokeResult\"")

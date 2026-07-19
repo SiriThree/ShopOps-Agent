@@ -1086,8 +1086,8 @@
     });
 
     $("resetContext").addEventListener("click", resetContext);
-    $("refreshTools").addEventListener("click", loadTools);
-    $("refreshLogs").addEventListener("click", loadLogs);
+    $("refreshTools").addEventListener("click", () => withBusy($("refreshTools"), "Refreshing", loadTools));
+    $("refreshLogs").addEventListener("click", () => withBusy($("refreshLogs"), "Refreshing", loadLogs));
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;

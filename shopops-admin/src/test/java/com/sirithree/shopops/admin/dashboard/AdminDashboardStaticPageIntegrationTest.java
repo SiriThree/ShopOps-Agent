@@ -47,6 +47,8 @@ class AdminDashboardStaticPageIntegrationTest {
                 .contains("renderHealthError")
                 .contains("renderRiskError")
                 .contains("panel-state")
+                .contains("withBusy")
+                .contains("Refreshing")
                 .contains("shopops.auth.token")
                 .contains("shopops.auth.user")
                 .contains("Authorization")

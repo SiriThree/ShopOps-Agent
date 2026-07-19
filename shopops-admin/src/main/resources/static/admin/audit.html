@@ -1141,7 +1141,7 @@
       resetFilters();
     });
 
-    $("refreshRisk").addEventListener("click", loadRisk);
+    $("refreshRisk").addEventListener("click", () => withBusy($("refreshRisk"), "Refreshing", loadRisk));
     $("exportBtn").addEventListener("click", () => withBusy($("exportBtn"), "Downloading", loadExport));
     document.querySelector(".quick-actions").addEventListener("click", (event) => {
       const button = event.target.closest("button[data-quick-filter]");

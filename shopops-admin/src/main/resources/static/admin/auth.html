@@ -984,7 +984,7 @@
       $("maskToken").textContent = state.tokenMasked ? "Reveal" : "Mask";
       renderToken();
     });
-    $("refreshEvents").addEventListener("click", loadAuditEvents);
+    $("refreshEvents").addEventListener("click", () => withBusy($("refreshEvents"), "Refreshing", loadAuditEvents));
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;

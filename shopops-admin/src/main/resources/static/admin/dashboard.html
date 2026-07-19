@@ -568,6 +568,21 @@
       }
     }
 
+    async function withBusy(button, busyText, action) {
+      if (button.disabled) {
+        return;
+      }
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    }
+
     function renderSummary(summary) {
       const metrics = summary.taskMetrics || {};
       $("generatedAt").textContent = `Generated ${formatTime(summary.generatedAt)}`;
@@ -753,7 +768,7 @@
       refreshAll();
     });
 
-    $("refreshBtn").addEventListener("click", refreshAll);
+    $("refreshBtn").addEventListener("click", () => withBusy($("refreshBtn"), "Refreshing", refreshAll));
 
     applyStoredSession();
     refreshAll();

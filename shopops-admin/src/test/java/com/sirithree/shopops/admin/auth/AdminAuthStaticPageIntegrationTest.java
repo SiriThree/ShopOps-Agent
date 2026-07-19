@@ -49,6 +49,7 @@ class AdminAuthStaticPageIntegrationTest {
                 .contains("errorRow")
                 .contains("id=\"loginSubmit\"")
                 .contains("withBusy")
+                .contains("Refreshing")
                 .contains("Applying")
                 .contains("id=\"copyUser\"")
                 .contains("id=\"copyEventDetail\"")
