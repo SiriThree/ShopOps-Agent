@@ -254,6 +254,35 @@
       font-size: 13px;
     }
 
+    .summary-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .summary-item {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fbfcfd;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .summary-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
     .table-wrap {
       width: 100%;
       max-width: 100%;
@@ -548,6 +577,7 @@
               <h2>Tool Detail</h2>
               <button id="clearDetail" type="button">Clear</button>
             </div>
+            <div class="summary-box" id="toolSummary"></div>
             <pre class="detail-box" id="detailBox">Select a tool row</pre>
           </section>
 
@@ -578,6 +608,7 @@
               <h2>Log Payload</h2>
               <button id="clearLogPayload" type="button">Clear</button>
             </div>
+            <div class="summary-box" id="logSummary"></div>
             <pre class="detail-box" id="logPayloadBox">Select a call log row</pre>
             <div class="link-row">
               <a id="openTask" href="/admin/tasks.html">Open Task</a>
@@ -650,12 +681,22 @@
       }
       state.selectedToolCode = toolCode;
       $("invokeToolCode").value = toolCode;
+      $("toolSummary").innerHTML = "";
       $("detailBox").textContent = "Loading...";
       try {
         const tool = await api(`/api/tools/${encodeURIComponent(toolCode)}`);
         $("detailBox").textContent = JSON.stringify(tool, null, 2);
+        $("toolSummary").innerHTML = summaryItems([
+          ["Tool", tool.toolCode || toolCode],
+          ["Name", tool.toolName || ""],
+          ["Risk", tool.riskLevel || ""],
+          ["Approval", tool.needApproval ? "Required" : "No"],
+          ["Status", tool.enabled === false ? "Disabled" : "Enabled"],
+          ["Version", tool.version || ""]
+        ]);
         markSelectedTool();
       } catch (error) {
+        $("toolSummary").innerHTML = "";
         $("detailBox").textContent = error.message;
       }
     }
@@ -873,6 +914,7 @@
 
     $("clearDetail").addEventListener("click", () => {
       state.selectedToolCode = "";
+      $("toolSummary").innerHTML = "";
       $("detailBox").textContent = "Select a tool row";
       markSelectedTool();
     });
@@ -884,6 +926,7 @@
     });
 
     $("clearLogPayload").addEventListener("click", () => {
+      $("logSummary").innerHTML = "";
       $("logPayloadBox").textContent = "Select a call log row";
       state.selectedTaskId = "";
       state.selectedTraceId = "";
@@ -908,6 +951,14 @@
         state.selectedTaskId = log.taskId || "";
         state.selectedTraceId = log.traceId || "";
         updateContextLinks();
+        $("logSummary").innerHTML = summaryItems([
+          ["Log", log.id || ""],
+          ["Tool", log.toolCode || ""],
+          ["Status", log.status || ""],
+          ["Task", log.taskId || ""],
+          ["Trace", log.traceId || ""],
+          ["Latency", `${number(log.latencyMs)} ms`]
+        ]);
         $("logPayloadBox").textContent = JSON.stringify({
           id: log.id,
           toolCode: log.toolCode,
@@ -950,6 +1001,15 @@
       $("openReports").href = state.selectedTaskId
         ? `/admin/reports.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
         : (state.selectedTraceId ? `/admin/reports.html?traceId=${encodeURIComponent(state.selectedTraceId)}` : "/admin/reports.html");
+    }
+
+    function summaryItems(items) {
+      return items.map(([label, value]) => `
+        <div class="summary-item">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value || "-")}</strong>
+        </div>
+      `).join("");
     }
 
     applyInitialQuery();

@@ -368,6 +368,35 @@
       font-size: 13px;
     }
 
+    .summary-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .summary-item {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fbfcfd;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .summary-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
     .events-list { display: grid; gap: 8px; }
 
     .event-line {
@@ -627,6 +656,7 @@
               <h2>事件详情</h2>
               <button id="clearDetail" class="icon" type="button" title="清空详情" aria-label="清空详情">×</button>
             </div>
+            <div class="summary-box" id="eventSummary"></div>
             <pre class="detail-box" id="detailBox">选择一条时间线事件</pre>
             <div class="link-row">
               <a id="openTask" href="/admin/tasks.html">Open Task</a>
@@ -782,6 +812,7 @@
       if (!source || !resourceId) {
         return;
       }
+      $("eventSummary").innerHTML = "";
       $("detailBox").textContent = "加载中...";
       try {
         const data = await api(`/api/admin/audit/timeline/${encodeURIComponent(source)}/${encodeURIComponent(resourceId)}`);
@@ -791,8 +822,19 @@
         state.selectedReportId = data.context?.reportId || event.detail?.eventData?.reportId || "";
         state.selectedTraceId = event.traceId || data.context?.traceId || "";
         state.selectedToolCode = event.toolCode || "";
+        $("eventSummary").innerHTML = summaryItems([
+          ["Source", event.source || source],
+          ["Type", event.eventType || ""],
+          ["Status", event.eventStatus || ""],
+          ["Risk", event.riskLevel || "UNKNOWN"],
+          ["Task", state.selectedTaskId || ""],
+          ["Report", state.selectedReportId || ""],
+          ["Trace", state.selectedTraceId || ""],
+          ["Tool Calls", data.context?.toolCallCount || ""]
+        ]);
         updateContextLinks();
       } catch (error) {
+        $("eventSummary").innerHTML = "";
         $("detailBox").textContent = error.message;
       }
     }
@@ -856,6 +898,15 @@
       $("openToolLogs").href = state.selectedTaskId
         ? `/admin/tools.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
         : (state.selectedToolCode ? `/admin/tools.html?toolCode=${encodeURIComponent(state.selectedToolCode)}` : "/admin/tools.html");
+    }
+
+    function summaryItems(items) {
+      return items.map(([label, value]) => `
+        <div class="summary-item">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value || "-")}</strong>
+        </div>
+      `).join("");
     }
 
     function setStatus(message) {
@@ -957,6 +1008,7 @@
       refreshAll();
     });
     $("clearDetail").addEventListener("click", () => {
+      $("eventSummary").innerHTML = "";
       $("detailBox").textContent = "选择一条时间线事件";
       state.selectedTaskId = "";
       state.selectedReportId = "";

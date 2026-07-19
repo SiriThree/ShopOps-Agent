@@ -309,6 +309,35 @@
       font-size: 13px;
     }
 
+    .summary-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .summary-item {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fbfcfd;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .summary-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
     .detail-box, .markdown-box {
       max-height: 360px;
       overflow: auto;
@@ -538,6 +567,7 @@
               <h2>Evidence</h2>
               <button id="copyTrace" type="button">Trace</button>
             </div>
+            <div class="summary-box" id="evidenceSummary"></div>
             <pre class="detail-box" id="evidenceBox">Select a report row</pre>
             <div class="link-row">
               <a id="openTask" href="/admin/tasks.html">Open Task</a>
@@ -656,6 +686,7 @@
         return;
       }
       $("markdownBox").textContent = "Loading...";
+      $("evidenceSummary").innerHTML = "";
       $("evidenceBox").textContent = "Loading...";
       try {
         const report = await api(`/api/reports/${encodeURIComponent(reportId)}`);
@@ -667,6 +698,14 @@
           traceId: report.traceId,
           evidence: report.evidence
         }, null, 2);
+        $("evidenceSummary").innerHTML = summaryItems([
+          ["Report", report.reportNo || report.reportId],
+          ["Status", report.status || ""],
+          ["Task", report.taskId || ""],
+          ["Trace", report.traceId || ""],
+          ["Type", report.reportType || ""],
+          ["Evidence", evidenceSummary(report.evidence)]
+        ]);
         state.selectedTaskId = report.taskId || "";
         state.selectedTraceId = report.traceId || "";
         updateContextLinks();
@@ -674,8 +713,26 @@
         $("copyTrace").dataset.traceId = report.traceId || "";
       } catch (error) {
         $("markdownBox").textContent = error.message;
+        $("evidenceSummary").innerHTML = "";
         $("evidenceBox").textContent = error.message;
       }
+    }
+
+    function evidenceSummary(evidence) {
+      if (!evidence) {
+        return "";
+      }
+      const parts = [];
+      if (Array.isArray(evidence.toolCodes)) {
+        parts.push(`${evidence.toolCodes.length} tools`);
+      }
+      if (Array.isArray(evidence.productIds)) {
+        parts.push(`${evidence.productIds.length} products`);
+      }
+      if (Array.isArray(evidence.riskCommentIds)) {
+        parts.push(`${evidence.riskCommentIds.length} risk comments`);
+      }
+      return parts.join(" / ") || "Available";
     }
 
     function applyQuickFilter(name) {
@@ -752,6 +809,15 @@
       `;
     }
 
+    function summaryItems(items) {
+      return items.map(([label, value]) => `
+        <div class="summary-item">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value || "-")}</strong>
+        </div>
+      `).join("");
+    }
+
     function setStatus(message) {
       $("statusLine").textContent = message;
     }
@@ -798,6 +864,7 @@
 
     $("clearPreview").addEventListener("click", () => {
       $("markdownBox").textContent = "Select a report row";
+      $("evidenceSummary").innerHTML = "";
       $("evidenceBox").textContent = "Select a report row";
       $("copyTrace").dataset.traceId = "";
       state.selectedReportId = "";
