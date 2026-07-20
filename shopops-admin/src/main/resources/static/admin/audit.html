@@ -561,6 +561,7 @@
         <a href="/admin/auth.html">认证</a>
         <a href="/admin/tasks.html">任务队列</a>
         <a class="active" href="/admin/audit.html">审计中心</a>
+        <a href="/admin/approvals.html">审批中心</a>
         <a href="/admin/reports.html">报告</a>
         <a href="/admin/tools.html">工具日志</a>
       </nav>
@@ -616,6 +617,7 @@
               <option value="AUTH">认证</option>
               <option value="TASK">任务</option>
               <option value="TOOL">工具</option>
+              <option value="APPROVAL">审批</option>
             </select>
           </label>
           <label>状态
@@ -651,6 +653,7 @@
           <span>快捷筛选</span>
           <button type="button" data-quick-filter="failed">失败事件</button>
           <button type="button" data-quick-filter="high-risk">中高风险</button>
+          <button type="button" data-quick-filter="approval">审批事件</button>
           <button type="button" data-quick-filter="tool">工具调用</button>
           <button type="button" data-quick-filter="clear">清空筛选</button>
         </div>
@@ -700,6 +703,7 @@
             <div class="link-row">
               <a id="openTask" href="/admin/tasks.html">打开任务</a>
               <a id="openReport" href="/admin/reports.html">打开报告</a>
+              <a id="openApproval" href="/admin/approvals.html">审批中心</a>
               <a id="openToolLogs" href="/admin/tools.html">工具日志</a>
             </div>
           </section>
@@ -718,7 +722,7 @@
   <script>
     const TOKEN_KEY = "shopops.auth.token";
     const USER_KEY = "shopops.auth.user";
-    const state = { pageNum: 1, pageSize: 20, total: 0, selectedTaskId: "", selectedReportId: "", selectedTraceId: "", selectedToolCode: "" };
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedTaskId: "", selectedReportId: "", selectedTraceId: "", selectedToolCode: "", selectedApprovalId: "" };
     const $ = (id) => document.getElementById(id);
 
     const metricItems = [
@@ -872,6 +876,7 @@
         state.selectedReportId = data.context?.reportId || event.detail?.eventData?.reportId || "";
         state.selectedTraceId = event.traceId || data.context?.traceId || "";
         state.selectedToolCode = event.toolCode || "";
+        state.selectedApprovalId = source === "APPROVAL" ? resourceId : "";
         $("eventSummary").innerHTML = summaryItems([
           ["来源", event.source || source],
           ["类型", event.eventType || ""],
@@ -898,6 +903,8 @@
           $("eventStatus").value = "FAILURE";
         } else if (name === "high-risk") {
           $("riskLevel").value = "ELEVATED";
+        } else if (name === "approval") {
+          $("source").value = "APPROVAL";
         } else if (name === "tool") {
           $("source").value = "TOOL";
         }
@@ -945,6 +952,9 @@
       $("openReport").href = state.selectedReportId
         ? `/admin/reports.html?reportId=${encodeURIComponent(state.selectedReportId)}`
         : (state.selectedTaskId ? `/admin/reports.html?taskId=${encodeURIComponent(state.selectedTaskId)}` : "/admin/reports.html");
+      $("openApproval").href = state.selectedApprovalId
+        ? `/admin/approvals.html?approvalId=${encodeURIComponent(state.selectedApprovalId)}`
+        : "/admin/approvals.html";
       $("openToolLogs").href = state.selectedTaskId
         ? `/admin/tools.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
         : (state.selectedToolCode ? `/admin/tools.html?toolCode=${encodeURIComponent(state.selectedToolCode)}` : "/admin/tools.html");
@@ -1169,6 +1179,7 @@
       state.selectedReportId = "";
       state.selectedTraceId = "";
       state.selectedToolCode = "";
+      state.selectedApprovalId = "";
       updateContextLinks();
     });
     $("prevPage").addEventListener("click", () => {
