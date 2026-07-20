@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>ShopOps Tools</title>
+  <title>ShopOps 工具日志</title>
   <style>
     :root {
       color-scheme: light;
@@ -475,79 +475,79 @@
     <aside class="sidebar">
       <div class="brand">
         <strong>ShopOps</strong>
-        <span>Admin Console</span>
+        <span>管理控制台</span>
       </div>
-      <nav class="nav" aria-label="Admin navigation">
-        <a href="/admin/dashboard.html">Dashboard</a>
-        <a href="/admin/auth.html">Auth</a>
-        <a href="/admin/tasks.html">Agent Tasks</a>
-        <a href="/admin/audit.html">Audit Center</a>
-        <a href="/admin/reports.html">Reports</a>
-        <a class="active" href="/admin/tools.html">Tools</a>
+      <nav class="nav" aria-label="管理导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a class="active" href="/admin/tools.html">工具日志</a>
       </nav>
     </aside>
 
     <main class="main">
       <header class="topbar">
         <div>
-          <h1>Tools</h1>
-          <div class="subtitle">Registry, manual invocation, and call history</div>
+          <h1>工具日志</h1>
+          <div class="subtitle">工具注册表、手动调用与调用历史</div>
         </div>
         <form class="context-grid" id="contextForm" autocomplete="off">
-          <label>Tenant
+          <label>租户
             <input id="tenantId" value="1" inputmode="numeric">
           </label>
-          <label>Shop
+          <label>店铺
             <input id="shopId" value="1" inputmode="numeric">
           </label>
-          <label>User
+          <label>用户
             <input id="userId" value="1" inputmode="numeric">
           </label>
-          <label>Roles
+          <label>角色
             <input id="roles" value="ADMIN">
           </label>
-          <button class="primary" type="submit">Apply</button>
-          <button id="resetContext" type="button">Reset</button>
-          <div class="context-session" id="sessionLine">Header context</div>
+          <button class="primary" type="submit">应用</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
         </form>
       </header>
 
       <section class="toolbar">
         <div class="metrics" id="metrics"></div>
         <form class="filters" id="filterForm" autocomplete="off">
-          <label>Status
+          <label>状态
             <select id="logStatus">
-              <option value="">All</option>
-              <option value="SUCCESS">SUCCESS</option>
-              <option value="FAILED">FAILED</option>
-              <option value="RUNNING">RUNNING</option>
+              <option value="">全部</option>
+              <option value="SUCCESS">成功</option>
+              <option value="FAILED">失败</option>
+              <option value="RUNNING">运行中</option>
             </select>
           </label>
-          <label>Tool Code
+          <label>工具编码
             <input id="toolCodeFilter" placeholder="order.query_summary">
           </label>
-          <label>Task ID
+          <label>任务 ID
             <input id="taskId" inputmode="numeric">
           </label>
-          <label>Log ID
+          <label>日志 ID
             <input id="logId" inputmode="numeric">
           </label>
-          <label>Page Size
+          <label>每页数量
             <select id="pageSize">
               <option>20</option>
               <option>50</option>
               <option>100</option>
             </select>
           </label>
-          <button id="toolFilterSubmit" class="primary" type="submit">Search</button>
-          <button id="resetFilters" type="button">Reset</button>
+          <button id="toolFilterSubmit" class="primary" type="submit">查询</button>
+          <button id="resetFilters" type="button">重置</button>
         </form>
         <div class="quick-actions">
-          <span>Quick filters</span>
-          <button type="button" data-quick-filter="failed">Failed calls</button>
-          <button type="button" data-quick-filter="approval">Needs approval</button>
-          <button type="button" data-quick-filter="enabled">Enabled tools</button>
-          <button type="button" data-quick-filter="clear">Clear</button>
+          <span>快捷筛选</span>
+          <button type="button" data-quick-filter="failed">失败调用</button>
+          <button type="button" data-quick-filter="approval">需要审批</button>
+          <button type="button" data-quick-filter="enabled">已启用工具</button>
+          <button type="button" data-quick-filter="clear">清空</button>
         </div>
         <div class="status-line" id="statusLine"></div>
       </section>
@@ -556,20 +556,20 @@
         <div class="main-column">
           <section class="panel">
             <div class="panel-title">
-              <h2>Tool Registry</h2>
-              <button id="refreshTools" type="button">Refresh</button>
+              <h2>工具注册表</h2>
+              <button id="refreshTools" type="button">刷新</button>
             </div>
             <div class="table-wrap">
               <table>
                 <thead>
                   <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Risk</th>
-                    <th>Approval</th>
-                    <th>Enabled</th>
-                    <th>Version</th>
+                    <th>编码</th>
+                    <th>名称</th>
+                    <th>分类</th>
+                    <th>风险</th>
+                    <th>审批</th>
+                    <th>启用</th>
+                    <th>版本</th>
                   </tr>
                 </thead>
                 <tbody id="toolBody"></tbody>
@@ -579,30 +579,30 @@
 
           <section class="panel">
             <div class="panel-title">
-              <h2>Call Logs</h2>
-              <button id="refreshLogs" type="button">Refresh</button>
+              <h2>调用日志</h2>
+              <button id="refreshLogs" type="button">刷新</button>
             </div>
             <div class="table-wrap">
               <table>
                 <thead>
                   <tr>
-                    <th>Log</th>
-                    <th>Tool</th>
-                    <th>Status</th>
-                    <th>Task</th>
+                    <th>日志</th>
+                    <th>工具</th>
+                    <th>状态</th>
+                    <th>任务</th>
                     <th>Trace</th>
-                    <th>Latency</th>
-                    <th>Error</th>
-                    <th>Created</th>
+                    <th>耗时</th>
+                    <th>错误</th>
+                    <th>创建时间</th>
                   </tr>
                 </thead>
                 <tbody id="logBody"></tbody>
               </table>
             </div>
             <div class="pager">
-              <button id="prevPage" type="button">Prev</button>
-              <span id="pageInfo">Page 1</span>
-              <button id="nextPage" type="button">Next</button>
+              <button id="prevPage" type="button">上一页</button>
+              <span id="pageInfo">第 1 页</span>
+              <button id="nextPage" type="button">下一页</button>
             </div>
           </section>
         </div>
@@ -610,55 +610,55 @@
         <aside class="side">
           <section class="panel">
             <div class="panel-title">
-              <h2>Tool Detail</h2>
+              <h2>工具详情</h2>
               <div class="button-row">
-                <button id="copyToolDetail" type="button">Copy</button>
-                <button id="clearDetail" type="button">Clear</button>
+                <button id="copyToolDetail" type="button">复制</button>
+                <button id="clearDetail" type="button">清空</button>
               </div>
             </div>
             <div class="summary-box" id="toolSummary"></div>
-            <pre class="detail-box" id="detailBox">Select a tool row</pre>
+            <pre class="detail-box" id="detailBox">请选择一条工具记录</pre>
           </section>
 
           <section class="panel">
             <div class="panel-title">
-              <h2>Manual Invoke</h2>
+              <h2>手动调用</h2>
               <div class="button-row">
-                <button id="copyInvokeResult" type="button">Copy Result</button>
-                <button id="useSelectedTool" type="button">Use Selected</button>
+                <button id="copyInvokeResult" type="button">复制结果</button>
+                <button id="useSelectedTool" type="button">使用所选</button>
               </div>
             </div>
             <form id="invokeForm" autocomplete="off">
-              <label>Tool Code
+              <label>工具编码
                 <input id="invokeToolCode" placeholder="order.query_summary" required>
               </label>
-              <label>JSON Input
+              <label>JSON 输入
                 <textarea id="invokeInput">{
   "days": 7
 }</textarea>
               </label>
               <div class="invoke-actions">
                 <span class="status-line" id="invokeStatus"></span>
-                <button id="invokeSubmit" class="primary" type="submit">Invoke</button>
+                <button id="invokeSubmit" class="primary" type="submit">调用</button>
               </div>
             </form>
-            <pre class="result-box" id="invokeResult">No invocation yet</pre>
+            <pre class="result-box" id="invokeResult">尚未调用</pre>
           </section>
 
           <section class="panel">
             <div class="panel-title">
-              <h2>Log Payload</h2>
+              <h2>日志载荷</h2>
               <div class="button-row">
-                <button id="copyLogPayload" type="button">Copy</button>
-                <button id="clearLogPayload" type="button">Clear</button>
+                <button id="copyLogPayload" type="button">复制</button>
+                <button id="clearLogPayload" type="button">清空</button>
               </div>
             </div>
             <div class="summary-box" id="logSummary"></div>
-            <pre class="detail-box" id="logPayloadBox">Select a call log row</pre>
+            <pre class="detail-box" id="logPayloadBox">请选择一条调用日志</pre>
             <div class="link-row">
-              <a id="openTask" href="/admin/tasks.html">Open Task</a>
-              <a id="openAudit" href="/admin/audit.html">Open Audit</a>
-              <a id="openReports" href="/admin/reports.html">Reports</a>
+              <a id="openTask" href="/admin/tasks.html">打开任务</a>
+              <a id="openAudit" href="/admin/audit.html">打开审计</a>
+              <a id="openReports" href="/admin/reports.html">报告</a>
             </div>
           </section>
         </aside>
@@ -700,11 +700,11 @@
     }
 
     async function refreshAll() {
-      setStatus("Loading tools");
+      setStatus("工具加载中");
       try {
         await loadTools();
         await loadLogs();
-        setStatus("Tools refreshed");
+        setStatus("工具已刷新");
       } catch (error) {
         setStatus(error.message);
       }
@@ -720,15 +720,15 @@
             <td>${escapeHtml(tool.toolName || "")}</td>
             <td>${escapeHtml(tool.category || "")}</td>
             <td><span class="badge ${riskClass(tool.riskLevel)}">${escapeHtml(tool.riskLevel || "")}</span></td>
-            <td><span class="badge ${tool.needApproval ? "approval" : "low"}">${tool.needApproval ? "Required" : "No"}</span></td>
-            <td><span class="badge ${tool.enabled ? "enabled" : "disabled"}">${tool.enabled ? "Enabled" : "Disabled"}</span></td>
+            <td><span class="badge ${tool.needApproval ? "approval" : "low"}">${tool.needApproval ? "需要" : "否"}</span></td>
+            <td><span class="badge ${tool.enabled ? "enabled" : "disabled"}">${tool.enabled ? "启用" : "禁用"}</span></td>
             <td>${escapeHtml(tool.version || "")}</td>
           </tr>
-        `).join("") || registryEmptyRow("No tools found", "Refresh the registry or check service configuration.");
+        `).join("") || registryEmptyRow("暂无工具", "请刷新注册表或检查服务配置。");
         renderMetrics();
       } catch (error) {
         state.tools = [];
-        $("toolBody").innerHTML = registryEmptyRow("Unable to load tools", error.message || "Check the service and try again.");
+        $("toolBody").innerHTML = registryEmptyRow("工具加载失败", error.message || "请检查服务状态后重试。");
         renderMetrics();
         throw error;
       }
@@ -741,17 +741,17 @@
       state.selectedToolCode = toolCode;
       $("invokeToolCode").value = toolCode;
       $("toolSummary").innerHTML = "";
-      $("detailBox").textContent = "Loading...";
+      $("detailBox").textContent = "加载中...";
       try {
         const tool = await api(`/api/tools/${encodeURIComponent(toolCode)}`);
         $("detailBox").textContent = JSON.stringify(tool, null, 2);
         $("toolSummary").innerHTML = summaryItems([
-          ["Tool", tool.toolCode || toolCode],
-          ["Name", tool.toolName || ""],
-          ["Risk", tool.riskLevel || ""],
-          ["Approval", tool.needApproval ? "Required" : "No"],
-          ["Status", tool.enabled === false ? "Disabled" : "Enabled"],
-          ["Version", tool.version || ""]
+          ["工具", tool.toolCode || toolCode],
+          ["名称", tool.toolName || ""],
+          ["风险", tool.riskLevel || ""],
+          ["审批", tool.needApproval ? "需要" : "否"],
+          ["状态", tool.enabled === false ? "禁用" : "启用"],
+          ["版本", tool.version || ""]
         ]);
         markSelectedTool();
       } catch (error) {
@@ -778,15 +778,15 @@
             <td>${escapeHtml(log.errorCode || log.errorMessage || "")}</td>
             <td>${formatTime(log.createdAt)}</td>
           </tr>
-        `).join("") || emptyRow(8, "No call logs found", "Try clearing filters or refreshing call logs.");
-        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+        `).join("") || emptyRow(8, "暂无调用日志", "可以清空筛选或刷新调用日志。");
+        $("pageInfo").textContent = `第 ${data.pageNum || state.pageNum} 页 / 共 ${state.total} 条`;
         $("prevPage").disabled = state.pageNum <= 1;
         $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
         renderMetrics();
       } catch (error) {
         state.total = 0;
-        $("logBody").innerHTML = errorRow(8, "Unable to load call logs", error.message);
-        $("pageInfo").textContent = "Call logs unavailable";
+        $("logBody").innerHTML = errorRow(8, "调用日志加载失败", error.message);
+        $("pageInfo").textContent = "调用日志不可用";
         $("prevPage").disabled = true;
         $("nextPage").disabled = true;
         renderMetrics();
@@ -800,8 +800,8 @@
       if (!toolCode) {
         return;
       }
-      $("invokeStatus").textContent = "Invoking";
-      $("invokeResult").textContent = "Running...";
+      $("invokeStatus").textContent = "调用中";
+      $("invokeResult").textContent = "运行中...";
       try {
         const input = JSON.parse($("invokeInput").value || "{}");
         const result = await api(`/api/tools/${encodeURIComponent(toolCode)}/invoke`, {
@@ -809,11 +809,11 @@
           body: JSON.stringify(input)
         });
         $("invokeResult").textContent = JSON.stringify(result, null, 2);
-        $("invokeStatus").textContent = result.status || "Done";
+        $("invokeStatus").textContent = result.status || "完成";
         state.pageNum = 1;
         await loadLogs();
       } catch (error) {
-        $("invokeStatus").textContent = "Failed";
+        $("invokeStatus").textContent = "失败";
         $("invokeResult").textContent = error.message;
       }
     }
@@ -846,11 +846,11 @@
       const approval = state.tools.filter((tool) => tool.needApproval).length;
       const highRisk = state.tools.filter((tool) => String(tool.riskLevel || "").toLowerCase() === "high").length;
       $("metrics").innerHTML = [
-        ["Tools", totalTools],
-        ["Enabled", enabled],
-        ["Approval", approval],
-        ["High Risk", highRisk],
-        ["Call Logs", state.total]
+        ["工具", totalTools],
+        ["启用", enabled],
+        ["需审批", approval],
+        ["高风险", highRisk],
+        ["调用日志", state.total]
       ].map(([label, value]) => metric(label, value)).join("");
     }
 
@@ -891,8 +891,8 @@
 
     function renderSessionLine(session = authSession()) {
       $("sessionLine").textContent = session.token
-        ? `Bearer session loaded${session.user?.username ? ` for ${session.user.username}` : ""}`
-        : "Header context";
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
     }
 
     function authSession() {
@@ -988,8 +988,8 @@
 
     async function copyText(text, label) {
       const value = String(text || "").trim();
-      if (!value || value === "Select a tool row" || value === "Select a call log row" || value === "No invocation yet" || value === "Loading..." || value === "Running...") {
-        setStatus(`Nothing to copy from ${label}`);
+      if (!value || value === "请选择一条工具记录" || value === "请选择一条调用日志" || value === "尚未调用" || value === "加载中..." || value === "运行中...") {
+        setStatus(`没有可复制的${label}`);
         return;
       }
       try {
@@ -998,10 +998,10 @@
         } else {
           fallbackCopy(value);
         }
-        setStatus(`${label} copied`);
+        setStatus(`${label}已复制`);
       } catch (error) {
         fallbackCopy(value);
-        setStatus(`${label} copied`);
+        setStatus(`${label}已复制`);
       }
     }
 
@@ -1025,8 +1025,8 @@
               <strong>${escapeHtml(title)}</strong>
               <span>${escapeHtml(message)}</span>
               <div class="empty-actions">
-                <button type="button" data-empty-reset>Clear filters</button>
-                <button type="button" data-retry-list>Refresh</button>
+                <button type="button" data-empty-reset>清空筛选</button>
+                <button type="button" data-retry-list>刷新</button>
               </div>
             </div>
           </td>
@@ -1042,7 +1042,7 @@
               <strong>${escapeHtml(title)}</strong>
               <span>${escapeHtml(message)}</span>
               <div class="empty-actions">
-                <button type="button" data-retry-list>Refresh</button>
+                <button type="button" data-retry-list>刷新</button>
               </div>
             </div>
           </td>
@@ -1051,7 +1051,7 @@
     }
 
     function errorRow(colspan, title, message) {
-      return emptyRow(colspan, title, message || "Check the service and try again.");
+      return emptyRow(colspan, title, message || "请检查服务状态后重试。");
     }
 
     function number(value) {
@@ -1089,26 +1089,26 @@
     });
 
     $("resetContext").addEventListener("click", resetContext);
-    $("refreshTools").addEventListener("click", () => withBusy($("refreshTools"), "Refreshing", loadTools));
-    $("refreshLogs").addEventListener("click", () => withBusy($("refreshLogs"), "Refreshing", loadLogs));
+    $("refreshTools").addEventListener("click", () => withBusy($("refreshTools"), "刷新中", loadTools));
+    $("refreshLogs").addEventListener("click", () => withBusy($("refreshLogs"), "刷新中", loadLogs));
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      withBusy($("toolFilterSubmit"), "Searching", loadLogs);
+      withBusy($("toolFilterSubmit"), "查询中", loadLogs);
     });
-    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "重置中", resetFilters));
     $("invokeForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      withBusy($("invokeSubmit"), "Invoking", () => invokeTool(event));
+      withBusy($("invokeSubmit"), "调用中", () => invokeTool(event));
     });
-    $("copyToolDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Tool detail"));
-    $("copyInvokeResult").addEventListener("click", () => copyText($("invokeResult").textContent, "Invoke result"));
-    $("copyLogPayload").addEventListener("click", () => copyText($("logPayloadBox").textContent, "Log payload"));
+    $("copyToolDetail").addEventListener("click", () => copyText($("detailBox").textContent, "工具详情"));
+    $("copyInvokeResult").addEventListener("click", () => copyText($("invokeResult").textContent, "调用结果"));
+    $("copyLogPayload").addEventListener("click", () => copyText($("logPayloadBox").textContent, "日志载荷"));
 
     $("clearDetail").addEventListener("click", () => {
       state.selectedToolCode = "";
       $("toolSummary").innerHTML = "";
-      $("detailBox").textContent = "Select a tool row";
+      $("detailBox").textContent = "请选择一条工具记录";
       markSelectedTool();
     });
 
@@ -1120,7 +1120,7 @@
 
     $("clearLogPayload").addEventListener("click", () => {
       $("logSummary").innerHTML = "";
-      $("logPayloadBox").textContent = "Select a call log row";
+      $("logPayloadBox").textContent = "请选择一条调用日志";
       state.selectedTaskId = "";
       state.selectedTraceId = "";
       updateContextLinks();
@@ -1181,14 +1181,14 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        withBusy($("prevPage"), "Loading", loadLogs, false);
+        withBusy($("prevPage"), "加载中", loadLogs, false);
       }
     });
 
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        withBusy($("nextPage"), "Loading", loadLogs, false);
+        withBusy($("nextPage"), "加载中", loadLogs, false);
       }
     });
 

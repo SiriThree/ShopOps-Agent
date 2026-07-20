@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>ShopOps Auth</title>
+  <title>ShopOps 认证</title>
   <style>
     :root {
       color-scheme: light;
@@ -416,61 +416,61 @@
     <aside class="sidebar">
       <div class="brand">
         <strong>ShopOps</strong>
-        <span>Admin Console</span>
+        <span>管理控制台</span>
       </div>
-      <nav class="nav" aria-label="Admin navigation">
-        <a href="/admin/dashboard.html">Dashboard</a>
-        <a class="active" href="/admin/auth.html">Auth</a>
-        <a href="/admin/tasks.html">Agent Tasks</a>
-        <a href="/admin/audit.html">Audit Center</a>
-        <a href="/admin/reports.html">Reports</a>
-        <a href="/admin/tools.html">Tools</a>
+      <nav class="nav" aria-label="管理导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a class="active" href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
       </nav>
     </aside>
 
     <main class="main">
       <header class="topbar">
         <div>
-          <h1>Auth</h1>
-          <div class="subtitle" id="sessionLine">Checking session</div>
+          <h1>认证</h1>
+          <div class="subtitle" id="sessionLine">正在检查会话</div>
         </div>
         <div class="session-actions">
-          <label>Stored Token
+          <label>已存 Token
             <input id="storedToken" autocomplete="new-password">
           </label>
-          <button class="primary" id="applyToken" type="button">Apply</button>
-          <button id="clearToken" type="button">Clear</button>
+          <button class="primary" id="applyToken" type="button">应用</button>
+          <button id="clearToken" type="button">清空</button>
         </div>
       </header>
 
       <section class="toolbar">
         <div class="metrics" id="metrics"></div>
         <form class="filters" id="filterForm" autocomplete="off">
-          <label>Event Type
+          <label>事件类型
             <select id="eventType">
-              <option value="">All</option>
-              <option value="LOGIN">LOGIN</option>
-              <option value="LOGOUT">LOGOUT</option>
-              <option value="AUTHENTICATION">AUTHENTICATION</option>
+              <option value="">全部</option>
+              <option value="LOGIN">登录</option>
+              <option value="LOGOUT">退出</option>
+              <option value="AUTHENTICATION">认证</option>
             </select>
           </label>
-          <label>Status
+          <label>状态
             <select id="eventStatus">
-              <option value="">All</option>
-              <option value="SUCCESS">SUCCESS</option>
-              <option value="FAILURE">FAILURE</option>
+              <option value="">全部</option>
+              <option value="SUCCESS">成功</option>
+              <option value="FAILURE">失败</option>
             </select>
           </label>
-          <label>Username
+          <label>用户name
             <input id="usernameFilter" placeholder="admin" autocomplete="new-password">
           </label>
-          <label>User ID
+          <label>用户 ID
             <input id="userIdFilter" inputmode="numeric" autocomplete="new-password">
           </label>
-          <label>Request ID
+          <label>请求 ID
             <input id="requestIdFilter" placeholder="req_" autocomplete="new-password">
           </label>
-          <label>Page Size
+          <label>每页数量
             <select id="pageSize">
               <option>10</option>
               <option>20</option>
@@ -478,15 +478,15 @@
               <option>100</option>
             </select>
           </label>
-          <button id="authFilterSubmit" class="primary" type="submit">Search</button>
-          <button id="resetFilters" type="button">Reset</button>
+          <button id="authFilterSubmit" class="primary" type="submit">查询</button>
+          <button id="resetFilters" type="button">重置</button>
         </form>
         <div class="quick-actions">
-          <span>Quick filters</span>
-          <button type="button" data-quick-filter="login">Login</button>
-          <button type="button" data-quick-filter="failure">Failures</button>
-          <button type="button" data-quick-filter="admin">Admin</button>
-          <button type="button" data-quick-filter="clear">Clear</button>
+          <span>快捷筛选</span>
+          <button type="button" data-quick-filter="login">登录</button>
+          <button type="button" data-quick-filter="failure">失败</button>
+          <button type="button" data-quick-filter="admin">管理员</button>
+          <button type="button" data-quick-filter="clear">清空</button>
         </div>
         <div class="status-line" id="statusLine"></div>
       </section>
@@ -495,37 +495,37 @@
         <aside class="side">
           <section class="panel">
             <div class="panel-title">
-              <h2>Login</h2>
-              <button id="loadMe" type="button">Me</button>
+              <h2>登录</h2>
+              <button id="loadMe" type="button">当前用户</button>
             </div>
             <form class="form-grid" id="loginForm" autocomplete="off">
               <div class="form-row">
-                <label>Tenant
+                <label>租户
                   <input id="tenantId" value="1" inputmode="numeric">
                 </label>
-                <label>Shop
+                <label>店铺
                   <input id="shopId" value="1" inputmode="numeric">
                 </label>
               </div>
-              <label>Username
+              <label>用户name
                 <input id="loginUsername" value="admin" autocomplete="username">
               </label>
-              <label>Password
+              <label>密码
                 <input id="loginPassword" type="password" value="shopops123" autocomplete="current-password">
               </label>
               <div class="button-row">
-                <button id="logout" type="button">Logout</button>
-                <button id="loginSubmit" class="primary" type="submit">Login</button>
+                <button id="logout" type="button">退出</button>
+                <button id="loginSubmit" class="primary" type="submit">登录</button>
               </div>
             </form>
           </section>
 
           <section class="panel">
             <div class="panel-title">
-              <h2>Current User</h2>
+              <h2>当前用户</h2>
               <div class="button-row">
-                <button id="copyUser" type="button">Copy</button>
-                <button id="maskToken" type="button">Reveal</button>
+                <button id="copyUser" type="button">复制</button>
+                <button id="maskToken" type="button">显示</button>
               </div>
             </div>
             <pre class="detail-box" id="userBox">No session loaded</pre>
@@ -534,7 +534,7 @@
           <section class="panel">
             <div class="panel-title">
               <h2>Token</h2>
-              <button id="copyTokenToHeader" type="button">Use Token</button>
+              <button id="copyTokenToHeader" type="button">使用 Token</button>
             </div>
             <div class="token-box">
               <pre class="detail-box" id="tokenBox">No token</pre>
@@ -545,36 +545,36 @@
 
         <section class="panel">
           <div class="panel-title">
-            <h2>Auth Audit Events</h2>
+            <h2>认证审计事件</h2>
             <div class="button-row">
-              <button id="copyEventDetail" type="button">Copy Detail</button>
-              <button id="refreshEvents" type="button">Refresh</button>
+              <button id="copyEventDetail" type="button">复制详情</button>
+              <button id="refreshEvents" type="button">刷新</button>
             </div>
           </div>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Event</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th>User</th>
-                  <th>Auth</th>
-                  <th>Request</th>
-                  <th>Client</th>
-                  <th>Failure</th>
-                  <th>Created</th>
+                  <th>事件</th>
+                  <th>类型</th>
+                  <th>状态</th>
+                  <th>用户</th>
+                  <th>认证</th>
+                  <th>请求</th>
+                  <th>客户端</th>
+                  <th>失败原因</th>
+                  <th>创建时间</th>
                 </tr>
               </thead>
               <tbody id="eventBody"></tbody>
             </table>
           </div>
           <div class="pager">
-            <button id="prevPage" type="button">Prev</button>
-            <span id="pageInfo">Page 1</span>
-            <button id="nextPage" type="button">Next</button>
+            <button id="prevPage" type="button">上一页</button>
+            <span id="pageInfo">第 1 页</span>
+            <button id="nextPage" type="button">下一页</button>
           </div>
-          <pre class="detail-box" id="eventDetailBox">Select an auth event row</pre>
+          <pre class="detail-box" id="eventDetailBox">请选择一条认证事件</pre>
         </section>
       </section>
     </main>
@@ -618,7 +618,7 @@
 
     async function login(event) {
       event.preventDefault();
-      setStatus("Logging in");
+      setStatus("登录中");
       try {
         const result = await api("/api/admin/auth/login", {
           method: "POST",
@@ -637,14 +637,14 @@
         $("storedToken").value = state.token;
         renderSession(result);
         await loadAuditEvents();
-        setStatus("Login successful");
+        setStatus("登录成功");
       } catch (error) {
         setStatus(error.message);
       }
     }
 
     async function loadCurrentUser() {
-      setStatus("Loading current user");
+      setStatus("当前用户加载中");
       try {
         const user = await api("/api/admin/auth/me");
         state.user = user;
@@ -652,7 +652,7 @@
         $("userBox").textContent = JSON.stringify(user, null, 2);
         renderMetrics();
         setSessionLine(user);
-        setStatus("Current user refreshed");
+        setStatus("当前用户已刷新");
       } catch (error) {
         $("userBox").textContent = error.message;
         setStatus(error.message);
@@ -661,16 +661,16 @@
 
     async function logout() {
       if (!state.token) {
-        setStatus("No bearer token");
+        setStatus("没有 Bearer Token");
         return;
       }
-      setStatus("Logging out");
+      setStatus("退出中");
       try {
         const result = await api("/api/admin/auth/logout", { method: "POST" });
         $("userBox").textContent = JSON.stringify(result, null, 2);
         clearStoredSession(false);
         await loadAuditEvents();
-        setStatus("Logged out");
+        setStatus("已退出");
       } catch (error) {
         setStatus(error.message);
       }
@@ -695,15 +695,15 @@
             <td class="code-cell">${escapeHtml(event.failureReason || "")}</td>
             <td>${formatTime(event.createdAt)}</td>
           </tr>
-        `).join("") || emptyRow(9, "No auth events found", "Try clearing filters or refreshing auth events.");
-        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+        `).join("") || emptyRow(9, "暂无认证事件", "可以清空筛选或刷新认证事件。");
+        $("pageInfo").textContent = `第 ${data.pageNum || state.pageNum} 页 / 共 ${state.total} 条`;
         $("prevPage").disabled = state.pageNum <= 1;
         $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
         renderMetrics();
       } catch (error) {
         state.total = 0;
-        $("eventBody").innerHTML = errorRow(9, "Unable to load auth events", error.message);
-        $("pageInfo").textContent = "Auth events unavailable";
+        $("eventBody").innerHTML = errorRow(9, "认证事件加载失败", error.message);
+        $("pageInfo").textContent = "认证事件不可用";
         $("prevPage").disabled = true;
         $("nextPage").disabled = true;
         renderMetrics();
@@ -795,7 +795,7 @@
 
     function renderSession(loginResult) {
       const user = loginResult?.user || state.user;
-      $("userBox").textContent = user ? JSON.stringify(user, null, 2) : "No session loaded";
+      $("userBox").textContent = user ? JSON.stringify(user, null, 2) : "尚未加载会话";
       renderToken();
       setSessionLine(user);
       renderMetrics();
@@ -803,22 +803,22 @@
 
     function renderToken() {
       if (!state.token) {
-        $("tokenBox").textContent = "No token";
+        $("tokenBox").textContent = "暂无 Token";
         $("tokenStatus").textContent = "";
         return;
       }
       $("tokenBox").textContent = state.tokenMasked ? mask(state.token) : state.token;
-      $("tokenStatus").textContent = `${state.token.length} characters stored`;
+      $("tokenStatus").textContent = `已存 ${state.token.length} 个字符`;
     }
 
     function renderMetrics() {
       const roles = state.user?.roles || [];
       const authType = state.user?.authType || (state.token ? "BEARER" : "HEADER");
       $("metrics").innerHTML = [
-        ["Session", state.user?.authenticated ? "Active" : state.token ? "Token" : "Header"],
-        ["Roles", roles.length],
-        ["Auth Type", authType],
-        ["Audit Events", state.total]
+        ["会话", state.user?.authenticated ? "已认证" : state.token ? "Token" : "请求头"],
+        ["角色", roles.length],
+        ["认证类型", authType],
+        ["审计事件", state.total]
       ].map(([label, value]) => metric(label, value)).join("");
     }
 
@@ -834,7 +834,7 @@
     function setSessionLine(user) {
       $("sessionLine").textContent = user
         ? `${user.username || "user"} / ${(user.roles || []).join(",") || "NO_ROLE"}`
-        : "Header dev context";
+        : "请求头开发上下文";
     }
 
     function applyQuickFilter(name) {
@@ -883,8 +883,8 @@
 
     async function copyText(text, label) {
       const value = String(text || "").trim();
-      if (!value || value === "No session loaded" || value === "Select an auth event row" || value === "Loading...") {
-        setStatus(`Nothing to copy from ${label}`);
+      if (!value || value === "尚未加载会话" || value === "请选择一条认证事件" || value === "加载中...") {
+        setStatus(`没有可复制的${label}`);
         return;
       }
       try {
@@ -893,10 +893,10 @@
         } else {
           fallbackCopy(value);
         }
-        setStatus(`${label} copied`);
+        setStatus(`${label}已复制`);
       } catch (error) {
         fallbackCopy(value);
-        setStatus(`${label} copied`);
+        setStatus(`${label}已复制`);
       }
     }
 
@@ -920,8 +920,8 @@
               <strong>${escapeHtml(title)}</strong>
               <span>${escapeHtml(message)}</span>
               <div class="empty-actions">
-                <button type="button" data-empty-reset>Clear filters</button>
-                <button type="button" data-retry-list>Refresh</button>
+                <button type="button" data-empty-reset>清空筛选</button>
+                <button type="button" data-retry-list>刷新</button>
               </div>
             </div>
           </td>
@@ -930,7 +930,7 @@
     }
 
     function errorRow(colspan, title, message) {
-      return emptyRow(colspan, title, message || "Check the service and try again.");
+      return emptyRow(colspan, title, message || "请检查服务状态后重试。");
     }
 
     function mask(value) {
@@ -970,40 +970,40 @@
 
     $("loginForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      withBusy($("loginSubmit"), "Logging in", () => login(event));
+      withBusy($("loginSubmit"), "登录中", () => login(event));
     });
-    $("loadMe").addEventListener("click", () => withBusy($("loadMe"), "Loading", loadCurrentUser));
-    $("logout").addEventListener("click", () => withBusy($("logout"), "Logging out", logout));
-    $("applyToken").addEventListener("click", () => withBusy($("applyToken"), "Applying", applyToken));
+    $("loadMe").addEventListener("click", () => withBusy($("loadMe"), "加载中", loadCurrentUser));
+    $("logout").addEventListener("click", () => withBusy($("logout"), "退出中", logout));
+    $("applyToken").addEventListener("click", () => withBusy($("applyToken"), "应用中", applyToken));
     $("clearToken").addEventListener("click", () => clearStoredSession(true));
-    $("copyUser").addEventListener("click", () => copyText($("userBox").textContent, "Current user"));
-    $("copyEventDetail").addEventListener("click", () => copyText($("eventDetailBox").textContent, "Auth event detail"));
+    $("copyUser").addEventListener("click", () => copyText($("userBox").textContent, "当前用户"));
+    $("copyEventDetail").addEventListener("click", () => copyText($("eventDetailBox").textContent, "认证事件详情"));
     $("copyTokenToHeader").addEventListener("click", () => {
       $("storedToken").value = state.token;
-      setStatus("Token copied to field");
+      setStatus("Token 已复制到输入框");
     });
     $("maskToken").addEventListener("click", () => {
       state.tokenMasked = !state.tokenMasked;
-      $("maskToken").textContent = state.tokenMasked ? "Reveal" : "Mask";
+      $("maskToken").textContent = state.tokenMasked ? "显示" : "隐藏";
       renderToken();
     });
-    $("refreshEvents").addEventListener("click", () => withBusy($("refreshEvents"), "Refreshing", loadAuditEvents));
+    $("refreshEvents").addEventListener("click", () => withBusy($("refreshEvents"), "刷新中", loadAuditEvents));
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      withBusy($("authFilterSubmit"), "Searching", loadAuditEvents);
+      withBusy($("authFilterSubmit"), "查询中", loadAuditEvents);
     });
-    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "重置中", resetFilters));
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        withBusy($("prevPage"), "Loading", loadAuditEvents, false);
+        withBusy($("prevPage"), "加载中", loadAuditEvents, false);
       }
     });
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        withBusy($("nextPage"), "Loading", loadAuditEvents, false);
+        withBusy($("nextPage"), "加载中", loadAuditEvents, false);
       }
     });
     $("eventBody").addEventListener("click", (event) => {

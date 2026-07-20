@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShopOps Audit Center</title>
+  <title>ShopOps 审计中心</title>
   <style>
     :root {
       color-scheme: light;
@@ -533,15 +533,15 @@
         font-weight: 600;
       }
 
-      tbody td:nth-child(1)::before { content: "Time"; }
-      tbody td:nth-child(2)::before { content: "Source"; }
-      tbody td:nth-child(3)::before { content: "Type"; }
-      tbody td:nth-child(4)::before { content: "Status"; }
-      tbody td:nth-child(5)::before { content: "Risk"; }
-      tbody td:nth-child(6)::before { content: "User"; }
-      tbody td:nth-child(7)::before { content: "Task"; }
+      tbody td:nth-child(1)::before { content: "\65f6\95f4"; }
+      tbody td:nth-child(2)::before { content: "\6765\6e90"; }
+      tbody td:nth-child(3)::before { content: "\7c7b\578b"; }
+      tbody td:nth-child(4)::before { content: "\72b6\6001"; }
+      tbody td:nth-child(5)::before { content: "\98ce\9669"; }
+      tbody td:nth-child(6)::before { content: "\7528\6237"; }
+      tbody td:nth-child(7)::before { content: "\4efb\52a1"; }
       tbody td:nth-child(8)::before { content: "Trace"; }
-      tbody td:nth-child(9)::before { content: "Summary"; }
+      tbody td:nth-child(9)::before { content: "\6458\8981"; }
 
       .summary-cell {
         max-width: none;
@@ -554,15 +554,15 @@
     <aside class="sidebar">
       <div class="brand">
         <strong>ShopOps Agent</strong>
-        <span>Admin Console</span>
+        <span>管理控制台</span>
       </div>
-      <nav class="nav" aria-label="Admin navigation">
-        <a href="/admin/dashboard.html">Dashboard</a>
-        <a href="/admin/auth.html">Auth</a>
-        <a href="/admin/tasks.html">Agent Tasks</a>
-        <a class="active" href="/admin/audit.html">Audit Center</a>
-        <a href="/admin/reports.html">Reports</a>
-        <a href="/admin/tools.html">Tools</a>
+      <nav class="nav" aria-label="管理导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a class="active" href="/admin/audit.html">审计中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
       </nav>
     </aside>
 
@@ -573,13 +573,13 @@
           <div class="subtitle">认证、任务、工具调用统一时间线</div>
         </div>
         <form id="contextForm" class="context-grid">
-          <label>Tenant
+          <label>租户
             <input id="tenantId" value="1" inputmode="numeric">
           </label>
-          <label>Shop
+          <label>店铺
             <input id="shopId" value="1" inputmode="numeric">
           </label>
-          <label>User
+          <label>用户
             <input id="userId" value="1" inputmode="numeric">
           </label>
           <label>Bearer
@@ -587,7 +587,7 @@
           </label>
           <button class="primary" type="submit" title="刷新">刷新</button>
           <button class="icon" id="clearToken" type="button" title="清空 Token" aria-label="清空 Token">×</button>
-          <div class="context-session" id="sessionLine">Header context</div>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
         </form>
       </header>
 
@@ -610,44 +610,44 @@
           </section>
         </div>
         <form id="filterForm" class="filters">
-          <label>Source
+          <label>来源
             <select id="source">
               <option value="">全部</option>
-              <option value="AUTH">AUTH</option>
-              <option value="TASK">TASK</option>
-              <option value="TOOL">TOOL</option>
+              <option value="AUTH">认证</option>
+              <option value="TASK">任务</option>
+              <option value="TOOL">工具</option>
             </select>
           </label>
-          <label>Status
+          <label>状态
             <select id="eventStatus">
               <option value="">全部</option>
-              <option value="SUCCESS">SUCCESS</option>
-              <option value="FAILURE">FAILURE</option>
-              <option value="FAILED">FAILED</option>
+              <option value="SUCCESS">成功</option>
+              <option value="FAILURE">失败</option>
+              <option value="FAILED">失败</option>
             </select>
           </label>
-          <label>Risk
+          <label>风险
             <select id="riskLevel">
               <option value="">全部</option>
               <option value="ELEVATED">中高风险</option>
-              <option value="LOW">LOW</option>
-              <option value="MEDIUM">MEDIUM</option>
-              <option value="HIGH">HIGH</option>
+              <option value="LOW">低</option>
+              <option value="MEDIUM">中</option>
+              <option value="HIGH">高</option>
             </select>
           </label>
-          <label>Task ID
+          <label>任务 ID
             <input id="taskId" inputmode="numeric">
           </label>
           <label>Trace ID
             <input id="traceId">
           </label>
-          <label>Tool
+          <label>工具
             <input id="toolCode">
           </label>
           <button class="primary" type="submit">查询</button>
           <button id="resetFilters" type="button">重置</button>
         </form>
-        <div class="quick-actions" aria-label="Audit quick filters">
+        <div class="quick-actions" aria-label="审计快捷筛选">
           <span>快捷筛选</span>
           <button type="button" data-quick-filter="failed">失败事件</button>
           <button type="button" data-quick-filter="high-risk">中高风险</button>
@@ -678,7 +678,7 @@
             </table>
           </div>
           <div class="pager">
-            <span id="pageInfo">Page 1</span>
+            <span id="pageInfo">第 1 页</span>
             <div class="pager-actions">
               <button id="prevPage" type="button">上一页</button>
               <button id="nextPage" type="button">下一页</button>
@@ -691,16 +691,16 @@
             <div class="panel-title">
               <h2>事件详情</h2>
               <div class="button-row">
-                <button id="copyDetail" type="button">Copy</button>
+                <button id="copyDetail" type="button">复制</button>
                 <button id="clearDetail" class="icon" type="button" title="清空详情" aria-label="清空详情">×</button>
               </div>
             </div>
             <div class="summary-box" id="eventSummary"></div>
-            <pre class="detail-box" id="detailBox">选择一条时间线事件</pre>
+            <pre class="detail-box" id="detailBox">请选择一条时间线事件</pre>
             <div class="link-row">
-              <a id="openTask" href="/admin/tasks.html">Open Task</a>
-              <a id="openReport" href="/admin/reports.html">Open Report</a>
-              <a id="openToolLogs" href="/admin/tools.html">Tool Logs</a>
+              <a id="openTask" href="/admin/tasks.html">打开任务</a>
+              <a id="openReport" href="/admin/reports.html">打开报告</a>
+              <a id="openToolLogs" href="/admin/tools.html">工具日志</a>
             </div>
           </section>
           <section class="panel">
@@ -806,7 +806,7 @@
       const data = await api("/api/admin/audit/high-risk");
       const breakdown = data.riskBreakdown || {};
       const total = Math.max(1, Object.values(breakdown).reduce((sum, value) => sum + number(value), 0));
-      $("riskTotal").textContent = `${number(data.elevatedRiskTotal)} elevated / ${number(data.total)} total`;
+      $("riskTotal").textContent = `${number(data.elevatedRiskTotal)} 中高风险 / ${number(data.total)} 总数`;
       $("riskBars").innerHTML = ["HIGH", "MEDIUM", "LOW", "UNKNOWN"].map((level) => {
         const value = number(breakdown[level]);
         const width = Math.max(2, Math.round((value / total) * 100));
@@ -851,7 +851,7 @@
       } catch (error) {
         state.total = 0;
         $("timelineBody").innerHTML = errorRow(9, "审计时间线加载失败", error.message);
-        $("pageInfo").textContent = "Audit timeline unavailable";
+        $("pageInfo").textContent = "审计时间线不可用";
         $("prevPage").disabled = true;
         $("nextPage").disabled = true;
         throw error;
@@ -873,14 +873,14 @@
         state.selectedTraceId = event.traceId || data.context?.traceId || "";
         state.selectedToolCode = event.toolCode || "";
         $("eventSummary").innerHTML = summaryItems([
-          ["Source", event.source || source],
-          ["Type", event.eventType || ""],
-          ["Status", event.eventStatus || ""],
-          ["Risk", event.riskLevel || "UNKNOWN"],
-          ["Task", state.selectedTaskId || ""],
-          ["Report", state.selectedReportId || ""],
+          ["来源", event.source || source],
+          ["类型", event.eventType || ""],
+          ["状态", event.eventStatus || ""],
+          ["风险", event.riskLevel || "UNKNOWN"],
+          ["任务", state.selectedTaskId || ""],
+          ["报告", state.selectedReportId || ""],
           ["Trace", state.selectedTraceId || ""],
-          ["Tool Calls", data.context?.toolCallCount || ""]
+          ["工具调用", data.context?.toolCallCount || ""]
         ]);
         updateContextLinks();
       } catch (error) {
@@ -984,7 +984,7 @@
     async function copyText(text, label) {
       const value = String(text || "").trim();
       if (!value || value === "选择一条时间线事件" || value === "加载中...") {
-        setStatus(`Nothing to copy from ${label}`);
+        setStatus(`没有可复制的${label}`);
         return;
       }
       try {
@@ -993,10 +993,10 @@
         } else {
           fallbackCopy(value);
         }
-        setStatus(`${label} copied`);
+        setStatus(`${label}已复制`);
       } catch (error) {
         fallbackCopy(value);
-        setStatus(`${label} copied`);
+        setStatus(`${label}已复制`);
       }
     }
 
@@ -1029,8 +1029,8 @@
       const session = authSession();
       const token = $("token").value.trim();
       $("sessionLine").textContent = token
-        ? `Bearer session loaded${session.user?.username ? ` for ${session.user.username}` : ""}`
-        : "Header context";
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
     }
 
     function authSession() {
@@ -1137,13 +1137,13 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      withBusy(document.querySelector("#filterForm button.primary"), "Searching", loadTimeline);
+      withBusy(document.querySelector("#filterForm button.primary"), "查询中", loadTimeline);
     });
 
-    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "重置中", resetFilters));
 
-    $("refreshRisk").addEventListener("click", () => withBusy($("refreshRisk"), "Refreshing", loadRisk));
-    $("exportBtn").addEventListener("click", () => withBusy($("exportBtn"), "Downloading", loadExport));
+    $("refreshRisk").addEventListener("click", () => withBusy($("refreshRisk"), "刷新中", loadRisk));
+    $("exportBtn").addEventListener("click", () => withBusy($("exportBtn"), "下载中", loadExport));
     document.querySelector(".quick-actions").addEventListener("click", (event) => {
       const button = event.target.closest("button[data-quick-filter]");
       if (button) {
@@ -1161,7 +1161,7 @@
       renderSessionLine();
       refreshAll();
     });
-    $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Audit detail"));
+    $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "审计详情"));
     $("clearDetail").addEventListener("click", () => {
       $("eventSummary").innerHTML = "";
       $("detailBox").textContent = "选择一条时间线事件";
@@ -1174,13 +1174,13 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        withBusy($("prevPage"), "Loading", loadTimeline, false);
+        withBusy($("prevPage"), "加载中", loadTimeline, false);
       }
     });
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        withBusy($("nextPage"), "Loading", loadTimeline, false);
+        withBusy($("nextPage"), "加载中", loadTimeline, false);
       }
     });
     $("timelineBody").addEventListener("click", (event) => {

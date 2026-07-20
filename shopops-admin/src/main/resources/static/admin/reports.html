@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShopOps Reports</title>
+  <title>ShopOps 报告</title>
   <style>
     :root {
       color-scheme: light;
@@ -489,76 +489,76 @@
     <aside class="sidebar">
       <div class="brand">
         <strong>ShopOps Agent</strong>
-        <span>Admin Console</span>
+        <span>管理控制台</span>
       </div>
-      <nav class="nav" aria-label="Admin navigation">
-        <a href="/admin/dashboard.html">Dashboard</a>
-        <a href="/admin/auth.html">Auth</a>
-        <a href="/admin/tasks.html">Agent Tasks</a>
-        <a href="/admin/audit.html">Audit Center</a>
-        <a class="active" href="/admin/reports.html">Reports</a>
-        <a href="/admin/tools.html">Tools</a>
+      <nav class="nav" aria-label="管理导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a class="active" href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
       </nav>
     </aside>
 
     <main class="main">
       <header class="topbar">
         <div>
-          <h1>Reports</h1>
-          <div class="subtitle">Generated operation reports, evidence, trace links, and task context</div>
+          <h1>报告</h1>
+          <div class="subtitle">生成的运营报告、证据、链路追踪与任务上下文</div>
         </div>
         <form class="context-grid" id="contextForm">
-          <label>Tenant
+          <label>租户
             <input id="tenantId" value="1" inputmode="numeric">
           </label>
-          <label>Shop
+          <label>店铺
             <input id="shopId" value="1" inputmode="numeric">
           </label>
-          <label>User
+          <label>用户
             <input id="userId" value="1" inputmode="numeric">
           </label>
-          <label>Roles
+          <label>角色
             <input id="roles" value="ADMIN">
           </label>
-          <button class="primary" type="submit">Refresh</button>
-          <button id="resetContext" type="button">Reset</button>
-          <div class="context-session" id="sessionLine">Header context</div>
+          <button class="primary" type="submit">刷新</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
         </form>
       </header>
 
       <section class="toolbar">
         <div class="metrics" id="metrics"></div>
         <form class="filters" id="filterForm">
-          <label>Status
+          <label>状态
             <select id="status">
-              <option value="">All</option>
-              <option value="SUCCESS">Success</option>
-              <option value="FAILED">Failed</option>
+              <option value="">全部</option>
+              <option value="SUCCESS">成功</option>
+              <option value="FAILED">失败</option>
             </select>
           </label>
-          <label>Type
+          <label>类型
             <input id="reportType" placeholder="daily_review">
           </label>
-          <label>Report No
+          <label>报告编号
             <input id="reportNo">
           </label>
-          <label>Task ID
+          <label>任务 ID
             <input id="taskId" inputmode="numeric">
           </label>
           <label>Trace ID
             <input id="traceId">
           </label>
-          <label>Created By
+          <label>创建人
             <input id="createdBy" inputmode="numeric">
           </label>
-          <button id="reportFilterSubmit" class="primary" type="submit">Search</button>
-          <button id="resetFilters" type="button">Reset</button>
+          <button id="reportFilterSubmit" class="primary" type="submit">查询</button>
+          <button id="resetFilters" type="button">重置</button>
         </form>
-        <div class="quick-actions" aria-label="Report quick filters">
-          <span>Quick filters</span>
-          <button type="button" data-quick-filter="success">Success</button>
-          <button type="button" data-quick-filter="daily">Daily Review</button>
-          <button type="button" data-quick-filter="clear">Clear</button>
+        <div class="quick-actions" aria-label="报告快捷筛选">
+          <span>快捷筛选</span>
+          <button type="button" data-quick-filter="success">成功</button>
+          <button type="button" data-quick-filter="daily">日报</button>
+          <button type="button" data-quick-filter="clear">清空</button>
         </div>
         <div class="status-line" id="statusLine"></div>
       </section>
@@ -569,23 +569,23 @@
             <table>
               <thead>
                 <tr>
-                  <th>Report</th>
-                  <th>Title</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th>Task</th>
+                  <th>报告</th>
+                  <th>标题</th>
+                  <th>类型</th>
+                  <th>状态</th>
+                  <th>任务</th>
                   <th>Trace</th>
-                  <th>Created</th>
+                  <th>创建时间</th>
                 </tr>
               </thead>
               <tbody id="reportBody"></tbody>
             </table>
           </div>
           <div class="pager">
-            <span id="pageInfo">Page 1</span>
+            <span id="pageInfo">第 1 页</span>
             <div class="pager-actions">
-              <button id="prevPage" type="button">Previous</button>
-              <button id="nextPage" type="button">Next</button>
+              <button id="prevPage" type="button">上一页</button>
+              <button id="nextPage" type="button">下一页</button>
             </div>
           </div>
         </div>
@@ -593,28 +593,28 @@
         <aside class="side">
           <section class="panel">
             <div class="panel-title">
-              <h2>Report Preview</h2>
+              <h2>报告预览</h2>
               <div class="button-row">
-                <button id="copyReport" type="button">Copy</button>
-                <button id="clearPreview" type="button">Clear</button>
+                <button id="copyReport" type="button">复制</button>
+                <button id="clearPreview" type="button">清空</button>
               </div>
             </div>
-            <div class="markdown-box" id="markdownBox">Select a report row</div>
+            <div class="markdown-box" id="markdownBox">请选择一条报告记录</div>
           </section>
           <section class="panel">
             <div class="panel-title">
-              <h2>Evidence</h2>
+              <h2>证据</h2>
               <div class="button-row">
-                <button id="copyEvidence" type="button">Copy</button>
-                <button id="copyTrace" type="button">Trace</button>
+                <button id="copyEvidence" type="button">复制</button>
+                <button id="copyTrace" type="button">追踪</button>
               </div>
             </div>
             <div class="summary-box" id="evidenceSummary"></div>
-            <pre class="detail-box" id="evidenceBox">Select a report row</pre>
+            <pre class="detail-box" id="evidenceBox">请选择一条报告记录</pre>
             <div class="link-row">
-              <a id="openTask" href="/admin/tasks.html">Open Task</a>
-              <a id="openAudit" href="/admin/audit.html">Open Audit</a>
-              <a id="openToolLogs" href="/admin/tools.html">Tool Logs</a>
+              <a id="openTask" href="/admin/tasks.html">打开任务</a>
+              <a id="openAudit" href="/admin/audit.html">打开审计</a>
+              <a id="openToolLogs" href="/admin/tools.html">工具日志</a>
             </div>
           </section>
         </aside>
@@ -680,10 +680,10 @@
     }
 
     async function refreshAll() {
-      setStatus("Loading reports");
+      setStatus("报告加载中");
       try {
         await loadReports();
-        setStatus("Reports refreshed");
+        setStatus("报告已刷新");
       } catch (error) {
         setStatus(error.message);
       }
@@ -706,8 +706,8 @@
             <td>${escapeHtml(report.traceId || "")}</td>
             <td>${formatTime(report.createdAt)}</td>
           </tr>
-        `).join("") || emptyRow(7, "No reports found", "Try clearing filters or refreshing reports.");
-        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+        `).join("") || emptyRow(7, "暂无报告", "可以清空筛选或刷新报告。");
+        $("pageInfo").textContent = `第 ${data.pageNum || state.pageNum} 页 / 共 ${state.total} 条`;
         $("prevPage").disabled = state.pageNum <= 1;
         $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
         if (state.selectedReportId) {
@@ -720,8 +720,8 @@
       } catch (error) {
         state.total = 0;
         renderMetrics([], 0);
-        $("reportBody").innerHTML = errorRow(7, "Unable to load reports", error.message);
-        $("pageInfo").textContent = "Report list unavailable";
+        $("reportBody").innerHTML = errorRow(7, "报告加载失败", error.message);
+        $("pageInfo").textContent = "报告列表不可用";
         $("prevPage").disabled = true;
         $("nextPage").disabled = true;
         throw error;
@@ -733,10 +733,10 @@
       const failed = list.filter((report) => report.status === "FAILED").length;
       const daily = list.filter((report) => report.reportType === "daily_review").length;
       $("metrics").innerHTML = [
-        ["Total", total],
-        ["Current Page", list.length],
-        ["Success", success],
-        ["Daily Review", daily || failed]
+        ["总数", total],
+        ["本页", list.length],
+        ["成功", success],
+        ["日报", daily || failed]
       ].map(([label, value]) => metric(label, value)).join("");
     }
 
@@ -744,12 +744,12 @@
       if (!reportId) {
         return;
       }
-      $("markdownBox").textContent = "Loading...";
+      $("markdownBox").textContent = "加载中...";
       $("evidenceSummary").innerHTML = "";
-      $("evidenceBox").textContent = "Loading...";
+      $("evidenceBox").textContent = "加载中...";
       try {
         const report = await api(`/api/reports/${encodeURIComponent(reportId)}`);
-        $("markdownBox").textContent = report.markdown || "No markdown";
+        $("markdownBox").textContent = report.markdown || "暂无 Markdown";
         $("evidenceBox").textContent = JSON.stringify({
           reportId: report.reportId,
           reportNo: report.reportNo,
@@ -758,12 +758,12 @@
           evidence: report.evidence
         }, null, 2);
         $("evidenceSummary").innerHTML = summaryItems([
-          ["Report", report.reportNo || report.reportId],
-          ["Status", report.status || ""],
-          ["Task", report.taskId || ""],
+          ["报告", report.reportNo || report.reportId],
+          ["状态", report.status || ""],
+          ["任务", report.taskId || ""],
           ["Trace", report.traceId || ""],
-          ["Type", report.reportType || ""],
-          ["Evidence", evidenceSummary(report.evidence)]
+          ["类型", report.reportType || ""],
+          ["证据", evidenceSummary(report.evidence)]
         ]);
         state.selectedTaskId = report.taskId || "";
         state.selectedTraceId = report.traceId || "";
@@ -783,15 +783,15 @@
       }
       const parts = [];
       if (Array.isArray(evidence.toolCodes)) {
-        parts.push(`${evidence.toolCodes.length} tools`);
+        parts.push(`${evidence.toolCodes.length} 个工具`);
       }
       if (Array.isArray(evidence.productIds)) {
-        parts.push(`${evidence.productIds.length} products`);
+        parts.push(`${evidence.productIds.length} 个商品`);
       }
       if (Array.isArray(evidence.riskCommentIds)) {
-        parts.push(`${evidence.riskCommentIds.length} risk comments`);
+        parts.push(`${evidence.riskCommentIds.length} 条风险备注`);
       }
-      return parts.join(" / ") || "Available";
+      return parts.join(" / ") || "可用";
     }
 
     function applyQuickFilter(name) {
@@ -837,8 +837,8 @@
 
     function renderSessionLine(session = authSession()) {
       $("sessionLine").textContent = session.token
-        ? `Bearer session loaded${session.user?.username ? ` for ${session.user.username}` : ""}`
-        : "Header context";
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
     }
 
     function authSession() {
@@ -933,8 +933,8 @@
 
     async function copyText(text, label) {
       const value = String(text || "").trim();
-      if (!value || value === "Select a report row" || value === "Loading...") {
-        setStatus(`Nothing to copy from ${label}`);
+      if (!value || value === "请选择一条报告记录" || value === "加载中...") {
+        setStatus(`没有可复制的${label}`);
         return;
       }
       try {
@@ -943,10 +943,10 @@
         } else {
           fallbackCopy(value);
         }
-        setStatus(`${label} copied`);
+        setStatus(`${label}已复制`);
       } catch (error) {
         fallbackCopy(value);
-        setStatus(`${label} copied`);
+        setStatus(`${label}已复制`);
       }
     }
 
@@ -970,8 +970,8 @@
               <strong>${escapeHtml(title)}</strong>
               <span>${escapeHtml(message)}</span>
               <div class="empty-actions">
-                <button type="button" data-empty-reset>Clear filters</button>
-                <button type="button" data-retry-list>Refresh</button>
+                <button type="button" data-empty-reset>清空筛选</button>
+                <button type="button" data-retry-list>刷新</button>
               </div>
             </div>
           </td>
@@ -980,7 +980,7 @@
     }
 
     function errorRow(colspan, title, message) {
-      return emptyRow(colspan, title, message || "Check the service and try again.");
+      return emptyRow(colspan, title, message || "请检查服务状态后重试。");
     }
 
     function number(value) {
@@ -1018,17 +1018,17 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      withBusy($("reportFilterSubmit"), "Searching", loadReports);
+      withBusy($("reportFilterSubmit"), "查询中", loadReports);
     });
 
-    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
-    $("copyReport").addEventListener("click", () => copyText($("markdownBox").textContent, "Report preview"));
-    $("copyEvidence").addEventListener("click", () => copyText($("evidenceBox").textContent, "Evidence"));
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "重置中", resetFilters));
+    $("copyReport").addEventListener("click", () => copyText($("markdownBox").textContent, "报告预览"));
+    $("copyEvidence").addEventListener("click", () => copyText($("evidenceBox").textContent, "证据"));
 
     $("clearPreview").addEventListener("click", () => {
-      $("markdownBox").textContent = "Select a report row";
+      $("markdownBox").textContent = "请选择一条报告记录";
       $("evidenceSummary").innerHTML = "";
-      $("evidenceBox").textContent = "Select a report row";
+      $("evidenceBox").textContent = "请选择一条报告记录";
       $("copyTrace").dataset.traceId = "";
       state.selectedReportId = "";
       state.selectedTaskId = "";
@@ -1056,14 +1056,14 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        withBusy($("prevPage"), "Loading", loadReports, false);
+        withBusy($("prevPage"), "加载中", loadReports, false);
       }
     });
 
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        withBusy($("nextPage"), "Loading", loadReports, false);
+        withBusy($("nextPage"), "加载中", loadReports, false);
       }
     });
 
