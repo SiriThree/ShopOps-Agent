@@ -13,6 +13,8 @@ public class OpenAiCompatibleModelProperties {
     private String apiKey;
     private String defaultModel = "gpt-4o-mini";
     private Duration timeout = Duration.ofSeconds(30);
+    private int maxAttempts = 1;
+    private Duration retryBackoff = Duration.ofMillis(200);
 
     public boolean isEnabled() {
         return enabled;
@@ -60,5 +62,21 @@ public class OpenAiCompatibleModelProperties {
 
     public void setTimeout(Duration timeout) {
         this.timeout = timeout;
+    }
+
+    public int getMaxAttempts() {
+        return maxAttempts;
+    }
+
+    public void setMaxAttempts(int maxAttempts) {
+        this.maxAttempts = maxAttempts;
+    }
+
+    public Duration getRetryBackoff() {
+        return retryBackoff;
+    }
+
+    public void setRetryBackoff(Duration retryBackoff) {
+        this.retryBackoff = retryBackoff;
     }
 }

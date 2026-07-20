@@ -53,6 +53,9 @@ shopops:
     token-secret: ${SHOPOPS_AUTH_TOKEN_SECRET:shopops-dev-token-secret-change-me}
     token-ttl-seconds: ${SHOPOPS_AUTH_TOKEN_TTL_SECONDS:7200}
   model-gateway:
+    resilience:
+      fallback-enabled: ${SHOPOPS_MODEL_GATEWAY_FALLBACK_ENABLED:true}
+      fallback-provider-code: ${SHOPOPS_MODEL_GATEWAY_FALLBACK_PROVIDER_CODE:echo}
     openai-compatible:
       enabled: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_ENABLED:false}
       provider-code: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_PROVIDER_CODE:openai-compatible}
@@ -60,6 +63,8 @@ shopops:
       api-key: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_API_KEY:}
       default-model: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_DEFAULT_MODEL:gpt-4o-mini}
       timeout: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_TIMEOUT:30s}
+      max-attempts: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_MAX_ATTEMPTS:1}
+      retry-backoff: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_RETRY_BACKOFF:200ms}
   p0:
     tenant-id: 1
     shop-id: 1

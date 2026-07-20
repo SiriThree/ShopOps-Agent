@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -28,12 +29,16 @@ import org.springframework.test.context.DynamicPropertySource;
                 "shopops.persistence=memory",
                 "shopops.model-gateway.openai-compatible.enabled=true",
                 "shopops.model-gateway.openai-compatible.api-key=test-key",
-                "shopops.model-gateway.openai-compatible.default-model=test-model"
+                "shopops.model-gateway.openai-compatible.default-model=test-model",
+                "shopops.model-gateway.openai-compatible.max-attempts=2",
+                "shopops.model-gateway.openai-compatible.retry-backoff=1ms"
         }
 )
 class OpenAiCompatibleModelProviderIntegrationTest {
     private static final AtomicReference<String> requestBody = new AtomicReference<>();
     private static final AtomicReference<String> authorization = new AtomicReference<>();
+    private static final AtomicInteger retryRequestCount = new AtomicInteger();
+    private static final AtomicInteger fallbackRequestCount = new AtomicInteger();
     private static HttpServer modelServer;
 
     @LocalServerPort
@@ -108,6 +113,67 @@ class OpenAiCompatibleModelProviderIntegrationTest {
                 .containsEntry("totalTokens", 18);
     }
 
+    @Test
+    void shouldRetryRetryableProviderFailureAndReturnSuccess() {
+        retryRequestCount.set(0);
+
+        ResponseEntity<Map> response = exchange(
+                "/api/admin/model-gateway/invoke",
+                HttpMethod.POST,
+                Map.of(
+                        "providerCode", "openai-compatible",
+                        "prompt", "retry once then success",
+                        "traceId", "tr_openai_retry"
+                ),
+                operatorHeaders()
+        );
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        Map<String, Object> result = dataOf(response.getBody());
+        assertThat(result)
+                .containsEntry("providerCode", "openai-compatible")
+                .containsEntry("status", "SUCCESS")
+                .containsEntry("outputText", "兼容模型返回成功");
+        assertThat(retryRequestCount.get()).isEqualTo(2);
+    }
+
+    @Test
+    void shouldFallbackToEchoProviderAfterProviderFailures() {
+        fallbackRequestCount.set(0);
+
+        ResponseEntity<Map> response = exchange(
+                "/api/admin/model-gateway/invoke",
+                HttpMethod.POST,
+                Map.of(
+                        "providerCode", "openai-compatible",
+                        "prompt", "fallback after repeated failures",
+                        "traceId", "tr_openai_fallback"
+                ),
+                operatorHeaders()
+        );
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        Map<String, Object> result = dataOf(response.getBody());
+        assertThat(result)
+                .containsEntry("providerCode", "echo")
+                .containsEntry("modelName", "echo-001")
+                .containsEntry("status", "SUCCESS");
+        assertThat(result.get("outputText").toString()).contains("fallback after repeated failures");
+        assertThat(fallbackRequestCount.get()).isEqualTo(2);
+
+        Map<String, Object> logs = dataOf(exchange(
+                "/api/admin/model-gateway/call-logs?traceId=tr_openai_fallback",
+                HttpMethod.GET,
+                null,
+                adminHeaders()
+        ).getBody());
+        assertThat(logs.get("total")).isEqualTo(1);
+        Map<String, Object> log = ((java.util.List<Map<String, Object>>) logs.get("list")).get(0);
+        assertThat(log)
+                .containsEntry("providerCode", "echo")
+                .containsEntry("status", "SUCCESS");
+    }
+
     private static void startModelServer() {
         if (modelServer != null) {
             return;
@@ -123,8 +189,22 @@ class OpenAiCompatibleModelProviderIntegrationTest {
 
     private static void handleModelRequest(HttpExchange exchange) throws IOException {
         authorization.set(exchange.getRequestHeaders().getFirst("Authorization"));
-        requestBody.set(new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
-        byte[] response = """
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        requestBody.set(body);
+        if (body.contains("retry once then success") && retryRequestCount.incrementAndGet() == 1) {
+            writeResponse(exchange, 500, """
+                    {"error":{"message":"temporary failure"}}
+                    """);
+            return;
+        }
+        if (body.contains("fallback after repeated failures")) {
+            fallbackRequestCount.incrementAndGet();
+            writeResponse(exchange, 500, """
+                    {"error":{"message":"persistent failure"}}
+                    """);
+            return;
+        }
+        writeResponse(exchange, 200, """
                 {
                   "id": "chatcmpl-test",
                   "model": "test-model",
@@ -142,9 +222,13 @@ class OpenAiCompatibleModelProviderIntegrationTest {
                     "total_tokens": 18
                   }
                 }
-                """.getBytes(StandardCharsets.UTF_8);
-        exchange.getResponseHeaders().set("Content-Type", "application/json");
-        exchange.sendResponseHeaders(200, response.length);
+                """);
+    }
+
+    private static void writeResponse(HttpExchange exchange, int statusCode, String responseBody) throws IOException {
+        byte[] response = responseBody.getBytes(StandardCharsets.UTF_8);
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
+        exchange.sendResponseHeaders(statusCode, response.length);
         exchange.getResponseBody().write(response);
         exchange.close();
     }

@@ -5,6 +5,7 @@ import com.sirithree.shopops.admin.model.domain.ModelCallLogQueryParam;
 import com.sirithree.shopops.admin.model.domain.ModelCallStatus;
 import com.sirithree.shopops.admin.model.domain.ModelInvokeParam;
 import com.sirithree.shopops.admin.model.domain.ModelInvokeResult;
+import com.sirithree.shopops.admin.model.config.ModelGatewayResilienceProperties;
 import com.sirithree.shopops.admin.model.service.ModelCallLogStore;
 import com.sirithree.shopops.admin.model.service.ModelGatewayService;
 import com.sirithree.shopops.admin.model.service.ModelProviderClient;
@@ -18,10 +19,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DefaultModelGatewayService implements ModelGatewayService {
     private final ModelCallLogStore callLogStore;
+    private final ModelGatewayResilienceProperties resilienceProperties;
     private final Map<String, ModelProviderClient> providers;
 
-    public DefaultModelGatewayService(ModelCallLogStore callLogStore, List<ModelProviderClient> providerClients) {
+    public DefaultModelGatewayService(ModelCallLogStore callLogStore,
+                                      ModelGatewayResilienceProperties resilienceProperties,
+                                      List<ModelProviderClient> providerClients) {
         this.callLogStore = callLogStore;
+        this.resilienceProperties = resilienceProperties;
         this.providers = providerClients.stream()
                 .collect(java.util.stream.Collectors.toMap(
                         client -> client.providerCode().toLowerCase(Locale.ROOT),
@@ -46,10 +51,14 @@ public class DefaultModelGatewayService implements ModelGatewayService {
             result = provider.invoke(param);
             result.setStatus(ModelCallStatus.SUCCESS);
         } catch (RuntimeException ex) {
-            result = failedResult(providerCode, param.getModelName(), "MODEL_INVOKE_FAILED", ex.getMessage(), started);
+            result = fallbackResult(providerCode, param, ex);
+            if (result == null) {
+                result = failedResult(providerCode, param.getModelName(), "MODEL_INVOKE_FAILED", ex.getMessage(), started);
+            }
         }
-        result.setProviderCode(provider.providerCode());
-        result.setModelName(defaultString(param.getModelName(), provider.defaultModelName()));
+        ModelProviderClient resultProvider = providers.getOrDefault(result.getProviderCode().toLowerCase(Locale.ROOT), provider);
+        result.setProviderCode(resultProvider.providerCode());
+        result.setModelName(defaultString(result.getModelName(), defaultString(param.getModelName(), resultProvider.defaultModelName())));
         fillUsage(result, param.getPrompt(), result.getOutputText());
         result.setLatencyMs(elapsedMs(started));
         persistLog(tenantId, shopId, userId, username, param, result);
@@ -64,6 +73,27 @@ public class DefaultModelGatewayService implements ModelGatewayService {
     private void persistLog(Long tenantId, Long shopId, Long userId, String username, ModelInvokeParam param, ModelInvokeResult result) {
         ModelCallLogDto saved = callLogStore.save(logOf(tenantId, shopId, userId, username, param, result));
         result.setCallId(saved.getCallId());
+    }
+
+    private ModelInvokeResult fallbackResult(String failedProviderCode, ModelInvokeParam param, RuntimeException failure) {
+        if (!resilienceProperties.isFallbackEnabled()) {
+            return null;
+        }
+        String fallbackProviderCode = defaultString(resilienceProperties.getFallbackProviderCode(), "echo").toLowerCase(Locale.ROOT);
+        if (fallbackProviderCode.equals(failedProviderCode)) {
+            return null;
+        }
+        ModelProviderClient fallbackProvider = providers.get(fallbackProviderCode);
+        if (fallbackProvider == null) {
+            return null;
+        }
+        ModelInvokeResult result = fallbackProvider.invoke(param);
+        result.setStatus(ModelCallStatus.SUCCESS);
+        result.setProviderCode(fallbackProvider.providerCode());
+        result.setModelName(fallbackProvider.defaultModelName());
+        result.setErrorCode(null);
+        result.setErrorMessage(null);
+        return result;
     }
 
     private ModelInvokeResult failedResult(String providerCode, String modelName, String errorCode,

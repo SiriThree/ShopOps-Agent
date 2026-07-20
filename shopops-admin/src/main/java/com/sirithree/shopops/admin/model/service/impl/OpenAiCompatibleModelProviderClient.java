@@ -52,17 +52,48 @@ public class OpenAiCompatibleModelProviderClient implements ModelProviderClient 
 
     @Override
     public ModelInvokeResult invoke(ModelInvokeParam param) {
-        try {
-            HttpResponse<String> response = httpClient.send(requestOf(param), HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() < 200 || response.statusCode() >= 300) {
-                throw new IllegalStateException("模型接口返回非 2xx: " + response.statusCode());
+        RuntimeException lastFailure = null;
+        int attempts = Math.max(1, properties.getMaxAttempts());
+        for (int attempt = 1; attempt <= attempts; attempt++) {
+            try {
+                HttpResponse<String> response = httpClient.send(requestOf(param), HttpResponse.BodyHandlers.ofString());
+                if (response.statusCode() >= 200 && response.statusCode() < 300) {
+                    return resultOf(response.body(), param);
+                }
+                RuntimeException failure = new IllegalStateException("模型接口返回非 2xx: " + response.statusCode());
+                if (!retryableStatus(response.statusCode()) || attempt >= attempts) {
+                    throw failure;
+                }
+                lastFailure = failure;
+                sleepBeforeRetry();
+            } catch (IOException ex) {
+                lastFailure = new IllegalStateException("模型接口调用失败: " + ex.getMessage(), ex);
+                if (attempt >= attempts) {
+                    throw lastFailure;
+                }
+                sleepBeforeRetry();
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                throw new IllegalStateException("模型接口调用被中断", ex);
             }
-            return resultOf(response.body(), param);
-        } catch (IOException ex) {
-            throw new IllegalStateException("模型接口调用失败: " + ex.getMessage(), ex);
+        }
+        throw lastFailure == null ? new IllegalStateException("模型接口调用失败") : lastFailure;
+    }
+
+    private boolean retryableStatus(int statusCode) {
+        return statusCode == 408 || statusCode == 429 || statusCode >= 500;
+    }
+
+    private void sleepBeforeRetry() {
+        Duration backoff = properties.getRetryBackoff();
+        if (backoff == null || backoff.isZero() || backoff.isNegative()) {
+            return;
+        }
+        try {
+            Thread.sleep(backoff.toMillis());
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
-            throw new IllegalStateException("模型接口调用被中断", ex);
+            throw new IllegalStateException("模型接口重试等待被中断", ex);
         }
     }
 
