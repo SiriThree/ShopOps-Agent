@@ -108,11 +108,19 @@ public class DefaultModelGatewayService implements ModelGatewayService {
     }
 
     private void fillUsage(ModelInvokeResult result, String prompt, String output) {
-        int promptTokens = estimateTokens(prompt);
-        int completionTokens = estimateTokens(output);
-        result.setPromptTokens(promptTokens);
-        result.setCompletionTokens(completionTokens);
-        result.setTotalTokens(promptTokens + completionTokens);
+        Integer promptTokens = result.getPromptTokens();
+        Integer completionTokens = result.getCompletionTokens();
+        if (promptTokens == null) {
+            promptTokens = estimateTokens(prompt);
+            result.setPromptTokens(promptTokens);
+        }
+        if (completionTokens == null) {
+            completionTokens = estimateTokens(output);
+            result.setCompletionTokens(completionTokens);
+        }
+        if (result.getTotalTokens() == null) {
+            result.setTotalTokens(promptTokens + completionTokens);
+        }
     }
 
     private int estimateTokens(String value) {
