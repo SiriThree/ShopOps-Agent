@@ -9,6 +9,7 @@ import com.sirithree.shopops.admin.model.config.ModelGatewayResilienceProperties
 import com.sirithree.shopops.admin.model.service.ModelCallLogStore;
 import com.sirithree.shopops.admin.model.service.ModelGatewayService;
 import com.sirithree.shopops.admin.model.service.ModelProviderClient;
+import com.sirithree.shopops.admin.model.service.PromptTemplateService;
 import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,13 +21,16 @@ import org.springframework.stereotype.Service;
 public class DefaultModelGatewayService implements ModelGatewayService {
     private final ModelCallLogStore callLogStore;
     private final ModelGatewayResilienceProperties resilienceProperties;
+    private final PromptTemplateService promptTemplateService;
     private final Map<String, ModelProviderClient> providers;
 
     public DefaultModelGatewayService(ModelCallLogStore callLogStore,
                                       ModelGatewayResilienceProperties resilienceProperties,
+                                      PromptTemplateService promptTemplateService,
                                       List<ModelProviderClient> providerClients) {
         this.callLogStore = callLogStore;
         this.resilienceProperties = resilienceProperties;
+        this.promptTemplateService = promptTemplateService;
         this.providers = providerClients.stream()
                 .collect(java.util.stream.Collectors.toMap(
                         client -> client.providerCode().toLowerCase(Locale.ROOT),
@@ -37,6 +41,7 @@ public class DefaultModelGatewayService implements ModelGatewayService {
     @Override
     public ModelInvokeResult invoke(Long tenantId, Long shopId, Long userId, String username, ModelInvokeParam param) {
         long started = System.nanoTime();
+        param = promptTemplateService.renderForInvoke(tenantId, param);
         String providerCode = defaultString(param.getProviderCode(), "echo").toLowerCase(Locale.ROOT);
         ModelProviderClient provider = providers.get(providerCode);
         if (provider == null) {
