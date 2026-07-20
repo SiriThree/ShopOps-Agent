@@ -30,6 +30,7 @@ public class InMemoryToolCallLogService implements ToolCallLogService {
         log.put("stepId", context.getStepId());
         log.put("traceId", context.getTraceId());
         log.put("toolCode", toolCode);
+        log.put("approvalId", context.getApprovalId());
         log.put("input", input);
         log.put("status", "RUNNING");
         log.put("createdAt", LocalDateTime.now().toString());

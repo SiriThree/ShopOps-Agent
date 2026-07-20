@@ -37,6 +37,7 @@ public class JdbcToolCallLogService implements ToolCallLogService {
         log.setSpanId("sp_" + UUID.randomUUID().toString().replace("-", ""));
         log.setUserId(context.getUserId());
         log.setToolCode(toolCode);
+        log.setApprovalId(context.getApprovalId());
         log.setInputJson(jsonSupport.toJson(input));
         log.setStatus("RUNNING");
         log.setRetryCount(0);

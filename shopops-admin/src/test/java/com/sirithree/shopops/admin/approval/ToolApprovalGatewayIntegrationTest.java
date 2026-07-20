@@ -69,6 +69,41 @@ class ToolApprovalGatewayIntegrationTest {
                 .containsEntry("riskLevel", "HIGH")
                 .containsEntry("status", "APPROVAL_REQUIRED")
                 .containsEntry("errorCode", "APPROVAL_REQUIRED");
+
+        Map<String, Object> approved = dataOf(post(
+                "/api/admin/approvals/" + approvalId + "/approve",
+                Map.of("comment", "Approved for retry"),
+                adminHeaders()
+        ));
+        assertThat(approved).containsEntry("status", "APPROVED");
+
+        Map<String, Object> retryResult = dataOf(post(
+                "/api/tools/order.refund_execute/invoke",
+                Map.of("shopId", 1, "refundAmount", 1288, "reason", "high value refund", "approvalId", approvalId),
+                adminHeaders()
+        ));
+        Integer retryLogId = ((Number) retryResult.get("toolCallLogId")).intValue();
+        assertThat(retryResult)
+                .containsEntry("success", true)
+                .containsEntry("status", "SUCCESS")
+                .containsEntry("approvalId", approvalId)
+                .containsEntry("toolCallLogId", retryLogId);
+        Map<String, Object> output = (Map<String, Object>) retryResult.get("data");
+        assertThat(output)
+                .containsEntry("status", "EXECUTED")
+                .containsEntry("approvalId", approvalId)
+                .containsEntry("refundAmount", 1288);
+
+        Map<String, Object> successLogPage = dataOf(get(
+                "/api/tools/call-logs?status=SUCCESS&toolCode=order.refund_execute",
+                adminHeaders()
+        ));
+        assertThat(successLogPage.get("total")).isEqualTo(1);
+        Map<String, Object> successLog = ((List<Map<String, Object>>) successLogPage.get("list")).get(0);
+        assertThat(successLog)
+                .containsEntry("id", retryLogId)
+                .containsEntry("approvalId", approvalId)
+                .containsEntry("status", "SUCCESS");
     }
 
     private Map<String, Object> get(String path, HttpHeaders headers) {

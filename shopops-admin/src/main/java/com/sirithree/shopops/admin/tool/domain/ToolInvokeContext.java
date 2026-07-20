@@ -8,6 +8,7 @@ public class ToolInvokeContext {
     private Long stepId;
     private String traceId;
     private String parentSpanId;
+    private Long approvalId;
     private Boolean manualInvoke = false;
 
     public Long getTenantId() {
@@ -64,6 +65,14 @@ public class ToolInvokeContext {
 
     public void setParentSpanId(String parentSpanId) {
         this.parentSpanId = parentSpanId;
+    }
+
+    public Long getApprovalId() {
+        return approvalId;
+    }
+
+    public void setApprovalId(Long approvalId) {
+        this.approvalId = approvalId;
     }
 
     public Boolean getManualInvoke() {

@@ -2,6 +2,7 @@ package com.sirithree.shopops.admin.tool.service.impl;
 
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestCreateParam;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestDto;
+import com.sirithree.shopops.admin.approval.domain.ApprovalStatus;
 import com.sirithree.shopops.admin.approval.service.ApprovalRequestService;
 import com.sirithree.shopops.admin.audit.domain.TraceSpanCreateCommand;
 import com.sirithree.shopops.admin.audit.service.TraceService;
@@ -63,7 +64,12 @@ public class DefaultToolGatewayService implements ToolGatewayService {
                 return fail(context, spanId, logId, started, "TOOL_DISABLED", "工具已停用: " + toolCode);
             }
             if (Boolean.TRUE.equals(tool.getNeedApproval())) {
-                return approvalRequired(context, spanId, logId, started, tool, input);
+                if (context.getApprovalId() == null) {
+                    return approvalRequired(context, spanId, logId, started, tool, input);
+                }
+                if (!isApprovedForTool(context, toolCode)) {
+                    return fail(context, spanId, logId, started, "APPROVAL_NOT_APPROVED", "审批单不存在、未通过或不匹配工具: " + context.getApprovalId());
+                }
             }
             ToolExecutor executor = executors.get(toolCode);
             if (executor == null) {
@@ -74,11 +80,13 @@ public class DefaultToolGatewayService implements ToolGatewayService {
                 toolCallLogService.success(logId, result.getData(), System.currentTimeMillis() - started);
                 traceService.finishSpan(context.getTraceId(), spanId, "SUCCESS", "工具调用成功: " + toolCode, null);
                 result.setToolCallLogId(logId);
+                result.setApprovalId(context.getApprovalId());
                 return result;
             }
             toolCallLogService.failed(logId, result.getErrorCode(), result.getErrorMessage(), System.currentTimeMillis() - started);
             traceService.finishSpan(context.getTraceId(), spanId, "FAILED", null, result.getErrorMessage());
             result.setToolCallLogId(logId);
+            result.setApprovalId(context.getApprovalId());
             return result;
         } catch (RuntimeException ex) {
             traceService.finishSpan(context.getTraceId(), spanId, "FAILED", null, ex.getMessage());
@@ -133,6 +141,13 @@ public class DefaultToolGatewayService implements ToolGatewayService {
         param.setReason("工具风险等级或注册元数据要求人工审批");
         param.setInputSummary(jsonSupport.toJson(input));
         return param;
+    }
+
+    private boolean isApprovedForTool(ToolInvokeContext context, String toolCode) {
+        return approvalRequestService.get(context.getTenantId(), context.getShopId(), context.getApprovalId())
+                .filter(approval -> ApprovalStatus.APPROVED.equals(approval.getStatus()))
+                .filter(approval -> toolCode.equals(approval.getToolCode()))
+                .isPresent();
     }
 
     private String requesterName(ToolInvokeContext context) {
