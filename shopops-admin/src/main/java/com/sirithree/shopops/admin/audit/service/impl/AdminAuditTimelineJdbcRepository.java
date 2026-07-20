@@ -164,6 +164,54 @@ public class AdminAuditTimelineJdbcRepository {
                       tcl.error_code AS detail_c
                     FROM tool_call_log tcl
                     WHERE tcl.tenant_id = :tenantId AND tcl.shop_id = :shopId
+                  UNION ALL
+                    SELECT
+                      'APPROVAL' AS source,
+                      CONCAT('approval:', ar.id, ':created') AS event_id,
+                      ar.id * 10 AS sortable_id,
+                      'APPROVAL_CREATED' AS event_type,
+                      'PENDING' AS event_status,
+                      ar.requester_id AS user_id,
+                      ar.requester_name AS username,
+                      ar.task_id,
+                      ar.trace_id,
+                      ar.tool_code,
+                      CAST(NULL AS CHAR) AS request_id,
+                      'approval_request' AS resource_type,
+                      CAST(ar.id AS CHAR) AS resource_id,
+                      UPPER(ar.risk_level) AS risk_level,
+                      CONCAT('APPROVAL_CREATED ', ar.status) AS summary,
+                      ar.created_at,
+                      ar.approval_no AS detail_a,
+                      ar.source_type AS detail_b,
+                      ar.title AS detail_c
+                    FROM approval_request ar
+                    WHERE ar.tenant_id = :tenantId AND ar.shop_id = :shopId
+                  UNION ALL
+                    SELECT
+                      'APPROVAL' AS source,
+                      CONCAT('approval:', ar.id, ':decision') AS event_id,
+                      ar.id * 10 + 1 AS sortable_id,
+                      'APPROVAL_DECIDED' AS event_type,
+                      CASE WHEN ar.status = 'REJECTED' THEN 'FAILURE' ELSE 'SUCCESS' END AS event_status,
+                      ar.approver_id AS user_id,
+                      ar.approver_name AS username,
+                      ar.task_id,
+                      ar.trace_id,
+                      ar.tool_code,
+                      CAST(NULL AS CHAR) AS request_id,
+                      'approval_request' AS resource_type,
+                      CAST(ar.id AS CHAR) AS resource_id,
+                      UPPER(ar.risk_level) AS risk_level,
+                      CONCAT('APPROVAL_DECIDED ', ar.status) AS summary,
+                      ar.decided_at AS created_at,
+                      ar.approval_no AS detail_a,
+                      ar.status AS detail_b,
+                      ar.decision_comment AS detail_c
+                    FROM approval_request ar
+                    WHERE ar.tenant_id = :tenantId AND ar.shop_id = :shopId
+                      AND ar.status <> 'PENDING'
+                      AND ar.decided_at IS NOT NULL
                 """;
     }
 
@@ -257,6 +305,10 @@ public class AdminAuditTimelineJdbcRepository {
             putIfPresent(detail, "stepId", detailA);
             putIfPresent(detail, "latencyMs", detailB);
             putIfPresent(detail, "errorCode", detailC);
+        } else if ("APPROVAL".equals(source)) {
+            putIfPresent(detail, "approvalNo", detailA);
+            putIfPresent(detail, "sourceOrStatus", detailB);
+            putIfPresent(detail, "titleOrComment", detailC);
         }
         return detail;
     }

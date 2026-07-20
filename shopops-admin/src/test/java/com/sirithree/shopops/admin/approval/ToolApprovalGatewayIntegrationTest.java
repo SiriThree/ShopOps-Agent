@@ -104,6 +104,33 @@ class ToolApprovalGatewayIntegrationTest {
                 .containsEntry("id", retryLogId)
                 .containsEntry("approvalId", approvalId)
                 .containsEntry("status", "SUCCESS");
+
+        Map<String, Object> approvalAuditPage = dataOf(get(
+                "/api/admin/audit/timeline?source=APPROVAL&toolCode=order.refund_execute&pageNum=1&pageSize=10",
+                adminHeaders()
+        ));
+        assertThat(((Number) approvalAuditPage.get("total")).longValue()).isGreaterThanOrEqualTo(2L);
+        List<Map<String, Object>> approvalAuditEvents = (List<Map<String, Object>>) approvalAuditPage.get("list");
+        List<Map<String, Object>> currentApprovalAuditEvents = approvalAuditEvents.stream()
+                .filter(event -> approvalId.toString().equals(event.get("resourceId")))
+                .toList();
+        assertThat(currentApprovalAuditEvents).hasSize(2);
+        assertThat(currentApprovalAuditEvents)
+                .extracting(event -> event.get("eventType"))
+                .contains("APPROVAL_CREATED", "APPROVAL_DECIDED");
+        assertThat(currentApprovalAuditEvents)
+                .extracting(event -> event.get("resourceType"))
+                .containsOnly("approval_request");
+
+        Map<String, Object> approvalAuditDetail = dataOf(get(
+                "/api/admin/audit/timeline/APPROVAL/" + approvalId,
+                adminHeaders()
+        ));
+        assertThat((Map<String, Object>) approvalAuditDetail.get("event"))
+                .containsEntry("source", "APPROVAL")
+                .containsEntry("resourceType", "approval_request")
+                .containsEntry("resourceId", approvalId.toString());
+        assertThat((Map<String, Object>) approvalAuditDetail.get("resource")).containsKey("approvalRequest");
     }
 
     private Map<String, Object> get(String path, HttpHeaders headers) {
