@@ -19,6 +19,7 @@ public class InMemoryMcpToolService implements McpToolService {
         register(new McpToolDto("comment.query_negative", "差评风险查询", "comment", "comment:read", "low"));
         register(new McpToolDto("product.query_candidates", "待优化商品查询", "product", "product:read", "low"));
         register(new McpToolDto("report.generate_daily_review", "每日经营复盘报告生成", "report", "report:generate", "low"));
+        register(approvalTool("order.refund_execute", "高风险退款执行", "order", "order:refund", "high"));
     }
 
     @Override
@@ -33,5 +34,11 @@ public class InMemoryMcpToolService implements McpToolService {
 
     private void register(McpToolDto tool) {
         tools.put(tool.getToolCode(), tool);
+    }
+
+    private McpToolDto approvalTool(String toolCode, String toolName, String category, String permissionCode, String riskLevel) {
+        McpToolDto tool = new McpToolDto(toolCode, toolName, category, permissionCode, riskLevel);
+        tool.setNeedApproval(true);
+        return tool;
     }
 }

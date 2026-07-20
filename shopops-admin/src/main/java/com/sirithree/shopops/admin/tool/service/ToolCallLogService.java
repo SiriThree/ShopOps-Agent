@@ -11,6 +11,8 @@ public interface ToolCallLogService {
 
     void success(Long logId, Object output, long latencyMs);
 
+    void approvalRequired(Long logId, Long approvalId, String riskLevel, String errorMessage, long latencyMs);
+
     void failed(Long logId, String errorCode, String errorMessage, long latencyMs);
 
     CommonPage<Map<String, Object>> list(Long tenantId, Long shopId, ToolCallLogQueryParam param);

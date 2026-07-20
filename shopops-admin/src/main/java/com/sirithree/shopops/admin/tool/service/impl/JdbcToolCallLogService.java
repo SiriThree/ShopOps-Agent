@@ -56,6 +56,19 @@ public class JdbcToolCallLogService implements ToolCallLogService {
     }
 
     @Override
+    public void approvalRequired(Long logId, Long approvalId, String riskLevel, String errorMessage, long latencyMs) {
+        ToolCallLog log = new ToolCallLog();
+        log.setId(logId);
+        log.setStatus("APPROVAL_REQUIRED");
+        log.setApprovalId(approvalId);
+        log.setRiskLevel(riskLevel);
+        log.setErrorCode("APPROVAL_REQUIRED");
+        log.setErrorMessage(errorMessage);
+        log.setLatencyMs((int) latencyMs);
+        toolCallLogMapper.finish(log);
+    }
+
+    @Override
     public void failed(Long logId, String errorCode, String errorMessage, long latencyMs) {
         ToolCallLog log = new ToolCallLog();
         log.setId(logId);
@@ -110,6 +123,7 @@ public class JdbcToolCallLogService implements ToolCallLogService {
         result.put("toolCode", log.getToolCode());
         result.put("status", log.getStatus());
         result.put("riskLevel", log.getRiskLevel());
+        result.put("approvalId", log.getApprovalId());
         result.put("input", jsonSupport.toMap(log.getInputJson()));
         result.put("output", jsonSupport.toMap(log.getOutputJson()));
         result.put("latencyMs", log.getLatencyMs() == null ? 0 : log.getLatencyMs());

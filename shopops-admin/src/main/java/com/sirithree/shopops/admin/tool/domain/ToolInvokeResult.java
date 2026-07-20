@@ -5,6 +5,7 @@ public class ToolInvokeResult {
     private String status;
     private Object data;
     private Long toolCallLogId;
+    private Long approvalId;
     private String errorCode;
     private String errorMessage;
 
@@ -24,6 +25,18 @@ public class ToolInvokeResult {
         result.setErrorCode(errorCode);
         result.setErrorMessage(errorMessage);
         result.setToolCallLogId(toolCallLogId);
+        return result;
+    }
+
+    public static ToolInvokeResult approvalRequired(Long toolCallLogId, Long approvalId, Object data) {
+        ToolInvokeResult result = new ToolInvokeResult();
+        result.setSuccess(false);
+        result.setStatus("APPROVAL_REQUIRED");
+        result.setToolCallLogId(toolCallLogId);
+        result.setApprovalId(approvalId);
+        result.setData(data);
+        result.setErrorCode("APPROVAL_REQUIRED");
+        result.setErrorMessage("工具调用需要审批");
         return result;
     }
 
@@ -57,6 +70,14 @@ public class ToolInvokeResult {
 
     public void setToolCallLogId(Long toolCallLogId) {
         this.toolCallLogId = toolCallLogId;
+    }
+
+    public Long getApprovalId() {
+        return approvalId;
+    }
+
+    public void setApprovalId(Long approvalId) {
+        this.approvalId = approvalId;
     }
 
     public String getErrorCode() {
