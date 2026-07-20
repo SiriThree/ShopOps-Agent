@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShopOps Agent Tasks</title>
+  <title>ShopOps 任务队列</title>
   <style>
     :root {
       color-scheme: light;
@@ -489,14 +489,14 @@
         font-weight: 600;
       }
 
-      tbody td:nth-child(1)::before { content: "Task"; }
-      tbody td:nth-child(2)::before { content: "Type"; }
-      tbody td:nth-child(3)::before { content: "Status"; }
-      tbody td:nth-child(4)::before { content: "User"; }
-      tbody td:nth-child(5)::before { content: "Report"; }
+      tbody td:nth-child(1)::before { content: "任务"; }
+      tbody td:nth-child(2)::before { content: "类型"; }
+      tbody td:nth-child(3)::before { content: "状态"; }
+      tbody td:nth-child(4)::before { content: "用户"; }
+      tbody td:nth-child(5)::before { content: "报告"; }
       tbody td:nth-child(6)::before { content: "Trace"; }
-      tbody td:nth-child(7)::before { content: "Created"; }
-      tbody td:nth-child(8)::before { content: "Summary"; }
+      tbody td:nth-child(7)::before { content: "创建时间"; }
+      tbody td:nth-child(8)::before { content: "摘要"; }
 
       .summary-cell {
         max-width: none;
@@ -509,79 +509,79 @@
     <aside class="sidebar">
       <div class="brand">
         <strong>ShopOps Agent</strong>
-        <span>Admin Console</span>
+        <span>管理控制台</span>
       </div>
-      <nav class="nav" aria-label="Admin navigation">
-        <a href="/admin/dashboard.html">Dashboard</a>
-        <a href="/admin/auth.html">Auth</a>
-        <a class="active" href="/admin/tasks.html">Agent Tasks</a>
-        <a href="/admin/audit.html">Audit Center</a>
-        <a href="/admin/reports.html">Reports</a>
-        <a href="/admin/tools.html">Tools</a>
+      <nav class="nav" aria-label="后台导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a class="active" href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
       </nav>
     </aside>
 
     <main class="main">
       <header class="topbar">
         <div>
-          <h1>Agent Tasks</h1>
-          <div class="subtitle">Operational task queue, execution status, and event stream</div>
+          <h1>任务队列</h1>
+          <div class="subtitle">查看运营任务、执行状态和事件流</div>
         </div>
         <form class="context-grid" id="contextForm">
-          <label>Tenant
+          <label>租户
             <input id="tenantId" value="1" inputmode="numeric">
           </label>
-          <label>Shop
+          <label>店铺
             <input id="shopId" value="1" inputmode="numeric">
           </label>
-          <label>User
+          <label>用户
             <input id="userId" value="1" inputmode="numeric">
           </label>
-          <label>Roles
+          <label>角色
             <input id="roles" value="ADMIN">
           </label>
-          <button class="primary" type="submit">Refresh</button>
-          <button id="resetContext" type="button">Reset</button>
-          <div class="context-session" id="sessionLine">Header context</div>
+          <button class="primary" type="submit">刷新</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
         </form>
       </header>
 
       <section class="toolbar">
         <div class="metrics" id="metrics"></div>
         <form class="filters" id="filterForm">
-          <label>Status
+          <label>状态
             <select id="status">
-              <option value="">All</option>
-              <option value="PENDING">Pending</option>
-              <option value="RUNNING">Running</option>
-              <option value="SUCCESS">Success</option>
-              <option value="FAILED">Failed</option>
+              <option value="">全部</option>
+              <option value="PENDING">待执行</option>
+              <option value="RUNNING">运行中</option>
+              <option value="SUCCESS">成功</option>
+              <option value="FAILED">失败</option>
             </select>
           </label>
-          <label>Type
+          <label>类型
             <input id="taskType" placeholder="daily_review">
           </label>
-          <label>Task No
+          <label>任务编号
             <input id="taskNo">
           </label>
-          <label>User ID
+          <label>用户 ID
             <input id="filterUserId" inputmode="numeric">
           </label>
           <label>Trace ID
             <input id="traceId">
           </label>
-          <label>Report ID
+          <label>报告 ID
             <input id="reportId" inputmode="numeric">
           </label>
-          <button id="taskFilterSubmit" class="primary" type="submit">Search</button>
-          <button id="resetFilters" type="button">Reset</button>
+          <button id="taskFilterSubmit" class="primary" type="submit">查询</button>
+          <button id="resetFilters" type="button">重置</button>
         </form>
-        <div class="quick-actions" aria-label="Task quick filters">
-          <span>Quick filters</span>
-          <button type="button" data-quick-filter="running">Running</button>
-          <button type="button" data-quick-filter="failed">Failed</button>
-          <button type="button" data-quick-filter="success">Success</button>
-          <button type="button" data-quick-filter="clear">Clear</button>
+        <div class="quick-actions" aria-label="任务快捷筛选">
+          <span>快捷筛选</span>
+          <button type="button" data-quick-filter="running">运行中</button>
+          <button type="button" data-quick-filter="failed">失败</button>
+          <button type="button" data-quick-filter="success">成功</button>
+          <button type="button" data-quick-filter="clear">清空</button>
         </div>
         <div class="status-line" id="statusLine"></div>
       </section>
@@ -592,24 +592,24 @@
             <table>
               <thead>
                 <tr>
-                  <th>Task</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th>User</th>
-                  <th>Report</th>
+                  <th>任务</th>
+                  <th>类型</th>
+                  <th>状态</th>
+                  <th>用户</th>
+                  <th>报告</th>
                   <th>Trace</th>
-                  <th>Created</th>
-                  <th>Summary</th>
+                  <th>创建时间</th>
+                  <th>摘要</th>
                 </tr>
               </thead>
               <tbody id="taskBody"></tbody>
             </table>
           </div>
           <div class="pager">
-            <span id="pageInfo">Page 1</span>
+            <span id="pageInfo">第 1 页</span>
             <div class="pager-actions">
-              <button id="prevPage" type="button">Previous</button>
-              <button id="nextPage" type="button">Next</button>
+              <button id="prevPage" type="button">上一页</button>
+              <button id="nextPage" type="button">下一页</button>
             </div>
           </div>
         </div>
@@ -617,50 +617,50 @@
         <aside class="side">
           <section class="panel">
             <div class="panel-title">
-              <h2>Create Task</h2>
-              <button id="resetCreate" type="button">Reset</button>
+              <h2>创建任务</h2>
+              <button id="resetCreate" type="button">重置</button>
             </div>
             <form class="form-grid" id="createForm" autocomplete="off">
-              <label>Type
+              <label>类型
                 <input id="createTaskType" value="daily_review" required>
               </label>
               <div class="form-row">
-                <label>Start
+                <label>开始日期
                   <input id="startDate" type="date" required>
                 </label>
-                <label>End
+                <label>结束日期
                   <input id="endDate" type="date" required>
                 </label>
               </div>
-              <label>User Input
-                <textarea id="userInput" required>Generate a daily operating review for the selected date range.</textarea>
+              <label>用户输入
+                <textarea id="userInput" required>根据所选日期范围生成每日运营复盘。</textarea>
               </label>
               <div class="button-row">
-                <button id="requeueStale" type="button">Requeue Stale</button>
-                <button id="createTaskSubmit" class="primary" type="submit">Create</button>
+                <button id="requeueStale" type="button">重排超时任务</button>
+                <button id="createTaskSubmit" class="primary" type="submit">创建</button>
               </div>
             </form>
           </section>
           <section class="panel">
             <div class="panel-title">
-              <h2>Task Detail</h2>
+              <h2>任务详情</h2>
               <div class="button-row">
-                <button id="copyDetail" type="button">Copy</button>
-                <button id="retryTask" type="button">Retry</button>
-                <button id="clearDetail" type="button">Clear</button>
+                <button id="copyDetail" type="button">复制</button>
+                <button id="retryTask" type="button">重试</button>
+                <button id="clearDetail" type="button">清空</button>
               </div>
             </div>
-            <pre class="detail-box" id="detailBox">Select a task row</pre>
+            <pre class="detail-box" id="detailBox">请选择一条任务</pre>
             <div class="link-row">
-              <a id="openReport" href="/admin/reports.html">Open Report</a>
-              <a id="openAudit" href="/admin/audit.html">Open Audit</a>
-              <a id="openToolLogs" href="/admin/tools.html">Tool Logs</a>
+              <a id="openReport" href="/admin/reports.html">打开报告</a>
+              <a id="openAudit" href="/admin/audit.html">打开审计</a>
+              <a id="openToolLogs" href="/admin/tools.html">工具日志</a>
             </div>
           </section>
           <section class="panel">
             <div class="panel-title">
-              <h2>Recent Events</h2>
-              <button id="refreshEvents" type="button">Refresh</button>
+              <h2>最近事件</h2>
+              <button id="refreshEvents" type="button">刷新</button>
             </div>
             <div class="event-list" id="eventList"></div>
           </section>
@@ -727,10 +727,10 @@
     }
 
     async function refreshAll() {
-      setStatus("Loading tasks");
+      setStatus("正在加载任务");
       try {
         await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
-        setStatus("Tasks refreshed");
+        setStatus("任务已刷新");
       } catch (error) {
         setStatus(error.message);
       }
@@ -739,11 +739,11 @@
     async function loadMetrics() {
       const metrics = await api("/api/admin/agent/tasks/metrics");
       $("metrics").innerHTML = [
-        ["Total", metrics.total],
-        ["Pending", metrics.statusBreakdown?.PENDING],
-        ["Running", metrics.statusBreakdown?.RUNNING],
-        ["Success", metrics.success],
-        ["Failed", metrics.failed]
+        ["总数", metrics.total],
+        ["待执行", metrics.statusBreakdown?.PENDING],
+        ["运行中", metrics.statusBreakdown?.RUNNING],
+        ["成功", metrics.success],
+        ["失败", metrics.failed]
       ].map(([label, value]) => metric(label, value)).join("");
     }
 
@@ -763,14 +763,14 @@
             <td>${formatTime(task.createdAt)}</td>
             <td class="summary-cell">${escapeHtml(task.resultSummary || task.errorMessage || task.userInput || "")}</td>
           </tr>
-        `).join("") || emptyRow(8, "No tasks found", "Try clearing filters or refreshing the task queue.");
-        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} / ${state.total} rows`;
+        `).join("") || emptyRow(8, "暂无任务", "可以清空筛选或刷新任务队列。");
+        $("pageInfo").textContent = `第 ${data.pageNum || state.pageNum} 页 / 共 ${state.total} 条`;
         $("prevPage").disabled = state.pageNum <= 1;
         $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
       } catch (error) {
         state.total = 0;
-        $("taskBody").innerHTML = errorRow(8, "Unable to load tasks", error.message);
-        $("pageInfo").textContent = "Task list unavailable";
+        $("taskBody").innerHTML = errorRow(8, "任务加载失败", error.message);
+        $("pageInfo").textContent = "任务列表不可用";
         $("prevPage").disabled = true;
         $("nextPage").disabled = true;
         throw error;
@@ -785,7 +785,7 @@
           <strong>${escapeHtml(event.eventType || "")}</strong>
           <span class="badge ${eventStatusClass(event.eventType)}">${escapeHtml(event.toStatus || event.eventStatus || "")}</span>
         </div>
-      `).join("") || `<div class="status-line">No recent task events</div>`;
+      `).join("") || `<div class="status-line">暂无最近任务事件</div>`;
     }
 
     async function loadDetail(taskId) {
@@ -794,7 +794,7 @@
       }
       state.selectedTaskId = taskId;
       syncUrl();
-      $("detailBox").textContent = "Loading...";
+      $("detailBox").textContent = "加载中...";
       try {
         const data = await api(`/api/admin/agent/tasks/${encodeURIComponent(taskId)}/detail`);
         $("detailBox").textContent = JSON.stringify(data, null, 2);
@@ -810,7 +810,7 @@
 
     async function createTask(event) {
       event.preventDefault();
-      setStatus("Creating task");
+      setStatus("正在创建任务");
       try {
         const payload = {
           taskType: $("createTaskType").value.trim(),
@@ -830,7 +830,7 @@
         syncUrl();
         await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
         await loadDetail(data.taskId);
-        setStatus(`Created ${data.taskNo || data.taskId}`);
+        setStatus(`已创建 ${data.taskNo || data.taskId}`);
       } catch (error) {
         setStatus(error.message);
       }
@@ -838,10 +838,10 @@
 
     async function retrySelectedTask() {
       if (!state.selectedTaskId) {
-        setStatus("Select a task first");
+        setStatus("请先选择一条任务");
         return;
       }
-      setStatus("Retrying task");
+      setStatus("正在重试任务");
       try {
         const data = await api(`/api/agent/tasks/${encodeURIComponent(state.selectedTaskId)}/retry`, { method: "POST" });
         state.pageNum = 1;
@@ -849,19 +849,19 @@
         syncUrl();
         await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
         await loadDetail(data.taskId);
-        setStatus(`Retry created ${data.taskNo || data.taskId}`);
+        setStatus(`重试任务已创建 ${data.taskNo || data.taskId}`);
       } catch (error) {
         setStatus(error.message);
       }
     }
 
     async function requeueStaleTasks() {
-      setStatus("Requeueing stale tasks");
+      setStatus("正在重排超时任务");
       try {
         const data = await api("/api/agent/tasks/stale/requeue?queuedTimeoutMinutes=10&runningTimeoutMinutes=30&limit=20", { method: "POST" });
         await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
         $("detailBox").textContent = JSON.stringify(data, null, 2);
-        setStatus(`Requeued ${data.requeuedCount || 0} stale tasks`);
+        setStatus(`已重排 ${data.requeuedCount || 0} 个超时任务`);
       } catch (error) {
         setStatus(error.message);
       }
@@ -869,7 +869,7 @@
 
     function resetCreateForm() {
       $("createTaskType").value = "daily_review";
-      $("userInput").value = "Generate a daily operating review for the selected date range.";
+      $("userInput").value = "根据所选日期范围生成每日运营复盘。";
       setDefaultDates();
     }
 
@@ -925,8 +925,8 @@
 
     function renderSessionLine(session = authSession()) {
       $("sessionLine").textContent = session.token
-        ? `Bearer session loaded${session.user?.username ? ` for ${session.user.username}` : ""}`
-        : "Header context";
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
     }
 
     function authSession() {
@@ -1018,8 +1018,8 @@
 
     async function copyText(text, label) {
       const value = String(text || "").trim();
-      if (!value || value === "Select a task row" || value === "Loading...") {
-        setStatus(`Nothing to copy from ${label}`);
+      if (!value || value === "请选择一条任务" || value === "加载中...") {
+        setStatus(`${label} 没有可复制内容`);
         return;
       }
       try {
@@ -1028,10 +1028,10 @@
         } else {
           fallbackCopy(value);
         }
-        setStatus(`${label} copied`);
+        setStatus(`${label} 已复制`);
       } catch (error) {
         fallbackCopy(value);
-        setStatus(`${label} copied`);
+        setStatus(`${label} 已复制`);
       }
     }
 
@@ -1055,8 +1055,8 @@
               <strong>${escapeHtml(title)}</strong>
               <span>${escapeHtml(message)}</span>
               <div class="empty-actions">
-                <button type="button" data-empty-reset>Clear filters</button>
-                <button type="button" data-retry-list>Refresh</button>
+                <button type="button" data-empty-reset>清空筛选</button>
+                <button type="button" data-retry-list>刷新</button>
               </div>
             </div>
           </td>
@@ -1065,7 +1065,7 @@
     }
 
     function errorRow(colspan, title, message) {
-      return emptyRow(colspan, title, message || "Check the service and try again.");
+      return emptyRow(colspan, title, message || "请检查服务后重试。");
     }
 
     function number(value) {
@@ -1107,24 +1107,24 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      withBusy($("taskFilterSubmit"), "Searching", loadTasks);
+      withBusy($("taskFilterSubmit"), "查询中", loadTasks);
     });
 
-    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "Resetting", resetFilters));
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "重置中", resetFilters));
     $("createForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      withBusy($("createTaskSubmit"), "Creating", () => createTask(event));
+      withBusy($("createTaskSubmit"), "创建中", () => createTask(event));
     });
     $("resetCreate").addEventListener("click", resetCreateForm);
-    $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "Task detail"));
-    $("retryTask").addEventListener("click", () => withBusy($("retryTask"), "Retrying", retrySelectedTask));
-    $("requeueStale").addEventListener("click", () => withBusy($("requeueStale"), "Requeueing", requeueStaleTasks));
-    $("refreshEvents").addEventListener("click", () => withBusy($("refreshEvents"), "Refreshing", loadEvents));
+    $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "任务详情"));
+    $("retryTask").addEventListener("click", () => withBusy($("retryTask"), "重试中", retrySelectedTask));
+    $("requeueStale").addEventListener("click", () => withBusy($("requeueStale"), "重排中", requeueStaleTasks));
+    $("refreshEvents").addEventListener("click", () => withBusy($("refreshEvents"), "刷新中", loadEvents));
     $("clearDetail").addEventListener("click", () => {
       state.selectedTaskId = "";
       state.selectedReportId = "";
       state.selectedTraceId = "";
-      $("detailBox").textContent = "Select a task row";
+      $("detailBox").textContent = "请选择一条任务";
       updateContextLinks();
       syncUrl();
       markSelectedTask();
@@ -1140,14 +1140,14 @@
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        withBusy($("prevPage"), "Loading", loadTasks, false);
+        withBusy($("prevPage"), "加载中", loadTasks, false);
       }
     });
 
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        withBusy($("nextPage"), "Loading", loadTasks, false);
+        withBusy($("nextPage"), "加载中", loadTasks, false);
       }
     });
 

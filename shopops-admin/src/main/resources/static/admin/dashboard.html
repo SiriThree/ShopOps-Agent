@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShopOps Admin Dashboard</title>
+  <title>ShopOps 管理总览</title>
   <style>
     :root {
       color-scheme: light;
@@ -389,74 +389,74 @@
     <aside class="sidebar">
       <div class="brand">
         <strong>ShopOps Agent</strong>
-        <span>Admin Console</span>
+        <span>管理控制台</span>
       </div>
-      <nav class="nav" aria-label="Admin navigation">
-        <a class="active" href="/admin/dashboard.html">Dashboard</a>
-        <a href="/admin/auth.html">Auth</a>
-        <a href="/admin/tasks.html">Agent Tasks</a>
-        <a href="/admin/audit.html">Audit Center</a>
-        <a href="/admin/reports.html">Reports</a>
-        <a href="/admin/tools.html">Tools</a>
+      <nav class="nav" aria-label="后台导航">
+        <a class="active" href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
       </nav>
     </aside>
 
     <main class="main">
       <header class="topbar">
         <div>
-          <h1>ShopOps Dashboard</h1>
-          <div class="subtitle" id="generatedAt">Waiting for data</div>
+          <h1>ShopOps 管理总览</h1>
+          <div class="subtitle" id="generatedAt">等待数据</div>
         </div>
         <form class="context-grid" id="contextForm">
-          <label>Tenant
+          <label>租户
             <input id="tenantId" value="1" inputmode="numeric">
           </label>
-          <label>Shop
+          <label>店铺
             <input id="shopId" value="1" inputmode="numeric">
           </label>
-          <label>User
+          <label>用户
             <input id="userId" value="1" inputmode="numeric">
           </label>
-          <label>Roles
+          <label>角色
             <input id="roles" value="ADMIN">
           </label>
-          <button class="primary" type="submit">Refresh</button>
-          <button id="resetContext" type="button">Reset</button>
-          <div class="context-session" id="sessionLine">Header context</div>
+          <button class="primary" type="submit">刷新</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
         </form>
       </header>
 
       <section class="content">
-        <section class="module-grid" aria-label="Admin modules">
+        <section class="module-grid" aria-label="后台模块">
           <a class="module-card" href="/admin/tasks.html?status=FAILED">
-            <strong>Task Queue</strong>
-            <span>Create, retry, and inspect agent runs.</span>
-            <em id="taskModuleHint">Open failed tasks</em>
+            <strong>任务队列</strong>
+            <span>创建、重试并检查 Agent 运行记录。</span>
+            <em id="taskModuleHint">查看失败任务</em>
           </a>
           <a class="module-card" href="/admin/reports.html">
-            <strong>Reports</strong>
-            <span>Review generated Markdown outputs.</span>
-            <em id="reportModuleHint">Open reports</em>
+            <strong>报告</strong>
+            <span>查看生成的 Markdown 运营报告。</span>
+            <em id="reportModuleHint">查看报告</em>
           </a>
           <a class="module-card" href="/admin/audit.html?eventStatus=FAILURE">
-            <strong>Audit Center</strong>
-            <span>Trace failures and elevated risk events.</span>
-            <em id="auditModuleHint">Open failures</em>
+            <strong>审计中心</strong>
+            <span>追踪失败事件和中高风险事件。</span>
+            <em id="auditModuleHint">查看失败事件</em>
           </a>
           <a class="module-card" href="/admin/tools.html?status=FAILED">
-            <strong>Tool Logs</strong>
-            <span>Inspect tool registry and call history.</span>
-            <em id="toolModuleHint">Open failed calls</em>
+            <strong>工具日志</strong>
+            <span>检查工具注册表和调用历史。</span>
+            <em id="toolModuleHint">查看失败调用</em>
           </a>
           <a class="module-card" href="/admin/auth.html">
-            <strong>Auth</strong>
-            <span>Check session headers and login audit.</span>
-            <em>Open auth console</em>
+            <strong>认证</strong>
+            <span>检查会话请求头和登录审计。</span>
+            <em>打开认证控制台</em>
           </a>
           <a class="module-card" href="/admin/dashboard.html">
-            <strong>Health</strong>
-            <span>Refresh system status and persistence checks.</span>
-            <em>Refresh dashboard</em>
+            <strong>健康状态</strong>
+            <span>刷新系统状态和持久化检查。</span>
+            <em>刷新总览</em>
           </a>
         </section>
 
@@ -465,10 +465,10 @@
         <div class="grid">
           <section class="panel">
             <div class="panel-title">
-              <h2>Task Operations</h2>
+              <h2>任务运行</h2>
               <div class="action-row">
-                <a href="/admin/audit.html?source=TASK">Audit Center</a>
-                <button id="refreshBtn" type="button">Refresh</button>
+                <a href="/admin/audit.html?source=TASK">审计中心</a>
+                <button id="refreshBtn" type="button">刷新</button>
               </div>
             </div>
             <div class="risk-bars" id="taskBars"></div>
@@ -476,7 +476,7 @@
 
           <section class="panel">
             <div class="panel-title">
-              <h2>System Health</h2>
+              <h2>系统健康</h2>
               <span class="status-line" id="healthStatus"></span>
             </div>
             <div class="health-grid" id="healthGrid"></div>
@@ -484,7 +484,7 @@
 
           <section class="panel">
             <div class="panel-title">
-              <h2>Audit Risk</h2>
+              <h2>审计风险</h2>
               <span class="status-line" id="riskTotal"></span>
             </div>
             <div class="risk-bars" id="riskBars"></div>
@@ -492,8 +492,8 @@
 
           <section class="panel">
             <div class="panel-title">
-              <h2>Recent Failures</h2>
-              <a href="/admin/audit.html?eventStatus=FAILURE">Open Audit</a>
+              <h2>最近失败</h2>
+              <a href="/admin/audit.html?eventStatus=FAILURE">打开审计</a>
             </div>
             <div class="health-grid" id="failedEvents"></div>
           </section>
@@ -536,7 +536,7 @@
     }
 
     async function refreshAll() {
-      setStatus("Loading dashboard");
+      setStatus("正在加载总览");
       const [summary, health, risk] = await Promise.allSettled([
         api("/api/admin/dashboard/summary"),
         api("/api/system/health"),
@@ -562,9 +562,9 @@
         renderRiskError(risk.reason);
       }
       if (failures.length) {
-        setStatus(`Dashboard partially refreshed: ${failures.join(", ")} unavailable`);
+        setStatus(`总览部分刷新完成：${failures.join(", ")} 不可用`);
       } else {
-        setStatus("Dashboard refreshed");
+        setStatus("总览已刷新");
       }
     }
 
@@ -588,29 +588,29 @@
 
     function renderSummary(summary) {
       const metrics = summary.taskMetrics || {};
-      $("generatedAt").textContent = `Generated ${formatTime(summary.generatedAt)}`;
+      $("generatedAt").textContent = `生成时间 ${formatTime(summary.generatedAt)}`;
       $("metrics").innerHTML = [
-        ["Tasks", metrics.total],
-        ["Success", metrics.success],
-        ["Failed", metrics.failed],
-        ["Reports", summary.reportTotal],
-        ["Tool Calls", summary.toolCallTotal],
-        ["Tool Failed", summary.toolCallFailed]
+        ["任务数", metrics.total],
+        ["成功", metrics.success],
+        ["失败", metrics.failed],
+        ["报告", summary.reportTotal],
+        ["工具调用", summary.toolCallTotal],
+        ["工具失败", summary.toolCallFailed]
       ].map(([label, value]) => metric(label, value)).join("");
 
-      $("taskModuleHint").textContent = `${number(metrics.failed)} failed tasks`;
-      $("reportModuleHint").textContent = `${number(summary.reportTotal)} reports`;
-      $("toolModuleHint").textContent = `${number(summary.toolCallFailed)} failed calls`;
+      $("taskModuleHint").textContent = `${number(metrics.failed)} 个失败任务`;
+      $("reportModuleHint").textContent = `${number(summary.reportTotal)} 份报告`;
+      $("toolModuleHint").textContent = `${number(summary.toolCallFailed)} 次失败调用`;
 
       const statusBreakdown = metrics.statusBreakdown || {};
       const taskTotal = Math.max(1, number(metrics.total));
       $("taskBars").innerHTML = [
-        ["Success Rate", `${number(metrics.successRate).toFixed(1)}%`, number(metrics.successRate)],
-        ["Avg Latency", `${number(metrics.avgLatencyMs)} ms`, Math.min(100, number(metrics.avgLatencyMs) / 20)],
-        ["Pending", statusBreakdown.PENDING || 0, (number(statusBreakdown.PENDING) / taskTotal) * 100],
-        ["Running", statusBreakdown.RUNNING || 0, (number(statusBreakdown.RUNNING) / taskTotal) * 100],
-        ["Success", statusBreakdown.SUCCESS || 0, (number(statusBreakdown.SUCCESS) / taskTotal) * 100],
-        ["Failed", statusBreakdown.FAILED || 0, (number(statusBreakdown.FAILED) / taskTotal) * 100]
+        ["成功率", `${number(metrics.successRate).toFixed(1)}%`, number(metrics.successRate)],
+        ["平均耗时", `${number(metrics.avgLatencyMs)} ms`, Math.min(100, number(metrics.avgLatencyMs) / 20)],
+        ["待执行", statusBreakdown.PENDING || 0, (number(statusBreakdown.PENDING) / taskTotal) * 100],
+        ["运行中", statusBreakdown.RUNNING || 0, (number(statusBreakdown.RUNNING) / taskTotal) * 100],
+        ["成功", statusBreakdown.SUCCESS || 0, (number(statusBreakdown.SUCCESS) / taskTotal) * 100],
+        ["失败", statusBreakdown.FAILED || 0, (number(statusBreakdown.FAILED) / taskTotal) * 100]
       ].map(([label, value, percent]) => bar(label, value, percent)).join("");
 
       $("failedEvents").innerHTML = (summary.recentFailedEvents || []).map((event) => `
@@ -619,17 +619,17 @@
           <strong>${escapeHtml(event.eventType || "TASK_FAILED")}</strong>
           <span class="badge failure">FAILURE</span>
         </div>
-      `).join("") || `<div class="status-line">No recent failed events</div>`;
+      `).join("") || `<div class="status-line">暂无最近失败事件</div>`;
     }
 
     function renderSummaryError(error) {
-      $("generatedAt").textContent = "Summary unavailable";
-      $("metrics").innerHTML = unavailableState("Summary unavailable", error?.message || "Check the dashboard summary service.");
-      $("taskBars").innerHTML = unavailableState("Task operations unavailable", "Task metrics could not be loaded.");
-      $("failedEvents").innerHTML = unavailableState("Recent failures unavailable", "Failure events could not be loaded.");
-      $("taskModuleHint").textContent = "Open failed tasks";
-      $("reportModuleHint").textContent = "Open reports";
-      $("toolModuleHint").textContent = "Open failed calls";
+      $("generatedAt").textContent = "总览摘要不可用";
+      $("metrics").innerHTML = unavailableState("总览摘要不可用", error?.message || "请检查总览摘要服务。");
+      $("taskBars").innerHTML = unavailableState("任务运行不可用", "任务指标加载失败。");
+      $("failedEvents").innerHTML = unavailableState("最近失败不可用", "失败事件加载失败。");
+      $("taskModuleHint").textContent = "查看失败任务";
+      $("reportModuleHint").textContent = "查看报告";
+      $("toolModuleHint").textContent = "查看失败调用";
     }
 
     function renderHealth(health) {
@@ -648,24 +648,24 @@
     }
 
     function renderHealthError(error) {
-      $("healthStatus").textContent = "Unavailable";
-      $("healthGrid").innerHTML = unavailableState("System health unavailable", error?.message || "Check the health service.");
+      $("healthStatus").textContent = "不可用";
+      $("healthGrid").innerHTML = unavailableState("系统健康不可用", error?.message || "请检查健康检查服务。");
     }
 
     function renderRisk(risk) {
       const breakdown = risk.riskBreakdown || {};
       const total = Math.max(1, Object.values(breakdown).reduce((sum, value) => sum + number(value), 0));
-      $("riskTotal").textContent = `${number(risk.elevatedRiskTotal)} elevated / ${number(risk.total)} total`;
-      $("auditModuleHint").textContent = `${number(risk.elevatedRiskTotal)} elevated risk`;
+      $("riskTotal").textContent = `${number(risk.elevatedRiskTotal)} 个中高风险 / 共 ${number(risk.total)} 个`;
+      $("auditModuleHint").textContent = `${number(risk.elevatedRiskTotal)} 个中高风险`;
       $("riskBars").innerHTML = ["HIGH", "MEDIUM", "LOW", "UNKNOWN"].map((level) =>
         bar(level, breakdown[level] || 0, (number(breakdown[level]) / total) * 100, riskClass(level))
       ).join("");
     }
 
     function renderRiskError(error) {
-      $("riskTotal").textContent = "Unavailable";
-      $("auditModuleHint").textContent = "Open failures";
-      $("riskBars").innerHTML = unavailableState("Audit risk unavailable", error?.message || "Check the audit risk service.");
+      $("riskTotal").textContent = "不可用";
+      $("auditModuleHint").textContent = "查看失败事件";
+      $("riskBars").innerHTML = unavailableState("审计风险不可用", error?.message || "请检查审计风险服务。");
     }
 
     function unavailableState(title, message) {
@@ -714,8 +714,8 @@
 
     function renderSessionLine(session = authSession()) {
       $("sessionLine").textContent = session.token
-        ? `Bearer session loaded${session.user?.username ? ` for ${session.user.username}` : ""}`
-        : "Header context";
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
     }
 
     function authSession() {
@@ -771,7 +771,7 @@
       refreshAll();
     });
 
-    $("refreshBtn").addEventListener("click", () => withBusy($("refreshBtn"), "Refreshing", refreshAll));
+    $("refreshBtn").addEventListener("click", () => withBusy($("refreshBtn"), "刷新中", refreshAll));
 
     applyStoredSession();
     refreshAll();
