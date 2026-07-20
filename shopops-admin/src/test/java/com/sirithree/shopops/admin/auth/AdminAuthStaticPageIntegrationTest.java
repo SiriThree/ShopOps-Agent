@@ -30,6 +30,9 @@ class AdminAuthStaticPageIntegrationTest {
         assertThat(response.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE))
                 .contains("text/html")
                 .contains("charset=UTF-8");
+        assertThat(response.getHeaders().getFirst(HttpHeaders.CACHE_CONTROL))
+                .contains("no-store")
+                .contains("no-cache");
         assertThat(response.getBody())
                 .contains("ShopOps 认证")
                 .contains("当前用户")

@@ -30,6 +30,9 @@ class AdminDashboardStaticPageIntegrationTest {
         assertThat(response.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE))
                 .contains("text/html")
                 .contains("charset=UTF-8");
+        assertThat(response.getHeaders().getFirst(HttpHeaders.CACHE_CONTROL))
+                .contains("no-store")
+                .contains("no-cache");
         assertThat(response.getBody())
                 .contains("ShopOps 管理总览")
                 .contains("后台模块")
