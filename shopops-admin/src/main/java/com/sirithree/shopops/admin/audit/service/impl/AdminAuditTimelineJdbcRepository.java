@@ -192,8 +192,12 @@ public class AdminAuditTimelineJdbcRepository {
                       'APPROVAL' AS source,
                       CONCAT('approval:', ar.id, ':decision') AS event_id,
                       ar.id * 10 + 1 AS sortable_id,
-                      'APPROVAL_DECIDED' AS event_type,
-                      CASE WHEN ar.status = 'REJECTED' THEN 'FAILURE' ELSE 'SUCCESS' END AS event_status,
+                      CASE WHEN ar.status = 'WITHDRAWN' THEN 'APPROVAL_WITHDRAWN' ELSE 'APPROVAL_DECIDED' END AS event_type,
+                      CASE
+                        WHEN ar.status = 'REJECTED' THEN 'FAILURE'
+                        WHEN ar.status = 'WITHDRAWN' THEN 'CANCELED'
+                        ELSE 'SUCCESS'
+                      END AS event_status,
                       ar.approver_id AS user_id,
                       ar.approver_name AS username,
                       ar.task_id,
@@ -203,7 +207,7 @@ public class AdminAuditTimelineJdbcRepository {
                       'approval_request' AS resource_type,
                       CAST(ar.id AS CHAR) AS resource_id,
                       UPPER(ar.risk_level) AS risk_level,
-                      CONCAT('APPROVAL_DECIDED ', ar.status) AS summary,
+                      CONCAT(CASE WHEN ar.status = 'WITHDRAWN' THEN 'APPROVAL_WITHDRAWN' ELSE 'APPROVAL_DECIDED' END, ' ', ar.status) AS summary,
                       ar.decided_at AS created_at,
                       ar.approval_no AS detail_a,
                       ar.status AS detail_b,

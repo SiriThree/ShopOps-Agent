@@ -116,6 +116,63 @@ class ApprovalCenterIntegrationTest {
         assertThat(approveResponse.getBody().get("code")).isEqualTo(403);
     }
 
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldWithdrawPendingApprovalRequest() {
+        Map<String, Object> approval = dataOf(post(
+                "/api/admin/approvals",
+                Map.of(
+                        "sourceType", "TOOL_CALL",
+                        "sourceId", 88,
+                        "traceId", "tr_approval_withdraw",
+                        "toolCode", "order.refund_execute",
+                        "riskLevel", "high",
+                        "title", "Withdraw refund approval"
+                ),
+                operatorHeaders()
+        ));
+        Integer approvalId = ((Number) approval.get("approvalId")).intValue();
+
+        ResponseEntity<Map> viewerWithdraw = exchange(
+                "/api/admin/approvals/" + approvalId + "/withdraw",
+                HttpMethod.POST,
+                Map.of("comment", "viewer cannot withdraw"),
+                viewerHeaders()
+        );
+        assertThat(viewerWithdraw.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+
+        Map<String, Object> withdrawn = dataOf(post(
+                "/api/admin/approvals/" + approvalId + "/withdraw",
+                Map.of("comment", "Requester no longer needs this approval"),
+                operatorHeaders()
+        ));
+        assertThat(withdrawn)
+                .containsEntry("status", "WITHDRAWN")
+                .containsEntry("approverId", 2)
+                .containsEntry("approverName", "operator")
+                .containsEntry("decisionComment", "Requester no longer needs this approval");
+        assertThat(withdrawn.get("decidedAt")).isNotNull();
+
+        Map<String, Object> approveAfterWithdraw = post(
+                "/api/admin/approvals/" + approvalId + "/approve",
+                Map.of("comment", "Too late"),
+                adminHeaders()
+        );
+        assertThat(approveAfterWithdraw.get("code")).isEqualTo(500);
+        assertThat(approveAfterWithdraw.get("data")).isNull();
+
+        Map<String, Object> auditPage = dataOf(get(
+                "/api/admin/audit/timeline?source=APPROVAL&eventStatus=CANCELED&pageNum=1&pageSize=20",
+                adminHeaders()
+        ));
+        List<Map<String, Object>> currentEvents = ((List<Map<String, Object>>) auditPage.get("list")).stream()
+                .filter(event -> approvalId.toString().equals(event.get("resourceId")))
+                .toList();
+        assertThat(currentEvents)
+                .extracting(event -> event.get("eventType"))
+                .contains("APPROVAL_WITHDRAWN");
+    }
+
     private Map<String, Object> get(String path, HttpHeaders headers) {
         ResponseEntity<Map> response = exchange(path, HttpMethod.GET, null, headers);
         assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();

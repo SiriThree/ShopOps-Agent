@@ -17,4 +17,6 @@ public interface ApprovalRequestService {
     Optional<ApprovalRequestDto> approve(Long tenantId, Long shopId, Long approvalId, Long approverId, String approverName, ApprovalDecisionParam param);
 
     Optional<ApprovalRequestDto> reject(Long tenantId, Long shopId, Long approvalId, Long approverId, String approverName, ApprovalDecisionParam param);
+
+    Optional<ApprovalRequestDto> withdraw(Long tenantId, Long shopId, Long approvalId, Long operatorId, String operatorName, ApprovalDecisionParam param);
 }

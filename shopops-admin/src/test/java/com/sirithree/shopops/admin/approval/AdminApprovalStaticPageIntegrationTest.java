@@ -40,6 +40,8 @@ class AdminApprovalStaticPageIntegrationTest {
                 .contains("处理意见")
                 .contains("/api/admin/approvals")
                 .contains("/api/admin/approvals/${encodeURIComponent(state.selected.approvalId)}/${action}")
+                .contains("id=\"withdrawBtn\"")
+                .contains("<option value=\"WITHDRAWN\">")
                 .contains("/admin/audit.html?source=APPROVAL")
                 .contains("id=\"approvalId\"")
                 .contains("data-quick-filter=\"pending\"")

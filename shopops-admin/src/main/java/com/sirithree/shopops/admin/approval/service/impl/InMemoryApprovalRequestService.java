@@ -96,6 +96,11 @@ public class InMemoryApprovalRequestService implements ApprovalRequestService {
         return decide(tenantId, shopId, approvalId, approverId, approverName, param, ApprovalStatus.REJECTED);
     }
 
+    @Override
+    public Optional<ApprovalRequestDto> withdraw(Long tenantId, Long shopId, Long approvalId, Long operatorId, String operatorName, ApprovalDecisionParam param) {
+        return decide(tenantId, shopId, approvalId, operatorId, operatorName, param, ApprovalStatus.WITHDRAWN);
+    }
+
     private Optional<ApprovalRequestDto> decide(Long tenantId, Long shopId, Long approvalId, Long approverId,
                                                 String approverName, ApprovalDecisionParam param, String status) {
         Optional<ApprovalRequestDto> existing = get(tenantId, shopId, approvalId);

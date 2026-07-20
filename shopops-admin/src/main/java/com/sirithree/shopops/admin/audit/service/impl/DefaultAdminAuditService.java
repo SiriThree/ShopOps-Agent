@@ -469,7 +469,7 @@ public class DefaultAdminAuditService implements AdminAuditService {
         AdminAuditTimelineEventDto event = new AdminAuditTimelineEventDto();
         event.setSource("APPROVAL");
         event.setEventId("approval:" + source.getApprovalId() + ":" + (decisionEvent ? "decision" : "created"));
-        event.setEventType(decisionEvent ? "APPROVAL_DECIDED" : "APPROVAL_CREATED");
+        event.setEventType(approvalEventType(source, decisionEvent));
         event.setEventStatus(approvalEventStatus(source, decisionEvent));
         event.setUserId(decisionEvent ? source.getApproverId() : source.getRequesterId());
         event.setUsername(decisionEvent ? source.getApproverName() : source.getRequesterName());
@@ -566,7 +566,20 @@ public class DefaultAdminAuditService implements AdminAuditService {
         if (ApprovalStatus.REJECTED.equals(event.getStatus())) {
             return "FAILURE";
         }
+        if (ApprovalStatus.WITHDRAWN.equals(event.getStatus())) {
+            return "CANCELED";
+        }
         return "SUCCESS";
+    }
+
+    private String approvalEventType(ApprovalRequestDto event, boolean decisionEvent) {
+        if (!decisionEvent) {
+            return "APPROVAL_CREATED";
+        }
+        if (ApprovalStatus.WITHDRAWN.equals(event.getStatus())) {
+            return "APPROVAL_WITHDRAWN";
+        }
+        return "APPROVAL_DECIDED";
     }
 
     private String authRiskLevel(AuthAuditEventDto event) {

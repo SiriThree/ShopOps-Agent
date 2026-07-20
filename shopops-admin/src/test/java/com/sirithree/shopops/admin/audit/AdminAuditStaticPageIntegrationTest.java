@@ -79,6 +79,7 @@ class AdminAuditStaticPageIntegrationTest {
                 .contains("data-quick-filter=\"failed\"")
                 .contains("data-quick-filter=\"approval\"")
                 .contains("<option value=\"APPROVAL\">")
+                .contains("<option value=\"CANCELED\">")
                 .contains("data-empty-reset")
                 .contains(".timeline-column")
                 .contains("max-width: 100%")

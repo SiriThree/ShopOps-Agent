@@ -171,7 +171,7 @@
 
     .metrics {
       display: grid;
-      grid-template-columns: repeat(4, minmax(130px, 1fr));
+      grid-template-columns: repeat(5, minmax(130px, 1fr));
       gap: 10px;
     }
 
@@ -306,6 +306,11 @@
     .badge.rejected, .badge.failure, .badge.high {
       background: #fdecea;
       color: var(--red);
+    }
+
+    .badge.withdrawn, .badge.canceled {
+      background: #eef2f6;
+      color: #475467;
     }
 
     .pager {
@@ -528,6 +533,7 @@
               <option value="PENDING">待审批</option>
               <option value="APPROVED">已通过</option>
               <option value="REJECTED">已驳回</option>
+              <option value="WITHDRAWN">已撤回</option>
             </select>
           </label>
           <label>风险
@@ -622,6 +628,7 @@
             <div class="button-row" style="margin-top: 10px;">
               <button id="approveBtn" class="primary" type="button">通过</button>
               <button id="rejectBtn" class="danger" type="button">驳回</button>
+              <button id="withdrawBtn" type="button">撤回</button>
             </div>
           </section>
         </aside>
@@ -735,7 +742,7 @@
     }
 
     function statusLabel(value) {
-      return { PENDING: "待审批", APPROVED: "已通过", REJECTED: "已驳回" }[value] || text(value);
+      return { PENDING: "待审批", APPROVED: "已通过", REJECTED: "已驳回", WITHDRAWN: "已撤回" }[value] || text(value);
     }
 
     function riskLabel(value) {
@@ -760,13 +767,15 @@
         acc.pending += item.status === "PENDING" ? 1 : 0;
         acc.approved += item.status === "APPROVED" ? 1 : 0;
         acc.rejected += item.status === "REJECTED" ? 1 : 0;
+        acc.withdrawn += item.status === "WITHDRAWN" ? 1 : 0;
         return acc;
-      }, { total: 0, pending: 0, approved: 0, rejected: 0 });
+      }, { total: 0, pending: 0, approved: 0, rejected: 0, withdrawn: 0 });
       const items = [
         ["当前页", counts.total],
         ["待审批", counts.pending],
         ["已通过", counts.approved],
-        ["已驳回", counts.rejected]
+        ["已驳回", counts.rejected],
+        ["已撤回", counts.withdrawn]
       ];
       $("metrics").innerHTML = items.map(([label, value]) => `
         <div class="metric">
@@ -821,6 +830,7 @@
       $("detailBox").textContent = JSON.stringify(item, null, 2);
       $("approveBtn").disabled = item.status !== "PENDING";
       $("rejectBtn").disabled = item.status !== "PENDING";
+      $("withdrawBtn").disabled = item.status !== "PENDING";
       $("openAudit").href = `/admin/audit.html?source=APPROVAL&resourceId=${encodeURIComponent(item.approvalId)}`;
       $("openToolLogs").href = item.toolCode
         ? `/admin/tools.html?toolCode=${encodeURIComponent(item.toolCode)}`
@@ -865,7 +875,7 @@
         setStatus("请先选择一条审批单");
         return;
       }
-      setStatus(action === "approve" ? "正在通过审批" : "正在驳回审批");
+      setStatus(actionStatusText(action, "正在通过审批", "正在驳回审批", "正在撤回审批"));
       try {
         const item = await api(`/api/admin/approvals/${encodeURIComponent(state.selected.approvalId)}/${action}`, {
           method: "POST",
@@ -874,10 +884,20 @@
         });
         renderDetail(item);
         await loadList();
-        setStatus(action === "approve" ? "审批已通过" : "审批已驳回");
+        setStatus(actionStatusText(action, "审批已通过", "审批已驳回", "审批已撤回"));
       } catch (error) {
         setStatus(`审批处理失败：${error.message}`);
       }
+    }
+
+    function actionStatusText(action, approveText, rejectText, withdrawText) {
+      if (action === "approve") {
+        return approveText;
+      }
+      if (action === "reject") {
+        return rejectText;
+      }
+      return withdrawText;
     }
 
     function applyInitialQuery() {
@@ -1001,15 +1021,18 @@
       $("decisionComment").value = "";
       $("approveBtn").disabled = true;
       $("rejectBtn").disabled = true;
+      $("withdrawBtn").disabled = true;
       renderList();
     });
     $("approveBtn").addEventListener("click", () => decide("approve"));
     $("rejectBtn").addEventListener("click", () => decide("reject"));
+    $("withdrawBtn").addEventListener("click", () => decide("withdraw"));
 
     applyStoredSession();
     applyInitialQuery();
     $("approveBtn").disabled = true;
     $("rejectBtn").disabled = true;
+    $("withdrawBtn").disabled = true;
     loadList();
   </script>
 </body>

@@ -88,4 +88,21 @@ public class ApprovalController {
                 .map(CommonResult::success)
                 .orElseGet(() -> CommonResult.failed("审批请求不存在或已处理"));
     }
+
+    @PostMapping("/{approvalId}/withdraw")
+    @RequireRole(AuthRole.OPERATOR)
+    public CommonResult<ApprovalRequestDto> withdraw(@PathVariable Long approvalId,
+                                                     @RequestBody(required = false) ApprovalDecisionParam param) {
+        RequestContext context = RequestContextHolder.current();
+        return approvalRequestService.withdraw(
+                        context.getTenantId(),
+                        context.getShopId(),
+                        approvalId,
+                        context.getUserId(),
+                        context.getUsername(),
+                        param
+                )
+                .map(CommonResult::success)
+                .orElseGet(() -> CommonResult.failed("审批请求不存在或已处理"));
+    }
 }
