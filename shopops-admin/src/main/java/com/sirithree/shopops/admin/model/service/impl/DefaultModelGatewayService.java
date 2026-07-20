@@ -5,25 +5,23 @@ import com.sirithree.shopops.admin.model.domain.ModelCallLogQueryParam;
 import com.sirithree.shopops.admin.model.domain.ModelCallStatus;
 import com.sirithree.shopops.admin.model.domain.ModelInvokeParam;
 import com.sirithree.shopops.admin.model.domain.ModelInvokeResult;
+import com.sirithree.shopops.admin.model.service.ModelCallLogStore;
 import com.sirithree.shopops.admin.model.service.ModelGatewayService;
 import com.sirithree.shopops.admin.model.service.ModelProviderClient;
 import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DefaultModelGatewayService implements ModelGatewayService {
-    private final AtomicLong callIdGenerator = new AtomicLong(1);
-    private final Map<Long, ModelCallLogDto> logs = new ConcurrentHashMap<>();
+    private final ModelCallLogStore callLogStore;
     private final Map<String, ModelProviderClient> providers;
 
-    public DefaultModelGatewayService(List<ModelProviderClient> providerClients) {
+    public DefaultModelGatewayService(ModelCallLogStore callLogStore, List<ModelProviderClient> providerClients) {
+        this.callLogStore = callLogStore;
         this.providers = providerClients.stream()
                 .collect(java.util.stream.Collectors.toMap(
                         client -> client.providerCode().toLowerCase(Locale.ROOT),
@@ -34,13 +32,12 @@ public class DefaultModelGatewayService implements ModelGatewayService {
     @Override
     public ModelInvokeResult invoke(Long tenantId, Long shopId, Long userId, String username, ModelInvokeParam param) {
         long started = System.nanoTime();
-        Long callId = callIdGenerator.getAndIncrement();
         String providerCode = defaultString(param.getProviderCode(), "echo").toLowerCase(Locale.ROOT);
         ModelProviderClient provider = providers.get(providerCode);
         if (provider == null) {
-            ModelInvokeResult result = failedResult(callId, providerCode, param.getModelName(), "PROVIDER_NOT_FOUND",
+            ModelInvokeResult result = failedResult(providerCode, param.getModelName(), "PROVIDER_NOT_FOUND",
                     "模型供应商不存在: " + providerCode, started);
-            logs.put(callId, logOf(callId, tenantId, shopId, userId, username, param, result));
+            persistLog(tenantId, shopId, userId, username, param, result);
             return result;
         }
 
@@ -49,40 +46,29 @@ public class DefaultModelGatewayService implements ModelGatewayService {
             result = provider.invoke(param);
             result.setStatus(ModelCallStatus.SUCCESS);
         } catch (RuntimeException ex) {
-            result = failedResult(callId, providerCode, param.getModelName(), "MODEL_INVOKE_FAILED", ex.getMessage(), started);
+            result = failedResult(providerCode, param.getModelName(), "MODEL_INVOKE_FAILED", ex.getMessage(), started);
         }
-        result.setCallId(callId);
         result.setProviderCode(provider.providerCode());
         result.setModelName(defaultString(param.getModelName(), provider.defaultModelName()));
         fillUsage(result, param.getPrompt(), result.getOutputText());
         result.setLatencyMs(elapsedMs(started));
-        logs.put(callId, logOf(callId, tenantId, shopId, userId, username, param, result));
+        persistLog(tenantId, shopId, userId, username, param, result);
         return result;
     }
 
     @Override
     public CommonPage<ModelCallLogDto> listLogs(Long tenantId, Long shopId, ModelCallLogQueryParam queryParam) {
-        ModelCallLogQueryParam query = queryParam == null ? new ModelCallLogQueryParam() : queryParam;
-        List<ModelCallLogDto> filtered = logs.values().stream()
-                .filter(log -> tenantId.equals(log.getTenantId()) && shopId.equals(log.getShopId()))
-                .filter(log -> blank(query.getProviderCode()) || query.getProviderCode().equalsIgnoreCase(log.getProviderCode()))
-                .filter(log -> blank(query.getModelName()) || query.getModelName().equalsIgnoreCase(log.getModelName()))
-                .filter(log -> blank(query.getStatus()) || query.getStatus().equalsIgnoreCase(log.getStatus()))
-                .filter(log -> blank(query.getTraceId()) || query.getTraceId().equals(log.getTraceId()))
-                .filter(log -> query.getTaskId() == null || query.getTaskId().equals(log.getTaskId()))
-                .sorted(Comparator.comparing(ModelCallLogDto::getCallId).reversed())
-                .toList();
-        List<ModelCallLogDto> page = filtered.stream()
-                .skip(query.offset())
-                .limit(query.safePageSize())
-                .toList();
-        return CommonPage.of(page, query.safePageNum(), query.safePageSize(), (long) filtered.size());
+        return callLogStore.list(tenantId, shopId, queryParam);
     }
 
-    private ModelInvokeResult failedResult(Long callId, String providerCode, String modelName, String errorCode,
+    private void persistLog(Long tenantId, Long shopId, Long userId, String username, ModelInvokeParam param, ModelInvokeResult result) {
+        ModelCallLogDto saved = callLogStore.save(logOf(tenantId, shopId, userId, username, param, result));
+        result.setCallId(saved.getCallId());
+    }
+
+    private ModelInvokeResult failedResult(String providerCode, String modelName, String errorCode,
                                            String errorMessage, long started) {
         ModelInvokeResult result = new ModelInvokeResult();
-        result.setCallId(callId);
         result.setProviderCode(providerCode);
         result.setModelName(defaultString(modelName, "unknown"));
         result.setStatus(ModelCallStatus.FAILURE);
@@ -93,10 +79,9 @@ public class DefaultModelGatewayService implements ModelGatewayService {
         return result;
     }
 
-    private ModelCallLogDto logOf(Long callId, Long tenantId, Long shopId, Long userId, String username,
+    private ModelCallLogDto logOf(Long tenantId, Long shopId, Long userId, String username,
                                   ModelInvokeParam param, ModelInvokeResult result) {
         ModelCallLogDto log = new ModelCallLogDto();
-        log.setCallId(callId);
         log.setTenantId(tenantId);
         log.setShopId(shopId);
         log.setUserId(userId);
@@ -146,10 +131,6 @@ public class DefaultModelGatewayService implements ModelGatewayService {
 
     private String defaultString(String value, String fallback) {
         return value == null || value.isBlank() ? fallback : value.trim();
-    }
-
-    private boolean blank(String value) {
-        return value == null || value.isBlank();
     }
 
     private long elapsedMs(long started) {
