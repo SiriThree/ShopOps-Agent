@@ -5,6 +5,7 @@ public final class ApprovalStatus {
     public static final String APPROVED = "APPROVED";
     public static final String REJECTED = "REJECTED";
     public static final String WITHDRAWN = "WITHDRAWN";
+    public static final String EXPIRED = "EXPIRED";
 
     private ApprovalStatus() {
     }

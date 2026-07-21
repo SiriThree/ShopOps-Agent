@@ -214,6 +214,48 @@ class ApprovalCenterIntegrationTest {
         assertThat((List<Integer>) rejected.get("failedApprovalIds")).contains(firstId, 99999);
     }
 
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldExpireStalePendingApprovalRequests() {
+        Integer approvalId = createApproval("Expire stale approval");
+
+        Map<String, Object> expired = dataOf(post(
+                "/api/admin/approvals/expire-stale?timeoutMinutes=0&limit=10",
+                Map.of(),
+                adminHeaders()
+        ));
+        assertThat(((Number) expired.get("requestedCount")).intValue()).isGreaterThanOrEqualTo(1);
+        assertThat(((Number) expired.get("successCount")).intValue()).isGreaterThanOrEqualTo(1);
+        assertThat(expired).containsEntry("failedCount", 0);
+        Map<String, Object> item = ((List<Map<String, Object>>) expired.get("succeeded")).stream()
+                .filter(candidate -> approvalId.equals(((Number) candidate.get("approvalId")).intValue()))
+                .findFirst()
+                .orElseThrow();
+        assertThat(item)
+                .containsEntry("approvalId", approvalId)
+                .containsEntry("status", "EXPIRED")
+                .containsEntry("decisionComment", "审批超时自动关闭");
+
+        Map<String, Object> approveAfterExpire = post(
+                "/api/admin/approvals/" + approvalId + "/approve",
+                Map.of("comment", "Too late"),
+                adminHeaders()
+        );
+        assertThat(approveAfterExpire.get("code")).isEqualTo(500);
+        assertThat(approveAfterExpire.get("data")).isNull();
+
+        Map<String, Object> auditPage = dataOf(get(
+                "/api/admin/audit/timeline?source=APPROVAL&eventStatus=CANCELED&pageNum=1&pageSize=20",
+                adminHeaders()
+        ));
+        List<Map<String, Object>> currentEvents = ((List<Map<String, Object>>) auditPage.get("list")).stream()
+                .filter(event -> approvalId.toString().equals(event.get("resourceId")))
+                .toList();
+        assertThat(currentEvents)
+                .extracting(event -> event.get("eventType"))
+                .contains("APPROVAL_EXPIRED");
+    }
+
     private Map<String, Object> get(String path, HttpHeaders headers) {
         ResponseEntity<Map> response = exchange(path, HttpMethod.GET, null, headers);
         assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
@@ -230,7 +272,7 @@ class ApprovalCenterIntegrationTest {
         return restTemplate.exchange(
                 url(path),
                 method,
-                new HttpEntity<>(body, headers),
+                new HttpEntity<>(body == null || body.isEmpty() ? null : body, headers),
                 Map.class
         );
     }

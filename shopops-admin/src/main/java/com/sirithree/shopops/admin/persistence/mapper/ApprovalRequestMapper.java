@@ -139,6 +139,21 @@ public interface ApprovalRequestMapper {
                      @Param("shopId") Long shopId,
                      @Param("query") ApprovalRequestQueryParam query);
 
+    @Select("""
+            SELECT *
+            FROM approval_request
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND status = 'PENDING'
+              AND created_at <= #{cutoff}
+            ORDER BY id ASC
+            LIMIT #{limit}
+            """)
+    List<ApprovalRequest> listStalePending(@Param("tenantId") Long tenantId,
+                                           @Param("shopId") Long shopId,
+                                           @Param("cutoff") java.time.LocalDateTime cutoff,
+                                           @Param("limit") Integer limit);
+
     @Update("""
             UPDATE approval_request
             SET status = #{status},

@@ -569,6 +569,9 @@ public class DefaultAdminAuditService implements AdminAuditService {
         if (ApprovalStatus.WITHDRAWN.equals(event.getStatus())) {
             return "CANCELED";
         }
+        if (ApprovalStatus.EXPIRED.equals(event.getStatus())) {
+            return "CANCELED";
+        }
         return "SUCCESS";
     }
 
@@ -578,6 +581,9 @@ public class DefaultAdminAuditService implements AdminAuditService {
         }
         if (ApprovalStatus.WITHDRAWN.equals(event.getStatus())) {
             return "APPROVAL_WITHDRAWN";
+        }
+        if (ApprovalStatus.EXPIRED.equals(event.getStatus())) {
+            return "APPROVAL_EXPIRED";
         }
         return "APPROVAL_DECIDED";
     }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -103,6 +104,21 @@ public class ApprovalController {
     public CommonResult<ApprovalBatchDecisionResult> batchReject(@Valid @RequestBody ApprovalBatchDecisionParam param) {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(batchDecision(context, param, false));
+    }
+
+    @PostMapping("/expire-stale")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<ApprovalBatchDecisionResult> expireStale(@RequestParam(required = false) Integer timeoutMinutes,
+                                                                 @RequestParam(required = false) Integer limit) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(approvalRequestService.expireStale(
+                context.getTenantId(),
+                context.getShopId(),
+                context.getUserId(),
+                context.getUsername(),
+                timeoutMinutes,
+                limit
+        ));
     }
 
     @PostMapping("/{approvalId}/withdraw")

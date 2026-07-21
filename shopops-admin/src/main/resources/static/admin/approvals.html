@@ -171,7 +171,7 @@
 
     .metrics {
       display: grid;
-      grid-template-columns: repeat(5, minmax(130px, 1fr));
+      grid-template-columns: repeat(6, minmax(120px, 1fr));
       gap: 10px;
     }
 
@@ -311,6 +311,11 @@
     .badge.withdrawn, .badge.canceled {
       background: #eef2f6;
       color: #475467;
+    }
+
+    .badge.expired {
+      background: #fef3c7;
+      color: #92400e;
     }
 
     .pager {
@@ -536,6 +541,7 @@
               <option value="APPROVED">已通过</option>
               <option value="REJECTED">已驳回</option>
               <option value="WITHDRAWN">已撤回</option>
+              <option value="EXPIRED">已超时</option>
             </select>
           </label>
           <label>风险
@@ -572,6 +578,7 @@
           <button type="button" data-quick-filter="clear">清空筛选</button>
           <button id="batchApproveBtn" class="primary" type="button">批量通过</button>
           <button id="batchRejectBtn" class="danger" type="button">批量驳回</button>
+          <button id="expireStaleBtn" type="button">关闭超时</button>
         </div>
         <div class="status-line" id="statusLine"></div>
       </section>
@@ -747,7 +754,7 @@
     }
 
     function statusLabel(value) {
-      return { PENDING: "待审批", APPROVED: "已通过", REJECTED: "已驳回", WITHDRAWN: "已撤回" }[value] || text(value);
+      return { PENDING: "待审批", APPROVED: "已通过", REJECTED: "已驳回", WITHDRAWN: "已撤回", EXPIRED: "已超时" }[value] || text(value);
     }
 
     function riskLabel(value) {
@@ -773,14 +780,16 @@
         acc.approved += item.status === "APPROVED" ? 1 : 0;
         acc.rejected += item.status === "REJECTED" ? 1 : 0;
         acc.withdrawn += item.status === "WITHDRAWN" ? 1 : 0;
+        acc.expired += item.status === "EXPIRED" ? 1 : 0;
         return acc;
-      }, { total: 0, pending: 0, approved: 0, rejected: 0, withdrawn: 0 });
+      }, { total: 0, pending: 0, approved: 0, rejected: 0, withdrawn: 0, expired: 0 });
       const items = [
         ["当前页", counts.total],
         ["待审批", counts.pending],
         ["已通过", counts.approved],
         ["已驳回", counts.rejected],
-        ["已撤回", counts.withdrawn]
+        ["已撤回", counts.withdrawn],
+        ["已超时", counts.expired]
       ];
       $("metrics").innerHTML = items.map(([label, value]) => `
         <div class="metric">
@@ -941,6 +950,21 @@
       }
     }
 
+    async function expireStale() {
+      setStatus("正在关闭超时审批单");
+      try {
+        const result = await api("/api/admin/approvals/expire-stale?timeoutMinutes=60&limit=50", {
+          method: "POST",
+          headers: apiHeaders()
+        });
+        state.selectedIds.clear();
+        await loadList();
+        setStatus(`超时关闭完成：成功 ${result.successCount}，失败 ${result.failedCount}`);
+      } catch (error) {
+        setStatus(`超时关闭失败：${error.message}`);
+      }
+    }
+
     function actionStatusText(action, approveText, rejectText, withdrawText) {
       if (action === "approve") {
         return approveText;
@@ -1094,6 +1118,7 @@
     $("withdrawBtn").addEventListener("click", () => decide("withdraw"));
     $("batchApproveBtn").addEventListener("click", () => batchDecide("approve"));
     $("batchRejectBtn").addEventListener("click", () => batchDecide("reject"));
+    $("expireStaleBtn").addEventListener("click", expireStale);
     $("selectAll").addEventListener("change", () => {
       state.selectedIds.clear();
       if ($("selectAll").checked) {

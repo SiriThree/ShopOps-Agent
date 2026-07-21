@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.approval.service.impl;
 
 import com.sirithree.shopops.admin.approval.domain.ApprovalDecisionParam;
+import com.sirithree.shopops.admin.approval.domain.ApprovalBatchDecisionResult;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestCreateParam;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestDto;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestQueryParam;
@@ -92,6 +93,31 @@ public class JdbcApprovalRequestService implements ApprovalRequestService {
         return decide(tenantId, shopId, approvalId, operatorId, operatorName, param, ApprovalStatus.WITHDRAWN);
     }
 
+    @Override
+    public ApprovalBatchDecisionResult expireStale(Long tenantId, Long shopId, Long operatorId, String operatorName,
+                                                   Integer timeoutMinutes, Integer limit) {
+        int safeTimeoutMinutes = safePositive(timeoutMinutes, 60, 0, 10080);
+        int safeLimit = safePositive(limit, 50, 1, 500);
+        LocalDateTime cutoff = LocalDateTime.now().minusMinutes(safeTimeoutMinutes);
+        List<ApprovalRequest> stale = approvalRequestMapper.listStalePending(tenantId, shopId, cutoff, safeLimit);
+
+        ApprovalBatchDecisionResult result = new ApprovalBatchDecisionResult();
+        result.setRequestedCount(stale.size());
+        ApprovalDecisionParam decisionParam = new ApprovalDecisionParam();
+        decisionParam.setComment("审批超时自动关闭");
+        for (ApprovalRequest item : stale) {
+            Optional<ApprovalRequestDto> expired = decide(tenantId, shopId, item.getId(), operatorId, operatorName, decisionParam, ApprovalStatus.EXPIRED);
+            if (expired.isPresent()) {
+                result.getSucceeded().add(expired.get());
+            } else {
+                result.getFailedApprovalIds().add(item.getId());
+            }
+        }
+        result.setSuccessCount(result.getSucceeded().size());
+        result.setFailedCount(result.getFailedApprovalIds().size());
+        return result;
+    }
+
     private Optional<ApprovalRequestDto> decide(Long tenantId, Long shopId, Long approvalId, Long approverId,
                                                 String approverName, ApprovalDecisionParam param, String status) {
         ApprovalRequest approval = new ApprovalRequest();
@@ -141,5 +167,16 @@ public class JdbcApprovalRequestService implements ApprovalRequestService {
 
     private String defaultString(String value, String fallback) {
         return value == null || value.isBlank() ? fallback : value.trim();
+    }
+
+    private int safePositive(Integer value, int defaultValue, int min, int max) {
+        int safe = value == null ? defaultValue : value;
+        if (safe < min) {
+            return min;
+        }
+        if (safe > max) {
+            return max;
+        }
+        return safe;
     }
 }

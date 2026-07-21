@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.approval.service.impl;
 
 import com.sirithree.shopops.admin.approval.domain.ApprovalDecisionParam;
+import com.sirithree.shopops.admin.approval.domain.ApprovalBatchDecisionResult;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestCreateParam;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestDto;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestQueryParam;
@@ -101,6 +102,38 @@ public class InMemoryApprovalRequestService implements ApprovalRequestService {
         return decide(tenantId, shopId, approvalId, operatorId, operatorName, param, ApprovalStatus.WITHDRAWN);
     }
 
+    @Override
+    public ApprovalBatchDecisionResult expireStale(Long tenantId, Long shopId, Long operatorId, String operatorName,
+                                                   Integer timeoutMinutes, Integer limit) {
+        int safeTimeoutMinutes = safePositive(timeoutMinutes, 60, 0, 10080);
+        int safeLimit = safePositive(limit, 50, 1, 500);
+        LocalDateTime cutoff = LocalDateTime.now().minusMinutes(safeTimeoutMinutes);
+        List<Long> ids = approvals.values().stream()
+                .filter(item -> tenantId.equals(item.getTenantId()) && shopId.equals(item.getShopId()))
+                .filter(item -> ApprovalStatus.PENDING.equals(item.getStatus()))
+                .filter(item -> item.getCreatedAt() != null && !item.getCreatedAt().isAfter(cutoff))
+                .sorted(Comparator.comparing(ApprovalRequestDto::getApprovalId))
+                .limit(safeLimit)
+                .map(ApprovalRequestDto::getApprovalId)
+                .toList();
+
+        ApprovalBatchDecisionResult result = new ApprovalBatchDecisionResult();
+        result.setRequestedCount(ids.size());
+        ApprovalDecisionParam decisionParam = new ApprovalDecisionParam();
+        decisionParam.setComment("审批超时自动关闭");
+        for (Long id : ids) {
+            Optional<ApprovalRequestDto> expired = decide(tenantId, shopId, id, operatorId, operatorName, decisionParam, ApprovalStatus.EXPIRED);
+            if (expired.isPresent()) {
+                result.getSucceeded().add(expired.get());
+            } else {
+                result.getFailedApprovalIds().add(id);
+            }
+        }
+        result.setSuccessCount(result.getSucceeded().size());
+        result.setFailedCount(result.getFailedApprovalIds().size());
+        return result;
+    }
+
     private Optional<ApprovalRequestDto> decide(Long tenantId, Long shopId, Long approvalId, Long approverId,
                                                 String approverName, ApprovalDecisionParam param, String status) {
         Optional<ApprovalRequestDto> existing = get(tenantId, shopId, approvalId);
@@ -125,5 +158,16 @@ public class InMemoryApprovalRequestService implements ApprovalRequestService {
 
     private boolean blank(String value) {
         return value == null || value.isBlank();
+    }
+
+    private int safePositive(Integer value, int defaultValue, int min, int max) {
+        int safe = value == null ? defaultValue : value;
+        if (safe < min) {
+            return min;
+        }
+        if (safe > max) {
+            return max;
+        }
+        return safe;
     }
 }
