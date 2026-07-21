@@ -12,6 +12,9 @@ import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberUpdateParam;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
+import com.sirithree.shopops.admin.organization.domain.TenantUpsertParam;
+import com.sirithree.shopops.admin.organization.domain.UserCreateParam;
+import com.sirithree.shopops.admin.organization.domain.UserPasswordResetParam;
 import com.sirithree.shopops.admin.organization.service.OrganizationAdminService;
 import com.sirithree.shopops.common.api.CommonPage;
 import com.sirithree.shopops.common.api.CommonResult;
@@ -63,6 +66,44 @@ public class OrganizationAdminController {
         return CommonResult.success(organizationAdminService.listShopMembers(context.getTenantId(), context.getShopId(), query));
     }
 
+    @PostMapping("/users")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<OrganizationUserDto> createUser(@Valid @RequestBody UserCreateParam param) {
+        RequestContext context = RequestContextHolder.current();
+        OrganizationUserDto user = organizationAdminService.createUser(context.getTenantId(), context.getShopId(), param);
+        recordOrgEvent(context, "ORG_USER_CREATED", "用户 " + user.getUsername() + " 已创建");
+        return CommonResult.success(user);
+    }
+
+    @PostMapping("/users/{userId}/password")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<OrganizationUserDto> resetUserPassword(@PathVariable Long userId,
+                                                               @Valid @RequestBody UserPasswordResetParam param) {
+        RequestContext context = RequestContextHolder.current();
+        OrganizationUserDto user = organizationAdminService.resetUserPassword(context.getTenantId(), context.getShopId(), userId, param);
+        recordOrgEvent(context, "ORG_USER_PASSWORD_RESET", "用户 " + user.getUsername() + " 已重置密码");
+        return CommonResult.success(user);
+    }
+
+    @PostMapping("/tenants")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<TenantDto> createTenant(@Valid @RequestBody TenantUpsertParam param) {
+        RequestContext context = RequestContextHolder.current();
+        TenantDto tenant = organizationAdminService.createTenant(param);
+        recordOrgEvent(context, "ORG_TENANT_CREATED", "租户 " + tenant.getTenantNo() + " 已创建");
+        return CommonResult.success(tenant);
+    }
+
+    @PostMapping("/tenants/{tenantId}")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<TenantDto> updateTenant(@PathVariable Long tenantId,
+                                                @Valid @RequestBody TenantUpsertParam param) {
+        RequestContext context = RequestContextHolder.current();
+        TenantDto tenant = organizationAdminService.updateTenant(tenantId, param);
+        recordOrgEvent(context, "ORG_TENANT_UPDATED", "租户 " + tenant.getTenantNo() + " 已更新");
+        return CommonResult.success(tenant);
+    }
+
     @PostMapping("/shop-members/{memberId}")
     @RequireRole(AuthRole.ADMIN)
     public CommonResult<ShopMemberDto> updateShopMember(@PathVariable Long memberId,
@@ -75,16 +116,21 @@ public class OrganizationAdminController {
     }
 
     private void recordMemberEvent(RequestContext context, ShopMemberDto member) {
+        recordOrgEvent(context, "ORG_MEMBER_UPDATED",
+                "成员 " + member.getUsername() + " 已更新为 " + member.getRoleCode() + " / " + member.getStatus());
+    }
+
+    private void recordOrgEvent(RequestContext context, String eventType, String message) {
         AuthAuditEventCreateCommand command = new AuthAuditEventCreateCommand();
         command.setTenantId(context.getTenantId());
         command.setShopId(context.getShopId());
         command.setUserId(context.getUserId());
         command.setUsername(context.getUsername());
-        command.setEventType("ORG_MEMBER_UPDATED");
+        command.setEventType(eventType);
         command.setEventStatus("SUCCESS");
         command.setAuthType(context.getAuthType());
         command.setRequestId(context.getRequestId());
-        command.setFailureReason("成员 " + member.getUsername() + " 已更新为 " + member.getRoleCode() + " / " + member.getStatus());
+        command.setFailureReason(message);
         authAuditService.record(command);
     }
 }

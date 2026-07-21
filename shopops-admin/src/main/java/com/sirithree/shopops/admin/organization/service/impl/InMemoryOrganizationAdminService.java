@@ -6,6 +6,9 @@ import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberUpdateParam;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
+import com.sirithree.shopops.admin.organization.domain.TenantUpsertParam;
+import com.sirithree.shopops.admin.organization.domain.UserCreateParam;
+import com.sirithree.shopops.admin.organization.domain.UserPasswordResetParam;
 import com.sirithree.shopops.admin.organization.service.OrganizationAdminService;
 import com.sirithree.shopops.common.api.CommonPage;
 import java.time.LocalDateTime;
@@ -23,6 +26,9 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
     private final List<OrganizationUserDto> users = seedUsers();
     private final List<TenantDto> tenants = seedTenants();
     private final Map<Long, ShopMemberDto> shopMembers = seedShopMembers();
+    private long nextUserId = 4L;
+    private long nextTenantId = 2L;
+    private long nextMemberId = 4L;
 
     @Override
     public OrganizationOverviewDto overview(Long tenantId, Long shopId) {
@@ -75,6 +81,79 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         return member;
     }
 
+    @Override
+    public synchronized OrganizationUserDto createUser(Long tenantId, Long shopId, UserCreateParam param) {
+        String username = required(param.getUsername(), "用户名");
+        if (users.stream().anyMatch(user -> user.getUsername().equalsIgnoreCase(username))) {
+            throw new IllegalArgumentException("用户名已存在: " + username);
+        }
+        String tenantRole = normalizeTenantRole(param.getTenantRole());
+        String shopRole = normalizeRoleCode(param.getShopRole());
+        String status = normalizeStatus(param.getStatus());
+        OrganizationUserDto user = user(nextUserId++, username, param.getDisplayName(), param.getEmail(), status,
+                List.of(tenantRole), List.of(shopRole));
+        user.setPhone(blankToEmpty(param.getPhone()));
+        user.setCreatedAt(LocalDateTime.now());
+        users.add(user);
+
+        ShopMemberDto member = member(nextMemberId++, tenantId, shopId, user.getUserId(),
+                username, user.getDisplayName(), shopRole);
+        member.setStatus(status);
+        shopMembers.put(member.getMemberId(), member);
+        tenants.stream()
+                .filter(tenant -> tenantId.equals(tenant.getTenantId()))
+                .findFirst()
+                .ifPresent(tenant -> tenant.setMemberCount(tenant.getMemberCount() + 1));
+        return user;
+    }
+
+    @Override
+    public OrganizationUserDto resetUserPassword(Long tenantId, Long shopId, Long userId, UserPasswordResetParam param) {
+        required(param.getPassword(), "新密码");
+        return users.stream()
+                .filter(user -> user.getUserId().equals(userId))
+                .filter(user -> shopMembers.values().stream()
+                        .anyMatch(member -> tenantId.equals(member.getTenantId())
+                                && shopId.equals(member.getShopId())
+                                && userId.equals(member.getUserId())))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("用户不存在"));
+    }
+
+    @Override
+    public synchronized TenantDto createTenant(TenantUpsertParam param) {
+        String tenantNo = required(param.getTenantNo(), "租户编号");
+        if (tenants.stream().anyMatch(tenant -> tenant.getTenantNo().equalsIgnoreCase(tenantNo))) {
+            throw new IllegalArgumentException("租户编号已存在: " + tenantNo);
+        }
+        TenantDto tenant = new TenantDto();
+        tenant.setTenantId(nextTenantId++);
+        fillTenant(tenant, param);
+        tenant.setShopCount(0L);
+        tenant.setMemberCount(0L);
+        tenant.setCreatedAt(LocalDateTime.now());
+        tenants.add(tenant);
+        return tenant;
+    }
+
+    @Override
+    public TenantDto updateTenant(Long tenantId, TenantUpsertParam param) {
+        TenantDto tenant = tenants.stream()
+                .filter(item -> tenantId.equals(item.getTenantId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("租户不存在"));
+        String tenantNo = required(param.getTenantNo(), "租户编号");
+        tenants.stream()
+                .filter(item -> !tenantId.equals(item.getTenantId()))
+                .filter(item -> item.getTenantNo().equalsIgnoreCase(tenantNo))
+                .findAny()
+                .ifPresent(item -> {
+                    throw new IllegalArgumentException("租户编号已存在: " + tenantNo);
+                });
+        fillTenant(tenant, param);
+        return tenant;
+    }
+
     private void syncUserRoles(ShopMemberDto member) {
         users.stream()
                 .filter(user -> member.getUserId().equals(user.getUserId()))
@@ -83,14 +162,14 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
     }
 
     private List<OrganizationUserDto> seedUsers() {
-        return List.of(
+        return new ArrayList<>(List.of(
                 user(1L, "admin", "ShopOps 管理员", "admin@shopops.local", "ENABLED",
                         List.of("TENANT_ADMIN"), List.of("SHOP_OWNER")),
                 user(2L, "operator", "ShopOps 运营", "operator@shopops.local", "ENABLED",
                         List.of("TENANT_OPERATOR"), List.of("SHOP_OPERATOR")),
                 user(3L, "viewer", "ShopOps 观察员", "viewer@shopops.local", "ENABLED",
                         List.of("TENANT_VIEWER"), List.of("SHOP_VIEWER"))
-        );
+        ));
     }
 
     private List<TenantDto> seedTenants() {
@@ -105,7 +184,7 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         tenant.setShopCount(1L);
         tenant.setMemberCount(3L);
         tenant.setCreatedAt(LocalDateTime.now().minusDays(30));
-        return List.of(tenant);
+        return new ArrayList<>(List.of(tenant));
     }
 
     private Map<Long, ShopMemberDto> seedShopMembers() {
@@ -180,6 +259,34 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
             throw new IllegalArgumentException("不支持的成员状态: " + status);
         }
         return value;
+    }
+
+    private String normalizeTenantRole(String roleCode) {
+        String value = roleCode == null ? "" : roleCode.trim().toUpperCase(Locale.ROOT);
+        if (!List.of("TENANT_ADMIN", "TENANT_OPERATOR", "TENANT_VIEWER").contains(value)) {
+            throw new IllegalArgumentException("不支持的租户角色: " + roleCode);
+        }
+        return value;
+    }
+
+    private void fillTenant(TenantDto tenant, TenantUpsertParam param) {
+        tenant.setTenantNo(required(param.getTenantNo(), "租户编号"));
+        tenant.setTenantName(required(param.getTenantName(), "租户名称"));
+        tenant.setStatus(normalizeStatus(param.getStatus()));
+        tenant.setPlanType(blankToEmpty(param.getPlanType()));
+        tenant.setContactName(blankToEmpty(param.getContactName()));
+        tenant.setContactPhone(blankToEmpty(param.getContactPhone()));
+    }
+
+    private String required(String value, String label) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(label + "不能为空");
+        }
+        return value.trim();
+    }
+
+    private String blankToEmpty(String value) {
+        return value == null ? "" : value.trim();
     }
 
     private String normalizedRole(String roleCode) {

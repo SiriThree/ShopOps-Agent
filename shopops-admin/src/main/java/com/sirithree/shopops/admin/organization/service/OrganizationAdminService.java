@@ -6,6 +6,9 @@ import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberUpdateParam;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
+import com.sirithree.shopops.admin.organization.domain.TenantUpsertParam;
+import com.sirithree.shopops.admin.organization.domain.UserCreateParam;
+import com.sirithree.shopops.admin.organization.domain.UserPasswordResetParam;
 import com.sirithree.shopops.common.api.CommonPage;
 
 public interface OrganizationAdminService {
@@ -18,4 +21,12 @@ public interface OrganizationAdminService {
     CommonPage<ShopMemberDto> listShopMembers(Long tenantId, Long shopId, OrganizationQueryParam query);
 
     ShopMemberDto updateShopMember(Long tenantId, Long shopId, Long memberId, ShopMemberUpdateParam param);
+
+    OrganizationUserDto createUser(Long tenantId, Long shopId, UserCreateParam param);
+
+    OrganizationUserDto resetUserPassword(Long tenantId, Long shopId, Long userId, UserPasswordResetParam param);
+
+    TenantDto createTenant(TenantUpsertParam param);
+
+    TenantDto updateTenant(Long tenantId, TenantUpsertParam param);
 }

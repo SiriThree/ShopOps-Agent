@@ -1,14 +1,19 @@
 package com.sirithree.shopops.admin.organization.service.impl;
 
+import com.sirithree.shopops.admin.auth.service.PasswordHashService;
 import com.sirithree.shopops.admin.organization.domain.OrganizationOverviewDto;
 import com.sirithree.shopops.admin.organization.domain.OrganizationQueryParam;
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberUpdateParam;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
+import com.sirithree.shopops.admin.organization.domain.TenantUpsertParam;
+import com.sirithree.shopops.admin.organization.domain.UserCreateParam;
+import com.sirithree.shopops.admin.organization.domain.UserPasswordResetParam;
 import com.sirithree.shopops.admin.organization.service.OrganizationAdminService;
 import com.sirithree.shopops.admin.persistence.mapper.OrganizationAdminMapper;
 import com.sirithree.shopops.common.api.CommonPage;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,9 +23,11 @@ import org.springframework.stereotype.Service;
 @ConditionalOnProperty(name = "shopops.persistence", havingValue = "jdbc")
 public class JdbcOrganizationAdminService implements OrganizationAdminService {
     private final OrganizationAdminMapper mapper;
+    private final PasswordHashService passwordHashService;
 
-    public JdbcOrganizationAdminService(OrganizationAdminMapper mapper) {
+    public JdbcOrganizationAdminService(OrganizationAdminMapper mapper, PasswordHashService passwordHashService) {
         this.mapper = mapper;
+        this.passwordHashService = passwordHashService;
     }
 
     @Override
@@ -73,6 +80,74 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
         return mapper.findShopMember(tenantId, shopId, memberId);
     }
 
+    @Override
+    public OrganizationUserDto createUser(Long tenantId, Long shopId, UserCreateParam param) {
+        String username = required(param.getUsername(), "用户名");
+        if (zero(mapper.countUsername(username)) > 0) {
+            throw new IllegalArgumentException("用户名已存在: " + username);
+        }
+        String tenantRole = normalizeTenantRole(param.getTenantRole());
+        String shopRole = normalizeRoleCode(param.getShopRole());
+        String status = normalizeStatus(param.getStatus());
+        OrganizationUserDto user = new OrganizationUserDto();
+        user.setUsername(username);
+        user.setDisplayName(blankToNull(param.getDisplayName()));
+        user.setPhone(blankToNull(param.getPhone()));
+        user.setEmail(blankToNull(param.getEmail()));
+        user.setStatus(status);
+        user.setCreatedAt(LocalDateTime.now());
+        mapper.insertUser(user, passwordHashService.hash(param.getPassword()));
+        mapper.insertTenantMember(tenantId, user.getUserId(), tenantRole, status);
+        mapper.insertShopMember(tenantId, shopId, user.getUserId(), shopRole, status);
+        OrganizationUserDto created = mapper.findUser(tenantId, user.getUserId());
+        created.setTenantRoles(mapper.listTenantRoles(tenantId, created.getUserId()));
+        created.setShopRoles(mapper.listShopRoles(tenantId, shopId, created.getUserId()));
+        return created;
+    }
+
+    @Override
+    public OrganizationUserDto resetUserPassword(Long tenantId, Long shopId, Long userId, UserPasswordResetParam param) {
+        required(param.getPassword(), "新密码");
+        OrganizationUserDto user = mapper.findUser(tenantId, userId);
+        if (user == null) {
+            throw new IllegalArgumentException("用户不存在");
+        }
+        int updated = mapper.updateUserPassword(userId, passwordHashService.hash(param.getPassword()));
+        if (updated == 0) {
+            throw new IllegalArgumentException("用户不存在");
+        }
+        user.setTenantRoles(mapper.listTenantRoles(tenantId, userId));
+        user.setShopRoles(mapper.listShopRoles(tenantId, shopId, userId));
+        return user;
+    }
+
+    @Override
+    public TenantDto createTenant(TenantUpsertParam param) {
+        String tenantNo = required(param.getTenantNo(), "租户编号");
+        if (zero(mapper.countTenantNoExcept(tenantNo, 0L)) > 0) {
+            throw new IllegalArgumentException("租户编号已存在: " + tenantNo);
+        }
+        TenantDto tenant = new TenantDto();
+        fillTenant(tenant, param);
+        mapper.insertTenant(tenant);
+        return mapper.findTenant(tenant.getTenantId());
+    }
+
+    @Override
+    public TenantDto updateTenant(Long tenantId, TenantUpsertParam param) {
+        TenantDto tenant = mapper.findTenant(tenantId);
+        if (tenant == null) {
+            throw new IllegalArgumentException("租户不存在");
+        }
+        String tenantNo = required(param.getTenantNo(), "租户编号");
+        if (zero(mapper.countTenantNoExcept(tenantNo, tenantId)) > 0) {
+            throw new IllegalArgumentException("租户编号已存在: " + tenantNo);
+        }
+        fillTenant(tenant, param);
+        mapper.updateTenant(tenant);
+        return mapper.findTenant(tenantId);
+    }
+
     private String normalizeRoleCode(String roleCode) {
         String value = roleCode == null ? "" : roleCode.trim().toUpperCase(Locale.ROOT);
         if (!List.of("SHOP_OWNER", "SHOP_ADMIN", "SHOP_OPERATOR", "SHOP_VIEWER").contains(value)) {
@@ -87,6 +162,30 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
             throw new IllegalArgumentException("不支持的成员状态: " + status);
         }
         return value;
+    }
+
+    private String normalizeTenantRole(String roleCode) {
+        String value = roleCode == null ? "" : roleCode.trim().toUpperCase(Locale.ROOT);
+        if (!List.of("TENANT_ADMIN", "TENANT_OPERATOR", "TENANT_VIEWER").contains(value)) {
+            throw new IllegalArgumentException("不支持的租户角色: " + roleCode);
+        }
+        return value;
+    }
+
+    private void fillTenant(TenantDto tenant, TenantUpsertParam param) {
+        tenant.setTenantNo(required(param.getTenantNo(), "租户编号"));
+        tenant.setTenantName(required(param.getTenantName(), "租户名称"));
+        tenant.setStatus(normalizeStatus(param.getStatus()));
+        tenant.setPlanType(blankToNull(param.getPlanType()));
+        tenant.setContactName(blankToNull(param.getContactName()));
+        tenant.setContactPhone(blankToNull(param.getContactPhone()));
+    }
+
+    private String required(String value, String label) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(label + "不能为空");
+        }
+        return value.trim();
     }
 
     private String blankToNull(String value) {

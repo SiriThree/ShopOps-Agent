@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = "shopops.persistence=memory"
 )
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class OrganizationAdminIntegrationTest {
     @LocalServerPort
     private int port;
@@ -87,6 +89,83 @@ class OrganizationAdminIntegrationTest {
         assertThat((List<Map<String, Object>>) audit.get("list"))
                 .extracting(event -> event.get("eventType"))
                 .contains("ORG_MEMBER_UPDATED");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldCreateUserResetPasswordAndManageTenantByAdmin() {
+        Map<String, Object> createdUser = dataOf(exchange(
+                "/api/admin/organization/users",
+                HttpMethod.POST,
+                Map.of(
+                        "username", "planner",
+                        "displayName", "计划员",
+                        "email", "planner@shopops.local",
+                        "phone", "13900000000",
+                        "password", "shopops456",
+                        "tenantRole", "TENANT_OPERATOR",
+                        "shopRole", "SHOP_OPERATOR",
+                        "status", "ENABLED"
+                ),
+                adminHeaders()
+        ).getBody());
+        assertThat(createdUser)
+                .containsEntry("username", "planner")
+                .containsEntry("displayName", "计划员");
+        assertThat((List<String>) createdUser.get("tenantRoles")).containsExactly("TENANT_OPERATOR");
+        assertThat((List<String>) createdUser.get("shopRoles")).containsExactly("SHOP_OPERATOR");
+
+        Map<String, Object> resetUser = dataOf(exchange(
+                "/api/admin/organization/users/" + createdUser.get("userId") + "/password",
+                HttpMethod.POST,
+                Map.of("password", "shopops789"),
+                adminHeaders()
+        ).getBody());
+        assertThat(resetUser).containsEntry("username", "planner");
+
+        Map<String, Object> createdTenant = dataOf(exchange(
+                "/api/admin/organization/tenants",
+                HttpMethod.POST,
+                Map.of(
+                        "tenantNo", "TENANT_NEW",
+                        "tenantName", "新租户",
+                        "status", "ENABLED",
+                        "planType", "PRO",
+                        "contactName", "负责人",
+                        "contactPhone", "13812345678"
+                ),
+                adminHeaders()
+        ).getBody());
+        assertThat(createdTenant)
+                .containsEntry("tenantNo", "TENANT_NEW")
+                .containsEntry("tenantName", "新租户");
+
+        Map<String, Object> updatedTenant = dataOf(exchange(
+                "/api/admin/organization/tenants/" + createdTenant.get("tenantId"),
+                HttpMethod.POST,
+                Map.of(
+                        "tenantNo", "TENANT_NEW",
+                        "tenantName", "新租户已更新",
+                        "status", "DISABLED",
+                        "planType", "ENTERPRISE",
+                        "contactName", "新负责人",
+                        "contactPhone", "13887654321"
+                ),
+                adminHeaders()
+        ).getBody());
+        assertThat(updatedTenant)
+                .containsEntry("tenantName", "新租户已更新")
+                .containsEntry("status", "DISABLED");
+
+        Map<String, Object> audit = dataOf(exchange(
+                "/api/admin/auth/audit-events?pageNum=1&pageSize=20",
+                HttpMethod.GET,
+                null,
+                adminHeaders()
+        ).getBody());
+        assertThat((List<Map<String, Object>>) audit.get("list"))
+                .extracting(event -> event.get("eventType"))
+                .contains("ORG_USER_CREATED", "ORG_USER_PASSWORD_RESET", "ORG_TENANT_CREATED", "ORG_TENANT_UPDATED");
     }
 
     private ResponseEntity<Map> exchange(String path, HttpMethod method, Map<String, Object> body, HttpHeaders headers) {

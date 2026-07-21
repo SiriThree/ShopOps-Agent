@@ -4,7 +4,9 @@ import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
 import java.util.List;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -71,6 +73,70 @@ public interface OrganizationAdminMapper {
     Long countUsers(@Param("tenantId") Long tenantId,
                     @Param("keyword") String keyword,
                     @Param("status") String status);
+
+    @Select("""
+            SELECT
+              u.id AS userId,
+              u.username,
+              u.display_name AS displayName,
+              u.email,
+              u.phone,
+              CASE WHEN u.status = 1 THEN 'ENABLED' ELSE 'DISABLED' END AS status,
+              u.created_at AS createdAt
+            FROM user_account u
+            WHERE u.id = #{userId}
+              AND EXISTS (
+                SELECT 1 FROM tenant_member tm
+                WHERE tm.tenant_id = #{tenantId}
+                  AND tm.user_id = u.id
+              )
+            LIMIT 1
+            """)
+    OrganizationUserDto findUser(@Param("tenantId") Long tenantId, @Param("userId") Long userId);
+
+    @Select("SELECT COUNT(1) FROM user_account WHERE username = #{username}")
+    Long countUsername(@Param("username") String username);
+
+    @Insert("""
+            INSERT INTO user_account
+              (username, password_hash, display_name, phone, email, status, created_at, updated_at)
+            VALUES
+              (#{user.username}, #{passwordHash}, #{user.displayName}, #{user.phone}, #{user.email},
+               CASE WHEN #{user.status} = 'ENABLED' THEN 1 ELSE 0 END, NOW(), NOW())
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "user.userId")
+    int insertUser(@Param("user") OrganizationUserDto user, @Param("passwordHash") String passwordHash);
+
+    @Insert("""
+            INSERT INTO tenant_member
+              (tenant_id, user_id, role_code, status, joined_at)
+            VALUES
+              (#{tenantId}, #{userId}, #{roleCode}, CASE WHEN #{status} = 'ENABLED' THEN 1 ELSE 0 END, NOW())
+            """)
+    int insertTenantMember(@Param("tenantId") Long tenantId,
+                           @Param("userId") Long userId,
+                           @Param("roleCode") String roleCode,
+                           @Param("status") String status);
+
+    @Insert("""
+            INSERT INTO shop_member
+              (tenant_id, shop_id, user_id, role_code, status, joined_at)
+            VALUES
+              (#{tenantId}, #{shopId}, #{userId}, #{roleCode}, CASE WHEN #{status} = 'ENABLED' THEN 1 ELSE 0 END, NOW())
+            """)
+    int insertShopMember(@Param("tenantId") Long tenantId,
+                         @Param("shopId") Long shopId,
+                         @Param("userId") Long userId,
+                         @Param("roleCode") String roleCode,
+                         @Param("status") String status);
+
+    @Update("""
+            UPDATE user_account
+            SET password_hash = #{passwordHash},
+                updated_at = NOW()
+            WHERE id = #{userId}
+            """)
+    int updateUserPassword(@Param("userId") Long userId, @Param("passwordHash") String passwordHash);
 
     @Select("""
             SELECT role_code
@@ -148,6 +214,50 @@ public interface OrganizationAdminMapper {
     Long countTenants(@Param("tenantId") Long tenantId,
                       @Param("keyword") String keyword,
                       @Param("status") String status);
+
+    @Select("""
+            SELECT
+              t.id AS tenantId,
+              t.tenant_no AS tenantNo,
+              t.tenant_name AS tenantName,
+              CASE WHEN t.status = 1 THEN 'ENABLED' ELSE 'DISABLED' END AS status,
+              t.plan_type AS planType,
+              t.contact_name AS contactName,
+              t.contact_phone AS contactPhone,
+              (SELECT COUNT(1) FROM shop s WHERE s.tenant_id = t.id) AS shopCount,
+              (SELECT COUNT(1) FROM tenant_member tm WHERE tm.tenant_id = t.id) AS memberCount,
+              t.created_at AS createdAt
+            FROM tenant t
+            WHERE t.id = #{tenantId}
+            LIMIT 1
+            """)
+    TenantDto findTenant(@Param("tenantId") Long tenantId);
+
+    @Select("SELECT COUNT(1) FROM tenant WHERE tenant_no = #{tenantNo} AND id != #{tenantId}")
+    Long countTenantNoExcept(@Param("tenantNo") String tenantNo, @Param("tenantId") Long tenantId);
+
+    @Insert("""
+            INSERT INTO tenant
+              (tenant_no, tenant_name, status, plan_type, contact_name, contact_phone, created_at, updated_at)
+            VALUES
+              (#{tenant.tenantNo}, #{tenant.tenantName}, CASE WHEN #{tenant.status} = 'ENABLED' THEN 1 ELSE 0 END,
+               #{tenant.planType}, #{tenant.contactName}, #{tenant.contactPhone}, NOW(), NOW())
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "tenant.tenantId")
+    int insertTenant(@Param("tenant") TenantDto tenant);
+
+    @Update("""
+            UPDATE tenant
+            SET tenant_no = #{tenant.tenantNo},
+                tenant_name = #{tenant.tenantName},
+                status = CASE WHEN #{tenant.status} = 'ENABLED' THEN 1 ELSE 0 END,
+                plan_type = #{tenant.planType},
+                contact_name = #{tenant.contactName},
+                contact_phone = #{tenant.contactPhone},
+                updated_at = NOW()
+            WHERE id = #{tenant.tenantId}
+            """)
+    int updateTenant(@Param("tenant") TenantDto tenant);
 
     @Select("""
             <script>
