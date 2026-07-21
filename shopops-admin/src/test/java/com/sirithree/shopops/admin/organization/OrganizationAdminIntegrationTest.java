@@ -52,6 +52,12 @@ class OrganizationAdminIntegrationTest {
                 .extracting(tenant -> tenant.get("tenantName"))
                 .containsExactly("演示租户");
 
+        Map<String, Object> shops = dataOf(exchange(
+                "/api/admin/organization/shops", HttpMethod.GET, null, operatorHeaders()).getBody());
+        assertThat((List<Map<String, Object>>) shops.get("list"))
+                .extracting(shop -> shop.get("shopNo"))
+                .containsExactly("SHOP_DEFAULT");
+
         Map<String, Object> members = dataOf(exchange(
                 "/api/admin/organization/shop-members?keyword=viewer", HttpMethod.GET, null, operatorHeaders()).getBody());
         List<Map<String, Object>> memberList = (List<Map<String, Object>>) members.get("list");
@@ -157,6 +163,52 @@ class OrganizationAdminIntegrationTest {
                 .containsEntry("tenantName", "新租户已更新")
                 .containsEntry("status", "DISABLED");
 
+        Map<String, Object> createdShop = dataOf(exchange(
+                "/api/admin/organization/shops",
+                HttpMethod.POST,
+                Map.of(
+                        "shopNo", "SHOP_NEW",
+                        "shopName", "新店铺",
+                        "platformType", "mock.mall",
+                        "ownerId", 1,
+                        "status", "ENABLED"
+                ),
+                adminHeaders()
+        ).getBody());
+        assertThat(createdShop)
+                .containsEntry("shopNo", "SHOP_NEW")
+                .containsEntry("shopName", "新店铺");
+
+        Map<String, Object> updatedShop = dataOf(exchange(
+                "/api/admin/organization/shops/" + createdShop.get("shopId"),
+                HttpMethod.POST,
+                Map.of(
+                        "shopNo", "SHOP_NEW",
+                        "shopName", "新店铺已更新",
+                        "platformType", "mock.mall",
+                        "ownerId", 1,
+                        "status", "DISABLED"
+                ),
+                adminHeaders()
+        ).getBody());
+        assertThat(updatedShop)
+                .containsEntry("shopName", "新店铺已更新")
+                .containsEntry("status", "DISABLED");
+
+        Map<String, Object> boundMember = dataOf(exchange(
+                "/api/admin/organization/shops/" + createdShop.get("shopId") + "/members",
+                HttpMethod.POST,
+                Map.of(
+                        "userId", createdUser.get("userId"),
+                        "roleCode", "SHOP_OPERATOR",
+                        "status", "ENABLED"
+                ),
+                adminHeaders()
+        ).getBody());
+        assertThat(boundMember)
+                .containsEntry("username", "planner")
+                .containsEntry("roleCode", "SHOP_OPERATOR");
+
         Map<String, Object> audit = dataOf(exchange(
                 "/api/admin/auth/audit-events?pageNum=1&pageSize=20",
                 HttpMethod.GET,
@@ -165,7 +217,8 @@ class OrganizationAdminIntegrationTest {
         ).getBody());
         assertThat((List<Map<String, Object>>) audit.get("list"))
                 .extracting(event -> event.get("eventType"))
-                .contains("ORG_USER_CREATED", "ORG_USER_PASSWORD_RESET", "ORG_TENANT_CREATED", "ORG_TENANT_UPDATED");
+                .contains("ORG_USER_CREATED", "ORG_USER_PASSWORD_RESET", "ORG_TENANT_CREATED", "ORG_TENANT_UPDATED",
+                        "ORG_SHOP_CREATED", "ORG_SHOP_UPDATED", "ORG_SHOP_MEMBER_ADDED");
     }
 
     private ResponseEntity<Map> exchange(String path, HttpMethod method, Map<String, Object> body, HttpHeaders headers) {

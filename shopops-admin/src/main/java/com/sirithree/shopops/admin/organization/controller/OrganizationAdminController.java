@@ -9,8 +9,11 @@ import com.sirithree.shopops.admin.common.context.RequestContextHolder;
 import com.sirithree.shopops.admin.organization.domain.OrganizationOverviewDto;
 import com.sirithree.shopops.admin.organization.domain.OrganizationQueryParam;
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopDto;
+import com.sirithree.shopops.admin.organization.domain.ShopMemberCreateParam;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberUpdateParam;
+import com.sirithree.shopops.admin.organization.domain.ShopUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
 import com.sirithree.shopops.admin.organization.domain.TenantUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.UserCreateParam;
@@ -59,6 +62,13 @@ public class OrganizationAdminController {
         return CommonResult.success(organizationAdminService.listTenants(context.getTenantId(), query));
     }
 
+    @GetMapping("/shops")
+    @RequireRole(AuthRole.OPERATOR)
+    public CommonResult<CommonPage<ShopDto>> listShops(OrganizationQueryParam query) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(organizationAdminService.listShops(context.getTenantId(), query));
+    }
+
     @GetMapping("/shop-members")
     @RequireRole(AuthRole.OPERATOR)
     public CommonResult<CommonPage<ShopMemberDto>> listShopMembers(OrganizationQueryParam query) {
@@ -102,6 +112,35 @@ public class OrganizationAdminController {
         TenantDto tenant = organizationAdminService.updateTenant(tenantId, param);
         recordOrgEvent(context, "ORG_TENANT_UPDATED", "租户 " + tenant.getTenantNo() + " 已更新");
         return CommonResult.success(tenant);
+    }
+
+    @PostMapping("/shops")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<ShopDto> createShop(@Valid @RequestBody ShopUpsertParam param) {
+        RequestContext context = RequestContextHolder.current();
+        ShopDto shop = organizationAdminService.createShop(context.getTenantId(), param);
+        recordOrgEvent(context, "ORG_SHOP_CREATED", "店铺 " + shop.getShopNo() + " 已创建");
+        return CommonResult.success(shop);
+    }
+
+    @PostMapping("/shops/{shopId}")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<ShopDto> updateShop(@PathVariable Long shopId,
+                                            @Valid @RequestBody ShopUpsertParam param) {
+        RequestContext context = RequestContextHolder.current();
+        ShopDto shop = organizationAdminService.updateShop(context.getTenantId(), shopId, param);
+        recordOrgEvent(context, "ORG_SHOP_UPDATED", "店铺 " + shop.getShopNo() + " 已更新");
+        return CommonResult.success(shop);
+    }
+
+    @PostMapping("/shops/{shopId}/members")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<ShopMemberDto> addShopMember(@PathVariable Long shopId,
+                                                     @Valid @RequestBody ShopMemberCreateParam param) {
+        RequestContext context = RequestContextHolder.current();
+        ShopMemberDto member = organizationAdminService.addShopMember(context.getTenantId(), shopId, param);
+        recordOrgEvent(context, "ORG_SHOP_MEMBER_ADDED", "店铺成员 " + member.getUsername() + " 已绑定");
+        return CommonResult.success(member);
     }
 
     @PostMapping("/shop-members/{memberId}")

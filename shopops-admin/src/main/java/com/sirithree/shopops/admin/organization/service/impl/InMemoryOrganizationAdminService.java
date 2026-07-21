@@ -3,8 +3,11 @@ package com.sirithree.shopops.admin.organization.service.impl;
 import com.sirithree.shopops.admin.organization.domain.OrganizationOverviewDto;
 import com.sirithree.shopops.admin.organization.domain.OrganizationQueryParam;
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopDto;
+import com.sirithree.shopops.admin.organization.domain.ShopMemberCreateParam;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberUpdateParam;
+import com.sirithree.shopops.admin.organization.domain.ShopUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
 import com.sirithree.shopops.admin.organization.domain.TenantUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.UserCreateParam;
@@ -25,16 +28,18 @@ import org.springframework.stereotype.Service;
 public class InMemoryOrganizationAdminService implements OrganizationAdminService {
     private final List<OrganizationUserDto> users = seedUsers();
     private final List<TenantDto> tenants = seedTenants();
+    private final List<ShopDto> shops = seedShops();
     private final Map<Long, ShopMemberDto> shopMembers = seedShopMembers();
     private long nextUserId = 4L;
     private long nextTenantId = 2L;
+    private long nextShopId = 2L;
     private long nextMemberId = 4L;
 
     @Override
     public OrganizationOverviewDto overview(Long tenantId, Long shopId) {
         OrganizationOverviewDto overview = new OrganizationOverviewDto();
         overview.setTenantTotal((long) tenants.size());
-        overview.setShopTotal(1L);
+        overview.setShopTotal(shops.stream().filter(shop -> tenantId.equals(shop.getTenantId())).count());
         overview.setUserTotal((long) users.size());
         overview.setActiveMemberTotal(shopMembers.values().stream().filter(member -> "ENABLED".equals(member.getStatus())).count());
         overview.setDisabledMemberTotal(shopMembers.values().stream().filter(member -> "DISABLED".equals(member.getStatus())).count());
@@ -55,6 +60,15 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
                 .filter(tenant -> tenantId.equals(tenant.getTenantId()))
                 .filter(tenant -> matches(tenant.getTenantNo(), tenant.getTenantName(), tenant.getContactName(), query.getKeyword()))
                 .filter(tenant -> statusMatches(tenant.getStatus(), query.getStatus()))
+                .toList(), query);
+    }
+
+    @Override
+    public CommonPage<ShopDto> listShops(Long tenantId, OrganizationQueryParam query) {
+        return page(shops.stream()
+                .filter(shop -> tenantId.equals(shop.getTenantId()))
+                .filter(shop -> matches(shop.getShopNo(), shop.getShopName(), shop.getPlatformType(), query.getKeyword()))
+                .filter(shop -> statusMatches(shop.getStatus(), query.getStatus()))
                 .toList(), query);
     }
 
@@ -154,6 +168,69 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         return tenant;
     }
 
+    @Override
+    public synchronized ShopDto createShop(Long tenantId, ShopUpsertParam param) {
+        String shopNo = required(param.getShopNo(), "店铺编号");
+        if (shops.stream().anyMatch(shop -> tenantId.equals(shop.getTenantId()) && shop.getShopNo().equalsIgnoreCase(shopNo))) {
+            throw new IllegalArgumentException("店铺编号已存在: " + shopNo);
+        }
+        ShopDto shop = new ShopDto();
+        shop.setShopId(nextShopId++);
+        shop.setTenantId(tenantId);
+        shop.setMemberCount(0L);
+        shop.setCreatedAt(LocalDateTime.now());
+        fillShop(shop, param);
+        shops.add(shop);
+        refreshTenantShopCount(tenantId);
+        return shop;
+    }
+
+    @Override
+    public ShopDto updateShop(Long tenantId, Long shopId, ShopUpsertParam param) {
+        ShopDto shop = shops.stream()
+                .filter(item -> tenantId.equals(item.getTenantId()) && shopId.equals(item.getShopId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("店铺不存在"));
+        String shopNo = required(param.getShopNo(), "店铺编号");
+        shops.stream()
+                .filter(item -> tenantId.equals(item.getTenantId()) && !shopId.equals(item.getShopId()))
+                .filter(item -> item.getShopNo().equalsIgnoreCase(shopNo))
+                .findAny()
+                .ifPresent(item -> {
+                    throw new IllegalArgumentException("店铺编号已存在: " + shopNo);
+                });
+        fillShop(shop, param);
+        return shop;
+    }
+
+    @Override
+    public synchronized ShopMemberDto addShopMember(Long tenantId, Long shopId, ShopMemberCreateParam param) {
+        ShopDto shop = shops.stream()
+                .filter(item -> tenantId.equals(item.getTenantId()) && shopId.equals(item.getShopId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("店铺不存在"));
+        OrganizationUserDto user = users.stream()
+                .filter(item -> param.getUserId().equals(item.getUserId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("用户不存在"));
+        shopMembers.values().stream()
+                .filter(member -> shopId.equals(member.getShopId()) && param.getUserId().equals(member.getUserId()))
+                .findAny()
+                .ifPresent(member -> {
+                    throw new IllegalArgumentException("店铺成员已存在");
+                });
+        String roleCode = normalizeRoleCode(param.getRoleCode());
+        String status = normalizeStatus(param.getStatus());
+        ShopMemberDto member = member(nextMemberId++, tenantId, shopId, user.getUserId(), user.getUsername(), user.getDisplayName(), roleCode);
+        member.setShopName(shop.getShopName());
+        member.setStatus(status);
+        member.setJoinedAt(LocalDateTime.now());
+        shopMembers.put(member.getMemberId(), member);
+        shop.setMemberCount(shop.getMemberCount() + 1);
+        syncUserRoles(member);
+        return member;
+    }
+
     private void syncUserRoles(ShopMemberDto member) {
         users.stream()
                 .filter(user -> member.getUserId().equals(user.getUserId()))
@@ -193,6 +270,20 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         members.put(2L, member(2L, 1L, 1L, 2L, "operator", "ShopOps 运营", "SHOP_OPERATOR"));
         members.put(3L, member(3L, 1L, 1L, 3L, "viewer", "ShopOps 观察员", "SHOP_VIEWER"));
         return members;
+    }
+
+    private List<ShopDto> seedShops() {
+        ShopDto shop = new ShopDto();
+        shop.setShopId(1L);
+        shop.setTenantId(1L);
+        shop.setShopNo("SHOP_DEFAULT");
+        shop.setShopName("演示店铺");
+        shop.setPlatformType("mock.mall");
+        shop.setOwnerId(1L);
+        shop.setStatus("ENABLED");
+        shop.setMemberCount(3L);
+        shop.setCreatedAt(LocalDateTime.now().minusDays(30));
+        return new ArrayList<>(List.of(shop));
     }
 
     private OrganizationUserDto user(Long userId, String username, String displayName, String email, String status,
@@ -276,6 +367,24 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         tenant.setPlanType(blankToEmpty(param.getPlanType()));
         tenant.setContactName(blankToEmpty(param.getContactName()));
         tenant.setContactPhone(blankToEmpty(param.getContactPhone()));
+    }
+
+    private void fillShop(ShopDto shop, ShopUpsertParam param) {
+        shop.setShopNo(required(param.getShopNo(), "店铺编号"));
+        shop.setShopName(required(param.getShopName(), "店铺名称"));
+        shop.setPlatformType(required(param.getPlatformType(), "平台类型"));
+        if (param.getOwnerId() == null) {
+            throw new IllegalArgumentException("店铺负责人不能为空");
+        }
+        shop.setOwnerId(param.getOwnerId());
+        shop.setStatus(normalizeStatus(param.getStatus()));
+    }
+
+    private void refreshTenantShopCount(Long tenantId) {
+        tenants.stream()
+                .filter(tenant -> tenantId.equals(tenant.getTenantId()))
+                .findFirst()
+                .ifPresent(tenant -> tenant.setShopCount(shops.stream().filter(shop -> tenantId.equals(shop.getTenantId())).count()));
     }
 
     private String required(String value, String label) {

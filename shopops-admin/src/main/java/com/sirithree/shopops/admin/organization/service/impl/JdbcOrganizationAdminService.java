@@ -4,8 +4,11 @@ import com.sirithree.shopops.admin.auth.service.PasswordHashService;
 import com.sirithree.shopops.admin.organization.domain.OrganizationOverviewDto;
 import com.sirithree.shopops.admin.organization.domain.OrganizationQueryParam;
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopDto;
+import com.sirithree.shopops.admin.organization.domain.ShopMemberCreateParam;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberUpdateParam;
+import com.sirithree.shopops.admin.organization.domain.ShopUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
 import com.sirithree.shopops.admin.organization.domain.TenantUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.UserCreateParam;
@@ -59,6 +62,14 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
                 tenantId, blankToNull(query.getKeyword()), blankToNull(query.getStatus()), query.offset(), query.safePageSize());
         Long total = mapper.countTenants(tenantId, blankToNull(query.getKeyword()), blankToNull(query.getStatus()));
         return CommonPage.of(tenants, query.safePageNum(), query.safePageSize(), zero(total));
+    }
+
+    @Override
+    public CommonPage<ShopDto> listShops(Long tenantId, OrganizationQueryParam query) {
+        List<ShopDto> shops = mapper.listShops(
+                tenantId, blankToNull(query.getKeyword()), blankToNull(query.getStatus()), query.offset(), query.safePageSize());
+        Long total = mapper.countShops(tenantId, blankToNull(query.getKeyword()), blankToNull(query.getStatus()));
+        return CommonPage.of(shops, query.safePageNum(), query.safePageSize(), zero(total));
     }
 
     @Override
@@ -148,6 +159,56 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
         return mapper.findTenant(tenantId);
     }
 
+    @Override
+    public ShopDto createShop(Long tenantId, ShopUpsertParam param) {
+        String shopNo = required(param.getShopNo(), "店铺编号");
+        if (zero(mapper.countShopNoExcept(tenantId, shopNo, 0L)) > 0) {
+            throw new IllegalArgumentException("店铺编号已存在: " + shopNo);
+        }
+        if (mapper.findUser(tenantId, param.getOwnerId()) == null) {
+            throw new IllegalArgumentException("店铺负责人不存在");
+        }
+        ShopDto shop = new ShopDto();
+        shop.setTenantId(tenantId);
+        fillShop(shop, param);
+        mapper.insertShop(shop);
+        return mapper.findShop(tenantId, shop.getShopId());
+    }
+
+    @Override
+    public ShopDto updateShop(Long tenantId, Long shopId, ShopUpsertParam param) {
+        ShopDto shop = mapper.findShop(tenantId, shopId);
+        if (shop == null) {
+            throw new IllegalArgumentException("店铺不存在");
+        }
+        String shopNo = required(param.getShopNo(), "店铺编号");
+        if (zero(mapper.countShopNoExcept(tenantId, shopNo, shopId)) > 0) {
+            throw new IllegalArgumentException("店铺编号已存在: " + shopNo);
+        }
+        if (mapper.findUser(tenantId, param.getOwnerId()) == null) {
+            throw new IllegalArgumentException("店铺负责人不存在");
+        }
+        fillShop(shop, param);
+        mapper.updateShop(shop);
+        return mapper.findShop(tenantId, shopId);
+    }
+
+    @Override
+    public ShopMemberDto addShopMember(Long tenantId, Long shopId, ShopMemberCreateParam param) {
+        if (mapper.findShop(tenantId, shopId) == null) {
+            throw new IllegalArgumentException("店铺不存在");
+        }
+        if (mapper.findUser(tenantId, param.getUserId()) == null) {
+            throw new IllegalArgumentException("用户不存在");
+        }
+        if (zero(mapper.countShopMemberByUser(tenantId, shopId, param.getUserId())) > 0) {
+            throw new IllegalArgumentException("店铺成员已存在");
+        }
+        mapper.insertShopMember(tenantId, shopId, param.getUserId(),
+                normalizeRoleCode(param.getRoleCode()), normalizeStatus(param.getStatus()));
+        return mapper.findShopMemberByUser(tenantId, shopId, param.getUserId());
+    }
+
     private String normalizeRoleCode(String roleCode) {
         String value = roleCode == null ? "" : roleCode.trim().toUpperCase(Locale.ROOT);
         if (!List.of("SHOP_OWNER", "SHOP_ADMIN", "SHOP_OPERATOR", "SHOP_VIEWER").contains(value)) {
@@ -179,6 +240,17 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
         tenant.setPlanType(blankToNull(param.getPlanType()));
         tenant.setContactName(blankToNull(param.getContactName()));
         tenant.setContactPhone(blankToNull(param.getContactPhone()));
+    }
+
+    private void fillShop(ShopDto shop, ShopUpsertParam param) {
+        shop.setShopNo(required(param.getShopNo(), "店铺编号"));
+        shop.setShopName(required(param.getShopName(), "店铺名称"));
+        shop.setPlatformType(required(param.getPlatformType(), "平台类型"));
+        if (param.getOwnerId() == null) {
+            throw new IllegalArgumentException("店铺负责人不能为空");
+        }
+        shop.setOwnerId(param.getOwnerId());
+        shop.setStatus(normalizeStatus(param.getStatus()));
     }
 
     private String required(String value, String label) {

@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.persistence.mapper;
 
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
 import java.util.List;
@@ -262,6 +263,107 @@ public interface OrganizationAdminMapper {
     @Select("""
             <script>
             SELECT
+              s.id AS shopId,
+              s.tenant_id AS tenantId,
+              s.shop_no AS shopNo,
+              s.shop_name AS shopName,
+              s.platform_type AS platformType,
+              s.owner_id AS ownerId,
+              CASE WHEN s.status = 1 THEN 'ENABLED' ELSE 'DISABLED' END AS status,
+              (SELECT COUNT(1) FROM shop_member sm WHERE sm.shop_id = s.id) AS memberCount,
+              s.created_at AS createdAt
+            FROM shop s
+            WHERE s.tenant_id = #{tenantId}
+            <if test="keyword != null and keyword != ''">
+              AND (
+                s.shop_no LIKE CONCAT('%', #{keyword}, '%')
+                OR s.shop_name LIKE CONCAT('%', #{keyword}, '%')
+                OR s.platform_type LIKE CONCAT('%', #{keyword}, '%')
+              )
+            </if>
+            <if test="status != null and status != ''">
+              AND s.status = CASE WHEN UPPER(#{status}) = 'ENABLED' THEN 1 ELSE 0 END
+            </if>
+            ORDER BY s.id ASC
+            LIMIT #{limit} OFFSET #{offset}
+            </script>
+            """)
+    List<ShopDto> listShops(@Param("tenantId") Long tenantId,
+                            @Param("keyword") String keyword,
+                            @Param("status") String status,
+                            @Param("offset") int offset,
+                            @Param("limit") int limit);
+
+    @Select("""
+            <script>
+            SELECT COUNT(1)
+            FROM shop s
+            WHERE s.tenant_id = #{tenantId}
+            <if test="keyword != null and keyword != ''">
+              AND (
+                s.shop_no LIKE CONCAT('%', #{keyword}, '%')
+                OR s.shop_name LIKE CONCAT('%', #{keyword}, '%')
+                OR s.platform_type LIKE CONCAT('%', #{keyword}, '%')
+              )
+            </if>
+            <if test="status != null and status != ''">
+              AND s.status = CASE WHEN UPPER(#{status}) = 'ENABLED' THEN 1 ELSE 0 END
+            </if>
+            </script>
+            """)
+    Long countShops(@Param("tenantId") Long tenantId,
+                    @Param("keyword") String keyword,
+                    @Param("status") String status);
+
+    @Select("""
+            SELECT
+              s.id AS shopId,
+              s.tenant_id AS tenantId,
+              s.shop_no AS shopNo,
+              s.shop_name AS shopName,
+              s.platform_type AS platformType,
+              s.owner_id AS ownerId,
+              CASE WHEN s.status = 1 THEN 'ENABLED' ELSE 'DISABLED' END AS status,
+              (SELECT COUNT(1) FROM shop_member sm WHERE sm.shop_id = s.id) AS memberCount,
+              s.created_at AS createdAt
+            FROM shop s
+            WHERE s.tenant_id = #{tenantId}
+              AND s.id = #{shopId}
+            LIMIT 1
+            """)
+    ShopDto findShop(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId);
+
+    @Select("SELECT COUNT(1) FROM shop WHERE tenant_id = #{tenantId} AND shop_no = #{shopNo} AND id != #{shopId}")
+    Long countShopNoExcept(@Param("tenantId") Long tenantId,
+                           @Param("shopNo") String shopNo,
+                           @Param("shopId") Long shopId);
+
+    @Insert("""
+            INSERT INTO shop
+              (tenant_id, shop_no, shop_name, platform_type, owner_id, status, created_at, updated_at)
+            VALUES
+              (#{shop.tenantId}, #{shop.shopNo}, #{shop.shopName}, #{shop.platformType}, #{shop.ownerId},
+               CASE WHEN #{shop.status} = 'ENABLED' THEN 1 ELSE 0 END, NOW(), NOW())
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "shop.shopId")
+    int insertShop(@Param("shop") ShopDto shop);
+
+    @Update("""
+            UPDATE shop
+            SET shop_no = #{shop.shopNo},
+                shop_name = #{shop.shopName},
+                platform_type = #{shop.platformType},
+                owner_id = #{shop.ownerId},
+                status = CASE WHEN #{shop.status} = 'ENABLED' THEN 1 ELSE 0 END,
+                updated_at = NOW()
+            WHERE tenant_id = #{shop.tenantId}
+              AND id = #{shop.shopId}
+            """)
+    int updateShop(@Param("shop") ShopDto shop);
+
+    @Select("""
+            <script>
+            SELECT
               sm.id AS memberId,
               sm.tenant_id AS tenantId,
               sm.shop_id AS shopId,
@@ -355,6 +457,40 @@ public interface OrganizationAdminMapper {
     ShopMemberDto findShopMember(@Param("tenantId") Long tenantId,
                                  @Param("shopId") Long shopId,
                                  @Param("memberId") Long memberId);
+
+    @Select("""
+            SELECT
+              sm.id AS memberId,
+              sm.tenant_id AS tenantId,
+              sm.shop_id AS shopId,
+              s.shop_name AS shopName,
+              sm.user_id AS userId,
+              u.username,
+              u.display_name AS displayName,
+              sm.role_code AS roleCode,
+              CASE
+                WHEN sm.role_code IN ('SHOP_OWNER', 'SHOP_ADMIN') THEN 'ADMIN'
+                WHEN sm.role_code = 'SHOP_OPERATOR' THEN 'OPERATOR'
+                ELSE 'VIEWER'
+              END AS normalizedRole,
+              CASE WHEN sm.status = 1 THEN 'ENABLED' ELSE 'DISABLED' END AS status,
+              sm.joined_at AS joinedAt
+            FROM shop_member sm
+            JOIN user_account u ON u.id = sm.user_id
+            JOIN shop s ON s.id = sm.shop_id AND s.tenant_id = sm.tenant_id
+            WHERE sm.tenant_id = #{tenantId}
+              AND sm.shop_id = #{shopId}
+              AND sm.user_id = #{userId}
+            LIMIT 1
+            """)
+    ShopMemberDto findShopMemberByUser(@Param("tenantId") Long tenantId,
+                                       @Param("shopId") Long shopId,
+                                       @Param("userId") Long userId);
+
+    @Select("SELECT COUNT(1) FROM shop_member WHERE tenant_id = #{tenantId} AND shop_id = #{shopId} AND user_id = #{userId}")
+    Long countShopMemberByUser(@Param("tenantId") Long tenantId,
+                               @Param("shopId") Long shopId,
+                               @Param("userId") Long userId);
 
     @Update("""
             UPDATE shop_member

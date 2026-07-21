@@ -381,6 +381,7 @@
             <div class="toolbar">
               <button id="openUserCreate" type="button">新增用户</button>
               <button id="openTenantCreate" type="button">新增租户</button>
+              <button id="openShopCreate" type="button">新增店铺</button>
               <a class="button-link" href="/admin/auth.html">认证控制台</a>
               <a class="button-link" href="/admin/audit.html?source=AUTH">认证审计</a>
             </div>
@@ -389,6 +390,7 @@
           <div class="tabs">
             <button id="tabUsers" class="active" type="button">用户</button>
             <button id="tabTenants" type="button">租户</button>
+            <button id="tabShops" type="button">店铺</button>
             <button id="tabMembers" type="button">店铺成员</button>
           </div>
 
@@ -533,11 +535,65 @@
     </form>
   </dialog>
 
+  <dialog id="shopDialog">
+    <form class="dialog-body" method="dialog" id="shopForm">
+      <strong id="shopTitle">新增店铺</strong>
+      <label>店铺编号
+        <input id="editShopNo" required maxlength="64">
+      </label>
+      <label>店铺名称
+        <input id="editShopName" required maxlength="128">
+      </label>
+      <label>平台类型
+        <input id="editPlatformType" required maxlength="32">
+      </label>
+      <label>负责人用户 ID
+        <input id="editOwnerId" required inputmode="numeric">
+      </label>
+      <label>状态
+        <select id="editShopStatus">
+          <option value="ENABLED">启用</option>
+          <option value="DISABLED">停用</option>
+        </select>
+      </label>
+      <div class="dialog-actions">
+        <button id="cancelShop" type="button">取消</button>
+        <button class="primary" type="submit">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="bindMemberDialog">
+    <form class="dialog-body" method="dialog" id="bindMemberForm">
+      <strong id="bindMemberTitle">绑定店铺成员</strong>
+      <label>用户 ID
+        <input id="bindUserId" required inputmode="numeric">
+      </label>
+      <label>店铺角色
+        <select id="bindRole">
+          <option value="SHOP_ADMIN">店铺管理员</option>
+          <option value="SHOP_OPERATOR" selected>店铺运营</option>
+          <option value="SHOP_VIEWER">店铺观察员</option>
+        </select>
+      </label>
+      <label>状态
+        <select id="bindStatus">
+          <option value="ENABLED">启用</option>
+          <option value="DISABLED">停用</option>
+        </select>
+      </label>
+      <div class="dialog-actions">
+        <button id="cancelBindMember" type="button">取消</button>
+        <button class="primary" type="submit">绑定</button>
+      </div>
+    </form>
+  </dialog>
+
   <script>
     const TOKEN_KEY = "shopops.auth.token";
     const USER_KEY = "shopops.auth.user";
     const $ = (id) => document.getElementById(id);
-    const state = { tab: "users", pageNum: 1, pageSize: 20, selectedMemberId: null, selectedUserId: null, selectedTenantId: null };
+    const state = { tab: "users", pageNum: 1, pageSize: 20, selectedMemberId: null, selectedUserId: null, selectedTenantId: null, selectedShopId: null };
 
     function headers() {
       const result = {
@@ -592,6 +648,9 @@
       if (state.tab === "tenants") {
         return "/api/admin/organization/tenants";
       }
+      if (state.tab === "shops") {
+        return "/api/admin/organization/shops";
+      }
       if (state.tab === "members") {
         return "/api/admin/organization/shop-members";
       }
@@ -624,6 +683,8 @@
       }
       if (state.tab === "tenants") {
         renderTenantTable(list);
+      } else if (state.tab === "shops") {
+        renderShopTable(list);
       } else if (state.tab === "members") {
         renderMemberTable(list);
       } else {
@@ -668,6 +729,30 @@
                 <td>${Number(tenant.shopCount || 0)} 店铺 / ${Number(tenant.memberCount || 0)} 成员</td>
                 <td>${escapeHtml(tenant.contactName || "")}<br><span class="status-line">${escapeHtml(tenant.contactPhone || "")}</span></td>
                 <td><button type="button" onclick="openTenantEdit(${tenantAttr(tenant)})">编辑</button></td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderShopTable(list) {
+      $("tableWrap").innerHTML = `
+        <table>
+          <thead><tr><th>店铺</th><th>平台</th><th>负责人</th><th>状态</th><th>成员</th><th>创建时间</th><th>操作</th></tr></thead>
+          <tbody>
+            ${list.map((shop) => `
+              <tr>
+                <td>${escapeHtml(shop.shopNo)}<br><span class="status-line">${escapeHtml(shop.shopName)}</span></td>
+                <td>${escapeHtml(shop.platformType || "")}</td>
+                <td>ID ${escapeHtml(shop.ownerId)}</td>
+                <td>${statusBadge(shop.status)}</td>
+                <td>${Number(shop.memberCount || 0)}</td>
+                <td>${escapeHtml(formatTime(shop.createdAt))}</td>
+                <td>
+                  <button type="button" onclick="openShopEdit(${shopAttr(shop)})">编辑</button>
+                  <button type="button" onclick="openBindMember(${Number(shop.shopId)}, '${escapeJs(shop.shopNo)}')">绑定成员</button>
+                </td>
               </tr>
             `).join("")}
           </tbody>
@@ -746,6 +831,36 @@
       $("tenantDialog").showModal();
     }
 
+    function openShopCreate() {
+      state.selectedShopId = null;
+      $("shopForm").reset();
+      $("shopTitle").textContent = "新增店铺";
+      $("editPlatformType").value = "mock.mall";
+      $("editOwnerId").value = $("userId").value || "1";
+      $("editShopStatus").value = "ENABLED";
+      $("shopDialog").showModal();
+    }
+
+    function openShopEdit(shopId, shopNo, shopName, platformType, ownerId, status) {
+      state.selectedShopId = shopId;
+      $("shopTitle").textContent = `编辑店铺：${shopNo}`;
+      $("editShopNo").value = shopNo || "";
+      $("editShopName").value = shopName || "";
+      $("editPlatformType").value = platformType || "";
+      $("editOwnerId").value = ownerId || "";
+      $("editShopStatus").value = status || "ENABLED";
+      $("shopDialog").showModal();
+    }
+
+    function openBindMember(shopId, shopNo) {
+      state.selectedShopId = shopId;
+      $("bindMemberForm").reset();
+      $("bindMemberTitle").textContent = `绑定成员：${shopNo}`;
+      $("bindRole").value = "SHOP_OPERATOR";
+      $("bindStatus").value = "ENABLED";
+      $("bindMemberDialog").showModal();
+    }
+
     async function saveMember(event) {
       event.preventDefault();
       if (!state.selectedMemberId) {
@@ -821,6 +936,47 @@
       await refreshAll();
     }
 
+    async function saveShop(event) {
+      event.preventDefault();
+      const payload = {
+        shopNo: $("editShopNo").value.trim(),
+        shopName: $("editShopName").value.trim(),
+        platformType: $("editPlatformType").value.trim(),
+        ownerId: Number($("editOwnerId").value),
+        status: $("editShopStatus").value
+      };
+      const path = state.selectedShopId
+        ? `/api/admin/organization/shops/${state.selectedShopId}`
+        : "/api/admin/organization/shops";
+      await api(path, { method: "POST", body: JSON.stringify(payload) });
+      $("shopDialog").close();
+      state.tab = "shops";
+      state.pageNum = 1;
+      setStatus(state.selectedShopId ? "店铺已更新" : "店铺已创建");
+      await refreshAll();
+    }
+
+    async function saveBindMember(event) {
+      event.preventDefault();
+      if (!state.selectedShopId) {
+        return;
+      }
+      await api(`/api/admin/organization/shops/${state.selectedShopId}/members`, {
+        method: "POST",
+        body: JSON.stringify({
+          userId: Number($("bindUserId").value),
+          roleCode: $("bindRole").value,
+          status: $("bindStatus").value
+        })
+      });
+      $("bindMemberDialog").close();
+      state.tab = "members";
+      $("shopId").value = String(state.selectedShopId);
+      state.pageNum = 1;
+      setStatus("店铺成员已绑定");
+      await refreshAll();
+    }
+
     function roleBadges(roles) {
       const values = roles.filter(Boolean);
       if (!values.length) {
@@ -847,6 +1003,7 @@
     function updateTabs() {
       $("tabUsers").classList.toggle("active", state.tab === "users");
       $("tabTenants").classList.toggle("active", state.tab === "tenants");
+      $("tabShops").classList.toggle("active", state.tab === "shops");
       $("tabMembers").classList.toggle("active", state.tab === "members");
     }
 
@@ -907,6 +1064,17 @@
       ].join(", ");
     }
 
+    function shopAttr(shop) {
+      return [
+        Number(shop.shopId),
+        `'${escapeJs(shop.shopNo)}'`,
+        `'${escapeJs(shop.shopName)}'`,
+        `'${escapeJs(shop.platformType || "")}'`,
+        Number(shop.ownerId || 0),
+        `'${escapeJs(shop.status)}'`
+      ].join(", ");
+    }
+
     $("contextForm").addEventListener("submit", (event) => {
       event.preventDefault();
       refreshAll().catch((error) => setStatus(error.message));
@@ -935,9 +1103,11 @@
 
     $("tabUsers").addEventListener("click", () => setTab("users"));
     $("tabTenants").addEventListener("click", () => setTab("tenants"));
+    $("tabShops").addEventListener("click", () => setTab("shops"));
     $("tabMembers").addEventListener("click", () => setTab("members"));
     $("openUserCreate").addEventListener("click", openUserCreate);
     $("openTenantCreate").addEventListener("click", openTenantCreate);
+    $("openShopCreate").addEventListener("click", openShopCreate);
     $("prevPage").addEventListener("click", () => {
       state.pageNum = Math.max(1, state.pageNum - 1);
       loadTable().catch((error) => setStatus(error.message));
@@ -950,10 +1120,14 @@
     $("cancelUserCreate").addEventListener("click", () => $("userDialog").close());
     $("cancelPassword").addEventListener("click", () => $("passwordDialog").close());
     $("cancelTenant").addEventListener("click", () => $("tenantDialog").close());
+    $("cancelShop").addEventListener("click", () => $("shopDialog").close());
+    $("cancelBindMember").addEventListener("click", () => $("bindMemberDialog").close());
     $("memberForm").addEventListener("submit", saveMember);
     $("userForm").addEventListener("submit", saveUser);
     $("passwordForm").addEventListener("submit", savePassword);
     $("tenantForm").addEventListener("submit", saveTenant);
+    $("shopForm").addEventListener("submit", saveShop);
+    $("bindMemberForm").addEventListener("submit", saveBindMember);
 
     applyStoredSession();
     refreshAll().catch((error) => setStatus(error.message));
