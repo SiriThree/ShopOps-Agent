@@ -63,6 +63,13 @@ shopops:
       prompt-code: ${SHOPOPS_MODEL_GATEWAY_REPORT_PROMPT_CODE:daily_review.report}
       prompt-version: ${SHOPOPS_MODEL_GATEWAY_REPORT_PROMPT_VERSION:}
       timeout-ms: ${SHOPOPS_MODEL_GATEWAY_REPORT_TIMEOUT_MS:}
+    planner:
+      enabled: ${SHOPOPS_MODEL_GATEWAY_PLANNER_ENABLED:false}
+      provider-code: ${SHOPOPS_MODEL_GATEWAY_PLANNER_PROVIDER_CODE:openai-compatible}
+      model-name: ${SHOPOPS_MODEL_GATEWAY_PLANNER_MODEL_NAME:}
+      prompt-code: ${SHOPOPS_MODEL_GATEWAY_PLANNER_PROMPT_CODE:daily_review.plan}
+      prompt-version: ${SHOPOPS_MODEL_GATEWAY_PLANNER_PROMPT_VERSION:}
+      timeout-ms: ${SHOPOPS_MODEL_GATEWAY_PLANNER_TIMEOUT_MS:}
     openai-compatible:
       enabled: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_ENABLED:false}
       provider-code: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_PROVIDER_CODE:openai-compatible}
