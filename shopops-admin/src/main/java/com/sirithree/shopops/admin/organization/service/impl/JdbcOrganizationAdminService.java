@@ -4,6 +4,8 @@ import com.sirithree.shopops.admin.auth.service.PasswordHashService;
 import com.sirithree.shopops.admin.organization.domain.OrganizationOverviewDto;
 import com.sirithree.shopops.admin.organization.domain.OrganizationQueryParam;
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.ShopDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberCreateParam;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
@@ -70,6 +72,17 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
                 tenantId, blankToNull(query.getKeyword()), blankToNull(query.getStatus()), query.offset(), query.safePageSize());
         Long total = mapper.countShops(tenantId, blankToNull(query.getKeyword()), blankToNull(query.getStatus()));
         return CommonPage.of(shops, query.safePageNum(), query.safePageSize(), zero(total));
+    }
+
+    @Override
+    public CommonPage<ShopConfigDto> listShopConfigs(Long tenantId, Long shopId, OrganizationQueryParam query) {
+        if (mapper.findShop(tenantId, shopId) == null) {
+            throw new IllegalArgumentException("店铺不存在");
+        }
+        List<ShopConfigDto> configs = mapper.listShopConfigs(
+                tenantId, shopId, blankToNull(query.getKeyword()), query.offset(), query.safePageSize());
+        Long total = mapper.countShopConfigs(tenantId, shopId, blankToNull(query.getKeyword()));
+        return CommonPage.of(configs, query.safePageNum(), query.safePageSize(), zero(total));
     }
 
     @Override
@@ -209,6 +222,17 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
         return mapper.findShopMemberByUser(tenantId, shopId, param.getUserId());
     }
 
+    @Override
+    public ShopConfigDto saveShopConfig(Long tenantId, Long shopId, Long userId, ShopConfigUpsertParam param) {
+        if (mapper.findShop(tenantId, shopId) == null) {
+            throw new IllegalArgumentException("店铺不存在");
+        }
+        String configKey = required(param.getConfigKey(), "配置键");
+        mapper.upsertShopConfig(tenantId, shopId, configKey,
+                required(param.getConfigValue(), "配置值"), normalizeValueType(param.getValueType()), userId);
+        return mapper.findShopConfig(tenantId, shopId, configKey);
+    }
+
     private String normalizeRoleCode(String roleCode) {
         String value = roleCode == null ? "" : roleCode.trim().toUpperCase(Locale.ROOT);
         if (!List.of("SHOP_OWNER", "SHOP_ADMIN", "SHOP_OPERATOR", "SHOP_VIEWER").contains(value)) {
@@ -251,6 +275,14 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
         }
         shop.setOwnerId(param.getOwnerId());
         shop.setStatus(normalizeStatus(param.getStatus()));
+    }
+
+    private String normalizeValueType(String valueType) {
+        String value = valueType == null ? "" : valueType.trim().toLowerCase(Locale.ROOT);
+        if (!List.of("string", "number", "boolean", "json").contains(value)) {
+            throw new IllegalArgumentException("不支持的配置类型: " + valueType);
+        }
+        return value;
     }
 
     private String required(String value, String label) {

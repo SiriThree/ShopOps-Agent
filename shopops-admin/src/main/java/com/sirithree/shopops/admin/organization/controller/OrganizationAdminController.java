@@ -9,6 +9,8 @@ import com.sirithree.shopops.admin.common.context.RequestContextHolder;
 import com.sirithree.shopops.admin.organization.domain.OrganizationOverviewDto;
 import com.sirithree.shopops.admin.organization.domain.OrganizationQueryParam;
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.ShopDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberCreateParam;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
@@ -67,6 +69,14 @@ public class OrganizationAdminController {
     public CommonResult<CommonPage<ShopDto>> listShops(OrganizationQueryParam query) {
         RequestContext context = RequestContextHolder.current();
         return CommonResult.success(organizationAdminService.listShops(context.getTenantId(), query));
+    }
+
+    @GetMapping("/shops/{shopId}/configs")
+    @RequireRole(AuthRole.OPERATOR)
+    public CommonResult<CommonPage<ShopConfigDto>> listShopConfigs(@PathVariable Long shopId,
+                                                                   OrganizationQueryParam query) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(organizationAdminService.listShopConfigs(context.getTenantId(), shopId, query));
     }
 
     @GetMapping("/shop-members")
@@ -141,6 +151,16 @@ public class OrganizationAdminController {
         ShopMemberDto member = organizationAdminService.addShopMember(context.getTenantId(), shopId, param);
         recordOrgEvent(context, "ORG_SHOP_MEMBER_ADDED", "店铺成员 " + member.getUsername() + " 已绑定");
         return CommonResult.success(member);
+    }
+
+    @PostMapping("/shops/{shopId}/configs")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<ShopConfigDto> saveShopConfig(@PathVariable Long shopId,
+                                                      @Valid @RequestBody ShopConfigUpsertParam param) {
+        RequestContext context = RequestContextHolder.current();
+        ShopConfigDto config = organizationAdminService.saveShopConfig(context.getTenantId(), shopId, context.getUserId(), param);
+        recordOrgEvent(context, "ORG_SHOP_CONFIG_SAVED", "店铺配置 " + config.getConfigKey() + " 已保存");
+        return CommonResult.success(config);
     }
 
     @PostMapping("/shop-members/{memberId}")

@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.persistence.mapper;
 
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigDto;
 import com.sirithree.shopops.admin.organization.domain.ShopDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
 import com.sirithree.shopops.admin.organization.domain.TenantDto;
@@ -360,6 +361,94 @@ public interface OrganizationAdminMapper {
               AND id = #{shop.shopId}
             """)
     int updateShop(@Param("shop") ShopDto shop);
+
+    @Select("""
+            <script>
+            SELECT
+              id AS configId,
+              tenant_id AS tenantId,
+              shop_id AS shopId,
+              config_key AS configKey,
+              config_value AS configValue,
+              value_type AS valueType,
+              updated_by AS updatedBy,
+              updated_at AS updatedAt
+            FROM shop_config
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+            <if test="keyword != null and keyword != ''">
+              AND (
+                config_key LIKE CONCAT('%', #{keyword}, '%')
+                OR config_value LIKE CONCAT('%', #{keyword}, '%')
+                OR value_type LIKE CONCAT('%', #{keyword}, '%')
+              )
+            </if>
+            ORDER BY config_key ASC
+            LIMIT #{limit} OFFSET #{offset}
+            </script>
+            """)
+    List<ShopConfigDto> listShopConfigs(@Param("tenantId") Long tenantId,
+                                        @Param("shopId") Long shopId,
+                                        @Param("keyword") String keyword,
+                                        @Param("offset") int offset,
+                                        @Param("limit") int limit);
+
+    @Select("""
+            <script>
+            SELECT COUNT(1)
+            FROM shop_config
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+            <if test="keyword != null and keyword != ''">
+              AND (
+                config_key LIKE CONCAT('%', #{keyword}, '%')
+                OR config_value LIKE CONCAT('%', #{keyword}, '%')
+                OR value_type LIKE CONCAT('%', #{keyword}, '%')
+              )
+            </if>
+            </script>
+            """)
+    Long countShopConfigs(@Param("tenantId") Long tenantId,
+                          @Param("shopId") Long shopId,
+                          @Param("keyword") String keyword);
+
+    @Select("""
+            SELECT
+              id AS configId,
+              tenant_id AS tenantId,
+              shop_id AS shopId,
+              config_key AS configKey,
+              config_value AS configValue,
+              value_type AS valueType,
+              updated_by AS updatedBy,
+              updated_at AS updatedAt
+            FROM shop_config
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND config_key = #{configKey}
+            LIMIT 1
+            """)
+    ShopConfigDto findShopConfig(@Param("tenantId") Long tenantId,
+                                 @Param("shopId") Long shopId,
+                                 @Param("configKey") String configKey);
+
+    @Insert("""
+            INSERT INTO shop_config
+              (tenant_id, shop_id, config_key, config_value, value_type, updated_by, updated_at)
+            VALUES
+              (#{tenantId}, #{shopId}, #{configKey}, #{configValue}, #{valueType}, #{updatedBy}, NOW())
+            ON DUPLICATE KEY UPDATE
+              config_value = VALUES(config_value),
+              value_type = VALUES(value_type),
+              updated_by = VALUES(updated_by),
+              updated_at = NOW()
+            """)
+    int upsertShopConfig(@Param("tenantId") Long tenantId,
+                         @Param("shopId") Long shopId,
+                         @Param("configKey") String configKey,
+                         @Param("configValue") String configValue,
+                         @Param("valueType") String valueType,
+                         @Param("updatedBy") Long updatedBy);
 
     @Select("""
             <script>

@@ -3,6 +3,8 @@ package com.sirithree.shopops.admin.organization.service.impl;
 import com.sirithree.shopops.admin.organization.domain.OrganizationOverviewDto;
 import com.sirithree.shopops.admin.organization.domain.OrganizationQueryParam;
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.ShopDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberCreateParam;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
@@ -29,10 +31,12 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
     private final List<OrganizationUserDto> users = seedUsers();
     private final List<TenantDto> tenants = seedTenants();
     private final List<ShopDto> shops = seedShops();
+    private final Map<Long, ShopConfigDto> shopConfigs = seedShopConfigs();
     private final Map<Long, ShopMemberDto> shopMembers = seedShopMembers();
     private long nextUserId = 4L;
     private long nextTenantId = 2L;
     private long nextShopId = 2L;
+    private long nextConfigId = 4L;
     private long nextMemberId = 4L;
 
     @Override
@@ -69,6 +73,15 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
                 .filter(shop -> tenantId.equals(shop.getTenantId()))
                 .filter(shop -> matches(shop.getShopNo(), shop.getShopName(), shop.getPlatformType(), query.getKeyword()))
                 .filter(shop -> statusMatches(shop.getStatus(), query.getStatus()))
+                .toList(), query);
+    }
+
+    @Override
+    public CommonPage<ShopConfigDto> listShopConfigs(Long tenantId, Long shopId, OrganizationQueryParam query) {
+        ensureShop(tenantId, shopId);
+        return page(shopConfigs.values().stream()
+                .filter(config -> tenantId.equals(config.getTenantId()) && shopId.equals(config.getShopId()))
+                .filter(config -> matches(config.getConfigKey(), config.getConfigValue(), config.getValueType(), query.getKeyword()))
                 .toList(), query);
     }
 
@@ -231,6 +244,32 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         return member;
     }
 
+    @Override
+    public synchronized ShopConfigDto saveShopConfig(Long tenantId, Long shopId, Long userId, ShopConfigUpsertParam param) {
+        ensureShop(tenantId, shopId);
+        String configKey = required(param.getConfigKey(), "配置键");
+        String valueType = normalizeValueType(param.getValueType());
+        ShopConfigDto config = shopConfigs.values().stream()
+                .filter(item -> tenantId.equals(item.getTenantId())
+                        && shopId.equals(item.getShopId())
+                        && item.getConfigKey().equals(configKey))
+                .findFirst()
+                .orElseGet(() -> {
+                    ShopConfigDto item = new ShopConfigDto();
+                    item.setConfigId(nextConfigId++);
+                    item.setTenantId(tenantId);
+                    item.setShopId(shopId);
+                    item.setConfigKey(configKey);
+                    shopConfigs.put(item.getConfigId(), item);
+                    return item;
+                });
+        config.setConfigValue(required(param.getConfigValue(), "配置值"));
+        config.setValueType(valueType);
+        config.setUpdatedBy(userId);
+        config.setUpdatedAt(LocalDateTime.now());
+        return config;
+    }
+
     private void syncUserRoles(ShopMemberDto member) {
         users.stream()
                 .filter(user -> member.getUserId().equals(user.getUserId()))
@@ -284,6 +323,27 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         shop.setMemberCount(3L);
         shop.setCreatedAt(LocalDateTime.now().minusDays(30));
         return new ArrayList<>(List.of(shop));
+    }
+
+    private Map<Long, ShopConfigDto> seedShopConfigs() {
+        Map<Long, ShopConfigDto> configs = new ConcurrentHashMap<>();
+        configs.put(1L, config(1L, "refund_rate_warn_threshold", "0.08", "number"));
+        configs.put(2L, config(2L, "negative_comment_warn_threshold", "10", "number"));
+        configs.put(3L, config(3L, "agent_tool_approval_enabled", "true", "boolean"));
+        return configs;
+    }
+
+    private ShopConfigDto config(Long configId, String key, String value, String valueType) {
+        ShopConfigDto config = new ShopConfigDto();
+        config.setConfigId(configId);
+        config.setTenantId(1L);
+        config.setShopId(1L);
+        config.setConfigKey(key);
+        config.setConfigValue(value);
+        config.setValueType(valueType);
+        config.setUpdatedBy(1L);
+        config.setUpdatedAt(LocalDateTime.now().minusDays(30));
+        return config;
     }
 
     private OrganizationUserDto user(Long userId, String username, String displayName, String email, String status,
@@ -378,6 +438,21 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         }
         shop.setOwnerId(param.getOwnerId());
         shop.setStatus(normalizeStatus(param.getStatus()));
+    }
+
+    private ShopDto ensureShop(Long tenantId, Long shopId) {
+        return shops.stream()
+                .filter(item -> tenantId.equals(item.getTenantId()) && shopId.equals(item.getShopId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("店铺不存在"));
+    }
+
+    private String normalizeValueType(String valueType) {
+        String value = valueType == null ? "" : valueType.trim().toLowerCase(Locale.ROOT);
+        if (!List.of("string", "number", "boolean", "json").contains(value)) {
+            throw new IllegalArgumentException("不支持的配置类型: " + valueType);
+        }
+        return value;
     }
 
     private void refreshTenantShopCount(Long tenantId) {

@@ -589,6 +589,31 @@
     </form>
   </dialog>
 
+  <dialog id="shopConfigDialog">
+    <form class="dialog-body" method="dialog" id="shopConfigForm">
+      <strong id="shopConfigTitle">店铺配置</strong>
+      <div id="shopConfigList" class="empty">正在加载配置</div>
+      <label>配置键
+        <input id="configKey" required maxlength="128" placeholder="refund_rate_warn_threshold">
+      </label>
+      <label>配置值
+        <input id="configValue" required>
+      </label>
+      <label>值类型
+        <select id="configValueType">
+          <option value="string">文本</option>
+          <option value="number">数字</option>
+          <option value="boolean">布尔</option>
+          <option value="json">JSON</option>
+        </select>
+      </label>
+      <div class="dialog-actions">
+        <button id="cancelShopConfig" type="button">关闭</button>
+        <button class="primary" type="submit">保存配置</button>
+      </div>
+    </form>
+  </dialog>
+
   <script>
     const TOKEN_KEY = "shopops.auth.token";
     const USER_KEY = "shopops.auth.user";
@@ -752,6 +777,7 @@
                 <td>
                   <button type="button" onclick="openShopEdit(${shopAttr(shop)})">编辑</button>
                   <button type="button" onclick="openBindMember(${Number(shop.shopId)}, '${escapeJs(shop.shopNo)}')">绑定成员</button>
+                  <button type="button" onclick="openShopConfig(${Number(shop.shopId)}, '${escapeJs(shop.shopNo)}')">配置</button>
                 </td>
               </tr>
             `).join("")}
@@ -859,6 +885,15 @@
       $("bindRole").value = "SHOP_OPERATOR";
       $("bindStatus").value = "ENABLED";
       $("bindMemberDialog").showModal();
+    }
+
+    async function openShopConfig(shopId, shopNo) {
+      state.selectedShopId = shopId;
+      $("shopConfigForm").reset();
+      $("shopConfigTitle").textContent = `店铺配置：${shopNo}`;
+      $("shopConfigList").innerHTML = `<div class="empty">正在加载配置</div>`;
+      $("shopConfigDialog").showModal();
+      await loadShopConfigs();
     }
 
     async function saveMember(event) {
@@ -977,6 +1012,51 @@
       await refreshAll();
     }
 
+    async function loadShopConfigs() {
+      if (!state.selectedShopId) {
+        return;
+      }
+      const page = await api(`/api/admin/organization/shops/${state.selectedShopId}/configs?pageNum=1&pageSize=50`);
+      const list = page.list || [];
+      if (!list.length) {
+        $("shopConfigList").innerHTML = `<div class="empty">暂无配置</div>`;
+        return;
+      }
+      $("shopConfigList").innerHTML = `
+        <table>
+          <thead><tr><th>配置键</th><th>配置值</th><th>类型</th><th>更新时间</th><th>操作</th></tr></thead>
+          <tbody>
+            ${list.map((config) => `
+              <tr>
+                <td>${escapeHtml(config.configKey)}</td>
+                <td>${escapeHtml(config.configValue)}</td>
+                <td><span class="badge">${escapeHtml(config.valueType)}</span></td>
+                <td>${escapeHtml(formatTime(config.updatedAt))}</td>
+                <td><button type="button" onclick="fillConfig('${escapeJs(config.configKey)}', '${escapeJs(config.configValue)}', '${escapeJs(config.valueType)}')">编辑</button></td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    async function saveShopConfig(event) {
+      event.preventDefault();
+      if (!state.selectedShopId) {
+        return;
+      }
+      await api(`/api/admin/organization/shops/${state.selectedShopId}/configs`, {
+        method: "POST",
+        body: JSON.stringify({
+          configKey: $("configKey").value.trim(),
+          configValue: $("configValue").value.trim(),
+          valueType: $("configValueType").value
+        })
+      });
+      setStatus("店铺配置已保存");
+      await loadShopConfigs();
+    }
+
     function roleBadges(roles) {
       const values = roles.filter(Boolean);
       if (!values.length) {
@@ -1075,6 +1155,12 @@
       ].join(", ");
     }
 
+    function fillConfig(configKey, configValue, valueType) {
+      $("configKey").value = configKey || "";
+      $("configValue").value = configValue || "";
+      $("configValueType").value = valueType || "string";
+    }
+
     $("contextForm").addEventListener("submit", (event) => {
       event.preventDefault();
       refreshAll().catch((error) => setStatus(error.message));
@@ -1122,12 +1208,14 @@
     $("cancelTenant").addEventListener("click", () => $("tenantDialog").close());
     $("cancelShop").addEventListener("click", () => $("shopDialog").close());
     $("cancelBindMember").addEventListener("click", () => $("bindMemberDialog").close());
+    $("cancelShopConfig").addEventListener("click", () => $("shopConfigDialog").close());
     $("memberForm").addEventListener("submit", saveMember);
     $("userForm").addEventListener("submit", saveUser);
     $("passwordForm").addEventListener("submit", savePassword);
     $("tenantForm").addEventListener("submit", saveTenant);
     $("shopForm").addEventListener("submit", saveShop);
     $("bindMemberForm").addEventListener("submit", saveBindMember);
+    $("shopConfigForm").addEventListener("submit", saveShopConfig);
 
     applyStoredSession();
     refreshAll().catch((error) => setStatus(error.message));

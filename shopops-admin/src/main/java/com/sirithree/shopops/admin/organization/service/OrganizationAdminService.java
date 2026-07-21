@@ -3,6 +3,8 @@ package com.sirithree.shopops.admin.organization.service;
 import com.sirithree.shopops.admin.organization.domain.OrganizationOverviewDto;
 import com.sirithree.shopops.admin.organization.domain.OrganizationQueryParam;
 import com.sirithree.shopops.admin.organization.domain.OrganizationUserDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigDto;
+import com.sirithree.shopops.admin.organization.domain.ShopConfigUpsertParam;
 import com.sirithree.shopops.admin.organization.domain.ShopDto;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberCreateParam;
 import com.sirithree.shopops.admin.organization.domain.ShopMemberDto;
@@ -23,6 +25,8 @@ public interface OrganizationAdminService {
 
     CommonPage<ShopDto> listShops(Long tenantId, OrganizationQueryParam query);
 
+    CommonPage<ShopConfigDto> listShopConfigs(Long tenantId, Long shopId, OrganizationQueryParam query);
+
     CommonPage<ShopMemberDto> listShopMembers(Long tenantId, Long shopId, OrganizationQueryParam query);
 
     ShopMemberDto updateShopMember(Long tenantId, Long shopId, Long memberId, ShopMemberUpdateParam param);
@@ -40,4 +44,6 @@ public interface OrganizationAdminService {
     ShopDto updateShop(Long tenantId, Long shopId, ShopUpsertParam param);
 
     ShopMemberDto addShopMember(Long tenantId, Long shopId, ShopMemberCreateParam param);
+
+    ShopConfigDto saveShopConfig(Long tenantId, Long shopId, Long userId, ShopConfigUpsertParam param);
 }

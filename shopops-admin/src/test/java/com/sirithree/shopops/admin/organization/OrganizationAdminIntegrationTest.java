@@ -58,6 +58,12 @@ class OrganizationAdminIntegrationTest {
                 .extracting(shop -> shop.get("shopNo"))
                 .containsExactly("SHOP_DEFAULT");
 
+        Map<String, Object> configs = dataOf(exchange(
+                "/api/admin/organization/shops/1/configs", HttpMethod.GET, null, operatorHeaders()).getBody());
+        assertThat((List<Map<String, Object>>) configs.get("list"))
+                .extracting(config -> config.get("configKey"))
+                .contains("refund_rate_warn_threshold", "negative_comment_warn_threshold");
+
         Map<String, Object> members = dataOf(exchange(
                 "/api/admin/organization/shop-members?keyword=viewer", HttpMethod.GET, null, operatorHeaders()).getBody());
         List<Map<String, Object>> memberList = (List<Map<String, Object>>) members.get("list");
@@ -209,6 +215,21 @@ class OrganizationAdminIntegrationTest {
                 .containsEntry("username", "planner")
                 .containsEntry("roleCode", "SHOP_OPERATOR");
 
+        Map<String, Object> savedConfig = dataOf(exchange(
+                "/api/admin/organization/shops/" + createdShop.get("shopId") + "/configs",
+                HttpMethod.POST,
+                Map.of(
+                        "configKey", "agent_model_policy",
+                        "configValue", "balanced",
+                        "valueType", "string"
+                ),
+                adminHeaders()
+        ).getBody());
+        assertThat(savedConfig)
+                .containsEntry("configKey", "agent_model_policy")
+                .containsEntry("configValue", "balanced")
+                .containsEntry("valueType", "string");
+
         Map<String, Object> audit = dataOf(exchange(
                 "/api/admin/auth/audit-events?pageNum=1&pageSize=20",
                 HttpMethod.GET,
@@ -218,7 +239,7 @@ class OrganizationAdminIntegrationTest {
         assertThat((List<Map<String, Object>>) audit.get("list"))
                 .extracting(event -> event.get("eventType"))
                 .contains("ORG_USER_CREATED", "ORG_USER_PASSWORD_RESET", "ORG_TENANT_CREATED", "ORG_TENANT_UPDATED",
-                        "ORG_SHOP_CREATED", "ORG_SHOP_UPDATED", "ORG_SHOP_MEMBER_ADDED");
+                        "ORG_SHOP_CREATED", "ORG_SHOP_UPDATED", "ORG_SHOP_MEMBER_ADDED", "ORG_SHOP_CONFIG_SAVED");
     }
 
     private ResponseEntity<Map> exchange(String path, HttpMethod method, Map<String, Object> body, HttpHeaders headers) {
