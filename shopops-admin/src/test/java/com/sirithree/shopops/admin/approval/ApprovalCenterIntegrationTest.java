@@ -173,6 +173,47 @@ class ApprovalCenterIntegrationTest {
                 .contains("APPROVAL_WITHDRAWN");
     }
 
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldBatchApproveAndRejectApprovalRequests() {
+        Integer firstId = createApproval("Batch approval first");
+        Integer secondId = createApproval("Batch approval second");
+        Integer thirdId = createApproval("Batch approval third");
+
+        Map<String, Object> approved = dataOf(post(
+                "/api/admin/approvals/batch/approve",
+                Map.of(
+                        "approvalIds", List.of(firstId, secondId),
+                        "comment", "Batch approved"
+                ),
+                adminHeaders()
+        ));
+        assertThat(approved)
+                .containsEntry("requestedCount", 2)
+                .containsEntry("successCount", 2)
+                .containsEntry("failedCount", 0);
+        assertThat((List<Map<String, Object>>) approved.get("succeeded"))
+                .extracting(item -> item.get("status"))
+                .containsOnly("APPROVED");
+
+        Map<String, Object> rejected = dataOf(post(
+                "/api/admin/approvals/batch/reject",
+                Map.of(
+                        "approvalIds", List.of(firstId, thirdId, 99999),
+                        "comment", "Batch rejected"
+                ),
+                adminHeaders()
+        ));
+        assertThat(rejected)
+                .containsEntry("requestedCount", 3)
+                .containsEntry("successCount", 1)
+                .containsEntry("failedCount", 2);
+        assertThat((List<Map<String, Object>>) rejected.get("succeeded"))
+                .extracting(item -> item.get("approvalId"), item -> item.get("status"), item -> item.get("decisionComment"))
+                .containsExactly(org.assertj.core.groups.Tuple.tuple(thirdId, "REJECTED", "Batch rejected"));
+        assertThat((List<Integer>) rejected.get("failedApprovalIds")).contains(firstId, 99999);
+    }
+
     private Map<String, Object> get(String path, HttpHeaders headers) {
         ResponseEntity<Map> response = exchange(path, HttpMethod.GET, null, headers);
         assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
@@ -192,6 +233,20 @@ class ApprovalCenterIntegrationTest {
                 new HttpEntity<>(body, headers),
                 Map.class
         );
+    }
+
+    private Integer createApproval(String title) {
+        Map<String, Object> approval = dataOf(post(
+                "/api/admin/approvals",
+                Map.of(
+                        "sourceType", "MANUAL",
+                        "toolCode", "order.refund_execute",
+                        "riskLevel", "high",
+                        "title", title
+                ),
+                operatorHeaders()
+        ));
+        return ((Number) approval.get("approvalId")).intValue();
     }
 
     @SuppressWarnings("unchecked")

@@ -470,14 +470,15 @@
         font-weight: 600;
       }
 
-      tbody td:nth-child(1)::before { content: "审批单"; }
-      tbody td:nth-child(2)::before { content: "状态"; }
-      tbody td:nth-child(3)::before { content: "风险"; }
-      tbody td:nth-child(4)::before { content: "工具"; }
-      tbody td:nth-child(5)::before { content: "申请人"; }
-      tbody td:nth-child(6)::before { content: "审批人"; }
-      tbody td:nth-child(7)::before { content: "创建时间"; }
-      tbody td:nth-child(8)::before { content: "标题"; }
+      tbody td:nth-child(1)::before { content: "选择"; }
+      tbody td:nth-child(2)::before { content: "审批单"; }
+      tbody td:nth-child(3)::before { content: "状态"; }
+      tbody td:nth-child(4)::before { content: "风险"; }
+      tbody td:nth-child(5)::before { content: "工具"; }
+      tbody td:nth-child(6)::before { content: "申请人"; }
+      tbody td:nth-child(7)::before { content: "审批人"; }
+      tbody td:nth-child(8)::before { content: "创建时间"; }
+      tbody td:nth-child(9)::before { content: "标题"; }
     }
   </style>
 </head>
@@ -569,6 +570,8 @@
           <button type="button" data-quick-filter="high">高风险</button>
           <button type="button" data-quick-filter="refund">退款工具</button>
           <button type="button" data-quick-filter="clear">清空筛选</button>
+          <button id="batchApproveBtn" class="primary" type="button">批量通过</button>
+          <button id="batchRejectBtn" class="danger" type="button">批量驳回</button>
         </div>
         <div class="status-line" id="statusLine"></div>
       </section>
@@ -579,6 +582,7 @@
             <table>
               <thead>
                 <tr>
+                  <th><input id="selectAll" type="checkbox" aria-label="选择当前页"></th>
                   <th>审批单</th>
                   <th>状态</th>
                   <th>风险</th>
@@ -640,7 +644,7 @@
   <script>
     const TOKEN_KEY = "shopops.auth.token";
     const USER_KEY = "shopops.auth.user";
-    const state = { pageNum: 1, pageSize: 20, total: 0, list: [], selected: null };
+    const state = { pageNum: 1, pageSize: 20, total: 0, list: [], selected: null, selectedIds: new Set() };
     const $ = (id) => document.getElementById(id);
 
     function headers() {
@@ -755,11 +759,11 @@
     }
 
     function emptyRow(message, hint) {
-      return `<tr><td colspan="8"><div class="empty-state"><strong>${escapeHtml(message)}</strong><span>${escapeHtml(hint)}</span></div></td></tr>`;
+      return `<tr><td colspan="9"><div class="empty-state"><strong>${escapeHtml(message)}</strong><span>${escapeHtml(hint)}</span></div></td></tr>`;
     }
 
     function errorRow(message, detail) {
-      return `<tr><td colspan="8"><div class="empty-state"><strong>${escapeHtml(message)}</strong><span>${escapeHtml(detail)}</span></div></td></tr>`;
+      return `<tr><td colspan="9"><div class="empty-state"><strong>${escapeHtml(message)}</strong><span>${escapeHtml(detail)}</span></div></td></tr>`;
     }
 
     function renderMetrics() {
@@ -789,6 +793,7 @@
     function renderList() {
       $("approvalBody").innerHTML = state.list.map((item) => `
         <tr data-id="${item.approvalId}" class="${state.selected?.approvalId === item.approvalId ? "selected" : ""}">
+          <td><input class="row-select" type="checkbox" data-select-id="${item.approvalId}" ${item.status !== "PENDING" ? "disabled" : ""} ${state.selectedIds.has(item.approvalId) ? "checked" : ""} aria-label="选择审批单 ${escapeHtml(item.approvalNo || item.approvalId)}"></td>
           <td>${escapeHtml(item.approvalNo || item.approvalId)}</td>
           <td>${badge(item.status, statusLabel(item.status))}</td>
           <td>${badge(item.riskLevel, riskLabel(item.riskLevel))}</td>
@@ -800,8 +805,27 @@
         </tr>
       `).join("") || emptyRow("暂无审批单", "可以清空筛选或触发一次高风险工具调用。");
       $("approvalBody").querySelectorAll("tr[data-id]").forEach((row) => {
-        row.addEventListener("click", () => loadDetail(row.dataset.id));
+        row.addEventListener("click", (event) => {
+          if (event.target.matches("input[type='checkbox']")) {
+            return;
+          }
+          loadDetail(row.dataset.id);
+        });
       });
+      $("approvalBody").querySelectorAll("[data-select-id]").forEach((checkbox) => {
+        checkbox.addEventListener("click", (event) => event.stopPropagation());
+        checkbox.addEventListener("change", () => {
+          const id = Number(checkbox.dataset.selectId);
+          if (checkbox.checked) {
+            state.selectedIds.add(id);
+          } else {
+            state.selectedIds.delete(id);
+          }
+          updateBatchButtons();
+        });
+      });
+      updateSelectAll();
+      updateBatchButtons();
     }
 
     function renderPager() {
@@ -847,6 +871,7 @@
         const data = await api(`/api/admin/approvals?${filters().toString()}`);
         state.total = Number(data.total || 0);
         state.list = data.list || [];
+        state.selectedIds.clear();
         renderMetrics();
         renderList();
         renderPager();
@@ -888,6 +913,31 @@
         setStatus(actionStatusText(action, "审批已通过", "审批已驳回", "审批已撤回"));
       } catch (error) {
         setStatus(`审批处理失败：${error.message}`);
+      }
+    }
+
+    async function batchDecide(action) {
+      const approvalIds = Array.from(state.selectedIds);
+      if (approvalIds.length === 0) {
+        setStatus("请先勾选待处理审批单");
+        return;
+      }
+      const label = action === "approve" ? "批量通过" : "批量驳回";
+      setStatus(`正在${label}`);
+      try {
+        const result = await api(`/api/admin/approvals/batch/${action}`, {
+          method: "POST",
+          headers: apiHeaders(),
+          body: JSON.stringify({
+            approvalIds,
+            comment: $("decisionComment").value.trim()
+          })
+        });
+        state.selectedIds.clear();
+        await loadList();
+        setStatus(`${label}完成：成功 ${result.successCount}，失败 ${result.failedCount}`);
+      } catch (error) {
+        setStatus(`${label}失败：${error.message}`);
       }
     }
 
@@ -997,7 +1047,7 @@
       }
     });
 
-    document.querySelectorAll("[data-quick-filter]").forEach((button) => {
+      document.querySelectorAll("[data-quick-filter]").forEach((button) => {
       button.addEventListener("click", () => {
         const type = button.dataset.quickFilter;
         clearFilterValues();
@@ -1014,6 +1064,20 @@
       });
     });
 
+    function updateBatchButtons() {
+      const hasSelection = state.selectedIds.size > 0;
+      $("batchApproveBtn").disabled = !hasSelection;
+      $("batchRejectBtn").disabled = !hasSelection;
+    }
+
+    function updateSelectAll() {
+      const pendingIds = state.list
+        .filter((item) => item.status === "PENDING")
+        .map((item) => item.approvalId);
+      $("selectAll").checked = pendingIds.length > 0 && pendingIds.every((id) => state.selectedIds.has(id));
+      $("selectAll").disabled = pendingIds.length === 0;
+    }
+
     $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "审批详情"));
     $("clearDetail").addEventListener("click", () => {
       state.selected = null;
@@ -1028,12 +1092,24 @@
     $("approveBtn").addEventListener("click", () => decide("approve"));
     $("rejectBtn").addEventListener("click", () => decide("reject"));
     $("withdrawBtn").addEventListener("click", () => decide("withdraw"));
+    $("batchApproveBtn").addEventListener("click", () => batchDecide("approve"));
+    $("batchRejectBtn").addEventListener("click", () => batchDecide("reject"));
+    $("selectAll").addEventListener("change", () => {
+      state.selectedIds.clear();
+      if ($("selectAll").checked) {
+        state.list
+          .filter((item) => item.status === "PENDING")
+          .forEach((item) => state.selectedIds.add(item.approvalId));
+      }
+      renderList();
+    });
 
     applyStoredSession();
     applyInitialQuery();
     $("approveBtn").disabled = true;
     $("rejectBtn").disabled = true;
     $("withdrawBtn").disabled = true;
+    updateBatchButtons();
     loadList();
   </script>
 </body>

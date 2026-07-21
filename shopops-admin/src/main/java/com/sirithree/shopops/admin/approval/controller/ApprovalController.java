@@ -1,5 +1,7 @@
 package com.sirithree.shopops.admin.approval.controller;
 
+import com.sirithree.shopops.admin.approval.domain.ApprovalBatchDecisionParam;
+import com.sirithree.shopops.admin.approval.domain.ApprovalBatchDecisionResult;
 import com.sirithree.shopops.admin.approval.domain.ApprovalDecisionParam;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestCreateParam;
 import com.sirithree.shopops.admin.approval.domain.ApprovalRequestDto;
@@ -89,6 +91,20 @@ public class ApprovalController {
                 .orElseGet(() -> CommonResult.failed("审批请求不存在或已处理"));
     }
 
+    @PostMapping("/batch/approve")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<ApprovalBatchDecisionResult> batchApprove(@Valid @RequestBody ApprovalBatchDecisionParam param) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(batchDecision(context, param, true));
+    }
+
+    @PostMapping("/batch/reject")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<ApprovalBatchDecisionResult> batchReject(@Valid @RequestBody ApprovalBatchDecisionParam param) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(batchDecision(context, param, false));
+    }
+
     @PostMapping("/{approvalId}/withdraw")
     @RequireRole(AuthRole.OPERATOR)
     public CommonResult<ApprovalRequestDto> withdraw(@PathVariable Long approvalId,
@@ -104,5 +120,27 @@ public class ApprovalController {
                 )
                 .map(CommonResult::success)
                 .orElseGet(() -> CommonResult.failed("审批请求不存在或已处理"));
+    }
+
+    private ApprovalBatchDecisionResult batchDecision(RequestContext context, ApprovalBatchDecisionParam param, boolean approve) {
+        ApprovalBatchDecisionResult result = new ApprovalBatchDecisionResult();
+        result.setRequestedCount(param.getApprovalIds().size());
+        ApprovalDecisionParam decisionParam = new ApprovalDecisionParam();
+        decisionParam.setComment(param.getComment());
+        for (Long approvalId : param.getApprovalIds()) {
+            var decided = approve
+                    ? approvalRequestService.approve(context.getTenantId(), context.getShopId(), approvalId,
+                    context.getUserId(), context.getUsername(), decisionParam)
+                    : approvalRequestService.reject(context.getTenantId(), context.getShopId(), approvalId,
+                    context.getUserId(), context.getUsername(), decisionParam);
+            if (decided.isPresent()) {
+                result.getSucceeded().add(decided.get());
+            } else {
+                result.getFailedApprovalIds().add(approvalId);
+            }
+        }
+        result.setSuccessCount(result.getSucceeded().size());
+        result.setFailedCount(result.getFailedApprovalIds().size());
+        return result;
     }
 }
