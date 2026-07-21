@@ -67,7 +67,10 @@ class ApprovalCenterIntegrationTest {
 
         Map<String, Object> approved = dataOf(post(
                 "/api/admin/approvals/" + approvalId + "/approve",
-                Map.of("comment", "Approved after review"),
+                Map.of(
+                        "comment", "Approved after review",
+                        "confirmText", "确认通过"
+                ),
                 adminHeaders()
         ));
         assertThat(approved)
@@ -84,6 +87,34 @@ class ApprovalCenterIntegrationTest {
         );
         assertThat(rejectedAgain.get("code")).isEqualTo(500);
         assertThat(rejectedAgain.get("data")).isNull();
+    }
+
+    @Test
+    void shouldRequireConfirmTextForHighRiskApproval() {
+        Integer highRiskApprovalId = createApproval("High risk confirmation required");
+
+        ResponseEntity<Map> missingConfirm = exchange(
+                "/api/admin/approvals/" + highRiskApprovalId + "/approve",
+                HttpMethod.POST,
+                Map.of("comment", "Approve without confirmation"),
+                adminHeaders()
+        );
+        assertThat(missingConfirm.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(missingConfirm.getBody()).isNotNull();
+        assertThat(missingConfirm.getBody().get("code")).isEqualTo(400);
+        assertThat(missingConfirm.getBody().get("message").toString()).contains("确认通过");
+
+        Map<String, Object> approved = dataOf(post(
+                "/api/admin/approvals/" + highRiskApprovalId + "/approve",
+                Map.of(
+                        "comment", "Confirmed high risk approval",
+                        "confirmText", "确认通过"
+                ),
+                adminHeaders()
+        ));
+        assertThat(approved)
+                .containsEntry("status", "APPROVED")
+                .containsEntry("decisionComment", "Confirmed high risk approval");
     }
 
     @Test
@@ -184,7 +215,8 @@ class ApprovalCenterIntegrationTest {
                 "/api/admin/approvals/batch/approve",
                 Map.of(
                         "approvalIds", List.of(firstId, secondId),
-                        "comment", "Batch approved"
+                        "comment", "Batch approved",
+                        "confirmText", "确认通过"
                 ),
                 adminHeaders()
         ));

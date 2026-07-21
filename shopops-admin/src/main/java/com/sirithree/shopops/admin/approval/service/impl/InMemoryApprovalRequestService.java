@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 @Service
 @ConditionalOnProperty(name = "shopops.persistence", havingValue = "memory", matchIfMissing = true)
 public class InMemoryApprovalRequestService implements ApprovalRequestService {
+    private static final String HIGH_RISK_APPROVAL_CONFIRM_TEXT = "确认通过";
+
     private final AtomicLong idGenerator = new AtomicLong(1);
     private final Map<Long, ApprovalRequestDto> approvals = new ConcurrentHashMap<>();
 
@@ -144,12 +146,23 @@ public class InMemoryApprovalRequestService implements ApprovalRequestService {
         if (!ApprovalStatus.PENDING.equals(dto.getStatus())) {
             return Optional.empty();
         }
+        validateHighRiskApprovalConfirmation(dto, param, status);
         dto.setStatus(status);
         dto.setApproverId(approverId);
         dto.setApproverName(approverName);
         dto.setDecisionComment(param == null ? null : param.getComment());
         dto.setDecidedAt(LocalDateTime.now());
         return Optional.of(dto);
+    }
+
+    private void validateHighRiskApprovalConfirmation(ApprovalRequestDto dto, ApprovalDecisionParam param, String status) {
+        if (!ApprovalStatus.APPROVED.equals(status) || !"HIGH".equalsIgnoreCase(dto.getRiskLevel())) {
+            return;
+        }
+        String confirmText = param == null ? null : param.getConfirmText();
+        if (!HIGH_RISK_APPROVAL_CONFIRM_TEXT.equals(confirmText == null ? null : confirmText.trim())) {
+            throw new IllegalArgumentException("高风险审批通过前需输入确认语：确认通过");
+        }
     }
 
     private String defaultString(String value, String fallback) {

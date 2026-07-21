@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 @Service
 @ConditionalOnProperty(name = "shopops.persistence", havingValue = "jdbc")
 public class JdbcApprovalRequestService implements ApprovalRequestService {
+    private static final String HIGH_RISK_APPROVAL_CONFIRM_TEXT = "确认通过";
+
     private final ApprovalRequestMapper approvalRequestMapper;
 
     public JdbcApprovalRequestService(ApprovalRequestMapper approvalRequestMapper) {
@@ -120,6 +122,15 @@ public class JdbcApprovalRequestService implements ApprovalRequestService {
 
     private Optional<ApprovalRequestDto> decide(Long tenantId, Long shopId, Long approvalId, Long approverId,
                                                 String approverName, ApprovalDecisionParam param, String status) {
+        Optional<ApprovalRequestDto> existing = get(tenantId, shopId, approvalId);
+        if (existing.isEmpty()) {
+            return Optional.empty();
+        }
+        if (!ApprovalStatus.PENDING.equals(existing.get().getStatus())) {
+            return Optional.empty();
+        }
+        validateHighRiskApprovalConfirmation(existing.get(), param, status);
+
         ApprovalRequest approval = new ApprovalRequest();
         LocalDateTime now = LocalDateTime.now();
         approval.setId(approvalId);
@@ -136,6 +147,16 @@ public class JdbcApprovalRequestService implements ApprovalRequestService {
             return Optional.empty();
         }
         return get(tenantId, shopId, approvalId);
+    }
+
+    private void validateHighRiskApprovalConfirmation(ApprovalRequestDto dto, ApprovalDecisionParam param, String status) {
+        if (!ApprovalStatus.APPROVED.equals(status) || !"HIGH".equalsIgnoreCase(dto.getRiskLevel())) {
+            return;
+        }
+        String confirmText = param == null ? null : param.getConfirmText();
+        if (!HIGH_RISK_APPROVAL_CONFIRM_TEXT.equals(confirmText == null ? null : confirmText.trim())) {
+            throw new IllegalArgumentException("高风险审批通过前需输入确认语：确认通过");
+        }
     }
 
     private ApprovalRequestDto toDto(ApprovalRequest approval) {

@@ -46,6 +46,8 @@ class AdminApprovalStaticPageIntegrationTest {
                 .contains("id=\"batchApproveBtn\"")
                 .contains("id=\"batchRejectBtn\"")
                 .contains("id=\"expireStaleBtn\"")
+                .contains("id=\"confirmText\"")
+                .contains("确认通过")
                 .contains("id=\"selectAll\"")
                 .contains("<option value=\"WITHDRAWN\">")
                 .contains("<option value=\"EXPIRED\">")

@@ -637,6 +637,9 @@
             <label>备注
               <textarea id="decisionComment" placeholder="填写审批备注"></textarea>
             </label>
+            <label>确认语
+              <input id="confirmText" placeholder="高风险通过需输入：确认通过">
+            </label>
             <div class="button-row" style="margin-top: 10px;">
               <button id="approveBtn" class="primary" type="button">通过</button>
               <button id="rejectBtn" class="danger" type="button">驳回</button>
@@ -915,7 +918,10 @@
         const item = await api(`/api/admin/approvals/${encodeURIComponent(state.selected.approvalId)}/${action}`, {
           method: "POST",
           headers: apiHeaders(),
-          body: JSON.stringify({ comment: $("decisionComment").value.trim() })
+          body: JSON.stringify({
+            comment: $("decisionComment").value.trim(),
+            confirmText: $("confirmText").value.trim()
+          })
         });
         renderDetail(item);
         await loadList();
@@ -939,7 +945,8 @@
           headers: apiHeaders(),
           body: JSON.stringify({
             approvalIds,
-            comment: $("decisionComment").value.trim()
+            comment: $("decisionComment").value.trim(),
+            confirmText: $("confirmText").value.trim()
           })
         });
         state.selectedIds.clear();

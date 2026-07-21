@@ -143,6 +143,7 @@ public class ApprovalController {
         result.setRequestedCount(param.getApprovalIds().size());
         ApprovalDecisionParam decisionParam = new ApprovalDecisionParam();
         decisionParam.setComment(param.getComment());
+        decisionParam.setConfirmText(param.getConfirmText());
         for (Long approvalId : param.getApprovalIds()) {
             var decided = approve
                     ? approvalRequestService.approve(context.getTenantId(), context.getShopId(), approvalId,

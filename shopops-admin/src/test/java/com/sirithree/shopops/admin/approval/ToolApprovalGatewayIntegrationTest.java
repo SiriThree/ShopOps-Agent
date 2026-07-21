@@ -72,7 +72,10 @@ class ToolApprovalGatewayIntegrationTest {
 
         Map<String, Object> approved = dataOf(post(
                 "/api/admin/approvals/" + approvalId + "/approve",
-                Map.of("comment", "Approved for retry"),
+                Map.of(
+                        "comment", "Approved for retry",
+                        "confirmText", "确认通过"
+                ),
                 adminHeaders()
         ));
         assertThat(approved).containsEntry("status", "APPROVED");
