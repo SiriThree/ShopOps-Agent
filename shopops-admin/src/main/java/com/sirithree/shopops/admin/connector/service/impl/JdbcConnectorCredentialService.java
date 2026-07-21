@@ -4,30 +4,42 @@ import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialDto;
 import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialParam;
 import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialTestResult;
 import com.sirithree.shopops.admin.connector.service.ConnectorCredentialService;
+import com.sirithree.shopops.admin.persistence.mapper.ConnectorCredentialMapper;
+import com.sirithree.shopops.admin.persistence.model.ConnectorCredential;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 @Service
-@ConditionalOnProperty(name = "shopops.persistence", havingValue = "memory", matchIfMissing = true)
-public class InMemoryConnectorCredentialService implements ConnectorCredentialService {
+@ConditionalOnProperty(name = "shopops.persistence", havingValue = "jdbc")
+public class JdbcConnectorCredentialService implements ConnectorCredentialService {
     private static final List<String> KNOWN_CONNECTORS = List.of(
             "file.order-summary",
             "file.negative-comments",
             "file.product-candidates"
     );
 
-    private final Map<String, CredentialRecord> credentials = new ConcurrentHashMap<>();
+    private final ConnectorCredentialMapper connectorCredentialMapper;
+    private final ConnectorCredentialCrypto crypto;
+
+    public JdbcConnectorCredentialService(ConnectorCredentialMapper connectorCredentialMapper,
+                                          ConnectorCredentialCrypto crypto) {
+        this.connectorCredentialMapper = connectorCredentialMapper;
+        this.crypto = crypto;
+    }
 
     @Override
     public List<ConnectorCredentialDto> list(Long tenantId, Long shopId) {
+        Map<String, ConnectorCredential> existing = connectorCredentialMapper.list(tenantId, shopId).stream()
+                .collect(Collectors.toMap(ConnectorCredential::getConnectorCode, Function.identity(), (left, right) -> left));
         return KNOWN_CONNECTORS.stream()
-                .map(connectorCode -> toDto(credentials.get(key(tenantId, shopId, connectorCode)), connectorCode))
+                .map(connectorCode -> toDto(existing.get(connectorCode), connectorCode))
                 .sorted(Comparator.comparing(ConnectorCredentialDto::getConnectorCode))
                 .toList();
     }
@@ -36,77 +48,71 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
     public ConnectorCredentialDto save(Long tenantId, Long shopId, Long userId, ConnectorCredentialParam param) {
         String connectorCode = normalize(param.getConnectorCode());
         requireKnownConnector(connectorCode);
-        CredentialRecord record = new CredentialRecord(
-                connectorCode,
-                normalizeType(param.getCredentialType()),
-                param.getSecretValue().trim(),
-                true,
-                userId,
-                LocalDateTime.now().toString()
-        );
-        credentials.put(key(tenantId, shopId, connectorCode), record);
-        return toDto(record, connectorCode);
+        String secret = param.getSecretValue().trim();
+        LocalDateTime now = LocalDateTime.now();
+        ConnectorCredential credential = new ConnectorCredential();
+        credential.setTenantId(tenantId);
+        credential.setShopId(shopId);
+        credential.setConnectorCode(connectorCode);
+        credential.setCredentialType(normalizeType(param.getCredentialType()));
+        credential.setEncryptedSecret(crypto.encrypt(secret));
+        credential.setSecretPreview(mask(secret));
+        credential.setStatus("ENABLED");
+        credential.setUpdatedBy(userId);
+        credential.setCreatedAt(now);
+        credential.setUpdatedAt(now);
+        connectorCredentialMapper.upsert(credential);
+        return toDto(connectorCredentialMapper.find(tenantId, shopId, connectorCode), connectorCode);
     }
 
     @Override
     public ConnectorCredentialDto disable(Long tenantId, Long shopId, String connectorCode) {
         String normalized = normalize(connectorCode);
         requireKnownConnector(normalized);
-        CredentialRecord current = credentials.get(key(tenantId, shopId, normalized));
-        if (current == null) {
-            return emptyDto(normalized);
-        }
-        CredentialRecord disabled = new CredentialRecord(
-                current.connectorCode(),
-                current.credentialType(),
-                current.secretValue(),
-                false,
-                current.updatedBy(),
-                LocalDateTime.now().toString()
-        );
-        credentials.put(key(tenantId, shopId, normalized), disabled);
-        return toDto(disabled, normalized);
+        connectorCredentialMapper.disable(tenantId, shopId, normalized);
+        return toDto(connectorCredentialMapper.find(tenantId, shopId, normalized), normalized);
     }
 
     @Override
     public ConnectorCredentialTestResult test(Long tenantId, Long shopId, String connectorCode) {
         String normalized = normalize(connectorCode);
         requireKnownConnector(normalized);
-        CredentialRecord record = credentials.get(key(tenantId, shopId, normalized));
+        ConnectorCredential credential = connectorCredentialMapper.find(tenantId, shopId, normalized);
         ConnectorCredentialTestResult result = new ConnectorCredentialTestResult();
         result.setConnectorCode(normalized);
         result.setTestedAt(LocalDateTime.now().toString());
-        if (record == null) {
+        if (credential == null) {
             result.setSuccess(false);
             result.setStatus("NOT_CONFIGURED");
             result.setMessage("未配置凭证");
             return result;
         }
-        if (!record.enabled()) {
+        if (!"ENABLED".equals(credential.getStatus())) {
             result.setSuccess(false);
             result.setStatus("DISABLED");
             result.setMessage("凭证已停用");
             return result;
         }
+        crypto.decrypt(credential.getEncryptedSecret());
         result.setSuccess(true);
         result.setStatus("PASS");
-        result.setMessage("凭证格式可用");
+        result.setMessage("凭证可解密且格式可用");
         return result;
     }
 
-    private ConnectorCredentialDto toDto(CredentialRecord record, String connectorCode) {
-        if (record == null) {
+    private ConnectorCredentialDto toDto(ConnectorCredential credential, String connectorCode) {
+        if (credential == null) {
             return emptyDto(connectorCode);
         }
         ConnectorCredentialDto dto = new ConnectorCredentialDto();
-        dto.setConnectorCode(record.connectorCode());
-        dto.setCredentialType(record.credentialType());
-        dto.setMaskedSecret(mask(record.secretValue()));
+        dto.setConnectorCode(credential.getConnectorCode());
+        dto.setCredentialType(credential.getCredentialType());
+        dto.setMaskedSecret(credential.getSecretPreview());
         dto.setConfigured(true);
-        dto.setEnabled(record.enabled());
-        dto.setStatus(record.enabled() ? "ENABLED" : "DISABLED");
-        dto.setUpdatedBy(record.updatedBy());
-        dto.setUpdatedAt(record.updatedAt());
+        dto.setEnabled("ENABLED".equals(credential.getStatus()));
+        dto.setStatus(credential.getStatus());
+        dto.setUpdatedBy(credential.getUpdatedBy());
+        dto.setUpdatedAt(credential.getUpdatedAt() == null ? null : credential.getUpdatedAt().toString());
         return dto;
     }
 
@@ -138,23 +144,11 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
         }
     }
 
-    private String key(Long tenantId, Long shopId, String connectorCode) {
-        return tenantId + ":" + shopId + ":" + connectorCode;
-    }
-
     private String normalize(String value) {
         return value == null ? "" : value.trim();
     }
 
     private String normalizeType(String value) {
         return value == null || value.isBlank() ? "API_KEY" : value.trim().toUpperCase(Locale.ROOT);
-    }
-
-    private record CredentialRecord(String connectorCode,
-                                    String credentialType,
-                                    String secretValue,
-                                    boolean enabled,
-                                    Long updatedBy,
-                                    String updatedAt) {
     }
 }
