@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShopOps 用户租户</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --line: #d9dee6;
+      --text: #1f2933;
+      --muted: #667085;
+      --ink: #111827;
+      --green: #168a5b;
+      --red: #c24132;
+      --teal: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, select { font: inherit; }
+
+    button, .button-link {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+      padding: 0 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 9px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 10px;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .topbar {
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(360px, 680px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .context-session {
+      grid-column: 1 / -1;
+      min-height: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      padding: 18px 24px 24px;
+      display: grid;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      min-width: 0;
+    }
+
+    .metric span { color: var(--muted); font-size: 12px; }
+    .metric strong { display: block; margin-top: 6px; color: var(--ink); font-size: 24px; line-height: 1; }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) 160px auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tabs button.active {
+      border-color: var(--teal);
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 13px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #eef1f4;
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: middle;
+      overflow-wrap: anywhere;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 700;
+      background: #fbfcfd;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #eef2f6;
+      color: #344054;
+      white-space: nowrap;
+    }
+
+    .badge.enabled, .badge.admin {
+      background: #e7f6ef;
+      color: var(--green);
+    }
+
+    .badge.disabled {
+      background: #fdecea;
+      color: var(--red);
+    }
+
+    .badge.operator {
+      background: #e8f3ff;
+      color: #1d4ed8;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .status-line {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .empty {
+      padding: 18px;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    dialog {
+      width: min(520px, calc(100vw - 28px));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0;
+    }
+
+    dialog::backdrop { background: rgba(17, 24, 39, 0.35); }
+
+    .dialog-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    @media (max-width: 1100px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .topbar { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .topbar, .content { padding-left: 14px; padding-right: 14px; }
+      .context-grid, .filters, .metrics { grid-template-columns: 1fr 1fr; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead { display: none; }
+      tr { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 10px; background: #fff; }
+      td { border-bottom: 0; display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 8px; }
+      td::before { color: var(--muted); font-weight: 700; }
+      td:nth-child(1)::before { content: "对象"; }
+      td:nth-child(2)::before { content: "名称"; }
+      td:nth-child(3)::before { content: "角色"; }
+      td:nth-child(4)::before { content: "状态"; }
+      td:nth-child(5)::before { content: "时间"; }
+      td:nth-child(6)::before { content: "操作"; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps Agent</strong>
+        <span>管理控制台</span>
+      </div>
+      <nav class="nav" aria-label="管理导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a class="active" href="/admin/users.html">用户租户</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/approvals.html">审批中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
+        <a href="/admin/prompts.html">提示词模板</a>
+        <a href="/admin/connectors.html">连接器中心</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>用户租户</h1>
+          <div class="subtitle">查看用户、租户和店铺成员权限</div>
+        </div>
+        <form class="context-grid" id="contextForm">
+          <label>租户
+            <input id="tenantId" value="1" inputmode="numeric">
+          </label>
+          <label>店铺
+            <input id="shopId" value="1" inputmode="numeric">
+          </label>
+          <label>用户
+            <input id="userId" value="1" inputmode="numeric">
+          </label>
+          <label>角色
+            <input id="roles" value="ADMIN">
+          </label>
+          <button class="primary" type="submit">刷新</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
+        </form>
+      </header>
+
+      <section class="content">
+        <section class="metrics" id="metrics"></section>
+
+        <section class="panel">
+          <div class="panel-title">
+            <h2>组织目录</h2>
+            <div class="toolbar">
+              <a class="button-link" href="/admin/auth.html">认证控制台</a>
+              <a class="button-link" href="/admin/audit.html?source=AUTH">认证审计</a>
+            </div>
+          </div>
+
+          <div class="tabs">
+            <button id="tabUsers" class="active" type="button">用户</button>
+            <button id="tabTenants" type="button">租户</button>
+            <button id="tabMembers" type="button">店铺成员</button>
+          </div>
+
+          <form class="filters" id="filterForm">
+            <label>关键词
+              <input id="keyword" placeholder="用户名 / 昵称 / 角色">
+            </label>
+            <label>状态
+              <select id="statusFilter">
+                <option value="">全部</option>
+                <option value="ENABLED">启用</option>
+                <option value="DISABLED">停用</option>
+              </select>
+            </label>
+            <button class="primary" type="submit">查询</button>
+            <button id="clearFilters" type="button">清空</button>
+          </form>
+
+          <div id="tableWrap"></div>
+          <div class="toolbar">
+            <button id="prevPage" type="button">上一页</button>
+            <span class="status-line" id="pageLine"></span>
+            <button id="nextPage" type="button">下一页</button>
+          </div>
+        </section>
+
+        <div class="status-line" id="statusLine"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="memberDialog">
+    <form class="dialog-body" method="dialog" id="memberForm">
+      <strong id="memberTitle">编辑成员</strong>
+      <label>店铺角色
+        <select id="memberRole">
+          <option value="SHOP_OWNER">店铺所有者</option>
+          <option value="SHOP_ADMIN">店铺管理员</option>
+          <option value="SHOP_OPERATOR">店铺运营</option>
+          <option value="SHOP_VIEWER">店铺观察员</option>
+        </select>
+      </label>
+      <label>成员状态
+        <select id="memberStatus">
+          <option value="ENABLED">启用</option>
+          <option value="DISABLED">停用</option>
+        </select>
+      </label>
+      <div class="dialog-actions">
+        <button id="cancelMember" type="button">取消</button>
+        <button class="primary" type="submit">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
+    const $ = (id) => document.getElementById(id);
+    const state = { tab: "users", pageNum: 1, pageSize: 20, selectedMemberId: null };
+
+    function headers() {
+      const result = {
+        "Content-Type": "application/json",
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": $("userId").value || "1",
+        "X-User-Roles": $("roles").value || "ADMIN"
+      };
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        result.Authorization = `Bearer ${token}`;
+      }
+      return result;
+    }
+
+    async function api(path, options = {}) {
+      const response = await fetch(path, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
+      const body = await response.json();
+      if (!response.ok || (body.code && body.code !== 200)) {
+        throw new Error(body.message || `HTTP ${response.status}`);
+      }
+      return body.data;
+    }
+
+    async function refreshAll() {
+      setStatus("正在加载用户租户数据");
+      const overview = await api("/api/admin/organization/overview");
+      renderOverview(overview);
+      await loadTable();
+      setStatus("用户租户数据已刷新");
+    }
+
+    async function loadTable() {
+      updateTabs();
+      const endpoint = endpointForTab();
+      const params = new URLSearchParams({
+        pageNum: state.pageNum,
+        pageSize: state.pageSize
+      });
+      if ($("keyword").value.trim()) {
+        params.set("keyword", $("keyword").value.trim());
+      }
+      if ($("statusFilter").value) {
+        params.set("status", $("statusFilter").value);
+      }
+      const page = await api(`${endpoint}?${params.toString()}`);
+      renderTable(page);
+    }
+
+    function endpointForTab() {
+      if (state.tab === "tenants") {
+        return "/api/admin/organization/tenants";
+      }
+      if (state.tab === "members") {
+        return "/api/admin/organization/shop-members";
+      }
+      return "/api/admin/organization/users";
+    }
+
+    function renderOverview(overview) {
+      $("metrics").innerHTML = [
+        ["租户", overview.tenantTotal],
+        ["店铺", overview.shopTotal],
+        ["用户", overview.userTotal],
+        ["启用成员", overview.activeMemberTotal],
+        ["停用成员", overview.disabledMemberTotal]
+      ].map(([label, value]) => `
+        <div class="metric">
+          <span>${escapeHtml(label)}</span>
+          <strong>${Number(value || 0)}</strong>
+        </div>
+      `).join("");
+    }
+
+    function renderTable(page) {
+      const list = page.list || [];
+      $("pageLine").textContent = `第 ${page.pageNum} 页 / 共 ${page.total} 条`;
+      $("prevPage").disabled = Number(page.pageNum) <= 1;
+      $("nextPage").disabled = Number(page.pageNum) * Number(page.pageSize) >= Number(page.total);
+      if (!list.length) {
+        $("tableWrap").innerHTML = `<div class="empty">暂无数据</div>`;
+        return;
+      }
+      if (state.tab === "tenants") {
+        renderTenantTable(list);
+      } else if (state.tab === "members") {
+        renderMemberTable(list);
+      } else {
+        renderUserTable(list);
+      }
+    }
+
+    function renderUserTable(list) {
+      $("tableWrap").innerHTML = `
+        <table>
+          <thead><tr><th>用户</th><th>名称</th><th>角色</th><th>状态</th><th>创建时间</th><th>操作</th></tr></thead>
+          <tbody>
+            ${list.map((user) => `
+              <tr>
+                <td>${escapeHtml(user.username)}<br><span class="status-line">ID ${escapeHtml(user.userId)}</span></td>
+                <td>${escapeHtml(user.displayName || "")}<br><span class="status-line">${escapeHtml(user.email || "")}</span></td>
+                <td>${roleBadges([...(user.tenantRoles || []), ...(user.shopRoles || [])])}</td>
+                <td>${statusBadge(user.status)}</td>
+                <td>${escapeHtml(formatTime(user.createdAt))}</td>
+                <td><button type="button" onclick="switchToMembers('${escapeJs(user.username)}')">查看成员</button></td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderTenantTable(list) {
+      $("tableWrap").innerHTML = `
+        <table>
+          <thead><tr><th>租户</th><th>名称</th><th>套餐</th><th>状态</th><th>规模</th><th>联系人</th></tr></thead>
+          <tbody>
+            ${list.map((tenant) => `
+              <tr>
+                <td>${escapeHtml(tenant.tenantNo)}<br><span class="status-line">ID ${escapeHtml(tenant.tenantId)}</span></td>
+                <td>${escapeHtml(tenant.tenantName)}</td>
+                <td><span class="badge">${escapeHtml(tenant.planType || "")}</span></td>
+                <td>${statusBadge(tenant.status)}</td>
+                <td>${Number(tenant.shopCount || 0)} 店铺 / ${Number(tenant.memberCount || 0)} 成员</td>
+                <td>${escapeHtml(tenant.contactName || "")}<br><span class="status-line">${escapeHtml(tenant.contactPhone || "")}</span></td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderMemberTable(list) {
+      $("tableWrap").innerHTML = `
+        <table>
+          <thead><tr><th>成员</th><th>店铺</th><th>角色</th><th>状态</th><th>加入时间</th><th>操作</th></tr></thead>
+          <tbody>
+            ${list.map((member) => `
+              <tr>
+                <td>${escapeHtml(member.username)}<br><span class="status-line">${escapeHtml(member.displayName || "")}</span></td>
+                <td>${escapeHtml(member.shopName || "")}<br><span class="status-line">ID ${escapeHtml(member.shopId)}</span></td>
+                <td>${roleBadges([member.roleCode])}</td>
+                <td>${statusBadge(member.status)}</td>
+                <td>${escapeHtml(formatTime(member.joinedAt))}</td>
+                <td><button type="button" onclick="openMember(${Number(member.memberId)}, '${escapeJs(member.username)}', '${escapeJs(member.roleCode)}', '${escapeJs(member.status)}')">编辑</button></td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function switchToMembers(username) {
+      state.tab = "members";
+      state.pageNum = 1;
+      $("keyword").value = username;
+      loadTable();
+    }
+
+    function openMember(memberId, username, roleCode, status) {
+      state.selectedMemberId = memberId;
+      $("memberTitle").textContent = `编辑成员：${username}`;
+      $("memberRole").value = roleCode;
+      $("memberStatus").value = status;
+      $("memberDialog").showModal();
+    }
+
+    async function saveMember(event) {
+      event.preventDefault();
+      if (!state.selectedMemberId) {
+        return;
+      }
+      const payload = {
+        roleCode: $("memberRole").value,
+        status: $("memberStatus").value
+      };
+      await api(`/api/admin/organization/shop-members/${state.selectedMemberId}`, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+      $("memberDialog").close();
+      setStatus("成员权限已更新");
+      await refreshAll();
+    }
+
+    function roleBadges(roles) {
+      const values = roles.filter(Boolean);
+      if (!values.length) {
+        return `<span class="badge">无角色</span>`;
+      }
+      return values.map((role) => `<span class="badge ${roleClass(role)}">${escapeHtml(role)}</span>`).join(" ");
+    }
+
+    function statusBadge(status) {
+      return `<span class="badge ${String(status || "").toLowerCase()}">${escapeHtml(status || "UNKNOWN")}</span>`;
+    }
+
+    function roleClass(role) {
+      const value = String(role || "").toLowerCase();
+      if (value.includes("admin") || value.includes("owner")) {
+        return "admin";
+      }
+      if (value.includes("operator")) {
+        return "operator";
+      }
+      return "";
+    }
+
+    function updateTabs() {
+      $("tabUsers").classList.toggle("active", state.tab === "users");
+      $("tabTenants").classList.toggle("active", state.tab === "tenants");
+      $("tabMembers").classList.toggle("active", state.tab === "members");
+    }
+
+    function setTab(tab) {
+      state.tab = tab;
+      state.pageNum = 1;
+      loadTable();
+    }
+
+    function applyStoredSession() {
+      let user = null;
+      try {
+        user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+      } catch (error) {
+        user = null;
+      }
+      if (user) {
+        $("tenantId").value = user.tenantId || $("tenantId").value;
+        $("shopId").value = user.shopId || $("shopId").value;
+        $("userId").value = user.userId || $("userId").value;
+        $("roles").value = Array.isArray(user.roles) ? user.roles.join(",") : $("roles").value;
+      }
+      $("sessionLine").textContent = localStorage.getItem(TOKEN_KEY)
+        ? `已加载 Bearer 会话${user?.username ? `：${user.username}` : ""}`
+        : "请求头上下文";
+    }
+
+    function setStatus(message) {
+      $("statusLine").textContent = message;
+    }
+
+    function formatTime(value) {
+      return value ? String(value).replace("T", " ").slice(0, 19) : "";
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeJs(value) {
+      return String(value ?? "").replaceAll("\\", "\\\\").replaceAll("'", "\\'");
+    }
+
+    $("contextForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      refreshAll().catch((error) => setStatus(error.message));
+    });
+
+    $("filterForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.pageNum = 1;
+      loadTable().catch((error) => setStatus(error.message));
+    });
+
+    $("clearFilters").addEventListener("click", () => {
+      $("keyword").value = "";
+      $("statusFilter").value = "";
+      state.pageNum = 1;
+      loadTable().catch((error) => setStatus(error.message));
+    });
+
+    $("resetContext").addEventListener("click", () => {
+      $("tenantId").value = "1";
+      $("shopId").value = "1";
+      $("userId").value = "1";
+      $("roles").value = "ADMIN";
+      refreshAll().catch((error) => setStatus(error.message));
+    });
+
+    $("tabUsers").addEventListener("click", () => setTab("users"));
+    $("tabTenants").addEventListener("click", () => setTab("tenants"));
+    $("tabMembers").addEventListener("click", () => setTab("members"));
+    $("prevPage").addEventListener("click", () => {
+      state.pageNum = Math.max(1, state.pageNum - 1);
+      loadTable().catch((error) => setStatus(error.message));
+    });
+    $("nextPage").addEventListener("click", () => {
+      state.pageNum += 1;
+      loadTable().catch((error) => setStatus(error.message));
+    });
+    $("cancelMember").addEventListener("click", () => $("memberDialog").close());
+    $("memberForm").addEventListener("submit", saveMember);
+
+    applyStoredSession();
+    refreshAll().catch((error) => setStatus(error.message));
+  </script>
+</body>
+</html>
