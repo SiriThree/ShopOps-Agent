@@ -177,7 +177,9 @@
       min-width: 0;
       padding: 0 24px 24px;
       display: grid;
+      grid-template-columns: minmax(0, 1fr) 390px;
       gap: 14px;
+      align-items: start;
     }
 
     .panel {
@@ -279,9 +281,39 @@
       min-height: 18px;
     }
 
+    .form-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .result-box {
+      min-height: 96px;
+      max-height: 240px;
+      overflow: auto;
+      margin: 12px 0 0;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0f1720;
+      color: #d7e0ea;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
     @media (max-width: 1000px) {
       .shell { grid-template-columns: 190px minmax(0, 1fr); }
       .topbar { grid-template-columns: 1fr; }
+      .content { grid-template-columns: 1fr; }
       .metrics { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
     }
 
@@ -378,6 +410,46 @@
             </table>
           </div>
         </section>
+
+        <aside class="panel">
+          <div class="panel-title">
+            <h2>连接器凭证</h2>
+            <button id="refreshCredentials" type="button">刷新</button>
+          </div>
+          <form class="form-grid" id="credentialForm" autocomplete="off">
+            <label>连接器
+              <input id="credentialConnectorCode" value="file.order-summary" list="connectorCodes" required>
+            </label>
+            <datalist id="connectorCodes">
+              <option value="file.order-summary"></option>
+              <option value="file.negative-comments"></option>
+              <option value="file.product-candidates"></option>
+            </datalist>
+            <label>凭证类型
+              <input id="credentialType" value="API_KEY" required>
+            </label>
+            <label>密钥
+              <input id="secretValue" type="password" placeholder="只在保存请求中提交，不在页面回显" required>
+            </label>
+            <div class="button-row">
+              <button id="saveCredential" class="primary" type="submit">保存凭证</button>
+            </div>
+          </form>
+          <div class="table-wrap" style="margin-top: 12px;">
+            <table style="min-width: 560px;">
+              <thead>
+                <tr>
+                  <th>连接器</th>
+                  <th>状态</th>
+                  <th>掩码</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="credentialBody"></tbody>
+            </table>
+          </div>
+          <pre class="result-box" id="credentialResult">暂无凭证操作</pre>
+        </aside>
       </section>
     </main>
   </div>
@@ -407,8 +479,8 @@
       return result;
     }
 
-    async function api(path) {
-      const response = await fetch(path, { headers: headers() });
+    async function api(path, options = {}) {
+      const response = await fetch(path, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
@@ -434,6 +506,61 @@
       }
     }
 
+    async function loadCredentials() {
+      try {
+        const list = await api("/api/admin/connectors/credentials");
+        const credentials = Array.isArray(list) ? list : [];
+        $("credentialBody").innerHTML = credentials.map(credentialRow).join("") || credentialEmptyRow();
+      } catch (error) {
+        $("credentialBody").innerHTML = credentialErrorRow(error.message);
+      }
+    }
+
+    async function saveCredential(event) {
+      event.preventDefault();
+      const payload = {
+        connectorCode: $("credentialConnectorCode").value.trim(),
+        credentialType: $("credentialType").value.trim(),
+        secretValue: $("secretValue").value
+      };
+      $("credentialResult").textContent = "凭证保存中";
+      try {
+        const result = await api("/api/admin/connectors/credentials", {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        $("secretValue").value = "";
+        $("credentialResult").textContent = JSON.stringify(result, null, 2);
+        await loadCredentials();
+        setStatus("凭证已保存");
+      } catch (error) {
+        $("credentialResult").textContent = error.message;
+      }
+    }
+
+    async function testCredential(connectorCode) {
+      $("credentialResult").textContent = "凭证测试中";
+      try {
+        const result = await api(`/api/admin/connectors/credentials/${encodeURIComponent(connectorCode)}/test`, { method: "POST" });
+        $("credentialResult").textContent = JSON.stringify(result, null, 2);
+        setStatus("凭证测试完成");
+      } catch (error) {
+        $("credentialResult").textContent = error.message;
+      }
+    }
+
+    async function disableCredential(connectorCode) {
+      $("credentialResult").textContent = "凭证停用中";
+      try {
+        const result = await api(`/api/admin/connectors/credentials/${encodeURIComponent(connectorCode)}/disable`, { method: "POST" });
+        $("credentialResult").textContent = JSON.stringify(result, null, 2);
+        await loadCredentials();
+        setStatus("凭证已停用");
+      } catch (error) {
+        $("credentialResult").textContent = error.message;
+      }
+    }
+
     function row(item) {
       const status = item.status || "";
       return `
@@ -446,6 +573,21 @@
           <td class="code-cell">${escapeHtml(item.configuredPath || "-")}</td>
           <td>${escapeHtml(item.message || "")}</td>
           <td>${formatTime(item.lastCheckedAt)}</td>
+        </tr>
+      `;
+    }
+
+    function credentialRow(item) {
+      const status = item.status || "";
+      return `
+        <tr>
+          <td class="code-cell">${escapeHtml(item.connectorCode || "")}</td>
+          <td><span class="badge ${status.toLowerCase()}">${credentialStatusLabel(status)}</span></td>
+          <td class="code-cell">${escapeHtml(item.maskedSecret || "-")}</td>
+          <td>
+            <button type="button" data-credential-test="${escapeHtml(item.connectorCode || "")}">测试</button>
+            <button type="button" data-credential-disable="${escapeHtml(item.connectorCode || "")}">停用</button>
+          </td>
         </tr>
       `;
     }
@@ -477,6 +619,14 @@
       }[status] || status || "-";
     }
 
+    function credentialStatusLabel(status) {
+      return {
+        ENABLED: "已启用",
+        DISABLED: "已停用",
+        NOT_CONFIGURED: "未配置"
+      }[status] || status || "-";
+    }
+
     function emptyRow() {
       return `
         <tr>
@@ -493,6 +643,22 @@
       `;
     }
 
+    function credentialEmptyRow() {
+      return `
+        <tr>
+          <td colspan="4">暂无凭证状态</td>
+        </tr>
+      `;
+    }
+
+    function credentialErrorRow(message) {
+      return `
+        <tr>
+          <td colspan="4">凭证加载失败：${escapeHtml(message || "请稍后重试")}</td>
+        </tr>
+      `;
+    }
+
     function setStatus(message) {
       $("statusLine").textContent = message;
     }
@@ -504,6 +670,7 @@
       $("roles").value = "ADMIN";
       renderSessionLine();
       loadConnectors();
+      loadCredentials();
     }
 
     function applyStoredSession() {
@@ -553,12 +720,27 @@
     $("contextForm").addEventListener("submit", (event) => {
       event.preventDefault();
       loadConnectors();
+      loadCredentials();
     });
     $("resetContext").addEventListener("click", resetContext);
     $("refreshConnectors").addEventListener("click", loadConnectors);
+    $("refreshCredentials").addEventListener("click", loadCredentials);
+    $("credentialForm").addEventListener("submit", saveCredential);
+    $("credentialBody").addEventListener("click", (event) => {
+      const testButton = event.target.closest("button[data-credential-test]");
+      if (testButton) {
+        testCredential(testButton.dataset.credentialTest);
+        return;
+      }
+      const disableButton = event.target.closest("button[data-credential-disable]");
+      if (disableButton) {
+        disableCredential(disableButton.dataset.credentialDisable);
+      }
+    });
 
     applyStoredSession();
     loadConnectors();
+    loadCredentials();
   </script>
 </body>
 </html>
