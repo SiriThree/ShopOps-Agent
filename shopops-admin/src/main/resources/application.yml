@@ -56,6 +56,13 @@ shopops:
     resilience:
       fallback-enabled: ${SHOPOPS_MODEL_GATEWAY_FALLBACK_ENABLED:true}
       fallback-provider-code: ${SHOPOPS_MODEL_GATEWAY_FALLBACK_PROVIDER_CODE:echo}
+    report:
+      enabled: ${SHOPOPS_MODEL_GATEWAY_REPORT_ENABLED:false}
+      provider-code: ${SHOPOPS_MODEL_GATEWAY_REPORT_PROVIDER_CODE:openai-compatible}
+      model-name: ${SHOPOPS_MODEL_GATEWAY_REPORT_MODEL_NAME:}
+      prompt-code: ${SHOPOPS_MODEL_GATEWAY_REPORT_PROMPT_CODE:daily_review.report}
+      prompt-version: ${SHOPOPS_MODEL_GATEWAY_REPORT_PROMPT_VERSION:}
+      timeout-ms: ${SHOPOPS_MODEL_GATEWAY_REPORT_TIMEOUT_MS:}
     openai-compatible:
       enabled: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_ENABLED:false}
       provider-code: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_PROVIDER_CODE:openai-compatible}

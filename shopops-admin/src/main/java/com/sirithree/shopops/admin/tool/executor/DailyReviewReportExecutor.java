@@ -1,18 +1,39 @@
 package com.sirithree.shopops.admin.tool.executor;
 
 import com.sirithree.shopops.admin.agent.domain.DateRangeParam;
+import com.sirithree.shopops.admin.model.config.ModelGatewayReportProperties;
+import com.sirithree.shopops.admin.model.domain.ModelCallStatus;
+import com.sirithree.shopops.admin.model.domain.ModelInvokeParam;
+import com.sirithree.shopops.admin.model.domain.ModelInvokeResult;
+import com.sirithree.shopops.admin.model.service.ModelGatewayService;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.admin.tool.service.ToolExecutor;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DailyReviewReportExecutor implements ToolExecutor {
+    private final ModelGatewayReportProperties reportProperties;
+    private final ModelGatewayService modelGatewayService;
+
+    public DailyReviewReportExecutor() {
+        this(new ModelGatewayReportProperties(), null);
+    }
+
+    @Autowired
+    public DailyReviewReportExecutor(ModelGatewayReportProperties reportProperties,
+                                     ModelGatewayService modelGatewayService) {
+        this.reportProperties = reportProperties;
+        this.modelGatewayService = modelGatewayService;
+    }
+
     @Override
     public String toolCode() {
         return "report.generate_daily_review";
@@ -32,7 +53,7 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         Map<String, Object> compareYesterday = mapValue(orderSummary.get("compareYesterday"));
         Map<String, Object> compareSevenDayAvg = mapValue(orderSummary.get("compareSevenDayAvg"));
 
-        String markdown = """
+        String ruleMarkdown = """
                 # 店铺每日经营复盘
 
                 复盘周期：%s 至 %s
@@ -87,18 +108,81 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                 renderActions(orderSummary, riskComments, products),
                 context.getTraceId()
         );
+        ModelReportView modelReport = modelReport(context, payload, orderSummary, negativeComments, productCandidates, ruleMarkdown);
+        String markdown = modelReport.markdown();
+
+        Map<String, Object> evidence = new LinkedHashMap<>();
+        evidence.put("generationMode", modelReport.generationMode());
+        evidence.put("toolCodes", List.of("order.query_summary", "comment.query_negative", "product.query_candidates"));
+        evidence.put("riskCommentIds", riskComments.stream().map(item -> item.get("commentId")).limit(10).toList());
+        evidence.put("productIds", products.stream().map(item -> item.get("productId")).limit(10).toList());
+        evidence.put("modelCallId", modelReport.callId());
+        evidence.put("modelProviderCode", modelReport.providerCode());
 
         Map<String, Object> data = Map.of(
                 "title", "店铺每日经营复盘",
                 "markdown", markdown,
                 "summary", summary(orderSummary, negativeComments, productCandidates),
-                "evidence", Map.of(
-                        "toolCodes", List.of("order.query_summary", "comment.query_negative", "product.query_candidates"),
-                        "riskCommentIds", riskComments.stream().map(item -> item.get("commentId")).limit(10).toList(),
-                        "productIds", products.stream().map(item -> item.get("productId")).limit(10).toList()
-                )
+                "evidence", evidence
         );
         return ToolInvokeResult.success(data, null);
+    }
+
+    private ModelReportView modelReport(ToolInvokeContext context,
+                                        Map<String, Object> payload,
+                                        Map<String, Object> orderSummary,
+                                        Map<String, Object> negativeComments,
+                                        Map<String, Object> productCandidates,
+                                        String fallbackMarkdown) {
+        if (modelGatewayService == null || !reportProperties.isEnabled()) {
+            return new ModelReportView(fallbackMarkdown, "RULE", null, null);
+        }
+        try {
+            ModelInvokeParam param = new ModelInvokeParam();
+            param.setProviderCode(reportProperties.getProviderCode());
+            param.setModelName(blank(reportProperties.getModelName()) ? null : reportProperties.getModelName());
+            param.setPromptCode(reportProperties.getPromptCode());
+            param.setPromptVersion(blank(reportProperties.getPromptVersion()) ? null : reportProperties.getPromptVersion());
+            param.setTraceId(context.getTraceId());
+            param.setTaskId(context.getTaskId());
+            param.setTimeoutMs(reportProperties.getTimeoutMs());
+            param.setPrompt(modelPrompt(payload, orderSummary, negativeComments, productCandidates, fallbackMarkdown));
+            param.setMetadata(Map.of(
+                    "systemPrompt", "你是电商经营分析助手，请输出结构清晰、可直接阅读的中文 Markdown 经营复盘报告。",
+                    "orderSummary", orderSummary,
+                    "negativeComments", negativeComments,
+                    "productCandidates", productCandidates,
+                    "dateRange", payload.getOrDefault("dateRange", Map.of()),
+                    "traceId", context.getTraceId()
+            ));
+            ModelInvokeResult result = modelGatewayService.invoke(
+                    context.getTenantId(), context.getShopId(), context.getUserId(), "agent-report", param);
+            if (ModelCallStatus.SUCCESS.equals(result.getStatus()) && !blank(result.getOutputText())) {
+                return new ModelReportView(result.getOutputText(), "MODEL_GATEWAY", result.getCallId(), result.getProviderCode());
+            }
+        } catch (RuntimeException ignored) {
+            // Report generation must not block the P0 review flow; the deterministic report remains the fallback.
+        }
+        return new ModelReportView(fallbackMarkdown, "RULE_FALLBACK", null, null);
+    }
+
+    private String modelPrompt(Map<String, Object> payload,
+                               Map<String, Object> orderSummary,
+                               Map<String, Object> negativeComments,
+                               Map<String, Object> productCandidates,
+                               String fallbackMarkdown) {
+        return """
+                请根据以下结构化经营数据生成一份中文 Markdown 每日经营复盘报告。
+                要求：保留核心指标、异常发现、风险评价样本、商品优化清单、运营动作建议和数据证据。
+
+                日期范围：%s
+                订单概览：%s
+                风险评价：%s
+                商品候选：%s
+
+                可参考的规则版报告：
+                %s
+                """.formatted(payload.get("dateRange"), orderSummary, negativeComments, productCandidates, fallbackMarkdown);
     }
 
     @SuppressWarnings("unchecked")
@@ -250,6 +334,13 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         return value == null ? "" : String.valueOf(value);
     }
 
+    private boolean blank(String value) {
+        return value == null || value.isBlank();
+    }
+
     private record DateRangeView(String start, String end) {
+    }
+
+    private record ModelReportView(String markdown, String generationMode, Long callId, String providerCode) {
     }
 }
