@@ -19,7 +19,7 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port
 如果要演示外部订单数据源，可以使用示例 JSON 文件启动：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.connector.order-summary.file=docs/demo-data/order-summary-demo.json"
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.connector.order-summary.file=docs/demo-data/order-summary-demo.json --shopops.connector.negative-comments.file=docs/demo-data/negative-comments-demo.json --shopops.connector.product-candidates.file=docs/demo-data/product-candidates-demo.json"
 ```
 
 ## 2. 一键验收演示
