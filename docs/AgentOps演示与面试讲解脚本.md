@@ -66,6 +66,7 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.con
 6. Audit：按 `APPROVAL` 或 `TOOL` 过滤，展示创建审批、审批通过、工具执行的时间线。
 7. Prompts：展示 Prompt 模板版本、启用版本和渲染测试，说明模型调用可治理。
 8. Connectors：展示外部业务数据源是否已配置、文件是否存在、是否可读，以及凭证掩码状态。
+9. Audit：按 `CONNECTOR` 来源筛选，展示凭证保存、测试、停用的审计记录。
 
 ## 4. 面试讲法
 
@@ -100,5 +101,5 @@ Model Gateway 负责屏蔽不同模型供应商差异，并统一处理调用日
 
 ```text
 当前重点完成的是后端治理闭环和静态管理台演示。
-待完成方向包括 React / Ant Design Pro 产品化前端、真实电商连接器同步任务、连接器凭证轮换审计、用户租户管理页面、多级审批和按金额阈值配置审批策略。
+待完成方向包括 React / Ant Design Pro 产品化前端、真实电商连接器同步任务、连接器凭证轮换与过期提醒、用户租户管理页面、多级审批和按金额阈值配置审批策略。
 ```

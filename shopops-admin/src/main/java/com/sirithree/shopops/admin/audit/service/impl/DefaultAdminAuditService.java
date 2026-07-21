@@ -17,6 +17,9 @@ import com.sirithree.shopops.admin.approval.service.ApprovalRequestService;
 import com.sirithree.shopops.admin.auth.domain.AuthAuditEventDto;
 import com.sirithree.shopops.admin.auth.domain.AuthAuditEventQueryParam;
 import com.sirithree.shopops.admin.auth.service.AuthAuditService;
+import com.sirithree.shopops.admin.connector.domain.ConnectorAuditEventDto;
+import com.sirithree.shopops.admin.connector.domain.ConnectorAuditEventQueryParam;
+import com.sirithree.shopops.admin.connector.service.ConnectorAuditService;
 import com.sirithree.shopops.admin.tool.domain.McpToolDto;
 import com.sirithree.shopops.admin.tool.domain.ToolCallLogQueryParam;
 import com.sirithree.shopops.admin.tool.service.McpToolService;
@@ -56,6 +59,7 @@ public class DefaultAdminAuditService implements AdminAuditService {
     private final ToolCallLogService toolCallLogService;
     private final McpToolService mcpToolService;
     private final ApprovalRequestService approvalRequestService;
+    private final ConnectorAuditService connectorAuditService;
     private final ObjectProvider<AdminAuditTimelineJdbcRepository> jdbcTimelineRepositoryProvider;
 
     public DefaultAdminAuditService(AuthAuditService authAuditService,
@@ -63,12 +67,14 @@ public class DefaultAdminAuditService implements AdminAuditService {
                                     ToolCallLogService toolCallLogService,
                                     McpToolService mcpToolService,
                                     ApprovalRequestService approvalRequestService,
+                                    ConnectorAuditService connectorAuditService,
                                     ObjectProvider<AdminAuditTimelineJdbcRepository> jdbcTimelineRepositoryProvider) {
         this.authAuditService = authAuditService;
         this.agentTaskAdminService = agentTaskAdminService;
         this.toolCallLogService = toolCallLogService;
         this.mcpToolService = mcpToolService;
         this.approvalRequestService = approvalRequestService;
+        this.connectorAuditService = connectorAuditService;
         this.jdbcTimelineRepositoryProvider = jdbcTimelineRepositoryProvider;
     }
 
@@ -112,6 +118,9 @@ public class DefaultAdminAuditService implements AdminAuditService {
         if (includesSource(query, "APPROVAL")) {
             events.addAll(approvalTimelineEvents(tenantId, shopId, query));
         }
+        if (includesSource(query, "CONNECTOR")) {
+            events.addAll(connectorTimelineEvents(tenantId, shopId, query));
+        }
         List<AdminAuditTimelineEventDto> filtered = events.stream()
                 .filter(event -> matches(query.getTraceId(), event.getTraceId()))
                 .filter(event -> matchesRiskLevel(query.getRiskLevel(), event.getRiskLevel()))
@@ -139,6 +148,7 @@ public class DefaultAdminAuditService implements AdminAuditService {
             case "TASK" -> taskTimelineDetail(tenantId, shopId, resourceId);
             case "TOOL" -> toolTimelineDetail(tenantId, shopId, resourceId);
             case "APPROVAL" -> approvalTimelineDetail(tenantId, shopId, resourceId);
+            case "CONNECTOR" -> connectorTimelineDetail(tenantId, shopId, resourceId);
             default -> Optional.empty();
         };
     }
@@ -393,6 +403,36 @@ public class DefaultAdminAuditService implements AdminAuditService {
                 });
     }
 
+    private List<AdminAuditTimelineEventDto> connectorTimelineEvents(Long tenantId, Long shopId, AdminAuditTimelineQueryParam query) {
+        ConnectorAuditEventQueryParam connectorQuery = new ConnectorAuditEventQueryParam();
+        connectorQuery.setConnectorCode(query.getToolCode());
+        connectorQuery.setEventType(query.getEventType());
+        connectorQuery.setEventStatus(query.getEventStatus());
+        connectorQuery.setUserId(query.getUserId());
+        connectorQuery.setUsername(query.getUsername());
+        connectorQuery.setCreatedStart(query.getCreatedStart());
+        connectorQuery.setCreatedEnd(query.getCreatedEnd());
+        connectorQuery.setPageNum(1);
+        connectorQuery.setPageSize(100);
+        return connectorAuditService.listEvents(tenantId, shopId, connectorQuery).getList().stream()
+                .map(this::connectorTimelineEvent)
+                .toList();
+    }
+
+    private Optional<AdminAuditTimelineDetailDto> connectorTimelineDetail(Long tenantId, Long shopId, String resourceId) {
+        Long eventId = parseLong(resourceId);
+        if (eventId == null) {
+            return Optional.empty();
+        }
+        ConnectorAuditEventQueryParam query = new ConnectorAuditEventQueryParam();
+        query.setEventId(eventId);
+        query.setPageNum(1);
+        query.setPageSize(1);
+        return connectorAuditService.listEvents(tenantId, shopId, query).getList().stream()
+                .findFirst()
+                .map(event -> detail(connectorTimelineEvent(event), Map.of("connectorAuditEvent", event), Map.of()));
+    }
+
     private AdminAuditTimelineEventDto authTimelineEvent(AuthAuditEventDto source) {
         AdminAuditTimelineEventDto event = new AdminAuditTimelineEventDto();
         event.setSource("AUTH");
@@ -488,6 +528,29 @@ public class DefaultAdminAuditService implements AdminAuditService {
         putIfPresent(detail, "title", source.getTitle());
         putIfPresent(detail, "status", source.getStatus());
         putIfPresent(detail, "decisionComment", source.getDecisionComment());
+        event.setDetail(detail);
+        return event;
+    }
+
+    private AdminAuditTimelineEventDto connectorTimelineEvent(ConnectorAuditEventDto source) {
+        AdminAuditTimelineEventDto event = new AdminAuditTimelineEventDto();
+        event.setSource("CONNECTOR");
+        event.setEventId("connector:" + source.getEventId());
+        event.setEventType(source.getEventType());
+        event.setEventStatus(source.getEventStatus());
+        event.setUserId(source.getUserId());
+        event.setUsername(source.getUsername());
+        event.setToolCode(source.getConnectorCode());
+        event.setRequestId(source.getRequestId());
+        event.setResourceType("connector_audit_event");
+        event.setResourceId(String.valueOf(source.getEventId()));
+        event.setRiskLevel(connectorRiskLevel(source));
+        event.setSummary(source.getEventType() + " " + source.getConnectorCode() + " " + source.getEventStatus());
+        event.setCreatedAt(source.getCreatedAt());
+        Map<String, Object> detail = new LinkedHashMap<>();
+        putIfPresent(detail, "connectorCode", source.getConnectorCode());
+        putIfPresent(detail, "message", source.getMessage());
+        putIfPresent(detail, "detail", source.getDetail());
         event.setDetail(detail);
         return event;
     }
@@ -617,6 +680,16 @@ public class DefaultAdminAuditService implements AdminAuditService {
         }
         McpToolDto tool = mcpToolService.getTool(tenantId, toolCode);
         return tool == null || tool.getRiskLevel() == null || tool.getRiskLevel().isBlank() ? "MEDIUM" : tool.getRiskLevel();
+    }
+
+    private String connectorRiskLevel(ConnectorAuditEventDto event) {
+        if ("FAILURE".equals(event.getEventStatus())) {
+            return "MEDIUM";
+        }
+        if ("CONNECTOR_CREDENTIAL_DISABLED".equals(event.getEventType())) {
+            return "MEDIUM";
+        }
+        return "LOW";
     }
 
     @SuppressWarnings("unchecked")

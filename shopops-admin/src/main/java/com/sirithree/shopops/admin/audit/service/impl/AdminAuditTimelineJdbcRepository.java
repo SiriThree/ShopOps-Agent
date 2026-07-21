@@ -225,6 +225,33 @@ public class AdminAuditTimelineJdbcRepository {
                     WHERE ar.tenant_id = :tenantId AND ar.shop_id = :shopId
                       AND ar.status <> 'PENDING'
                       AND ar.decided_at IS NOT NULL
+                  UNION ALL
+                    SELECT
+                      'CONNECTOR' AS source,
+                      CONCAT('connector:', cae.id) AS event_id,
+                      cae.id AS sortable_id,
+                      cae.event_type,
+                      cae.event_status,
+                      cae.user_id,
+                      cae.username,
+                      CAST(NULL AS SIGNED) AS task_id,
+                      CAST(NULL AS CHAR) AS trace_id,
+                      cae.connector_code AS tool_code,
+                      cae.request_id,
+                      'connector_audit_event' AS resource_type,
+                      CAST(cae.id AS CHAR) AS resource_id,
+                      CASE
+                        WHEN cae.event_status = 'FAILURE' THEN 'MEDIUM'
+                        WHEN cae.event_type = 'CONNECTOR_CREDENTIAL_DISABLED' THEN 'MEDIUM'
+                        ELSE 'LOW'
+                      END AS risk_level,
+                      CONCAT(cae.event_type, ' ', cae.connector_code, ' ', cae.event_status) AS summary,
+                      cae.created_at,
+                      cae.connector_code AS detail_a,
+                      cae.message AS detail_b,
+                      cae.detail_json AS detail_c
+                    FROM connector_audit_event cae
+                    WHERE cae.tenant_id = :tenantId AND cae.shop_id = :shopId
                 """;
     }
 
@@ -322,6 +349,10 @@ public class AdminAuditTimelineJdbcRepository {
             putIfPresent(detail, "approvalNo", detailA);
             putIfPresent(detail, "sourceOrStatus", detailB);
             putIfPresent(detail, "titleOrComment", detailC);
+        } else if ("CONNECTOR".equals(source)) {
+            putIfPresent(detail, "connectorCode", detailA);
+            putIfPresent(detail, "message", detailB);
+            putIfPresent(detail, "detailJson", detailC);
         }
         return detail;
     }
