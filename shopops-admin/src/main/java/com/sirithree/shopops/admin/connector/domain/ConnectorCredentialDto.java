@@ -7,6 +7,10 @@ public class ConnectorCredentialDto {
     private boolean configured;
     private boolean enabled;
     private String status;
+    private String expiresAt;
+    private String rotationStatus;
+    private String rotationMessage;
+    private Long daysUntilExpiry;
     private Long updatedBy;
     private String updatedAt;
 
@@ -56,6 +60,38 @@ public class ConnectorCredentialDto {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(String expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
+    public String getRotationStatus() {
+        return rotationStatus;
+    }
+
+    public void setRotationStatus(String rotationStatus) {
+        this.rotationStatus = rotationStatus;
+    }
+
+    public String getRotationMessage() {
+        return rotationMessage;
+    }
+
+    public void setRotationMessage(String rotationMessage) {
+        this.rotationMessage = rotationMessage;
+    }
+
+    public Long getDaysUntilExpiry() {
+        return daysUntilExpiry;
+    }
+
+    public void setDaysUntilExpiry(Long daysUntilExpiry) {
+        this.daysUntilExpiry = daysUntilExpiry;
     }
 
     public Long getUpdatedBy() {

@@ -13,16 +13,17 @@ public interface ConnectorCredentialMapper {
     @Insert("""
             INSERT INTO connector_credential (
               tenant_id, shop_id, connector_code, credential_type, encrypted_secret,
-              secret_preview, status, updated_by, created_at, updated_at
+              secret_preview, status, expires_at, updated_by, created_at, updated_at
             ) VALUES (
               #{tenantId}, #{shopId}, #{connectorCode}, #{credentialType}, #{encryptedSecret},
-              #{secretPreview}, #{status}, #{updatedBy}, #{createdAt}, #{updatedAt}
+              #{secretPreview}, #{status}, #{expiresAt}, #{updatedBy}, #{createdAt}, #{updatedAt}
             )
             ON DUPLICATE KEY UPDATE
               credential_type = VALUES(credential_type),
               encrypted_secret = VALUES(encrypted_secret),
               secret_preview = VALUES(secret_preview),
               status = VALUES(status),
+              expires_at = VALUES(expires_at),
               updated_by = VALUES(updated_by),
               updated_at = VALUES(updated_at)
             """)

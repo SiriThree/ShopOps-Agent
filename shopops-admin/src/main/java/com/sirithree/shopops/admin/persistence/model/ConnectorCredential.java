@@ -11,6 +11,7 @@ public class ConnectorCredential {
     private String encryptedSecret;
     private String secretPreview;
     private String status;
+    private LocalDateTime expiresAt;
     private Long updatedBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -31,6 +32,8 @@ public class ConnectorCredential {
     public void setSecretPreview(String secretPreview) { this.secretPreview = secretPreview; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public LocalDateTime getExpiresAt() { return expiresAt; }
+    public void setExpiresAt(LocalDateTime expiresAt) { this.expiresAt = expiresAt; }
     public Long getUpdatedBy() { return updatedBy; }
     public void setUpdatedBy(Long updatedBy) { this.updatedBy = updatedBy; }
     public LocalDateTime getCreatedAt() { return createdAt; }

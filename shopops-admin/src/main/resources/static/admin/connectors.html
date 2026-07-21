@@ -257,22 +257,28 @@
       font-weight: 600;
     }
 
-    .badge.up {
+    .badge.up, .badge.enabled, .badge.ok {
       color: var(--green);
       background: #ecfdf3;
       border-color: #b7e4c7;
     }
 
-    .badge.missing, .badge.invalid, .badge.unreadable {
+    .badge.missing, .badge.invalid, .badge.unreadable, .badge.expired {
       color: var(--red);
       background: #fff1f0;
       border-color: #f4b8b2;
     }
 
-    .badge.not_configured {
+    .badge.not_configured, .badge.no_expiry, .badge.expiring_soon {
       color: var(--amber);
       background: #fff8e6;
       border-color: #efd08a;
+    }
+
+    .badge.disabled {
+      color: var(--muted);
+      background: #f3f4f6;
+      border-color: var(--line);
     }
 
     .status-line {
@@ -431,6 +437,9 @@
             <label>密钥
               <input id="secretValue" type="password" placeholder="只在保存请求中提交，不在页面回显" required>
             </label>
+            <label>过期时间
+              <input id="credentialExpiresAt" type="date">
+            </label>
             <div class="button-row">
               <button id="saveCredential" class="primary" type="submit">保存凭证</button>
             </div>
@@ -442,6 +451,8 @@
                   <th>连接器</th>
                   <th>状态</th>
                   <th>掩码</th>
+                  <th>轮换提醒</th>
+                  <th>过期时间</th>
                   <th>操作</th>
                 </tr>
               </thead>
@@ -521,7 +532,8 @@
       const payload = {
         connectorCode: $("credentialConnectorCode").value.trim(),
         credentialType: $("credentialType").value.trim(),
-        secretValue: $("secretValue").value
+        secretValue: $("secretValue").value,
+        expiresAt: $("credentialExpiresAt").value
       };
       $("credentialResult").textContent = "凭证保存中";
       try {
@@ -579,11 +591,14 @@
 
     function credentialRow(item) {
       const status = item.status || "";
+      const rotationStatus = item.rotationStatus || "";
       return `
         <tr>
           <td class="code-cell">${escapeHtml(item.connectorCode || "")}</td>
           <td><span class="badge ${status.toLowerCase()}">${credentialStatusLabel(status)}</span></td>
           <td class="code-cell">${escapeHtml(item.maskedSecret || "-")}</td>
+          <td><span class="badge ${rotationStatus.toLowerCase()}">${rotationStatusLabel(rotationStatus)}</span> ${escapeHtml(item.rotationMessage || "")}</td>
+          <td>${formatTime(item.expiresAt)}</td>
           <td>
             <button type="button" data-credential-test="${escapeHtml(item.connectorCode || "")}">测试</button>
             <button type="button" data-credential-disable="${escapeHtml(item.connectorCode || "")}">停用</button>
@@ -627,6 +642,17 @@
       }[status] || status || "-";
     }
 
+    function rotationStatusLabel(status) {
+      return {
+        OK: "正常",
+        EXPIRING_SOON: "即将过期",
+        EXPIRED: "已过期",
+        NO_EXPIRY: "未设过期",
+        DISABLED: "已停用",
+        NOT_CONFIGURED: "未配置"
+      }[status] || status || "-";
+    }
+
     function emptyRow() {
       return `
         <tr>
@@ -646,7 +672,7 @@
     function credentialEmptyRow() {
       return `
         <tr>
-          <td colspan="4">暂无凭证状态</td>
+          <td colspan="6">暂无凭证状态</td>
         </tr>
       `;
     }
@@ -654,7 +680,7 @@
     function credentialErrorRow(message) {
       return `
         <tr>
-          <td colspan="4">凭证加载失败：${escapeHtml(message || "请稍后重试")}</td>
+          <td colspan="6">凭证加载失败：${escapeHtml(message || "请稍后重试")}</td>
         </tr>
       `;
     }

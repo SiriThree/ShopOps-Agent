@@ -4,6 +4,8 @@ import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialDto;
 import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialParam;
 import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialTestResult;
 import com.sirithree.shopops.admin.connector.service.ConnectorCredentialService;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -41,6 +43,7 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
                 normalizeType(param.getCredentialType()),
                 param.getSecretValue().trim(),
                 true,
+                parseExpiresAt(param.getExpiresAt()),
                 userId,
                 LocalDateTime.now().toString()
         );
@@ -61,6 +64,7 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
                 current.credentialType(),
                 current.secretValue(),
                 false,
+                current.expiresAt(),
                 current.updatedBy(),
                 LocalDateTime.now().toString()
         );
@@ -88,6 +92,12 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
             result.setMessage("凭证已停用");
             return result;
         }
+        if (record.expiresAt() != null && record.expiresAt().isBefore(LocalDateTime.now())) {
+            result.setSuccess(false);
+            result.setStatus("EXPIRED");
+            result.setMessage("凭证已过期，请轮换后再测试");
+            return result;
+        }
         result.setSuccess(true);
         result.setStatus("PASS");
         result.setMessage("凭证格式可用");
@@ -105,6 +115,8 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
         dto.setConfigured(true);
         dto.setEnabled(record.enabled());
         dto.setStatus(record.enabled() ? "ENABLED" : "DISABLED");
+        dto.setExpiresAt(record.expiresAt() == null ? null : record.expiresAt().toString());
+        applyRotation(dto, record.expiresAt());
         dto.setUpdatedBy(record.updatedBy());
         dto.setUpdatedAt(record.updatedAt());
         return dto;
@@ -118,7 +130,46 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
         dto.setConfigured(false);
         dto.setEnabled(false);
         dto.setStatus("NOT_CONFIGURED");
+        dto.setRotationStatus("NOT_CONFIGURED");
+        dto.setRotationMessage("未配置凭证");
         return dto;
+    }
+
+    private void applyRotation(ConnectorCredentialDto dto, LocalDateTime expiresAt) {
+        if (!dto.isEnabled()) {
+            dto.setRotationStatus("DISABLED");
+            dto.setRotationMessage("凭证已停用");
+            return;
+        }
+        if (expiresAt == null) {
+            dto.setRotationStatus("NO_EXPIRY");
+            dto.setRotationMessage("未设置过期时间");
+            return;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        long days = Duration.between(now, expiresAt).toDays();
+        dto.setDaysUntilExpiry(days);
+        if (expiresAt.isBefore(now)) {
+            dto.setRotationStatus("EXPIRED");
+            dto.setRotationMessage("凭证已过期，请立即轮换");
+        } else if (days <= 14) {
+            dto.setRotationStatus("EXPIRING_SOON");
+            dto.setRotationMessage("凭证将在" + Math.max(days, 0) + "天内过期");
+        } else {
+            dto.setRotationStatus("OK");
+            dto.setRotationMessage("凭证有效");
+        }
+    }
+
+    private LocalDateTime parseExpiresAt(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        String trimmed = value.trim();
+        if (trimmed.length() == 10) {
+            return LocalDate.parse(trimmed).atTime(23, 59, 59);
+        }
+        return LocalDateTime.parse(trimmed);
     }
 
     private String mask(String value) {
@@ -154,6 +205,7 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
                                     String credentialType,
                                     String secretValue,
                                     boolean enabled,
+                                    LocalDateTime expiresAt,
                                     Long updatedBy,
                                     String updatedAt) {
     }

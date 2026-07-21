@@ -6,6 +6,8 @@ import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialTestResul
 import com.sirithree.shopops.admin.connector.service.ConnectorCredentialService;
 import com.sirithree.shopops.admin.persistence.mapper.ConnectorCredentialMapper;
 import com.sirithree.shopops.admin.persistence.model.ConnectorCredential;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -58,6 +60,7 @@ public class JdbcConnectorCredentialService implements ConnectorCredentialServic
         credential.setEncryptedSecret(crypto.encrypt(secret));
         credential.setSecretPreview(mask(secret));
         credential.setStatus("ENABLED");
+        credential.setExpiresAt(parseExpiresAt(param.getExpiresAt()));
         credential.setUpdatedBy(userId);
         credential.setCreatedAt(now);
         credential.setUpdatedAt(now);
@@ -93,6 +96,12 @@ public class JdbcConnectorCredentialService implements ConnectorCredentialServic
             result.setMessage("凭证已停用");
             return result;
         }
+        if (credential.getExpiresAt() != null && credential.getExpiresAt().isBefore(LocalDateTime.now())) {
+            result.setSuccess(false);
+            result.setStatus("EXPIRED");
+            result.setMessage("凭证已过期，请轮换后再测试");
+            return result;
+        }
         crypto.decrypt(credential.getEncryptedSecret());
         result.setSuccess(true);
         result.setStatus("PASS");
@@ -111,6 +120,8 @@ public class JdbcConnectorCredentialService implements ConnectorCredentialServic
         dto.setConfigured(true);
         dto.setEnabled("ENABLED".equals(credential.getStatus()));
         dto.setStatus(credential.getStatus());
+        dto.setExpiresAt(credential.getExpiresAt() == null ? null : credential.getExpiresAt().toString());
+        applyRotation(dto, credential.getExpiresAt());
         dto.setUpdatedBy(credential.getUpdatedBy());
         dto.setUpdatedAt(credential.getUpdatedAt() == null ? null : credential.getUpdatedAt().toString());
         return dto;
@@ -124,7 +135,46 @@ public class JdbcConnectorCredentialService implements ConnectorCredentialServic
         dto.setConfigured(false);
         dto.setEnabled(false);
         dto.setStatus("NOT_CONFIGURED");
+        dto.setRotationStatus("NOT_CONFIGURED");
+        dto.setRotationMessage("未配置凭证");
         return dto;
+    }
+
+    private void applyRotation(ConnectorCredentialDto dto, LocalDateTime expiresAt) {
+        if (!dto.isEnabled()) {
+            dto.setRotationStatus("DISABLED");
+            dto.setRotationMessage("凭证已停用");
+            return;
+        }
+        if (expiresAt == null) {
+            dto.setRotationStatus("NO_EXPIRY");
+            dto.setRotationMessage("未设置过期时间");
+            return;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        long days = Duration.between(now, expiresAt).toDays();
+        dto.setDaysUntilExpiry(days);
+        if (expiresAt.isBefore(now)) {
+            dto.setRotationStatus("EXPIRED");
+            dto.setRotationMessage("凭证已过期，请立即轮换");
+        } else if (days <= 14) {
+            dto.setRotationStatus("EXPIRING_SOON");
+            dto.setRotationMessage("凭证将在" + Math.max(days, 0) + "天内过期");
+        } else {
+            dto.setRotationStatus("OK");
+            dto.setRotationMessage("凭证有效");
+        }
+    }
+
+    private LocalDateTime parseExpiresAt(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        String trimmed = value.trim();
+        if (trimmed.length() == 10) {
+            return LocalDate.parse(trimmed).atTime(23, 59, 59);
+        }
+        return LocalDateTime.parse(trimmed);
     }
 
     private String mask(String value) {

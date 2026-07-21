@@ -14,6 +14,7 @@ import com.sirithree.shopops.admin.connector.service.ConnectorCredentialService;
 import com.sirithree.shopops.admin.connector.service.ConnectorStatusService;
 import com.sirithree.shopops.common.api.CommonResult;
 import jakarta.validation.Valid;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,10 +59,7 @@ public class ConnectorController {
         ConnectorCredentialDto credential = connectorCredentialService.save(
                 context.getTenantId(), context.getShopId(), context.getUserId(), param);
         recordCredentialEvent(context, credential.getConnectorCode(), "CONNECTOR_CREDENTIAL_SAVED", "SUCCESS",
-                "连接器凭证已保存", Map.of(
-                        "credentialType", credential.getCredentialType(),
-                        "maskedSecret", credential.getMaskedSecret()
-                ));
+                "连接器凭证已保存", credentialDetail(credential));
         return CommonResult.success(credential);
     }
 
@@ -71,7 +69,7 @@ public class ConnectorController {
         RequestContext context = RequestContextHolder.current();
         ConnectorCredentialDto credential = connectorCredentialService.disable(context.getTenantId(), context.getShopId(), connectorCode);
         recordCredentialEvent(context, credential.getConnectorCode(), "CONNECTOR_CREDENTIAL_DISABLED", "SUCCESS",
-                "连接器凭证已停用", Map.of("credentialType", credential.getCredentialType()));
+                "连接器凭证已停用", credentialDetail(credential));
         return CommonResult.success(credential);
     }
 
@@ -103,5 +101,16 @@ public class ConnectorController {
         command.setMessage(message);
         command.setDetail(detail);
         connectorAuditService.record(command);
+    }
+
+    private Map<String, Object> credentialDetail(ConnectorCredentialDto credential) {
+        Map<String, Object> detail = new LinkedHashMap<>();
+        detail.put("credentialType", credential.getCredentialType());
+        detail.put("maskedSecret", credential.getMaskedSecret());
+        detail.put("expiresAt", credential.getExpiresAt());
+        detail.put("rotationStatus", credential.getRotationStatus());
+        detail.put("rotationMessage", credential.getRotationMessage());
+        detail.put("daysUntilExpiry", credential.getDaysUntilExpiry());
+        return detail;
     }
 }

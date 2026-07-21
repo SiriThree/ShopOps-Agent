@@ -16,6 +16,8 @@ public class ConnectorCredentialParam {
     @Size(max = 500, message = "凭证密钥不能超过500个字符")
     private String secretValue;
 
+    private String expiresAt;
+
     public String getConnectorCode() {
         return connectorCode;
     }
@@ -38,5 +40,13 @@ public class ConnectorCredentialParam {
 
     public void setSecretValue(String secretValue) {
         this.secretValue = secretValue;
+    }
+
+    public String getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(String expiresAt) {
+        this.expiresAt = expiresAt;
     }
 }

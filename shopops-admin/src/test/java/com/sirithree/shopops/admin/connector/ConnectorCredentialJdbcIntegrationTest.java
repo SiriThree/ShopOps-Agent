@@ -2,6 +2,7 @@ package com.sirithree.shopops.admin.connector;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
@@ -53,7 +54,8 @@ class ConnectorCredentialJdbcIntegrationTest {
                 new HttpEntity<>(Map.of(
                         "connectorCode", "file.order-summary",
                         "credentialType", "api_key",
-                        "secretValue", plainSecret
+                        "secretValue", plainSecret,
+                        "expiresAt", LocalDate.now().plusDays(30).toString()
                 ), adminHeaders()),
                 Map.class
         );
@@ -62,11 +64,12 @@ class ConnectorCredentialJdbcIntegrationTest {
         Map<String, Object> saved = (Map<String, Object>) saveResponse.getBody().get("data");
         assertThat(saved)
                 .containsEntry("maskedSecret", "sk-****001")
-                .containsEntry("status", "ENABLED");
+                .containsEntry("status", "ENABLED")
+                .containsEntry("rotationStatus", "OK");
         assertThat(saved.toString()).doesNotContain(plainSecret);
 
         Map<String, Object> row = jdbcTemplate.queryForMap("""
-                SELECT encrypted_secret, secret_preview, status
+                SELECT encrypted_secret, secret_preview, status, expires_at
                 FROM connector_credential
                 WHERE tenant_id = 1 AND shop_id = 1 AND connector_code = 'file.order-summary'
                 """);
@@ -76,6 +79,7 @@ class ConnectorCredentialJdbcIntegrationTest {
         assertThat(row)
                 .containsEntry("secret_preview", "sk-****001")
                 .containsEntry("status", "ENABLED");
+        assertThat(row.get("expires_at").toString()).contains(LocalDate.now().plusDays(30).toString());
 
         ResponseEntity<Map> testResponse = restTemplate.exchange(
                 url("/api/admin/connectors/credentials/file.order-summary/test"),
