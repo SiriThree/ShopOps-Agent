@@ -26,8 +26,11 @@ public class P0ToolBootstrapRunner implements ApplicationRunner {
         ensureTool("product.query_candidates", "待优化商品查询", "product", "product:read", "mock.mall",
                 "{\"type\":\"object\",\"required\":[\"shopId\",\"startDate\",\"endDate\"],\"properties\":{\"shopId\":{\"type\":\"integer\"},\"startDate\":{\"type\":\"string\",\"format\":\"date\"},\"endDate\":{\"type\":\"string\",\"format\":\"date\"},\"limit\":{\"type\":\"integer\",\"default\":10}}}",
                 "{\"type\":\"object\",\"required\":[\"candidateCount\",\"products\"],\"properties\":{\"candidateCount\":{\"type\":\"integer\"},\"products\":{\"type\":\"array\"}}}");
+        ensureTool("ad.query_performance", "广告投放指标查询", "ad", "ad:read", "file.ad-performance",
+                "{\"type\":\"object\",\"required\":[\"shopId\",\"startDate\",\"endDate\"],\"properties\":{\"shopId\":{\"type\":\"integer\"},\"startDate\":{\"type\":\"string\",\"format\":\"date\"},\"endDate\":{\"type\":\"string\",\"format\":\"date\"}}}",
+                "{\"type\":\"object\",\"required\":[\"spend\",\"impressions\",\"clicks\",\"ctr\",\"conversionRate\",\"roi\"],\"properties\":{\"spend\":{\"type\":\"number\"},\"impressions\":{\"type\":\"integer\"},\"clicks\":{\"type\":\"integer\"},\"ctr\":{\"type\":\"number\"},\"conversionRate\":{\"type\":\"number\"},\"roi\":{\"type\":\"number\"},\"campaigns\":{\"type\":\"array\"}}}");
         ensureTool("report.generate_daily_review", "每日经营复盘报告生成", "report", "report:generate", "internal.report",
-                "{\"type\":\"object\",\"required\":[\"orderSummary\",\"negativeComments\",\"productCandidates\",\"dateRange\"],\"properties\":{\"orderSummary\":{\"type\":\"object\"},\"negativeComments\":{\"type\":\"object\"},\"productCandidates\":{\"type\":\"object\"},\"dateRange\":{\"type\":\"object\"}}}",
+                "{\"type\":\"object\",\"required\":[\"orderSummary\",\"negativeComments\",\"productCandidates\",\"adPerformance\",\"dateRange\"],\"properties\":{\"orderSummary\":{\"type\":\"object\"},\"negativeComments\":{\"type\":\"object\"},\"productCandidates\":{\"type\":\"object\"},\"adPerformance\":{\"type\":\"object\"},\"dateRange\":{\"type\":\"object\"}}}",
                 "{\"type\":\"object\",\"required\":[\"title\",\"markdown\",\"summary\",\"evidence\"],\"properties\":{\"title\":{\"type\":\"string\"},\"markdown\":{\"type\":\"string\"},\"summary\":{\"type\":\"string\"},\"evidence\":{\"type\":\"object\"}}}");
     }
 

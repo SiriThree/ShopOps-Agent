@@ -15,11 +15,13 @@ public class FileConnectorStatusService implements ConnectorStatusService {
 
     public FileConnectorStatusService(@Value("${shopops.connector.order-summary.file:}") String orderSummaryFile,
                                       @Value("${shopops.connector.negative-comments.file:}") String negativeCommentsFile,
-                                      @Value("${shopops.connector.product-candidates.file:}") String productCandidatesFile) {
+                                      @Value("${shopops.connector.product-candidates.file:}") String productCandidatesFile,
+                                      @Value("${shopops.connector.ad-performance.file:}") String adPerformanceFile) {
         this.connectors = List.of(
                 new FileConnectorConfig("file.order-summary", "订单汇总文件", "经营复盘", "shopops.connector.order-summary.file", orderSummaryFile),
                 new FileConnectorConfig("file.negative-comments", "差评风险文件", "经营复盘", "shopops.connector.negative-comments.file", negativeCommentsFile),
-                new FileConnectorConfig("file.product-candidates", "商品优化文件", "经营复盘", "shopops.connector.product-candidates.file", productCandidatesFile)
+                new FileConnectorConfig("file.product-candidates", "商品优化文件", "经营复盘", "shopops.connector.product-candidates.file", productCandidatesFile),
+                new FileConnectorConfig("file.ad-performance", "广告投放文件", "经营复盘", "shopops.connector.ad-performance.file", adPerformanceFile)
         );
     }
 

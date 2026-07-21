@@ -22,6 +22,7 @@ public class RulePlannerService implements PlannerService {
             "order.query_summary",
             "comment.query_negative",
             "product.query_candidates",
+            "ad.query_performance",
             "report.generate_daily_review"
     );
 
@@ -90,7 +91,8 @@ public class RulePlannerService implements PlannerService {
                 1. order.query_summary
                 2. comment.query_negative
                 3. product.query_candidates
-                4. report.generate_daily_review
+                4. ad.query_performance
+                5. report.generate_daily_review
 
                 输出格式：
                 {"taskType":"daily_review","steps":[{"stepNo":1,"stepName":"查询订单核心指标","toolCode":"order.query_summary"}]}
@@ -167,7 +169,8 @@ public class RulePlannerService implements PlannerService {
         plan.getSteps().add(new AgentPlanStep(1, "查询订单核心指标", "order.query_summary"));
         plan.getSteps().add(new AgentPlanStep(2, "查询差评风险", "comment.query_negative"));
         plan.getSteps().add(new AgentPlanStep(3, "查询待优化商品", "product.query_candidates"));
-        plan.getSteps().add(new AgentPlanStep(4, "生成经营复盘报告", "report.generate_daily_review"));
+        plan.getSteps().add(new AgentPlanStep(4, "查询广告投放指标", "ad.query_performance"));
+        plan.getSteps().add(new AgentPlanStep(5, "生成经营复盘报告", "report.generate_daily_review"));
         return plan;
     }
 }

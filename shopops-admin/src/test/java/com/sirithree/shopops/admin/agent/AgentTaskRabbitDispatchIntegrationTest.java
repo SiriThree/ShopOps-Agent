@@ -46,7 +46,7 @@ class AgentTaskRabbitDispatchIntegrationTest extends AbstractAgentTaskFlowIntegr
         assertThat(taskData.get("reportId")).isNotNull();
 
         List<Map<String, Object>> steps = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/steps"));
-        assertThat(steps).hasSize(4);
+        assertThat(steps).hasSize(5);
         assertThat(steps).extracting(step -> step.get("status")).containsOnly("SUCCESS");
 
         List<Map<String, Object>> events = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/events"));

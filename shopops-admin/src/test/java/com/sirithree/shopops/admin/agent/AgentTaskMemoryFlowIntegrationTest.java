@@ -34,10 +34,10 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .contains(taskId);
 
         List<Map<String, Object>> steps = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/steps"));
-        assertThat(steps).hasSize(4);
+        assertThat(steps).hasSize(5);
         assertThat(steps).extracting(step -> step.get("status")).containsOnly("SUCCESS");
         assertThat(steps).extracting(step -> step.get("toolCode"))
-                .containsExactly("order.query_summary", "comment.query_negative", "product.query_candidates", "report.generate_daily_review");
+                .containsExactly("order.query_summary", "comment.query_negative", "product.query_candidates", "ad.query_performance", "report.generate_daily_review");
 
         Integer reportId = ((Number) taskData.get("reportId")).intValue();
         Map<String, Object> reportData = dataOf(get("/api/reports/" + reportId));
@@ -48,10 +48,10 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
 
         Map<String, Object> traceData = dataOf(get("/api/tasks/" + taskId + "/trace"));
         assertThat((List<Object>) traceData.get("spans")).isNotEmpty();
-        assertThat((List<Object>) traceData.get("toolCalls")).hasSize(4);
+        assertThat((List<Object>) traceData.get("toolCalls")).hasSize(5);
 
         Map<String, Object> toolCallPage = dataOf(get("/api/tools/call-logs?taskId=" + taskId + "&status=SUCCESS&pageNum=1&pageSize=2"));
-        assertThat(toolCallPage.get("total")).isEqualTo(4);
+        assertThat(toolCallPage.get("total")).isEqualTo(5);
         assertThat((List<Map<String, Object>>) toolCallPage.get("list")).hasSize(2);
 
         Map<String, Object> productToolCallPage = dataOf(get("/api/tools/call-logs?taskId=" + taskId + "&toolCode=product.query_candidates"));
@@ -62,9 +62,9 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
 
         Map<String, Object> auditOverview = dataOf(get("/api/admin/audit/overview"));
         assertThat(((Number) auditOverview.get("taskEventTotal")).longValue()).isGreaterThanOrEqualTo(3L);
-        assertThat(((Number) auditOverview.get("toolCallTotal")).longValue()).isEqualTo(4L);
+        assertThat(((Number) auditOverview.get("toolCallTotal")).longValue()).isEqualTo(5L);
         assertThat((List<Map<String, Object>>) auditOverview.get("recentTaskEvents")).isNotEmpty();
-        assertThat((List<Map<String, Object>>) auditOverview.get("recentToolCalls")).hasSize(4);
+        assertThat((List<Map<String, Object>>) auditOverview.get("recentToolCalls")).hasSize(5);
 
         Map<String, Object> auditTimeline = dataOf(get("/api/admin/audit/timeline?pageNum=1&pageSize=20"));
         assertThat(((Number) auditTimeline.get("total")).longValue()).isGreaterThanOrEqualTo(7L);
@@ -73,7 +73,7 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .contains("TASK", "TOOL");
 
         Map<String, Object> toolAuditTimeline = dataOf(get("/api/admin/audit/timeline?source=TOOL&eventStatus=SUCCESS&pageNum=1&pageSize=10"));
-        assertThat(toolAuditTimeline.get("total")).isEqualTo(4);
+        assertThat(toolAuditTimeline.get("total")).isEqualTo(5);
         assertThat((List<Map<String, Object>>) toolAuditTimeline.get("list"))
                 .extracting(event -> event.get("eventType"))
                 .containsOnly("TOOL_CALL");
@@ -82,7 +82,7 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
                 .containsOnly("tool_call_log");
 
         Map<String, Object> lowRiskToolAuditTimeline = dataOf(get("/api/admin/audit/timeline?source=TOOL&riskLevel=low&pageNum=1&pageSize=10"));
-        assertThat(lowRiskToolAuditTimeline.get("total")).isEqualTo(4);
+        assertThat(lowRiskToolAuditTimeline.get("total")).isEqualTo(5);
         assertThat((List<Map<String, Object>>) lowRiskToolAuditTimeline.get("list"))
                 .extracting(event -> event.get("riskLevel"))
                 .containsOnly("low");
@@ -136,7 +136,7 @@ class AgentTaskMemoryFlowIntegrationTest extends AbstractAgentTaskFlowIntegratio
 
         Map<String, Object> toolAuditExport = dataOf(get("/api/admin/audit/export?source=TOOL&eventStatus=SUCCESS"));
         assertThat(toolAuditExport.get("contentType")).isEqualTo("text/csv");
-        assertThat(toolAuditExport.get("rowCount")).isEqualTo(8);
+        assertThat(toolAuditExport.get("rowCount")).isEqualTo(10);
         assertThat((List<String>) toolAuditExport.get("columns"))
                 .containsExactly("createdAt", "source", "eventType", "eventStatus", "riskLevel", "userId", "username",
                         "taskId", "traceId", "toolCode", "requestId", "resourceType", "resourceId", "summary");

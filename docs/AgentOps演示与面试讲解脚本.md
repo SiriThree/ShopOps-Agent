@@ -19,7 +19,7 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port
 如果要演示外部订单数据源，可以使用示例 JSON 文件启动：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.connector.order-summary.file=docs/demo-data/order-summary-demo.json --shopops.connector.negative-comments.file=docs/demo-data/negative-comments-demo.json --shopops.connector.product-candidates.file=docs/demo-data/product-candidates-demo.json"
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.connector.order-summary.file=docs/demo-data/order-summary-demo.json --shopops.connector.negative-comments.file=docs/demo-data/negative-comments-demo.json --shopops.connector.product-candidates.file=docs/demo-data/product-candidates-demo.json --shopops.connector.ad-performance.file=docs/demo-data/ad-performance-demo.json"
 ```
 
 ## 2. 一键验收演示
@@ -101,5 +101,5 @@ Model Gateway 负责屏蔽不同模型供应商差异，并统一处理调用日
 
 ```text
 当前重点完成的是后端治理闭环和静态管理台演示。
-待完成方向包括 React / Ant Design Pro 产品化前端、广告与报表连接器、用户租户管理页面、多级审批和按金额阈值配置审批策略。
+待完成方向包括 React / Ant Design Pro 产品化前端、报表连接器、用户租户管理页面、多级审批和按金额阈值配置审批策略。
 ```

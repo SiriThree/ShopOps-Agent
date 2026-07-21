@@ -61,6 +61,7 @@ class AdminConnectorStaticPageIntegrationTest {
                 .contains("shopops.connector.order-summary.file")
                 .contains("shopops.connector.negative-comments.file")
                 .contains("shopops.connector.product-candidates.file")
+                .contains("shopops.connector.ad-performance.file")
                 .contains("shopops.auth.token")
                 .contains("shopops.auth.user")
                 .contains("Authorization")

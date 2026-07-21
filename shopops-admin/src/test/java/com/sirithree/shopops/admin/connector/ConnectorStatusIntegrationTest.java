@@ -46,9 +46,9 @@ class ConnectorStatusIntegrationTest {
         assertThat(response.getBody().get("code")).isEqualTo(200);
         List<Map<String, Object>> data = (List<Map<String, Object>>) response.getBody().get("data");
         assertThat(data)
-                .hasSize(3)
+                .hasSize(4)
                 .extracting(item -> item.get("connectorCode"))
-                .containsExactly("file.order-summary", "file.negative-comments", "file.product-candidates");
+                .containsExactly("file.order-summary", "file.negative-comments", "file.product-candidates", "file.ad-performance");
         assertThat(data)
                 .allSatisfy(item -> {
                     assertThat(item.get("status")).isEqualTo("NOT_CONFIGURED");

@@ -21,7 +21,8 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
     private static final List<String> KNOWN_CONNECTORS = List.of(
             "file.order-summary",
             "file.negative-comments",
-            "file.product-candidates"
+            "file.product-candidates",
+            "file.ad-performance"
     );
 
     private final Map<String, CredentialRecord> credentials = new ConcurrentHashMap<>();

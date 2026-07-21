@@ -32,7 +32,7 @@ class AgentTaskModelPlannerIntegrationTest extends AbstractAgentTaskFlowIntegrat
         Integer taskId = ((Number) createData.get("taskId")).intValue();
         List<Map<String, Object>> steps = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/steps"));
         assertThat(steps).extracting(step -> step.get("toolCode"))
-                .containsExactly("order.query_summary", "comment.query_negative", "product.query_candidates", "report.generate_daily_review");
+                .containsExactly("order.query_summary", "comment.query_negative", "product.query_candidates", "ad.query_performance", "report.generate_daily_review");
 
         Map<String, Object> modelCallLogs = dataOf(get("/api/admin/model-gateway/call-logs?taskId=" + taskId));
         assertThat(modelCallLogs.get("total")).isEqualTo(1);
@@ -69,7 +69,8 @@ class AgentTaskModelPlannerIntegrationTest extends AbstractAgentTaskFlowIntegrat
                               {"stepNo":1,"stepName":"模型规划：订单指标","toolCode":"order.query_summary"},
                               {"stepNo":2,"stepName":"模型规划：差评风险","toolCode":"comment.query_negative"},
                               {"stepNo":3,"stepName":"模型规划：商品优化","toolCode":"product.query_candidates"},
-                              {"stepNo":4,"stepName":"模型规划：生成报告","toolCode":"report.generate_daily_review"}
+                              {"stepNo":4,"stepName":"模型规划：广告投放","toolCode":"ad.query_performance"},
+                              {"stepNo":5,"stepName":"模型规划：生成报告","toolCode":"report.generate_daily_review"}
                             ]}
                             """);
                     return result;
