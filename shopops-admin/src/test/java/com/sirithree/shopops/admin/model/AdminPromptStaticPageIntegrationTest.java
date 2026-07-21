@@ -1,4 +1,4 @@
-package com.sirithree.shopops.admin.dashboard;
+package com.sirithree.shopops.admin.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,16 +13,16 @@ import org.springframework.http.ResponseEntity;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = "shopops.persistence=memory"
 )
-class AdminDashboardStaticPageIntegrationTest {
+class AdminPromptStaticPageIntegrationTest {
     @LocalServerPort
     private int port;
 
     @Test
-    void shouldServeAdminDashboardStaticPage() {
+    void shouldServeAdminPromptStaticPage() {
         TestRestTemplate restTemplate = new TestRestTemplate();
 
         ResponseEntity<String> response = restTemplate.getForEntity(
-                "http://localhost:" + port + "/admin/dashboard.html",
+                "http://localhost:" + port + "/admin/prompts.html",
                 String.class
         );
 
@@ -34,34 +34,34 @@ class AdminDashboardStaticPageIntegrationTest {
                 .contains("no-store")
                 .contains("no-cache");
         assertThat(response.getBody())
-                .contains("ShopOps 管理总览")
-                .contains("后台模块")
-                .contains("任务队列")
-                .contains("工具日志")
-                .contains("提示词模板")
-                .contains("系统健康")
-                .contains("审计风险")
-                .contains("最近失败")
-                .contains("/api/admin/dashboard/summary")
-                .contains("/api/system/health")
-                .contains("/api/admin/audit/high-risk")
-                .contains("Promise.allSettled")
-                .contains("renderSummaryError")
-                .contains("renderHealthError")
-                .contains("renderRiskError")
-                .contains("panel-state")
+                .contains("ShopOps 提示词模板")
+                .contains("模板版本")
+                .contains("版本编辑")
+                .contains("渲染测试")
+                .contains("daily_review.plan")
+                .contains("daily_review.report")
+                .contains("/api/admin/prompts")
+                .contains("/versions")
+                .contains("/enable")
+                .contains("/render-test")
+                .contains("applyInitialQuery")
+                .contains("new URLSearchParams(window.location.search)")
+                .contains("syncUrl")
                 .contains("withBusy")
-                .contains("刷新中")
+                .contains("保存中")
+                .contains("启用中")
+                .contains("渲染中")
                 .contains("shopops.auth.token")
                 .contains("shopops.auth.user")
                 .contains("Authorization")
                 .contains("applyStoredSession")
                 .contains("id=\"sessionLine\"")
-                .contains("/admin/tasks.html?status=FAILED")
-                .contains("/admin/tools.html?status=FAILED")
-                .contains("/admin/prompts.html")
-                .contains("taskModuleHint")
-                .contains("auditModuleHint")
+                .contains("navigator.clipboard")
+                .contains("aria-label=\"后台导航\"")
+                .contains("/admin/dashboard.html")
+                .contains("/admin/tasks.html")
+                .contains("/admin/reports.html")
+                .contains("/admin/tools.html")
                 .contains("/admin/audit.html");
     }
 }
