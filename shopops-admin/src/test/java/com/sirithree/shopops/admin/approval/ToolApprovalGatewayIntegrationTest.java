@@ -13,11 +13,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = "shopops.persistence=memory"
 )
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ToolApprovalGatewayIntegrationTest {
     @LocalServerPort
     private int port;
@@ -134,6 +136,47 @@ class ToolApprovalGatewayIntegrationTest {
                 .containsEntry("resourceType", "approval_request")
                 .containsEntry("resourceId", approvalId.toString());
         assertThat((Map<String, Object>) approvalAuditDetail.get("resource")).containsKey("approvalRequest");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldBypassApprovalWhenShopConfigDisablesToolApproval() {
+        Map<String, Object> savedConfig = dataOf(post(
+                "/api/admin/organization/shops/1/configs",
+                Map.of(
+                        "configKey", "agent_tool_approval_enabled",
+                        "configValue", "false",
+                        "valueType", "boolean"
+                ),
+                adminHeaders()
+        ));
+        assertThat(savedConfig)
+                .containsEntry("configKey", "agent_tool_approval_enabled")
+                .containsEntry("configValue", "false");
+
+        Map<String, Object> result = dataOf(post(
+                "/api/tools/order.refund_execute/invoke",
+                Map.of("shopId", 1, "refundAmount", 1288, "reason", "shop policy disabled approval"),
+                adminHeaders()
+        ));
+
+        Integer toolCallLogId = ((Number) result.get("toolCallLogId")).intValue();
+        assertThat(result)
+                .containsEntry("success", true)
+                .containsEntry("status", "SUCCESS")
+                .containsEntry("toolCallLogId", toolCallLogId);
+        assertThat(result.get("approvalId")).isNull();
+        Map<String, Object> output = (Map<String, Object>) result.get("data");
+        assertThat(output)
+                .containsEntry("status", "EXECUTED")
+                .containsEntry("approvalId", null)
+                .containsEntry("refundAmount", 1288);
+
+        Map<String, Object> approvalPage = dataOf(get(
+                "/api/admin/approvals?status=PENDING&toolCode=order.refund_execute",
+                adminHeaders()
+        ));
+        assertThat(approvalPage.get("total")).isEqualTo(0);
     }
 
     private Map<String, Object> get(String path, HttpHeaders headers) {

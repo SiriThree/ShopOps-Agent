@@ -10,11 +10,13 @@ import com.sirithree.shopops.admin.model.domain.ModelCallStatus;
 import com.sirithree.shopops.admin.model.domain.ModelInvokeParam;
 import com.sirithree.shopops.admin.model.domain.ModelInvokeResult;
 import com.sirithree.shopops.admin.model.service.ModelGatewayService;
+import com.sirithree.shopops.admin.organization.service.ShopRuntimeConfigService;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.common.api.CommonPage;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 class DailyReviewReportExecutorTest {
@@ -50,6 +52,39 @@ class DailyReviewReportExecutorTest {
         assertThat((List<Object>) evidence.get("productIds")).containsExactly(1016);
         assertThat((List<Object>) evidence.get("campaignNames")).containsExactly("夏季补水主推");
         assertThat((List<Object>) evidence.get("channelNames")).containsExactly("自然搜索");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldApplyShopConfigThresholdsToReportEvidenceAndActions() {
+        DailyReviewReportExecutor configuredExecutor = new DailyReviewReportExecutor(
+                new ModelGatewayReportProperties(),
+                null,
+                new FixedShopRuntimeConfigService(Map.of(
+                        "refund_rate_warn_threshold", "0.06",
+                        "negative_comment_warn_threshold", "1",
+                        "agent_model_policy", "balanced"
+                ))
+        );
+        ToolInvokeContext context = new ToolInvokeContext();
+        context.setTenantId(1L);
+        context.setShopId(1L);
+        context.setTraceId("tr_config_report");
+
+        ToolInvokeResult result = configuredExecutor.execute(context, baseInput());
+
+        assertThat(result.getSuccess()).isTrue();
+        Map<String, Object> data = (Map<String, Object>) result.getData();
+        String markdown = (String) data.get("markdown");
+        Map<String, Object> evidence = (Map<String, Object>) data.get("evidence");
+        Map<String, Object> shopConfig = (Map<String, Object>) evidence.get("shopConfig");
+        assertThat(shopConfig)
+                .containsEntry("refundRateWarnThreshold", "0.06")
+                .containsEntry("negativeCommentWarnThreshold", "1")
+                .containsEntry("agentModelPolicy", "balanced");
+        assertThat(markdown)
+                .contains("退款率已达到配置阈值 6.00%")
+                .contains("风险评价数已达到配置阈值 1");
     }
 
     @Test
@@ -177,6 +212,13 @@ class DailyReviewReportExecutorTest {
         @Override
         public CommonPage<ModelCallLogDto> listLogs(Long tenantId, Long shopId, ModelCallLogQueryParam queryParam) {
             return CommonPage.of(List.of(), 1, 20, 0L);
+        }
+    }
+
+    private record FixedShopRuntimeConfigService(Map<String, String> configs) implements ShopRuntimeConfigService {
+        @Override
+        public Optional<String> value(Long tenantId, Long shopId, String configKey) {
+            return Optional.ofNullable(configs.get(configKey));
         }
     }
 }

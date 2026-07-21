@@ -7,6 +7,7 @@ import com.sirithree.shopops.admin.approval.service.ApprovalRequestService;
 import com.sirithree.shopops.admin.audit.domain.TraceSpanCreateCommand;
 import com.sirithree.shopops.admin.audit.service.TraceService;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
+import com.sirithree.shopops.admin.organization.service.ShopRuntimeConfigService;
 import com.sirithree.shopops.admin.tool.domain.McpToolDto;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
@@ -27,6 +28,7 @@ public class DefaultToolGatewayService implements ToolGatewayService {
     private final ToolCallLogService toolCallLogService;
     private final TraceService traceService;
     private final ApprovalRequestService approvalRequestService;
+    private final ShopRuntimeConfigService shopRuntimeConfigService;
     private final JacksonJsonSupport jsonSupport;
     private final Map<String, ToolExecutor> executors;
     private final String failCode;
@@ -35,6 +37,7 @@ public class DefaultToolGatewayService implements ToolGatewayService {
                                      ToolCallLogService toolCallLogService,
                                      TraceService traceService,
                                      ApprovalRequestService approvalRequestService,
+                                     ShopRuntimeConfigService shopRuntimeConfigService,
                                      JacksonJsonSupport jsonSupport,
                                      List<ToolExecutor> executors,
                                      @Value("${shopops.tool.fail-code:}") String failCode) {
@@ -42,6 +45,7 @@ public class DefaultToolGatewayService implements ToolGatewayService {
         this.toolCallLogService = toolCallLogService;
         this.traceService = traceService;
         this.approvalRequestService = approvalRequestService;
+        this.shopRuntimeConfigService = shopRuntimeConfigService;
         this.jsonSupport = jsonSupport;
         this.executors = executors.stream().collect(Collectors.toMap(ToolExecutor::toolCode, Function.identity()));
         this.failCode = failCode;
@@ -63,7 +67,7 @@ public class DefaultToolGatewayService implements ToolGatewayService {
             if (!Boolean.TRUE.equals(tool.getEnabled())) {
                 return fail(context, spanId, logId, started, "TOOL_DISABLED", "工具已停用: " + toolCode);
             }
-            if (Boolean.TRUE.equals(tool.getNeedApproval())) {
+            if (Boolean.TRUE.equals(tool.getNeedApproval()) && approvalEnabled(context)) {
                 if (context.getApprovalId() == null) {
                     return approvalRequired(context, spanId, logId, started, tool, input);
                 }
@@ -148,6 +152,15 @@ public class DefaultToolGatewayService implements ToolGatewayService {
                 .filter(approval -> ApprovalStatus.APPROVED.equals(approval.getStatus()))
                 .filter(approval -> toolCode.equals(approval.getToolCode()))
                 .isPresent();
+    }
+
+    private boolean approvalEnabled(ToolInvokeContext context) {
+        return shopRuntimeConfigService.booleanValue(
+                context.getTenantId(),
+                context.getShopId(),
+                "agent_tool_approval_enabled",
+                true
+        );
     }
 
     private String requesterName(ToolInvokeContext context) {

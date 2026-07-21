@@ -6,6 +6,7 @@ import com.sirithree.shopops.admin.model.domain.ModelCallStatus;
 import com.sirithree.shopops.admin.model.domain.ModelInvokeParam;
 import com.sirithree.shopops.admin.model.domain.ModelInvokeResult;
 import com.sirithree.shopops.admin.model.service.ModelGatewayService;
+import com.sirithree.shopops.admin.organization.service.ShopRuntimeConfigService;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.admin.tool.service.ToolExecutor;
@@ -22,16 +23,24 @@ import org.springframework.stereotype.Component;
 public class DailyReviewReportExecutor implements ToolExecutor {
     private final ModelGatewayReportProperties reportProperties;
     private final ModelGatewayService modelGatewayService;
+    private final ShopRuntimeConfigService shopRuntimeConfigService;
 
     public DailyReviewReportExecutor() {
-        this(new ModelGatewayReportProperties(), null);
+        this(new ModelGatewayReportProperties(), null, null);
+    }
+
+    public DailyReviewReportExecutor(ModelGatewayReportProperties reportProperties,
+                                     ModelGatewayService modelGatewayService) {
+        this(reportProperties, modelGatewayService, null);
     }
 
     @Autowired
     public DailyReviewReportExecutor(ModelGatewayReportProperties reportProperties,
-                                     ModelGatewayService modelGatewayService) {
+                                     ModelGatewayService modelGatewayService,
+                                     ShopRuntimeConfigService shopRuntimeConfigService) {
         this.reportProperties = reportProperties;
         this.modelGatewayService = modelGatewayService;
+        this.shopRuntimeConfigService = shopRuntimeConfigService;
     }
 
     @Override
@@ -56,6 +65,7 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         List<Map<String, Object>> channels = listOfMap(externalReportMetrics.get("topChannels"));
         Map<String, Object> compareYesterday = mapValue(orderSummary.get("compareYesterday"));
         Map<String, Object> compareSevenDayAvg = mapValue(orderSummary.get("compareSevenDayAvg"));
+        ReportRuntimeConfig runtimeConfig = runtimeConfig(context);
 
         String ruleMarkdown = """
                 # 店铺每日经营复盘
@@ -139,11 +149,12 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                 focusLine(riskComments, products),
                 renderRiskComments(riskComments),
                 renderProductCandidates(products),
-                renderActions(orderSummary, riskComments, products, adPerformance, externalReportMetrics),
+                renderActions(orderSummary, negativeComments, riskComments, products, adPerformance, externalReportMetrics,
+                        runtimeConfig),
                 context.getTraceId()
         );
         ModelReportView modelReport = modelReport(context, payload, orderSummary, negativeComments, productCandidates,
-                adPerformance, externalReportMetrics, ruleMarkdown);
+                adPerformance, externalReportMetrics, runtimeConfig, ruleMarkdown);
         String markdown = modelReport.markdown();
 
         Map<String, Object> evidence = new LinkedHashMap<>();
@@ -156,6 +167,7 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         evidence.put("channelNames", channels.stream().map(item -> item.get("channelName")).limit(10).toList());
         evidence.put("modelCallId", modelReport.callId());
         evidence.put("modelProviderCode", modelReport.providerCode());
+        evidence.put("shopConfig", runtimeConfig.evidence());
 
         Map<String, Object> data = Map.of(
                 "title", "店铺每日经营复盘",
@@ -173,6 +185,7 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                                         Map<String, Object> productCandidates,
                                         Map<String, Object> adPerformance,
                                         Map<String, Object> externalReportMetrics,
+                                        ReportRuntimeConfig runtimeConfig,
                                         String fallbackMarkdown) {
         if (modelGatewayService == null || !reportProperties.isEnabled()) {
             return new ModelReportView(fallbackMarkdown, "RULE", null, null);
@@ -195,6 +208,7 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                     "productCandidates", productCandidates,
                     "adPerformance", adPerformance,
                     "externalReportMetrics", externalReportMetrics,
+                    "shopConfig", runtimeConfig.evidence(),
                     "dateRange", payload.getOrDefault("dateRange", Map.of()),
                     "traceId", context.getTraceId()
             ));
@@ -295,13 +309,22 @@ public class DailyReviewReportExecutor implements ToolExecutor {
     }
 
     private String renderActions(Map<String, Object> orderSummary,
+                                 Map<String, Object> negativeComments,
                                  List<Map<String, Object>> riskComments,
                                  List<Map<String, Object>> products,
                                  Map<String, Object> adPerformance,
-                                 Map<String, Object> externalReportMetrics) {
+                                 Map<String, Object> externalReportMetrics,
+                                 ReportRuntimeConfig runtimeConfig) {
         StringBuilder builder = new StringBuilder();
-        if (decimal(orderSummary.get("refundRate")).compareTo(new BigDecimal("0.05")) >= 0) {
-            builder.append("- 退款率已高于 5%，优先复核退款订单和关联商品详情页。\n");
+        if (decimal(orderSummary.get("refundRate")).compareTo(runtimeConfig.refundRateWarnThreshold()) >= 0) {
+            builder.append("- 退款率已达到配置阈值 ")
+                    .append(percent(runtimeConfig.refundRateWarnThreshold()))
+                    .append("，优先复核退款订单和关联商品详情页。\n");
+        }
+        if (decimal(negativeComments.get("negativeCount")).compareTo(runtimeConfig.negativeCommentWarnThreshold()) >= 0) {
+            builder.append("- 风险评价数已达到配置阈值 ")
+                    .append(number(runtimeConfig.negativeCommentWarnThreshold()))
+                    .append("，建议同步进入客服与商品优化队列。\n");
         }
         if (!riskComments.isEmpty()) {
             builder.append("- 对低星评价按商品聚类，先处理描述不符、破损、物流慢等可归因问题。\n");
@@ -393,6 +416,37 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                 : "下降 " + percent(delta.abs());
     }
 
+    private ReportRuntimeConfig runtimeConfig(ToolInvokeContext context) {
+        BigDecimal refundRateWarnThreshold = decimalConfig(context, "refund_rate_warn_threshold", new BigDecimal("0.05"));
+        BigDecimal negativeCommentWarnThreshold = decimalConfig(context, "negative_comment_warn_threshold", BigDecimal.ONE);
+        String modelPolicy = valueConfig(context, "agent_model_policy", "default");
+        return new ReportRuntimeConfig(refundRateWarnThreshold, negativeCommentWarnThreshold, modelPolicy);
+    }
+
+    private BigDecimal decimalConfig(ToolInvokeContext context, String configKey, BigDecimal defaultValue) {
+        if (shopRuntimeConfigService == null) {
+            return defaultValue;
+        }
+        try {
+            return shopRuntimeConfigService.decimalValue(context.getTenantId(), context.getShopId(), configKey, defaultValue);
+        } catch (RuntimeException ex) {
+            return defaultValue;
+        }
+    }
+
+    private String valueConfig(ToolInvokeContext context, String configKey, String defaultValue) {
+        if (shopRuntimeConfigService == null) {
+            return defaultValue;
+        }
+        try {
+            return shopRuntimeConfigService.value(context.getTenantId(), context.getShopId(), configKey)
+                    .filter(value -> !value.isBlank())
+                    .orElse(defaultValue);
+        } catch (RuntimeException ex) {
+            return defaultValue;
+        }
+    }
+
     private String percent(Object value) {
         return decimal(value).multiply(BigDecimal.valueOf(100)).setScale(2, RoundingMode.HALF_UP) + "%";
     }
@@ -428,6 +482,18 @@ public class DailyReviewReportExecutor implements ToolExecutor {
     }
 
     private record DateRangeView(String start, String end) {
+    }
+
+    private record ReportRuntimeConfig(BigDecimal refundRateWarnThreshold,
+                                       BigDecimal negativeCommentWarnThreshold,
+                                       String agentModelPolicy) {
+        private Map<String, Object> evidence() {
+            return Map.of(
+                    "refundRateWarnThreshold", refundRateWarnThreshold.toPlainString(),
+                    "negativeCommentWarnThreshold", negativeCommentWarnThreshold.toPlainString(),
+                    "agentModelPolicy", agentModelPolicy
+            );
+        }
     }
 
     private record ModelReportView(String markdown, String generationMode, Long callId, String providerCode) {
