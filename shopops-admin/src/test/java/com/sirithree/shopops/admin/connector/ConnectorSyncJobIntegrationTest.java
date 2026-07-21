@@ -76,6 +76,26 @@ class ConnectorSyncJobIntegrationTest {
                 .containsEntry("jobId", jobId.intValue())
                 .containsEntry("attempt", 2);
 
+        Map<String, Object> apiCallPage = dataOf(exchange(
+                "/api/admin/connectors/api-call-logs?jobId=" + jobId + "&status=FAILED&endpoint=connector.status.check",
+                HttpMethod.GET,
+                null,
+                adminHeaders()
+        ).getBody());
+        assertThat(apiCallPage).containsEntry("total", 2);
+        List<Map<String, Object>> apiCalls = (List<Map<String, Object>>) apiCallPage.get("list");
+        assertThat(apiCalls)
+                .extracting(item -> item.get("connectorCode"))
+                .containsOnly("file.order-summary");
+        assertThat(apiCalls.get(0))
+                .containsEntry("jobId", jobId.intValue())
+                .containsEntry("requestMethod", "CHECK")
+                .containsEntry("endpoint", "connector.status.check")
+                .containsEntry("status", "FAILED")
+                .containsEntry("statusCode", 503)
+                .containsEntry("errorCode", "NOT_CONFIGURED");
+        assertThat(((Number) apiCalls.get(0).get("latencyMs")).longValue()).isGreaterThanOrEqualTo(0L);
+
         Map<String, Object> auditPage = dataOf(exchange(
                 "/api/admin/audit/timeline?source=CONNECTOR&eventType=CONNECTOR_SYNC_RETRIED&pageNum=1&pageSize=10",
                 HttpMethod.GET,

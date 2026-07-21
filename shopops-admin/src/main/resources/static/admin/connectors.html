@@ -498,6 +498,31 @@
         </div>
         <pre class="result-box" id="syncResult">暂无同步任务</pre>
       </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <h2>外部调用日志</h2>
+          <button id="refreshApiCallLogs" type="button">刷新</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>日志</th>
+                <th>任务</th>
+                <th>连接器</th>
+                <th>端点</th>
+                <th>状态</th>
+                <th>状态码</th>
+                <th>耗时</th>
+                <th>错误</th>
+                <th>时间</th>
+              </tr>
+            </thead>
+            <tbody id="apiCallLogBody"></tbody>
+          </table>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -573,6 +598,16 @@
       }
     }
 
+    async function loadApiCallLogs() {
+      try {
+        const page = await api("/api/admin/connectors/api-call-logs?pageNum=1&pageSize=20");
+        const logs = Array.isArray(page?.list) ? page.list : [];
+        $("apiCallLogBody").innerHTML = logs.map(apiCallLogRow).join("") || apiCallLogEmptyRow();
+      } catch (error) {
+        $("apiCallLogBody").innerHTML = apiCallLogErrorRow(error.message);
+      }
+    }
+
     async function saveCredential(event) {
       event.preventDefault();
       const payload = {
@@ -633,6 +668,7 @@
         });
         $("syncResult").textContent = JSON.stringify(result, null, 2);
         await loadSyncJobs();
+        await loadApiCallLogs();
         setStatus("同步任务已执行");
       } catch (error) {
         $("syncResult").textContent = error.message;
@@ -645,6 +681,7 @@
         const result = await api(`/api/admin/connectors/sync-jobs/${encodeURIComponent(jobId)}/retry`, { method: "POST" });
         $("syncResult").textContent = JSON.stringify(result, null, 2);
         await loadSyncJobs();
+        await loadApiCallLogs();
         setStatus("同步任务已重试");
       } catch (error) {
         $("syncResult").textContent = error.message;
@@ -698,6 +735,23 @@
           <td>${escapeHtml(item.message || "")}</td>
           <td>${formatTime(item.finishedAt)}</td>
           <td>${canRetry ? `<button type="button" data-sync-retry="${escapeHtml(item.jobId || "")}">重试</button>` : "-"}</td>
+        </tr>
+      `;
+    }
+
+    function apiCallLogRow(item) {
+      const status = item.status || "";
+      return `
+        <tr>
+          <td>${escapeHtml(item.logId || "")}</td>
+          <td>${escapeHtml(item.jobId || "-")}</td>
+          <td class="code-cell">${escapeHtml(item.connectorCode || "")}</td>
+          <td class="code-cell">${escapeHtml(item.endpoint || "")}</td>
+          <td><span class="badge ${status.toLowerCase()}">${syncStatusLabel(status)}</span></td>
+          <td>${escapeHtml(item.statusCode || "-")}</td>
+          <td>${Number(item.latencyMs || 0)} ms</td>
+          <td>${escapeHtml(item.errorMessage || "-")}</td>
+          <td>${formatTime(item.createdAt)}</td>
         </tr>
       `;
     }
@@ -811,6 +865,22 @@
       `;
     }
 
+    function apiCallLogEmptyRow() {
+      return `
+        <tr>
+          <td colspan="9">暂无外部调用日志</td>
+        </tr>
+      `;
+    }
+
+    function apiCallLogErrorRow(message) {
+      return `
+        <tr>
+          <td colspan="9">外部调用日志加载失败：${escapeHtml(message || "请稍后重试")}</td>
+        </tr>
+      `;
+    }
+
     function setStatus(message) {
       $("statusLine").textContent = message;
     }
@@ -824,6 +894,7 @@
       loadConnectors();
       loadCredentials();
       loadSyncJobs();
+      loadApiCallLogs();
     }
 
     function applyStoredSession() {
@@ -875,11 +946,13 @@
       loadConnectors();
       loadCredentials();
       loadSyncJobs();
+      loadApiCallLogs();
     });
     $("resetContext").addEventListener("click", resetContext);
     $("refreshConnectors").addEventListener("click", loadConnectors);
     $("refreshCredentials").addEventListener("click", loadCredentials);
     $("refreshSyncJobs").addEventListener("click", loadSyncJobs);
+    $("refreshApiCallLogs").addEventListener("click", loadApiCallLogs);
     $("credentialForm").addEventListener("submit", saveCredential);
     $("syncForm").addEventListener("submit", createSyncJob);
     $("credentialBody").addEventListener("click", (event) => {
@@ -904,6 +977,7 @@
     loadConnectors();
     loadCredentials();
     loadSyncJobs();
+    loadApiCallLogs();
   </script>
 </body>
 </html>

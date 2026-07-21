@@ -4,6 +4,8 @@ import com.sirithree.shopops.admin.auth.annotation.RequireRole;
 import com.sirithree.shopops.admin.auth.domain.AuthRole;
 import com.sirithree.shopops.admin.common.context.RequestContext;
 import com.sirithree.shopops.admin.common.context.RequestContextHolder;
+import com.sirithree.shopops.admin.connector.domain.ConnectorApiCallLogDto;
+import com.sirithree.shopops.admin.connector.domain.ConnectorApiCallLogQueryParam;
 import com.sirithree.shopops.admin.connector.domain.ConnectorAuditEventCreateCommand;
 import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialDto;
 import com.sirithree.shopops.admin.connector.domain.ConnectorCredentialParam;
@@ -12,6 +14,7 @@ import com.sirithree.shopops.admin.connector.domain.ConnectorStatusDto;
 import com.sirithree.shopops.admin.connector.domain.ConnectorSyncJobCreateParam;
 import com.sirithree.shopops.admin.connector.domain.ConnectorSyncJobDto;
 import com.sirithree.shopops.admin.connector.domain.ConnectorSyncJobQueryParam;
+import com.sirithree.shopops.admin.connector.service.ConnectorApiCallLogService;
 import com.sirithree.shopops.admin.connector.service.ConnectorAuditService;
 import com.sirithree.shopops.admin.connector.service.ConnectorCredentialService;
 import com.sirithree.shopops.admin.connector.service.ConnectorStatusService;
@@ -36,15 +39,18 @@ public class ConnectorController {
     private final ConnectorCredentialService connectorCredentialService;
     private final ConnectorAuditService connectorAuditService;
     private final ConnectorSyncJobService connectorSyncJobService;
+    private final ConnectorApiCallLogService connectorApiCallLogService;
 
     public ConnectorController(ConnectorStatusService connectorStatusService,
                                ConnectorCredentialService connectorCredentialService,
                                ConnectorAuditService connectorAuditService,
-                               ConnectorSyncJobService connectorSyncJobService) {
+                               ConnectorSyncJobService connectorSyncJobService,
+                               ConnectorApiCallLogService connectorApiCallLogService) {
         this.connectorStatusService = connectorStatusService;
         this.connectorCredentialService = connectorCredentialService;
         this.connectorAuditService = connectorAuditService;
         this.connectorSyncJobService = connectorSyncJobService;
+        this.connectorApiCallLogService = connectorApiCallLogService;
     }
 
     @GetMapping("/status")
@@ -116,6 +122,13 @@ public class ConnectorController {
                 context.getTenantId(), context.getShopId(), context.getUserId(), context.getRequestId(), jobId);
         recordSyncJobEvent(context, job, "CONNECTOR_SYNC_RETRIED");
         return CommonResult.success(job);
+    }
+
+    @GetMapping("/api-call-logs")
+    @RequireRole(AuthRole.ADMIN)
+    public CommonResult<CommonPage<ConnectorApiCallLogDto>> listApiCallLogs(ConnectorApiCallLogQueryParam param) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(connectorApiCallLogService.list(context.getTenantId(), context.getShopId(), param));
     }
 
     private void recordConnectorEvent(RequestContext context,

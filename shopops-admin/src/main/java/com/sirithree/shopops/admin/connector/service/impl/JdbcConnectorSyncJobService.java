@@ -89,7 +89,8 @@ public class JdbcConnectorSyncJobService implements ConnectorSyncJobService {
 
     private void run(ConnectorSyncJob job, String requestId) {
         job.setStatus("RUNNING");
-        ConnectorSyncJobExecutor.ConnectorSyncResult result = executor.run(job.getTenantId(), job.getShopId(), job.getConnectorCode());
+        ConnectorSyncJobExecutor.ConnectorSyncResult result = executor.run(
+                job.getTenantId(), job.getShopId(), job.getId(), job.getConnectorCode(), requestId);
         job.setStatus(result.status());
         job.setMessage(result.message());
         job.setDetailJson(jsonSupport.toJson(result.detail()));
