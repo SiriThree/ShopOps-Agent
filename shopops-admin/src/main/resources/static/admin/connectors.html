@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>ShopOps 连接器中心</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --line: #d9dee6;
+      --text: #1f2933;
+      --muted: #667085;
+      --ink: #111827;
+      --green: #168a5b;
+      --red: #c24132;
+      --amber: #b7791f;
+      --teal: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input { font: inherit; }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    input {
+      width: 100%;
+      min-height: 34px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 10px;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .topbar {
+      min-width: 0;
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(360px, 680px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .context-session {
+      grid-column: 1 / -1;
+      min-height: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .toolbar {
+      padding: 16px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .metric span { color: var(--muted); font-size: 12px; }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 0 24px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      max-width: 100%;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f9fafb;
+      color: #475467;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .code-cell {
+      font-family: Consolas, "Courier New", monospace;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      max-width: 310px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f9fafb;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge.up {
+      color: var(--green);
+      background: #ecfdf3;
+      border-color: #b7e4c7;
+    }
+
+    .badge.missing, .badge.invalid, .badge.unreadable {
+      color: var(--red);
+      background: #fff1f0;
+      border-color: #f4b8b2;
+    }
+
+    .badge.not_configured {
+      color: var(--amber);
+      background: #fff8e6;
+      border-color: #efd08a;
+    }
+
+    .status-line {
+      color: var(--muted);
+      font-size: 12px;
+      min-height: 18px;
+    }
+
+    @media (max-width: 1000px) {
+      .shell { grid-template-columns: 190px minmax(0, 1fr); }
+      .topbar { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .shell { display: block; }
+      .sidebar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        padding: 14px 16px;
+      }
+      .nav {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+      .nav a { white-space: nowrap; }
+      .topbar, .toolbar, .content { padding-left: 14px; padding-right: 14px; }
+      .context-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps</strong>
+        <span>管理控制台</span>
+      </div>
+      <nav class="nav" aria-label="管理导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/approvals.html">审批中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
+        <a href="/admin/prompts.html">提示词模板</a>
+        <a class="active" href="/admin/connectors.html">连接器中心</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>连接器中心</h1>
+          <div class="subtitle">查看外部业务数据源配置、文件可用性与最近检测结果</div>
+        </div>
+        <form class="context-grid" id="contextForm" autocomplete="off">
+          <label>租户
+            <input id="tenantId" value="1" inputmode="numeric">
+          </label>
+          <label>店铺
+            <input id="shopId" value="1" inputmode="numeric">
+          </label>
+          <label>用户
+            <input id="userId" value="1" inputmode="numeric">
+          </label>
+          <label>角色
+            <input id="roles" value="ADMIN">
+          </label>
+          <button class="primary" type="submit">应用</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
+        </form>
+      </header>
+
+      <section class="toolbar">
+        <div class="metrics" id="metrics"></div>
+        <div class="status-line" id="statusLine"></div>
+      </section>
+
+      <section class="content">
+        <section class="panel">
+          <div class="panel-title">
+            <h2>文件数据源状态</h2>
+            <button id="refreshConnectors" type="button">刷新</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>连接器</th>
+                  <th>名称</th>
+                  <th>业务域</th>
+                  <th>配置项</th>
+                  <th>状态</th>
+                  <th>文件路径</th>
+                  <th>检测结果</th>
+                  <th>检测时间</th>
+                </tr>
+              </thead>
+              <tbody id="connectorBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
+    const CONNECTOR_PROPERTY_KEYS = [
+      "shopops.connector.order-summary.file",
+      "shopops.connector.negative-comments.file",
+      "shopops.connector.product-candidates.file"
+    ];
+    const $ = (id) => document.getElementById(id);
+
+    function headers() {
+      const result = {
+        "Content-Type": "application/json",
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": $("userId").value || "1",
+        "X-User-Roles": $("roles").value || "ADMIN"
+      };
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        result.Authorization = `Bearer ${token}`;
+      }
+      return result;
+    }
+
+    async function api(path) {
+      const response = await fetch(path, { headers: headers() });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const body = await response.json();
+      if (body.code && body.code !== 200) {
+        throw new Error(body.message || `API ${body.code}`);
+      }
+      return body.data;
+    }
+
+    async function loadConnectors() {
+      setStatus("连接器状态加载中");
+      try {
+        const list = await api("/api/admin/connectors/status");
+        const connectors = Array.isArray(list) ? list : [];
+        $("connectorBody").innerHTML = connectors.map(row).join("") || emptyRow();
+        renderMetrics(connectors);
+        setStatus("连接器状态已刷新");
+      } catch (error) {
+        $("connectorBody").innerHTML = errorRow(error.message);
+        renderMetrics([]);
+        setStatus(error.message);
+      }
+    }
+
+    function row(item) {
+      const status = item.status || "";
+      return `
+        <tr>
+          <td class="code-cell">${escapeHtml(item.connectorCode || "")}</td>
+          <td>${escapeHtml(item.connectorName || "")}</td>
+          <td>${escapeHtml(item.category || "")}</td>
+          <td class="code-cell">${escapeHtml(item.propertyKey || "")}</td>
+          <td><span class="badge ${status.toLowerCase()}">${statusLabel(status)}</span></td>
+          <td class="code-cell">${escapeHtml(item.configuredPath || "-")}</td>
+          <td>${escapeHtml(item.message || "")}</td>
+          <td>${formatTime(item.lastCheckedAt)}</td>
+        </tr>
+      `;
+    }
+
+    function renderMetrics(connectors) {
+      const configured = connectors.filter((item) => item.configured).length;
+      const available = connectors.filter((item) => item.available).length;
+      const missing = connectors.filter((item) => item.status === "MISSING").length;
+      $("metrics").innerHTML = [
+        ["连接器", connectors.length],
+        ["已配置", configured],
+        ["可用", available],
+        ["缺失文件", missing]
+      ].map(([label, value]) => `
+        <div class="metric">
+          <span>${escapeHtml(label)}</span>
+          <strong>${Number(value || 0)}</strong>
+        </div>
+      `).join("");
+    }
+
+    function statusLabel(status) {
+      return {
+        UP: "可用",
+        NOT_CONFIGURED: "未配置",
+        MISSING: "文件缺失",
+        INVALID: "路径异常",
+        UNREADABLE: "不可读"
+      }[status] || status || "-";
+    }
+
+    function emptyRow() {
+      return `
+        <tr>
+          <td colspan="8">暂无连接器状态</td>
+        </tr>
+      `;
+    }
+
+    function errorRow(message) {
+      return `
+        <tr>
+          <td colspan="8">连接器状态加载失败：${escapeHtml(message || "请稍后重试")}</td>
+        </tr>
+      `;
+    }
+
+    function setStatus(message) {
+      $("statusLine").textContent = message;
+    }
+
+    function resetContext() {
+      $("tenantId").value = "1";
+      $("shopId").value = "1";
+      $("userId").value = "1";
+      $("roles").value = "ADMIN";
+      renderSessionLine();
+      loadConnectors();
+    }
+
+    function applyStoredSession() {
+      const session = authSession();
+      if (session.user) {
+        $("tenantId").value = session.user.tenantId || $("tenantId").value || "1";
+        $("shopId").value = session.user.shopId || $("shopId").value || "1";
+        $("userId").value = session.user.userId || $("userId").value || "1";
+        $("roles").value = roleValue(session.user.roles);
+      }
+      renderSessionLine(session);
+    }
+
+    function renderSessionLine(session = authSession()) {
+      $("sessionLine").textContent = session.token
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
+    }
+
+    function authSession() {
+      let user = null;
+      try {
+        user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+      } catch (error) {
+        user = null;
+      }
+      return { token: localStorage.getItem(TOKEN_KEY) || "", user };
+    }
+
+    function roleValue(roles) {
+      return Array.isArray(roles) ? roles.join(",") : (roles || "ADMIN");
+    }
+
+    function formatTime(value) {
+      return value ? String(value).replace("T", " ").slice(0, 19) : "";
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    $("contextForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      loadConnectors();
+    });
+    $("resetContext").addEventListener("click", resetContext);
+    $("refreshConnectors").addEventListener("click", loadConnectors);
+
+    applyStoredSession();
+    loadConnectors();
+  </script>
+</body>
+</html>
