@@ -19,6 +19,7 @@ public class InMemoryMcpToolService implements McpToolService {
         register(new McpToolDto("comment.query_negative", "差评风险查询", "comment", "comment:read", "low"));
         register(new McpToolDto("product.query_candidates", "待优化商品查询", "product", "product:read", "low"));
         register(new McpToolDto("ad.query_performance", "广告投放指标查询", "ad", "ad:read", "low"));
+        register(new McpToolDto("report.query_external_metrics", "外部报表指标查询", "report", "report:read", "low"));
         register(new McpToolDto("report.generate_daily_review", "每日经营复盘报告生成", "report", "report:generate", "low"));
         register(approvalTool("order.refund_execute", "高风险退款执行", "order", "order:refund", "high"));
     }

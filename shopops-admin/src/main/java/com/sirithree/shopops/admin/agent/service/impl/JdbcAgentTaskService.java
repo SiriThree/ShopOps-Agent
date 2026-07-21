@@ -262,7 +262,8 @@ public class JdbcAgentTaskService implements AgentTaskService {
         stepIdByStepNo.put(2, insertStep(task, 2, "查询差评风险", "comment.query_negative"));
         stepIdByStepNo.put(3, insertStep(task, 3, "查询待优化商品", "product.query_candidates"));
         stepIdByStepNo.put(4, insertStep(task, 4, "查询广告投放指标", "ad.query_performance"));
-        stepIdByStepNo.put(5, insertStep(task, 5, "生成经营复盘报告", "report.generate_daily_review"));
+        stepIdByStepNo.put(5, insertStep(task, 5, "查询外部报表指标", "report.query_external_metrics"));
+        stepIdByStepNo.put(6, insertStep(task, 6, "生成经营复盘报告", "report.generate_daily_review"));
         return stepIdByStepNo;
     }
 

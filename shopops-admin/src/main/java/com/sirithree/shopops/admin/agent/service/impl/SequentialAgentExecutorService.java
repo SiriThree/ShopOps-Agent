@@ -97,6 +97,7 @@ public class SequentialAgentExecutorService implements AgentExecutorService {
                     "negativeComments", dataByTool.getOrDefault("comment.query_negative", Map.of("negativeCount", 0, "riskComments", java.util.List.of(), "categoryStats", Map.of())),
                     "productCandidates", dataByTool.getOrDefault("product.query_candidates", Map.of("candidateCount", 0, "products", java.util.List.of())),
                     "adPerformance", dataByTool.getOrDefault("ad.query_performance", Map.of("campaigns", java.util.List.of())),
+                    "externalReportMetrics", dataByTool.getOrDefault("report.query_external_metrics", Map.of("topChannels", java.util.List.of())),
                     "dateRange", context.getCreateParam().getDateRange()
             );
         }

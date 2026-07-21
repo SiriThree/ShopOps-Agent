@@ -174,7 +174,8 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         taskSteps.add(step(taskId, 2, "查询差评风险", "comment.query_negative"));
         taskSteps.add(step(taskId, 3, "查询待优化商品", "product.query_candidates"));
         taskSteps.add(step(taskId, 4, "查询广告投放指标", "ad.query_performance"));
-        taskSteps.add(step(taskId, 5, "生成经营复盘报告", "report.generate_daily_review"));
+        taskSteps.add(step(taskId, 5, "查询外部报表指标", "report.query_external_metrics"));
+        taskSteps.add(step(taskId, 6, "生成经营复盘报告", "report.generate_daily_review"));
         steps.put(taskId, taskSteps);
     }
 

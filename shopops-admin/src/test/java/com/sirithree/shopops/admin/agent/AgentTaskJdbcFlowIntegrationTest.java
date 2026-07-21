@@ -44,7 +44,7 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
                 .contains(taskId);
 
         List<Map<String, Object>> steps = (List<Map<String, Object>>) dataOfObject(get("/api/agent/tasks/" + taskId + "/steps"));
-        assertThat(steps).hasSize(5);
+        assertThat(steps).hasSize(6);
         assertThat(steps).extracting(step -> step.get("status")).containsOnly("SUCCESS");
 
         Map<String, Object> orderOutput = stepOutput(steps, "order.query_summary");
@@ -65,11 +65,16 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
                 .extracting(product -> product.get("productId"))
                 .containsExactly(1016, 1001, 1008);
 
+        Map<String, Object> externalReportOutput = stepOutput(steps, "report.query_external_metrics");
+        assertThat(externalReportOutput.get("visitorCount")).isEqualTo(36520);
+        assertThat(externalReportOutput.get("conversionRate")).isEqualTo(0.031);
+
         Integer reportId = ((Number) taskData.get("reportId")).intValue();
         Map<String, Object> reportData = dataOf(get("/api/reports/" + reportId));
         assertThat(reportData.get("markdown").toString())
                 .contains("GMV：840")
                 .contains("退款率：7.02%")
+                .contains("平台报表")
                 .contains("风险评价数：3");
         Map<String, Object> evidence = castMap(reportData.get("evidence"));
         assertThat((List<Object>) evidence.get("riskCommentIds")).contains(50101, 50102, 50103);
@@ -79,7 +84,7 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
 
         Map<String, Object> traceData = dataOf(get("/api/tasks/" + taskId + "/trace"));
         assertThat((List<Object>) traceData.get("spans")).hasSizeGreaterThanOrEqualTo(7);
-        assertThat((List<Object>) traceData.get("toolCalls")).hasSize(5);
+        assertThat((List<Object>) traceData.get("toolCalls")).hasSize(6);
 
         String taskNo = taskData.get("taskNo").toString();
         String traceId = taskData.get("traceId").toString();
@@ -106,11 +111,11 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
 
         Map<String, Object> adminDetail = dataOf(get("/api/admin/agent/tasks/" + taskId + "/detail"));
         assertThat(castMap(adminDetail.get("task")).get("taskId")).isEqualTo(taskId);
-        assertThat((List<Object>) adminDetail.get("steps")).hasSize(5);
+        assertThat((List<Object>) adminDetail.get("steps")).hasSize(6);
         assertThat((List<Object>) adminDetail.get("events")).isNotEmpty();
         assertThat(castMap(adminDetail.get("report")).get("reportId")).isEqualTo(reportId);
         assertThat((List<Object>) adminDetail.get("spans")).hasSizeGreaterThanOrEqualTo(7);
-        assertThat((List<Object>) adminDetail.get("toolCalls")).hasSize(5);
+        assertThat((List<Object>) adminDetail.get("toolCalls")).hasSize(6);
 
         Map<String, Object> adminMetrics = dataOf(get("/api/admin/agent/tasks/metrics"));
         assertThat(((Number) adminMetrics.get("total")).longValue()).isGreaterThanOrEqualTo(1L);
@@ -123,13 +128,13 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         Map<String, Object> dashboardTaskMetrics = castMap(dashboardSummary.get("taskMetrics"));
         assertThat(((Number) dashboardTaskMetrics.get("success")).longValue()).isGreaterThanOrEqualTo(1L);
         assertThat(((Number) dashboardSummary.get("reportTotal")).longValue()).isGreaterThanOrEqualTo(1L);
-        assertThat(((Number) dashboardSummary.get("toolCallTotal")).longValue()).isGreaterThanOrEqualTo(5L);
+        assertThat(((Number) dashboardSummary.get("toolCallTotal")).longValue()).isGreaterThanOrEqualTo(6L);
         assertThat(((Number) dashboardSummary.get("toolCallFailed")).longValue()).isGreaterThanOrEqualTo(0L);
         assertThat((List<Object>) dashboardSummary.get("recentFailedEvents")).isNotNull();
         assertThat(dashboardSummary.get("generatedAt")).isNotNull();
 
         Map<String, Object> toolCallPage = dataOf(get("/api/tools/call-logs?taskId=" + taskId + "&status=SUCCESS&pageNum=1&pageSize=2"));
-        assertThat(toolCallPage.get("total")).isEqualTo(5);
+        assertThat(toolCallPage.get("total")).isEqualTo(6);
         assertThat((List<Map<String, Object>>) toolCallPage.get("list")).hasSize(2);
 
         Map<String, Object> productToolCallPage = dataOf(get("/api/tools/call-logs?taskId=" + taskId + "&toolCode=product.query_candidates"));

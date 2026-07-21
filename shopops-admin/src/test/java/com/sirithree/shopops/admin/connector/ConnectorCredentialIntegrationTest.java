@@ -74,7 +74,8 @@ class ConnectorCredentialIntegrationTest {
         List<Map<String, Object>> list = (List<Map<String, Object>>) credentials.get("data");
         assertThat(list)
                 .extracting(item -> item.get("connectorCode"))
-                .contains("file.order-summary", "file.negative-comments", "file.product-candidates", "file.ad-performance");
+                .contains("file.order-summary", "file.negative-comments", "file.product-candidates",
+                        "file.ad-performance", "file.external-reports");
         assertThat(list.toString()).doesNotContain("sk-test-secret-001");
 
         Map<String, Object> testResult = dataOf(exchange(

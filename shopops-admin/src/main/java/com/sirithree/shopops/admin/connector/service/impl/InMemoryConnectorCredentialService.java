@@ -22,7 +22,8 @@ public class InMemoryConnectorCredentialService implements ConnectorCredentialSe
             "file.order-summary",
             "file.negative-comments",
             "file.product-candidates",
-            "file.ad-performance"
+            "file.ad-performance",
+            "file.external-reports"
     );
 
     private final Map<String, CredentialRecord> credentials = new ConcurrentHashMap<>();
