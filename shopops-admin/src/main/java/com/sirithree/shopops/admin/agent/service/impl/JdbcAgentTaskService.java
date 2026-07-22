@@ -63,7 +63,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
         appendEvent(task, null, AgentTaskStatus.CREATED.name(), "TASK_CREATED", userId);
 
         try {
-            Map<Integer, Long> stepIdByStepNo = seedSteps(task);
+            Map<Integer, Long> stepIdByStepNo = seedSteps(task, param);
 
             AgentTaskContext context = new AgentTaskContext();
             context.setTenantId(tenantId);
@@ -86,9 +86,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
 
             task.setReportId(result.getReportId());
             transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
-            task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
-                    ? "Daily review report generated with degraded evidence"
-                    : "Daily review report generated");
+            task.setResultSummary(RulePlannerService.taskResultSummary(param.getIntent(), Boolean.TRUE.equals(result.getDegraded())));
             task.setFinishedAt(LocalDateTime.now());
             agentTaskMapper.updateExecutionState(task);
             appendEvent(task, AgentTaskStatus.RUNNING.name(), task.getStatus(), "TASK_FINISHED", userId);
@@ -256,14 +254,11 @@ public class JdbcAgentTaskService implements AgentTaskService {
         return safeValue;
     }
 
-    private Map<Integer, Long> seedSteps(AgentTask task) {
+    private Map<Integer, Long> seedSteps(AgentTask task, AgentTaskCreateParam param) {
         Map<Integer, Long> stepIdByStepNo = new HashMap<>();
-        stepIdByStepNo.put(1, insertStep(task, 1, "查询订单核心指标", "order.query_summary"));
-        stepIdByStepNo.put(2, insertStep(task, 2, "查询差评风险", "comment.query_negative"));
-        stepIdByStepNo.put(3, insertStep(task, 3, "查询待优化商品", "product.query_candidates"));
-        stepIdByStepNo.put(4, insertStep(task, 4, "查询广告投放指标", "ad.query_performance"));
-        stepIdByStepNo.put(5, insertStep(task, 5, "查询外部报表指标", "report.query_external_metrics"));
-        stepIdByStepNo.put(6, insertStep(task, 6, "生成经营复盘报告", "report.generate_daily_review"));
+        for (var planStep : RulePlannerService.ruleSteps(param.getIntent())) {
+            stepIdByStepNo.put(planStep.getStepNo(), insertStep(task, planStep.getStepNo(), planStep.getStepName(), planStep.getToolCode()));
+        }
         return stepIdByStepNo;
     }
 

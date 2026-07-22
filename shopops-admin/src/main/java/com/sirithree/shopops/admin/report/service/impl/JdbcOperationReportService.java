@@ -78,6 +78,7 @@ public class JdbcOperationReportService implements OperationReportService {
         dto.setReportNo(report.getReportNo());
         dto.setReportType(report.getReportType());
         dto.setTitle(report.getTitle());
+        dto.setSummary(summary(report.getContentJson()));
         dto.setMarkdown(report.getContentMarkdown());
         dto.setEvidence(jsonSupport.toMap(report.getEvidenceJson()));
         dto.setTraceId(report.getTraceId());
@@ -86,5 +87,11 @@ public class JdbcOperationReportService implements OperationReportService {
         dto.setCreatedAt(report.getCreatedAt());
         dto.setUpdatedAt(report.getUpdatedAt());
         return dto;
+    }
+
+    private String summary(String contentJson) {
+        Map<String, Object> content = jsonSupport.toMap(contentJson);
+        Object summary = content.get("summary");
+        return summary == null ? null : String.valueOf(summary);
     }
 }

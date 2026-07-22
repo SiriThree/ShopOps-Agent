@@ -1,0 +1,1176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShopOps Agent 工作台</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --line: #d8dee8;
+      --text: #1f2937;
+      --muted: #667085;
+      --ink: #111827;
+      --green: #168a5b;
+      --red: #c24132;
+      --amber: #b7791f;
+      --blue: #2563eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, textarea { font: inherit; }
+
+    button {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+      padding: 0 12px;
+    }
+
+    button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    input {
+      min-height: 36px;
+      padding: 7px 10px;
+    }
+
+    textarea {
+      min-height: 126px;
+      padding: 12px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      border-radius: 6px;
+      padding: 9px 10px;
+      text-decoration: none;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .topbar {
+      min-width: 0;
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(360px, 680px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .context-session {
+      grid-column: 1 / -1;
+      min-height: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 20px 24px 24px;
+      display: grid;
+      grid-template-columns: minmax(360px, 0.96fr) minmax(420px, 1.04fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .stack { display: grid; gap: 14px; }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .prompt-form { display: grid; gap: 12px; }
+
+    .date-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .quick-grid button {
+      min-height: 54px;
+      text-align: left;
+      line-height: 1.35;
+    }
+
+    .quick-grid button strong,
+    .quick-grid button span {
+      display: block;
+    }
+
+    .quick-grid button span {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .status-line {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status-line strong { color: var(--ink); }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: #f8fafc;
+      color: var(--ink);
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fafbfc;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 5px;
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.1;
+      word-break: break-word;
+    }
+
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .data-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfe;
+    }
+
+    .data-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .data-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .result-table th,
+    .result-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 8px 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .result-table th {
+      color: var(--muted);
+      font-weight: 600;
+      background: #fafbfc;
+    }
+
+    .insight-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .insight {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #fbfcfe;
+    }
+
+    .insight span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .insight strong {
+      display: block;
+      color: var(--ink);
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 8px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #ffffff;
+    }
+
+    .step-no {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #eef2f7;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .step-title {
+      color: var(--ink);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .step-tool {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      word-break: break-word;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: #eef2f7;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .tag.success { background: #e8f5ee; color: var(--green); }
+    .tag.failed { background: #fdeceb; color: var(--red); }
+    .tag.running { background: #fff7e6; color: var(--amber); }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .flow-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfe;
+    }
+
+    .flow-card.done {
+      border-color: #bfe6d1;
+      background: #f2fbf6;
+    }
+
+    .flow-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .flow-card strong {
+      display: block;
+      color: var(--ink);
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .flow-card a {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--blue);
+      font-size: 12px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .report-box {
+      max-height: 360px;
+      overflow: auto;
+      white-space: pre-wrap;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfe;
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .empty {
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      color: var(--muted);
+      background: #fbfcfe;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .topbar, .content { grid-template-columns: 1fr; }
+      .context-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .summary-grid, .quick-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps Agent</strong>
+        <span>运营智能工作台</span>
+      </div>
+      <nav class="nav" aria-label="后台导航">
+        <a class="active" href="/admin/workbench.html">Agent 工作台</a>
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/approvals.html">审批中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
+        <a href="/admin/prompts.html">Prompt 模板</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>Agent 工作台</h1>
+          <div class="subtitle">用自然语言发起运营任务，并查看工具编排、报告和审计链路</div>
+        </div>
+        <form class="context-grid" id="contextForm">
+          <label>租户
+            <input id="tenantId" value="1" inputmode="numeric">
+          </label>
+          <label>店铺
+            <input id="shopId" value="1" inputmode="numeric">
+          </label>
+          <label>用户
+            <input id="userId" value="1" inputmode="numeric">
+          </label>
+          <label>角色
+            <input id="roles" value="ADMIN,OPERATOR">
+          </label>
+          <button class="primary" type="submit">刷新</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
+        </form>
+      </header>
+
+      <section class="content">
+        <div class="stack">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>一句话发起任务</h2>
+              <span class="tag" id="intentTag">等待输入</span>
+            </div>
+            <form class="prompt-form" id="promptForm">
+              <label>运营诉求
+                <textarea id="userInput" required>帮我生成今天店铺运营日报，重点分析差评、退款风险和商品优化建议。</textarea>
+              </label>
+              <div class="date-row">
+                <label>开始日期
+                  <input id="startDate" type="date" required>
+                </label>
+                <label>结束日期
+                  <input id="endDate" type="date" required>
+                </label>
+              </div>
+              <div class="button-row">
+                <button id="clearPrompt" type="button">清空</button>
+                <button id="submitPrompt" class="primary" type="submit">发起 Agent 任务</button>
+              </div>
+              <div class="status-line" id="statusLine">可以直接输入自然语言，当前会路由到每日运营复盘任务。</div>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>演示任务</h2>
+            </div>
+            <div class="quick-grid">
+              <button type="button" data-prompt="帮我生成今天店铺运营日报，汇总订单、评价、商品、投放和平台指标。" data-demo-run="true">
+                <strong>经营日报</strong>
+                <span>订单、评价、商品、投放汇总</span>
+              </button>
+              <button type="button" data-prompt="帮我分析最近差评原因，识别需要优先处理的风险点和受影响商品。" data-demo-run="true">
+                <strong>差评专项</strong>
+                <span>风险评价、原因聚类、客服动作</span>
+              </button>
+              <button type="button" data-prompt="帮我找出低点击或待优化商品，并给出标题和运营优化建议。" data-demo-run="true">
+                <strong>商品优化</strong>
+                <span>低点击商品、库存、标题建议</span>
+              </button>
+              <button type="button" data-prompt="帮我检查高消耗低转化投放计划，并输出预算调整建议。" data-demo-run="true">
+                <strong>投放异常</strong>
+                <span>消耗、转化、ROI 异常检查</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Agent 理解结果</h2>
+            </div>
+            <div class="status-line" id="routeReason">尚未发起任务。</div>
+            <div class="chips" id="focusAreas"></div>
+            <div class="chips" id="dataSources"></div>
+            <div class="chips" id="recommendedActions"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>最近任务</h2>
+              <button id="refreshRecent" type="button">刷新</button>
+            </div>
+            <div id="recentTasks" class="timeline"></div>
+          </section>
+        </div>
+
+        <div class="stack">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>本次执行</h2>
+              <div class="links">
+                <a id="openTask" href="/admin/tasks.html">任务</a>
+                <a id="openReport" href="/admin/reports.html">报告</a>
+                <a id="openAudit" href="/admin/audit.html">审计</a>
+                <a id="openTools" href="/admin/tools.html">工具日志</a>
+              </div>
+            </div>
+            <div class="summary-grid">
+              <div class="metric"><span>任务 ID</span><strong id="taskIdBox">-</strong></div>
+              <div class="metric"><span>状态</span><strong id="taskStatusBox">-</strong></div>
+              <div class="metric"><span>意图</span><strong id="intentBox">-</strong></div>
+              <div class="metric"><span>置信度</span><strong id="confidenceBox">-</strong></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>演示链路</h2>
+            </div>
+            <div id="demoFlow" class="flow-grid">
+              <div class="empty">发起演示任务后展示自然语言、工具编排、报告生成和审计追踪闭环。</div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>工具编排</h2>
+            </div>
+            <div id="steps" class="timeline">
+              <div class="empty">发起任务后展示 Agent 查询订单、评价、商品、投放、外部指标和生成报告的步骤。</div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>量化结果</h2>
+            </div>
+            <div id="quantPanel">
+              <div class="empty">任务完成后展示 GMV、退款率、差评数、商品候选和广告 ROI 等量化结果。</div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>关键结论</h2>
+            </div>
+            <div id="insights" class="insight-list">
+              <div class="empty">任务完成后展示经营摘要、证据数量、生成模式和模型调用信息。</div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>运营报告</h2>
+              <button id="refreshResult" type="button">刷新结果</button>
+            </div>
+            <div id="reportBox" class="report-box">暂无报告。任务完成后会展示 Markdown 报告摘要。</div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
+    const state = { selectedTaskId: "", selectedReportId: "", selectedTraceId: "", stepOutputs: {}, pollingTimer: null };
+    const $ = (id) => document.getElementById(id);
+
+    function headers() {
+      const result = {
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": $("userId").value || "1",
+        "X-User-Roles": $("roles").value || "ADMIN,OPERATOR"
+      };
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        result.Authorization = `Bearer ${token}`;
+      }
+      return result;
+    }
+
+    async function api(path, options = {}) {
+      const response = await fetch(path, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const body = await response.json();
+      if (body.code && body.code !== 200) {
+        throw new Error(body.message || `API ${body.code}`);
+      }
+      return body.data;
+    }
+
+    function today() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function setStatus(message) {
+      $("statusLine").innerHTML = message;
+    }
+
+    function tagClass(status) {
+      const value = String(status || "").toUpperCase();
+      if (value === "SUCCESS") return "tag success";
+      if (value === "FAILED" || value === "DEGRADED") return "tag failed";
+      if (value === "RUNNING" || value === "QUEUED" || value === "CREATED") return "tag running";
+      return "tag";
+    }
+
+    async function submitNaturalLanguageTask() {
+      const payload = {
+        userInput: $("userInput").value,
+        dateRange: { start: $("startDate").value, end: $("endDate").value }
+      };
+      setBusy(true);
+      setStatus("Agent 正在理解诉求并创建任务");
+      try {
+        const result = await api("/api/agent/tasks/natural-language", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        state.selectedTaskId = result.task.taskId;
+        $("intentTag").textContent = `${result.intentLabel || result.intent} · ${(result.confidence * 100).toFixed(0)}%`;
+        $("intentBox").textContent = result.intentLabel || result.intent;
+        $("confidenceBox").textContent = `${(result.confidence * 100).toFixed(0)}%`;
+        $("taskIdBox").textContent = result.task.taskId;
+        renderUnderstanding(result);
+        setStatus(`已路由到 <strong>${result.taskType}</strong>：${escapeHtml(result.routedReason)}`);
+        const task = await loadCurrentTask();
+        await loadRecentTasks();
+        if (!isTerminalStatus(task?.status)) {
+          startTaskTracking();
+        }
+      } catch (error) {
+        setStatus(`任务创建失败：${escapeHtml(error.message)}`);
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    function renderUnderstanding(result) {
+      $("routeReason").textContent = result.routedReason || "已完成路由。";
+      $("focusAreas").innerHTML = labelChips("关注", result.focusAreas || []);
+      $("dataSources").innerHTML = labelChips("数据", result.dataSources || []);
+      $("recommendedActions").innerHTML = labelChips("动作", result.recommendedActions || []);
+    }
+
+    function labelChips(prefix, values) {
+      return values.map((value) => `<span class="chip">${prefix}：${escapeHtml(value)}</span>`).join("")
+        || `<span class="chip">${prefix}：默认运营复盘</span>`;
+    }
+
+    async function loadCurrentTask() {
+      if (!state.selectedTaskId) return;
+      const task = await api(`/api/agent/tasks/${encodeURIComponent(state.selectedTaskId)}`);
+      state.selectedReportId = task.reportId || "";
+      state.selectedTraceId = task.traceId || "";
+      $("taskStatusBox").textContent = task.status || "-";
+      updateLinks();
+      await loadSteps();
+      if (state.selectedReportId) {
+        await loadReport(task);
+      } else {
+        $("reportBox").textContent = "任务尚未生成报告。";
+        renderInsights(task, null);
+      }
+      renderDemoFlow(task);
+      if (isTerminalStatus(task.status)) {
+        stopTaskTracking();
+        await loadRecentTasks();
+      }
+      return task;
+    }
+
+    function startTaskTracking() {
+      stopTaskTracking();
+      $("refreshResult").textContent = "追踪中";
+      state.pollingTimer = window.setInterval(async () => {
+        if (!state.selectedTaskId) {
+          stopTaskTracking();
+          return;
+        }
+        try {
+          const task = await loadCurrentTask();
+          if (isTerminalStatus(task?.status)) {
+            stopTaskTracking();
+          }
+        } catch (error) {
+          stopTaskTracking();
+          setStatus(`结果追踪中断：${escapeHtml(error.message)}`);
+        }
+      }, 2000);
+    }
+
+    function stopTaskTracking() {
+      if (state.pollingTimer) {
+        window.clearInterval(state.pollingTimer);
+        state.pollingTimer = null;
+      }
+      $("refreshResult").textContent = "刷新结果";
+    }
+
+    function isTerminalStatus(status) {
+      const value = String(status || "").toUpperCase();
+      return value === "SUCCESS" || value === "FAILED" || value === "DEGRADED";
+    }
+
+    function renderDemoFlow(task) {
+      const hasTask = Boolean(state.selectedTaskId);
+      const hasTools = Object.keys(state.stepOutputs || {}).length > 0;
+      const hasReport = Boolean(state.selectedReportId);
+      const hasAudit = hasTask && isTerminalStatus(task?.status);
+      const items = [
+        ["自然语言发起", hasTask, task?.taskNo || state.selectedTaskId || "-", $("openTask").href, "查看任务"],
+        ["工具编排执行", hasTools, hasTools ? "已沉淀工具调用与步骤输出" : "等待 Agent 执行工具", $("openTools").href, "查看工具日志"],
+        ["运营报告生成", hasReport, hasReport ? `报告 ID ${state.selectedReportId}` : "等待报告生成", $("openReport").href, "查看报告"],
+        ["审计链路追踪", hasAudit, hasAudit ? "任务闭环已进入审计中心" : "任务终态后可追踪", $("openAudit").href, "查看审计"]
+      ];
+      $("demoFlow").innerHTML = items.map(([title, done, detail, href, action], index) => `
+        <div class="flow-card ${done ? "done" : ""}">
+          <span>${done ? "已完成" : "待完成"} · ${index + 1}</span>
+          <strong>${escapeHtml(title)}</strong>
+          <div class="step-tool">${escapeHtml(detail)}</div>
+          <a href="${escapeAttr(href)}">${escapeHtml(action)}</a>
+        </div>
+      `).join("");
+    }
+
+    async function loadSteps() {
+      const steps = await api(`/api/agent/tasks/${encodeURIComponent(state.selectedTaskId)}/steps`);
+      state.stepOutputs = outputByTool(steps);
+      renderQuantPanel();
+      $("steps").innerHTML = steps.map((step) => `
+        <div class="step">
+          <div class="step-no">${escapeHtml(step.stepNo || "")}</div>
+          <div>
+            <div class="step-title">${escapeHtml(step.stepName || "-")}</div>
+            <div class="step-tool">${escapeHtml(step.toolCode || "-")}</div>
+          </div>
+          <span class="${tagClass(step.status)}">${escapeHtml(step.status || "-")}</span>
+        </div>
+      `).join("") || `<div class="empty">暂无执行步骤。</div>`;
+    }
+
+    function outputByTool(steps) {
+      const outputs = {};
+      (steps || []).forEach((step) => {
+        if (step.toolCode) {
+          outputs[step.toolCode] = parseJsonValue(step.output);
+        }
+      });
+      return outputs;
+    }
+
+    function parseJsonValue(value) {
+      if (!value) return {};
+      if (typeof value === "object") return value;
+      try {
+        return JSON.parse(value);
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function renderQuantPanel() {
+      const order = state.stepOutputs["order.query_summary"] || {};
+      const comments = state.stepOutputs["comment.query_negative"] || {};
+      const products = state.stepOutputs["product.query_candidates"] || {};
+      const ads = state.stepOutputs["ad.query_performance"] || {};
+      const external = state.stepOutputs["report.query_external_metrics"] || {};
+      const cards = [
+        ["GMV", moneyText(order.gmv)],
+        ["退款率", percentText(order.refundRate)],
+        ["差评数", numberText(comments.negativeCount)],
+        ["待优化商品", numberText(products.candidateCount)],
+        ["广告 ROI", numberText(ads.roi)],
+        ["广告消耗", moneyText(ads.spend)],
+        ["访客", numberText(external.visitorCount)],
+        ["转化率", percentText(external.conversionRate)]
+      ].filter(([, value]) => value !== "-");
+      if (!cards.length) {
+        $("quantPanel").innerHTML = `<div class="empty">任务完成后展示 GMV、退款率、差评数、商品候选和广告 ROI 等量化结果。</div>`;
+        return;
+      }
+      $("quantPanel").innerHTML = `
+        <div class="data-grid">
+          ${cards.map(([label, value]) => `
+            <div class="data-card">
+              <span>${escapeHtml(label)}</span>
+              <strong>${escapeHtml(value)}</strong>
+            </div>
+          `).join("")}
+        </div>
+        ${renderSpecializedResultTables(comments, products, ads)}
+      `;
+    }
+
+    function renderSpecializedResultTables(comments, products, ads) {
+      const riskComments = Array.isArray(comments.riskComments) ? comments.riskComments.slice(0, 3) : [];
+      const productRows = Array.isArray(products.products) ? products.products.slice(0, 5) : [];
+      const campaigns = Array.isArray(ads.campaigns) ? ads.campaigns.slice(0, 5) : [];
+      const sections = [];
+      if (riskComments.length) {
+        sections.push(resultTable("差评风险样本", ["商品", "星级", "内容"], riskComments.map((row) => [
+          row.productName,
+          numberText(row.star),
+          row.content
+        ])));
+      }
+      if (productRows.length) {
+        sections.push(resultTable("商品优化候选", ["商品", "评分", "库存", "原因"], productRows.map((row) => [
+          row.productName,
+          numberText(row.score),
+          numberText(row.stock),
+          row.reason
+        ])));
+      }
+      if (campaigns.length) {
+        sections.push(resultTable("投放计划表现", ["计划", "消耗", "ROI"], campaigns.map((row) => [
+          row.campaignName,
+          moneyText(row.spend),
+          numberText(row.roi)
+        ])));
+      }
+      return sections.join("");
+    }
+
+    function resultTable(title, headers, rows) {
+      return `
+        <div class="mini-title">${escapeHtml(title)}</div>
+        <table class="result-table">
+          <thead>
+            <tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr>
+          </thead>
+          <tbody>
+            ${rows.map((row) => `
+              <tr>${row.map((value) => `<td>${escapeHtml(value || "-")}</td>`).join("")}</tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function numberText(value) {
+      if (value === null || value === undefined || value === "") return "-";
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) return String(value);
+      return numeric.toLocaleString("zh-CN", { maximumFractionDigits: 2 });
+    }
+
+    function moneyText(value) {
+      const text = numberText(value);
+      return text === "-" ? text : `￥${text}`;
+    }
+
+    function percentText(value) {
+      if (value === null || value === undefined || value === "") return "-";
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) return String(value);
+      return `${(numeric * 100).toFixed(2)}%`;
+    }
+
+    async function loadReport(task) {
+      const report = await api(`/api/reports/${encodeURIComponent(state.selectedReportId)}`);
+      $("reportBox").textContent = report.markdown || "报告暂无内容。";
+      renderInsights(task, report);
+    }
+
+    function renderInsights(task, report) {
+      const evidence = normalizeEvidence(report?.evidence);
+      const shopConfig = evidence.shopConfig || {};
+      const items = [
+        ["报告标题", report?.title || intentTitle(evidence.intent) || "暂无报告标题"],
+        ["专项摘要", report?.summary || task?.resultSummary || "暂无任务摘要"],
+        ["证据沉淀", evidenceSummary(evidence)],
+        ["执行工具链", toolChainSummary(evidence)],
+        ["生成路径", generationSummary(evidence)],
+        ["店铺配置", configSummary(shopConfig)]
+      ];
+      $("insights").innerHTML = items.map(([label, value]) => `
+        <div class="insight">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value)}</strong>
+        </div>
+      `).join("");
+    }
+
+    function normalizeEvidence(evidence) {
+      if (!evidence) return {};
+      if (typeof evidence === "string") {
+        try {
+          return JSON.parse(evidence);
+        } catch (error) {
+          return {};
+        }
+      }
+      return evidence;
+    }
+
+    function intentTitle(intent) {
+      if (intent === "comment_risk") return "店铺差评风险专项分析";
+      if (intent === "product_optimization") return "店铺低点击商品优化专项";
+      if (intent === "ad_anomaly") return "店铺投放异常专项检查";
+      if (intent === "daily_review") return "店铺每日经营复盘";
+      return "";
+    }
+
+    function evidenceSummary(evidence) {
+      const riskCount = Array.isArray(evidence.riskCommentIds) ? evidence.riskCommentIds.length : 0;
+      const productCount = Array.isArray(evidence.productIds) ? evidence.productIds.length : 0;
+      const campaignCount = Array.isArray(evidence.campaignNames) ? evidence.campaignNames.length : 0;
+      const channelCount = Array.isArray(evidence.channelNames) ? evidence.channelNames.length : 0;
+      return `风险评价 ${riskCount} 条，商品候选 ${productCount} 个，投放计划 ${campaignCount} 个，渠道指标 ${channelCount} 个`;
+    }
+
+    function toolChainSummary(evidence) {
+      const toolCodes = Array.isArray(evidence.toolCodes) ? evidence.toolCodes : [];
+      if (!toolCodes.length) return "暂无工具链证据";
+      return toolCodes.join(" → ");
+    }
+
+    function generationSummary(evidence) {
+      const mode = evidence.generationMode || "UNKNOWN";
+      const provider = evidence.modelProviderCode || "规则 fallback";
+      const callId = evidence.modelCallId ? `，模型调用 ${evidence.modelCallId}` : "";
+      return `${mode} · ${provider}${callId}`;
+    }
+
+    function configSummary(shopConfig) {
+      const refund = shopConfig.refundRateWarnThreshold || "-";
+      const negative = shopConfig.negativeCommentWarnThreshold || "-";
+      const policy = shopConfig.agentModelPolicy || "-";
+      return `退款率阈值 ${refund}，差评阈值 ${negative}，模型策略 ${policy}`;
+    }
+
+    async function loadRecentTasks() {
+      try {
+        const page = await api("/api/admin/agent/tasks?pageNum=1&pageSize=5");
+        $("recentTasks").innerHTML = (page.list || []).map((task) => `
+          <button type="button" class="step" data-task-id="${escapeAttr(task.taskId)}">
+            <div class="step-no">#</div>
+            <div>
+              <div class="step-title">${escapeHtml(task.taskNo || task.taskId || "-")}</div>
+              <div class="step-tool">${escapeHtml(task.resultSummary || task.userInput || task.taskType || "-")}</div>
+            </div>
+            <span class="${tagClass(task.status)}">${escapeHtml(task.status || "-")}</span>
+          </button>
+        `).join("") || `<div class="empty">暂无最近任务。</div>`;
+      } catch (error) {
+        $("recentTasks").innerHTML = `<div class="empty">最近任务加载失败：${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    function updateLinks() {
+      $("openTask").href = state.selectedTaskId ? `/admin/tasks.html?taskId=${encodeURIComponent(state.selectedTaskId)}` : "/admin/tasks.html";
+      $("openReport").href = state.selectedReportId ? `/admin/reports.html?reportId=${encodeURIComponent(state.selectedReportId)}` : "/admin/reports.html";
+      $("openAudit").href = state.selectedTaskId ? `/admin/audit.html?source=TASK&taskId=${encodeURIComponent(state.selectedTaskId)}` : "/admin/audit.html";
+      $("openTools").href = state.selectedTaskId ? `/admin/tools.html?taskId=${encodeURIComponent(state.selectedTaskId)}` : "/admin/tools.html";
+    }
+
+    function setBusy(busy) {
+      $("submitPrompt").disabled = busy;
+      $("refreshResult").disabled = busy || !state.selectedTaskId;
+    }
+
+    function applyStoredSession() {
+      try {
+        const user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+        if (user) {
+          if (user.tenantId) $("tenantId").value = user.tenantId;
+          if (user.shopId) $("shopId").value = user.shopId;
+          if (user.userId) $("userId").value = user.userId;
+          if (Array.isArray(user.roles) && user.roles.length) $("roles").value = user.roles.join(",");
+          $("sessionLine").textContent = `当前会话：${user.username || user.userId || "已登录"}`;
+        }
+      } catch (error) {
+        $("sessionLine").textContent = "会话信息不可用";
+      }
+    }
+
+    function resetContext() {
+      $("tenantId").value = "1";
+      $("shopId").value = "1";
+      $("userId").value = "1";
+      $("roles").value = "ADMIN,OPERATOR";
+      $("sessionLine").textContent = "请求头上下文已重置";
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[char]));
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replace(/`/g, "&#96;");
+    }
+
+    $("promptForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      submitNaturalLanguageTask();
+    });
+
+    $("contextForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      loadRecentTasks();
+      if (state.selectedTaskId) loadCurrentTask();
+    });
+
+    $("resetContext").addEventListener("click", resetContext);
+    $("clearPrompt").addEventListener("click", () => {
+      $("userInput").value = "";
+      $("userInput").focus();
+    });
+    $("refreshRecent").addEventListener("click", loadRecentTasks);
+    $("refreshResult").addEventListener("click", async () => {
+      stopTaskTracking();
+      await loadCurrentTask();
+    });
+    $("recentTasks").addEventListener("click", async (event) => {
+      const button = event.target.closest("[data-task-id]");
+      if (!button) return;
+      state.selectedTaskId = button.dataset.taskId;
+      $("taskIdBox").textContent = state.selectedTaskId;
+      $("intentBox").textContent = "daily_review";
+      $("confidenceBox").textContent = "-";
+      const task = await loadCurrentTask();
+      if (!isTerminalStatus(task?.status)) {
+        startTaskTracking();
+      }
+    });
+    document.querySelectorAll("[data-prompt]").forEach((button) => {
+      button.addEventListener("click", () => {
+        $("userInput").value = button.dataset.prompt;
+        $("userInput").focus();
+        if (button.dataset.demoRun === "true") {
+          submitNaturalLanguageTask();
+        }
+      });
+    });
+
+    $("startDate").value = today();
+    $("endDate").value = today();
+    setBusy(false);
+    applyStoredSession();
+    updateLinks();
+    renderDemoFlow(null);
+    loadRecentTasks();
+  </script>
+</body>
+</html>

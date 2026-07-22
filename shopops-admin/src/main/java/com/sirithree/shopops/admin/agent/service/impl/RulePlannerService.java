@@ -44,10 +44,14 @@ public class RulePlannerService implements PlannerService {
         if (!"daily_review".equals(context.getCreateParam().getTaskType())) {
             throw new IllegalArgumentException("P0 仅支持 daily_review 任务");
         }
+        String intent = context.getCreateParam().getIntent();
+        if (hasText(intent) && !"daily_review".equals(intent)) {
+            return rulePlan(intent);
+        }
         if (plannerProperties.isEnabled()) {
             return modelPlanOrFallback(context);
         }
-        return rulePlan();
+        return rulePlan("daily_review");
     }
 
     private AgentPlan modelPlanOrFallback(AgentTaskContext context) {
@@ -76,12 +80,12 @@ public class RulePlannerService implements PlannerService {
                     param
             );
             if (!ModelCallStatus.SUCCESS.equals(result.getStatus()) || result.getOutputText() == null || result.getOutputText().isBlank()) {
-                return rulePlan();
+                return rulePlan("daily_review");
             }
             AgentPlan plan = parsePlan(result.getOutputText());
-            return isSafeDailyReviewPlan(plan) ? plan : rulePlan();
+            return isSafeDailyReviewPlan(plan) ? plan : rulePlan("daily_review");
         } catch (RuntimeException ex) {
-            return rulePlan();
+            return rulePlan("daily_review");
         }
     }
 
@@ -165,15 +169,63 @@ public class RulePlannerService implements PlannerService {
         return true;
     }
 
-    private AgentPlan rulePlan() {
+    static List<AgentPlanStep> ruleSteps(String intent) {
+        if ("comment_risk".equals(intent)) {
+            return List.of(
+                    new AgentPlanStep(1, "分析订单基线", "order.query_summary"),
+                    new AgentPlanStep(2, "聚类差评风险", "comment.query_negative"),
+                    new AgentPlanStep(3, "检查受影响商品", "product.query_candidates"),
+                    new AgentPlanStep(4, "生成差评风险报告", "report.generate_daily_review")
+            );
+        }
+        if ("product_optimization".equals(intent)) {
+            return List.of(
+                    new AgentPlanStep(1, "分析订单基线", "order.query_summary"),
+                    new AgentPlanStep(2, "识别低点击商品", "product.query_candidates"),
+                    new AgentPlanStep(3, "检查关联评价信号", "comment.query_negative"),
+                    new AgentPlanStep(4, "生成商品优化报告", "report.generate_daily_review")
+            );
+        }
+        if ("ad_anomaly".equals(intent)) {
+            return List.of(
+                    new AgentPlanStep(1, "分析订单基线", "order.query_summary"),
+                    new AgentPlanStep(2, "检查投放异常", "ad.query_performance"),
+                    new AgentPlanStep(3, "对比平台外部指标", "report.query_external_metrics"),
+                    new AgentPlanStep(4, "生成投放异常报告", "report.generate_daily_review")
+            );
+        }
+        return List.of(
+                new AgentPlanStep(1, "查询订单核心指标", "order.query_summary"),
+                new AgentPlanStep(2, "查询差评风险", "comment.query_negative"),
+                new AgentPlanStep(3, "查询待优化商品", "product.query_candidates"),
+                new AgentPlanStep(4, "查询广告投放指标", "ad.query_performance"),
+                new AgentPlanStep(5, "查询外部报表指标", "report.query_external_metrics"),
+                new AgentPlanStep(6, "生成经营复盘报告", "report.generate_daily_review")
+        );
+    }
+
+    static String taskResultSummary(String intent, boolean degraded) {
+        String suffix = degraded ? " with degraded evidence" : "";
+        if ("comment_risk".equals(intent)) {
+            return "Comment risk analysis report generated" + suffix;
+        }
+        if ("product_optimization".equals(intent)) {
+            return "Product optimization report generated" + suffix;
+        }
+        if ("ad_anomaly".equals(intent)) {
+            return "Ad anomaly report generated" + suffix;
+        }
+        return "Daily review report generated" + suffix;
+    }
+
+    private AgentPlan rulePlan(String intent) {
         AgentPlan plan = new AgentPlan();
         plan.setTaskType("daily_review");
-        plan.getSteps().add(new AgentPlanStep(1, "查询订单核心指标", "order.query_summary"));
-        plan.getSteps().add(new AgentPlanStep(2, "查询差评风险", "comment.query_negative"));
-        plan.getSteps().add(new AgentPlanStep(3, "查询待优化商品", "product.query_candidates"));
-        plan.getSteps().add(new AgentPlanStep(4, "查询广告投放指标", "ad.query_performance"));
-        plan.getSteps().add(new AgentPlanStep(5, "查询外部报表指标", "report.query_external_metrics"));
-        plan.getSteps().add(new AgentPlanStep(6, "生成经营复盘报告", "report.generate_daily_review"));
+        plan.getSteps().addAll(ruleSteps(intent));
         return plan;
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.isBlank();
     }
 }

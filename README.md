@@ -1,221 +1,226 @@
-# ShopOps Agent
+﻿# ShopOps Agent
 
-ShopOps Agent is an enterprise-oriented AI operations platform for ecommerce teams. It turns daily shop operation workflows into governed Agent tasks: data retrieval, analysis, report generation, risk review, approval, and full-chain audit.
+ShopOps Agent 是一个面向电商运营场景的 AgentOps 管理后台。它不是单纯的 AI 聊天框，而是把自然语言任务、MCP 风格工具调用、异步任务编排、人工审批、运行配置、运营报告和审计追踪串成一条可治理的 Agent 执行链路。
 
-The project is designed around multi-tenant ecommerce operations, MCP-style tool governance, controlled Agent orchestration, approval workflows, model gateway abstraction, and traceable execution.
+当前项目最适合作品集展示的主线是：
 
-## Positioning
+> 运营人员用自然语言发起日常经营任务，Agent 自动识别意图、编排订单/评价/商品/投放等工具，生成量化运营报告，并沉淀任务、工具、报告、审批和审计链路。
 
-ShopOps Agent is not a simple LLM chatbot. It is an AgentOps and CommerceOps platform for ecommerce operation scenarios.
+## 当前亮点
 
-Core capabilities:
+- Agent 工作台：支持自然语言输入和一键演示任务。
+- 意图路由：支持经营日报、差评专项、商品优化、投放异常。
+- 工具编排：统一通过 Tool Gateway 调用工具，记录步骤和工具日志。
+- 量化结果：展示 GMV、退款率、差评数、商品候选、广告 ROI 等指标。
+- 运行配置：店铺级阈值、审批开关、模型策略可配置并在 Agent 执行中生效。
+- 审批风控：高风险工具支持人工审批、确认语校验和审批审计。
+- 审计闭环：任务、工具调用、报告、审批、模型调用均可追踪。
+- Olist 数据：已支持将 Olist 公开电商数据转换为订单、评价、商品三类 Connector 输入。
+- 评测基线：当前 Agent 评测与主流程测试已形成可复现的量化验收。
 
-- Multi-tenant and multi-shop isolation.
-- Ecommerce connectors for orders, products, comments, ads, reports, and collaboration tools.
-- MCP-style tool registry with schema, permission, risk level, version, timeout, and audit metadata.
-- Tool Gateway as the only controlled execution boundary for Agent tool calls.
-- Planner / Executor / Verifier Agent execution chain.
-- Human approval for high-risk operations.
-- Full-chain trace across task, step, tool call, model call, approval, and report.
-- Degradation strategy for tool failure and model unavailability.
+## 快速体验
 
-## Reference Architecture
+启动后端：
 
-The backend design references mature open-source ecommerce systems such as `mall`, `mall-swarm`, `mall4cloud`, and headless commerce platforms. `mall-master` is used locally as a Java backend and ecommerce domain reference, especially for Spring Boot layering, security, MyBatis, orders, products, comments, and RabbitMQ examples.
-
-ShopOps adds its own enterprise Agent platform layer on top of those concepts:
-
-```text
-React / Ant Design Pro Console
-        |
-        v
-Spring Boot Platform Backend
-  ├── Auth & Tenant
-  ├── Shop Center
-  ├── Connector Center
-  ├── MCP Tool Center
-  ├── Tool Gateway
-  ├── Agent Engine
-  ├── Workflow / Approval
-  ├── Report Center
-  ├── Model Gateway
-  └── Observability / Audit
-        |
-        v
-MySQL / Redis / RabbitMQ / Elasticsearch / MinIO
-        |
-        v
-Ollama / OpenAI-compatible Models / Ecommerce Platforms
+```powershell
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080"
 ```
 
-## Documents
-
-- [Enterprise Platform Design](docs/ShopOps%20Agent企业级平台实现方�?md)
-- [Enterprise Database ER Design](docs/ShopOps%20Agent企业级数据库ER设计.md)
-- [Backend API and Service Design](docs/ShopOps%20Agent后端API与服务设�?md)
-- [Daily Review P0 Main Flow Design](docs/ShopOps%20每日经营复盘P0主链路实现设�?md)
-- [Local Development Guide](docs/本地开发启动指�?md)
-- [Original Platform-Level Design Report](ShopOps%20Agent平台级详细设计报�?md)
-
-## SQL
-
-P0 schema and seed data:
-
-- [P0 Schema](sql/shopops_p0_schema.sql)
-- [P0 Seed Data](sql/shopops_p0_seed.sql)
-
-P0 focuses on the daily operation review flow:
+打开 Agent 工作台：
 
 ```text
-User task
-  -> Agent task
-  -> Rule Planner
-  -> Tool Gateway
-  -> order.query_summary
-  -> comment.query_negative
-  -> product.query_candidates
-  -> report.generate_daily_review
-  -> operation_report
-  -> trace_span
+http://localhost:8080/admin/workbench.html
 ```
 
-## P0 Tool Set
+工作台里可以直接点击四个演示任务：
+
+| 演示任务 | 预期意图 | 展示重点 |
+|---|---|---|
+| 经营日报 | `daily_review` | 店铺经营汇总、工具链、量化报告 |
+| 差评专项 | `comment_risk` | 风险评价、差评原因、受影响商品 |
+| 商品优化 | `product_optimization` | 低点击/待优化商品、优化建议 |
+| 投放异常 | `ad_anomaly` | 高消耗低转化计划、ROI 异常 |
+
+## Olist 真实数据演示
+
+准备 Olist demo 文件：
+
+```powershell
+python scripts/prepare_olist_demo.py
+```
+
+使用 Olist 文件 Connector 启动：
+
+```powershell
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080 --shopops.connector.order-summary.file=docs/demo-data/olist/order-summary-olist.json --shopops.connector.negative-comments.file=docs/demo-data/olist/negative-comments-olist.json --shopops.connector.product-candidates.file=docs/demo-data/olist/product-candidates-olist.json"
+```
+
+推荐演示业务日期：
 
 ```text
-order.query_summary
-comment.query_negative
-product.query_candidates
-report.generate_daily_review
+2018-08-07
 ```
 
-## Planned Backend Stack
+当前 Olist demo 摘要：
+
+| 指标 | 当前结果 |
+|---|---:|
+| GMV | 62057.77 |
+| 订单数 | 370 |
+| 售后/退款代理金额 | 4732.62 |
+| 售后/退款代理率 | 7.63% |
+| 风险评价数 | 51 |
+| 商品候选数 | 10 |
+
+说明：Olist 不包含真实退款金额、广告投放和平台外部指标，因此退款使用 `canceled / unavailable` 订单支付金额作为售后风险代理值；广告和外部指标仍使用内置演示数据。
+
+## 量化验收
+
+当前 portfolio baseline：
+
+| 维度 | 结果 |
+|---|---:|
+| Agent evaluation cases | 14 |
+| Passed cases | 14 |
+| Completion rate | 100% |
+| Tool invocation success rate | 98.6% |
+| Approval decision accuracy | 100% |
+| Config effect accuracy | 100% |
+
+刷新评测与作品集报告：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-agent-evaluation.ps1
+powershell -ExecutionPolicy Bypass -File scripts/generate-portfolio-report.ps1
+```
+
+## 技术栈
+
+后端：
 
 - Java 17
 - Spring Boot 3
-- Spring Security + JWT
-- MyBatis / MyBatis Generator
-- MySQL
-- Redis
-- RabbitMQ
-- SpringDoc / OpenAPI
-- Docker Compose
-- Ollama and OpenAI-compatible model providers
+- Maven 多模块
+- Spring MVC / Validation
+- Spring Security 风格的角色权限控制
+- MyBatis / JDBC 持久化路径
+- Flyway 数据库迁移
+- MySQL、Redis、RabbitMQ 可选开发基础设施
 
-## Backend P0 Skeleton
+Agent 与平台能力：
 
-The repository now contains a Spring Boot P0 backend skeleton:
+- Agent Task Queue
+- Rule Planner / Sequential Executor
+- MCP-style Tool Registry
+- Tool Gateway
+- Approval Center
+- Audit Timeline
+- Report Center
+- Model Gateway
+- OpenAI-compatible Provider 适配
+- Shop Runtime Configuration
+
+前端：
+
+- 当前为 Spring Boot 静态管理页
+- Agent 工作台位于 `/admin/workbench.html`
+- 后续可迁移到 React + TypeScript + Axios + ECharts + Ant Design
+
+测试与验证：
+
+- JUnit 5
+- Spring Boot Test
+- H2 / memory persistence 测试模式
+- Agent evaluation PowerShell 脚本
+
+## 架构概览
 
 ```text
-shopops-common
-  └── common API response and paging wrappers
-
-shopops-admin
-  ├── Agent task API
-  ├── Tool registry API
+Admin Console / Agent Workbench
+        |
+        v
+Spring Boot Admin Backend
+  ├── Auth / Tenant / Shop
+  ├── Organization / Shop Config
+  ├── Agent Task Queue
+  ├── Planner / Executor
+  ├── MCP Tool Registry
   ├── Tool Gateway
-  ├── P0 ToolExecutor implementations
-  ├── Report API
-  └── Trace API
+  ├── Approval Center
+  ├── Report Center
+  ├── Model Gateway
+  └── Audit / Observability
+        |
+        v
+Memory or JDBC Persistence
+        |
+        v
+File Connectors / Olist Demo Data / Model Providers
 ```
 
-P0 currently uses in-memory services so the main flow can be validated before MyBatis persistence is wired in.
-MyBatis dependencies, datasource configuration, P0 persistence models, and mapper interfaces have been added as the next persistence layer foundation.
+Agent 主链路：
 
-Start development infrastructure:
+```text
+Natural language request
+  -> Intent routing
+  -> Agent task
+  -> Rule planner
+  -> Tool gateway
+  -> order.query_summary
+  -> comment.query_negative
+  -> product.query_candidates
+  -> ad.query_performance
+  -> report.query_external_metrics
+  -> report.generate_daily_review
+  -> operation report
+  -> tool logs / audit timeline
+```
 
-```bash
+## 常用命令
+
+全量测试：
+
+```powershell
+mvn -pl shopops-admin -am test
+```
+
+工作台与自然语言入口测试：
+
+```powershell
+mvn -pl shopops-admin "-Dtest=AdminWorkbenchStaticPageIntegrationTest,AgentNaturalLanguageTaskIntegrationTest" test
+```
+
+启动开发基础设施：
+
+```powershell
 docker compose -f deploy/docker-compose.dev.yml up -d
 ```
 
-Persistence mode:
+JDBC / dev profile 启动：
 
-```yaml
-shopops:
-  persistence: memory # memory or jdbc
-```
-
-To use the development MyBatis/Flyway persistence profile:
-
-1. Start the development infrastructure with Docker Compose.
-2. Run the backend with the `dev` Spring profile.
-3. Flyway applies the P0/P1 schema and seed data from `shopops-admin/src/main/resources/db/migration`.
-
-The JDBC mode currently persists:
-
-```text
-mcp_tool
-agent_task
-agent_task_step
-agent_task_event
-tool_call_log
-operation_report
-trace_span
-product
-shop_order
-shop_order_item
-product_comment
-```
-
-Trace instrumentation currently covers:
-
-```text
-agent.task
-agent.planner
-agent.executor
-agent.verifier
-tool.<toolCode>
-```
-
-When `shopops.persistence=jdbc`, schema and seed data are owned by Flyway migrations. The legacy startup bootstrap runners are disabled by default and can only be enabled with `shopops.bootstrap.legacy-enabled=true`.
-
-Run locally with Java 17 and Maven:
-
-```bash
-mvn clean install -DskipTests
-mvn -pl shopops-admin spring-boot:run
-```
-
-Run against Docker MySQL with Flyway migrations:
-
-```bash
-mvn clean install -DskipTests
+```powershell
 mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 ```
 
-Create a daily review task:
+## 关键文档
 
-```bash
-curl -X POST http://localhost:8080/api/agent/tasks \
-  -H "Content-Type: application/json" \
-  -d '{
-    "taskType": "daily_review",
-    "userInput": "帮我生成今天店铺运营复盘",
-    "dateRange": {
-      "start": "2026-07-18",
-      "end": "2026-07-18"
-    }
-  }'
-```
+- [Agent 工作台作品集演示脚本](docs/Agent工作台作品集演示脚本.md)
+- [ShopOps 作品集量化报告](docs/ShopOps-portfolio-report.md)
+- [ShopOps 作品集中文演示讲稿](docs/ShopOps作品集中文演示讲稿.md)
+- [Olist 真实数据接入说明](docs/Olist真实数据接入说明.md)
+- [Agent 评测基线与作品集数据](docs/Agent评测基线与作品集数据.md)
+- [当前阶段验收与状态](docs/当前阶段验收与状态.md)
+- [本地开发启动指南](docs/本地开发启动指南.md)
+- [文档索引](docs/README.md)
 
-Useful P0 APIs:
+## 当前边界
 
-```text
-POST /api/agent/tasks
-GET  /api/agent/tasks/{taskId}
-GET  /api/agent/tasks/{taskId}/steps
-GET  /api/reports/{reportId}
-GET  /api/tasks/{taskId}/trace
-GET  /api/tools
-POST /api/tools/{toolCode}/invoke
-```
+- 当前前端仍是静态管理页，还不是 React / TypeScript 工程。
+- Olist 只覆盖订单、评价、商品三类真实数据。
+- Olist 不提供真实广告投放数据，广告指标当前仍为演示数据。
+- Olist 不提供商品标题，当前使用类目英文和 productId 前缀生成展示名。
+- 当前默认报告可走规则生成路径，真实模型调用可通过 Model Gateway 配置启用。
 
-## Repository Status
+## 面试讲法
 
-Current stage: enterprise design, P0 database preparation, and Java backend P0 skeleton.
-
-Next engineering step:
-
-```text
-Wire the P0 skeleton to MyBatis persistence:
-SQL-backed AgentTaskService / McpToolService / ToolCallLogService / OperationReportService
-```
+> ShopOps 是一个电商运营 AgentOps 后台。它的重点不是让模型直接生成一段日报，而是把 Agent 执行拆成任务、步骤、工具、报告、审批、审计、配置和评测。运营人员可以在工作台用自然语言发起任务，系统自动路由意图并编排工具，最终生成带业务指标和证据链的运营报告。项目还接入了 Olist 公开电商数据，并用评测脚本量化验证 Agent 的执行、审批和配置行为。

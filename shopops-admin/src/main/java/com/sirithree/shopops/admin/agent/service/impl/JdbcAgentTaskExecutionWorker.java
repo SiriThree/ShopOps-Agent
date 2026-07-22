@@ -107,11 +107,13 @@ public class JdbcAgentTaskExecutionWorker {
     }
 
     private void finishTask(AgentTask task, AgentExecutionResult result, Long userId) {
+        AgentTaskCreateParam param = jsonSupport.fromJson(task.getPlanJson(), AgentTaskCreateParam.class);
         task.setReportId(result.getReportId());
         transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
-        task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
-                ? "Daily review report generated with degraded evidence"
-                : "Daily review report generated");
+        task.setResultSummary(RulePlannerService.taskResultSummary(
+                param == null ? null : param.getIntent(),
+                Boolean.TRUE.equals(result.getDegraded())
+        ));
         task.setFinishedAt(LocalDateTime.now());
         agentTaskMapper.updateExecutionState(task);
         appendEvent(task, AgentTaskStatus.RUNNING.name(), task.getStatus(), "TASK_FINISHED", userId);
