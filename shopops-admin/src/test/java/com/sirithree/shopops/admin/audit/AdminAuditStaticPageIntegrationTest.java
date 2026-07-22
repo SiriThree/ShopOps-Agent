@@ -2,6 +2,9 @@ package com.sirithree.shopops.admin.audit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,6 +17,8 @@ import org.springframework.http.ResponseEntity;
         properties = "shopops.persistence=memory"
 )
 class AdminAuditStaticPageIntegrationTest {
+    private static final Pattern SCRIPT_PATTERN = Pattern.compile("(?:src|href)=\"(/admin/assets/[^\"]+\\.js)\"");
+
     @LocalServerPort
     private int port;
 
@@ -33,67 +38,77 @@ class AdminAuditStaticPageIntegrationTest {
         assertThat(response.getHeaders().getFirst(HttpHeaders.CACHE_CONTROL))
                 .contains("no-store")
                 .contains("no-cache");
-        assertThat(response.getBody())
+
+        String html = response.getBody();
+        assertThat(html)
                 .contains("ShopOps 审计中心")
-                .contains("审计中心")
-                .contains("CSV 下载")
-                .contains("快捷筛选")
-                .contains("<option value=\"ELEVATED\">中高风险</option>")
+                .contains("shopops-ui-stack")
+                .contains("React")
+                .contains("TypeScript")
+                .contains("Axios")
+                .contains("ECharts")
+                .contains("Ant Design")
+                .contains("Audit center")
+                .contains("<div id=\"root\"></div>")
+                .contains("/admin/assets/audit-")
+                .contains("/admin/assets/styles-");
+
+        String scripts = allScriptText(restTemplate, html);
+        assertThat(scripts)
+                .contains("/api/admin/audit/overview")
+                .contains("/api/admin/audit/high-risk")
+                .contains("/api/admin/audit/timeline?")
+                .contains("/api/admin/audit/timeline/")
+                .contains("/api/admin/audit/export.csv")
+                .contains("source")
+                .contains("eventType")
+                .contains("eventStatus")
+                .contains("taskId")
+                .contains("traceId")
+                .contains("toolCode")
+                .contains("riskLevel")
                 .contains("elevatedRisk")
-                .contains("applyInitialQuery")
+                .contains("pageNum")
+                .contains("pageSize")
+                .contains("window.history.replaceState")
                 .contains("new URLSearchParams(window.location.search)")
-                .contains("syncUrl")
-                .contains("updateContextLinks")
-                .contains("summaryItems")
-                .contains("id=\"eventSummary\"")
-                .contains("id=\"configSnapshotBox\"")
-                .contains("id=\"configChangeBox\"")
-                .contains("renderConfigSnapshot")
-                .contains("renderConfigChange")
+                .contains("navigator.clipboard.writeText")
+                .contains("shopops.auth.token")
+                .contains("Authorization")
+                .contains("data-quick-filter")
+                .contains("data-empty-reset")
+                .contains("audit-risk-chart")
+                .contains("configSnapshotBox")
+                .contains("configChangeBox")
+                .contains("shopConfigSnapshot")
                 .contains("recentShopConfigChange")
-                .contains("退款率预警阈值")
-                .contains("高风险工具审批")
-                .contains("工具调用")
-                .contains("id=\"openTask\"")
-                .contains("id=\"openReport\"")
-                .contains("id=\"openApproval\"")
-                .contains("id=\"openToolLogs\"")
+                .contains("refundRateWarnThreshold")
+                .contains("negativeCommentWarnThreshold")
+                .contains("agentToolApprovalEnabled")
+                .contains("agentModelPolicy")
+                .contains("openTask")
+                .contains("openReport")
+                .contains("openApproval")
+                .contains("openToolLogs")
                 .contains("/admin/tasks.html?taskId=")
                 .contains("/admin/reports.html?reportId=")
-                .contains("/admin/approvals.html?approvalId=")
-                .contains("window.history.replaceState")
-                .contains("positiveInt(params.get(\"pageNum\"), 1)")
-                .contains("positiveInt(params.get(\"pageSize\"), 20)")
-                .contains("empty-state")
-                .contains("data-retry-list")
-                .contains("errorRow")
-                .contains("withBusy")
-                .contains("#filterForm button.primary")
-                .contains("查询中")
-                .contains("重置中")
-                .contains("加载中")
-                .contains("刷新中")
-                .contains("下载中")
-                .contains("id=\"copyDetail\"")
-                .contains("copyText")
-                .contains("navigator.clipboard")
-                .contains("fallbackCopy")
-                .contains("shopops.auth.token")
-                .contains("shopops.auth.user")
-                .contains("Authorization")
-                .contains("applyStoredSession")
-                .contains("id=\"sessionLine\"")
-                .contains("data-quick-filter=\"failed\"")
-                .contains("data-quick-filter=\"approval\"")
-                .contains("<option value=\"APPROVAL\">")
-                .contains("<option value=\"CONNECTOR\">")
-                .contains("<option value=\"CANCELED\">")
-                .contains("data-empty-reset")
-                .contains(".timeline-column")
-                .contains("max-width: 100%")
-                .contains("/api/admin/audit/overview")
-                .contains("/api/admin/audit/timeline")
-                .contains("/api/admin/audit/high-risk")
-                .contains("/api/admin/audit/export.csv");
+                .contains("/admin/approvals.html")
+                .contains("/admin/tools.html?toolCode=");
+    }
+
+    private String allScriptText(TestRestTemplate restTemplate, String html) {
+        Matcher matcher = SCRIPT_PATTERN.matcher(html);
+        return matcher.results()
+                .map(result -> result.group(1))
+                .distinct()
+                .map(path -> {
+                    ResponseEntity<String> script = restTemplate.getForEntity(
+                            "http://localhost:" + port + path,
+                            String.class
+                    );
+                    assertThat(script.getStatusCode().is2xxSuccessful()).isTrue();
+                    return script.getBody();
+                })
+                .collect(Collectors.joining("\n"));
     }
 }

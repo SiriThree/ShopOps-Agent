@@ -42,7 +42,7 @@ export async function apiPost<T>(path: string, payload: unknown, context: Reques
   return unwrap<T>(response.data);
 }
 
-function buildHeaders(context: RequestContext) {
+export function buildHeaders(context: RequestContext) {
   const headers: Record<string, string> = {
     "X-Tenant-Id": context.tenantId || "1",
     "X-Shop-Id": context.shopId || "1",

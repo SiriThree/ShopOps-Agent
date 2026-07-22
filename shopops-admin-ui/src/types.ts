@@ -115,3 +115,49 @@ export type SourceMetrics = {
   connectorCode?: string;
   metrics?: Record<string, unknown>;
 };
+
+export type AuditOverview = {
+  authEventTotal?: number;
+  authFailureTotal?: number;
+  taskEventTotal?: number;
+  taskFailureTotal?: number;
+  toolCallTotal?: number;
+  toolCallFailed?: number;
+  recentAuthEvents?: Record<string, unknown>[];
+  recentTaskEvents?: AgentTaskEvent[];
+  recentToolCalls?: Record<string, unknown>[];
+  generatedAt?: string;
+};
+
+export type AuditRiskSummary = {
+  total?: number;
+  elevatedRiskTotal?: number;
+  riskBreakdown?: Record<string, number>;
+  recentElevatedRiskEvents?: AuditTimelineEvent[];
+  generatedAt?: string;
+};
+
+export type AuditTimelineEvent = {
+  source?: string;
+  eventId?: string;
+  eventType?: string;
+  eventStatus?: string;
+  userId?: number | string;
+  username?: string;
+  taskId?: number | string;
+  traceId?: string;
+  toolCode?: string;
+  requestId?: string;
+  resourceType?: string;
+  resourceId?: string;
+  riskLevel?: string;
+  summary?: string;
+  detail?: Record<string, unknown>;
+  createdAt?: string;
+};
+
+export type AuditTimelineDetail = {
+  event?: AuditTimelineEvent;
+  resource?: Record<string, unknown>;
+  context?: Record<string, unknown>;
+};
