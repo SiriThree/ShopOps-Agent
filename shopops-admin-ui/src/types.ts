@@ -17,6 +17,9 @@ export type AgentTask = {
   status?: string;
   traceId?: string;
   reportId?: number | string;
+  userId?: number | string;
+  createdAt?: string;
+  errorMessage?: string;
   userInput?: string;
   resultSummary?: string;
 };
@@ -27,6 +30,43 @@ export type AgentStep = {
   toolCode?: string;
   status?: string;
   output?: unknown;
+};
+
+export type AgentTaskEvent = {
+  eventId?: number | string;
+  taskId?: number | string;
+  taskNo?: string;
+  eventType?: string;
+  fromStatus?: string;
+  toStatus?: string;
+  eventStatus?: string;
+  message?: string;
+  createdAt?: string;
+};
+
+export type AgentTaskMetrics = {
+  total?: number;
+  success?: number;
+  failed?: number;
+  statusBreakdown?: Record<string, number>;
+};
+
+export type AgentTaskDetail = {
+  task?: AgentTask;
+  steps?: AgentStep[];
+  events?: AgentTaskEvent[];
+  shopConfigSnapshot?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export type AgentTaskCreateResult = {
+  taskId: number | string;
+  taskNo?: string;
+};
+
+export type AgentTaskRecoveryResult = {
+  requeuedCount?: number;
+  taskIds?: Array<number | string>;
 };
 
 export type PageResult<T> = {

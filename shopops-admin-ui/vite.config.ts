@@ -10,7 +10,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         workbench: "workbench.html",
-        reports: "reports.html"
+        reports: "reports.html",
+        tasks: "tasks.html"
       }
     }
   },

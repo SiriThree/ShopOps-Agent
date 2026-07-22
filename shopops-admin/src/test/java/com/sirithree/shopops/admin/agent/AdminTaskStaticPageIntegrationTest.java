@@ -2,6 +2,10 @@ package com.sirithree.shopops.admin.agent;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,11 +18,14 @@ import org.springframework.http.ResponseEntity;
         properties = "shopops.persistence=memory"
 )
 class AdminTaskStaticPageIntegrationTest {
+    private static final Pattern TASK_SCRIPT = Pattern.compile("src=\"(/admin/assets/tasks-[^\"]+\\.js)\"");
+    private static final Pattern JS_ASSET = Pattern.compile("(?:src|href)=\"(/admin/assets/[^\"]+\\.js)\"");
+
     @LocalServerPort
     private int port;
 
     @Test
-    void shouldServeAdminTaskStaticPage() {
+    void shouldServeReactAdminTaskStaticPage() {
         TestRestTemplate restTemplate = new TestRestTemplate();
 
         ResponseEntity<String> response = restTemplate.getForEntity(
@@ -35,51 +42,63 @@ class AdminTaskStaticPageIntegrationTest {
                 .contains("no-cache");
         assertThat(response.getBody())
                 .contains("ShopOps 任务队列")
-                .contains("任务队列")
-                .contains("创建任务")
-                .contains("任务详情")
-                .contains("id=\"configSnapshotBox\"")
-                .contains("renderConfigSnapshot")
-                .contains("退款率预警阈值")
-                .contains("高风险工具审批")
-                .contains("最近事件")
+                .contains("shopops-ui-stack")
+                .contains("React, TypeScript, Axios, ECharts, Ant Design")
+                .contains("<div id=\"root\"></div>")
+                .contains("/admin/assets/tasks-")
+                .contains("/admin/assets/styles-");
+
+        String scripts = allScriptText(restTemplate, response.getBody());
+
+        assertThat(scripts)
+                .contains("/api/admin/agent/tasks?")
+                .contains("/api/admin/agent/tasks/metrics")
+                .contains("/api/admin/agent/tasks/events?pageNum=1&pageSize=8")
+                .contains("/api/admin/agent/tasks/")
+                .contains("/detail")
                 .contains("/api/agent/tasks")
-                .contains("/api/agent/tasks/${encodeURIComponent(state.selectedTaskId)}/retry")
-                .contains("/api/agent/tasks/stale/requeue")
-                .contains("applyInitialQuery")
-                .contains("syncUrl")
-                .contains("window.history.replaceState")
-                .contains("positiveInt(params.get(\"pageNum\"), 1)")
-                .contains("positiveInt(params.get(\"pageSize\"), 20)")
-                .contains("empty-state")
-                .contains("data-retry-list")
-                .contains("errorRow")
-                .contains("id=\"createTaskSubmit\"")
-                .contains("id=\"taskFilterSubmit\"")
-                .contains("withBusy")
-                .contains("查询中")
-                .contains("重置中")
-                .contains("加载中")
-                .contains("刷新中")
-                .contains("重排中")
-                .contains("id=\"copyDetail\"")
-                .contains("copyText")
-                .contains("navigator.clipboard")
-                .contains("fallbackCopy")
+                .contains("/retry")
+                .contains("/api/agent/tasks/stale/requeue?queuedTimeoutMinutes=10&runningTimeoutMinutes=30&limit=20")
+                .contains("pageNum")
+                .contains("pageSize")
+                .contains("taskId")
+                .contains("traceId")
+                .contains("reportId")
                 .contains("shopops.auth.token")
-                .contains("shopops.auth.user")
                 .contains("Authorization")
-                .contains("applyStoredSession")
-                .contains("id=\"sessionLine\"")
+                .contains("window.history.replaceState")
+                .contains("navigator.clipboard.writeText")
+                .contains("shopConfigSnapshot")
+                .contains("refundRateWarnThreshold")
+                .contains("agentToolApprovalEnabled")
+                .contains("task-metrics-chart")
+                .contains("barMaxWidth")
+                .contains("data-quick-filter")
                 .contains("/admin/reports.html?reportId=")
                 .contains("/admin/audit.html?source=TASK&taskId=")
-                .contains("/admin/tools.html?taskId=")
-                .contains("/api/admin/agent/tasks")
-                .contains("/api/admin/agent/tasks/metrics")
-                .contains("/api/admin/agent/tasks/events")
-                .contains("/api/admin/agent/tasks/${encodeURIComponent(taskId)}/detail")
-                .contains("data-quick-filter=\"failed\"")
-                .contains("/admin/dashboard.html")
-                .contains("/admin/audit.html");
+                .contains("/admin/tools.html?taskId=");
+    }
+
+    private static String taskScriptPath(String body) {
+        Matcher matcher = TASK_SCRIPT.matcher(body);
+        assertThat(matcher.find()).isTrue();
+        return matcher.group(1);
+    }
+
+    private String allScriptText(TestRestTemplate restTemplate, String body) {
+        assertThat(taskScriptPath(body)).isNotBlank();
+        Matcher matcher = JS_ASSET.matcher(body);
+        return matcher.results()
+                .map(result -> result.group(1))
+                .distinct()
+                .map(path -> {
+                    ResponseEntity<String> script = restTemplate.getForEntity(
+                            "http://localhost:" + port + path,
+                            String.class
+                    );
+                    assertThat(script.getStatusCode().is2xxSuccessful()).isTrue();
+                    return script.getBody();
+                })
+                .collect(Collectors.joining("\n"));
     }
 }

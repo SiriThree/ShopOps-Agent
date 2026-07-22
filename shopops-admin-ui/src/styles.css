@@ -132,6 +132,12 @@ body {
   margin-top: 10px;
 }
 
+.task-metrics-chart {
+  width: 100%;
+  height: 240px;
+  margin-top: 10px;
+}
+
 .result-tables {
   margin-top: 8px;
 }
