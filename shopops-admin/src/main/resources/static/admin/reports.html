@@ -612,6 +612,7 @@
               </div>
             </div>
             <div class="summary-box" id="evidenceSummary"></div>
+            <div class="summary-box" id="configSnapshotBox"></div>
             <pre class="detail-box" id="evidenceBox">请选择一条报告记录</pre>
             <div class="link-row">
               <a id="openTask" href="/admin/tasks.html">打开任务</a>
@@ -748,6 +749,7 @@
       }
       $("markdownBox").textContent = "加载中...";
       $("evidenceSummary").innerHTML = "";
+      $("configSnapshotBox").innerHTML = "";
       $("evidenceBox").textContent = "加载中...";
       try {
         const report = await api(`/api/reports/${encodeURIComponent(reportId)}`);
@@ -767,6 +769,7 @@
           ["类型", report.reportType || ""],
           ["证据", evidenceSummary(report.evidence)]
         ]);
+        $("configSnapshotBox").innerHTML = renderConfigSnapshot(report.evidence?.shopConfig);
         state.selectedTaskId = report.taskId || "";
         state.selectedTraceId = report.traceId || "";
         updateContextLinks();
@@ -775,6 +778,7 @@
       } catch (error) {
         $("markdownBox").textContent = error.message;
         $("evidenceSummary").innerHTML = "";
+        $("configSnapshotBox").innerHTML = "";
         $("evidenceBox").textContent = error.message;
       }
     }
@@ -794,6 +798,38 @@
         parts.push(`${evidence.riskCommentIds.length} 条风险备注`);
       }
       return parts.join(" / ") || "可用";
+    }
+
+    function renderConfigSnapshot(snapshot) {
+      if (!snapshot || typeof snapshot !== "object") {
+        return "";
+      }
+      return summaryItems([
+        ["閰嶇疆蹇収", "鏈鎵ц"],
+        ["閫€娆剧巼棰勮闃堝€?", percentValue(snapshot.refundRateWarnThreshold)],
+        ["宸瘎棰勮闃堝€?", textValue(snapshot.negativeCommentWarnThreshold)],
+        ["楂橀闄╁伐鍏峰鎵?", approvalValue(snapshot.agentToolApprovalEnabled)],
+        ["妯″瀷绛栫暐", textValue(snapshot.agentModelPolicy)]
+      ]);
+    }
+
+    function textValue(value) {
+      return value == null || value === "" ? "-" : String(value);
+    }
+
+    function percentValue(value) {
+      const text = textValue(value);
+      return text === "-" ? text : `${text}%`;
+    }
+
+    function approvalValue(value) {
+      if (value === true || value === "true") {
+        return "寮€鍚?";
+      }
+      if (value === false || value === "false") {
+        return "宸插叧闂?";
+      }
+      return "-";
     }
 
     function applyQuickFilter(name) {
@@ -1035,6 +1071,7 @@
       state.selectedReportId = "";
       state.selectedTaskId = "";
       state.selectedTraceId = "";
+      $("configSnapshotBox").innerHTML = "";
       updateContextLinks();
       syncUrl();
     });

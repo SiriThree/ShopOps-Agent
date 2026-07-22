@@ -228,9 +228,11 @@ public class JdbcOrganizationAdminService implements OrganizationAdminService {
             throw new IllegalArgumentException("店铺不存在");
         }
         String configKey = required(param.getConfigKey(), "配置键");
-        mapper.upsertShopConfig(tenantId, shopId, configKey,
-                required(param.getConfigValue(), "配置值"), normalizeValueType(param.getValueType()), userId);
-        return mapper.findShopConfig(tenantId, shopId, configKey);
+        String validatedConfigKey = ShopConfigValueValidator.normalizeConfigKey(configKey);
+        String validatedValueType = ShopConfigValueValidator.normalizeValueType(validatedConfigKey, normalizeValueType(param.getValueType()));
+        String validatedConfigValue = ShopConfigValueValidator.normalizeConfigValue(validatedConfigKey, required(param.getConfigValue(), "配置值"));
+        mapper.upsertShopConfig(tenantId, shopId, validatedConfigKey, validatedConfigValue, validatedValueType, userId);
+        return mapper.findShopConfig(tenantId, shopId, validatedConfigKey);
     }
 
     private String normalizeRoleCode(String roleCode) {

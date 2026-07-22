@@ -36,7 +36,7 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
     private long nextUserId = 4L;
     private long nextTenantId = 2L;
     private long nextShopId = 2L;
-    private long nextConfigId = 4L;
+    private long nextConfigId = 5L;
     private long nextMemberId = 4L;
 
     @Override
@@ -249,22 +249,25 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         ensureShop(tenantId, shopId);
         String configKey = required(param.getConfigKey(), "配置键");
         String valueType = normalizeValueType(param.getValueType());
+        String validatedConfigKey = ShopConfigValueValidator.normalizeConfigKey(configKey);
+        String validatedValueType = ShopConfigValueValidator.normalizeValueType(validatedConfigKey, valueType);
+        String validatedConfigValue = ShopConfigValueValidator.normalizeConfigValue(validatedConfigKey, required(param.getConfigValue(), "配置值"));
         ShopConfigDto config = shopConfigs.values().stream()
                 .filter(item -> tenantId.equals(item.getTenantId())
                         && shopId.equals(item.getShopId())
-                        && item.getConfigKey().equals(configKey))
+                        && item.getConfigKey().equals(validatedConfigKey))
                 .findFirst()
                 .orElseGet(() -> {
                     ShopConfigDto item = new ShopConfigDto();
                     item.setConfigId(nextConfigId++);
                     item.setTenantId(tenantId);
                     item.setShopId(shopId);
-                    item.setConfigKey(configKey);
+                    item.setConfigKey(validatedConfigKey);
                     shopConfigs.put(item.getConfigId(), item);
                     return item;
                 });
-        config.setConfigValue(required(param.getConfigValue(), "配置值"));
-        config.setValueType(valueType);
+        config.setConfigValue(validatedConfigValue);
+        config.setValueType(validatedValueType);
         config.setUpdatedBy(userId);
         config.setUpdatedAt(LocalDateTime.now());
         return config;
@@ -330,6 +333,7 @@ public class InMemoryOrganizationAdminService implements OrganizationAdminServic
         configs.put(1L, config(1L, "refund_rate_warn_threshold", "0.08", "number"));
         configs.put(2L, config(2L, "negative_comment_warn_threshold", "10", "number"));
         configs.put(3L, config(3L, "agent_tool_approval_enabled", "true", "boolean"));
+        configs.put(4L, config(4L, "agent_model_policy", "balanced", "string"));
         return configs;
     }
 

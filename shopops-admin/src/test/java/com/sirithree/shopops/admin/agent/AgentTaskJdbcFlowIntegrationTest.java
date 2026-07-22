@@ -79,6 +79,10 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         Map<String, Object> evidence = castMap(reportData.get("evidence"));
         assertThat((List<Object>) evidence.get("riskCommentIds")).contains(50101, 50102, 50103);
         assertThat((List<Object>) evidence.get("productIds")).containsExactly(1016, 1001, 1008);
+        assertThat(castMap(evidence.get("shopConfig")))
+                .containsEntry("refundRateWarnThreshold", "0.08")
+                .containsEntry("negativeCommentWarnThreshold", "10")
+                .containsEntry("agentModelPolicy", "default");
         assertThat(reportData.get("createdBy")).isEqualTo(1);
         assertThat(reportData.get("createdAt")).isNotNull();
 
@@ -114,6 +118,10 @@ class AgentTaskJdbcFlowIntegrationTest extends AbstractAgentTaskFlowIntegrationT
         assertThat((List<Object>) adminDetail.get("steps")).hasSize(6);
         assertThat((List<Object>) adminDetail.get("events")).isNotEmpty();
         assertThat(castMap(adminDetail.get("report")).get("reportId")).isEqualTo(reportId);
+        assertThat(castMap(adminDetail.get("shopConfigSnapshot")))
+                .containsEntry("refundRateWarnThreshold", "0.08")
+                .containsEntry("negativeCommentWarnThreshold", "10")
+                .containsEntry("agentModelPolicy", "default");
         assertThat((List<Object>) adminDetail.get("spans")).hasSizeGreaterThanOrEqualTo(7);
         assertThat((List<Object>) adminDetail.get("toolCalls")).hasSize(6);
 

@@ -1,0 +1,131 @@
+[
+  {
+    "caseId": "daily-review-degraded-balanced-001",
+    "scenario": "daily_review_task",
+    "description": "当差评工具失败时，任务应降级完成，并保留报告与配置快照",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.08", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "10", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "balanced", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["DEGRADED"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": true,
+      "expectEvidenceKeys": ["shopConfig", "toolCodes"],
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.08",
+        "negativeCommentWarnThreshold": "10",
+        "agentModelPolicy": "balanced"
+      }
+    }
+  },
+  {
+    "caseId": "daily-review-degraded-conservative-002",
+    "scenario": "daily_review_task",
+    "description": "降级任务在配置切换后仍应保留正确的店铺配置快照",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.05", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "6", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "conservative", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["DEGRADED"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": true,
+      "expectEvidenceKeys": ["shopConfig", "toolCodes"],
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.05",
+        "negativeCommentWarnThreshold": "6",
+        "agentModelPolicy": "conservative"
+      }
+    }
+  },
+  {
+    "caseId": "daily-review-degraded-aggressive-003",
+    "scenario": "daily_review_task",
+    "description": "degraded flow should keep aggressive policy snapshot",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.12", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "12", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "aggressive", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["DEGRADED"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": true,
+      "expectEvidenceKeys": ["shopConfig", "toolCodes"],
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.12",
+        "negativeCommentWarnThreshold": "12",
+        "agentModelPolicy": "aggressive"
+      }
+    }
+  }
+]

@@ -302,6 +302,40 @@
       gap: 8px;
     }
 
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .config-card {
+      border: 1px solid #e7ebf0;
+      border-radius: 8px;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+      background: #fbfcfd;
+    }
+
+    .config-card strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .config-hint {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .config-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
     @media (max-width: 1100px) {
       .shell { grid-template-columns: 1fr; }
       .sidebar { display: none; }
@@ -591,6 +625,43 @@
 
   <dialog id="shopConfigDialog">
     <form class="dialog-body" method="dialog" id="shopConfigForm">
+      <div class="config-grid" id="shopConfigFields">
+        <section class="config-card">
+          <strong>退款率预警阈值</strong>
+          <label>百分比
+            <input id="refundRateWarnThreshold" type="number" min="0" max="100" step="0.1" required>
+          </label>
+          <div class="config-hint">输入 0-100 之间的百分比，例如 8 表示 8%</div>
+        </section>
+        <section class="config-card">
+          <strong>差评预警阈值</strong>
+          <label>条数
+            <input id="negativeCommentWarnThreshold" type="number" min="0" max="9999" step="1" required>
+          </label>
+          <div class="config-hint">达到阈值后，日报会增加差评风险动作建议</div>
+        </section>
+        <section class="config-card">
+          <strong>高风险工具审批</strong>
+          <label>执行策略
+            <select id="agentToolApprovalEnabled">
+              <option value="true">开启审批</option>
+              <option value="false">关闭审批</option>
+            </select>
+          </label>
+          <div class="config-hint">关闭后，高风险工具可直接执行</div>
+        </section>
+        <section class="config-card">
+          <strong>模型策略</strong>
+          <label>模式
+            <select id="agentModelPolicy">
+              <option value="conservative">conservative</option>
+              <option value="balanced">balanced</option>
+              <option value="aggressive">aggressive</option>
+            </select>
+          </label>
+          <div class="config-hint">不同策略影响模型生成的保守程度</div>
+        </section>
+      </div>
       <strong id="shopConfigTitle">店铺配置</strong>
       <div id="shopConfigList" class="empty">正在加载配置</div>
       <label>配置键
@@ -619,6 +690,12 @@
     const USER_KEY = "shopops.auth.user";
     const $ = (id) => document.getElementById(id);
     const state = { tab: "users", pageNum: 1, pageSize: 20, selectedMemberId: null, selectedUserId: null, selectedTenantId: null, selectedShopId: null };
+    const SHOP_CONFIG_DEFAULTS = {
+      refund_rate_warn_threshold: { value: "0.08", valueType: "number" },
+      negative_comment_warn_threshold: { value: "10", valueType: "number" },
+      agent_tool_approval_enabled: { value: "true", valueType: "boolean" },
+      agent_model_policy: { value: "balanced", valueType: "string" }
+    };
 
     function headers() {
       const result = {
@@ -699,6 +776,9 @@
 
     function renderTable(page) {
       const list = page.list || [];
+      const configMap = shopConfigMap(list);
+      ensureShopConfigForm();
+      applyShopConfigForm(configMap);
       $("pageLine").textContent = `第 ${page.pageNum} 页 / 共 ${page.total} 条`;
       $("prevPage").disabled = Number(page.pageNum) <= 1;
       $("nextPage").disabled = Number(page.pageNum) * Number(page.pageSize) >= Number(page.total);
@@ -715,6 +795,49 @@
       } else {
         renderUserTable(list);
       }
+      if ($("shopConfigFields")) {
+        $("shopConfigFields").innerHTML = shopConfigFieldsMarkup();
+      }
+    }
+
+    function shopConfigFieldsMarkup() {
+      return `
+        <section class="config-card">
+          <strong>退款率预警阈值</strong>
+          <label>百分比
+            <input id="refundRateWarnThreshold" type="number" min="0" max="100" step="0.1" required>
+          </label>
+          <div class="config-hint">输入 0-100 之间的百分比，例如 8 表示 8%</div>
+        </section>
+        <section class="config-card">
+          <strong>差评预警阈值</strong>
+          <label>条数
+            <input id="negativeCommentWarnThreshold" type="number" min="0" max="9999" step="1" required>
+          </label>
+          <div class="config-hint">达到阈值后，日报会增加差评风险动作建议</div>
+        </section>
+        <section class="config-card">
+          <strong>高风险工具审批</strong>
+          <label>执行策略
+            <select id="agentToolApprovalEnabled">
+              <option value="true">开启审批</option>
+              <option value="false">关闭审批</option>
+            </select>
+          </label>
+          <div class="config-hint">关闭后，高风险工具可直接执行</div>
+        </section>
+        <section class="config-card">
+          <strong>模型策略</strong>
+          <label>模式
+            <select id="agentModelPolicy">
+              <option value="conservative">conservative</option>
+              <option value="balanced">balanced</option>
+              <option value="aggressive">aggressive</option>
+            </select>
+          </label>
+          <div class="config-hint">不同策略影响模型生成的保守程度</div>
+        </section>
+      `;
     }
 
     function renderUserTable(list) {
@@ -890,6 +1013,12 @@
     async function openShopConfig(shopId, shopNo) {
       state.selectedShopId = shopId;
       $("shopConfigForm").reset();
+      ensureShopConfigForm();
+      applyShopConfigForm({});
+      $("shopConfigTitle").textContent = `店铺配置：${shopNo}`;
+      $("shopConfigList").innerHTML = `<div class="empty">正在加载配置</div>`;
+      $("shopConfigTitle").textContent = `店铺配置：${shopNo}`;
+      $("shopConfigList").innerHTML = `<div class="empty">正在加载配置</div>`;
       $("shopConfigTitle").textContent = `店铺配置：${shopNo}`;
       $("shopConfigList").innerHTML = `<div class="empty">正在加载配置</div>`;
       $("shopConfigDialog").showModal();
@@ -1018,6 +1147,11 @@
       }
       const page = await api(`/api/admin/organization/shops/${state.selectedShopId}/configs?pageNum=1&pageSize=50`);
       const list = page.list || [];
+      const configMap = shopConfigMap(list);
+      ensureShopConfigForm();
+      applyShopConfigForm(configMap);
+      $("shopConfigList").innerHTML = renderShopConfigSummary(configMap);
+      return;
       if (!list.length) {
         $("shopConfigList").innerHTML = `<div class="empty">暂无配置</div>`;
         return;
@@ -1045,6 +1179,8 @@
       if (!state.selectedShopId) {
         return;
       }
+      await saveShopConfigEntries(shopConfigEntriesFromForm(), "店铺配置已保存");
+      return;
       await api(`/api/admin/organization/shops/${state.selectedShopId}/configs`, {
         method: "POST",
         body: JSON.stringify({
@@ -1159,6 +1295,188 @@
       $("configKey").value = configKey || "";
       $("configValue").value = configValue || "";
       $("configValueType").value = valueType || "string";
+    }
+
+    function ensureShopConfigForm() {
+      if ($("shopConfigFields")) {
+        $("shopConfigFields").innerHTML = `
+          <section class="config-card">
+            <strong>退款率预警阈值</strong>
+            <label>百分比
+              <input id="refundRateWarnThreshold" type="number" min="0" max="100" step="0.1" required>
+            </label>
+            <div class="config-hint">输入 0-100 之间的百分比，例如 8 表示 8%</div>
+          </section>
+          <section class="config-card">
+            <strong>差评预警阈值</strong>
+            <label>条数
+              <input id="negativeCommentWarnThreshold" type="number" min="0" max="9999" step="1" required>
+            </label>
+            <div class="config-hint">达到阈值后，日报会增加差评风险动作建议</div>
+          </section>
+          <section class="config-card">
+            <strong>高风险工具审批</strong>
+            <label>执行策略
+              <select id="agentToolApprovalEnabled">
+                <option value="true">开启审批</option>
+                <option value="false">关闭审批</option>
+              </select>
+            </label>
+            <div class="config-hint">关闭后，高风险工具可直接执行</div>
+          </section>
+          <section class="config-card">
+            <strong>模型策略</strong>
+            <label>模式
+              <select id="agentModelPolicy">
+                <option value="conservative">conservative</option>
+                <option value="balanced">balanced</option>
+                <option value="aggressive">aggressive</option>
+              </select>
+            </label>
+            <div class="config-hint">不同策略影响模型生成的保守程度</div>
+          </section>
+        `;
+        $("shopConfigFields").innerHTML = shopConfigFieldsMarkup();
+      }
+      if ($("configKey")?.parentElement) {
+        $("configKey").parentElement.hidden = true;
+      }
+      if ($("configValue")?.parentElement) {
+        $("configValue").parentElement.hidden = true;
+      }
+      if ($("configValueType")?.parentElement) {
+        $("configValueType").parentElement.hidden = true;
+      }
+      if (!$("restoreShopConfigDefaults")) {
+        const button = document.createElement("button");
+        button.id = "restoreShopConfigDefaults";
+        button.type = "button";
+        button.textContent = "恢复默认";
+        const actions = document.querySelector("#shopConfigForm .dialog-actions");
+        if (actions) {
+          actions.prepend(button);
+        }
+      }
+      if ($("restoreShopConfigDefaults")) {
+        $("restoreShopConfigDefaults").textContent = "恢复默认";
+      }
+      if ($("restoreShopConfigDefaults") && !$("restoreShopConfigDefaults").dataset.bound) {
+        $("restoreShopConfigDefaults").dataset.bound = "true";
+        $("restoreShopConfigDefaults").addEventListener("click", async () => {
+          if (!state.selectedShopId) {
+            return;
+          }
+          applyShopConfigForm({});
+          await saveShopConfigEntries(Object.entries(SHOP_CONFIG_DEFAULTS).map(([configKey, item]) => ({
+            configKey,
+            configValue: item.value,
+            valueType: item.valueType
+          })), "店铺配置已恢复默认");
+        });
+      }
+    }
+
+    function applyShopConfigForm(configMap) {
+      const merged = { ...SHOP_CONFIG_DEFAULTS, ...configMap };
+      $("refundRateWarnThreshold").value = percentInputValue(merged.refund_rate_warn_threshold?.configValue || merged.refund_rate_warn_threshold?.value);
+      $("negativeCommentWarnThreshold").value = textValue(merged.negative_comment_warn_threshold?.configValue || merged.negative_comment_warn_threshold?.value, "10");
+      $("agentToolApprovalEnabled").value = textValue(merged.agent_tool_approval_enabled?.configValue || merged.agent_tool_approval_enabled?.value, "true");
+      $("agentModelPolicy").value = textValue(merged.agent_model_policy?.configValue || merged.agent_model_policy?.value, "balanced");
+    }
+
+    function shopConfigMap(list) {
+      return Object.fromEntries((list || []).map((item) => [item.configKey, item]));
+    }
+
+    function renderShopConfigSummary(configMap) {
+      const merged = { ...SHOP_CONFIG_DEFAULTS, ...configMap };
+      const rows = [
+        configSummaryRow("退款率预警阈值", merged.refund_rate_warn_threshold, `${percentInputValue(merged.refund_rate_warn_threshold?.configValue || merged.refund_rate_warn_threshold?.value)}%`),
+        configSummaryRow("差评预警阈值", merged.negative_comment_warn_threshold, textValue(merged.negative_comment_warn_threshold?.configValue || merged.negative_comment_warn_threshold?.value, "10")),
+        configSummaryRow("高风险工具审批", merged.agent_tool_approval_enabled, textValue(merged.agent_tool_approval_enabled?.configValue || merged.agent_tool_approval_enabled?.value, "true") === "true" ? "开启审批" : "关闭审批"),
+        configSummaryRow("模型策略", merged.agent_model_policy, textValue(merged.agent_model_policy?.configValue || merged.agent_model_policy?.value, "balanced"))
+      ];
+      return `
+        <table>
+          <thead><tr><th>配置项</th><th>当前值</th><th>类型</th><th>更新时间</th></tr></thead>
+          <tbody>
+            ${rows.map((item) => `
+              <tr>
+                <td>${escapeHtml(item.label)}</td>
+                <td>${escapeHtml(item.displayValue)}</td>
+                <td><span class="badge">${escapeHtml(item.valueType)}</span></td>
+                <td>${escapeHtml(formatTime(item.updatedAt))}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function configSummaryRow(label, config, displayValue) {
+      return {
+        label,
+        displayValue,
+        valueType: config?.valueType || "string",
+        updatedAt: config?.updatedAt || ""
+      };
+    }
+
+    function shopConfigEntriesFromForm() {
+      const refundRatePercent = Number.parseFloat($("refundRateWarnThreshold").value);
+      const negativeCommentThreshold = Number.parseInt($("negativeCommentWarnThreshold").value, 10);
+      if (!Number.isFinite(refundRatePercent) || refundRatePercent < 0 || refundRatePercent > 100) {
+        throw new Error("退款率预警阈值必须在 0 到 100 之间");
+      }
+      if (!Number.isInteger(negativeCommentThreshold) || negativeCommentThreshold < 0 || negativeCommentThreshold > 9999) {
+        throw new Error("差评预警阈值必须是 0 到 9999 之间的整数");
+      }
+      return [
+        {
+          configKey: "refund_rate_warn_threshold",
+          configValue: decimalRatioValue(refundRatePercent),
+          valueType: "number"
+        },
+        {
+          configKey: "negative_comment_warn_threshold",
+          configValue: String(negativeCommentThreshold),
+          valueType: "number"
+        },
+        {
+          configKey: "agent_tool_approval_enabled",
+          configValue: $("agentToolApprovalEnabled").value,
+          valueType: "boolean"
+        },
+        {
+          configKey: "agent_model_policy",
+          configValue: $("agentModelPolicy").value,
+          valueType: "string"
+        }
+      ];
+    }
+
+    async function saveShopConfigEntries(entries, successMessage) {
+      for (const item of entries) {
+        await api(`/api/admin/organization/shops/${state.selectedShopId}/configs`, {
+          method: "POST",
+          body: JSON.stringify(item)
+        });
+      }
+      setStatus(successMessage);
+      await loadShopConfigs();
+    }
+
+    function percentInputValue(value) {
+      const parsed = Number.parseFloat(value || SHOP_CONFIG_DEFAULTS.refund_rate_warn_threshold.value);
+      return Number.isFinite(parsed) ? String(Number((parsed * 100).toFixed(2))) : "8";
+    }
+
+    function decimalRatioValue(percent) {
+      return (percent / 100).toFixed(4).replace(/0+$/, "").replace(/\.$/, "");
+    }
+
+    function textValue(value, fallback) {
+      return value == null || value === "" ? fallback : String(value);
     }
 
     $("contextForm").addEventListener("submit", (event) => {

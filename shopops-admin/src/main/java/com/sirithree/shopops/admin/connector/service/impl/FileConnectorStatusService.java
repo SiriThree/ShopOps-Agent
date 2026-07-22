@@ -1,5 +1,6 @@
 package com.sirithree.shopops.admin.connector.service.impl;
 
+import com.sirithree.shopops.admin.business.support.ConfiguredFilePathResolver;
 import com.sirithree.shopops.admin.connector.domain.ConnectorStatusDto;
 import com.sirithree.shopops.admin.connector.service.ConnectorStatusService;
 import java.nio.file.Files;
@@ -41,10 +42,10 @@ public class FileConnectorStatusService implements ConnectorStatusService {
         dto.setConnectorName(config.connectorName());
         dto.setCategory(config.category());
         dto.setPropertyKey(config.propertyKey());
-        dto.setConfiguredPath(config.filePath());
         dto.setLastCheckedAt(checkedAt);
 
         if (config.filePath() == null || config.filePath().isBlank()) {
+            dto.setConfiguredPath(config.filePath());
             dto.setConfigured(false);
             dto.setAvailable(false);
             dto.setStatus("NOT_CONFIGURED");
@@ -52,7 +53,8 @@ public class FileConnectorStatusService implements ConnectorStatusService {
             return dto;
         }
 
-        Path path = Path.of(config.filePath().trim());
+        Path path = ConfiguredFilePathResolver.resolve(config.filePath());
+        dto.setConfiguredPath(path.toString());
         dto.setConfigured(true);
         if (!Files.exists(path)) {
             dto.setAvailable(false);

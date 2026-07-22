@@ -10,6 +10,7 @@ public class AgentTaskDetailDto {
     private List<AgentTaskStepDto> steps = List.of();
     private List<AgentTaskEventDto> events = List.of();
     private OperationReportDto report;
+    private Map<String, Object> shopConfigSnapshot = Map.of();
     private List<TraceSpanDto> spans = List.of();
     private List<Map<String, Object>> toolCalls = List.of();
 
@@ -43,6 +44,14 @@ public class AgentTaskDetailDto {
 
     public void setReport(OperationReportDto report) {
         this.report = report;
+    }
+
+    public Map<String, Object> getShopConfigSnapshot() {
+        return shopConfigSnapshot;
+    }
+
+    public void setShopConfigSnapshot(Map<String, Object> shopConfigSnapshot) {
+        this.shopConfigSnapshot = shopConfigSnapshot;
     }
 
     public List<TraceSpanDto> getSpans() {

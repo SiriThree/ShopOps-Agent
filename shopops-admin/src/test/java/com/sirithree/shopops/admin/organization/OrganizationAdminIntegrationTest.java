@@ -62,7 +62,8 @@ class OrganizationAdminIntegrationTest {
                 "/api/admin/organization/shops/1/configs", HttpMethod.GET, null, operatorHeaders()).getBody());
         assertThat((List<Map<String, Object>>) configs.get("list"))
                 .extracting(config -> config.get("configKey"))
-                .contains("refund_rate_warn_threshold", "negative_comment_warn_threshold");
+                .contains("refund_rate_warn_threshold", "negative_comment_warn_threshold",
+                        "agent_tool_approval_enabled", "agent_model_policy");
 
         Map<String, Object> members = dataOf(exchange(
                 "/api/admin/organization/shop-members?keyword=viewer", HttpMethod.GET, null, operatorHeaders()).getBody());

@@ -49,6 +49,20 @@ public class InMemoryToolCallLogService implements ToolCallLogService {
     }
 
     @Override
+    public void successWithGovernanceNote(Long logId, Object output, String riskLevel, String noteCode,
+                                          String noteMessage, long latencyMs) {
+        Map<String, Object> log = logs.get(logId);
+        if (log != null) {
+            log.put("status", "SUCCESS");
+            log.put("output", output);
+            log.put("riskLevel", riskLevel);
+            log.put("errorCode", noteCode);
+            log.put("errorMessage", noteMessage);
+            log.put("latencyMs", latencyMs);
+        }
+    }
+
+    @Override
     public void approvalRequired(Long logId, Long approvalId, String riskLevel, String errorMessage, long latencyMs) {
         Map<String, Object> log = logs.get(logId);
         if (log != null) {

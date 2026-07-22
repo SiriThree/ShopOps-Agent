@@ -11,6 +11,8 @@ public interface ToolCallLogService {
 
     void success(Long logId, Object output, long latencyMs);
 
+    void successWithGovernanceNote(Long logId, Object output, String riskLevel, String noteCode, String noteMessage, long latencyMs);
+
     void approvalRequired(Long logId, Long approvalId, String riskLevel, String errorMessage, long latencyMs);
 
     void failed(Long logId, String errorCode, String errorMessage, long latencyMs);

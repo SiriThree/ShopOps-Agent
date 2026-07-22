@@ -67,7 +67,10 @@ public class DefaultToolGatewayService implements ToolGatewayService {
             if (!Boolean.TRUE.equals(tool.getEnabled())) {
                 return fail(context, spanId, logId, started, "TOOL_DISABLED", "工具已停用: " + toolCode);
             }
-            if (Boolean.TRUE.equals(tool.getNeedApproval()) && approvalEnabled(context)) {
+            boolean toolNeedsApproval = Boolean.TRUE.equals(tool.getNeedApproval());
+            boolean toolApprovalEnabled = approvalEnabled(context);
+            boolean approvalBypassedByShopConfig = toolNeedsApproval && !toolApprovalEnabled;
+            if (toolNeedsApproval && toolApprovalEnabled) {
                 if (context.getApprovalId() == null) {
                     return approvalRequired(context, spanId, logId, started, tool, input);
                 }
@@ -81,8 +84,15 @@ public class DefaultToolGatewayService implements ToolGatewayService {
             }
             ToolInvokeResult result = executor.execute(context, input);
             if (Boolean.TRUE.equals(result.getSuccess())) {
-                toolCallLogService.success(logId, result.getData(), System.currentTimeMillis() - started);
-                traceService.finishSpan(context.getTraceId(), spanId, "SUCCESS", "工具调用成功: " + toolCode, null);
+                if (approvalBypassedByShopConfig) {
+                    String message = "店铺配置 agent_tool_approval_enabled=false，已绕过工具审批: " + toolCode;
+                    toolCallLogService.successWithGovernanceNote(logId, result.getData(), normalizedRiskLevel(tool.getRiskLevel()),
+                            "APPROVAL_BYPASSED_BY_SHOP_CONFIG", message, System.currentTimeMillis() - started);
+                    traceService.finishSpan(context.getTraceId(), spanId, "SUCCESS", message, null);
+                } else {
+                    toolCallLogService.success(logId, result.getData(), System.currentTimeMillis() - started);
+                    traceService.finishSpan(context.getTraceId(), spanId, "SUCCESS", "工具调用成功: " + toolCode, null);
+                }
                 result.setToolCallLogId(logId);
                 result.setApprovalId(context.getApprovalId());
                 return result;

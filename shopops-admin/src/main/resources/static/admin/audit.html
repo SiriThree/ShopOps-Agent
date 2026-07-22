@@ -432,6 +432,13 @@
       overflow-wrap: anywhere;
     }
 
+    .config-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
     .events-list { display: grid; gap: 8px; }
 
     .event-line {
@@ -702,6 +709,8 @@
               </div>
             </div>
             <div class="summary-box" id="eventSummary"></div>
+            <div class="config-box" id="configSnapshotBox"></div>
+            <div class="config-box" id="configChangeBox"></div>
             <pre class="detail-box" id="detailBox">请选择一条时间线事件</pre>
             <div class="link-row">
               <a id="openTask" href="/admin/tasks.html">打开任务</a>
@@ -870,6 +879,8 @@
         return;
       }
       $("eventSummary").innerHTML = "";
+      $("configSnapshotBox").innerHTML = "";
+      $("configChangeBox").innerHTML = "";
       $("detailBox").textContent = "加载中...";
       try {
         const data = await api(`/api/admin/audit/timeline/${encodeURIComponent(source)}/${encodeURIComponent(resourceId)}`);
@@ -890,9 +901,13 @@
           ["Trace", state.selectedTraceId || ""],
           ["工具调用", data.context?.toolCallCount || ""]
         ]);
+        $("configSnapshotBox").innerHTML = renderConfigSnapshot(data.context?.shopConfigSnapshot);
+        $("configChangeBox").innerHTML = renderConfigChange(data.context?.recentShopConfigChange || data.context?.configChangeSummary);
         updateContextLinks();
       } catch (error) {
         $("eventSummary").innerHTML = "";
+        $("configSnapshotBox").innerHTML = "";
+        $("configChangeBox").innerHTML = "";
         $("detailBox").textContent = error.message;
       }
     }
@@ -970,6 +985,36 @@
           <strong>${escapeHtml(value || "-")}</strong>
         </div>
       `).join("");
+    }
+
+    function renderConfigSnapshot(snapshot) {
+      const items = [
+        ["退款率预警阈值", percentValue(snapshot?.refundRateWarnThreshold)],
+        ["差评预警阈值", textValue(snapshot?.negativeCommentWarnThreshold)],
+        ["高风险工具审批", approvalValue(snapshot?.agentToolApprovalEnabled)],
+        ["模型策略", textValue(snapshot?.agentModelPolicy)]
+      ];
+      if (!items.some(([, value]) => value !== "-")) {
+        return "";
+      }
+      return items.map(([label, value]) => `
+        <div class="summary-item">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value)}</strong>
+        </div>
+      `).join("");
+    }
+
+    function renderConfigChange(change) {
+      if (!change || typeof change !== "object" || textValue(change.message) === "-") {
+        return "";
+      }
+      return summaryItems([
+        ["鏈€杩戝彉鏇?", textValue(change.message)],
+        ["鍙樻洿浜?", textValue(change.username)],
+        ["鍙樻洿鏃堕棿", formatTime(change.createdAt)],
+        ["璇锋眰", textValue(change.requestId)]
+      ]);
     }
 
     function setStatus(message) {
@@ -1116,6 +1161,28 @@
       return Number(value || 0);
     }
 
+    function textValue(value) {
+      return value == null || String(value).trim() === "" ? "-" : String(value).trim();
+    }
+
+    function percentValue(value) {
+      if (value == null || String(value).trim() === "") {
+        return "-";
+      }
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) {
+        return String(value);
+      }
+      return `${(numeric * 100).toFixed(2)}%`;
+    }
+
+    function approvalValue(value) {
+      if (value == null || String(value).trim() === "") {
+        return "-";
+      }
+      return String(value).toLowerCase() === "false" ? "关闭" : "开启";
+    }
+
     function formatTime(value) {
       return value ? String(value).replace("T", " ").slice(0, 19) : "";
     }
@@ -1177,6 +1244,7 @@
     $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "审计详情"));
     $("clearDetail").addEventListener("click", () => {
       $("eventSummary").innerHTML = "";
+      $("configSnapshotBox").innerHTML = "";
       $("detailBox").textContent = "选择一条时间线事件";
       state.selectedTaskId = "";
       state.selectedReportId = "";

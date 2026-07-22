@@ -3,6 +3,7 @@ package com.sirithree.shopops.admin.business.service.impl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sirithree.shopops.admin.business.service.OrderMetricsService;
+import com.sirithree.shopops.admin.business.support.ConfiguredFilePathResolver;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +40,7 @@ public class InMemoryOrderMetricsService implements OrderMetricsService {
         if (orderSummaryFile == null || orderSummaryFile.isBlank()) {
             return java.util.Optional.empty();
         }
-        Path path = Path.of(orderSummaryFile.trim());
+        Path path = ConfiguredFilePathResolver.resolve(orderSummaryFile);
         if (!Files.exists(path)) {
             throw new IllegalArgumentException("订单汇总数据文件不存在: " + path);
         }

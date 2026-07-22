@@ -45,7 +45,8 @@ public class AdminAuditTimelineJdbcRepository {
                     event.setRiskLevel(rs.getString("risk_level"));
                     event.setSummary(rs.getString("summary"));
                     event.setCreatedAt(localDateTime(rs.getObject("created_at")));
-                    event.setDetail(detail(rs.getString("source"), rs.getString("detail_a"), rs.getString("detail_b"), rs.getString("detail_c")));
+                    event.setDetail(detail(rs.getString("source"), rs.getString("detail_a"), rs.getString("detail_b"),
+                            rs.getString("detail_c"), rs.getString("detail_d")));
                     return event;
                 }
         );
@@ -95,11 +96,15 @@ public class AdminAuditTimelineJdbcRepository {
                         WHEN event_type IN ('ACCESS_DENIED', 'AUTHENTICATION') THEN 'MEDIUM'
                         ELSE 'LOW'
                       END AS risk_level,
-                      CONCAT(event_type, ' ', event_status) AS summary,
+                      CASE
+                        WHEN event_type LIKE 'ORG\\_%' ESCAPE '\\' AND failure_reason IS NOT NULL AND failure_reason <> '' THEN failure_reason
+                        ELSE CONCAT(event_type, ' ', event_status)
+                      END AS summary,
                       created_at,
                       auth_type AS detail_a,
                       client_ip AS detail_b,
-                      failure_reason AS detail_c
+                      failure_reason AS detail_c,
+                      CAST(NULL AS CHAR) AS detail_d
                     FROM auth_audit_event
                     WHERE tenant_id = :tenantId AND shop_id = :shopId
                   UNION ALL
@@ -126,7 +131,8 @@ public class AdminAuditTimelineJdbcRepository {
                       created_at,
                       from_status AS detail_a,
                       to_status AS detail_b,
-                      event_data_json AS detail_c
+                      event_data_json AS detail_c,
+                      CAST(NULL AS CHAR) AS detail_d
                     FROM agent_task_event
                     WHERE tenant_id = :tenantId AND shop_id = :shopId
                   UNION ALL
@@ -161,7 +167,8 @@ public class AdminAuditTimelineJdbcRepository {
                       tcl.created_at,
                       CAST(tcl.step_id AS CHAR) AS detail_a,
                       CAST(tcl.latency_ms AS CHAR) AS detail_b,
-                      tcl.error_code AS detail_c
+                      tcl.error_code AS detail_c,
+                      tcl.error_message AS detail_d
                     FROM tool_call_log tcl
                     WHERE tcl.tenant_id = :tenantId AND tcl.shop_id = :shopId
                   UNION ALL
@@ -184,7 +191,8 @@ public class AdminAuditTimelineJdbcRepository {
                       ar.created_at,
                       ar.approval_no AS detail_a,
                       ar.source_type AS detail_b,
-                      ar.title AS detail_c
+                      ar.title AS detail_c,
+                      CAST(NULL AS CHAR) AS detail_d
                     FROM approval_request ar
                     WHERE ar.tenant_id = :tenantId AND ar.shop_id = :shopId
                   UNION ALL
@@ -220,7 +228,8 @@ public class AdminAuditTimelineJdbcRepository {
                       ar.decided_at AS created_at,
                       ar.approval_no AS detail_a,
                       ar.status AS detail_b,
-                      ar.decision_comment AS detail_c
+                      ar.decision_comment AS detail_c,
+                      CAST(NULL AS CHAR) AS detail_d
                     FROM approval_request ar
                     WHERE ar.tenant_id = :tenantId AND ar.shop_id = :shopId
                       AND ar.status <> 'PENDING'
@@ -249,7 +258,8 @@ public class AdminAuditTimelineJdbcRepository {
                       cae.created_at,
                       cae.connector_code AS detail_a,
                       cae.message AS detail_b,
-                      cae.detail_json AS detail_c
+                      cae.detail_json AS detail_c,
+                      CAST(NULL AS CHAR) AS detail_d
                     FROM connector_audit_event cae
                     WHERE cae.tenant_id = :tenantId AND cae.shop_id = :shopId
                 """;
@@ -331,7 +341,7 @@ public class AdminAuditTimelineJdbcRepository {
         return name.toString();
     }
 
-    private Map<String, Object> detail(String source, String detailA, String detailB, String detailC) {
+    private Map<String, Object> detail(String source, String detailA, String detailB, String detailC, String detailD) {
         Map<String, Object> detail = new LinkedHashMap<>();
         if ("AUTH".equals(source)) {
             putIfPresent(detail, "authType", detailA);
@@ -345,6 +355,7 @@ public class AdminAuditTimelineJdbcRepository {
             putIfPresent(detail, "stepId", detailA);
             putIfPresent(detail, "latencyMs", detailB);
             putIfPresent(detail, "errorCode", detailC);
+            putIfPresent(detail, "errorMessage", detailD);
         } else if ("APPROVAL".equals(source)) {
             putIfPresent(detail, "approvalNo", detailA);
             putIfPresent(detail, "sourceOrStatus", detailB);

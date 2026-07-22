@@ -1,0 +1,265 @@
+[
+  {
+    "caseId": "daily-review-balanced-001",
+    "scenario": "daily_review_task",
+    "description": "默认平衡策略下，日报任务应成功生成报告并保留完整工具链与配置快照",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.08", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "10", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "balanced", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectEvidenceKeys": ["shopConfig", "toolCodes"],
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.08",
+        "negativeCommentWarnThreshold": "10",
+        "agentModelPolicy": "balanced"
+      }
+    }
+  },
+  {
+    "caseId": "daily-review-conservative-002",
+    "scenario": "daily_review_task",
+    "description": "切换模型策略与阈值后，日报 evidence 中应反映新的配置快照",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.05", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "5", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "conservative", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectEvidenceKeys": ["shopConfig", "toolCodes"],
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.05",
+        "negativeCommentWarnThreshold": "5",
+        "agentModelPolicy": "conservative"
+      }
+    }
+  },
+  {
+    "caseId": "tool-approval-on-001",
+    "scenario": "manual_tool_invoke",
+    "description": "高风险退款工具在审批开启时应返回 APPROVAL_REQUIRED 并创建审批单",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1",
+      "X-User-Name": "admin",
+      "X-User-Roles": "ADMIN"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.08", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "10", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "balanced", "valueType": "string" }
+    ],
+    "manualToolCode": "order.refund_execute",
+    "manualToolInput": {
+      "shopId": 1,
+      "refundAmount": 1288,
+      "reason": "evaluation approval on"
+    },
+    "expectations": {
+      "finalStatusIn": ["APPROVAL_REQUIRED"],
+      "expectApprovalCreated": true,
+      "expectDegraded": false
+    }
+  },
+  {
+    "caseId": "tool-approval-off-002",
+    "scenario": "manual_tool_invoke",
+    "description": "高风险退款工具在审批关闭时应直接执行，并写入绕过审批的日志标记",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1",
+      "X-User-Name": "admin",
+      "X-User-Roles": "ADMIN"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.08", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "10", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "false", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "balanced", "valueType": "string" }
+    ],
+    "manualToolCode": "order.refund_execute",
+    "manualToolInput": {
+      "shopId": 1,
+      "refundAmount": 1288,
+      "reason": "evaluation approval off"
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectedLogErrorCode": "APPROVAL_BYPASSED_BY_SHOP_CONFIG"
+    }
+  },
+  {
+    "caseId": "daily-review-refund-alert-003",
+    "scenario": "daily_review_task",
+    "description": "refund alert threshold should change action text",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.04", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "10", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "balanced", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectEvidenceKeys": ["shopConfig", "toolCodes"],
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.04",
+        "negativeCommentWarnThreshold": "10",
+        "agentModelPolicy": "balanced"
+      },
+      "expectedReportKeywords": ["4.00%"]
+    }
+  },
+  {
+    "caseId": "daily-review-negative-alert-004",
+    "scenario": "daily_review_task",
+    "description": "negative comment threshold should change action text",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.08", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "5", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "conservative", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectEvidenceKeys": ["shopConfig", "toolCodes"],
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.08",
+        "negativeCommentWarnThreshold": "5",
+        "agentModelPolicy": "conservative"
+      },
+      "expectedReportKeywords": ["风险评价数已达到配置阈值 5"]
+    }
+  },
+  {
+    "caseId": "tool-approval-off-large-005",
+    "scenario": "manual_tool_invoke",
+    "description": "high amount refund should still bypass approval when disabled",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1",
+      "X-User-Name": "admin",
+      "X-User-Roles": "ADMIN"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.12", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "12", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "false", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "aggressive", "valueType": "string" }
+    ],
+    "manualToolCode": "order.refund_execute",
+    "manualToolInput": {
+      "shopId": 1,
+      "refundAmount": 3888,
+      "reason": "evaluation approval off large amount"
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectedLogErrorCode": "APPROVAL_BYPASSED_BY_SHOP_CONFIG"
+    }
+  }
+]

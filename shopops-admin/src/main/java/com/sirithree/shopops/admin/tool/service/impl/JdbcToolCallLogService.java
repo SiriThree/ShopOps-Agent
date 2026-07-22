@@ -57,6 +57,20 @@ public class JdbcToolCallLogService implements ToolCallLogService {
     }
 
     @Override
+    public void successWithGovernanceNote(Long logId, Object output, String riskLevel, String noteCode,
+                                          String noteMessage, long latencyMs) {
+        ToolCallLog log = new ToolCallLog();
+        log.setId(logId);
+        log.setStatus("SUCCESS");
+        log.setOutputJson(jsonSupport.toJson(output));
+        log.setRiskLevel(riskLevel);
+        log.setErrorCode(noteCode);
+        log.setErrorMessage(noteMessage);
+        log.setLatencyMs((int) latencyMs);
+        toolCallLogMapper.finish(log);
+    }
+
+    @Override
     public void approvalRequired(Long logId, Long approvalId, String riskLevel, String errorMessage, long latencyMs) {
         ToolCallLog log = new ToolCallLog();
         log.setId(logId);

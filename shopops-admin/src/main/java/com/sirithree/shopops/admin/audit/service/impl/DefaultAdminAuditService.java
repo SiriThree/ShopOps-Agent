@@ -276,7 +276,13 @@ public class DefaultAdminAuditService implements AdminAuditService {
         query.setPageSize(1);
         return authAuditService.listEvents(tenantId, shopId, query).getList().stream()
                 .findFirst()
-                .map(event -> detail(authTimelineEvent(event), Map.of("authAuditEvent", event), Map.of()));
+                .map(event -> {
+                    Map<String, Object> context = new LinkedHashMap<>();
+                    if ("ORG_SHOP_CONFIG_SAVED".equals(event.getEventType())) {
+                        putIfPresent(context, "configChangeSummary", configChangeSummary(event));
+                    }
+                    return detail(authTimelineEvent(event), Map.of("authAuditEvent", event), context);
+                });
     }
 
     private List<AdminAuditTimelineEventDto> taskTimelineEvents(Long tenantId, Long shopId, AdminAuditTimelineQueryParam query) {
@@ -312,6 +318,13 @@ public class DefaultAdminAuditService implements AdminAuditService {
                     context.put("reportId", taskDetail.getTask().getReportId());
                     context.put("toolCallCount", taskDetail.getToolCalls().size());
                     context.put("spanCount", taskDetail.getSpans().size());
+                    putIfPresent(context, "shopConfigSnapshot", emptyToNull(taskDetail.getShopConfigSnapshot()));
+                    LocalDateTime referenceTime = taskDetail.getEvents().stream()
+                            .map(AgentTaskEventDto::getCreatedAt)
+                            .filter(java.util.Objects::nonNull)
+                            .min(LocalDateTime::compareTo)
+                            .orElse(event.getCreatedAt());
+                    putIfPresent(context, "recentShopConfigChange", recentShopConfigChange(tenantId, shopId, referenceTime));
                     return detail(event, resource, context);
                 });
     }
@@ -351,10 +364,14 @@ public class DefaultAdminAuditService implements AdminAuditService {
                     resource.put("toolCallLog", log);
                     Map<String, Object> context = new LinkedHashMap<>();
                     putIfPresent(context, "tool", mcpToolService.getTool(tenantId, event.getToolCode()));
+                    putIfPresent(context, "recentShopConfigChange", recentShopConfigChange(tenantId, shopId, event.getCreatedAt()));
                     Long taskId = event.getTaskId();
                     if (taskId != null) {
                         agentTaskAdminService.getTaskDetail(tenantId, shopId, taskId)
-                                .ifPresent(taskDetail -> context.put("taskDetail", taskDetail));
+                                .ifPresent(taskDetail -> {
+                                    context.put("taskDetail", taskDetail);
+                                    putIfPresent(context, "shopConfigSnapshot", emptyToNull(taskDetail.getShopConfigSnapshot()));
+                                });
                     }
                     return detail(event, resource, context);
                 });
@@ -399,6 +416,11 @@ public class DefaultAdminAuditService implements AdminAuditService {
                     Map<String, Object> context = new LinkedHashMap<>();
                     putIfPresent(context, "tool", mcpToolService.getTool(tenantId, approval.getToolCode()));
                     putIfPresent(context, "approvalStatus", approval.getStatus());
+                    putIfPresent(context, "recentShopConfigChange", recentShopConfigChange(tenantId, shopId, approval.getCreatedAt()));
+                    if (approval.getTaskId() != null) {
+                        agentTaskAdminService.getTaskDetail(tenantId, shopId, approval.getTaskId())
+                                .ifPresent(taskDetail -> putIfPresent(context, "shopConfigSnapshot", emptyToNull(taskDetail.getShopConfigSnapshot())));
+                    }
                     return detail(event, resource, context);
                 });
     }
@@ -445,7 +467,7 @@ public class DefaultAdminAuditService implements AdminAuditService {
         event.setResourceType("auth_audit_event");
         event.setResourceId(String.valueOf(source.getEventId()));
         event.setRiskLevel(authRiskLevel(source));
-        event.setSummary(source.getEventType() + " " + source.getEventStatus());
+        event.setSummary(authSummary(source));
         event.setCreatedAt(source.getCreatedAt());
         Map<String, Object> detail = new LinkedHashMap<>();
         putIfPresent(detail, "authType", source.getAuthType());
@@ -454,6 +476,43 @@ public class DefaultAdminAuditService implements AdminAuditService {
         putIfPresent(detail, "failureReason", source.getFailureReason());
         event.setDetail(detail);
         return event;
+    }
+
+    private Map<String, Object> recentShopConfigChange(Long tenantId, Long shopId, LocalDateTime referenceTime) {
+        if (referenceTime == null) {
+            return null;
+        }
+        AuthAuditEventQueryParam query = new AuthAuditEventQueryParam();
+        query.setEventType("ORG_SHOP_CONFIG_SAVED");
+        query.setEventStatus("SUCCESS");
+        query.setCreatedEnd(referenceTime);
+        query.setPageNum(1);
+        query.setPageSize(20);
+        return authAuditService.listEvents(tenantId, shopId, query).getList().stream()
+                .findFirst()
+                .map(this::configChangeSummary)
+                .orElse(null);
+    }
+
+    private Map<String, Object> configChangeSummary(AuthAuditEventDto event) {
+        Map<String, Object> summary = new LinkedHashMap<>();
+        summary.put("eventId", event.getEventId());
+        summary.put("eventType", event.getEventType());
+        summary.put("username", event.getUsername());
+        summary.put("requestId", event.getRequestId());
+        summary.put("createdAt", event.getCreatedAt());
+        putIfPresent(summary, "message", event.getFailureReason());
+        return summary;
+    }
+
+    private String authSummary(AuthAuditEventDto source) {
+        if (source.getEventType() != null
+                && source.getEventType().startsWith("ORG_")
+                && source.getFailureReason() != null
+                && !source.getFailureReason().isBlank()) {
+            return source.getFailureReason();
+        }
+        return source.getEventType() + " " + source.getEventStatus();
     }
 
     private AdminAuditTimelineEventDto taskTimelineEvent(AgentTaskEventDto source) {
@@ -741,5 +800,9 @@ public class DefaultAdminAuditService implements AdminAuditService {
         if (value != null) {
             data.put(key, value);
         }
+    }
+
+    private Object emptyToNull(Map<String, Object> value) {
+        return value == null || value.isEmpty() ? null : value;
     }
 }

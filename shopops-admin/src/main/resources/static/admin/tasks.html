@@ -390,6 +390,35 @@
       font-size: 13px;
     }
 
+    .summary-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .summary-item {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fbfcfd;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .summary-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
     .event-line {
       display: grid;
       grid-template-columns: 84px minmax(0, 1fr) 76px;
@@ -652,6 +681,7 @@
                 <button id="clearDetail" type="button">清空</button>
               </div>
             </div>
+            <div class="summary-box" id="configSnapshotBox"></div>
             <pre class="detail-box" id="detailBox">请选择一条任务</pre>
             <div class="link-row">
               <a id="openReport" href="/admin/reports.html">打开报告</a>
@@ -796,16 +826,19 @@
       }
       state.selectedTaskId = taskId;
       syncUrl();
+      $("configSnapshotBox").innerHTML = "";
       $("detailBox").textContent = "加载中...";
       try {
         const data = await api(`/api/admin/agent/tasks/${encodeURIComponent(taskId)}/detail`);
         $("detailBox").textContent = JSON.stringify(data, null, 2);
+        $("configSnapshotBox").innerHTML = renderConfigSnapshot(data.shopConfigSnapshot);
         state.selectedReportId = data.task?.reportId || "";
         state.selectedTraceId = data.task?.traceId || "";
         updateContextLinks();
         syncUrl();
         markSelectedTask();
       } catch (error) {
+        $("configSnapshotBox").innerHTML = "";
         $("detailBox").textContent = error.message;
       }
     }
@@ -862,6 +895,7 @@
       try {
         const data = await api("/api/agent/tasks/stale/requeue?queuedTimeoutMinutes=10&runningTimeoutMinutes=30&limit=20", { method: "POST" });
         await Promise.all([loadMetrics(), loadTasks(), loadEvents()]);
+        $("configSnapshotBox").innerHTML = "";
         $("detailBox").textContent = JSON.stringify(data, null, 2);
         setStatus(`已重排 ${data.requeuedCount || 0} 个超时任务`);
       } catch (error) {
@@ -996,6 +1030,24 @@
       `;
     }
 
+    function renderConfigSnapshot(snapshot) {
+      const items = [
+        ["退款率预警阈值", percentValue(snapshot?.refundRateWarnThreshold)],
+        ["差评预警阈值", textValue(snapshot?.negativeCommentWarnThreshold)],
+        ["高风险工具审批", approvalValue(snapshot?.agentToolApprovalEnabled)],
+        ["模型策略", textValue(snapshot?.agentModelPolicy)]
+      ];
+      if (!items.some(([, value]) => value !== "-")) {
+        return "";
+      }
+      return items.map(([label, value]) => `
+        <div class="summary-item">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value)}</strong>
+        </div>
+      `).join("");
+    }
+
     function setStatus(message) {
       $("statusLine").textContent = message;
     }
@@ -1074,6 +1126,28 @@
       return Number(value || 0);
     }
 
+    function textValue(value) {
+      return value == null || String(value).trim() === "" ? "-" : String(value).trim();
+    }
+
+    function percentValue(value) {
+      if (value == null || String(value).trim() === "") {
+        return "-";
+      }
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) {
+        return String(value);
+      }
+      return `${(numeric * 100).toFixed(2)}%`;
+    }
+
+    function approvalValue(value) {
+      if (value == null || String(value).trim() === "") {
+        return "-";
+      }
+      return String(value).toLowerCase() === "false" ? "关闭" : "开启";
+    }
+
     function formatTime(value) {
       return value ? String(value).replace("T", " ").slice(0, 19) : "";
     }
@@ -1126,6 +1200,7 @@
       state.selectedTaskId = "";
       state.selectedReportId = "";
       state.selectedTraceId = "";
+      $("configSnapshotBox").innerHTML = "";
       $("detailBox").textContent = "请选择一条任务";
       updateContextLinks();
       syncUrl();
