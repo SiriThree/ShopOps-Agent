@@ -30,12 +30,12 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port
 http://localhost:8080/admin/workbench.html
 ```
 
-如果要展示 Olist 真实数据版本，先准备数据并带上文件 Connector 参数：
+如果要展示 Olist 真实数据版本，先准备数据。默认配置已经指向 `docs/demo-data/olist`，普通启动即可：
 
 ```powershell
 python scripts/prepare_olist_demo.py
 
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080 --shopops.connector.order-summary.file=docs/demo-data/olist/order-summary-olist.json --shopops.connector.negative-comments.file=docs/demo-data/olist/negative-comments-olist.json --shopops.connector.product-candidates.file=docs/demo-data/olist/product-candidates-olist.json"
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080"
 ```
 
 Olist 推荐日期：

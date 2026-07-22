@@ -54,6 +54,16 @@ shopops:
     token-ttl-seconds: ${SHOPOPS_AUTH_TOKEN_TTL_SECONDS:7200}
   connector:
     credential-secret: ${SHOPOPS_CONNECTOR_CREDENTIAL_SECRET:shopops-dev-connector-secret-change-me}
+    order-summary:
+      file: ${SHOPOPS_CONNECTOR_ORDER_SUMMARY_FILE:docs/demo-data/olist/order-summary-olist.json}
+    negative-comments:
+      file: ${SHOPOPS_CONNECTOR_NEGATIVE_COMMENTS_FILE:docs/demo-data/olist/negative-comments-olist.json}
+    product-candidates:
+      file: ${SHOPOPS_CONNECTOR_PRODUCT_CANDIDATES_FILE:docs/demo-data/olist/product-candidates-olist.json}
+    ad-performance:
+      file: ${SHOPOPS_CONNECTOR_AD_PERFORMANCE_FILE:}
+    external-reports:
+      file: ${SHOPOPS_CONNECTOR_EXTERNAL_REPORTS_FILE:}
   model-gateway:
     resilience:
       fallback-enabled: ${SHOPOPS_MODEL_GATEWAY_FALLBACK_ENABLED:true}

@@ -171,6 +171,8 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         evidence.put("channelNames", channels.stream().map(item -> item.get("channelName")).limit(10).toList());
         evidence.put("modelCallId", modelReport.callId());
         evidence.put("modelProviderCode", modelReport.providerCode());
+        evidence.put("dataSources", dataSourceSummary(orderSummary, negativeComments, productCandidates,
+                adPerformance, externalReportMetrics));
         evidence.put("shopConfig", runtimeConfig.evidence());
 
         Map<String, Object> data = Map.of(
@@ -225,6 +227,38 @@ public class DailyReviewReportExecutor implements ToolExecutor {
             // 报告生成不能阻塞 P0 复盘链路，失败时使用确定性的规则版报告。
         }
         return new ModelReportView(fallbackMarkdown, "RULE_FALLBACK", null, null);
+    }
+
+    private Map<String, Object> dataSourceSummary(Map<String, Object> orderSummary,
+                                                  Map<String, Object> negativeComments,
+                                                  Map<String, Object> productCandidates,
+                                                  Map<String, Object> adPerformance,
+                                                  Map<String, Object> externalReportMetrics) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("orderSummary", sourceMetrics(orderSummary,
+                "gmv", "orderCount", "refundAmount", "refundRate", "avgOrderAmount"));
+        result.put("negativeComments", sourceMetrics(negativeComments,
+                "negativeCount"));
+        result.put("productCandidates", sourceMetrics(productCandidates,
+                "candidateCount"));
+        result.put("adPerformance", sourceMetrics(adPerformance,
+                "spend", "impressions", "clicks", "ctr", "roi"));
+        result.put("externalReportMetrics", sourceMetrics(externalReportMetrics,
+                "visitorCount", "conversionRate", "favoriteCount", "cartAddCount"));
+        return result;
+    }
+
+    private Map<String, Object> sourceMetrics(Map<String, Object> source, String... metricKeys) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("connectorCode", source.getOrDefault("connectorCode", "unknown"));
+        Map<String, Object> metrics = new LinkedHashMap<>();
+        for (String metricKey : metricKeys) {
+            if (source.containsKey(metricKey)) {
+                metrics.put(metricKey, source.get(metricKey));
+            }
+        }
+        result.put("metrics", metrics);
+        return result;
     }
 
     private String modelPrompt(Map<String, Object> payload,

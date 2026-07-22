@@ -50,7 +50,16 @@ class ConnectorStatusIntegrationTest {
                 .extracting(item -> item.get("connectorCode"))
                 .containsExactly("file.order-summary", "file.negative-comments", "file.product-candidates",
                         "file.ad-performance", "file.external-reports");
-        assertThat(data)
+        assertThat(data.subList(0, 3))
+                .allSatisfy(item -> {
+                    assertThat(item.get("status")).isEqualTo("UP");
+                    assertThat(item.get("configured")).isEqualTo(true);
+                    assertThat(item.get("available")).isEqualTo(true);
+                    assertThat(item.get("message")).isEqualTo("文件可用");
+                    assertThat(item.get("configuredPath")).asString().contains("docs", "demo-data", "olist");
+                    assertThat(item.get("lastCheckedAt")).isNotNull();
+                });
+        assertThat(data.subList(3, 5))
                 .allSatisfy(item -> {
                     assertThat(item.get("status")).isEqualTo("NOT_CONFIGURED");
                     assertThat(item.get("configured")).isEqualTo(false);

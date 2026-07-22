@@ -2,6 +2,10 @@ package com.sirithree.shopops.admin.report;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,11 +18,14 @@ import org.springframework.http.ResponseEntity;
         properties = "shopops.persistence=memory"
 )
 class AdminReportStaticPageIntegrationTest {
+    private static final Pattern REPORT_SCRIPT = Pattern.compile("src=\"(/admin/assets/reports-[^\"]+\\.js)\"");
+    private static final Pattern JS_ASSET = Pattern.compile("(?:src|href)=\"(/admin/assets/[^\"]+\\.js)\"");
+
     @LocalServerPort
     private int port;
 
     @Test
-    void shouldServeAdminReportStaticPage() {
+    void shouldServeReactAdminReportStaticPage() {
         TestRestTemplate restTemplate = new TestRestTemplate();
 
         ResponseEntity<String> response = restTemplate.getForEntity(
@@ -34,51 +41,58 @@ class AdminReportStaticPageIntegrationTest {
                 .contains("no-store")
                 .contains("no-cache");
         assertThat(response.getBody())
-                .contains("ShopOps 报告")
-                .contains("报告预览")
-                .contains("证据")
-                .contains("/api/reports")
-                .contains("/api/reports/${encodeURIComponent(reportId)}")
-                .contains("applyInitialQuery")
-                .contains("new URLSearchParams(window.location.search)")
-                .contains("syncUrl")
-                .contains("updateContextLinks")
-                .contains("summaryItems")
-                .contains("evidenceSummary")
-                .contains("id=\"evidenceSummary\"")
-                .contains("id=\"configSnapshotBox\"")
-                .contains("renderConfigSnapshot")
+                .contains("ShopOps 报告中心")
+                .contains("shopops-ui-stack")
+                .contains("React, TypeScript, Axios, ECharts, Ant Design")
+                .contains("<div id=\"root\"></div>")
+                .contains("/admin/assets/reports-")
+                .contains("/admin/assets/styles-");
+
+        String scripts = allScriptText(restTemplate, response.getBody());
+
+        assertThat(scripts)
+                .contains("/api/reports?")
+                .contains("/api/reports/")
+                .contains("pageNum")
+                .contains("pageSize")
+                .contains("reportId")
+                .contains("taskId")
+                .contains("traceId")
+                .contains("createdBy")
+                .contains("shopops.auth.token")
+                .contains("Authorization")
+                .contains("window.history.replaceState")
+                .contains("navigator.clipboard.writeText")
+                .contains("orderSummary")
+                .contains("negativeComments")
+                .contains("productCandidates")
                 .contains("refundRateWarnThreshold")
                 .contains("agentToolApprovalEnabled")
-                .contains("id=\"openTask\"")
-                .contains("id=\"openAudit\"")
-                .contains("id=\"openToolLogs\"")
                 .contains("/admin/tasks.html?taskId=")
-                .contains("/admin/tools.html?taskId=")
-                .contains("window.history.replaceState")
-                .contains("positiveInt(params.get(\"pageNum\"), 1)")
-                .contains("positiveInt(params.get(\"pageSize\"), 20)")
-                .contains("empty-state")
-                .contains("data-retry-list")
-                .contains("errorRow")
-                .contains("id=\"reportFilterSubmit\"")
-                .contains("withBusy")
-                .contains("查询中")
-                .contains("重置中")
-                .contains("加载中")
-                .contains("id=\"copyReport\"")
-                .contains("id=\"copyEvidence\"")
-                .contains("copyText")
-                .contains("navigator.clipboard")
-                .contains("fallbackCopy")
-                .contains("shopops.auth.token")
-                .contains("shopops.auth.user")
-                .contains("Authorization")
-                .contains("applyStoredSession")
-                .contains("id=\"sessionLine\"")
-                .contains("data-quick-filter=\"daily\"")
-                .contains("/admin/dashboard.html")
-                .contains("/admin/tasks.html")
-                .contains("/admin/audit.html");
+                .contains("/admin/audit.html?source=TASK&taskId=")
+                .contains("/admin/tools.html?taskId=");
+    }
+
+    private static String reportScriptPath(String body) {
+        Matcher matcher = REPORT_SCRIPT.matcher(body);
+        assertThat(matcher.find()).isTrue();
+        return matcher.group(1);
+    }
+
+    private String allScriptText(TestRestTemplate restTemplate, String body) {
+        assertThat(reportScriptPath(body)).isNotBlank();
+        Matcher matcher = JS_ASSET.matcher(body);
+        return matcher.results()
+                .map(result -> result.group(1))
+                .distinct()
+                .map(path -> {
+                    ResponseEntity<String> script = restTemplate.getForEntity(
+                            "http://localhost:" + port + path,
+                            String.class
+                    );
+                    assertThat(script.getStatusCode().is2xxSuccessful()).isTrue();
+                    return script.getBody();
+                })
+                .collect(Collectors.joining("\n"));
     }
 }

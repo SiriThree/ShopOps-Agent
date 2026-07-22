@@ -53,6 +53,13 @@ class DailyReviewReportExecutorTest {
         assertThat((List<Object>) evidence.get("productIds")).containsExactly(1016);
         assertThat((List<Object>) evidence.get("campaignNames")).containsExactly("夏季补水主推");
         assertThat((List<Object>) evidence.get("channelNames")).containsExactly("自然搜索");
+        Map<String, Object> dataSources = (Map<String, Object>) evidence.get("dataSources");
+        Map<String, Object> orderSource = (Map<String, Object>) dataSources.get("orderSummary");
+        Map<String, Object> orderMetrics = (Map<String, Object>) orderSource.get("metrics");
+        assertThat(orderSource).containsEntry("connectorCode", "unknown");
+        assertThat(orderMetrics)
+                .containsEntry("gmv", 840.0)
+                .containsEntry("orderCount", 5);
     }
 
     @Test

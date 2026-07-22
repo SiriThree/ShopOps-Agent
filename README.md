@@ -49,11 +49,13 @@ http://localhost:8080/admin/workbench.html
 python scripts/prepare_olist_demo.py
 ```
 
-使用 Olist 文件 Connector 启动：
+默认配置已经把订单、差评和商品候选三类文件 Connector 指向 `docs/demo-data/olist`。直接启动即可：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080 --shopops.connector.order-summary.file=docs/demo-data/olist/order-summary-olist.json --shopops.connector.negative-comments.file=docs/demo-data/olist/negative-comments-olist.json --shopops.connector.product-candidates.file=docs/demo-data/olist/product-candidates-olist.json"
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080"
 ```
+
+如需替换为其他数据文件，可通过 `SHOPOPS_CONNECTOR_ORDER_SUMMARY_FILE`、`SHOPOPS_CONNECTOR_NEGATIVE_COMMENTS_FILE`、`SHOPOPS_CONNECTOR_PRODUCT_CANDIDATES_FILE` 或同名 Spring 启动参数覆盖。
 
 推荐演示业务日期：
 
