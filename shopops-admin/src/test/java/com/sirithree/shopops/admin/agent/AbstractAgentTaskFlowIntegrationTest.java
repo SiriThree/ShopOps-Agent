@@ -72,6 +72,23 @@ abstract class AbstractAgentTaskFlowIntegrationTest {
         return response.getBody();
     }
 
+    protected Map post(String path, Map<String, Object> body) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Tenant-Id", "1");
+        headers.set("X-Shop-Id", "1");
+        headers.set("X-User-Id", "1");
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                url(path),
+                HttpMethod.POST,
+                new HttpEntity<>(body, headers),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        return response.getBody();
+    }
+
     protected Map<String, Object> dataOf(Map response) {
         return castMap(dataOfObject(response));
     }

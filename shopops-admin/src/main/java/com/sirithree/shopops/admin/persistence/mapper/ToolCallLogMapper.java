@@ -29,6 +29,8 @@ public interface ToolCallLogMapper {
             UPDATE tool_call_log
             SET output_json = #{outputJson},
                 status = #{status},
+                risk_level = COALESCE(#{riskLevel}, risk_level),
+                approval_id = COALESCE(#{approvalId}, approval_id),
                 latency_ms = #{latencyMs},
                 error_code = #{errorCode},
                 error_message = #{errorMessage}

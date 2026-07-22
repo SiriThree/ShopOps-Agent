@@ -1,0 +1,23 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-07",
+    "endDate": "2018-08-07",
+    "summary": {
+      "gmv": 62057.77,
+      "orderCount": 370,
+      "refundAmount": 4732.62,
+      "refundRate": 0.0763,
+      "avgOrderAmount": 167.72,
+      "compareYesterday": {
+        "gmvGrowth": -0.0577,
+        "orderGrowth": -0.0054
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.2471,
+        "refundRateDelta": 0.0614
+      }
+    }
+  }
+]

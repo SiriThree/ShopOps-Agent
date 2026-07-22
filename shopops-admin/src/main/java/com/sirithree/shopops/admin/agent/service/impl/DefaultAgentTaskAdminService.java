@@ -88,7 +88,10 @@ public class DefaultAgentTaskAdminService implements AgentTaskAdminService {
             detail.setSteps(agentTaskService.listSteps(tenantId, shopId, taskId));
             detail.setEvents(agentTaskService.listEvents(tenantId, shopId, taskId));
             if (task.getReportId() != null) {
-                operationReportService.getReport(tenantId, shopId, task.getReportId()).ifPresent(detail::setReport);
+                operationReportService.getReport(tenantId, shopId, task.getReportId()).ifPresent(report -> {
+                    detail.setReport(report);
+                    detail.setShopConfigSnapshot(shopConfigSnapshot(report));
+                });
             }
             detail.setSpans(traceService.listSpans(tenantId, task.getTraceId()));
             detail.setToolCalls(toolCallLogService.listByTaskId(tenantId, shopId, taskId));
@@ -201,5 +204,17 @@ public class DefaultAgentTaskAdminService implements AgentTaskAdminService {
         dto.setOperatorId(event.getOperatorId());
         dto.setCreatedAt(event.getCreatedAt());
         return dto;
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> shopConfigSnapshot(com.sirithree.shopops.admin.report.domain.OperationReportDto report) {
+        if (report == null || !(report.getEvidence() instanceof Map<?, ?> evidence)) {
+            return Map.of();
+        }
+        Object shopConfig = ((Map<String, Object>) evidence).get("shopConfig");
+        if (shopConfig instanceof Map<?, ?> configMap) {
+            return new LinkedHashMap<>((Map<String, Object>) configMap);
+        }
+        return Map.of();
     }
 }

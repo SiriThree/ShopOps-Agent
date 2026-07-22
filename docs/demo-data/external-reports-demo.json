@@ -1,0 +1,33 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2026-07-19",
+    "endDate": "2026-07-19",
+    "summary": {
+      "visitorCount": 42880,
+      "newVisitorCount": 15120,
+      "conversionRate": 0.036,
+      "repeatPurchaseRate": 0.206,
+      "favoriteCount": 5120,
+      "cartAddCount": 3520,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 16800,
+          "conversionRate": 0.041
+        },
+        {
+          "channelName": "短视频引流",
+          "visitorCount": 12400,
+          "conversionRate": 0.032
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6100,
+          "conversionRate": 0.058
+        }
+      ]
+    }
+  }
+]

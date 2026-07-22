@@ -30,6 +30,7 @@ public class InMemoryToolCallLogService implements ToolCallLogService {
         log.put("stepId", context.getStepId());
         log.put("traceId", context.getTraceId());
         log.put("toolCode", toolCode);
+        log.put("approvalId", context.getApprovalId());
         log.put("input", input);
         log.put("status", "RUNNING");
         log.put("createdAt", LocalDateTime.now().toString());
@@ -43,6 +44,33 @@ public class InMemoryToolCallLogService implements ToolCallLogService {
         if (log != null) {
             log.put("status", "SUCCESS");
             log.put("output", output);
+            log.put("latencyMs", latencyMs);
+        }
+    }
+
+    @Override
+    public void successWithGovernanceNote(Long logId, Object output, String riskLevel, String noteCode,
+                                          String noteMessage, long latencyMs) {
+        Map<String, Object> log = logs.get(logId);
+        if (log != null) {
+            log.put("status", "SUCCESS");
+            log.put("output", output);
+            log.put("riskLevel", riskLevel);
+            log.put("errorCode", noteCode);
+            log.put("errorMessage", noteMessage);
+            log.put("latencyMs", latencyMs);
+        }
+    }
+
+    @Override
+    public void approvalRequired(Long logId, Long approvalId, String riskLevel, String errorMessage, long latencyMs) {
+        Map<String, Object> log = logs.get(logId);
+        if (log != null) {
+            log.put("status", "APPROVAL_REQUIRED");
+            log.put("approvalId", approvalId);
+            log.put("riskLevel", riskLevel);
+            log.put("errorCode", "APPROVAL_REQUIRED");
+            log.put("errorMessage", errorMessage);
             log.put("latencyMs", latencyMs);
         }
     }

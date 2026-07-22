@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShopOps Audit Center</title>
+  <title>ShopOps 审计中心</title>
   <style>
     :root {
       color-scheme: light;
@@ -142,6 +142,13 @@
       align-items: end;
     }
 
+    .context-session {
+      grid-column: 1 / -1;
+      min-height: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
     .toolbar {
       padding: 16px 24px;
       display: grid;
@@ -198,6 +205,13 @@
       margin: 0;
       color: var(--ink);
       font-size: 15px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .risk-bars { display: grid; gap: 9px; }
@@ -300,6 +314,27 @@
       overflow-wrap: anywhere;
     }
 
+    .empty-state {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      white-space: normal;
+    }
+
+    .empty-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .empty-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -346,6 +381,62 @@
       font-size: 12px;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
+    }
+
+    .link-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .link-row a {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: var(--panel);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .summary-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .summary-item {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fbfcfd;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .summary-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .config-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .events-list { display: grid; gap: 8px; }
@@ -449,15 +540,15 @@
         font-weight: 600;
       }
 
-      tbody td:nth-child(1)::before { content: "Time"; }
-      tbody td:nth-child(2)::before { content: "Source"; }
-      tbody td:nth-child(3)::before { content: "Type"; }
-      tbody td:nth-child(4)::before { content: "Status"; }
-      tbody td:nth-child(5)::before { content: "Risk"; }
-      tbody td:nth-child(6)::before { content: "User"; }
-      tbody td:nth-child(7)::before { content: "Task"; }
+      tbody td:nth-child(1)::before { content: "\65f6\95f4"; }
+      tbody td:nth-child(2)::before { content: "\6765\6e90"; }
+      tbody td:nth-child(3)::before { content: "\7c7b\578b"; }
+      tbody td:nth-child(4)::before { content: "\72b6\6001"; }
+      tbody td:nth-child(5)::before { content: "\98ce\9669"; }
+      tbody td:nth-child(6)::before { content: "\7528\6237"; }
+      tbody td:nth-child(7)::before { content: "\4efb\52a1"; }
       tbody td:nth-child(8)::before { content: "Trace"; }
-      tbody td:nth-child(9)::before { content: "Summary"; }
+      tbody td:nth-child(9)::before { content: "\6458\8981"; }
 
       .summary-cell {
         max-width: none;
@@ -470,14 +561,17 @@
     <aside class="sidebar">
       <div class="brand">
         <strong>ShopOps Agent</strong>
-        <span>Admin Console</span>
+        <span>管理控制台</span>
       </div>
-      <nav class="nav" aria-label="Admin navigation">
-        <a href="#">Dashboard</a>
-        <a href="#">Agent Tasks</a>
-        <a class="active" href="/admin/audit.html">Audit Center</a>
-        <a href="#">Reports</a>
-        <a href="#">Tools</a>
+      <nav class="nav" aria-label="管理导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a class="active" href="/admin/audit.html">审计中心</a>
+        <a href="/admin/approvals.html">审批中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
+        <a href="/admin/prompts.html">提示词模板</a>
       </nav>
     </aside>
 
@@ -488,13 +582,13 @@
           <div class="subtitle">认证、任务、工具调用统一时间线</div>
         </div>
         <form id="contextForm" class="context-grid">
-          <label>Tenant
+          <label>租户
             <input id="tenantId" value="1" inputmode="numeric">
           </label>
-          <label>Shop
+          <label>店铺
             <input id="shopId" value="1" inputmode="numeric">
           </label>
-          <label>User
+          <label>用户
             <input id="userId" value="1" inputmode="numeric">
           </label>
           <label>Bearer
@@ -502,6 +596,7 @@
           </label>
           <button class="primary" type="submit" title="刷新">刷新</button>
           <button class="icon" id="clearToken" type="button" title="清空 Token" aria-label="清空 Token">×</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
         </form>
       </header>
 
@@ -524,47 +619,51 @@
           </section>
         </div>
         <form id="filterForm" class="filters">
-          <label>Source
+          <label>来源
             <select id="source">
               <option value="">全部</option>
-              <option value="AUTH">AUTH</option>
-              <option value="TASK">TASK</option>
-              <option value="TOOL">TOOL</option>
+              <option value="AUTH">认证</option>
+              <option value="TASK">任务</option>
+              <option value="TOOL">工具</option>
+              <option value="APPROVAL">审批</option>
+              <option value="CONNECTOR">连接器</option>
             </select>
           </label>
-          <label>Status
+          <label>状态
             <select id="eventStatus">
               <option value="">全部</option>
-              <option value="SUCCESS">SUCCESS</option>
-              <option value="FAILURE">FAILURE</option>
-              <option value="FAILED">FAILED</option>
+              <option value="SUCCESS">成功</option>
+              <option value="FAILURE">失败</option>
+              <option value="FAILED">失败</option>
+              <option value="CANCELED">已取消</option>
             </select>
           </label>
-          <label>Risk
+          <label>风险
             <select id="riskLevel">
               <option value="">全部</option>
               <option value="ELEVATED">中高风险</option>
-              <option value="LOW">LOW</option>
-              <option value="MEDIUM">MEDIUM</option>
-              <option value="HIGH">HIGH</option>
+              <option value="LOW">低</option>
+              <option value="MEDIUM">中</option>
+              <option value="HIGH">高</option>
             </select>
           </label>
-          <label>Task ID
+          <label>任务 ID
             <input id="taskId" inputmode="numeric">
           </label>
           <label>Trace ID
             <input id="traceId">
           </label>
-          <label>Tool
+          <label>工具
             <input id="toolCode">
           </label>
           <button class="primary" type="submit">查询</button>
           <button id="resetFilters" type="button">重置</button>
         </form>
-        <div class="quick-actions" aria-label="Audit quick filters">
+        <div class="quick-actions" aria-label="审计快捷筛选">
           <span>快捷筛选</span>
           <button type="button" data-quick-filter="failed">失败事件</button>
           <button type="button" data-quick-filter="high-risk">中高风险</button>
+          <button type="button" data-quick-filter="approval">审批事件</button>
           <button type="button" data-quick-filter="tool">工具调用</button>
           <button type="button" data-quick-filter="clear">清空筛选</button>
         </div>
@@ -592,7 +691,7 @@
             </table>
           </div>
           <div class="pager">
-            <span id="pageInfo">Page 1</span>
+            <span id="pageInfo">第 1 页</span>
             <div class="pager-actions">
               <button id="prevPage" type="button">上一页</button>
               <button id="nextPage" type="button">下一页</button>
@@ -604,9 +703,21 @@
           <section class="panel">
             <div class="panel-title">
               <h2>事件详情</h2>
-              <button id="clearDetail" class="icon" type="button" title="清空详情" aria-label="清空详情">×</button>
+              <div class="button-row">
+                <button id="copyDetail" type="button">复制</button>
+                <button id="clearDetail" class="icon" type="button" title="清空详情" aria-label="清空详情">×</button>
+              </div>
             </div>
-            <pre class="detail-box" id="detailBox">选择一条时间线事件</pre>
+            <div class="summary-box" id="eventSummary"></div>
+            <div class="config-box" id="configSnapshotBox"></div>
+            <div class="config-box" id="configChangeBox"></div>
+            <pre class="detail-box" id="detailBox">请选择一条时间线事件</pre>
+            <div class="link-row">
+              <a id="openTask" href="/admin/tasks.html">打开任务</a>
+              <a id="openReport" href="/admin/reports.html">打开报告</a>
+              <a id="openApproval" href="/admin/approvals.html">审批中心</a>
+              <a id="openToolLogs" href="/admin/tools.html">工具日志</a>
+            </div>
           </section>
           <section class="panel">
             <div class="panel-title">
@@ -621,7 +732,9 @@
   </div>
 
   <script>
-    const state = { pageNum: 1, pageSize: 20, total: 0 };
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedTaskId: "", selectedReportId: "", selectedTraceId: "", selectedToolCode: "", selectedApprovalId: "" };
     const $ = (id) => document.getElementById(id);
 
     const metricItems = [
@@ -639,7 +752,7 @@
         "X-Tenant-Id": $("tenantId").value || "1",
         "X-Shop-Id": $("shopId").value || "1",
         "X-User-Id": $("userId").value || "1",
-        "X-User-Roles": "ADMIN"
+        "X-User-Roles": roleValue(authSession().user?.roles)
       };
       if (token) {
         result.Authorization = `Bearer ${token}`;
@@ -669,6 +782,11 @@
         }
       });
       return params;
+    }
+
+    function syncUrl() {
+      const query = filters().toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
     }
 
     async function api(path) {
@@ -704,7 +822,7 @@
       const data = await api("/api/admin/audit/high-risk");
       const breakdown = data.riskBreakdown || {};
       const total = Math.max(1, Object.values(breakdown).reduce((sum, value) => sum + number(value), 0));
-      $("riskTotal").textContent = `${number(data.elevatedRiskTotal)} elevated / ${number(data.total)} total`;
+      $("riskTotal").textContent = `${number(data.elevatedRiskTotal)} 中高风险 / ${number(data.total)} 总数`;
       $("riskBars").innerHTML = ["HIGH", "MEDIUM", "LOW", "UNKNOWN"].map((level) => {
         const value = number(breakdown[level]);
         const width = Math.max(2, Math.round((value / total) * 100));
@@ -726,35 +844,70 @@
     }
 
     async function loadTimeline() {
-      const data = await api(`/api/admin/audit/timeline?${filters().toString()}`);
-      state.total = number(data.total);
-      $("timelineBody").innerHTML = (data.list || []).map((event) => `
-        <tr data-source="${escapeAttr(event.source)}" data-resource-id="${escapeAttr(event.resourceId)}">
-          <td>${formatTime(event.createdAt)}</td>
-          <td><span class="badge">${escapeHtml(event.source || "")}</span></td>
-          <td>${escapeHtml(event.eventType || "")}</td>
-          <td><span class="badge ${statusClass(event.eventStatus)}">${escapeHtml(event.eventStatus || "")}</span></td>
-          <td><span class="badge ${riskClass(event.riskLevel)}">${escapeHtml(event.riskLevel || "UNKNOWN")}</span></td>
-          <td>${escapeHtml(event.username || event.userId || "")}</td>
-          <td>${escapeHtml(event.taskId || "")}</td>
-          <td>${escapeHtml(event.traceId || "")}</td>
-          <td class="summary-cell">${escapeHtml(event.summary || "")}</td>
-        </tr>
-      `).join("") || `<tr><td colspan="9">暂无数据。<button type="button" data-empty-reset>清空筛选</button></td></tr>`;
-      $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} · ${state.total} rows`;
-      $("prevPage").disabled = state.pageNum <= 1;
-      $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      syncUrl();
+      try {
+        const data = await api(`/api/admin/audit/timeline?${filters().toString()}`);
+        state.total = number(data.total);
+        $("timelineBody").innerHTML = (data.list || []).map((event) => `
+          <tr data-source="${escapeAttr(event.source)}" data-resource-id="${escapeAttr(event.resourceId)}">
+            <td>${formatTime(event.createdAt)}</td>
+            <td><span class="badge">${escapeHtml(event.source || "")}</span></td>
+            <td>${escapeHtml(event.eventType || "")}</td>
+            <td><span class="badge ${statusClass(event.eventStatus)}">${escapeHtml(event.eventStatus || "")}</span></td>
+            <td><span class="badge ${riskClass(event.riskLevel)}">${escapeHtml(event.riskLevel || "UNKNOWN")}</span></td>
+            <td>${escapeHtml(event.username || event.userId || "")}</td>
+            <td>${escapeHtml(event.taskId || "")}</td>
+            <td>${escapeHtml(event.traceId || "")}</td>
+            <td class="summary-cell">${escapeHtml(event.summary || "")}</td>
+          </tr>
+        `).join("") || emptyRow(9, "暂无数据", "可以清空筛选或刷新审计时间线。");
+        $("pageInfo").textContent = `Page ${data.pageNum || state.pageNum} · ${state.total} rows`;
+        $("prevPage").disabled = state.pageNum <= 1;
+        $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+      } catch (error) {
+        state.total = 0;
+        $("timelineBody").innerHTML = errorRow(9, "审计时间线加载失败", error.message);
+        $("pageInfo").textContent = "审计时间线不可用";
+        $("prevPage").disabled = true;
+        $("nextPage").disabled = true;
+        throw error;
+      }
     }
 
     async function loadDetail(source, resourceId) {
       if (!source || !resourceId) {
         return;
       }
+      $("eventSummary").innerHTML = "";
+      $("configSnapshotBox").innerHTML = "";
+      $("configChangeBox").innerHTML = "";
       $("detailBox").textContent = "加载中...";
       try {
         const data = await api(`/api/admin/audit/timeline/${encodeURIComponent(source)}/${encodeURIComponent(resourceId)}`);
         $("detailBox").textContent = JSON.stringify(data, null, 2);
+        const event = data.event || {};
+        state.selectedTaskId = event.taskId || data.context?.taskId || "";
+        state.selectedReportId = data.context?.reportId || event.detail?.eventData?.reportId || "";
+        state.selectedTraceId = event.traceId || data.context?.traceId || "";
+        state.selectedToolCode = event.toolCode || "";
+        state.selectedApprovalId = source === "APPROVAL" ? resourceId : "";
+        $("eventSummary").innerHTML = summaryItems([
+          ["来源", event.source || source],
+          ["类型", event.eventType || ""],
+          ["状态", event.eventStatus || ""],
+          ["风险", event.riskLevel || "UNKNOWN"],
+          ["任务", state.selectedTaskId || ""],
+          ["报告", state.selectedReportId || ""],
+          ["Trace", state.selectedTraceId || ""],
+          ["工具调用", data.context?.toolCallCount || ""]
+        ]);
+        $("configSnapshotBox").innerHTML = renderConfigSnapshot(data.context?.shopConfigSnapshot);
+        $("configChangeBox").innerHTML = renderConfigChange(data.context?.recentShopConfigChange || data.context?.configChangeSummary);
+        updateContextLinks();
       } catch (error) {
+        $("eventSummary").innerHTML = "";
+        $("configSnapshotBox").innerHTML = "";
+        $("configChangeBox").innerHTML = "";
         $("detailBox").textContent = error.message;
       }
     }
@@ -768,6 +921,8 @@
           $("eventStatus").value = "FAILURE";
         } else if (name === "high-risk") {
           $("riskLevel").value = "ELEVATED";
+        } else if (name === "approval") {
+          $("source").value = "APPROVAL";
         } else if (name === "tool") {
           $("source").value = "TOOL";
         }
@@ -776,14 +931,199 @@
       }
     }
 
-    function resetFilters() {
+    async function resetFilters() {
       $("filterForm").reset();
       state.pageNum = 1;
-      loadTimeline();
+      await loadTimeline();
+    }
+
+    function applyInitialQuery() {
+      const params = new URLSearchParams(window.location.search);
+      setIfPresent("source", params.get("source"));
+      setIfPresent("eventStatus", params.get("eventStatus"));
+      setIfPresent("riskLevel", params.get("riskLevel"));
+      setIfPresent("taskId", params.get("taskId"));
+      setIfPresent("traceId", params.get("traceId"));
+      setIfPresent("toolCode", params.get("toolCode"));
+      state.pageNum = positiveInt(params.get("pageNum"), 1);
+      state.pageSize = positiveInt(params.get("pageSize"), 20);
+      if (params.get("elevatedRisk") === "true") {
+        $("riskLevel").value = "ELEVATED";
+      }
+    }
+
+    function positiveInt(value, fallback) {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+    }
+
+    function setIfPresent(id, value) {
+      if (value != null && $(id)) {
+        $(id).value = value;
+      }
+    }
+
+    function updateContextLinks() {
+      $("openTask").href = state.selectedTaskId
+        ? `/admin/tasks.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : "/admin/tasks.html";
+      $("openReport").href = state.selectedReportId
+        ? `/admin/reports.html?reportId=${encodeURIComponent(state.selectedReportId)}`
+        : (state.selectedTaskId ? `/admin/reports.html?taskId=${encodeURIComponent(state.selectedTaskId)}` : "/admin/reports.html");
+      $("openApproval").href = state.selectedApprovalId
+        ? `/admin/approvals.html?approvalId=${encodeURIComponent(state.selectedApprovalId)}`
+        : "/admin/approvals.html";
+      $("openToolLogs").href = state.selectedTaskId
+        ? `/admin/tools.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : (state.selectedToolCode ? `/admin/tools.html?toolCode=${encodeURIComponent(state.selectedToolCode)}` : "/admin/tools.html");
+    }
+
+    function summaryItems(items) {
+      return items.map(([label, value]) => `
+        <div class="summary-item">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value || "-")}</strong>
+        </div>
+      `).join("");
+    }
+
+    function renderConfigSnapshot(snapshot) {
+      const items = [
+        ["退款率预警阈值", percentValue(snapshot?.refundRateWarnThreshold)],
+        ["差评预警阈值", textValue(snapshot?.negativeCommentWarnThreshold)],
+        ["高风险工具审批", approvalValue(snapshot?.agentToolApprovalEnabled)],
+        ["模型策略", textValue(snapshot?.agentModelPolicy)]
+      ];
+      if (!items.some(([, value]) => value !== "-")) {
+        return "";
+      }
+      return items.map(([label, value]) => `
+        <div class="summary-item">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value)}</strong>
+        </div>
+      `).join("");
+    }
+
+    function renderConfigChange(change) {
+      if (!change || typeof change !== "object" || textValue(change.message) === "-") {
+        return "";
+      }
+      return summaryItems([
+        ["鏈€杩戝彉鏇?", textValue(change.message)],
+        ["鍙樻洿浜?", textValue(change.username)],
+        ["鍙樻洿鏃堕棿", formatTime(change.createdAt)],
+        ["璇锋眰", textValue(change.requestId)]
+      ]);
     }
 
     function setStatus(message) {
       $("statusLine").textContent = message;
+    }
+
+    async function withBusy(button, busyText, action, restoreDisabled = true) {
+      if (button.disabled) {
+        return;
+      }
+      const originalDisabled = button.disabled;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        if (restoreDisabled) {
+          button.disabled = originalDisabled;
+        }
+        button.textContent = originalText;
+      }
+    }
+
+    async function copyText(text, label) {
+      const value = String(text || "").trim();
+      if (!value || value === "选择一条时间线事件" || value === "加载中...") {
+        setStatus(`没有可复制的${label}`);
+        return;
+      }
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          fallbackCopy(value);
+        }
+        setStatus(`${label}已复制`);
+      } catch (error) {
+        fallbackCopy(value);
+        setStatus(`${label}已复制`);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    function applyStoredSession() {
+      const session = authSession();
+      if (session.user) {
+        $("tenantId").value = session.user.tenantId || $("tenantId").value || "1";
+        $("shopId").value = session.user.shopId || $("shopId").value || "1";
+        $("userId").value = session.user.userId || $("userId").value || "1";
+      }
+      if (session.token && !$("token").value.trim()) {
+        $("token").value = session.token;
+      }
+      renderSessionLine();
+    }
+
+    function renderSessionLine() {
+      const session = authSession();
+      const token = $("token").value.trim();
+      $("sessionLine").textContent = token
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
+    }
+
+    function authSession() {
+      let user = null;
+      try {
+        user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+      } catch (error) {
+        user = null;
+      }
+      return { token: localStorage.getItem(TOKEN_KEY) || "", user };
+    }
+
+    function roleValue(roles) {
+      return Array.isArray(roles) ? roles.join(",") : (roles || "ADMIN");
+    }
+
+    function emptyRow(colspan, title, message) {
+      return `
+        <tr>
+          <td colspan="${colspan}">
+            <div class="empty-state">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(message)}</span>
+              <div class="empty-actions">
+                <button type="button" data-empty-reset>清空筛选</button>
+                <button type="button" data-retry-list>刷新</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function errorRow(colspan, title, message) {
+      return emptyRow(colspan, title, message || "请检查服务状态后重试。");
     }
 
     async function loadExport() {
@@ -821,6 +1161,28 @@
       return Number(value || 0);
     }
 
+    function textValue(value) {
+      return value == null || String(value).trim() === "" ? "-" : String(value).trim();
+    }
+
+    function percentValue(value) {
+      if (value == null || String(value).trim() === "") {
+        return "-";
+      }
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) {
+        return String(value);
+      }
+      return `${(numeric * 100).toFixed(2)}%`;
+    }
+
+    function approvalValue(value) {
+      if (value == null || String(value).trim() === "") {
+        return "-";
+      }
+      return String(value).toLowerCase() === "false" ? "关闭" : "开启";
+    }
+
     function formatTime(value) {
       return value ? String(value).replace("T", " ").slice(0, 19) : "";
     }
@@ -855,15 +1217,13 @@
     $("filterForm").addEventListener("submit", (event) => {
       event.preventDefault();
       state.pageNum = 1;
-      loadTimeline();
+      withBusy(document.querySelector("#filterForm button.primary"), "查询中", loadTimeline);
     });
 
-    $("resetFilters").addEventListener("click", () => {
-      resetFilters();
-    });
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "重置中", resetFilters));
 
-    $("refreshRisk").addEventListener("click", loadRisk);
-    $("exportBtn").addEventListener("click", loadExport);
+    $("refreshRisk").addEventListener("click", () => withBusy($("refreshRisk"), "刷新中", loadRisk));
+    $("exportBtn").addEventListener("click", () => withBusy($("exportBtn"), "下载中", loadExport));
     document.querySelector(".quick-actions").addEventListener("click", (event) => {
       const button = event.target.closest("button[data-quick-filter]");
       if (button) {
@@ -878,26 +1238,40 @@
     });
     $("clearToken").addEventListener("click", () => {
       $("token").value = "";
+      renderSessionLine();
       refreshAll();
     });
+    $("copyDetail").addEventListener("click", () => copyText($("detailBox").textContent, "审计详情"));
     $("clearDetail").addEventListener("click", () => {
+      $("eventSummary").innerHTML = "";
+      $("configSnapshotBox").innerHTML = "";
       $("detailBox").textContent = "选择一条时间线事件";
+      state.selectedTaskId = "";
+      state.selectedReportId = "";
+      state.selectedTraceId = "";
+      state.selectedToolCode = "";
+      state.selectedApprovalId = "";
+      updateContextLinks();
     });
     $("prevPage").addEventListener("click", () => {
       if (state.pageNum > 1) {
         state.pageNum -= 1;
-        loadTimeline();
+        withBusy($("prevPage"), "加载中", loadTimeline, false);
       }
     });
     $("nextPage").addEventListener("click", () => {
       if (state.pageNum * state.pageSize < state.total) {
         state.pageNum += 1;
-        loadTimeline();
+        withBusy($("nextPage"), "加载中", loadTimeline, false);
       }
     });
     $("timelineBody").addEventListener("click", (event) => {
       if (event.target.closest("button[data-empty-reset]")) {
         resetFilters();
+        return;
+      }
+      if (event.target.closest("button[data-retry-list]")) {
+        loadTimeline();
         return;
       }
       const row = event.target.closest("tr[data-source]");
@@ -906,6 +1280,9 @@
       }
     });
 
+    applyStoredSession();
+    applyInitialQuery();
+    updateContextLinks();
     refreshAll();
   </script>
 </body>

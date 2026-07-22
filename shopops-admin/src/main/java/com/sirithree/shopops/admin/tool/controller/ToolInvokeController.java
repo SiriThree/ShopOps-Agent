@@ -41,8 +41,19 @@ public class ToolInvokeController {
         context.setShopId(requestContext.getShopId());
         context.setUserId(requestContext.getUserId());
         context.setTraceId("tr_manual_" + UUID.randomUUID().toString().replace("-", ""));
+        context.setApprovalId(longValue(input.get("approvalId")));
         context.setManualInvoke(true);
         return CommonResult.success(toolGatewayService.invoke(context, toolCode, input));
+    }
+
+    private Long longValue(Object value) {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof Number number) {
+            return number.longValue();
+        }
+        return Long.parseLong(String.valueOf(value));
     }
 
     @GetMapping("/call-logs")

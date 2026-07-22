@@ -1,0 +1,35 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2026-07-18",
+    "endDate": "2026-07-18",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 3,
+      "riskComments": [
+        {
+          "commentId": 88001,
+          "productId": 2001,
+          "productName": "智能恒温水杯",
+          "star": 2,
+          "content": "杯盖渗水，客服响应慢",
+          "riskKeywords": ["渗水", "客服慢"]
+        },
+        {
+          "commentId": 88002,
+          "productId": 2008,
+          "productName": "厨房分格收纳盒",
+          "star": 1,
+          "content": "尺寸和页面描述不一致，已申请退款",
+          "riskKeywords": ["描述不符", "退款"]
+        }
+      ],
+      "categoryStats": {
+        "描述不符": 1,
+        "退款": 1,
+        "客服慢": 1
+      }
+    }
+  }
+]

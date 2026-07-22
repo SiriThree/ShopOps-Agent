@@ -10,9 +10,16 @@ import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineDetailDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineEventDto;
 import com.sirithree.shopops.admin.audit.domain.AdminAuditTimelineQueryParam;
 import com.sirithree.shopops.admin.audit.service.AdminAuditService;
+import com.sirithree.shopops.admin.approval.domain.ApprovalRequestDto;
+import com.sirithree.shopops.admin.approval.domain.ApprovalRequestQueryParam;
+import com.sirithree.shopops.admin.approval.domain.ApprovalStatus;
+import com.sirithree.shopops.admin.approval.service.ApprovalRequestService;
 import com.sirithree.shopops.admin.auth.domain.AuthAuditEventDto;
 import com.sirithree.shopops.admin.auth.domain.AuthAuditEventQueryParam;
 import com.sirithree.shopops.admin.auth.service.AuthAuditService;
+import com.sirithree.shopops.admin.connector.domain.ConnectorAuditEventDto;
+import com.sirithree.shopops.admin.connector.domain.ConnectorAuditEventQueryParam;
+import com.sirithree.shopops.admin.connector.service.ConnectorAuditService;
 import com.sirithree.shopops.admin.tool.domain.McpToolDto;
 import com.sirithree.shopops.admin.tool.domain.ToolCallLogQueryParam;
 import com.sirithree.shopops.admin.tool.service.McpToolService;
@@ -51,17 +58,23 @@ public class DefaultAdminAuditService implements AdminAuditService {
     private final AgentTaskAdminService agentTaskAdminService;
     private final ToolCallLogService toolCallLogService;
     private final McpToolService mcpToolService;
+    private final ApprovalRequestService approvalRequestService;
+    private final ConnectorAuditService connectorAuditService;
     private final ObjectProvider<AdminAuditTimelineJdbcRepository> jdbcTimelineRepositoryProvider;
 
     public DefaultAdminAuditService(AuthAuditService authAuditService,
                                     AgentTaskAdminService agentTaskAdminService,
                                     ToolCallLogService toolCallLogService,
                                     McpToolService mcpToolService,
+                                    ApprovalRequestService approvalRequestService,
+                                    ConnectorAuditService connectorAuditService,
                                     ObjectProvider<AdminAuditTimelineJdbcRepository> jdbcTimelineRepositoryProvider) {
         this.authAuditService = authAuditService;
         this.agentTaskAdminService = agentTaskAdminService;
         this.toolCallLogService = toolCallLogService;
         this.mcpToolService = mcpToolService;
+        this.approvalRequestService = approvalRequestService;
+        this.connectorAuditService = connectorAuditService;
         this.jdbcTimelineRepositoryProvider = jdbcTimelineRepositoryProvider;
     }
 
@@ -102,6 +115,12 @@ public class DefaultAdminAuditService implements AdminAuditService {
         if (includesSource(query, "TOOL")) {
             events.addAll(toolTimelineEvents(tenantId, shopId, query));
         }
+        if (includesSource(query, "APPROVAL")) {
+            events.addAll(approvalTimelineEvents(tenantId, shopId, query));
+        }
+        if (includesSource(query, "CONNECTOR")) {
+            events.addAll(connectorTimelineEvents(tenantId, shopId, query));
+        }
         List<AdminAuditTimelineEventDto> filtered = events.stream()
                 .filter(event -> matches(query.getTraceId(), event.getTraceId()))
                 .filter(event -> matchesRiskLevel(query.getRiskLevel(), event.getRiskLevel()))
@@ -128,6 +147,8 @@ public class DefaultAdminAuditService implements AdminAuditService {
             case "AUTH" -> authTimelineDetail(tenantId, shopId, resourceId);
             case "TASK" -> taskTimelineDetail(tenantId, shopId, resourceId);
             case "TOOL" -> toolTimelineDetail(tenantId, shopId, resourceId);
+            case "APPROVAL" -> approvalTimelineDetail(tenantId, shopId, resourceId);
+            case "CONNECTOR" -> connectorTimelineDetail(tenantId, shopId, resourceId);
             default -> Optional.empty();
         };
     }
@@ -255,7 +276,13 @@ public class DefaultAdminAuditService implements AdminAuditService {
         query.setPageSize(1);
         return authAuditService.listEvents(tenantId, shopId, query).getList().stream()
                 .findFirst()
-                .map(event -> detail(authTimelineEvent(event), Map.of("authAuditEvent", event), Map.of()));
+                .map(event -> {
+                    Map<String, Object> context = new LinkedHashMap<>();
+                    if ("ORG_SHOP_CONFIG_SAVED".equals(event.getEventType())) {
+                        putIfPresent(context, "configChangeSummary", configChangeSummary(event));
+                    }
+                    return detail(authTimelineEvent(event), Map.of("authAuditEvent", event), context);
+                });
     }
 
     private List<AdminAuditTimelineEventDto> taskTimelineEvents(Long tenantId, Long shopId, AdminAuditTimelineQueryParam query) {
@@ -291,6 +318,13 @@ public class DefaultAdminAuditService implements AdminAuditService {
                     context.put("reportId", taskDetail.getTask().getReportId());
                     context.put("toolCallCount", taskDetail.getToolCalls().size());
                     context.put("spanCount", taskDetail.getSpans().size());
+                    putIfPresent(context, "shopConfigSnapshot", emptyToNull(taskDetail.getShopConfigSnapshot()));
+                    LocalDateTime referenceTime = taskDetail.getEvents().stream()
+                            .map(AgentTaskEventDto::getCreatedAt)
+                            .filter(java.util.Objects::nonNull)
+                            .min(LocalDateTime::compareTo)
+                            .orElse(event.getCreatedAt());
+                    putIfPresent(context, "recentShopConfigChange", recentShopConfigChange(tenantId, shopId, referenceTime));
                     return detail(event, resource, context);
                 });
     }
@@ -330,13 +364,95 @@ public class DefaultAdminAuditService implements AdminAuditService {
                     resource.put("toolCallLog", log);
                     Map<String, Object> context = new LinkedHashMap<>();
                     putIfPresent(context, "tool", mcpToolService.getTool(tenantId, event.getToolCode()));
+                    putIfPresent(context, "recentShopConfigChange", recentShopConfigChange(tenantId, shopId, event.getCreatedAt()));
                     Long taskId = event.getTaskId();
                     if (taskId != null) {
                         agentTaskAdminService.getTaskDetail(tenantId, shopId, taskId)
-                                .ifPresent(taskDetail -> context.put("taskDetail", taskDetail));
+                                .ifPresent(taskDetail -> {
+                                    context.put("taskDetail", taskDetail);
+                                    putIfPresent(context, "shopConfigSnapshot", emptyToNull(taskDetail.getShopConfigSnapshot()));
+                                });
                     }
                     return detail(event, resource, context);
                 });
+    }
+
+    private List<AdminAuditTimelineEventDto> approvalTimelineEvents(Long tenantId, Long shopId, AdminAuditTimelineQueryParam query) {
+        ApprovalRequestQueryParam approvalQuery = new ApprovalRequestQueryParam();
+        approvalQuery.setTaskId(query.getTaskId());
+        approvalQuery.setTraceId(query.getTraceId());
+        approvalQuery.setToolCode(query.getToolCode());
+        approvalQuery.setRiskLevel(query.getRiskLevel());
+        approvalQuery.setCreatedStart(query.getCreatedStart());
+        approvalQuery.setCreatedEnd(query.getCreatedEnd());
+        approvalQuery.setPageNum(1);
+        approvalQuery.setPageSize(100);
+        List<AdminAuditTimelineEventDto> events = new ArrayList<>();
+        for (ApprovalRequestDto approval : approvalRequestService.list(tenantId, shopId, approvalQuery).getList()) {
+            events.add(approvalTimelineEvent(approval, false));
+            if (!ApprovalStatus.PENDING.equals(approval.getStatus()) && approval.getDecidedAt() != null) {
+                events.add(approvalTimelineEvent(approval, true));
+            }
+        }
+        return events.stream()
+                .filter(event -> matches(query.getEventType(), event.getEventType()))
+                .filter(event -> matches(query.getEventStatus(), event.getEventStatus()))
+                .filter(event -> query.getUserId() == null || query.getUserId().equals(event.getUserId()))
+                .filter(event -> query.getCreatedStart() == null || event.getCreatedAt() == null || !event.getCreatedAt().isBefore(query.getCreatedStart()))
+                .filter(event -> query.getCreatedEnd() == null || event.getCreatedAt() == null || !event.getCreatedAt().isAfter(query.getCreatedEnd()))
+                .toList();
+    }
+
+    private Optional<AdminAuditTimelineDetailDto> approvalTimelineDetail(Long tenantId, Long shopId, String resourceId) {
+        Long approvalId = parseLong(resourceId);
+        if (approvalId == null) {
+            return Optional.empty();
+        }
+        return approvalRequestService.get(tenantId, shopId, approvalId)
+                .map(approval -> {
+                    AdminAuditTimelineEventDto event = approvalTimelineEvent(approval, !ApprovalStatus.PENDING.equals(approval.getStatus()));
+                    Map<String, Object> resource = new LinkedHashMap<>();
+                    resource.put("approvalRequest", approval);
+                    Map<String, Object> context = new LinkedHashMap<>();
+                    putIfPresent(context, "tool", mcpToolService.getTool(tenantId, approval.getToolCode()));
+                    putIfPresent(context, "approvalStatus", approval.getStatus());
+                    putIfPresent(context, "recentShopConfigChange", recentShopConfigChange(tenantId, shopId, approval.getCreatedAt()));
+                    if (approval.getTaskId() != null) {
+                        agentTaskAdminService.getTaskDetail(tenantId, shopId, approval.getTaskId())
+                                .ifPresent(taskDetail -> putIfPresent(context, "shopConfigSnapshot", emptyToNull(taskDetail.getShopConfigSnapshot())));
+                    }
+                    return detail(event, resource, context);
+                });
+    }
+
+    private List<AdminAuditTimelineEventDto> connectorTimelineEvents(Long tenantId, Long shopId, AdminAuditTimelineQueryParam query) {
+        ConnectorAuditEventQueryParam connectorQuery = new ConnectorAuditEventQueryParam();
+        connectorQuery.setConnectorCode(query.getToolCode());
+        connectorQuery.setEventType(query.getEventType());
+        connectorQuery.setEventStatus(query.getEventStatus());
+        connectorQuery.setUserId(query.getUserId());
+        connectorQuery.setUsername(query.getUsername());
+        connectorQuery.setCreatedStart(query.getCreatedStart());
+        connectorQuery.setCreatedEnd(query.getCreatedEnd());
+        connectorQuery.setPageNum(1);
+        connectorQuery.setPageSize(100);
+        return connectorAuditService.listEvents(tenantId, shopId, connectorQuery).getList().stream()
+                .map(this::connectorTimelineEvent)
+                .toList();
+    }
+
+    private Optional<AdminAuditTimelineDetailDto> connectorTimelineDetail(Long tenantId, Long shopId, String resourceId) {
+        Long eventId = parseLong(resourceId);
+        if (eventId == null) {
+            return Optional.empty();
+        }
+        ConnectorAuditEventQueryParam query = new ConnectorAuditEventQueryParam();
+        query.setEventId(eventId);
+        query.setPageNum(1);
+        query.setPageSize(1);
+        return connectorAuditService.listEvents(tenantId, shopId, query).getList().stream()
+                .findFirst()
+                .map(event -> detail(connectorTimelineEvent(event), Map.of("connectorAuditEvent", event), Map.of()));
     }
 
     private AdminAuditTimelineEventDto authTimelineEvent(AuthAuditEventDto source) {
@@ -351,7 +467,7 @@ public class DefaultAdminAuditService implements AdminAuditService {
         event.setResourceType("auth_audit_event");
         event.setResourceId(String.valueOf(source.getEventId()));
         event.setRiskLevel(authRiskLevel(source));
-        event.setSummary(source.getEventType() + " " + source.getEventStatus());
+        event.setSummary(authSummary(source));
         event.setCreatedAt(source.getCreatedAt());
         Map<String, Object> detail = new LinkedHashMap<>();
         putIfPresent(detail, "authType", source.getAuthType());
@@ -360,6 +476,43 @@ public class DefaultAdminAuditService implements AdminAuditService {
         putIfPresent(detail, "failureReason", source.getFailureReason());
         event.setDetail(detail);
         return event;
+    }
+
+    private Map<String, Object> recentShopConfigChange(Long tenantId, Long shopId, LocalDateTime referenceTime) {
+        if (referenceTime == null) {
+            return null;
+        }
+        AuthAuditEventQueryParam query = new AuthAuditEventQueryParam();
+        query.setEventType("ORG_SHOP_CONFIG_SAVED");
+        query.setEventStatus("SUCCESS");
+        query.setCreatedEnd(referenceTime);
+        query.setPageNum(1);
+        query.setPageSize(20);
+        return authAuditService.listEvents(tenantId, shopId, query).getList().stream()
+                .findFirst()
+                .map(this::configChangeSummary)
+                .orElse(null);
+    }
+
+    private Map<String, Object> configChangeSummary(AuthAuditEventDto event) {
+        Map<String, Object> summary = new LinkedHashMap<>();
+        summary.put("eventId", event.getEventId());
+        summary.put("eventType", event.getEventType());
+        summary.put("username", event.getUsername());
+        summary.put("requestId", event.getRequestId());
+        summary.put("createdAt", event.getCreatedAt());
+        putIfPresent(summary, "message", event.getFailureReason());
+        return summary;
+    }
+
+    private String authSummary(AuthAuditEventDto source) {
+        if (source.getEventType() != null
+                && source.getEventType().startsWith("ORG_")
+                && source.getFailureReason() != null
+                && !source.getFailureReason().isBlank()) {
+            return source.getFailureReason();
+        }
+        return source.getEventType() + " " + source.getEventStatus();
     }
 
     private AdminAuditTimelineEventDto taskTimelineEvent(AgentTaskEventDto source) {
@@ -407,6 +560,56 @@ public class DefaultAdminAuditService implements AdminAuditService {
         putIfPresent(detail, "riskLevel", event.getRiskLevel());
         putIfPresent(detail, "errorCode", source.get("errorCode"));
         putIfPresent(detail, "errorMessage", source.get("errorMessage"));
+        event.setDetail(detail);
+        return event;
+    }
+
+    private AdminAuditTimelineEventDto approvalTimelineEvent(ApprovalRequestDto source, boolean decisionEvent) {
+        AdminAuditTimelineEventDto event = new AdminAuditTimelineEventDto();
+        event.setSource("APPROVAL");
+        event.setEventId("approval:" + source.getApprovalId() + ":" + (decisionEvent ? "decision" : "created"));
+        event.setEventType(approvalEventType(source, decisionEvent));
+        event.setEventStatus(approvalEventStatus(source, decisionEvent));
+        event.setUserId(decisionEvent ? source.getApproverId() : source.getRequesterId());
+        event.setUsername(decisionEvent ? source.getApproverName() : source.getRequesterName());
+        event.setTaskId(source.getTaskId());
+        event.setTraceId(source.getTraceId());
+        event.setToolCode(source.getToolCode());
+        event.setResourceType("approval_request");
+        event.setResourceId(String.valueOf(source.getApprovalId()));
+        event.setRiskLevel(normalizedRiskLevel(source.getRiskLevel()));
+        event.setSummary(event.getEventType() + " " + source.getStatus());
+        event.setCreatedAt(decisionEvent ? source.getDecidedAt() : source.getCreatedAt());
+        Map<String, Object> detail = new LinkedHashMap<>();
+        putIfPresent(detail, "approvalNo", source.getApprovalNo());
+        putIfPresent(detail, "sourceType", source.getSourceType());
+        putIfPresent(detail, "sourceId", source.getSourceId());
+        putIfPresent(detail, "title", source.getTitle());
+        putIfPresent(detail, "status", source.getStatus());
+        putIfPresent(detail, "decisionComment", source.getDecisionComment());
+        event.setDetail(detail);
+        return event;
+    }
+
+    private AdminAuditTimelineEventDto connectorTimelineEvent(ConnectorAuditEventDto source) {
+        AdminAuditTimelineEventDto event = new AdminAuditTimelineEventDto();
+        event.setSource("CONNECTOR");
+        event.setEventId("connector:" + source.getEventId());
+        event.setEventType(source.getEventType());
+        event.setEventStatus(source.getEventStatus());
+        event.setUserId(source.getUserId());
+        event.setUsername(source.getUsername());
+        event.setToolCode(source.getConnectorCode());
+        event.setRequestId(source.getRequestId());
+        event.setResourceType("connector_audit_event");
+        event.setResourceId(String.valueOf(source.getEventId()));
+        event.setRiskLevel(connectorRiskLevel(source));
+        event.setSummary(source.getEventType() + " " + source.getConnectorCode() + " " + source.getEventStatus());
+        event.setCreatedAt(source.getCreatedAt());
+        Map<String, Object> detail = new LinkedHashMap<>();
+        putIfPresent(detail, "connectorCode", source.getConnectorCode());
+        putIfPresent(detail, "message", source.getMessage());
+        putIfPresent(detail, "detail", source.getDetail());
         event.setDetail(detail);
         return event;
     }
@@ -478,6 +681,35 @@ public class DefaultAdminAuditService implements AdminAuditService {
         return "SUCCESS";
     }
 
+    private String approvalEventStatus(ApprovalRequestDto event, boolean decisionEvent) {
+        if (!decisionEvent) {
+            return "PENDING";
+        }
+        if (ApprovalStatus.REJECTED.equals(event.getStatus())) {
+            return "FAILURE";
+        }
+        if (ApprovalStatus.WITHDRAWN.equals(event.getStatus())) {
+            return "CANCELED";
+        }
+        if (ApprovalStatus.EXPIRED.equals(event.getStatus())) {
+            return "CANCELED";
+        }
+        return "SUCCESS";
+    }
+
+    private String approvalEventType(ApprovalRequestDto event, boolean decisionEvent) {
+        if (!decisionEvent) {
+            return "APPROVAL_CREATED";
+        }
+        if (ApprovalStatus.WITHDRAWN.equals(event.getStatus())) {
+            return "APPROVAL_WITHDRAWN";
+        }
+        if (ApprovalStatus.EXPIRED.equals(event.getStatus())) {
+            return "APPROVAL_EXPIRED";
+        }
+        return "APPROVAL_DECIDED";
+    }
+
     private String authRiskLevel(AuthAuditEventDto event) {
         if ("FAILURE".equals(event.getEventStatus())) {
             return "HIGH";
@@ -507,6 +739,16 @@ public class DefaultAdminAuditService implements AdminAuditService {
         }
         McpToolDto tool = mcpToolService.getTool(tenantId, toolCode);
         return tool == null || tool.getRiskLevel() == null || tool.getRiskLevel().isBlank() ? "MEDIUM" : tool.getRiskLevel();
+    }
+
+    private String connectorRiskLevel(ConnectorAuditEventDto event) {
+        if ("FAILURE".equals(event.getEventStatus())) {
+            return "MEDIUM";
+        }
+        if ("CONNECTOR_CREDENTIAL_DISABLED".equals(event.getEventType())) {
+            return "MEDIUM";
+        }
+        return "LOW";
     }
 
     @SuppressWarnings("unchecked")
@@ -558,5 +800,9 @@ public class DefaultAdminAuditService implements AdminAuditService {
         if (value != null) {
             data.put(key, value);
         }
+    }
+
+    private Object emptyToNull(Map<String, Object> value) {
+        return value == null || value.isEmpty() ? null : value;
     }
 }

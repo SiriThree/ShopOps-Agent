@@ -1,0 +1,103 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-07",
+    "endDate": "2018-08-07",
+    "summary": {
+      "candidateCount": 10,
+      "products": [
+        {
+          "productId": "4f18ca9862f511ecba98258b2194d061",
+          "productName": "Furniture Bedroom / 4f18ca98",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 80.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 2
+        },
+        {
+          "productId": "cf857bce01d442bb8631a548a4432def",
+          "productName": "Baby / cf857bce",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "060f0122cdc8f25db4a0d7359fdae7b0",
+          "productName": "Watches Gifts / 060f0122",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "1ce47626d790bdfe279ad4cedc159009",
+          "productName": "Furniture Decor / 1ce47626",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "220bc6afbb138c2e99fffc0f9838afd4",
+          "productName": "Computers Accessories / 220bc6af",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "37dffde0476450e75dae423136954b0f",
+          "productName": "Auto / 37dffde0",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "3b068029db5363533440150014d95d9b",
+          "productName": "Baby / 3b068029",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "4d99eefee32b7d89a78915c19936c8a4",
+          "productName": "Auto / 4d99eefe",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "4fe644d766c7566dbc46fb851363cb3b",
+          "productName": "Art / 4fe644d7",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "6f3b5b605d91b7439c5e3f5a8dffeea7",
+          "productName": "Watches Gifts / 6f3b5b60",
+          "reason": "出现低星评价，建议补充规格说明、物流预期与售后说明",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  }
+]

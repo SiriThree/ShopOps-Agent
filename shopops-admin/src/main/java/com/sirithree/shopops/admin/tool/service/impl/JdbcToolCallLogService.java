@@ -37,6 +37,7 @@ public class JdbcToolCallLogService implements ToolCallLogService {
         log.setSpanId("sp_" + UUID.randomUUID().toString().replace("-", ""));
         log.setUserId(context.getUserId());
         log.setToolCode(toolCode);
+        log.setApprovalId(context.getApprovalId());
         log.setInputJson(jsonSupport.toJson(input));
         log.setStatus("RUNNING");
         log.setRetryCount(0);
@@ -51,6 +52,33 @@ public class JdbcToolCallLogService implements ToolCallLogService {
         log.setId(logId);
         log.setStatus("SUCCESS");
         log.setOutputJson(jsonSupport.toJson(output));
+        log.setLatencyMs((int) latencyMs);
+        toolCallLogMapper.finish(log);
+    }
+
+    @Override
+    public void successWithGovernanceNote(Long logId, Object output, String riskLevel, String noteCode,
+                                          String noteMessage, long latencyMs) {
+        ToolCallLog log = new ToolCallLog();
+        log.setId(logId);
+        log.setStatus("SUCCESS");
+        log.setOutputJson(jsonSupport.toJson(output));
+        log.setRiskLevel(riskLevel);
+        log.setErrorCode(noteCode);
+        log.setErrorMessage(noteMessage);
+        log.setLatencyMs((int) latencyMs);
+        toolCallLogMapper.finish(log);
+    }
+
+    @Override
+    public void approvalRequired(Long logId, Long approvalId, String riskLevel, String errorMessage, long latencyMs) {
+        ToolCallLog log = new ToolCallLog();
+        log.setId(logId);
+        log.setStatus("APPROVAL_REQUIRED");
+        log.setApprovalId(approvalId);
+        log.setRiskLevel(riskLevel);
+        log.setErrorCode("APPROVAL_REQUIRED");
+        log.setErrorMessage(errorMessage);
         log.setLatencyMs((int) latencyMs);
         toolCallLogMapper.finish(log);
     }
@@ -110,6 +138,7 @@ public class JdbcToolCallLogService implements ToolCallLogService {
         result.put("toolCode", log.getToolCode());
         result.put("status", log.getStatus());
         result.put("riskLevel", log.getRiskLevel());
+        result.put("approvalId", log.getApprovalId());
         result.put("input", jsonSupport.toMap(log.getInputJson()));
         result.put("output", jsonSupport.toMap(log.getOutputJson()));
         result.put("latencyMs", log.getLatencyMs() == null ? 0 : log.getLatencyMs());

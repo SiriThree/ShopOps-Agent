@@ -1,0 +1,194 @@
+[
+  {
+    "caseId": "daily-review-model-balanced-001",
+    "scenario": "daily_review_task",
+    "description": "开启模型网关报告生成后，应在 evidence 中记录模型生成模式与 provider",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.08", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "10", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "balanced", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectEvidenceKeys": ["generationMode", "modelProviderCode", "shopConfig"],
+      "expectedEvidenceEntries": {
+        "generationMode": "MODEL_GATEWAY",
+        "modelProviderCode": "echo"
+      },
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.08",
+        "negativeCommentWarnThreshold": "10",
+        "agentModelPolicy": "balanced"
+      },
+      "expectedReportKeywords": ["Echo model response:"]
+    }
+  },
+  {
+    "caseId": "daily-review-model-aggressive-002",
+    "scenario": "daily_review_task",
+    "description": "模型网关开启时，配置切换后仍应在报告 evidence 中保留新的策略快照",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.12", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "12", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "aggressive", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectEvidenceKeys": ["generationMode", "modelProviderCode", "shopConfig"],
+      "expectedEvidenceEntries": {
+        "generationMode": "MODEL_GATEWAY",
+        "modelProviderCode": "echo"
+      },
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.12",
+        "negativeCommentWarnThreshold": "12",
+        "agentModelPolicy": "aggressive"
+      },
+      "expectedReportKeywords": ["Echo model response:"]
+    }
+  },
+  {
+    "caseId": "daily-review-model-conservative-003",
+    "scenario": "daily_review_task",
+    "description": "model gateway with conservative policy should retain config snapshot",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.05", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "5", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "conservative", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectEvidenceKeys": ["generationMode", "modelProviderCode", "shopConfig"],
+      "expectedEvidenceEntries": {
+        "generationMode": "MODEL_GATEWAY",
+        "modelProviderCode": "echo"
+      },
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.05",
+        "negativeCommentWarnThreshold": "5",
+        "agentModelPolicy": "conservative"
+      },
+      "expectedReportKeywords": ["Echo model response:"]
+    }
+  },
+  {
+    "caseId": "daily-review-model-refund-alert-004",
+    "scenario": "daily_review_task",
+    "description": "model gateway with refund alert threshold should still preserve config metadata",
+    "headers": {
+      "X-Tenant-Id": "1",
+      "X-Shop-Id": "1",
+      "X-User-Id": "1"
+    },
+    "shopConfigs": [
+      { "configKey": "refund_rate_warn_threshold", "configValue": "0.06", "valueType": "number" },
+      { "configKey": "negative_comment_warn_threshold", "configValue": "8", "valueType": "number" },
+      { "configKey": "agent_tool_approval_enabled", "configValue": "true", "valueType": "boolean" },
+      { "configKey": "agent_model_policy", "configValue": "balanced", "valueType": "string" }
+    ],
+    "taskCreateParam": {
+      "taskType": "daily_review",
+      "userInput": "帮我生成今天店铺运营复盘",
+      "dateRange": {
+        "start": "2026-07-18",
+        "end": "2026-07-18"
+      }
+    },
+    "expectations": {
+      "finalStatusIn": ["SUCCESS"],
+      "expectedToolCodes": [
+        "order.query_summary",
+        "comment.query_negative",
+        "product.query_candidates",
+        "ad.query_performance",
+        "report.query_external_metrics",
+        "report.generate_daily_review"
+      ],
+      "expectApprovalCreated": false,
+      "expectDegraded": false,
+      "expectEvidenceKeys": ["generationMode", "modelProviderCode", "shopConfig"],
+      "expectedEvidenceEntries": {
+        "generationMode": "MODEL_GATEWAY",
+        "modelProviderCode": "echo"
+      },
+      "expectedConfigEntries": {
+        "refundRateWarnThreshold": "0.06",
+        "negativeCommentWarnThreshold": "8",
+        "agentModelPolicy": "balanced"
+      },
+      "expectedReportKeywords": ["Echo model response:"]
+    }
+  }
+]

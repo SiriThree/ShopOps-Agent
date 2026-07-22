@@ -51,6 +51,7 @@ class AdminAuditTimelineJdbcRepositoryTest {
                 .contains("FROM auth_audit_event")
                 .contains("FROM agent_task_event")
                 .contains("FROM tool_call_log")
+                .contains("FROM approval_request")
                 .contains("AND source = :source")
                 .contains("AND event_status = :eventStatus")
                 .contains("AND task_id = :taskId")

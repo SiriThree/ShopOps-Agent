@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,6 +20,9 @@ public class StaticHtmlCharsetFilter extends OncePerRequestFilter {
         if (isAdminHtml(request)) {
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.setContentType(new MediaType("text", "html", StandardCharsets.UTF_8).toString());
+            response.setHeader(HttpHeaders.CACHE_CONTROL, "no-store, no-cache, must-revalidate, max-age=0");
+            response.setHeader(HttpHeaders.PRAGMA, "no-cache");
+            response.setDateHeader(HttpHeaders.EXPIRES, 0);
         }
         filterChain.doFilter(request, response);
     }

@@ -32,3 +32,5 @@ dist/
 # Third-party reference project kept locally, not committed to this repo
 mall-master/
 
+# Local public datasets used to generate demo connector files
+data/

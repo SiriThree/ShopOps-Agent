@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShopOps 管理总览</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --line: #d9dee6;
+      --text: #1f2933;
+      --muted: #667085;
+      --ink: #111827;
+      --green: #168a5b;
+      --red: #c24132;
+      --amber: #b7791f;
+      --teal: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input { font: inherit; }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    input {
+      width: 100%;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 9px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 10px;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .topbar {
+      min-width: 0;
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(360px, 680px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .context-session {
+      grid-column: 1 / -1;
+      min-height: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 18px 24px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .module-card {
+      min-width: 0;
+      min-height: 104px;
+      display: grid;
+      align-content: space-between;
+      gap: 10px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .module-card strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .module-card span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .module-card em {
+      color: var(--teal);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .metric {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .panel-state {
+      min-height: 72px;
+      display: grid;
+      align-content: center;
+      gap: 6px;
+      padding: 14px;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      font-size: 13px;
+    }
+
+    .panel-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .metrics .panel-state {
+      grid-column: 1 / -1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .health-grid, .risk-bars {
+      display: grid;
+      gap: 9px;
+    }
+
+    .health-row, .risk-bar, .event-line {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr) 74px;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-bottom: 1px solid #eef1f4;
+      padding-bottom: 8px;
+    }
+
+    .health-row:last-child, .risk-bar:last-child, .event-line:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .event-line strong {
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+
+    .track {
+      height: 8px;
+      border-radius: 999px;
+      background: #edf0f3;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      min-width: 2px;
+      border-radius: inherit;
+      background: var(--teal);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #eef2f6;
+      color: #344054;
+      text-align: center;
+    }
+
+    .badge.up, .badge.success, .badge.low {
+      background: #e7f6ef;
+      color: var(--green);
+    }
+
+    .badge.down, .badge.failed, .badge.failure, .badge.high {
+      background: #fdecea;
+      color: var(--red);
+    }
+
+    .badge.medium {
+      background: #fff6df;
+      color: var(--amber);
+    }
+
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .action-row a {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: var(--panel);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .status-line {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1100px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .topbar, .grid { grid-template-columns: 1fr; }
+      .metrics, .module-grid { grid-template-columns: repeat(3, minmax(130px, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .topbar, .content {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .context-grid, .metrics, .module-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .context-grid button { width: 100%; }
+      .health-row, .risk-bar, .event-line { grid-template-columns: 78px minmax(0, 1fr); }
+      .health-row .badge, .risk-bar .badge, .event-line .badge { justify-self: start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps Agent</strong>
+        <span>管理控制台</span>
+      </div>
+      <nav class="nav" aria-label="后台导航">
+        <a class="active" href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/approvals.html">审批中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
+        <a href="/admin/prompts.html">提示词模板</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>ShopOps 管理总览</h1>
+          <div class="subtitle" id="generatedAt">等待数据</div>
+        </div>
+        <form class="context-grid" id="contextForm">
+          <label>租户
+            <input id="tenantId" value="1" inputmode="numeric">
+          </label>
+          <label>店铺
+            <input id="shopId" value="1" inputmode="numeric">
+          </label>
+          <label>用户
+            <input id="userId" value="1" inputmode="numeric">
+          </label>
+          <label>角色
+            <input id="roles" value="ADMIN">
+          </label>
+          <button class="primary" type="submit">刷新</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
+        </form>
+      </header>
+
+      <section class="content">
+        <section class="module-grid" aria-label="后台模块">
+          <a class="module-card" href="/admin/tasks.html?status=FAILED">
+            <strong>任务队列</strong>
+            <span>创建、重试并检查 Agent 运行记录。</span>
+            <em id="taskModuleHint">查看失败任务</em>
+          </a>
+          <a class="module-card" href="/admin/reports.html">
+            <strong>报告</strong>
+            <span>查看生成的 Markdown 运营报告。</span>
+            <em id="reportModuleHint">查看报告</em>
+          </a>
+          <a class="module-card" href="/admin/audit.html?eventStatus=FAILURE">
+            <strong>审计中心</strong>
+            <span>追踪失败事件和中高风险事件。</span>
+            <em id="auditModuleHint">查看失败事件</em>
+          </a>
+          <a class="module-card" href="/admin/approvals.html?status=PENDING">
+            <strong>审批中心</strong>
+            <span>处理高风险工具调用与人工确认事项。</span>
+            <em>查看待审批</em>
+          </a>
+          <a class="module-card" href="/admin/tools.html?status=FAILED">
+            <strong>工具日志</strong>
+            <span>检查工具注册表和调用历史。</span>
+            <em id="toolModuleHint">查看失败调用</em>
+          </a>
+          <a class="module-card" href="/admin/prompts.html">
+            <strong>提示词模板</strong>
+            <span>管理 Planner / Report 的 Prompt 版本。</span>
+            <em>打开模板管理</em>
+          </a>
+          <a class="module-card" href="/admin/auth.html">
+            <strong>认证</strong>
+            <span>检查会话请求头和登录审计。</span>
+            <em>打开认证控制台</em>
+          </a>
+          <a class="module-card" href="/admin/dashboard.html">
+            <strong>健康状态</strong>
+            <span>刷新系统状态和持久化检查。</span>
+            <em>刷新总览</em>
+          </a>
+        </section>
+
+        <div class="metrics" id="metrics"></div>
+
+        <div class="grid">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>任务运行</h2>
+              <div class="action-row">
+                <a href="/admin/audit.html?source=TASK">审计中心</a>
+                <button id="refreshBtn" type="button">刷新</button>
+              </div>
+            </div>
+            <div class="risk-bars" id="taskBars"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>系统健康</h2>
+              <span class="status-line" id="healthStatus"></span>
+            </div>
+            <div class="health-grid" id="healthGrid"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>审计风险</h2>
+              <span class="status-line" id="riskTotal"></span>
+            </div>
+            <div class="risk-bars" id="riskBars"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>最近失败</h2>
+              <a href="/admin/audit.html?eventStatus=FAILURE">打开审计</a>
+            </div>
+            <div class="health-grid" id="failedEvents"></div>
+          </section>
+        </div>
+
+        <div class="status-line" id="statusLine"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
+    const $ = (id) => document.getElementById(id);
+
+    function headers() {
+      const result = {
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": $("userId").value || "1",
+        "X-User-Roles": $("roles").value || "ADMIN"
+      };
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        result.Authorization = `Bearer ${token}`;
+      }
+      return result;
+    }
+
+    async function api(path) {
+      const response = await fetch(path, { headers: headers() });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const body = await response.json();
+      if (body.code && body.code !== 200) {
+        throw new Error(body.message || `API ${body.code}`);
+      }
+      return body.data;
+    }
+
+    async function refreshAll() {
+      setStatus("正在加载总览");
+      const [summary, health, risk] = await Promise.allSettled([
+        api("/api/admin/dashboard/summary"),
+        api("/api/system/health"),
+        api("/api/admin/audit/high-risk")
+      ]);
+      const failures = [];
+      if (summary.status === "fulfilled") {
+        renderSummary(summary.value);
+      } else {
+        failures.push("summary");
+        renderSummaryError(summary.reason);
+      }
+      if (health.status === "fulfilled") {
+        renderHealth(health.value);
+      } else {
+        failures.push("health");
+        renderHealthError(health.reason);
+      }
+      if (risk.status === "fulfilled") {
+        renderRisk(risk.value);
+      } else {
+        failures.push("risk");
+        renderRiskError(risk.reason);
+      }
+      if (failures.length) {
+        setStatus(`总览部分刷新完成：${failures.join(", ")} 不可用`);
+      } else {
+        setStatus("总览已刷新");
+      }
+    }
+
+    async function withBusy(button, busyText, action, restoreDisabled = true) {
+      if (button.disabled) {
+        return;
+      }
+      const originalDisabled = button.disabled;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        if (restoreDisabled) {
+          button.disabled = originalDisabled;
+        }
+        button.textContent = originalText;
+      }
+    }
+
+    function renderSummary(summary) {
+      const metrics = summary.taskMetrics || {};
+      $("generatedAt").textContent = `生成时间 ${formatTime(summary.generatedAt)}`;
+      $("metrics").innerHTML = [
+        ["任务数", metrics.total],
+        ["成功", metrics.success],
+        ["失败", metrics.failed],
+        ["报告", summary.reportTotal],
+        ["工具调用", summary.toolCallTotal],
+        ["工具失败", summary.toolCallFailed]
+      ].map(([label, value]) => metric(label, value)).join("");
+
+      $("taskModuleHint").textContent = `${number(metrics.failed)} 个失败任务`;
+      $("reportModuleHint").textContent = `${number(summary.reportTotal)} 份报告`;
+      $("toolModuleHint").textContent = `${number(summary.toolCallFailed)} 次失败调用`;
+
+      const statusBreakdown = metrics.statusBreakdown || {};
+      const taskTotal = Math.max(1, number(metrics.total));
+      $("taskBars").innerHTML = [
+        ["成功率", `${number(metrics.successRate).toFixed(1)}%`, number(metrics.successRate)],
+        ["平均耗时", `${number(metrics.avgLatencyMs)} ms`, Math.min(100, number(metrics.avgLatencyMs) / 20)],
+        ["待执行", statusBreakdown.PENDING || 0, (number(statusBreakdown.PENDING) / taskTotal) * 100],
+        ["运行中", statusBreakdown.RUNNING || 0, (number(statusBreakdown.RUNNING) / taskTotal) * 100],
+        ["成功", statusBreakdown.SUCCESS || 0, (number(statusBreakdown.SUCCESS) / taskTotal) * 100],
+        ["失败", statusBreakdown.FAILED || 0, (number(statusBreakdown.FAILED) / taskTotal) * 100]
+      ].map(([label, value, percent]) => bar(label, value, percent)).join("");
+
+      $("failedEvents").innerHTML = (summary.recentFailedEvents || []).map((event) => `
+        <div class="event-line">
+          <span>${escapeHtml(formatTime(event.createdAt))}</span>
+          <strong>${escapeHtml(event.eventType || "TASK_FAILED")}</strong>
+          <span class="badge failure">FAILURE</span>
+        </div>
+      `).join("") || `<div class="status-line">暂无最近失败事件</div>`;
+    }
+
+    function renderSummaryError(error) {
+      $("generatedAt").textContent = "总览摘要不可用";
+      $("metrics").innerHTML = unavailableState("总览摘要不可用", error?.message || "请检查总览摘要服务。");
+      $("taskBars").innerHTML = unavailableState("任务运行不可用", "任务指标加载失败。");
+      $("failedEvents").innerHTML = unavailableState("最近失败不可用", "失败事件加载失败。");
+      $("taskModuleHint").textContent = "查看失败任务";
+      $("reportModuleHint").textContent = "查看报告";
+      $("toolModuleHint").textContent = "查看失败调用";
+    }
+
+    function renderHealth(health) {
+      const checks = health.checks || {};
+      $("healthStatus").textContent = `${health.status || "UNKNOWN"} / ${health.persistence || "memory"}`;
+      $("healthGrid").innerHTML = ["database", "flyway", "redis", "rabbitmq"].map((name) => {
+        const item = checks[name] || {};
+        return `
+          <div class="health-row">
+            <span>${escapeHtml(name)}</span>
+            <strong>${escapeHtml(item.mode || item.version || item.ping || "")}</strong>
+            <span class="badge ${statusClass(item.status)}">${escapeHtml(item.status || "UNKNOWN")}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderHealthError(error) {
+      $("healthStatus").textContent = "不可用";
+      $("healthGrid").innerHTML = unavailableState("系统健康不可用", error?.message || "请检查健康检查服务。");
+    }
+
+    function renderRisk(risk) {
+      const breakdown = risk.riskBreakdown || {};
+      const total = Math.max(1, Object.values(breakdown).reduce((sum, value) => sum + number(value), 0));
+      $("riskTotal").textContent = `${number(risk.elevatedRiskTotal)} 个中高风险 / 共 ${number(risk.total)} 个`;
+      $("auditModuleHint").textContent = `${number(risk.elevatedRiskTotal)} 个中高风险`;
+      $("riskBars").innerHTML = ["HIGH", "MEDIUM", "LOW", "UNKNOWN"].map((level) =>
+        bar(level, breakdown[level] || 0, (number(breakdown[level]) / total) * 100, riskClass(level))
+      ).join("");
+    }
+
+    function renderRiskError(error) {
+      $("riskTotal").textContent = "不可用";
+      $("auditModuleHint").textContent = "查看失败事件";
+      $("riskBars").innerHTML = unavailableState("审计风险不可用", error?.message || "请检查审计风险服务。");
+    }
+
+    function unavailableState(title, message) {
+      return `
+        <div class="panel-state">
+          <strong>${escapeHtml(title)}</strong>
+          <span>${escapeHtml(message)}</span>
+        </div>
+      `;
+    }
+
+    function metric(label, value) {
+      return `
+        <div class="metric">
+          <span>${escapeHtml(label)}</span>
+          <strong>${number(value)}</strong>
+        </div>
+      `;
+    }
+
+    function bar(label, value, percent, badgeClass = "") {
+      const width = Math.max(2, Math.round(number(percent)));
+      return `
+        <div class="risk-bar">
+          <span>${escapeHtml(label)}</span>
+          <div class="track"><div class="fill" style="width:${width}%"></div></div>
+          <span class="badge ${badgeClass}">${escapeHtml(value)}</span>
+        </div>
+      `;
+    }
+
+    function setStatus(message) {
+      $("statusLine").textContent = message;
+    }
+
+    function applyStoredSession() {
+      const session = authSession();
+      if (session.user) {
+        $("tenantId").value = session.user.tenantId || $("tenantId").value || "1";
+        $("shopId").value = session.user.shopId || $("shopId").value || "1";
+        $("userId").value = session.user.userId || $("userId").value || "1";
+        $("roles").value = roleValue(session.user.roles);
+      }
+      renderSessionLine(session);
+    }
+
+    function renderSessionLine(session = authSession()) {
+      $("sessionLine").textContent = session.token
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
+    }
+
+    function authSession() {
+      let user = null;
+      try {
+        user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+      } catch (error) {
+        user = null;
+      }
+      return { token: localStorage.getItem(TOKEN_KEY) || "", user };
+    }
+
+    function roleValue(roles) {
+      return Array.isArray(roles) ? roles.join(",") : (roles || "ADMIN");
+    }
+
+    function number(value) {
+      return Number(value || 0);
+    }
+
+    function formatTime(value) {
+      return value ? String(value).replace("T", " ").slice(0, 19) : "";
+    }
+
+    function statusClass(value) {
+      return String(value || "unknown").toLowerCase();
+    }
+
+    function riskClass(value) {
+      return String(value || "unknown").toLowerCase();
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    $("contextForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      refreshAll();
+    });
+
+    $("resetContext").addEventListener("click", () => {
+      $("tenantId").value = "1";
+      $("shopId").value = "1";
+      $("userId").value = "1";
+      $("roles").value = "ADMIN";
+      renderSessionLine();
+      refreshAll();
+    });
+
+    $("refreshBtn").addEventListener("click", () => withBusy($("refreshBtn"), "刷新中", refreshAll));
+
+    applyStoredSession();
+    refreshAll();
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS `connector_sync_job` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `tenant_id` bigint NOT NULL,
+  `shop_id` bigint NOT NULL,
+  `connector_code` varchar(80) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `attempt` int NOT NULL DEFAULT 1,
+  `max_attempts` int NOT NULL DEFAULT 3,
+  `trigger_type` varchar(30) NOT NULL,
+  `created_by` bigint DEFAULT NULL,
+  `request_id` varchar(64) DEFAULT NULL,
+  `message` varchar(500) DEFAULT NULL,
+  `detail_json` json DEFAULT NULL,
+  `started_at` datetime DEFAULT NULL,
+  `finished_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_connector_sync_scope` (`tenant_id`, `shop_id`, `created_at`),
+  KEY `idx_connector_sync_connector` (`tenant_id`, `shop_id`, `connector_code`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

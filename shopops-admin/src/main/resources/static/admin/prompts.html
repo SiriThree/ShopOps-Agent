@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShopOps 提示词模板</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --line: #d9dee6;
+      --text: #1f2933;
+      --muted: #667085;
+      --ink: #111827;
+      --green: #168a5b;
+      --red: #c24132;
+      --amber: #b7791f;
+      --teal: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, select, textarea { font: inherit; }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    button:disabled { opacity: .65; cursor: wait; }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 7px 9px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    input, select { min-height: 34px; }
+    textarea { min-height: 128px; resize: vertical; line-height: 1.45; }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 13px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #eef1f4;
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+
+    th { color: var(--muted); font-weight: 600; }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 10px;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .topbar {
+      min-width: 0;
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(360px, 680px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .context-session {
+      grid-column: 1 / -1;
+      min-height: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 18px 24px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(150px, 1fr)) auto auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .status-line {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #eef2f6;
+      color: #344054;
+      text-align: center;
+    }
+
+    .badge.active, .badge.success {
+      background: #e7f6ef;
+      color: var(--green);
+    }
+
+    .badge.inactive {
+      background: #eef2f6;
+      color: #344054;
+    }
+
+    .badge.failure {
+      background: #fdecea;
+      color: var(--red);
+    }
+
+    .editor-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .template-preview, .rendered-preview {
+      min-height: 120px;
+      max-height: 320px;
+      overflow: auto;
+      border: 1px solid #eef1f4;
+      border-radius: 6px;
+      padding: 10px;
+      background: #fbfcfd;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-family: Consolas, "Microsoft YaHei", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .empty-state, .error-row {
+      min-height: 72px;
+      display: grid;
+      align-content: center;
+      gap: 6px;
+      padding: 14px;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      font-size: 13px;
+    }
+
+    .error-row {
+      color: var(--red);
+      background: #fffafa;
+      border-color: #f3c7c1;
+    }
+
+    .clickable { cursor: pointer; }
+    .clickable:hover { background: #f8fafc; }
+
+    @media (max-width: 1100px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .topbar, .layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .topbar, .content {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .context-grid, .filters, .two {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps Agent</strong>
+        <span>管理控制台</span>
+      </div>
+      <nav class="nav" aria-label="后台导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/approvals.html">审批中心</a>
+        <a href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
+        <a class="active" href="/admin/prompts.html">提示词模板</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>ShopOps 提示词模板</h1>
+          <div class="subtitle" id="generatedAt">管理 Planner / Report 的 Prompt 版本、启用和渲染测试</div>
+        </div>
+        <form class="context-grid" id="contextForm">
+          <label>租户
+            <input id="tenantId" value="1" inputmode="numeric">
+          </label>
+          <label>店铺
+            <input id="shopId" value="1" inputmode="numeric">
+          </label>
+          <label>用户
+            <input id="userId" value="1" inputmode="numeric">
+          </label>
+          <label>角色
+            <input id="roles" value="ADMIN">
+          </label>
+          <button class="primary" type="submit">刷新</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
+        </form>
+      </header>
+
+      <section class="content">
+        <form class="filters" id="filterForm">
+          <label>模板编码
+            <input id="filterPromptCode" placeholder="daily_review.plan">
+          </label>
+          <label>任务类型
+            <input id="filterTaskType" placeholder="daily_review">
+          </label>
+          <label>状态
+            <select id="filterStatus">
+              <option value="">全部</option>
+              <option value="ACTIVE">启用</option>
+              <option value="INACTIVE">停用</option>
+            </select>
+          </label>
+          <button id="filterSubmit" class="primary" type="submit">查询</button>
+          <button id="filterReset" type="button">重置</button>
+        </form>
+
+        <div class="layout">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>模板版本</h2>
+              <div class="action-row">
+                <button id="quickPlanner" type="button">Planner</button>
+                <button id="quickReport" type="button">Report</button>
+              </div>
+            </div>
+            <div id="listStatus" class="status-line">等待查询</div>
+            <table aria-label="提示词模板列表">
+              <thead>
+                <tr>
+                  <th style="width: 28%">模板编码</th>
+                  <th style="width: 22%">名称</th>
+                  <th style="width: 14%">版本</th>
+                  <th style="width: 14%">状态</th>
+                  <th style="width: 22%">更新时间</th>
+                </tr>
+              </thead>
+              <tbody id="promptBody">
+                <tr><td colspan="5"><div class="empty-state">暂无数据</div></td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>版本编辑</h2>
+              <div class="action-row">
+                <button id="copyDetail" type="button">复制</button>
+                <button id="enableVersion" type="button">启用</button>
+              </div>
+            </div>
+            <form class="editor-grid" id="versionForm">
+              <label>模板编码
+                <input id="promptCode" value="daily_review.report">
+              </label>
+              <div class="two">
+                <label>模板名称
+                  <input id="promptName" value="每日经营复盘报告">
+                </label>
+                <label>版本
+                  <input id="version" value="v1">
+                </label>
+              </div>
+              <label>任务类型
+                <input id="taskType" value="daily_review">
+              </label>
+              <label>模板内容
+                <textarea id="templateContent" spellcheck="false">请基于以下输入生成中文经营复盘：{{prompt}}</textarea>
+              </label>
+              <label>
+                <span><input id="active" type="checkbox" style="width:auto; min-height:auto"> 创建后立即启用</span>
+              </label>
+              <div class="action-row">
+                <button id="saveVersion" class="primary" type="submit">创建版本</button>
+                <button id="renderTest" type="button">渲染测试</button>
+                <button id="clearEditor" type="button">清空</button>
+              </div>
+            </form>
+            <div class="status-line" id="editorStatus"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>模板内容</h2>
+              <span class="status-line" id="detailStatus"></span>
+            </div>
+            <div id="templatePreview" class="template-preview">请选择一个模板版本</div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>渲染测试</h2>
+              <button id="copyRendered" type="button">复制结果</button>
+            </div>
+            <div class="editor-grid">
+              <label>输入 Prompt
+                <textarea id="renderPrompt" spellcheck="false">关注退款风险和差评原因</textarea>
+              </label>
+              <label>变量 JSON
+                <textarea id="renderVariables" spellcheck="false">{"shopName":"杭州一店","date":"2026-07-20"}</textarea>
+              </label>
+              <div id="renderedPreview" class="rendered-preview">等待渲染</div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedPrompt: null };
+    const $ = (id) => document.getElementById(id);
+
+    function headers() {
+      const result = {
+        "Content-Type": "application/json",
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": $("userId").value || "1",
+        "X-User-Roles": $("roles").value || "ADMIN"
+      };
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        result.Authorization = `Bearer ${token}`;
+      }
+      return result;
+    }
+
+    async function api(path, options = {}) {
+      const response = await fetch(path, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const body = await response.json();
+      if (body.code && body.code !== 200) {
+        throw new Error(body.message || `API ${body.code}`);
+      }
+      return body.data;
+    }
+
+    function filters() {
+      const params = new URLSearchParams();
+      put(params, "promptCode", $("filterPromptCode").value);
+      put(params, "taskType", $("filterTaskType").value);
+      put(params, "status", $("filterStatus").value);
+      params.set("pageNum", state.pageNum);
+      params.set("pageSize", state.pageSize);
+      return params;
+    }
+
+    function put(params, key, value) {
+      if (value && value.trim()) {
+        params.set(key, value.trim());
+      }
+    }
+
+    async function loadPrompts() {
+      $("listStatus").textContent = "加载中";
+      try {
+        const data = await api(`/api/admin/prompts?${filters().toString()}`);
+        const list = Array.isArray(data.list) ? data.list : [];
+        state.total = data.total || list.length;
+        $("listStatus").textContent = `共 ${state.total} 个版本`;
+        renderRows(list);
+        syncUrl();
+      } catch (error) {
+        $("listStatus").textContent = "加载失败";
+        $("promptBody").innerHTML = `<tr><td colspan="5"><div class="error-row">${escapeHtml(error.message)}</div></td></tr>`;
+      }
+    }
+
+    function renderRows(list) {
+      if (!list.length) {
+        $("promptBody").innerHTML = `<tr><td colspan="5"><div class="empty-state">暂无模板版本</div></td></tr>`;
+        return;
+      }
+      $("promptBody").innerHTML = list.map((prompt) => `
+        <tr class="clickable" data-prompt-code="${escapeAttr(prompt.promptCode || "")}" data-version="${escapeAttr(prompt.version || "")}">
+          <td>${escapeHtml(prompt.promptCode || "")}</td>
+          <td>${escapeHtml(prompt.promptName || "")}</td>
+          <td>${escapeHtml(prompt.version || "")}</td>
+          <td><span class="badge ${statusClass(prompt.status)}">${statusText(prompt.status)}</span></td>
+          <td>${escapeHtml(formatTime(prompt.updatedAt || prompt.createdAt))}</td>
+        </tr>
+      `).join("");
+      document.querySelectorAll("[data-prompt-code]").forEach((row) => {
+        row.addEventListener("click", () => loadDetail(row.dataset.promptCode, row.dataset.version));
+      });
+    }
+
+    async function loadDetail(promptCode, version) {
+      if (!promptCode) {
+        return;
+      }
+      $("detailStatus").textContent = "加载中";
+      try {
+        const suffix = version ? `?version=${encodeURIComponent(version)}` : "";
+        const prompt = await api(`/api/admin/prompts/${encodeURIComponent(promptCode)}${suffix}`);
+        state.selectedPrompt = prompt;
+        fillEditor(prompt);
+        $("templatePreview").textContent = prompt.templateContent || "";
+        $("detailStatus").textContent = `${prompt.promptCode || ""} / ${prompt.version || ""} / ${statusText(prompt.status)}`;
+        $("filterPromptCode").value = prompt.promptCode || "";
+        syncUrl();
+      } catch (error) {
+        $("detailStatus").textContent = "加载失败";
+        $("templatePreview").textContent = error.message;
+      }
+    }
+
+    function fillEditor(prompt) {
+      $("promptCode").value = prompt.promptCode || "";
+      $("promptName").value = prompt.promptName || "";
+      $("taskType").value = prompt.taskType || "";
+      $("version").value = prompt.version || "";
+      $("templateContent").value = prompt.templateContent || "";
+      $("active").checked = prompt.status === "ACTIVE";
+    }
+
+    async function saveVersion(event) {
+      event.preventDefault();
+      await withBusy($("saveVersion"), "保存中", async () => {
+        const promptCode = $("promptCode").value.trim();
+        const payload = {
+          promptName: $("promptName").value.trim(),
+          taskType: $("taskType").value.trim(),
+          templateContent: $("templateContent").value,
+          version: $("version").value.trim(),
+          active: $("active").checked
+        };
+        const saved = await api(`/api/admin/prompts/${encodeURIComponent(promptCode)}/versions`, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        state.selectedPrompt = saved;
+        $("editorStatus").textContent = "版本已创建";
+        $("templatePreview").textContent = saved.templateContent || "";
+        await loadPrompts();
+      });
+    }
+
+    async function enableSelectedVersion() {
+      const promptCode = $("promptCode").value.trim();
+      const version = $("version").value.trim();
+      if (!promptCode || !version) {
+        $("editorStatus").textContent = "请先填写模板编码和版本";
+        return;
+      }
+      await withBusy($("enableVersion"), "启用中", async () => {
+        const enabled = await api(`/api/admin/prompts/${encodeURIComponent(promptCode)}/enable`, {
+          method: "POST",
+          body: JSON.stringify({ version })
+        });
+        state.selectedPrompt = enabled;
+        fillEditor(enabled);
+        $("editorStatus").textContent = "版本已启用";
+        await loadPrompts();
+      });
+    }
+
+    async function renderTest() {
+      const promptCode = $("promptCode").value.trim();
+      if (!promptCode) {
+        $("editorStatus").textContent = "请先填写模板编码";
+        return;
+      }
+      await withBusy($("renderTest"), "渲染中", async () => {
+        const payload = {
+          version: $("version").value.trim(),
+          prompt: $("renderPrompt").value,
+          variables: parseVariables()
+        };
+        const rendered = await api(`/api/admin/prompts/${encodeURIComponent(promptCode)}/render-test`, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        $("renderedPreview").textContent = rendered.renderedPrompt || "";
+        $("editorStatus").textContent = `渲染完成：${rendered.promptCode || ""} / ${rendered.version || ""}`;
+      });
+    }
+
+    function parseVariables() {
+      const text = $("renderVariables").value.trim();
+      if (!text) {
+        return {};
+      }
+      try {
+        return JSON.parse(text);
+      } catch (error) {
+        throw new Error("变量 JSON 格式不正确");
+      }
+    }
+
+    function applyInitialQuery() {
+      const params = new URLSearchParams(window.location.search);
+      $("filterPromptCode").value = params.get("promptCode") || "";
+      $("filterTaskType").value = params.get("taskType") || "";
+      $("filterStatus").value = params.get("status") || "";
+      const version = params.get("version") || "";
+      if ($("filterPromptCode").value) {
+        loadDetail($("filterPromptCode").value, version);
+      }
+    }
+
+    function syncUrl() {
+      const params = filters();
+      if (state.selectedPrompt?.version) {
+        params.set("version", state.selectedPrompt.version);
+      }
+      window.history.replaceState(null, "", `/admin/prompts.html?${params.toString()}`);
+    }
+
+    function resetFilters() {
+      $("filterPromptCode").value = "";
+      $("filterTaskType").value = "";
+      $("filterStatus").value = "";
+      state.pageNum = 1;
+      loadPrompts();
+    }
+
+    function clearEditor() {
+      state.selectedPrompt = null;
+      $("promptCode").value = "";
+      $("promptName").value = "";
+      $("taskType").value = "daily_review";
+      $("version").value = "";
+      $("templateContent").value = "";
+      $("active").checked = false;
+      $("templatePreview").textContent = "请选择一个模板版本";
+      $("detailStatus").textContent = "";
+    }
+
+    function selectQuick(code, name) {
+      $("filterPromptCode").value = code;
+      $("promptCode").value = code;
+      $("promptName").value = name;
+      $("taskType").value = "daily_review";
+      $("version").value = "v1";
+      loadPrompts().then(() => loadDetail(code, ""));
+    }
+
+    async function withBusy(button, busyText, fn) {
+      const original = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        await fn();
+      } catch (error) {
+        $("editorStatus").textContent = error.message;
+      } finally {
+        button.disabled = false;
+        button.textContent = original;
+      }
+    }
+
+    function applyStoredSession() {
+      try {
+        const user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+        if (user?.userId) $("userId").value = user.userId;
+        if (user?.roles) $("roles").value = Array.isArray(user.roles) ? user.roles.join(",") : user.roles;
+      } catch (ignored) {
+      }
+      renderSessionLine();
+    }
+
+    function renderSessionLine() {
+      $("sessionLine").textContent = localStorage.getItem(TOKEN_KEY) ? "Bearer Token 会话" : "请求头开发会话";
+    }
+
+    function statusClass(status) {
+      return String(status || "").toLowerCase();
+    }
+
+    function statusText(status) {
+      const value = String(status || "");
+      if (value === "ACTIVE") return "启用";
+      if (value === "INACTIVE") return "停用";
+      return value || "-";
+    }
+
+    function formatTime(value) {
+      return value ? String(value).replace("T", " ").slice(0, 19) : "-";
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value);
+    }
+
+    async function copyText(value) {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(value);
+        return;
+      }
+      const textarea = document.createElement("textarea");
+      textarea.value = value;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    $("contextForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      renderSessionLine();
+      loadPrompts();
+    });
+    $("resetContext").addEventListener("click", () => {
+      $("tenantId").value = "1";
+      $("shopId").value = "1";
+      $("userId").value = "1";
+      $("roles").value = "ADMIN";
+      renderSessionLine();
+      loadPrompts();
+    });
+    $("filterForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.pageNum = 1;
+      loadPrompts();
+    });
+    $("filterReset").addEventListener("click", resetFilters);
+    $("versionForm").addEventListener("submit", saveVersion);
+    $("enableVersion").addEventListener("click", enableSelectedVersion);
+    $("renderTest").addEventListener("click", renderTest);
+    $("clearEditor").addEventListener("click", clearEditor);
+    $("quickPlanner").addEventListener("click", () => selectQuick("daily_review.plan", "每日复盘任务规划"));
+    $("quickReport").addEventListener("click", () => selectQuick("daily_review.report", "每日经营复盘报告"));
+    $("copyDetail").addEventListener("click", () => copyText($("templatePreview").textContent || ""));
+    $("copyRendered").addEventListener("click", () => copyText($("renderedPreview").textContent || ""));
+
+    applyStoredSession();
+    applyInitialQuery();
+    loadPrompts();
+  </script>
+</body>
+</html>

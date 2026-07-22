@@ -170,10 +170,12 @@ public class InMemoryAgentTaskService implements AgentTaskService {
 
     private void seedSteps(Long taskId) {
         List<AgentTaskStepDto> taskSteps = new ArrayList<>();
-        taskSteps.add(step(taskId, 1, "Query order summary", "order.query_summary"));
-        taskSteps.add(step(taskId, 2, "Query negative comments", "comment.query_negative"));
-        taskSteps.add(step(taskId, 3, "Query product candidates", "product.query_candidates"));
-        taskSteps.add(step(taskId, 4, "Generate daily review report", "report.generate_daily_review"));
+        taskSteps.add(step(taskId, 1, "查询订单核心指标", "order.query_summary"));
+        taskSteps.add(step(taskId, 2, "查询差评风险", "comment.query_negative"));
+        taskSteps.add(step(taskId, 3, "查询待优化商品", "product.query_candidates"));
+        taskSteps.add(step(taskId, 4, "查询广告投放指标", "ad.query_performance"));
+        taskSteps.add(step(taskId, 5, "查询外部报表指标", "report.query_external_metrics"));
+        taskSteps.add(step(taskId, 6, "生成经营复盘报告", "report.generate_daily_review"));
         steps.put(taskId, taskSteps);
     }
 

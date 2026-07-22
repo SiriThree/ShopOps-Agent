@@ -1,0 +1,1132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShopOps 报告</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --line: #d9dee6;
+      --text: #1f2933;
+      --muted: #667085;
+      --ink: #111827;
+      --green: #168a5b;
+      --red: #c24132;
+      --amber: #b7791f;
+      --teal: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, select { font: inherit; }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 9px;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #20242b;
+      color: #f8fafc;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .brand { display: grid; gap: 3px; }
+    .brand strong { font-size: 18px; font-weight: 700; }
+    .brand span { color: #b8c0cc; font-size: 12px; }
+
+    .nav { display: grid; gap: 6px; }
+
+    .nav a {
+      color: #cdd5df;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 10px;
+    }
+
+    .nav a.active {
+      background: #343a44;
+      color: #ffffff;
+    }
+
+    .main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .topbar {
+      min-width: 0;
+      padding: 18px 24px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(360px, 680px);
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .context-session {
+      grid-column: 1 / -1;
+      min-height: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .toolbar {
+      padding: 16px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .metric span { color: var(--muted); font-size: 12px; }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(110px, 1fr)) auto auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .quick-actions span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 0 24px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .reports-column { min-width: 0; }
+
+    .table-wrap {
+      width: 100%;
+      max-width: 100%;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      min-width: 920px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f9fafb;
+      color: #475467;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    tbody tr { cursor: pointer; }
+    tbody tr:hover { background: #f8fbfa; }
+
+    .summary-cell {
+      max-width: 280px;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .empty-state {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      white-space: normal;
+    }
+
+    .empty-state strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .empty-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #eef2f6;
+      color: #344054;
+    }
+
+    .badge.success {
+      background: #e7f6ef;
+      color: var(--green);
+    }
+
+    .badge.failed, .badge.failure {
+      background: #fdecea;
+      color: var(--red);
+    }
+
+    .side {
+      position: sticky;
+      top: 14px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .link-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .link-row a {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: var(--panel);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .summary-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .summary-item {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fbfcfd;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .summary-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .detail-box, .markdown-box {
+      max-height: 360px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fbfcfd;
+      padding: 10px;
+      color: #344054;
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .markdown-box {
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    .status-line {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pager {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-top: 0;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .pager-actions { display: flex; gap: 8px; }
+
+    @media (max-width: 1100px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .topbar, .content { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(3, minmax(130px, 1fr)); }
+      .side { position: static; }
+    }
+
+    @media (max-width: 720px) {
+      .topbar, .toolbar, .content {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .context-grid, .filters, .metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .filters button, .context-grid button { width: 100%; }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: grid;
+        gap: 8px;
+      }
+
+      tbody tr {
+        display: grid;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+
+      tbody td {
+        display: grid;
+        grid-template-columns: 74px minmax(0, 1fr);
+        gap: 8px;
+        white-space: normal;
+      }
+
+      tbody td::before {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      tbody td:nth-child(1)::before { content: "Report"; }
+      tbody td:nth-child(2)::before { content: "Title"; }
+      tbody td:nth-child(3)::before { content: "Type"; }
+      tbody td:nth-child(4)::before { content: "Status"; }
+      tbody td:nth-child(5)::before { content: "Task"; }
+      tbody td:nth-child(6)::before { content: "Trace"; }
+      tbody td:nth-child(7)::before { content: "Created"; }
+
+      .summary-cell {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>ShopOps Agent</strong>
+        <span>管理控制台</span>
+      </div>
+      <nav class="nav" aria-label="管理导航">
+        <a href="/admin/dashboard.html">总览</a>
+        <a href="/admin/auth.html">认证</a>
+        <a href="/admin/tasks.html">任务队列</a>
+        <a href="/admin/audit.html">审计中心</a>
+        <a href="/admin/approvals.html">审批中心</a>
+        <a class="active" href="/admin/reports.html">报告</a>
+        <a href="/admin/tools.html">工具日志</a>
+        <a href="/admin/prompts.html">提示词模板</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>报告</h1>
+          <div class="subtitle">生成的运营报告、证据、链路追踪与任务上下文</div>
+        </div>
+        <form class="context-grid" id="contextForm">
+          <label>租户
+            <input id="tenantId" value="1" inputmode="numeric">
+          </label>
+          <label>店铺
+            <input id="shopId" value="1" inputmode="numeric">
+          </label>
+          <label>用户
+            <input id="userId" value="1" inputmode="numeric">
+          </label>
+          <label>角色
+            <input id="roles" value="ADMIN">
+          </label>
+          <button class="primary" type="submit">刷新</button>
+          <button id="resetContext" type="button">重置</button>
+          <div class="context-session" id="sessionLine">请求头上下文</div>
+        </form>
+      </header>
+
+      <section class="toolbar">
+        <div class="metrics" id="metrics"></div>
+        <form class="filters" id="filterForm">
+          <label>状态
+            <select id="status">
+              <option value="">全部</option>
+              <option value="SUCCESS">成功</option>
+              <option value="FAILED">失败</option>
+            </select>
+          </label>
+          <label>类型
+            <input id="reportType" placeholder="daily_review">
+          </label>
+          <label>报告编号
+            <input id="reportNo">
+          </label>
+          <label>任务 ID
+            <input id="taskId" inputmode="numeric">
+          </label>
+          <label>Trace ID
+            <input id="traceId">
+          </label>
+          <label>创建人
+            <input id="createdBy" inputmode="numeric">
+          </label>
+          <button id="reportFilterSubmit" class="primary" type="submit">查询</button>
+          <button id="resetFilters" type="button">重置</button>
+        </form>
+        <div class="quick-actions" aria-label="报告快捷筛选">
+          <span>快捷筛选</span>
+          <button type="button" data-quick-filter="success">成功</button>
+          <button type="button" data-quick-filter="daily">日报</button>
+          <button type="button" data-quick-filter="clear">清空</button>
+        </div>
+        <div class="status-line" id="statusLine"></div>
+      </section>
+
+      <section class="content">
+        <div class="reports-column">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>报告</th>
+                  <th>标题</th>
+                  <th>类型</th>
+                  <th>状态</th>
+                  <th>任务</th>
+                  <th>Trace</th>
+                  <th>创建时间</th>
+                </tr>
+              </thead>
+              <tbody id="reportBody"></tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <span id="pageInfo">第 1 页</span>
+            <div class="pager-actions">
+              <button id="prevPage" type="button">上一页</button>
+              <button id="nextPage" type="button">下一页</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="side">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>报告预览</h2>
+              <div class="button-row">
+                <button id="copyReport" type="button">复制</button>
+                <button id="clearPreview" type="button">清空</button>
+              </div>
+            </div>
+            <div class="markdown-box" id="markdownBox">请选择一条报告记录</div>
+          </section>
+          <section class="panel">
+            <div class="panel-title">
+              <h2>证据</h2>
+              <div class="button-row">
+                <button id="copyEvidence" type="button">复制</button>
+                <button id="copyTrace" type="button">追踪</button>
+              </div>
+            </div>
+            <div class="summary-box" id="evidenceSummary"></div>
+            <div class="summary-box" id="configSnapshotBox"></div>
+            <pre class="detail-box" id="evidenceBox">请选择一条报告记录</pre>
+            <div class="link-row">
+              <a id="openTask" href="/admin/tasks.html">打开任务</a>
+              <a id="openAudit" href="/admin/audit.html">打开审计</a>
+              <a id="openToolLogs" href="/admin/tools.html">工具日志</a>
+            </div>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const TOKEN_KEY = "shopops.auth.token";
+    const USER_KEY = "shopops.auth.user";
+    const state = { pageNum: 1, pageSize: 20, total: 0, selectedReportId: "", selectedTaskId: "", selectedTraceId: "" };
+    const $ = (id) => document.getElementById(id);
+
+    function headers() {
+      const result = {
+        "X-Tenant-Id": $("tenantId").value || "1",
+        "X-Shop-Id": $("shopId").value || "1",
+        "X-User-Id": $("userId").value || "1",
+        "X-User-Roles": $("roles").value || "ADMIN"
+      };
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        result.Authorization = `Bearer ${token}`;
+      }
+      return result;
+    }
+
+    async function api(path) {
+      const response = await fetch(path, { headers: headers() });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const body = await response.json();
+      if (body.code && body.code !== 200) {
+        throw new Error(body.message || `API ${body.code}`);
+      }
+      return body.data;
+    }
+
+    function filters() {
+      const params = new URLSearchParams();
+      params.set("pageNum", state.pageNum);
+      params.set("pageSize", state.pageSize);
+      add(params, "status", $("status").value);
+      add(params, "reportType", $("reportType").value);
+      add(params, "reportNo", $("reportNo").value);
+      add(params, "taskId", $("taskId").value);
+      add(params, "traceId", $("traceId").value);
+      add(params, "createdBy", $("createdBy").value);
+      add(params, "reportId", state.selectedReportId);
+      return params;
+    }
+
+    function syncUrl() {
+      const query = filters().toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
+    }
+
+    function add(params, key, value) {
+      if (value != null && String(value).trim() !== "") {
+        params.set(key, String(value).trim());
+      }
+    }
+
+    async function refreshAll() {
+      setStatus("报告加载中");
+      try {
+        await loadReports();
+        setStatus("报告已刷新");
+      } catch (error) {
+        setStatus(error.message);
+      }
+    }
+
+    async function loadReports() {
+      syncUrl();
+      try {
+        const data = await api(`/api/reports?${filters().toString()}`);
+        state.total = number(data.total);
+        const list = data.list || [];
+        renderMetrics(list, state.total);
+        $("reportBody").innerHTML = list.map((report) => `
+          <tr data-report-id="${escapeAttr(report.reportId)}">
+            <td>${escapeHtml(report.reportNo || report.reportId || "")}</td>
+            <td class="summary-cell">${escapeHtml(report.title || "")}</td>
+            <td>${escapeHtml(report.reportType || "")}</td>
+            <td><span class="badge ${statusClass(report.status)}">${escapeHtml(report.status || "")}</span></td>
+            <td>${escapeHtml(report.taskId || "")}</td>
+            <td>${escapeHtml(report.traceId || "")}</td>
+            <td>${formatTime(report.createdAt)}</td>
+          </tr>
+        `).join("") || emptyRow(7, "暂无报告", "可以清空筛选或刷新报告。");
+        $("pageInfo").textContent = `第 ${data.pageNum || state.pageNum} 页 / 共 ${state.total} 条`;
+        $("prevPage").disabled = state.pageNum <= 1;
+        $("nextPage").disabled = state.pageNum * state.pageSize >= state.total;
+        if (state.selectedReportId) {
+          const selected = document.querySelector(`tr[data-report-id="${CSS.escape(String(state.selectedReportId))}"]`);
+          if (selected) {
+            selected.style.background = "#eef6f4";
+          }
+          loadDetail(state.selectedReportId);
+        }
+      } catch (error) {
+        state.total = 0;
+        renderMetrics([], 0);
+        $("reportBody").innerHTML = errorRow(7, "报告加载失败", error.message);
+        $("pageInfo").textContent = "报告列表不可用";
+        $("prevPage").disabled = true;
+        $("nextPage").disabled = true;
+        throw error;
+      }
+    }
+
+    function renderMetrics(list, total) {
+      const success = list.filter((report) => report.status === "SUCCESS").length;
+      const failed = list.filter((report) => report.status === "FAILED").length;
+      const daily = list.filter((report) => report.reportType === "daily_review").length;
+      $("metrics").innerHTML = [
+        ["总数", total],
+        ["本页", list.length],
+        ["成功", success],
+        ["日报", daily || failed]
+      ].map(([label, value]) => metric(label, value)).join("");
+    }
+
+    async function loadDetail(reportId) {
+      if (!reportId) {
+        return;
+      }
+      $("markdownBox").textContent = "加载中...";
+      $("evidenceSummary").innerHTML = "";
+      $("configSnapshotBox").innerHTML = "";
+      $("evidenceBox").textContent = "加载中...";
+      try {
+        const report = await api(`/api/reports/${encodeURIComponent(reportId)}`);
+        $("markdownBox").textContent = report.markdown || "暂无 Markdown";
+        $("evidenceBox").textContent = JSON.stringify({
+          reportId: report.reportId,
+          reportNo: report.reportNo,
+          taskId: report.taskId,
+          traceId: report.traceId,
+          evidence: report.evidence
+        }, null, 2);
+        $("evidenceSummary").innerHTML = summaryItems([
+          ["报告", report.reportNo || report.reportId],
+          ["状态", report.status || ""],
+          ["任务", report.taskId || ""],
+          ["Trace", report.traceId || ""],
+          ["类型", report.reportType || ""],
+          ["证据", evidenceSummary(report.evidence)]
+        ]);
+        $("configSnapshotBox").innerHTML = renderConfigSnapshot(report.evidence?.shopConfig);
+        state.selectedTaskId = report.taskId || "";
+        state.selectedTraceId = report.traceId || "";
+        updateContextLinks();
+        syncUrl();
+        $("copyTrace").dataset.traceId = report.traceId || "";
+      } catch (error) {
+        $("markdownBox").textContent = error.message;
+        $("evidenceSummary").innerHTML = "";
+        $("configSnapshotBox").innerHTML = "";
+        $("evidenceBox").textContent = error.message;
+      }
+    }
+
+    function evidenceSummary(evidence) {
+      if (!evidence) {
+        return "";
+      }
+      const parts = [];
+      if (Array.isArray(evidence.toolCodes)) {
+        parts.push(`${evidence.toolCodes.length} 个工具`);
+      }
+      if (Array.isArray(evidence.productIds)) {
+        parts.push(`${evidence.productIds.length} 个商品`);
+      }
+      if (Array.isArray(evidence.riskCommentIds)) {
+        parts.push(`${evidence.riskCommentIds.length} 条风险备注`);
+      }
+      return parts.join(" / ") || "可用";
+    }
+
+    function renderConfigSnapshot(snapshot) {
+      if (!snapshot || typeof snapshot !== "object") {
+        return "";
+      }
+      return summaryItems([
+        ["閰嶇疆蹇収", "鏈鎵ц"],
+        ["閫€娆剧巼棰勮闃堝€?", percentValue(snapshot.refundRateWarnThreshold)],
+        ["宸瘎棰勮闃堝€?", textValue(snapshot.negativeCommentWarnThreshold)],
+        ["楂橀闄╁伐鍏峰鎵?", approvalValue(snapshot.agentToolApprovalEnabled)],
+        ["妯″瀷绛栫暐", textValue(snapshot.agentModelPolicy)]
+      ]);
+    }
+
+    function textValue(value) {
+      return value == null || value === "" ? "-" : String(value);
+    }
+
+    function percentValue(value) {
+      const text = textValue(value);
+      return text === "-" ? text : `${text}%`;
+    }
+
+    function approvalValue(value) {
+      if (value === true || value === "true") {
+        return "寮€鍚?";
+      }
+      if (value === false || value === "false") {
+        return "宸插叧闂?";
+      }
+      return "-";
+    }
+
+    function applyQuickFilter(name) {
+      if (name === "clear") {
+        resetFilters();
+        return;
+      }
+      $("filterForm").reset();
+      if (name === "success") {
+        $("status").value = "SUCCESS";
+      } else if (name === "daily") {
+        $("reportType").value = "daily_review";
+      }
+      state.pageNum = 1;
+      loadReports();
+    }
+
+    async function resetFilters() {
+      $("filterForm").reset();
+      state.pageNum = 1;
+      await loadReports();
+    }
+
+    function resetContext() {
+      $("tenantId").value = "1";
+      $("shopId").value = "1";
+      $("userId").value = "1";
+      $("roles").value = "ADMIN";
+      renderSessionLine();
+      refreshAll();
+    }
+
+    function applyStoredSession() {
+      const session = authSession();
+      if (session.user) {
+        $("tenantId").value = session.user.tenantId || $("tenantId").value || "1";
+        $("shopId").value = session.user.shopId || $("shopId").value || "1";
+        $("userId").value = session.user.userId || $("userId").value || "1";
+        $("roles").value = roleValue(session.user.roles);
+      }
+      renderSessionLine(session);
+    }
+
+    function renderSessionLine(session = authSession()) {
+      $("sessionLine").textContent = session.token
+        ? `已加载 Bearer 会话${session.user?.username ? `：${session.user.username}` : ""}`
+        : "请求头上下文";
+    }
+
+    function authSession() {
+      let user = null;
+      try {
+        user = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+      } catch (error) {
+        user = null;
+      }
+      return { token: localStorage.getItem(TOKEN_KEY) || "", user };
+    }
+
+    function roleValue(roles) {
+      return Array.isArray(roles) ? roles.join(",") : (roles || "ADMIN");
+    }
+
+    function applyInitialQuery() {
+      const params = new URLSearchParams(window.location.search);
+      setIfPresent("status", params.get("status"));
+      setIfPresent("reportType", params.get("reportType"));
+      setIfPresent("reportNo", params.get("reportNo"));
+      setIfPresent("taskId", params.get("taskId"));
+      setIfPresent("traceId", params.get("traceId"));
+      setIfPresent("createdBy", params.get("createdBy"));
+      state.pageNum = positiveInt(params.get("pageNum"), 1);
+      state.pageSize = positiveInt(params.get("pageSize"), 20);
+      state.selectedReportId = params.get("reportId") || "";
+    }
+
+    function updateContextLinks() {
+      $("openTask").href = state.selectedTaskId
+        ? `/admin/tasks.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : "/admin/tasks.html";
+      $("openAudit").href = state.selectedTaskId
+        ? `/admin/audit.html?source=TASK&taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : (state.selectedTraceId ? `/admin/audit.html?traceId=${encodeURIComponent(state.selectedTraceId)}` : "/admin/audit.html");
+      $("openToolLogs").href = state.selectedTaskId
+        ? `/admin/tools.html?taskId=${encodeURIComponent(state.selectedTaskId)}`
+        : (state.selectedTraceId ? `/admin/tools.html?traceId=${encodeURIComponent(state.selectedTraceId)}` : "/admin/tools.html");
+    }
+
+    function positiveInt(value, fallback) {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+    }
+
+    function setIfPresent(id, value) {
+      if (value != null && $(id)) {
+        $(id).value = value;
+      }
+    }
+
+    function metric(label, value) {
+      return `
+        <div class="metric">
+          <span>${escapeHtml(label)}</span>
+          <strong>${number(value)}</strong>
+        </div>
+      `;
+    }
+
+    function summaryItems(items) {
+      return items.map(([label, value]) => `
+        <div class="summary-item">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value || "-")}</strong>
+        </div>
+      `).join("");
+    }
+
+    function setStatus(message) {
+      $("statusLine").textContent = message;
+    }
+
+    async function withBusy(button, busyText, action, restoreDisabled = true) {
+      if (button.disabled) {
+        return;
+      }
+      const originalDisabled = button.disabled;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = busyText;
+      try {
+        return await action();
+      } finally {
+        if (restoreDisabled) {
+          button.disabled = originalDisabled;
+        }
+        button.textContent = originalText;
+      }
+    }
+
+    async function copyText(text, label) {
+      const value = String(text || "").trim();
+      if (!value || value === "请选择一条报告记录" || value === "加载中...") {
+        setStatus(`没有可复制的${label}`);
+        return;
+      }
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          fallbackCopy(value);
+        }
+        setStatus(`${label}已复制`);
+      } catch (error) {
+        fallbackCopy(value);
+        setStatus(`${label}已复制`);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    function emptyRow(colspan, title, message) {
+      return `
+        <tr>
+          <td colspan="${colspan}">
+            <div class="empty-state">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(message)}</span>
+              <div class="empty-actions">
+                <button type="button" data-empty-reset>清空筛选</button>
+                <button type="button" data-retry-list>刷新</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    function errorRow(colspan, title, message) {
+      return emptyRow(colspan, title, message || "请检查服务状态后重试。");
+    }
+
+    function number(value) {
+      return Number(value || 0);
+    }
+
+    function formatTime(value) {
+      return value ? String(value).replace("T", " ").slice(0, 19) : "";
+    }
+
+    function statusClass(value) {
+      return String(value || "").toLowerCase();
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value || "");
+    }
+
+    $("contextForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      refreshAll();
+    });
+
+    $("resetContext").addEventListener("click", resetContext);
+
+    $("filterForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.pageNum = 1;
+      withBusy($("reportFilterSubmit"), "查询中", loadReports);
+    });
+
+    $("resetFilters").addEventListener("click", () => withBusy($("resetFilters"), "重置中", resetFilters));
+    $("copyReport").addEventListener("click", () => copyText($("markdownBox").textContent, "报告预览"));
+    $("copyEvidence").addEventListener("click", () => copyText($("evidenceBox").textContent, "证据"));
+
+    $("clearPreview").addEventListener("click", () => {
+      $("markdownBox").textContent = "请选择一条报告记录";
+      $("evidenceSummary").innerHTML = "";
+      $("evidenceBox").textContent = "请选择一条报告记录";
+      $("copyTrace").dataset.traceId = "";
+      state.selectedReportId = "";
+      state.selectedTaskId = "";
+      state.selectedTraceId = "";
+      $("configSnapshotBox").innerHTML = "";
+      updateContextLinks();
+      syncUrl();
+    });
+
+    $("copyTrace").addEventListener("click", () => {
+      const traceId = $("copyTrace").dataset.traceId;
+      if (traceId) {
+        $("traceId").value = traceId;
+        state.pageNum = 1;
+        loadReports();
+      }
+    });
+
+    document.querySelector(".quick-actions").addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-quick-filter]");
+      if (button) {
+        applyQuickFilter(button.dataset.quickFilter);
+      }
+    });
+
+    $("prevPage").addEventListener("click", () => {
+      if (state.pageNum > 1) {
+        state.pageNum -= 1;
+        withBusy($("prevPage"), "加载中", loadReports, false);
+      }
+    });
+
+    $("nextPage").addEventListener("click", () => {
+      if (state.pageNum * state.pageSize < state.total) {
+        state.pageNum += 1;
+        withBusy($("nextPage"), "加载中", loadReports, false);
+      }
+    });
+
+    $("reportBody").addEventListener("click", (event) => {
+      if (event.target.closest("button[data-empty-reset]")) {
+        resetFilters();
+        return;
+      }
+      if (event.target.closest("button[data-retry-list]")) {
+        loadReports();
+        return;
+      }
+      const row = event.target.closest("tr[data-report-id]");
+      if (row) {
+        state.selectedReportId = row.dataset.reportId;
+        syncUrl();
+        loadDetail(row.dataset.reportId);
+      }
+    });
+
+    applyStoredSession();
+    applyInitialQuery();
+    updateContextLinks();
+    refreshAll();
+  </script>
+</body>
+</html>
