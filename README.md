@@ -381,6 +381,7 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-model-gateway-demo.ps1 -
 - [ShopOps 公开多源真实数据基线](docs/ShopOps-public-real-baseline.md)
 - [ShopOps 真实异常信号评测](docs/ShopOps-real-anomaly-evaluation.md)
 - [ShopOps 简历指标证据表](docs/ShopOps-resume-claim-evidence.md)
+- [ShopOps 简历项目描述 LaTeX](docs/ShopOps简历项目描述-LaTeX.md)
 - [ShopOps 日报耗时证据表](docs/ShopOps-operation-timing-evidence.md)
 - [ShopOps Olist 真实数据基线](docs/ShopOps-olist-real-baseline.md)
 - [ShopOps 简历量化基线](docs/ShopOps-resume-baseline.md)
