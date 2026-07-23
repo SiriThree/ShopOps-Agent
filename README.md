@@ -1,23 +1,37 @@
 # ShopOps Agent
 
-ShopOps Agent 是一个面向电商运营场景的 AgentOps 管理平台。项目目标不是做一个简单的 AI 聊天框，而是把运营人员的自然语言任务，拆解成可编排、可审计、可审批、可配置、可评测的 Agent 执行链路。
+ShopOps Agent 是一个面向中小电商团队的运营 AgentOps 平台。它不是一个简单的 AI 聊天框，而是把“生成运营日报、分析差评原因、识别低点击商品、同步报表”等自然语言任务，拆解成可编排、可审计、可审批、可配置、可评测的 Agent 执行链路。
 
 当前最适合作品集展示的主线是：
 
 > 运营人员在 Agent 工作台用自然语言发起日常任务，系统自动识别意图，调用订单、评价、商品、投放等工具，生成结构化运营日报、异常告警和改进建议，并沉淀任务、工具、报告、审批、审计和量化评测数据。
 
+## 可验证结果
+
+| 指标 | 当前结果 | 证据 |
+|---|---:|---|
+| 公开真实数据业务样例 | 760 | Olist、Criteo、UCI Online Retail、Store Sales |
+| 派生 MCP 工具调用 | 2670 | `docs/ShopOps-public-real-baseline.json` |
+| 高风险审批路由调用 | 450 | 退款、商品标题、广告预算建议 |
+| Agent 自动化评测 | 14/14 通过 | `shopops-admin/target/evaluation` |
+| 工具调用成功率 | 98.6% | `docs/ShopOps-resume-claim-evidence.md` |
+| 异常信号评测 | Precision 94.81%, Recall 100% | `docs/ShopOps-real-anomaly-evaluation.md` |
+| 飞书 webhook 批量验收 | 100/100 成功，HTTP 200 率 100% | `docs/evaluation/feishu-webhook-batch-summary.json` |
+| 飞书 webhook 平均耗时 | 311.9 ms | 100 次连续真实 webhook 调用 |
+| Excel 报表导出 | 真实 `.xlsx`，4 个 worksheet | `docs/evaluation/shopops-operation-report-sample.xlsx` |
+| 日报耗时收益 | 估算 35.4 分钟 -> 4.2 分钟 | 标记为 `ESTIMATED`，不是实测人工计时 |
+
 ## 项目亮点
 
-- 自然语言 Agent 工作台：支持“生成今天店铺运营日报”“分析最近差评原因”“找出低点击商品并给优化建议”等任务输入。
-- MCP 风格工具层：统一注册和调用订单、评价、商品、广告、外部报表等工具，调用过程进入工具日志和审计链路。
-- Agent 任务编排：支持任务创建、意图路由、步骤执行、异步调度、失败重试、降级处理和任务追踪。
-- 运营报告生成：输出 Markdown 运营日报、量化指标、证据链、配置快照和动作建议。
-- 审批与风控：高风险工具支持人工审批、确认语校验、审批撤回、批量处理和过期处理。
-- 店铺运行配置：退款率阈值、差评阈值、审批开关、模型策略可按店铺配置，并在 Agent 执行中真实生效。
-- 全链路审计：任务、工具、报告、审批、模型调用、配置变更都可追踪，便于排障和验收展示。
-- 真实数据演示：已接入 Olist 公开电商数据作为日报主链路，并用 Criteo、UCI Online Retail、Store Sales 构建公开多源真实数据基线。
-- React 管理前端：管理后台已迁移到 React + TypeScript + Axios + ECharts + Ant Design。
-- 量化评测基线：提供 Agent 评测脚本、作品集报告和可复现的验收数据。
+- 自然语言 Agent 工作台：运营人员可以输入“生成今天店铺运营日报”“分析最近差评原因”“找出低点击商品并给优化建议”等任务，系统自动路由并展示执行步骤、工具调用和最终报告。
+- MCP 风格工具编排：统一封装订单查询、评价分析、商品优化、投放复盘、Excel 导出、飞书同步等 18 个工具，所有调用进入工具日志、审计链路和评测统计。
+- Agent 执行闭环：支持任务创建、意图路由、步骤执行、同步/异步调度、失败重试、降级处理、任务追踪和报告落库。
+- 风控与人工审批：退款执行、商品标题修改、广告预算建议等高风险工具进入审批流程，支持确认语、撤回、批量处理、过期处理和审计追踪。
+- 店铺运行配置：退款率阈值、差评阈值、审批开关、模型策略可按店铺配置，并在 Agent 报告和工具执行中真实生效。
+- 真实数据与评测：Olist 作为在线演示主链路，Criteo、UCI Online Retail、Store Sales 补齐广告、退款/取消代理和外部事件评测缺口。
+- 报表输出闭环：运营日报可查看 Markdown 证据链，可导出真实 Excel 文件，并已通过 100 次真实飞书 webhook 批量同步验收。
+- React 管理前端：后台已迁移到 React + TypeScript + Axios + ECharts + Ant Design，覆盖工作台、任务、报告、审计、工具、审批、模型和组织配置等页面。
+- 可复现作品集证据：提供基线生成、Agent 评测、异常信号评测、飞书批量验收、耗时收益估算等脚本和文档。
 
 ## 当前完成度
 
@@ -299,7 +313,13 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 | UCI Online Retail lines | 541909 |
 | UCI cancellation/refund proxy lines | 10624 |
 | Store Sales holiday events | 350 |
-| 最近全量测试 | 86 tests, 0 failures, 8 skipped |
+| Real anomaly signal precision | 94.81% |
+| Real anomaly signal recall | 100% |
+| Feishu webhook batch success rate | 100/100 |
+| Feishu webhook HTTP 200 rate | 100% |
+| Feishu webhook average latency | 311.9 ms |
+| Estimated daily report time saving | 35.4 min -> 4.2 min |
+| 最近全量测试 | 88 tests, 0 failures, 8 skipped |
 
 评测覆盖：
 
@@ -312,6 +332,10 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 - 店铺阈值配置生效
 - 模型策略进入报告 evidence
 - 模型失败后的降级完成
+- 飞书 webhook 真实 HTTP 同步
+- Excel 报表真实导出
+
+说明：`Estimated daily report time saving` 来自固定工作流估算基线，证据项标记为 `ESTIMATED`；真实人工计时仍需补充至少 5 次人工流程记录。
 
 ## Model Gateway
 
