@@ -1,0 +1,1092 @@
+[
+  {
+    "sampleId": "RBS-001",
+    "sampleType": "order_anomaly",
+    "shopId": 1,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-002",
+    "sampleType": "order_anomaly",
+    "shopId": 2,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-003",
+    "sampleType": "order_anomaly",
+    "shopId": 3,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-004",
+    "sampleType": "order_anomaly",
+    "shopId": 1,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-005",
+    "sampleType": "order_anomaly",
+    "shopId": 2,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-006",
+    "sampleType": "order_anomaly",
+    "shopId": 3,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-007",
+    "sampleType": "order_anomaly",
+    "shopId": 1,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-008",
+    "sampleType": "order_anomaly",
+    "shopId": 2,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-009",
+    "sampleType": "order_anomaly",
+    "shopId": 3,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-010",
+    "sampleType": "order_anomaly",
+    "shopId": 1,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-011",
+    "sampleType": "order_anomaly",
+    "shopId": 2,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-012",
+    "sampleType": "order_anomaly",
+    "shopId": 3,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-013",
+    "sampleType": "order_anomaly",
+    "shopId": 1,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-014",
+    "sampleType": "order_anomaly",
+    "shopId": 2,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-015",
+    "sampleType": "order_anomaly",
+    "shopId": 3,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-016",
+    "sampleType": "order_anomaly",
+    "shopId": 1,
+    "expectedSignals": [
+      "order_count_drop",
+      "gmv_drop"
+    ],
+    "recommendedTools": [
+      "order.query_summary",
+      "order.query_detail"
+    ]
+  },
+  {
+    "sampleId": "RBS-017",
+    "sampleType": "refund_increase",
+    "shopId": 1,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-018",
+    "sampleType": "refund_increase",
+    "shopId": 2,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-019",
+    "sampleType": "refund_increase",
+    "shopId": 3,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-020",
+    "sampleType": "refund_increase",
+    "shopId": 1,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-021",
+    "sampleType": "refund_increase",
+    "shopId": 2,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-022",
+    "sampleType": "refund_increase",
+    "shopId": 3,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-023",
+    "sampleType": "refund_increase",
+    "shopId": 1,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-024",
+    "sampleType": "refund_increase",
+    "shopId": 2,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-025",
+    "sampleType": "refund_increase",
+    "shopId": 3,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-026",
+    "sampleType": "refund_increase",
+    "shopId": 1,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-027",
+    "sampleType": "refund_increase",
+    "shopId": 2,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-028",
+    "sampleType": "refund_increase",
+    "shopId": 3,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-029",
+    "sampleType": "refund_increase",
+    "shopId": 1,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-030",
+    "sampleType": "refund_increase",
+    "shopId": 2,
+    "expectedSignals": [
+      "refund_rate_increase",
+      "high_value_canceled_order"
+    ],
+    "recommendedTools": [
+      "order.query_refund_risk",
+      "comment.query_negative"
+    ]
+  },
+  {
+    "sampleId": "RBS-031",
+    "sampleType": "low_score_comment",
+    "shopId": 1,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-032",
+    "sampleType": "low_score_comment",
+    "shopId": 2,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-033",
+    "sampleType": "low_score_comment",
+    "shopId": 3,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-034",
+    "sampleType": "low_score_comment",
+    "shopId": 1,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-035",
+    "sampleType": "low_score_comment",
+    "shopId": 2,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-036",
+    "sampleType": "low_score_comment",
+    "shopId": 3,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-037",
+    "sampleType": "low_score_comment",
+    "shopId": 1,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-038",
+    "sampleType": "low_score_comment",
+    "shopId": 2,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-039",
+    "sampleType": "low_score_comment",
+    "shopId": 3,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-040",
+    "sampleType": "low_score_comment",
+    "shopId": 1,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-041",
+    "sampleType": "low_score_comment",
+    "shopId": 2,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-042",
+    "sampleType": "low_score_comment",
+    "shopId": 3,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-043",
+    "sampleType": "low_score_comment",
+    "shopId": 1,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-044",
+    "sampleType": "low_score_comment",
+    "shopId": 2,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-045",
+    "sampleType": "low_score_comment",
+    "shopId": 3,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-046",
+    "sampleType": "low_score_comment",
+    "shopId": 1,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-047",
+    "sampleType": "low_score_comment",
+    "shopId": 2,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-048",
+    "sampleType": "low_score_comment",
+    "shopId": 3,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-049",
+    "sampleType": "low_score_comment",
+    "shopId": 1,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-050",
+    "sampleType": "low_score_comment",
+    "shopId": 2,
+    "expectedSignals": [
+      "negative_comment",
+      "delivery_delay_topic"
+    ],
+    "recommendedTools": [
+      "comment.query_negative",
+      "comment.analyze_sentiment",
+      "comment.create_reply_draft"
+    ]
+  },
+  {
+    "sampleId": "RBS-051",
+    "sampleType": "low_click_product",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-052",
+    "sampleType": "low_click_product",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-053",
+    "sampleType": "low_click_product",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-054",
+    "sampleType": "low_click_product",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-055",
+    "sampleType": "low_click_product",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-056",
+    "sampleType": "low_click_product",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-057",
+    "sampleType": "low_click_product",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-058",
+    "sampleType": "low_click_product",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-059",
+    "sampleType": "low_click_product",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-060",
+    "sampleType": "low_click_product",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-061",
+    "sampleType": "low_click_product",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-062",
+    "sampleType": "low_click_product",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-063",
+    "sampleType": "low_click_product",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-064",
+    "sampleType": "low_click_product",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-065",
+    "sampleType": "low_click_product",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-066",
+    "sampleType": "low_click_product",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_ctr",
+      "weak_title_keyword"
+    ],
+    "recommendedTools": [
+      "product.query_low_click",
+      "product.optimize_title",
+      "product.update_title"
+    ]
+  },
+  {
+    "sampleId": "RBS-067",
+    "sampleType": "low_roi_campaign",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-068",
+    "sampleType": "low_roi_campaign",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-069",
+    "sampleType": "low_roi_campaign",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-070",
+    "sampleType": "low_roi_campaign",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-071",
+    "sampleType": "low_roi_campaign",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-072",
+    "sampleType": "low_roi_campaign",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-073",
+    "sampleType": "low_roi_campaign",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-074",
+    "sampleType": "low_roi_campaign",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-075",
+    "sampleType": "low_roi_campaign",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-076",
+    "sampleType": "low_roi_campaign",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-077",
+    "sampleType": "low_roi_campaign",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-078",
+    "sampleType": "low_roi_campaign",
+    "shopId": 3,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-079",
+    "sampleType": "low_roi_campaign",
+    "shopId": 1,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  },
+  {
+    "sampleId": "RBS-080",
+    "sampleType": "low_roi_campaign",
+    "shopId": 2,
+    "expectedSignals": [
+      "low_roi",
+      "high_spend_low_conversion"
+    ],
+    "recommendedTools": [
+      "ad.query_performance",
+      "ad.query_low_roi",
+      "ad.suggest_budget"
+    ]
+  }
+]

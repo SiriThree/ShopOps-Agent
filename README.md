@@ -287,7 +287,11 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 | Tool invocation success rate | 98.6% |
 | Approval decision accuracy | 100% |
 | Config effect accuracy | 100% |
-| 最近全量测试 | 83 tests, 0 failures, 8 skipped |
+| Resume baseline tasks | 120 |
+| Resume baseline tool calls | 462 |
+| Resume baseline business samples | 80 |
+| Resume baseline anomaly recall | 88.5% |
+| 最近全量测试 | 86 tests, 0 failures, 8 skipped |
 
 评测覆盖：
 
@@ -342,6 +346,7 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-model-gateway-demo.ps1 -
 
 - [Agent 工作台作品集演示脚本](docs/Agent工作台作品集演示脚本.md)
 - [ShopOps 作品集量化报告](docs/ShopOps-portfolio-report.md)
+- [ShopOps 简历量化基线](docs/ShopOps-resume-baseline.md)
 - [ShopOps 作品集中文演示讲稿](docs/ShopOps作品集中文演示讲稿.md)
 - [Olist 真实数据接入说明](docs/Olist真实数据接入说明.md)
 - [Agent 评测基线与作品集数据](docs/Agent评测基线与作品集数据.md)
