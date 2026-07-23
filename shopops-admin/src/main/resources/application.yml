@@ -64,6 +64,11 @@ shopops:
       file: ${SHOPOPS_CONNECTOR_AD_PERFORMANCE_FILE:}
     external-reports:
       file: ${SHOPOPS_CONNECTOR_EXTERNAL_REPORTS_FILE:}
+  feishu:
+    sync:
+      enabled: ${SHOPOPS_FEISHU_SYNC_ENABLED:false}
+      webhook-url: ${SHOPOPS_FEISHU_SYNC_WEBHOOK_URL:}
+      timeout-ms: ${SHOPOPS_FEISHU_SYNC_TIMEOUT_MS:3000}
   model-gateway:
     resilience:
       fallback-enabled: ${SHOPOPS_MODEL_GATEWAY_FALLBACK_ENABLED:true}
