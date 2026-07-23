@@ -74,7 +74,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
             context.setTaskId(taskId);
             context.setTraceId(traceId);
             context.setCreateParam(param);
-            seedSteps(taskId);
+            seedSteps(taskId, param);
 
             if (agentTaskDispatcher.isAsynchronous()) {
                 transitionTask(task, AgentTaskStatus.QUEUED);
@@ -90,9 +90,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
             AgentExecutionResult result = dispatchResult.getExecutionResult();
             task.setReportId(result.getReportId());
             transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
-            task.setResultSummary(Boolean.TRUE.equals(result.getDegraded())
-                    ? "Daily review report generated with degraded evidence"
-                    : "Daily review report generated");
+            task.setResultSummary(RulePlannerService.taskResultSummary(param.getIntent(), Boolean.TRUE.equals(result.getDegraded())));
             task.setFinishedAt(LocalDateTime.now());
             appendEvent(task, AgentTaskStatus.RUNNING.name(), task.getStatus(), "TASK_FINISHED", userId);
         } catch (RuntimeException ex) {
@@ -168,14 +166,11 @@ public class InMemoryAgentTaskService implements AgentTaskService {
                 .orElseGet(List::of);
     }
 
-    private void seedSteps(Long taskId) {
+    private void seedSteps(Long taskId, AgentTaskCreateParam param) {
         List<AgentTaskStepDto> taskSteps = new ArrayList<>();
-        taskSteps.add(step(taskId, 1, "查询订单核心指标", "order.query_summary"));
-        taskSteps.add(step(taskId, 2, "查询差评风险", "comment.query_negative"));
-        taskSteps.add(step(taskId, 3, "查询待优化商品", "product.query_candidates"));
-        taskSteps.add(step(taskId, 4, "查询广告投放指标", "ad.query_performance"));
-        taskSteps.add(step(taskId, 5, "查询外部报表指标", "report.query_external_metrics"));
-        taskSteps.add(step(taskId, 6, "生成经营复盘报告", "report.generate_daily_review"));
+        for (var planStep : RulePlannerService.ruleSteps(param.getIntent())) {
+            taskSteps.add(step(taskId, planStep.getStepNo(), planStep.getStepName(), planStep.getToolCode()));
+        }
         steps.put(taskId, taskSteps);
     }
 

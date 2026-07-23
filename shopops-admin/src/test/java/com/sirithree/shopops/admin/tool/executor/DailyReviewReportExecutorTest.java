@@ -14,6 +14,7 @@ import com.sirithree.shopops.admin.organization.service.ShopRuntimeConfigService
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.common.api.CommonPage;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,6 +53,13 @@ class DailyReviewReportExecutorTest {
         assertThat((List<Object>) evidence.get("productIds")).containsExactly(1016);
         assertThat((List<Object>) evidence.get("campaignNames")).containsExactly("夏季补水主推");
         assertThat((List<Object>) evidence.get("channelNames")).containsExactly("自然搜索");
+        Map<String, Object> dataSources = (Map<String, Object>) evidence.get("dataSources");
+        Map<String, Object> orderSource = (Map<String, Object>) dataSources.get("orderSummary");
+        Map<String, Object> orderMetrics = (Map<String, Object>) orderSource.get("metrics");
+        assertThat(orderSource).containsEntry("connectorCode", "unknown");
+        assertThat(orderMetrics)
+                .containsEntry("gmv", 840.0)
+                .containsEntry("orderCount", 5);
     }
 
     @Test
@@ -85,6 +93,34 @@ class DailyReviewReportExecutorTest {
         assertThat(markdown)
                 .contains("退款率已达到配置阈值 6.00%")
                 .contains("风险评价数已达到配置阈值 1");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldGenerateSpecializedCommentRiskReportByIntent() {
+        ToolInvokeContext context = new ToolInvokeContext();
+        context.setTraceId("tr_comment_risk");
+        Map<String, Object> input = new LinkedHashMap<>(baseInput());
+        input.put("intent", "comment_risk");
+        input.put("executedToolCodes", List.of("order.query_summary", "comment.query_negative",
+                "product.query_candidates"));
+
+        ToolInvokeResult result = executor.execute(context, input);
+
+        assertThat(result.getSuccess()).isTrue();
+        Map<String, Object> data = (Map<String, Object>) result.getData();
+        Map<String, Object> evidence = (Map<String, Object>) data.get("evidence");
+        assertThat(data)
+                .containsEntry("title", "店铺差评风险专项分析");
+        assertThat(data.get("summary").toString()).contains("差评风险专项");
+        assertThat(data.get("markdown").toString())
+                .contains("# 店铺差评风险专项分析")
+                .contains("专项任务：聚焦差评原因")
+                .contains("order.query_summary, comment.query_negative, product.query_candidates");
+        assertThat(evidence)
+                .containsEntry("intent", "comment_risk");
+        assertThat((List<Object>) evidence.get("toolCodes"))
+                .containsExactly("order.query_summary", "comment.query_negative", "product.query_candidates");
     }
 
     @Test

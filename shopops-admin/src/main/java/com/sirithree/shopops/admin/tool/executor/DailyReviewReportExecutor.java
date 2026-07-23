@@ -57,6 +57,8 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         Map<String, Object> productCandidates = (Map<String, Object>) payload.getOrDefault("productCandidates", Map.of());
         Map<String, Object> adPerformance = (Map<String, Object>) payload.getOrDefault("adPerformance", Map.of());
         Map<String, Object> externalReportMetrics = (Map<String, Object>) payload.getOrDefault("externalReportMetrics", Map.of());
+        String intent = value(payload, "intent");
+        String reportTitle = reportTitle(intent);
         DateRangeView dateRange = dateRange(payload.get("dateRange"));
 
         List<Map<String, Object>> riskComments = listOfMap(negativeComments.get("riskComments"));
@@ -66,6 +68,7 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         Map<String, Object> compareYesterday = mapValue(orderSummary.get("compareYesterday"));
         Map<String, Object> compareSevenDayAvg = mapValue(orderSummary.get("compareSevenDayAvg"));
         ReportRuntimeConfig runtimeConfig = runtimeConfig(context);
+        List<String> toolCodes = toolCodes(payload);
 
         String ruleMarkdown = """
                 # 店铺每日经营复盘
@@ -153,26 +156,29 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                         runtimeConfig),
                 context.getTraceId()
         );
+        ruleMarkdown = specializeMarkdown(ruleMarkdown, intent, reportTitle, toolCodes);
         ModelReportView modelReport = modelReport(context, payload, orderSummary, negativeComments, productCandidates,
                 adPerformance, externalReportMetrics, runtimeConfig, ruleMarkdown);
         String markdown = modelReport.markdown();
 
         Map<String, Object> evidence = new LinkedHashMap<>();
+        evidence.put("intent", blank(intent) ? "daily_review" : intent);
         evidence.put("generationMode", modelReport.generationMode());
-        evidence.put("toolCodes", List.of("order.query_summary", "comment.query_negative", "product.query_candidates",
-                "ad.query_performance", "report.query_external_metrics"));
+        evidence.put("toolCodes", toolCodes);
         evidence.put("riskCommentIds", riskComments.stream().map(item -> item.get("commentId")).limit(10).toList());
         evidence.put("productIds", products.stream().map(item -> item.get("productId")).limit(10).toList());
         evidence.put("campaignNames", campaigns.stream().map(item -> item.get("campaignName")).limit(10).toList());
         evidence.put("channelNames", channels.stream().map(item -> item.get("channelName")).limit(10).toList());
         evidence.put("modelCallId", modelReport.callId());
         evidence.put("modelProviderCode", modelReport.providerCode());
+        evidence.put("dataSources", dataSourceSummary(orderSummary, negativeComments, productCandidates,
+                adPerformance, externalReportMetrics));
         evidence.put("shopConfig", runtimeConfig.evidence());
 
         Map<String, Object> data = Map.of(
-                "title", "店铺每日经营复盘",
+                "title", reportTitle,
                 "markdown", markdown,
-                "summary", summary(orderSummary, negativeComments, productCandidates, adPerformance, externalReportMetrics),
+                "summary", summary(intent, orderSummary, negativeComments, productCandidates, adPerformance, externalReportMetrics),
                 "evidence", evidence
         );
         return ToolInvokeResult.success(data, null);
@@ -221,6 +227,38 @@ public class DailyReviewReportExecutor implements ToolExecutor {
             // 报告生成不能阻塞 P0 复盘链路，失败时使用确定性的规则版报告。
         }
         return new ModelReportView(fallbackMarkdown, "RULE_FALLBACK", null, null);
+    }
+
+    private Map<String, Object> dataSourceSummary(Map<String, Object> orderSummary,
+                                                  Map<String, Object> negativeComments,
+                                                  Map<String, Object> productCandidates,
+                                                  Map<String, Object> adPerformance,
+                                                  Map<String, Object> externalReportMetrics) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("orderSummary", sourceMetrics(orderSummary,
+                "gmv", "orderCount", "refundAmount", "refundRate", "avgOrderAmount"));
+        result.put("negativeComments", sourceMetrics(negativeComments,
+                "negativeCount"));
+        result.put("productCandidates", sourceMetrics(productCandidates,
+                "candidateCount"));
+        result.put("adPerformance", sourceMetrics(adPerformance,
+                "spend", "impressions", "clicks", "ctr", "roi"));
+        result.put("externalReportMetrics", sourceMetrics(externalReportMetrics,
+                "visitorCount", "conversionRate", "favoriteCount", "cartAddCount"));
+        return result;
+    }
+
+    private Map<String, Object> sourceMetrics(Map<String, Object> source, String... metricKeys) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("connectorCode", source.getOrDefault("connectorCode", "unknown"));
+        Map<String, Object> metrics = new LinkedHashMap<>();
+        for (String metricKey : metricKeys) {
+            if (source.containsKey(metricKey)) {
+                metrics.put(metricKey, source.get(metricKey));
+            }
+        }
+        result.put("metrics", metrics);
+        return result;
     }
 
     private String modelPrompt(Map<String, Object> payload,
@@ -378,11 +416,79 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         return "评价风险优先看「%s」，商品优化优先看「%s」。".formatted(riskProduct, candidateProduct);
     }
 
-    private String summary(Map<String, Object> orderSummary,
+    private String reportTitle(String intent) {
+        if ("comment_risk".equals(intent)) {
+            return "店铺差评风险专项分析";
+        }
+        if ("product_optimization".equals(intent)) {
+            return "店铺低点击商品优化专项";
+        }
+        if ("ad_anomaly".equals(intent)) {
+            return "店铺投放异常专项检查";
+        }
+        return "店铺每日经营复盘";
+    }
+
+    private String reportIntro(String intent) {
+        if ("comment_risk".equals(intent)) {
+            return "专项任务：聚焦差评原因、受影响商品和优先处理动作。\n\n";
+        }
+        if ("product_optimization".equals(intent)) {
+            return "专项任务：聚焦低点击商品、关联评价信号和标题/主图优化建议。\n\n";
+        }
+        if ("ad_anomaly".equals(intent)) {
+            return "专项任务：聚焦高消耗低转化投放计划、平台热度对比和预算调整建议。\n\n";
+        }
+        return "";
+    }
+
+    private String specializeMarkdown(String markdown, String intent, String reportTitle, List<String> toolCodes) {
+        String specialized = markdown
+                .replaceFirst("(?m)^# .+$", "# " + reportTitle)
+                .replaceFirst("(?m)^- .*order\\.query_summary.*$", "- 工具调用链：" + String.join(", ", toolCodes));
+        String intro = reportIntro(intent);
+        if (!intro.isBlank()) {
+            specialized = specialized.replaceFirst("\\R\\R", "\n\n" + intro);
+        }
+        return specialized;
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<String> toolCodes(Map<String, Object> payload) {
+        Object value = payload.get("executedToolCodes");
+        if (value instanceof List<?> list && !list.isEmpty()) {
+            return list.stream().map(String::valueOf).toList();
+        }
+        return List.of("order.query_summary", "comment.query_negative", "product.query_candidates",
+                "ad.query_performance", "report.query_external_metrics");
+    }
+
+    private String summary(String intent,
+                           Map<String, Object> orderSummary,
                            Map<String, Object> negativeComments,
                            Map<String, Object> productCandidates,
                            Map<String, Object> adPerformance,
                            Map<String, Object> externalReportMetrics) {
+        if ("comment_risk".equals(intent)) {
+            return "差评风险专项：发现风险评价 %s 条，优先关注 %s；当前退款率 %s，建议先处理评价与售后共振风险。".formatted(
+                    number(negativeComments.get("negativeCount")),
+                    focusLine(listOfMap(negativeComments.get("riskComments")), listOfMap(productCandidates.get("products"))),
+                    percent(orderSummary.get("refundRate"))
+            );
+        }
+        if ("product_optimization".equals(intent)) {
+            return "商品优化专项：识别待优化商品 %s 个，优先处理低点击/高库存/差评关联商品；区间 GMV %s。".formatted(
+                    number(productCandidates.get("candidateCount")),
+                    number(orderSummary.get("gmv"))
+            );
+        }
+        if ("ad_anomaly".equals(intent)) {
+            return "投放异常专项：广告消耗 %s，ROI %s，平台访客 %s，建议排查高消耗低转化计划。".formatted(
+                    number(adPerformance.get("spend")),
+                    number(adPerformance.get("roi")),
+                    number(externalReportMetrics.get("visitorCount"))
+            );
+        }
         return "GMV %s，订单数 %s，退款率 %s；发现风险评价 %s 条、待优化商品 %s 个；广告消耗 %s，ROI %s；访客 %s，报表转化率 %s。".formatted(
                 number(orderSummary.get("gmv")),
                 number(orderSummary.get("orderCount")),

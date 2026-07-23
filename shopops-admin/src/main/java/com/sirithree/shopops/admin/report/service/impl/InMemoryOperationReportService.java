@@ -32,6 +32,7 @@ public class InMemoryOperationReportService implements OperationReportService {
         report.setReportNo("RPT" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + id);
         report.setReportType("daily_review");
         report.setTitle((String) reportData.get("title"));
+        report.setSummary((String) reportData.get("summary"));
         report.setMarkdown((String) reportData.get("markdown"));
         report.setEvidence(reportData.get("evidence"));
         report.setTraceId(traceId);

@@ -89,16 +89,18 @@ docs/demo-data/olist/README.md
 
 ## 5. 启动方式
 
-只接入 Olist 三类真实数据时，可以这样启动：
+默认配置已经把 Olist 三类真实数据接到文件 Connector，直接启动即可：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.connector.order-summary.file=docs/demo-data/olist/order-summary-olist.json --shopops.connector.negative-comments.file=docs/demo-data/olist/negative-comments-olist.json --shopops.connector.product-candidates.file=docs/demo-data/olist/product-candidates-olist.json"
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080"
 ```
 
 说明：
 
+- 订单、差评、商品候选三类 Connector 默认读取 `docs/demo-data/olist`
 - `ad.query_performance` 未配置时仍使用当前内置 demo 数据
 - `report.query_external_metrics` 未配置时仍使用当前内置 demo 数据
+- 如需替换文件，可覆盖 `shopops.connector.order-summary.file`、`shopops.connector.negative-comments.file`、`shopops.connector.product-candidates.file`
 
 所以这一步已经足够跑通“部分真实数据驱动”的日报 Agent 链路。
 

@@ -11,6 +11,7 @@ import com.sirithree.shopops.admin.report.service.OperationReportService;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.admin.tool.service.ToolGatewayService;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -92,14 +93,18 @@ public class SequentialAgentExecutorService implements AgentExecutorService {
 
     private Object buildInput(AgentTaskContext context, AgentPlanStep step, Map<String, Object> dataByTool) {
         if ("report.generate_daily_review".equals(step.getToolCode())) {
-            return Map.of(
-                    "orderSummary", dataByTool.getOrDefault("order.query_summary", Map.of()),
-                    "negativeComments", dataByTool.getOrDefault("comment.query_negative", Map.of("negativeCount", 0, "riskComments", java.util.List.of(), "categoryStats", Map.of())),
-                    "productCandidates", dataByTool.getOrDefault("product.query_candidates", Map.of("candidateCount", 0, "products", java.util.List.of())),
-                    "adPerformance", dataByTool.getOrDefault("ad.query_performance", Map.of("campaigns", java.util.List.of())),
-                    "externalReportMetrics", dataByTool.getOrDefault("report.query_external_metrics", Map.of("topChannels", java.util.List.of())),
-                    "dateRange", context.getCreateParam().getDateRange()
-            );
+            Map<String, Object> input = new LinkedHashMap<>();
+            input.put("orderSummary", dataByTool.getOrDefault("order.query_summary", Map.of()));
+            input.put("negativeComments", dataByTool.getOrDefault("comment.query_negative", Map.of("negativeCount", 0, "riskComments", java.util.List.of(), "categoryStats", Map.of())));
+            input.put("productCandidates", dataByTool.getOrDefault("product.query_candidates", Map.of("candidateCount", 0, "products", java.util.List.of())));
+            input.put("adPerformance", dataByTool.getOrDefault("ad.query_performance", Map.of("campaigns", java.util.List.of())));
+            input.put("externalReportMetrics", dataByTool.getOrDefault("report.query_external_metrics", Map.of("topChannels", java.util.List.of())));
+            if (context.getCreateParam().getIntent() != null && !context.getCreateParam().getIntent().isBlank()) {
+                input.put("intent", context.getCreateParam().getIntent());
+            }
+            input.put("executedToolCodes", new ArrayList<>(dataByTool.keySet()));
+            input.put("dateRange", context.getCreateParam().getDateRange());
+            return input;
         }
         return Map.of(
                 "shopId", context.getShopId(),

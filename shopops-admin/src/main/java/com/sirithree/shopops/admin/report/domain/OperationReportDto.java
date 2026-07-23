@@ -10,6 +10,7 @@ public class OperationReportDto {
     private String reportNo;
     private String reportType;
     private String title;
+    private String summary;
     private String markdown;
     private Object evidence;
     private String traceId;
@@ -72,6 +73,14 @@ public class OperationReportDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getMarkdown() {

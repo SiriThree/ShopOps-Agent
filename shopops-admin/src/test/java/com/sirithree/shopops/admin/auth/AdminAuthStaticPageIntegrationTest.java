@@ -2,6 +2,9 @@ package com.sirithree.shopops.admin.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,11 +17,14 @@ import org.springframework.http.ResponseEntity;
         properties = "shopops.persistence=memory"
 )
 class AdminAuthStaticPageIntegrationTest {
+    private static final Pattern AUTH_SCRIPT = Pattern.compile("src=\"(/admin/assets/auth-[^\"]+\\.js)\"");
+    private static final Pattern JS_ASSET = Pattern.compile("(?:src|href)=\"(/admin/assets/[^\"]+\\.js)\"");
+
     @LocalServerPort
     private int port;
 
     @Test
-    void shouldServeAdminAuthStaticPage() {
+    void shouldServeReactAdminAuthStaticPage() {
         TestRestTemplate restTemplate = new TestRestTemplate();
 
         ResponseEntity<String> response = restTemplate.getForEntity(
@@ -34,9 +40,19 @@ class AdminAuthStaticPageIntegrationTest {
                 .contains("no-store")
                 .contains("no-cache");
         assertThat(response.getBody())
-                .contains("ShopOps 认证")
-                .contains("当前用户")
-                .contains("认证审计事件")
+                .contains("shopops-ui-stack")
+                .contains("React")
+                .contains("TypeScript")
+                .contains("Axios")
+                .contains("Ant Design")
+                .contains("Auth Center")
+                .contains("<div id=\"root\"></div>")
+                .contains("/admin/assets/auth-")
+                .contains("/admin/assets/styles-");
+
+        String scripts = allScriptText(restTemplate, response.getBody());
+
+        assertThat(scripts)
                 .contains("/api/admin/auth/login")
                 .contains("/api/admin/auth/me")
                 .contains("/api/admin/auth/logout")
@@ -45,32 +61,51 @@ class AdminAuthStaticPageIntegrationTest {
                 .contains("new URLSearchParams(window.location.search)")
                 .contains("syncUrl")
                 .contains("window.history.replaceState")
-                .contains("positiveInt(params.get(\"pageNum\"), 1)")
-                .contains("positiveInt(params.get(\"pageSize\"), 10)")
+                .contains("positiveInt")
                 .contains("empty-state")
                 .contains("data-retry-list")
                 .contains("errorRow")
-                .contains("id=\"loginSubmit\"")
-                .contains("id=\"authFilterSubmit\"")
+                .contains("loginSubmit")
+                .contains("authFilterSubmit")
                 .contains("withBusy")
-                .contains("查询中")
-                .contains("重置中")
-                .contains("加载中")
-                .contains("刷新中")
-                .contains("应用中")
-                .contains("id=\"copyUser\"")
-                .contains("id=\"copyEventDetail\"")
+                .contains("copyUser")
+                .contains("copyEventDetail")
                 .contains("copyText")
                 .contains("navigator.clipboard")
                 .contains("fallbackCopy")
-                .contains("data-quick-filter=\"failure\"")
-                .contains("aria-label=\"管理导航\"")
-                .contains("任务队列")
-                .contains("审计中心")
+                .contains("data-quick-filter")
+                .contains("failure")
+                .contains("shopops.auth.token")
+                .contains("shopops.auth.user")
+                .contains("X-User-Roles")
+                .contains("Authorization")
                 .contains("/admin/dashboard.html")
                 .contains("/admin/tasks.html")
                 .contains("/admin/reports.html")
                 .contains("/admin/audit.html")
                 .contains("/admin/tools.html");
+    }
+
+    private static String authScriptPath(String body) {
+        Matcher matcher = AUTH_SCRIPT.matcher(body);
+        assertThat(matcher.find()).isTrue();
+        return matcher.group(1);
+    }
+
+    private String allScriptText(TestRestTemplate restTemplate, String body) {
+        assertThat(authScriptPath(body)).isNotBlank();
+        Matcher matcher = JS_ASSET.matcher(body);
+        return matcher.results()
+                .map(result -> result.group(1))
+                .distinct()
+                .map(path -> {
+                    ResponseEntity<String> script = restTemplate.getForEntity(
+                            "http://localhost:" + port + path,
+                            String.class
+                    );
+                    assertThat(script.getStatusCode().is2xxSuccessful()).isTrue();
+                    return script.getBody();
+                })
+                .collect(Collectors.joining("\n"));
     }
 }

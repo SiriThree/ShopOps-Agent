@@ -28,6 +28,9 @@ application-secret.yml
 # Node / frontend
 node_modules/
 dist/
+*.tsbuildinfo
+shopops-admin-ui/vite.config.js
+shopops-admin-ui/vite.config.d.ts
 
 # Third-party reference project kept locally, not committed to this repo
 mall-master/

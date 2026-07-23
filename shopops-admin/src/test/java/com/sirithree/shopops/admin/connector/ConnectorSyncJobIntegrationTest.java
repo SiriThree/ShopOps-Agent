@@ -20,6 +20,8 @@ import org.springframework.http.ResponseEntity;
         properties = "shopops.persistence=memory"
 )
 class ConnectorSyncJobIntegrationTest {
+    private static final String UNCONFIGURED_CONNECTOR_CODE = "file.external-reports";
+
     @LocalServerPort
     private int port;
 
@@ -32,7 +34,7 @@ class ConnectorSyncJobIntegrationTest {
         ResponseEntity<Map> forbidden = exchange(
                 "/api/admin/connectors/sync-jobs",
                 HttpMethod.POST,
-                Map.of("connectorCode", "file.order-summary", "remark", "operator denied"),
+                Map.of("connectorCode", UNCONFIGURED_CONNECTOR_CODE, "remark", "operator denied"),
                 operatorHeaders()
         );
         assertThat(forbidden.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
@@ -40,11 +42,11 @@ class ConnectorSyncJobIntegrationTest {
         Map<String, Object> created = dataOf(exchange(
                 "/api/admin/connectors/sync-jobs",
                 HttpMethod.POST,
-                Map.of("connectorCode", "file.order-summary", "remark", "manual sync"),
+                Map.of("connectorCode", UNCONFIGURED_CONNECTOR_CODE, "remark", "manual sync"),
                 adminHeaders()
         ).getBody());
         assertThat(created)
-                .containsEntry("connectorCode", "file.order-summary")
+                .containsEntry("connectorCode", UNCONFIGURED_CONNECTOR_CODE)
                 .containsEntry("status", "FAILED")
                 .containsEntry("attempt", 1)
                 .containsEntry("maxAttempts", 3)
@@ -65,7 +67,7 @@ class ConnectorSyncJobIntegrationTest {
                 .containsEntry("triggerType", "RETRY");
 
         Map<String, Object> page = dataOf(exchange(
-                "/api/admin/connectors/sync-jobs?status=FAILED&connectorCode=file.order-summary",
+                "/api/admin/connectors/sync-jobs?status=FAILED&connectorCode=" + UNCONFIGURED_CONNECTOR_CODE,
                 HttpMethod.GET,
                 null,
                 adminHeaders()
@@ -86,7 +88,7 @@ class ConnectorSyncJobIntegrationTest {
         List<Map<String, Object>> apiCalls = (List<Map<String, Object>>) apiCallPage.get("list");
         assertThat(apiCalls)
                 .extracting(item -> item.get("connectorCode"))
-                .containsOnly("file.order-summary");
+                .containsOnly(UNCONFIGURED_CONNECTOR_CODE);
         assertThat(apiCalls.get(0))
                 .containsEntry("jobId", jobId.intValue())
                 .containsEntry("requestMethod", "CHECK")
@@ -106,7 +108,7 @@ class ConnectorSyncJobIntegrationTest {
         List<Map<String, Object>> events = (List<Map<String, Object>>) auditPage.get("list");
         assertThat(events.get(0))
                 .containsEntry("eventStatus", "FAILURE")
-                .containsEntry("toolCode", "file.order-summary");
+                .containsEntry("toolCode", UNCONFIGURED_CONNECTOR_CODE);
     }
 
     private ResponseEntity<Map> exchange(String path, HttpMethod method, Map<String, Object> body, HttpHeaders headers) {
