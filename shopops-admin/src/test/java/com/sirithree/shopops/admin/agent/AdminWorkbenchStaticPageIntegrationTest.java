@@ -54,6 +54,7 @@ class AdminWorkbenchStaticPageIntegrationTest {
                 .contains("/api/agent/tasks/")
                 .contains("/api/admin/agent/tasks?pageNum=1&pageSize=5")
                 .contains("/api/reports/")
+                .contains("/admin/tasks.html?taskId=")
                 .contains("shopops.auth.token")
                 .contains("Authorization")
                 .contains("2018-08-07")

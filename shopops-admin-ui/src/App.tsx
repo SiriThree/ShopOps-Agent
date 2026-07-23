@@ -323,6 +323,9 @@ export default function App() {
                   title="最终报告与建议"
                   extra={
                     <Space>
+                      <Button href={selectedTaskId ? `/admin/tasks.html?taskId=${selectedTaskId}` : "/admin/tasks.html"} icon={<PlayCircleOutlined />}>
+                        任务
+                      </Button>
                       <Button href={selectedReportId ? `/admin/reports.html?reportId=${selectedReportId}` : "/admin/reports.html"} icon={<FileTextOutlined />}>
                         报告
                       </Button>
