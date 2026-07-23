@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-23 23:35:03",
+  "generatedAt": "2026-07-24 01:08:00",
   "evidenceName": "shopops-resume-claim-evidence-v1",
-  "claimCount": 14,
-  "verifiedClaimCount": 7,
+  "claimCount": 15,
+  "verifiedClaimCount": 8,
   "notVerifiedClaimCount": 7,
   "sampleTypeCounts": {
     "order_anomaly": 80,
@@ -94,6 +94,24 @@
       "howMeasured": "基于 Criteo 真实广告曝光、点击、转化、成本聚合出广告风险样例，并验证样例均被路由到广告表现查询和预算建议工具。该指标是工具路由召回，不等同于线上 ROI 模型精度。",
       "sources": [
         "docs/evaluation/public-real-business-samples.json"
+      ]
+    },
+    {
+      "key": "real_anomaly_signal_evaluation",
+      "title": "Public real-sample anomaly signal evaluation",
+      "status": "VERIFIED",
+      "value": {
+        "sampleCount": 760,
+        "passedSampleCount": 760,
+        "samplePassRate": 100.0,
+        "precision": 94.81,
+        "recall": 100.0,
+        "f1": 97.34
+      },
+      "howMeasured": "Runs scripts/run-real-anomaly-evaluation.py over public-real-business-samples.json and compares predicted anomaly signals with expectedSignals.",
+      "sources": [
+        "docs/ShopOps-real-anomaly-evaluation.json",
+        "scripts/run-real-anomaly-evaluation.py"
       ]
     },
     {

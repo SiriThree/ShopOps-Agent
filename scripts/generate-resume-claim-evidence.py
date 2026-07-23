@@ -17,6 +17,7 @@ PUBLIC_SAMPLES = EVAL_DIR / "public-real-business-samples.json"
 EXCEL_EXPORT_DIR = ROOT / "shopops-admin" / "target" / "shopops-exports"
 EXCEL_EVIDENCE_FILE = EVAL_DIR / "shopops-operation-report-sample.xlsx"
 TIMING_EVIDENCE = DOCS / "ShopOps-operation-timing-evidence.json"
+ANOMALY_EVALUATION = DOCS / "ShopOps-real-anomaly-evaluation.json"
 
 
 def read_json(path: Path) -> object:
@@ -35,6 +36,7 @@ def main() -> None:
     samples = read_json(PUBLIC_SAMPLES)
     agent_eval = read_json(TARGET_EVAL) if TARGET_EVAL.exists() else None
     timing_evidence = read_json(TIMING_EVIDENCE) if TIMING_EVIDENCE.exists() else None
+    anomaly_evaluation = read_json(ANOMALY_EVALUATION) if ANOMALY_EVALUATION.exists() else None
 
     sample_types = Counter(sample["sampleType"] for sample in samples)
     tool_counts = Counter()
@@ -108,6 +110,31 @@ def main() -> None:
         "基于 Criteo 真实广告曝光、点击、转化、成本聚合出广告风险样例，并验证样例均被路由到广告表现查询和预算建议工具。该指标是工具路由召回，不等同于线上 ROI 模型精度。",
         [str(PUBLIC_SAMPLES.relative_to(ROOT)).replace("\\", "/")],
     ))
+
+    if anomaly_evaluation is not None:
+        claims.append(verified(
+            "real_anomaly_signal_evaluation",
+            "Public real-sample anomaly signal evaluation",
+            {
+                "sampleCount": anomaly_evaluation["sampleCount"],
+                "passedSampleCount": anomaly_evaluation["passedSampleCount"],
+                "samplePassRate": anomaly_evaluation["samplePassRate"],
+                "precision": anomaly_evaluation["precision"],
+                "recall": anomaly_evaluation["recall"],
+                "f1": anomaly_evaluation["f1"],
+            },
+            "Runs scripts/run-real-anomaly-evaluation.py over public-real-business-samples.json and compares predicted anomaly signals with expectedSignals.",
+            [
+                str(ANOMALY_EVALUATION.relative_to(ROOT)).replace("\\", "/"),
+                "scripts/run-real-anomaly-evaluation.py",
+            ],
+        ))
+    else:
+        claims.append(not_verified(
+            "real_anomaly_signal_evaluation",
+            "Public real-sample anomaly signal evaluation",
+            "Missing docs/ShopOps-real-anomaly-evaluation.json; run python scripts/run-real-anomaly-evaluation.py first.",
+        ))
 
     if agent_eval is not None:
         claims.append(verified(
