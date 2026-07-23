@@ -384,3 +384,73 @@ export type ConnectorApiCallLog = {
   detail?: Record<string, unknown> | string;
   createdAt?: string;
 };
+
+export type OrganizationOverview = {
+  tenantTotal?: number;
+  shopTotal?: number;
+  userTotal?: number;
+  activeMemberTotal?: number;
+  disabledMemberTotal?: number;
+};
+
+export type OrganizationUser = {
+  userId?: number | string;
+  username?: string;
+  displayName?: string;
+  email?: string;
+  phone?: string;
+  status?: string;
+  tenantRoles?: string[];
+  shopRoles?: string[];
+  createdAt?: string;
+};
+
+export type Tenant = {
+  tenantId?: number | string;
+  tenantNo?: string;
+  tenantName?: string;
+  status?: string;
+  planType?: string;
+  contactName?: string;
+  contactPhone?: string;
+  shopCount?: number;
+  memberCount?: number;
+  createdAt?: string;
+};
+
+export type Shop = {
+  shopId?: number | string;
+  tenantId?: number | string;
+  shopNo?: string;
+  shopName?: string;
+  platformType?: string;
+  ownerId?: number | string;
+  status?: string;
+  memberCount?: number;
+  createdAt?: string;
+};
+
+export type ShopMember = {
+  memberId?: number | string;
+  tenantId?: number | string;
+  shopId?: number | string;
+  shopName?: string;
+  userId?: number | string;
+  username?: string;
+  displayName?: string;
+  roleCode?: string;
+  normalizedRole?: string;
+  status?: string;
+  joinedAt?: string;
+};
+
+export type ShopConfig = {
+  configId?: number | string;
+  tenantId?: number | string;
+  shopId?: number | string;
+  configKey?: string;
+  configValue?: string;
+  valueType?: string;
+  updatedBy?: number | string;
+  updatedAt?: string;
+};

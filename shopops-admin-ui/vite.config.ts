@@ -17,7 +17,8 @@ export default defineConfig({
         dashboard: "dashboard.html",
         prompts: "prompts.html",
         approvals: "approvals.html",
-        connectors: "connectors.html"
+        connectors: "connectors.html",
+        users: "users.html"
       }
     }
   },
