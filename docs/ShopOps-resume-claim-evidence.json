@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-23 22:52:17",
+  "generatedAt": "2026-07-23 23:18:44",
   "evidenceName": "shopops-resume-claim-evidence-v1",
-  "claimCount": 13,
-  "verifiedClaimCount": 6,
+  "claimCount": 14,
+  "verifiedClaimCount": 7,
   "notVerifiedClaimCount": 7,
   "sampleTypeCounts": {
     "order_anomaly": 80,
@@ -114,6 +114,23 @@
       ]
     },
     {
+      "key": "excel_real_xlsx_export",
+      "title": "真实 Excel xlsx 文件导出",
+      "status": "VERIFIED",
+      "value": {
+        "filePath": "docs/evaluation/shopops-operation-report-sample.xlsx",
+        "sourceFilePath": "shopops-admin/target/shopops-exports/shopops-operation-report-XLSX-20260723231649512.xlsx",
+        "fileSizeBytes": 3744,
+        "worksheetCount": 4
+      },
+      "howMeasured": "通过工具网关调用 report.export_excel 生成本地 .xlsx 文件，并用 ZipFile 校验 workbook 与 4 个 worksheet XML。",
+      "sources": [
+        "docs/evaluation/shopops-operation-report-sample.xlsx",
+        "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ReportExportExcelExecutor.java",
+        "shopops-admin/src/test/java/com/sirithree/shopops/admin/tool/McpToolCatalogIntegrationTest.java"
+      ]
+    },
+    {
       "key": "manual_35min_to_agent_4min",
       "title": "单次日报从 35 分钟降到 4 分钟",
       "status": "NOT_VERIFIED",
@@ -152,8 +169,8 @@
       "key": "excel_real_export_time_saving",
       "title": "Excel 导出真实耗时收益",
       "status": "NOT_VERIFIED",
-      "reason": "当前 report.export_excel 是 demo connector，只返回文件名和 sheet 列表，没有生成真实 xlsx 文件，也没有人工导出耗时对比。",
-      "required": "实现真实 xlsx 导出并记录生成耗时；再和人工整理 Excel 的计时实验对比。"
+      "reason": "当前已经能生成真实 xlsx 文件，但还没有人工整理 Excel 的计时对比，因此不能写“节省多少时间”。",
+      "required": "记录同一份运营日报人工整理 Excel 的耗时，并与 report.export_excel 的接口耗时/文件生成耗时对比。"
     },
     {
       "key": "anomaly_recall_88_5",

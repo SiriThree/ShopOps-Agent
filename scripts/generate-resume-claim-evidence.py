@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import shutil
+import zipfile
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -12,6 +14,8 @@ EVAL_DIR = DOCS / "evaluation"
 TARGET_EVAL = ROOT / "shopops-admin" / "target" / "evaluation" / "agent-eval-portfolio-summary.json"
 PUBLIC_BASELINE = DOCS / "ShopOps-public-real-baseline.json"
 PUBLIC_SAMPLES = EVAL_DIR / "public-real-business-samples.json"
+EXCEL_EXPORT_DIR = ROOT / "shopops-admin" / "target" / "shopops-exports"
+EXCEL_EVIDENCE_FILE = EVAL_DIR / "shopops-operation-report-sample.xlsx"
 
 
 def read_json(path: Path) -> object:
@@ -125,6 +129,33 @@ def main() -> None:
             "缺少 shopops-admin/target/evaluation/agent-eval-portfolio-summary.json；需要先执行 scripts/run-agent-evaluation.ps1。",
         ))
 
+    excel_export = latest_valid_xlsx()
+    if excel_export is None:
+        claims.append(not_verified(
+            "excel_real_xlsx_export",
+            "真实 Excel xlsx 文件导出",
+            "缺少可校验的 shopops-admin/target/shopops-exports/*.xlsx；需要先执行 McpToolCatalogIntegrationTest 或通过工具网关调用 report.export_excel。",
+            required="mvn -pl shopops-admin \"-Dtest=McpToolCatalogIntegrationTest\" test",
+        ))
+    else:
+        shutil.copy2(excel_export, EXCEL_EVIDENCE_FILE)
+        claims.append(verified(
+            "excel_real_xlsx_export",
+            "真实 Excel xlsx 文件导出",
+            {
+                "filePath": str(EXCEL_EVIDENCE_FILE.relative_to(ROOT)).replace("\\", "/"),
+                "sourceFilePath": str(excel_export.relative_to(ROOT)).replace("\\", "/"),
+                "fileSizeBytes": EXCEL_EVIDENCE_FILE.stat().st_size,
+                "worksheetCount": 4,
+            },
+            "通过工具网关调用 report.export_excel 生成本地 .xlsx 文件，并用 ZipFile 校验 workbook 与 4 个 worksheet XML。",
+            [
+                str(EXCEL_EVIDENCE_FILE.relative_to(ROOT)).replace("\\", "/"),
+                "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ReportExportExcelExecutor.java",
+                "shopops-admin/src/test/java/com/sirithree/shopops/admin/tool/McpToolCatalogIntegrationTest.java",
+            ],
+        ))
+
     claims.extend([
         not_verified(
             "manual_35min_to_agent_4min",
@@ -159,8 +190,8 @@ def main() -> None:
         not_verified(
             "excel_real_export_time_saving",
             "Excel 导出真实耗时收益",
-            "当前 report.export_excel 是 demo connector，只返回文件名和 sheet 列表，没有生成真实 xlsx 文件，也没有人工导出耗时对比。",
-            required="实现真实 xlsx 导出并记录生成耗时；再和人工整理 Excel 的计时实验对比。",
+            "当前已经能生成真实 xlsx 文件，但还没有人工整理 Excel 的计时对比，因此不能写“节省多少时间”。",
+            required="记录同一份运营日报人工整理 Excel 的耗时，并与 report.export_excel 的接口耗时/文件生成耗时对比。",
         ),
         not_verified(
             "anomaly_recall_88_5",
@@ -211,6 +242,27 @@ def not_verified(key: str, title: str, reason: str, **extra: object) -> dict[str
     }
     item.update(extra)
     return item
+
+
+def latest_valid_xlsx() -> Path | None:
+    if not EXCEL_EXPORT_DIR.exists():
+        return None
+    files = sorted(EXCEL_EXPORT_DIR.glob("*.xlsx"), key=lambda path: path.stat().st_mtime, reverse=True)
+    for path in files:
+        try:
+            with zipfile.ZipFile(path) as workbook:
+                required = [
+                    "xl/workbook.xml",
+                    "xl/worksheets/sheet1.xml",
+                    "xl/worksheets/sheet2.xml",
+                    "xl/worksheets/sheet3.xml",
+                    "xl/worksheets/sheet4.xml",
+                ]
+                if all(workbook.getinfo(name) for name in required):
+                    return path
+        except (KeyError, zipfile.BadZipFile):
+            continue
+    return None
 
 
 def render_markdown(summary: dict[str, object]) -> str:

@@ -2,8 +2,11 @@ package com.sirithree.shopops.admin.tool;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipFile;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -63,7 +66,7 @@ class McpToolCatalogIntegrationTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    void shouldInvokeNewAnalysisAndCollaborationTools() {
+    void shouldInvokeNewAnalysisAndCollaborationTools() throws Exception {
         Map<String, Object> productResult = dataOf(post(
                 "/api/tools/product.optimize_title/invoke",
                 Map.of("shopId", 1, "productId", "PRD-LOW-001"),
@@ -85,7 +88,21 @@ class McpToolCatalogIntegrationTest {
                 .containsEntry("status", "SUCCESS");
         assertThat((Map<String, Object>) excelResult.get("data"))
                 .containsEntry("status", "EXPORTED")
-                .containsEntry("fileName", "shopops-operation-report-demo.xlsx");
+                .containsEntry("mode", "local-xlsx")
+                .containsEntry("sheetCount", 4);
+        Map<String, Object> excelData = (Map<String, Object>) excelResult.get("data");
+        assertThat(String.valueOf(excelData.get("fileName"))).endsWith(".xlsx");
+        Path exportedFile = Path.of(String.valueOf(excelData.get("filePath")));
+        assertThat(exportedFile).exists().isRegularFile();
+        assertThat(((Number) excelData.get("fileSizeBytes")).longValue()).isEqualTo(Files.size(exportedFile));
+        assertThat(((Number) excelData.get("durationMs")).longValue()).isGreaterThanOrEqualTo(0L);
+        try (ZipFile zip = new ZipFile(exportedFile.toFile())) {
+            assertThat(zip.getEntry("xl/workbook.xml")).isNotNull();
+            assertThat(zip.getEntry("xl/worksheets/sheet1.xml")).isNotNull();
+            assertThat(zip.getEntry("xl/worksheets/sheet2.xml")).isNotNull();
+            assertThat(zip.getEntry("xl/worksheets/sheet3.xml")).isNotNull();
+            assertThat(zip.getEntry("xl/worksheets/sheet4.xml")).isNotNull();
+        }
 
         Map<String, Object> feishuResult = dataOf(post(
                 "/api/tools/feishu.sync_report/invoke",
