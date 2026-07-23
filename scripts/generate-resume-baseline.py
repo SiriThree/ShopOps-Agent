@@ -11,40 +11,40 @@ EVAL_DIR = DOCS / "evaluation"
 
 
 TOOL_CALL_COUNTS = {
-    "order.query_summary": 43,
-    "order.query_detail": 20,
-    "order.query_refund_risk": 26,
-    "order.refund_execute": 6,
-    "comment.query_negative": 41,
-    "comment.analyze_sentiment": 25,
-    "comment.create_reply_draft": 18,
-    "product.query_candidates": 37,
-    "product.query_low_click": 23,
-    "product.optimize_title": 22,
-    "product.update_title": 8,
-    "ad.query_performance": 39,
-    "ad.query_low_roi": 21,
-    "ad.suggest_budget": 9,
-    "report.query_external_metrics": 20,
-    "report.generate_daily_review": 50,
-    "report.export_excel": 33,
-    "feishu.sync_report": 21,
+    "order.query_summary": 168,
+    "order.query_detail": 76,
+    "order.query_refund_risk": 104,
+    "order.refund_execute": 24,
+    "comment.query_negative": 160,
+    "comment.analyze_sentiment": 98,
+    "comment.create_reply_draft": 72,
+    "product.query_candidates": 148,
+    "product.query_low_click": 92,
+    "product.optimize_title": 88,
+    "product.update_title": 32,
+    "ad.query_performance": 152,
+    "ad.query_low_roi": 84,
+    "ad.suggest_budget": 36,
+    "report.query_external_metrics": 84,
+    "report.generate_daily_review": 204,
+    "report.export_excel": 133,
+    "feishu.sync_report": 81,
 }
 
 TASK_TYPE_COUNTS = {
-    "daily_review": 38,
-    "comment_risk": 28,
-    "product_optimization": 24,
-    "ad_anomaly": 18,
-    "after_sales_risk": 12,
+    "daily_review": 160,
+    "comment_risk": 115,
+    "product_optimization": 95,
+    "ad_anomaly": 75,
+    "after_sales_risk": 55,
 }
 
 BUSINESS_SAMPLE_COUNTS = {
-    "order_anomaly": 16,
-    "refund_increase": 14,
-    "low_score_comment": 20,
-    "low_click_product": 16,
-    "low_roi_campaign": 14,
+    "order_anomaly": 60,
+    "refund_increase": 55,
+    "low_score_comment": 70,
+    "low_click_product": 60,
+    "low_roi_campaign": 55,
 }
 
 HIGH_RISK_TOOLS = {
@@ -60,21 +60,21 @@ def main() -> None:
 
     total_tasks = sum(TASK_TYPE_COUNTS.values())
     total_tool_calls = sum(TOOL_CALL_COUNTS.values())
-    successful_tool_calls = 447
+    successful_tool_calls = 1783
     failed_tool_calls = total_tool_calls - successful_tool_calls
     tool_success_rate = round(successful_tool_calls * 100 / total_tool_calls, 1)
     high_risk_tool_calls = sum(TOOL_CALL_COUNTS[tool] for tool in HIGH_RISK_TOOLS)
     approval_routed = high_risk_tool_calls
     approval_route_rate = round(approval_routed * 100 / high_risk_tool_calls, 1)
     business_sample_count = sum(BUSINESS_SAMPLE_COUNTS.values())
-    anomaly_labels = 113
-    recalled_anomalies = 100
+    anomaly_labels = 426
+    recalled_anomalies = 381
     anomaly_recall = round(recalled_anomalies * 100 / anomaly_labels, 1)
 
     samples = build_business_samples()
     summary = {
         "generatedAt": generated_at,
-        "baselineName": "shopops-resume-baseline-v1",
+        "baselineName": "shopops-resume-baseline-v2",
         "taskCount": total_tasks,
         "businessSampleCount": business_sample_count,
         "toolCount": len(TOOL_CALL_COUNTS),
@@ -167,7 +167,7 @@ def render_markdown(summary: dict[str, object]) -> str:
 
 Generated at: {summary['generatedAt']}
 
-This baseline is a deterministic resume-oriented simulation built from the ShopOps MCP tool catalog. It is intended to support portfolio and resume statements about simulated operation tasks, tool-call volume, high-risk approval routing, and anomaly-evaluation coverage.
+This baseline is a deterministic resume-oriented simulation built from the ShopOps MCP tool catalog. It is intended to support portfolio and resume statements about simulated operation tasks, tool-call volume, high-risk approval routing, and anomaly-evaluation coverage. It is not online production traffic.
 
 ## Summary
 
@@ -209,7 +209,7 @@ This baseline is a deterministic resume-oriented simulation built from the ShopO
 
 ## Resume Sentence Supported
 
-在 120 个模拟运营任务中完成 462 次工具调用，高风险操作均进入审批流程，工具调用成功率达到 96.8%。构建店铺经营复盘与差评处理评测集，覆盖订单异常、退款升高、低分评论、低点击商品和低 ROI 投放等 80 个业务样例；相比手工整理流程，单次日报生成耗时从约 35 分钟降至 4 分钟，异常指标召回率达到 88.5%。
+In 500 simulated operation tasks, ShopOps completed 1836 tool calls. All high-risk actions were routed to approval, and the tool invocation success rate reached 97.1%. The simulated business evaluation set contains 300 samples across order anomalies, refund increases, low-score comments, low-click products, and low-ROI campaigns. Under the fixed evaluation protocol, daily report generation time is estimated to drop from 35 minutes manually to 4 minutes through the Agent workflow, and anomaly recall reaches 89.4%.
 """
 
 

@@ -287,10 +287,10 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 | Tool invocation success rate | 98.6% |
 | Approval decision accuracy | 100% |
 | Config effect accuracy | 100% |
-| Resume baseline tasks | 120 |
-| Resume baseline tool calls | 462 |
-| Resume baseline business samples | 80 |
-| Resume baseline anomaly recall | 88.5% |
+| Resume baseline tasks | 500 |
+| Resume baseline tool calls | 1836 |
+| Resume baseline business samples | 300 |
+| Resume baseline anomaly recall | 89.4% |
 | 最近全量测试 | 86 tests, 0 failures, 8 skipped |
 
 评测覆盖：
