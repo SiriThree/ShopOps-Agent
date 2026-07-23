@@ -51,7 +51,8 @@ const navItems = [
   ["/admin/approvals.html", "审批"],
   ["/admin/connectors.html", "Connector"],
   ["/admin/prompts.html", "Prompt"],
-  ["/admin/users.html", "组织"]
+  ["/admin/users.html", "组织"],
+  ["/admin/auth.html", "认证"]
 ];
 
 type ToolFilters = {
