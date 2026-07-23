@@ -2,6 +2,9 @@ package com.sirithree.shopops.admin.dashboard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,11 +17,14 @@ import org.springframework.http.ResponseEntity;
         properties = "shopops.persistence=memory"
 )
 class AdminDashboardStaticPageIntegrationTest {
+    private static final Pattern DASHBOARD_SCRIPT = Pattern.compile("src=\"(/admin/assets/dashboard-[^\"]+\\.js)\"");
+    private static final Pattern JS_ASSET = Pattern.compile("(?:src|href)=\"(/admin/assets/[^\"]+\\.js)\"");
+
     @LocalServerPort
     private int port;
 
     @Test
-    void shouldServeAdminDashboardStaticPage() {
+    void shouldServeReactAdminDashboardStaticPage() {
         TestRestTemplate restTemplate = new TestRestTemplate();
 
         ResponseEntity<String> response = restTemplate.getForEntity(
@@ -35,13 +41,20 @@ class AdminDashboardStaticPageIntegrationTest {
                 .contains("no-cache");
         assertThat(response.getBody())
                 .contains("ShopOps 管理总览")
-                .contains("后台模块")
-                .contains("任务队列")
-                .contains("工具日志")
-                .contains("提示词模板")
-                .contains("系统健康")
-                .contains("审计风险")
-                .contains("最近失败")
+                .contains("shopops-ui-stack")
+                .contains("React")
+                .contains("TypeScript")
+                .contains("Axios")
+                .contains("ECharts")
+                .contains("Ant Design")
+                .contains("Dashboard overview")
+                .contains("<div id=\"root\"></div>")
+                .contains("/admin/assets/dashboard-")
+                .contains("/admin/assets/styles-");
+
+        String scripts = allScriptText(restTemplate, response.getBody());
+
+        assertThat(scripts)
                 .contains("/api/admin/dashboard/summary")
                 .contains("/api/system/health")
                 .contains("/api/admin/audit/high-risk")
@@ -50,18 +63,46 @@ class AdminDashboardStaticPageIntegrationTest {
                 .contains("renderHealthError")
                 .contains("renderRiskError")
                 .contains("panel-state")
-                .contains("withBusy")
-                .contains("刷新中")
+                .contains("dashboard-task-chart")
+                .contains("taskModuleHint")
+                .contains("auditModuleHint")
                 .contains("shopops.auth.token")
                 .contains("shopops.auth.user")
                 .contains("Authorization")
-                .contains("applyStoredSession")
-                .contains("id=\"sessionLine\"")
+                .contains("taskMetrics")
+                .contains("successRate")
+                .contains("avgLatencyMs")
+                .contains("recentFailedEvents")
+                .contains("recentElevatedRiskEvents")
+                .contains("checks")
+                .contains("toolRegistry")
+                .contains("/admin/workbench.html")
                 .contains("/admin/tasks.html?status=FAILED")
                 .contains("/admin/tools.html?status=FAILED")
                 .contains("/admin/prompts.html")
-                .contains("taskModuleHint")
-                .contains("auditModuleHint")
                 .contains("/admin/audit.html");
+    }
+
+    private static String dashboardScriptPath(String body) {
+        Matcher matcher = DASHBOARD_SCRIPT.matcher(body);
+        assertThat(matcher.find()).isTrue();
+        return matcher.group(1);
+    }
+
+    private String allScriptText(TestRestTemplate restTemplate, String body) {
+        assertThat(dashboardScriptPath(body)).isNotBlank();
+        Matcher matcher = JS_ASSET.matcher(body);
+        return matcher.results()
+                .map(result -> result.group(1))
+                .distinct()
+                .map(path -> {
+                    ResponseEntity<String> script = restTemplate.getForEntity(
+                            "http://localhost:" + port + path,
+                            String.class
+                    );
+                    assertThat(script.getStatusCode().is2xxSuccessful()).isTrue();
+                    return script.getBody();
+                })
+                .collect(Collectors.joining("\n"));
     }
 }

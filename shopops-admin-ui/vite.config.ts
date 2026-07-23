@@ -13,7 +13,8 @@ export default defineConfig({
         reports: "reports.html",
         tasks: "tasks.html",
         audit: "audit.html",
-        tools: "tools.html"
+        tools: "tools.html",
+        dashboard: "dashboard.html"
       }
     }
   },

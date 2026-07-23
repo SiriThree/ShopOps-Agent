@@ -46,8 +46,14 @@ export type AgentTaskEvent = {
 
 export type AgentTaskMetrics = {
   total?: number;
+  created?: number;
+  queued?: number;
+  running?: number;
   success?: number;
   failed?: number;
+  degraded?: number;
+  successRate?: number;
+  avgLatencyMs?: number;
   statusBreakdown?: Record<string, number>;
 };
 
@@ -200,4 +206,27 @@ export type ToolInvokeResult = {
   approvalId?: number | string;
   errorCode?: string;
   errorMessage?: string;
+};
+
+export type DashboardSummary = {
+  taskMetrics?: AgentTaskMetrics;
+  reportTotal?: number;
+  toolCallTotal?: number;
+  toolCallFailed?: number;
+  recentFailedEvents?: AgentTaskEvent[];
+  generatedAt?: string;
+};
+
+export type SystemHealth = {
+  status?: string;
+  persistence?: string;
+  timestamp?: string;
+  checks?: Record<string, HealthCheck>;
+};
+
+export type HealthCheck = {
+  status?: string;
+  mode?: string;
+  message?: string;
+  [key: string]: unknown;
 };
