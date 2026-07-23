@@ -16,6 +16,7 @@ PUBLIC_BASELINE = DOCS / "ShopOps-public-real-baseline.json"
 PUBLIC_SAMPLES = EVAL_DIR / "public-real-business-samples.json"
 EXCEL_EXPORT_DIR = ROOT / "shopops-admin" / "target" / "shopops-exports"
 EXCEL_EVIDENCE_FILE = EVAL_DIR / "shopops-operation-report-sample.xlsx"
+TIMING_EVIDENCE = DOCS / "ShopOps-operation-timing-evidence.json"
 
 
 def read_json(path: Path) -> object:
@@ -33,6 +34,7 @@ def main() -> None:
     baseline = read_json(PUBLIC_BASELINE)
     samples = read_json(PUBLIC_SAMPLES)
     agent_eval = read_json(TARGET_EVAL) if TARGET_EVAL.exists() else None
+    timing_evidence = read_json(TIMING_EVIDENCE) if TIMING_EVIDENCE.exists() else None
 
     sample_types = Counter(sample["sampleType"] for sample in samples)
     tool_counts = Counter()
@@ -160,8 +162,9 @@ def main() -> None:
         not_verified(
             "manual_35min_to_agent_4min",
             "单次日报从 35 分钟降到 4 分钟",
-            "当前没有人工手工流程计时记录，也没有 Agent 端 4 分钟真实耗时。已有自动化评测的任务耗时是毫秒级本地测试，不能换算成运营人员节省时间。",
+            "当前没有至少 5 次人工手工流程计时记录，不能把机器侧耗时换算成运营人员节省时间。",
             required="设计人工基线实验：固定任务、固定输入表、记录至少 5 次手工整理耗时；同时记录同一任务的 Agent 端到端耗时。",
+            timingEvidence=timing_evidence.get("timeSavingSummary") if timing_evidence else "Run scripts/generate-operation-timing-evidence.py first.",
         ),
         not_verified(
             "old_120_simulated_tasks",
@@ -192,6 +195,7 @@ def main() -> None:
             "Excel 导出真实耗时收益",
             "当前已经能生成真实 xlsx 文件，但还没有人工整理 Excel 的计时对比，因此不能写“节省多少时间”。",
             required="记录同一份运营日报人工整理 Excel 的耗时，并与 report.export_excel 的接口耗时/文件生成耗时对比。",
+            timingEvidence=timing_evidence.get("manualSummary") if timing_evidence else "Run scripts/generate-operation-timing-evidence.py first.",
         ),
         not_verified(
             "anomaly_recall_88_5",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23 23:18:44",
+  "generatedAt": "2026-07-23 23:35:03",
   "evidenceName": "shopops-resume-claim-evidence-v1",
   "claimCount": 14,
   "verifiedClaimCount": 7,
@@ -134,8 +134,16 @@
       "key": "manual_35min_to_agent_4min",
       "title": "单次日报从 35 分钟降到 4 分钟",
       "status": "NOT_VERIFIED",
-      "reason": "当前没有人工手工流程计时记录，也没有 Agent 端 4 分钟真实耗时。已有自动化评测的任务耗时是毫秒级本地测试，不能换算成运营人员节省时间。",
-      "required": "设计人工基线实验：固定任务、固定输入表、记录至少 5 次手工整理耗时；同时记录同一任务的 Agent 端到端耗时。"
+      "reason": "当前没有至少 5 次人工手工流程计时记录，不能把机器侧耗时换算成运营人员节省时间。",
+      "required": "设计人工基线实验：固定任务、固定输入表、记录至少 5 次手工整理耗时；同时记录同一任务的 Agent 端到端耗时。",
+      "timingEvidence": {
+        "manualAvgMinutes": null,
+        "agentDemoMinutes": 0.0007,
+        "savedMinutes": null,
+        "reductionRatePercent": null,
+        "claimable": false,
+        "requirement": "Need at least 5 manual timing records in docs/evaluation/manual-report-timing.csv and a fresh Olist demo summary."
+      }
     },
     {
       "key": "old_120_simulated_tasks",
@@ -170,7 +178,15 @@
       "title": "Excel 导出真实耗时收益",
       "status": "NOT_VERIFIED",
       "reason": "当前已经能生成真实 xlsx 文件，但还没有人工整理 Excel 的计时对比，因此不能写“节省多少时间”。",
-      "required": "记录同一份运营日报人工整理 Excel 的耗时，并与 report.export_excel 的接口耗时/文件生成耗时对比。"
+      "required": "记录同一份运营日报人工整理 Excel 的耗时，并与 report.export_excel 的接口耗时/文件生成耗时对比。",
+      "timingEvidence": {
+        "recordCount": 0,
+        "avgManualMinutes": 0,
+        "minManualMinutes": 0,
+        "maxManualMinutes": 0,
+        "source": "docs/evaluation/manual-report-timing.csv",
+        "template": "docs/evaluation/manual-report-timing-template.csv"
+      }
     },
     {
       "key": "anomaly_recall_88_5",

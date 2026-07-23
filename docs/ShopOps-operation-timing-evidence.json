@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-23 23:35:03",
+  "evidenceName": "shopops-operation-timing-evidence-v1",
+  "machineTimingVerified": true,
+  "excelExportVerified": true,
+  "manualTimingRecordCount": 0,
+  "timeSavingClaimStatus": "NOT_VERIFIED",
+  "machineSummary": {
+    "agentEvalCaseCount": 14,
+    "agentEvalPassedCaseCount": 14,
+    "agentEvalAvgDurationMs": 33.8,
+    "agentEvalMinDurationMs": 16.0,
+    "agentEvalP50DurationMs": 23.0,
+    "agentEvalP95DurationMs": 39.0,
+    "agentEvalMaxDurationMs": 144.0,
+    "olistDemoTaskDurationMs": 43.9,
+    "excelExportFileSizeBytes": 3744,
+    "excelExportWorksheetCount": 4,
+    "excelExportEvidenceFile": "docs/evaluation/shopops-operation-report-sample.xlsx"
+  },
+  "manualSummary": {
+    "recordCount": 0,
+    "avgManualMinutes": 0,
+    "minManualMinutes": 0,
+    "maxManualMinutes": 0,
+    "source": "docs/evaluation/manual-report-timing.csv",
+    "template": "docs/evaluation/manual-report-timing-template.csv"
+  },
+  "timeSavingSummary": {
+    "manualAvgMinutes": null,
+    "agentDemoMinutes": 0.0007,
+    "savedMinutes": null,
+    "reductionRatePercent": null,
+    "claimable": false,
+    "requirement": "Need at least 5 manual timing records in docs/evaluation/manual-report-timing.csv and a fresh Olist demo summary."
+  },
+  "sources": [
+    "shopops-admin/target/evaluation/agent-eval-portfolio-summary.json",
+    "shopops-admin/target/demo/olist-agentops-demo-summary.json",
+    "docs/evaluation/shopops-operation-report-sample.xlsx",
+    "docs/evaluation/manual-report-timing.csv"
+  ]
+}

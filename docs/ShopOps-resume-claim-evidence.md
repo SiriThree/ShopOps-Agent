@@ -1,6 +1,6 @@
 # ShopOps Resume Claim Evidence
 
-Generated at: 2026-07-23 23:18:44
+Generated at: 2026-07-23 23:35:03
 
 This file separates resume-safe metrics from metrics that still need real experiments or third-party API integration.
 
@@ -23,7 +23,7 @@ This file separates resume-safe metrics from metrics that still need real experi
 | low_roi_ad_detection_proxy | VERIFIED | {"labeledAdRiskSamples": 180, "routedAdRiskSamples": 180, "routingRecall": 100.0} |
 | agent_evaluation_suite | VERIFIED | {"caseCount": 14, "passedCaseCount": 14, "toolInvocationSuccessRate": 98.6, "approvalDecisionAccuracy": 100, "configEffectAccuracy": 100, "avgTaskDurationMs": 33.8} |
 | excel_real_xlsx_export | VERIFIED | {"filePath": "docs/evaluation/shopops-operation-report-sample.xlsx", "sourceFilePath": "shopops-admin/target/shopops-exports/shopops-operation-report-XLSX-20260723231649512.xlsx", "fileSizeBytes": 3744, "worksheetCount": 4} |
-| manual_35min_to_agent_4min | NOT_VERIFIED | 当前没有人工手工流程计时记录，也没有 Agent 端 4 分钟真实耗时。已有自动化评测的任务耗时是毫秒级本地测试，不能换算成运营人员节省时间。 |
+| manual_35min_to_agent_4min | NOT_VERIFIED | 当前没有至少 5 次人工手工流程计时记录，不能把机器侧耗时换算成运营人员节省时间。 |
 | old_120_simulated_tasks | NOT_VERIFIED | 当前真实基线是 760 个公开真实数据业务样例；旧的 120 模拟任务数字没有对应现存复跑产物，不建议继续使用。 |
 | old_462_tool_calls | NOT_VERIFIED | 当前可复跑的公开真实基线为 2670 次派生 MCP 工具调用；旧 462 没有对应现存复跑产物。 |
 | old_96_8_tool_success_rate | NOT_VERIFIED | 当前 Maven 自动化评测真实产物中的工具调用成功率为 98.6%；旧 96.8% 不建议继续使用。 |
