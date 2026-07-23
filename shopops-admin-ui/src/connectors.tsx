@@ -27,12 +27,12 @@ import {
   EyeInvisibleOutlined,
   KeyOutlined,
   ReloadOutlined,
-  RobotOutlined,
   SearchOutlined,
   StopOutlined,
   ThunderboltOutlined
 } from "@ant-design/icons";
 import { apiGet, apiPost, readStoredContext, type RequestContext } from "./api";
+import { AdminSidebar } from "./AdminSidebar";
 import type {
   ConnectorApiCallLog,
   ConnectorCredential,
@@ -44,22 +44,9 @@ import type {
 import { numberText } from "./utils";
 import "./styles.css";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 const { Paragraph, Text, Title } = Typography;
 
-const navItems = [
-  ["/admin/workbench.html", "Agent 工作台"],
-  ["/admin/dashboard.html", "Dashboard"],
-  ["/admin/tasks.html", "任务"],
-  ["/admin/reports.html", "报告"],
-  ["/admin/audit.html", "审计"],
-  ["/admin/tools.html", "工具"],
-  ["/admin/approvals.html", "审批"],
-  ["/admin/connectors.html", "Connector"],
-  ["/admin/prompts.html", "Prompt"],
-  ["/admin/users.html", "组织"],
-  ["/admin/auth.html", "认证"]
-];
 
 const configKeys = [
   "shopops.connector.order-summary.file",
@@ -292,22 +279,7 @@ function ConnectorsApp() {
       data-api-patterns="/api/admin/connectors/status /api/admin/connectors/credentials /api/admin/connectors/credentials/${connectorCode}/test /api/admin/connectors/credentials/${connectorCode}/disable /api/admin/connectors/sync-jobs /api/admin/connectors/sync-jobs/${jobId}/retry /api/admin/connectors/api-call-logs"
       data-config-keys={configKeys.join(" ")}
     >
-      <Sider width={232} className="sidebar">
-        <div className="brand">
-          <RobotOutlined />
-          <div>
-            <strong>ShopOps</strong>
-            <span>Agent 运营平台</span>
-          </div>
-        </div>
-        <nav className="nav" aria-label="后台导航">
-          {navItems.map(([href, label]) => (
-            <a key={href} className={href.includes("connectors") ? "active" : ""} href={href}>
-              {label}
-            </a>
-          ))}
-        </nav>
-      </Sider>
+      <AdminSidebar active="connectors" />
       <Layout>
         <Header className="topbar">
           <div>

@@ -26,34 +26,21 @@ import {
   LoginOutlined,
   LogoutOutlined,
   ReloadOutlined,
-  RobotOutlined,
   SearchOutlined,
   UserOutlined
 } from "@ant-design/icons";
 import { apiGet, apiPost, readStoredContext, type RequestContext } from "./api";
+import { AdminSidebar } from "./AdminSidebar";
 import type { AuthAuditEvent, CurrentUser, LoginResult, LogoutResult, PageResult } from "./types";
 import { numberText } from "./utils";
 import "./styles.css";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 const { Paragraph, Text, Title } = Typography;
 
 const TOKEN_KEY = "shopops.auth.token";
 const USER_KEY = "shopops.auth.user";
 
-const navItems = [
-  ["/admin/workbench.html", "Agent 工作台"],
-  ["/admin/dashboard.html", "Dashboard"],
-  ["/admin/tasks.html", "任务队列"],
-  ["/admin/reports.html", "报告"],
-  ["/admin/audit.html", "审计中心"],
-  ["/admin/tools.html", "工具"],
-  ["/admin/approvals.html", "审批"],
-  ["/admin/connectors.html", "Connector"],
-  ["/admin/prompts.html", "Prompt"],
-  ["/admin/users.html", "组织"],
-  ["/admin/auth.html", "认证"]
-];
 
 const eventTypes = ["LOGIN", "LOGOUT", "ACCESS_DENIED", "ORG_USER_CREATED", "ORG_MEMBER_UPDATED"];
 const eventStatuses = ["SUCCESS", "FAILURE"];
@@ -264,22 +251,7 @@ function AuthApp() {
       className="app-shell"
       data-page-markers="applyInitialQuery new URLSearchParams(window.location.search) syncUrl window.history.replaceState positiveInt(params.get(&quot;pageNum&quot;), 1) positiveInt(params.get(&quot;pageSize&quot;), 10) empty-state data-retry-list errorRow withBusy copyText navigator.clipboard fallbackCopy"
     >
-      <Sider width={232} className="sidebar">
-        <div className="brand">
-          <RobotOutlined />
-          <div>
-            <strong>ShopOps</strong>
-            <span>Agent 运营平台</span>
-          </div>
-        </div>
-        <nav className="nav" aria-label="后台导航">
-          {navItems.map(([href, label]) => (
-            <a key={href} className={href.includes("auth") ? "active" : ""} href={href}>
-              {label}
-            </a>
-          ))}
-        </nav>
-      </Sider>
+      <AdminSidebar active="auth" />
       <Layout>
         <Header className="topbar">
           <div>

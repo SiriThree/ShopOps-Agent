@@ -36,26 +36,14 @@ import {
   ToolOutlined
 } from "@ant-design/icons";
 import { apiGet, apiPost, readStoredContext, type RequestContext } from "./api";
+import { AdminSidebar } from "./AdminSidebar";
 import type { ApprovalBatchDecisionResult, ApprovalRequest, PageResult } from "./types";
 import { numberText } from "./utils";
 import "./styles.css";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 const { Paragraph, Text, Title } = Typography;
 
-const navItems = [
-  ["/admin/workbench.html", "Agent 工作台"],
-  ["/admin/dashboard.html", "Dashboard"],
-  ["/admin/tasks.html", "任务"],
-  ["/admin/reports.html", "报告"],
-  ["/admin/audit.html", "审计"],
-  ["/admin/tools.html", "工具"],
-  ["/admin/approvals.html", "审批"],
-  ["/admin/connectors.html", "Connector"],
-  ["/admin/prompts.html", "Prompt"],
-  ["/admin/users.html", "组织"],
-  ["/admin/auth.html", "认证"]
-];
 
 const statusOptions = ["PENDING", "APPROVED", "REJECTED", "WITHDRAWN", "EXPIRED"];
 const riskOptions = ["HIGH", "MEDIUM", "LOW"];
@@ -283,22 +271,7 @@ function ApprovalsApp() {
       data-page-markers="applyInitialQuery syncUrl positiveInt(params.get(&quot;pageNum&quot;), 1) positiveInt(params.get(&quot;pageSize&quot;), 20) navigator.clipboard fallbackCopy"
       data-api-patterns="/api/admin/approvals/${approvalId}/${action} /api/admin/approvals/batch/${action} /api/admin/approvals/expire-stale"
     >
-      <Sider width={232} className="sidebar">
-        <div className="brand">
-          <RobotOutlined />
-          <div>
-            <strong>ShopOps</strong>
-            <span>Agent 运营平台</span>
-          </div>
-        </div>
-        <nav className="nav" aria-label="后台导航">
-          {navItems.map(([href, label]) => (
-            <a key={href} className={href.includes("approvals") ? "active" : ""} href={href}>
-              {label}
-            </a>
-          ))}
-        </nav>
-      </Sider>
+      <AdminSidebar active="approvals" />
       <Layout>
         <Header className="topbar">
           <div>

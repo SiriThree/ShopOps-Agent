@@ -25,15 +25,15 @@ import {
   FileTextOutlined,
   PlayCircleOutlined,
   ReloadOutlined,
-  RobotOutlined,
   ThunderboltOutlined
 } from "@ant-design/icons";
 import { apiGet, apiPost, readStoredContext, type RequestContext } from "./api";
+import { AdminSidebar } from "./AdminSidebar";
 import type { AgentStep, AgentTask, DataSourceEvidence, NaturalLanguageResult, OperationReport, PageResult } from "./types";
 import { isTerminalStatus, moneyText, normalizeEvidence, numberText, parseOutput, percentText } from "./utils";
 import { MetricsChart } from "./MetricsChart";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 const { Text, Title, Paragraph } = Typography;
 
 const OLIST_DEMO_DATE = "2018-08-07";
@@ -47,19 +47,6 @@ const quickPrompts = [
   { title: "投放异常", prompt: "检查高消耗低转化投放计划，输出异常原因和调整建议。" }
 ];
 
-const navItems = [
-  ["/admin/workbench.html", "Agent 工作台"],
-  ["/admin/dashboard.html", "Dashboard"],
-  ["/admin/tasks.html", "任务"],
-  ["/admin/reports.html", "报告"],
-  ["/admin/audit.html", "审计"],
-  ["/admin/tools.html", "工具"],
-  ["/admin/approvals.html", "审批"],
-  ["/admin/connectors.html", "Connector"],
-  ["/admin/prompts.html", "Prompt"],
-  ["/admin/users.html", "组织"],
-  ["/admin/auth.html", "认证"]
-];
 
 export default function App() {
   const storedContext = readStoredContext();
@@ -214,22 +201,7 @@ export default function App() {
 
   return (
     <Layout className="app-shell">
-      <Sider width={232} className="sidebar">
-        <div className="brand">
-          <RobotOutlined />
-          <div>
-            <strong>ShopOps</strong>
-            <span>Agent 运营平台</span>
-          </div>
-        </div>
-        <nav className="nav">
-          {navItems.map(([href, label]) => (
-            <a className={href.includes("workbench") ? "active" : ""} href={href} key={href}>
-              {label}
-            </a>
-          ))}
-        </nav>
-      </Sider>
+      <AdminSidebar active="workbench" />
       <Layout>
         <Header className="topbar">
           <div>

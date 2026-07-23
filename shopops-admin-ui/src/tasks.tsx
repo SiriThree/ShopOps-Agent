@@ -29,11 +29,11 @@ import {
   PlayCircleOutlined,
   ReloadOutlined,
   RetweetOutlined,
-  RobotOutlined,
   SearchOutlined,
   ToolOutlined
 } from "@ant-design/icons";
 import { apiGet, apiPost, readStoredContext, type RequestContext } from "./api";
+import { AdminSidebar } from "./AdminSidebar";
 import type {
   AgentTask,
   AgentTaskCreateResult,
@@ -48,22 +48,9 @@ import { numberText, percentText } from "./utils";
 import { TaskMetricsChart } from "./TaskMetricsChart";
 import "./styles.css";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 const { Paragraph, Text, Title } = Typography;
 
-const navItems = [
-  ["/admin/workbench.html", "Agent 工作台"],
-  ["/admin/dashboard.html", "Dashboard"],
-  ["/admin/tasks.html", "任务"],
-  ["/admin/reports.html", "报告"],
-  ["/admin/audit.html", "审计"],
-  ["/admin/tools.html", "工具"],
-  ["/admin/approvals.html", "审批"],
-  ["/admin/connectors.html", "Connector"],
-  ["/admin/prompts.html", "Prompt"],
-  ["/admin/users.html", "组织"],
-  ["/admin/auth.html", "认证"]
-];
 
 type TaskFilters = {
   status?: string;
@@ -283,22 +270,7 @@ function TasksApp() {
 
   return (
     <Layout className="app-shell">
-      <Sider width={232} className="sidebar">
-        <div className="brand">
-          <RobotOutlined />
-          <div>
-            <strong>ShopOps</strong>
-            <span>Agent 运营平台</span>
-          </div>
-        </div>
-        <nav className="nav">
-          {navItems.map(([href, label]) => (
-            <a className={href.includes("tasks") ? "active" : ""} href={href} key={href}>
-              {label}
-            </a>
-          ))}
-        </nav>
-      </Sider>
+      <AdminSidebar active="tasks" />
       <Layout>
         <Header className="topbar">
           <div>

@@ -30,27 +30,15 @@ import {
   ToolOutlined
 } from "@ant-design/icons";
 import { apiGet, readStoredContext, type RequestContext } from "./api";
+import { AdminSidebar } from "./AdminSidebar";
 import type { AuditRiskSummary, DashboardSummary, HealthCheck, SystemHealth } from "./types";
 import { numberText, percentText } from "./utils";
 import { DashboardTaskChart } from "./DashboardTaskChart";
 import "./styles.css";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 const { Paragraph, Text, Title } = Typography;
 
-const navItems = [
-  ["/admin/workbench.html", "Agent 工作台"],
-  ["/admin/dashboard.html", "Dashboard"],
-  ["/admin/tasks.html", "任务"],
-  ["/admin/reports.html", "报告"],
-  ["/admin/audit.html", "审计"],
-  ["/admin/tools.html", "工具"],
-  ["/admin/approvals.html", "审批"],
-  ["/admin/connectors.html", "Connector"],
-  ["/admin/prompts.html", "Prompt"],
-  ["/admin/users.html", "组织"],
-  ["/admin/auth.html", "认证"]
-];
 
 function DashboardApp() {
   const storedContext = readStoredContext();
@@ -104,19 +92,7 @@ function DashboardApp() {
 
   return (
     <Layout className="app-shell">
-      <Sider className="side-nav" width={220}>
-        <div className="brand">
-          <RobotOutlined />
-          <span>ShopOps</span>
-        </div>
-        <nav aria-label="管理导航">
-          {navItems.map(([href, label]) => (
-            <a className={href.includes("dashboard") ? "active" : ""} href={href} key={href}>
-              {label}
-            </a>
-          ))}
-        </nav>
-      </Sider>
+      <AdminSidebar active="dashboard" />
       <Layout>
         <Header className="topbar">
           <div>
