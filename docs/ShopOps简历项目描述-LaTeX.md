@@ -10,7 +10,7 @@
 
   \resumeItem{针对退款执行、商品标题修改和广告预算建议等高风险动作，设计\textbf{权限控制、人工审批、确认语校验、店铺运行配置和全链路审计}，将 Agent 的自动化能力限制在可追踪、可回滚、可人工确认的治理框架内；基于公开真实数据构建 \textbf{760 个业务样例}，派生 \textbf{2670 次工具调用}，其中 \textbf{450 次}进入审批链路。}
 
-  \resumeItem{基于 \textbf{Olist、Criteo、UCI Online Retail、Store Sales} 构建多源真实数据评测，覆盖订单异常、低分评价、低转化广告和退款/取消代理等场景；自动化评测 \textbf{14/14} 通过，工具调用成功率 \textbf{98.6\%}，异常信号评测达到 \textbf{94.81\% Precision、100\% Recall}，并完成 \textbf{100 次}真实飞书 webhook 同步验收。}
+  \resumeItem{基于公开真实的\textbf{电商订单、用户评价、广告归因、零售交易和节假日事件数据}构建多源评测，覆盖订单异常、低分评价、低转化广告和退款/取消代理等场景；自动化评测 \textbf{14/14} 通过，工具调用成功率 \textbf{98.6\%}，异常信号评测达到 \textbf{94.81\% Precision、100\% Recall}，并完成 \textbf{100 次}真实飞书 webhook 同步验收。}
 \end{itemize}
 ```
 
