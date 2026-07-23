@@ -277,3 +277,36 @@ export type ModelCallLog = {
   metadata?: Record<string, unknown>;
   createdAt?: string;
 };
+
+export type ApprovalRequest = {
+  approvalId?: number | string;
+  tenantId?: number | string;
+  shopId?: number | string;
+  approvalNo?: string;
+  sourceType?: string;
+  sourceId?: number | string;
+  taskId?: number | string;
+  stepId?: number | string;
+  traceId?: string;
+  toolCode?: string;
+  riskLevel?: string;
+  title?: string;
+  reason?: string;
+  inputSummary?: string;
+  status?: string;
+  requesterId?: number | string;
+  requesterName?: string;
+  approverId?: number | string;
+  approverName?: string;
+  decisionComment?: string;
+  createdAt?: string;
+  decidedAt?: string;
+};
+
+export type ApprovalBatchDecisionResult = {
+  requestedCount?: number;
+  successCount?: number;
+  failedCount?: number;
+  succeeded?: ApprovalRequest[];
+  failedApprovalIds?: Array<number | string>;
+};

@@ -15,7 +15,8 @@ export default defineConfig({
         audit: "audit.html",
         tools: "tools.html",
         dashboard: "dashboard.html",
-        prompts: "prompts.html"
+        prompts: "prompts.html",
+        approvals: "approvals.html"
       }
     }
   },
