@@ -361,6 +361,7 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-model-gateway-demo.ps1 -
 - [ShopOps Olist 真实数据基线](docs/ShopOps-olist-real-baseline.md)
 - [ShopOps 简历量化基线](docs/ShopOps-resume-baseline.md)
 - [Feishu 同步 Webhook 验收说明](docs/Feishu同步Webhook验收说明.md)
+- [Feishu 批量同步验收记录](docs/Feishu批量同步验收记录.md)
 - [ShopOps 作品集中文演示讲稿](docs/ShopOps作品集中文演示讲稿.md)
 - [Olist 真实数据接入说明](docs/Olist真实数据接入说明.md)
 - [Agent 评测基线与作品集数据](docs/Agent评测基线与作品集数据.md)
