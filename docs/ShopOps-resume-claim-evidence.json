@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-24 01:08:00",
+  "generatedAt": "2026-07-24 01:44:37",
   "evidenceName": "shopops-resume-claim-evidence-v1",
   "claimCount": 15,
-  "verifiedClaimCount": 8,
-  "notVerifiedClaimCount": 7,
+  "verifiedClaimCount": 9,
+  "notVerifiedClaimCount": 6,
   "sampleTypeCounts": {
     "order_anomaly": 80,
     "refund_increase": 70,
@@ -137,8 +137,8 @@
       "status": "VERIFIED",
       "value": {
         "filePath": "docs/evaluation/shopops-operation-report-sample.xlsx",
-        "sourceFilePath": "shopops-admin/target/shopops-exports/shopops-operation-report-XLSX-20260723231649512.xlsx",
-        "fileSizeBytes": 3744,
+        "sourceFilePath": "shopops-admin/target/shopops-exports/shopops-operation-report-XLSX-20260724011620095.xlsx",
+        "fileSizeBytes": 3742,
         "worksheetCount": 4
       },
       "howMeasured": "通过工具网关调用 report.export_excel 生成本地 .xlsx 文件，并用 ZipFile 校验 workbook 与 4 个 worksheet XML。",
@@ -146,6 +146,25 @@
         "docs/evaluation/shopops-operation-report-sample.xlsx",
         "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ReportExportExcelExecutor.java",
         "shopops-admin/src/test/java/com/sirithree/shopops/admin/tool/McpToolCatalogIntegrationTest.java"
+      ]
+    },
+    {
+      "key": "feishu_real_sync_success_rate",
+      "title": "Feishu webhook batch sync success rate",
+      "status": "VERIFIED",
+      "value": {
+        "requestCount": 100,
+        "successCount": 100,
+        "successRate": 100,
+        "webhookModeRate": 100,
+        "http200Rate": 100,
+        "avgLatencyMs": 311.9
+      },
+      "howMeasured": "Runs scripts/run-feishu-webhook-batch.ps1 against a configured Feishu custom-bot webhook and records ShopOps tool success, webhook mode, HTTP 200, and latency.",
+      "sources": [
+        "docs/evaluation/feishu-webhook-batch-summary.json",
+        "docs/evaluation/feishu-webhook-batch-details.csv",
+        "scripts/run-feishu-webhook-batch.ps1"
       ]
     },
     {
@@ -183,13 +202,6 @@
       "status": "NOT_VERIFIED",
       "reason": "当前 Maven 自动化评测真实产物中的工具调用成功率为 98.6%；旧 96.8% 不建议继续使用。",
       "replacement": "使用 agent_evaluation_suite.toolInvocationSuccessRate。"
-    },
-    {
-      "key": "feishu_real_sync_success_rate",
-      "title": "飞书同步真实成功率",
-      "status": "NOT_VERIFIED",
-      "reason": "当前 feishu.sync_report 是 demo connector，返回 feishu.example.com，不是飞书开放平台真实 API 调用。",
-      "required": "接入飞书开放平台 app_id/app_secret 或 webhook，记录真实 API 响应和失败重试日志。"
     },
     {
       "key": "excel_real_export_time_saving",

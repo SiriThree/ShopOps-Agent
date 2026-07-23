@@ -29,21 +29,28 @@ $env:SHOPOPS_FEISHU_SYNC_TIMEOUT_MS="3000"
 Start or restart the backend from that same shell:
 
 ```powershell
-mvn -pl shopops-admin -am spring-boot:run
+mvn -pl shopops-admin spring-boot:run
 ```
 
-## Run 20 Requests
+If Maven cannot resolve `shopops-common`, install it once:
+
+```powershell
+mvn -pl shopops-common install -DskipTests
+mvn -pl shopops-admin spring-boot:run
+```
+
+## Run 100 Requests
 
 Open another PowerShell window and run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/run-feishu-webhook-batch.ps1 -Count 20 -DelayMs 300
+powershell -ExecutionPolicy Bypass -File scripts/run-feishu-webhook-batch.ps1 -Count 100 -DelayMs 300
 ```
 
-For a stronger success-rate claim, run 50 requests:
+The script also supports smaller smoke tests:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/run-feishu-webhook-batch.ps1 -Count 50 -DelayMs 300
+powershell -ExecutionPolicy Bypass -File scripts/run-feishu-webhook-batch.ps1 -Count 20 -DelayMs 300
 ```
 
 ## Evidence Files
@@ -57,10 +64,28 @@ The runner writes:
 
 Keep an additional screenshot of the Feishu group receiving messages and a snippet of backend logs for `/api/tools/feishu.sync_report/invoke`.
 
+## Latest Local Result
+
+| Metric | Value |
+| --- | ---: |
+| Request count | 100 |
+| Success count | 100 |
+| Success rate | 100% |
+| Webhook mode rate | 100% |
+| HTTP 200 rate | 100% |
+| Average latency | 311.9 ms |
+| Min latency | 244.01 ms |
+| Max latency | 835.9 ms |
+
+Evidence files:
+
+- `docs/evaluation/feishu-webhook-batch-summary.json`
+- `docs/evaluation/feishu-webhook-batch-details.csv`
+
 ## Resume-Safe Wording
 
-After a successful 20-request run:
+After a successful 100-request run:
 
-> Verified configurable Feishu webhook sync with 20 repeated ShopOps tool invocations, recording HTTP delivery status, latency, and success-rate evidence.
+> Verified configurable Feishu webhook sync with 100 repeated ShopOps tool invocations, recording 100% HTTP 200 delivery and 311.9 ms average end-to-end latency.
 
 Only write a numeric success rate after the batch file exists and the number comes from `feishu-webhook-batch-summary.json`.

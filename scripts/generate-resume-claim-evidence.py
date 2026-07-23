@@ -18,6 +18,7 @@ EXCEL_EXPORT_DIR = ROOT / "shopops-admin" / "target" / "shopops-exports"
 EXCEL_EVIDENCE_FILE = EVAL_DIR / "shopops-operation-report-sample.xlsx"
 TIMING_EVIDENCE = DOCS / "ShopOps-operation-timing-evidence.json"
 ANOMALY_EVALUATION = DOCS / "ShopOps-real-anomaly-evaluation.json"
+FEISHU_BATCH_EVIDENCE = EVAL_DIR / "feishu-webhook-batch-summary.json"
 
 
 def read_json(path: Path) -> object:
@@ -37,6 +38,7 @@ def main() -> None:
     agent_eval = read_json(TARGET_EVAL) if TARGET_EVAL.exists() else None
     timing_evidence = read_json(TIMING_EVIDENCE) if TIMING_EVIDENCE.exists() else None
     anomaly_evaluation = read_json(ANOMALY_EVALUATION) if ANOMALY_EVALUATION.exists() else None
+    feishu_batch_evidence = read_json(FEISHU_BATCH_EVIDENCE) if FEISHU_BATCH_EVIDENCE.exists() else None
 
     sample_types = Counter(sample["sampleType"] for sample in samples)
     tool_counts = Counter()
@@ -185,6 +187,26 @@ def main() -> None:
             ],
         ))
 
+    if feishu_batch_evidence is not None:
+        claims.append(verified(
+            "feishu_real_sync_success_rate",
+            "Feishu webhook batch sync success rate",
+            {
+                "requestCount": feishu_batch_evidence["requestCount"],
+                "successCount": feishu_batch_evidence["successCount"],
+                "successRate": feishu_batch_evidence["successRate"],
+                "webhookModeRate": feishu_batch_evidence["webhookModeRate"],
+                "http200Rate": feishu_batch_evidence["http200Rate"],
+                "avgLatencyMs": feishu_batch_evidence["avgLatencyMs"],
+            },
+            "Runs scripts/run-feishu-webhook-batch.ps1 against a configured Feishu custom-bot webhook and records ShopOps tool success, webhook mode, HTTP 200, and latency.",
+            [
+                "docs/evaluation/feishu-webhook-batch-summary.json",
+                "docs/evaluation/feishu-webhook-batch-details.csv",
+                "scripts/run-feishu-webhook-batch.ps1",
+            ],
+        ))
+
     claims.extend([
         not_verified(
             "manual_35min_to_agent_4min",
@@ -231,6 +253,15 @@ def main() -> None:
             replacement="使用 low_roi_ad_detection_proxy.routingRecall，并明确称为工具路由召回。",
         ),
     ])
+
+    if feishu_batch_evidence is not None:
+        claims = [
+            claim for claim in claims
+            if not (
+                claim["key"] == "feishu_real_sync_success_rate"
+                and claim["status"] == "NOT_VERIFIED"
+            )
+        ]
 
     summary = {
         "generatedAt": generated_at,
