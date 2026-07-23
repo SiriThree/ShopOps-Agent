@@ -310,3 +310,77 @@ export type ApprovalBatchDecisionResult = {
   succeeded?: ApprovalRequest[];
   failedApprovalIds?: Array<number | string>;
 };
+
+export type ConnectorStatus = {
+  connectorCode?: string;
+  connectorName?: string;
+  category?: string;
+  propertyKey?: string;
+  configured?: boolean;
+  available?: boolean;
+  status?: string;
+  configuredPath?: string;
+  message?: string;
+  lastCheckedAt?: string;
+};
+
+export type ConnectorCredential = {
+  connectorCode?: string;
+  credentialType?: string;
+  maskedSecret?: string;
+  configured?: boolean;
+  enabled?: boolean;
+  status?: string;
+  expiresAt?: string;
+  rotationStatus?: string;
+  rotationMessage?: string;
+  daysUntilExpiry?: number;
+  updatedBy?: number | string;
+  updatedAt?: string;
+};
+
+export type ConnectorCredentialTestResult = {
+  connectorCode?: string;
+  success?: boolean;
+  status?: string;
+  message?: string;
+  testedAt?: string;
+};
+
+export type ConnectorSyncJob = {
+  jobId?: number | string;
+  tenantId?: number | string;
+  shopId?: number | string;
+  connectorCode?: string;
+  status?: string;
+  attempt?: number;
+  maxAttempts?: number;
+  triggerType?: string;
+  createdBy?: number | string;
+  requestId?: string;
+  message?: string;
+  detail?: Record<string, unknown> | string;
+  startedAt?: string;
+  finishedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type ConnectorApiCallLog = {
+  logId?: number | string;
+  tenantId?: number | string;
+  shopId?: number | string;
+  jobId?: number | string;
+  connectorCode?: string;
+  requestMethod?: string;
+  endpoint?: string;
+  requestTarget?: string;
+  status?: string;
+  statusCode?: number;
+  latencyMs?: number;
+  errorCode?: string;
+  errorMessage?: string;
+  requestId?: string;
+  detail?: Record<string, unknown> | string;
+  createdAt?: string;
+};

@@ -16,7 +16,8 @@ export default defineConfig({
         tools: "tools.html",
         dashboard: "dashboard.html",
         prompts: "prompts.html",
-        approvals: "approvals.html"
+        approvals: "approvals.html",
+        connectors: "connectors.html"
       }
     }
   },
