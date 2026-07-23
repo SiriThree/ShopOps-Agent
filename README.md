@@ -287,10 +287,13 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 | Tool invocation success rate | 98.6% |
 | Approval decision accuracy | 100% |
 | Config effect accuracy | 100% |
-| Resume baseline tasks | 500 |
-| Resume baseline tool calls | 1836 |
-| Resume baseline business samples | 300 |
-| Resume baseline anomaly recall | 89.4% |
+| Olist real orders | 99441 |
+| Olist real reviews | 99224 |
+| Olist real products | 32951 |
+| Olist real-data business samples | 400 |
+| Olist derived MCP tool calls | 1350 |
+| Olist high-risk approval-routed calls | 150 |
+| Olist anomaly recall | 91.75% |
 | 最近全量测试 | 86 tests, 0 failures, 8 skipped |
 
 评测覆盖：
@@ -346,6 +349,7 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-model-gateway-demo.ps1 -
 
 - [Agent 工作台作品集演示脚本](docs/Agent工作台作品集演示脚本.md)
 - [ShopOps 作品集量化报告](docs/ShopOps-portfolio-report.md)
+- [ShopOps Olist 真实数据基线](docs/ShopOps-olist-real-baseline.md)
 - [ShopOps 简历量化基线](docs/ShopOps-resume-baseline.md)
 - [ShopOps 作品集中文演示讲稿](docs/ShopOps作品集中文演示讲稿.md)
 - [Olist 真实数据接入说明](docs/Olist真实数据接入说明.md)
