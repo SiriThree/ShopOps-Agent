@@ -15,7 +15,7 @@ ShopOps Agent 是一个面向电商运营场景的 AgentOps 管理平台。项�
 - 审批与风控：高风险工具支持人工审批、确认语校验、审批撤回、批量处理和过期处理。
 - 店铺运行配置：退款率阈值、差评阈值、审批开关、模型策略可按店铺配置，并在 Agent 执行中真实生效。
 - 全链路审计：任务、工具、报告、审批、模型调用、配置变更都可追踪，便于排障和验收展示。
-- 真实数据演示：已接入 Olist 公开电商数据，覆盖订单、评价、商品候选三类业务输入。
+- 真实数据演示：已接入 Olist 公开电商数据作为日报主链路，并用 Criteo、UCI Online Retail、Store Sales 构建公开多源真实数据基线。
 - React 管理前端：管理后台已迁移到 React + TypeScript + Axios + ECharts + Ant Design。
 - 量化评测基线：提供 Agent 评测脚本、作品集报告和可复现的验收数据。
 
@@ -34,7 +34,7 @@ ShopOps Agent 是一个面向电商运营场景的 AgentOps 管理平台。项�
 | Model Gateway | 已完成基础版 | Provider、Prompt 模板、调用日志、OpenAI-compatible 适配、规则 fallback |
 | React 前端 | 已完成主页面迁移 | 工作台、Dashboard、任务、报告、审计、工具、审批、模型、组织等页面 |
 | Olist 数据 | 已完成演示版 | 订单、评价、商品候选真实数据接入 |
-| 广告/外部指标真实数据 | 待扩展 | 当前使用内置演示数据 |
+| 公开多源真实数据基线 | 已完成 v1 | Criteo 广告、UCI 退款/取消代理、Store Sales 外部事件已纳入评测基线 |
 
 ## 快速开始
 
@@ -116,8 +116,8 @@ python scripts/prepare_olist_demo.py
 说明：
 
 - Olist 不包含真实退款金额，项目使用 `canceled / unavailable` 订单支付金额作为售后风险代理值。
-- Olist 不包含真实广告投放数据，广告表现当前使用内置演示数据。
-- Olist 不包含平台外部环境指标，外部报表当前使用内置演示数据。
+- Olist 不包含真实广告投放数据，广告表现已在公开多源基线中使用 Criteo Attribution 数据补齐；当前 Olist 在线演示连接器仍可回退到内置演示数据。
+- Olist 不包含平台外部环境指标，外部事件已在公开多源基线中使用 Store Sales `holidays_events.csv` 补齐；当前 Olist 在线演示连接器仍可回退到内置演示数据。
 - Olist 不提供商品标题，当前使用英文类目和 productId 前缀生成展示名称。
 
 ## Agent 主链路
@@ -368,7 +368,7 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-model-gateway-demo.ps1 -
 
 当前边界：
 
-- Olist 只覆盖订单、评价、商品候选，广告投放和外部环境指标仍是演示数据。
+- Olist 在线演示只覆盖订单、评价、商品候选；广告投放、退款/取消代理和外部事件已进入公开多源真实数据基线，但尚未全部接成在线 Connector。
 - 当前 Agent Planner 以规则编排为主，真实模型可通过 Model Gateway 接入。
 - 当前更偏作品集演示版，距离生产级 SaaS 还需要补充更细的权限模型、监控告警和部署治理。
 
