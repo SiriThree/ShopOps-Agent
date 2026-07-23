@@ -287,13 +287,18 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 | Tool invocation success rate | 98.6% |
 | Approval decision accuracy | 100% |
 | Config effect accuracy | 100% |
+| Public real-data business samples | 760 |
+| Public real-data derived MCP tool calls | 2670 |
+| Public real-data high-risk approval-routed calls | 450 |
 | Olist real orders | 99441 |
 | Olist real reviews | 99224 |
 | Olist real products | 32951 |
-| Olist real-data business samples | 400 |
-| Olist derived MCP tool calls | 1350 |
-| Olist high-risk approval-routed calls | 150 |
-| Olist anomaly recall | 91.75% |
+| Criteo real ad impressions | 16468027 |
+| Criteo real ad clicks | 5947563 |
+| Criteo real ad conversions | 806196 |
+| UCI Online Retail lines | 541909 |
+| UCI cancellation/refund proxy lines | 10624 |
+| Store Sales holiday events | 350 |
 | 最近全量测试 | 86 tests, 0 failures, 8 skipped |
 
 评测覆盖：
@@ -349,6 +354,7 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-model-gateway-demo.ps1 -
 
 - [Agent 工作台作品集演示脚本](docs/Agent工作台作品集演示脚本.md)
 - [ShopOps 作品集量化报告](docs/ShopOps-portfolio-report.md)
+- [ShopOps 公开多源真实数据基线](docs/ShopOps-public-real-baseline.md)
 - [ShopOps Olist 真实数据基线](docs/ShopOps-olist-real-baseline.md)
 - [ShopOps 简历量化基线](docs/ShopOps-resume-baseline.md)
 - [ShopOps 作品集中文演示讲稿](docs/ShopOps作品集中文演示讲稿.md)
