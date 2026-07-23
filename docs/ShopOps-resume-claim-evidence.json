@@ -1,8 +1,9 @@
 {
-  "generatedAt": "2026-07-24 01:44:37",
+  "generatedAt": "2026-07-24 01:48:59",
   "evidenceName": "shopops-resume-claim-evidence-v1",
-  "claimCount": 15,
+  "claimCount": 16,
   "verifiedClaimCount": 9,
+  "estimatedClaimCount": 1,
   "notVerifiedClaimCount": 6,
   "sampleTypeCounts": {
     "order_anomaly": 80,
@@ -146,6 +147,24 @@
         "docs/evaluation/shopops-operation-report-sample.xlsx",
         "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ReportExportExcelExecutor.java",
         "shopops-admin/src/test/java/com/sirithree/shopops/admin/tool/McpToolCatalogIntegrationTest.java"
+      ]
+    },
+    {
+      "key": "estimated_daily_report_time_saving",
+      "title": "Estimated daily report workflow time saving",
+      "status": "ESTIMATED",
+      "value": {
+        "estimatedRecords": 5,
+        "estimatedManualAvgMinutes": 35.4,
+        "estimatedAgentAssistedAvgMinutes": 4.2,
+        "estimatedSavedMinutes": 31.2,
+        "estimatedReductionRatePercent": 88.14
+      },
+      "howEstimated": "Uses docs/evaluation/manual-report-timing-estimated.csv to estimate a fixed ecommerce operation workflow. This is not measured human timing.",
+      "sources": [
+        "docs/evaluation/manual-report-timing-estimated.csv",
+        "docs/ShopOps-operation-timing-evidence.json",
+        "scripts/generate-operation-timing-evidence.py"
       ]
     },
     {

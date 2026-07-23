@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23 23:35:03",
+  "generatedAt": "2026-07-24 01:48:54",
   "evidenceName": "shopops-operation-timing-evidence-v1",
   "machineTimingVerified": true,
   "excelExportVerified": true,
@@ -14,7 +14,7 @@
     "agentEvalP95DurationMs": 39.0,
     "agentEvalMaxDurationMs": 144.0,
     "olistDemoTaskDurationMs": 43.9,
-    "excelExportFileSizeBytes": 3744,
+    "excelExportFileSizeBytes": 3742,
     "excelExportWorksheetCount": 4,
     "excelExportEvidenceFile": "docs/evaluation/shopops-operation-report-sample.xlsx"
   },
@@ -25,6 +25,16 @@
     "maxManualMinutes": 0,
     "source": "docs/evaluation/manual-report-timing.csv",
     "template": "docs/evaluation/manual-report-timing-template.csv"
+  },
+  "estimatedTimingSummary": {
+    "status": "ESTIMATED",
+    "recordCount": 5,
+    "estimatedManualAvgMinutes": 35.4,
+    "estimatedAgentAssistedAvgMinutes": 4.2,
+    "estimatedSavedMinutes": 31.2,
+    "estimatedReductionRatePercent": 88.14,
+    "source": "docs/evaluation/manual-report-timing-estimated.csv",
+    "claimBoundary": "Estimated from fixed ecommerce operation workflow steps. Do not present as measured human timing."
   },
   "timeSavingSummary": {
     "manualAvgMinutes": null,
@@ -38,6 +48,7 @@
     "shopops-admin/target/evaluation/agent-eval-portfolio-summary.json",
     "shopops-admin/target/demo/olist-agentops-demo-summary.json",
     "docs/evaluation/shopops-operation-report-sample.xlsx",
-    "docs/evaluation/manual-report-timing.csv"
+    "docs/evaluation/manual-report-timing.csv",
+    "docs/evaluation/manual-report-timing-estimated.csv"
   ]
 }

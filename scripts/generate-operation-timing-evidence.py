@@ -16,6 +16,7 @@ DEMO_SUMMARY = ROOT / "shopops-admin" / "target" / "demo" / "olist-agentops-demo
 EXCEL_EVIDENCE = EVAL / "shopops-operation-report-sample.xlsx"
 MANUAL_TIMING = EVAL / "manual-report-timing.csv"
 MANUAL_TEMPLATE = EVAL / "manual-report-timing-template.csv"
+ESTIMATED_TIMING = EVAL / "manual-report-timing-estimated.csv"
 
 
 def read_json(path: Path) -> dict[str, object] | None:
@@ -44,6 +45,7 @@ def main() -> None:
     demo_summary = read_json(DEMO_SUMMARY)
     excel = excel_summary()
     manual = manual_summary()
+    estimated = estimated_summary()
 
     durations = []
     if agent_eval:
@@ -90,6 +92,7 @@ def main() -> None:
         "timeSavingClaimStatus": "VERIFIED" if claimable_time_saving else "NOT_VERIFIED",
         "machineSummary": machine_summary,
         "manualSummary": manual,
+        "estimatedTimingSummary": estimated,
         "timeSavingSummary": {
             "manualAvgMinutes": manual_minutes,
             "agentDemoMinutes": round(agent_minutes, 4) if agent_minutes is not None else None,
@@ -103,6 +106,7 @@ def main() -> None:
             relative(DEMO_SUMMARY),
             relative(EXCEL_EVIDENCE),
             relative(MANUAL_TIMING),
+            relative(ESTIMATED_TIMING),
         ],
     }
 
@@ -147,6 +151,36 @@ def manual_summary() -> dict[str, object]:
     }
 
 
+def estimated_summary() -> dict[str, object]:
+    manual_values = []
+    agent_values = []
+    rows = 0
+    if ESTIMATED_TIMING.exists():
+        with ESTIMATED_TIMING.open(encoding="utf-8-sig", newline="") as handle:
+            for row in csv.DictReader(handle):
+                manual = row.get("manualMinutes", "").strip()
+                agent = row.get("agentAssistedMinutes", "").strip()
+                if not manual or not agent:
+                    continue
+                rows += 1
+                manual_values.append(float(manual))
+                agent_values.append(float(agent))
+    manual_avg = round(statistics.mean(manual_values), 2) if manual_values else 0
+    agent_avg = round(statistics.mean(agent_values), 2) if agent_values else 0
+    saved = round(manual_avg - agent_avg, 2) if rows else 0
+    reduction = round((saved / manual_avg * 100.0) if manual_avg else 0.0, 2)
+    return {
+        "status": "ESTIMATED" if rows >= 5 else "MISSING",
+        "recordCount": rows,
+        "estimatedManualAvgMinutes": manual_avg,
+        "estimatedAgentAssistedAvgMinutes": agent_avg,
+        "estimatedSavedMinutes": saved,
+        "estimatedReductionRatePercent": reduction,
+        "source": relative(ESTIMATED_TIMING),
+        "claimBoundary": "Estimated from fixed ecommerce operation workflow steps. Do not present as measured human timing.",
+    }
+
+
 def excel_summary() -> dict[str, object]:
     if not EXCEL_EVIDENCE.exists():
         return {
@@ -174,6 +208,7 @@ def excel_summary() -> dict[str, object]:
 def render_markdown(summary: dict[str, object]) -> str:
     machine = summary["machineSummary"]
     manual = summary["manualSummary"]
+    estimated = summary["estimatedTimingSummary"]
     saving = summary["timeSavingSummary"]
     return f"""# ShopOps Operation Timing Evidence
 
@@ -205,6 +240,21 @@ This report records machine-side timing evidence and keeps manual time-saving cl
 
 Manual timing template: `{manual["template"]}`
 
+## Estimated Workflow Baseline
+
+| Metric | Value |
+|---|---:|
+| Estimate status | {estimated["status"]} |
+| Estimated records | {estimated["recordCount"]} |
+| Estimated manual avg minutes | {estimated["estimatedManualAvgMinutes"]} |
+| Estimated Agent-assisted avg minutes | {estimated["estimatedAgentAssistedAvgMinutes"]} |
+| Estimated saved minutes | {estimated["estimatedSavedMinutes"]} |
+| Estimated reduction rate | {estimated["estimatedReductionRatePercent"]}% |
+
+Source: `{estimated["source"]}`
+
+Boundary: {estimated["claimBoundary"]}
+
 ## Time-Saving Claim
 
 | Metric | Value |
@@ -215,7 +265,7 @@ Manual timing template: `{manual["template"]}`
 | Saved minutes | {display(saving["savedMinutes"])} |
 | Reduction rate | {display(saving["reductionRatePercent"], suffix="%")} |
 
-Do not claim a manual time-saving number until `docs/evaluation/manual-report-timing.csv` contains at least 5 measured manual runs.
+Do not claim a measured manual time-saving number until `docs/evaluation/manual-report-timing.csv` contains at least 5 measured manual runs. Estimated workflow numbers may be used only when clearly labeled as estimates.
 """
 
 

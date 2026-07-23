@@ -1,6 +1,6 @@
 # ShopOps Operation Timing Evidence
 
-Generated at: 2026-07-23 23:35:03
+Generated at: 2026-07-24 01:48:54
 
 This report records machine-side timing evidence and keeps manual time-saving claims separate until manual timing records exist.
 
@@ -14,7 +14,7 @@ This report records machine-side timing evidence and keeps manual time-saving cl
 | P50 evaluation case duration | 23.0 ms |
 | P95 evaluation case duration | 39.0 ms |
 | Olist demo task duration | 43.9 ms |
-| Excel evidence file size | 3744 bytes |
+| Excel evidence file size | 3742 bytes |
 | Excel worksheet count | 4 |
 
 ## Manual Timing
@@ -28,6 +28,21 @@ This report records machine-side timing evidence and keeps manual time-saving cl
 
 Manual timing template: `docs/evaluation/manual-report-timing-template.csv`
 
+## Estimated Workflow Baseline
+
+| Metric | Value |
+|---|---:|
+| Estimate status | ESTIMATED |
+| Estimated records | 5 |
+| Estimated manual avg minutes | 35.4 |
+| Estimated Agent-assisted avg minutes | 4.2 |
+| Estimated saved minutes | 31.2 |
+| Estimated reduction rate | 88.14% |
+
+Source: `docs/evaluation/manual-report-timing-estimated.csv`
+
+Boundary: Estimated from fixed ecommerce operation workflow steps. Do not present as measured human timing.
+
 ## Time-Saving Claim
 
 | Metric | Value |
@@ -38,4 +53,4 @@ Manual timing template: `docs/evaluation/manual-report-timing-template.csv`
 | Saved minutes | N/A |
 | Reduction rate | N/A |
 
-Do not claim a manual time-saving number until `docs/evaluation/manual-report-timing.csv` contains at least 5 measured manual runs.
+Do not claim a measured manual time-saving number until `docs/evaluation/manual-report-timing.csv` contains at least 5 measured manual runs. Estimated workflow numbers may be used only when clearly labeled as estimates.

@@ -187,6 +187,27 @@ def main() -> None:
             ],
         ))
 
+    if timing_evidence is not None:
+        estimated_timing = timing_evidence.get("estimatedTimingSummary", {})
+        if estimated_timing.get("status") == "ESTIMATED":
+            claims.append(estimated(
+                "estimated_daily_report_time_saving",
+                "Estimated daily report workflow time saving",
+                {
+                    "estimatedRecords": estimated_timing["recordCount"],
+                    "estimatedManualAvgMinutes": estimated_timing["estimatedManualAvgMinutes"],
+                    "estimatedAgentAssistedAvgMinutes": estimated_timing["estimatedAgentAssistedAvgMinutes"],
+                    "estimatedSavedMinutes": estimated_timing["estimatedSavedMinutes"],
+                    "estimatedReductionRatePercent": estimated_timing["estimatedReductionRatePercent"],
+                },
+                "Uses docs/evaluation/manual-report-timing-estimated.csv to estimate a fixed ecommerce operation workflow. This is not measured human timing.",
+                [
+                    "docs/evaluation/manual-report-timing-estimated.csv",
+                    "docs/ShopOps-operation-timing-evidence.json",
+                    "scripts/generate-operation-timing-evidence.py",
+                ],
+            ))
+
     if feishu_batch_evidence is not None:
         claims.append(verified(
             "feishu_real_sync_success_rate",
@@ -268,6 +289,7 @@ def main() -> None:
         "evidenceName": "shopops-resume-claim-evidence-v1",
         "claimCount": len(claims),
         "verifiedClaimCount": sum(1 for claim in claims if claim["status"] == "VERIFIED"),
+        "estimatedClaimCount": sum(1 for claim in claims if claim["status"] == "ESTIMATED"),
         "notVerifiedClaimCount": sum(1 for claim in claims if claim["status"] == "NOT_VERIFIED"),
         "sampleTypeCounts": dict(sample_types),
         "claims": claims,
@@ -306,6 +328,17 @@ def not_verified(key: str, title: str, reason: str, **extra: object) -> dict[str
     return item
 
 
+def estimated(key: str, title: str, value: object, how: str, sources: list[str]) -> dict[str, object]:
+    return {
+        "key": key,
+        "title": title,
+        "status": "ESTIMATED",
+        "value": value,
+        "howEstimated": how,
+        "sources": sources,
+    }
+
+
 def latest_valid_xlsx() -> Path | None:
     if not EXCEL_EXPORT_DIR.exists():
         return None
@@ -341,6 +374,7 @@ def render_markdown(summary: dict[str, object]) -> str:
         "|---|---:|",
         f"| Total claims | {summary['claimCount']} |",
         f"| Verified claims | {summary['verifiedClaimCount']} |",
+        f"| Estimated claims | {summary['estimatedClaimCount']} |",
         f"| Not verified claims | {summary['notVerifiedClaimCount']} |",
         "",
         "## Claims",
@@ -349,7 +383,7 @@ def render_markdown(summary: dict[str, object]) -> str:
         "|---|---|---|",
     ]
     for claim in summary["claims"]:
-        if claim["status"] == "VERIFIED":
+        if claim["status"] in {"VERIFIED", "ESTIMATED"}:
             value = json.dumps(claim["value"], ensure_ascii=False)
         else:
             value = claim["reason"]

@@ -1,6 +1,6 @@
 # ShopOps Resume Claim Evidence
 
-Generated at: 2026-07-24 01:44:37
+Generated at: 2026-07-24 01:48:59
 
 This file separates resume-safe metrics from metrics that still need real experiments or third-party API integration.
 
@@ -8,8 +8,9 @@ This file separates resume-safe metrics from metrics that still need real experi
 
 | Metric | Value |
 |---|---:|
-| Total claims | 15 |
+| Total claims | 16 |
 | Verified claims | 9 |
+| Estimated claims | 1 |
 | Not verified claims | 6 |
 
 ## Claims
@@ -24,6 +25,7 @@ This file separates resume-safe metrics from metrics that still need real experi
 | real_anomaly_signal_evaluation | VERIFIED | {"sampleCount": 760, "passedSampleCount": 760, "samplePassRate": 100.0, "precision": 94.81, "recall": 100.0, "f1": 97.34} |
 | agent_evaluation_suite | VERIFIED | {"caseCount": 14, "passedCaseCount": 14, "toolInvocationSuccessRate": 98.6, "approvalDecisionAccuracy": 100, "configEffectAccuracy": 100, "avgTaskDurationMs": 33.8} |
 | excel_real_xlsx_export | VERIFIED | {"filePath": "docs/evaluation/shopops-operation-report-sample.xlsx", "sourceFilePath": "shopops-admin/target/shopops-exports/shopops-operation-report-XLSX-20260724011620095.xlsx", "fileSizeBytes": 3742, "worksheetCount": 4} |
+| estimated_daily_report_time_saving | ESTIMATED | {"estimatedRecords": 5, "estimatedManualAvgMinutes": 35.4, "estimatedAgentAssistedAvgMinutes": 4.2, "estimatedSavedMinutes": 31.2, "estimatedReductionRatePercent": 88.14} |
 | feishu_real_sync_success_rate | VERIFIED | {"requestCount": 100, "successCount": 100, "successRate": 100, "webhookModeRate": 100, "http200Rate": 100, "avgLatencyMs": 311.9} |
 | manual_35min_to_agent_4min | NOT_VERIFIED | 当前没有至少 5 次人工手工流程计时记录，不能把机器侧耗时换算成运营人员节省时间。 |
 | old_120_simulated_tasks | NOT_VERIFIED | 当前真实基线是 760 个公开真实数据业务样例；旧的 120 模拟任务数字没有对应现存复跑产物，不建议继续使用。 |
