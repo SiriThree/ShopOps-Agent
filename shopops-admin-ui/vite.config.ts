@@ -12,7 +12,8 @@ export default defineConfig({
         workbench: "workbench.html",
         reports: "reports.html",
         tasks: "tasks.html",
-        audit: "audit.html"
+        audit: "audit.html",
+        tools: "tools.html"
       }
     }
   },

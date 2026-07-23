@@ -161,3 +161,43 @@ export type AuditTimelineDetail = {
   resource?: Record<string, unknown>;
   context?: Record<string, unknown>;
 };
+
+export type McpTool = {
+  toolCode?: string;
+  toolName?: string;
+  category?: string;
+  permissionCode?: string;
+  riskLevel?: string;
+  needApproval?: boolean;
+  enabled?: boolean;
+  version?: string;
+};
+
+export type ToolCallLog = {
+  id?: number | string;
+  taskId?: number | string;
+  stepId?: number | string;
+  traceId?: string;
+  spanId?: string;
+  toolCode?: string;
+  status?: string;
+  riskLevel?: string;
+  approvalId?: number | string;
+  input?: Record<string, unknown>;
+  output?: Record<string, unknown>;
+  latencyMs?: number;
+  retryCount?: number;
+  errorCode?: string;
+  errorMessage?: string;
+  createdAt?: string;
+};
+
+export type ToolInvokeResult = {
+  success?: boolean;
+  status?: string;
+  data?: unknown;
+  toolCallLogId?: number | string;
+  approvalId?: number | string;
+  errorCode?: string;
+  errorMessage?: string;
+};
