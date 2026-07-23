@@ -14,7 +14,8 @@ export default defineConfig({
         tasks: "tasks.html",
         audit: "audit.html",
         tools: "tools.html",
-        dashboard: "dashboard.html"
+        dashboard: "dashboard.html",
+        prompts: "prompts.html"
       }
     }
   },

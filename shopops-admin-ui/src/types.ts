@@ -230,3 +230,50 @@ export type HealthCheck = {
   message?: string;
   [key: string]: unknown;
 };
+
+export type PromptTemplate = {
+  promptId?: number | string;
+  tenantId?: number | string;
+  promptCode?: string;
+  promptName?: string;
+  taskType?: string;
+  templateContent?: string;
+  version?: string;
+  status?: string;
+  createdBy?: number | string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type PromptRenderResult = {
+  promptCode?: string;
+  version?: string;
+  renderedPrompt?: string;
+  variables?: Record<string, unknown>;
+};
+
+export type ModelCallLog = {
+  callId?: number | string;
+  tenantId?: number | string;
+  shopId?: number | string;
+  userId?: number | string;
+  username?: string;
+  providerCode?: string;
+  modelName?: string;
+  promptCode?: string;
+  promptVersion?: string;
+  traceId?: string;
+  taskId?: number | string;
+  reportId?: number | string;
+  status?: string;
+  promptTokens?: number;
+  completionTokens?: number;
+  totalTokens?: number;
+  latencyMs?: number;
+  errorCode?: string;
+  errorMessage?: string;
+  promptPreview?: string;
+  outputPreview?: string;
+  metadata?: Record<string, unknown>;
+  createdAt?: string;
+};
