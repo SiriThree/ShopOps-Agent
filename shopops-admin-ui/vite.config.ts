@@ -18,7 +18,8 @@ export default defineConfig({
         prompts: "prompts.html",
         approvals: "approvals.html",
         connectors: "connectors.html",
-        users: "users.html"
+        users: "users.html",
+        auth: "auth.html"
       }
     }
   },

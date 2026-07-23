@@ -454,3 +454,42 @@ export type ShopConfig = {
   updatedBy?: number | string;
   updatedAt?: string;
 };
+
+export type CurrentUser = {
+  tenantId?: number | string;
+  shopId?: number | string;
+  userId?: number | string;
+  username?: string;
+  roles?: string[];
+  authType?: string;
+  authenticated?: boolean;
+  requestId?: string;
+};
+
+export type LoginResult = {
+  tokenType?: string;
+  accessToken?: string;
+  expiresAt?: string;
+  user?: CurrentUser;
+};
+
+export type LogoutResult = {
+  tokenId?: string;
+  status?: string;
+};
+
+export type AuthAuditEvent = {
+  eventId?: number | string;
+  tenantId?: number | string;
+  shopId?: number | string;
+  userId?: number | string;
+  username?: string;
+  eventType?: string;
+  eventStatus?: string;
+  authType?: string;
+  requestId?: string;
+  clientIp?: string;
+  userAgent?: string;
+  failureReason?: string;
+  createdAt?: string;
+};
