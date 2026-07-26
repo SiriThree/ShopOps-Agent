@@ -1,6 +1,6 @@
-# ShopOps Agent
+# ShopOps
 
-ShopOps Agent 是一个面向电商运营场景的 AgentOps 管理平台。项目目标是把运营人员的自然语言任务，拆解成可编排、可审计、可审批、可配置、可评测的 Agent 执行链路。
+ShopOps 是一个面向电商运营场景的 AgentOps 管理平台。项目目标是把运营人员的自然语言任务，拆解成可编排、可审计、可审批、可配置、可评测的 Agent 执行链路。
 
 
 
