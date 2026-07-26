@@ -60,6 +60,26 @@ ShopOps Agent 是一个面向中小电商团队的运营 AgentOps 平台。它�
 - Python 3.10+
 - 可选：Docker、MySQL、Redis、RabbitMQ
 
+一键启动演示：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1
+```
+
+启动后打开：
+
+```text
+http://localhost:8080/admin/workbench.html
+```
+
+如需启动后自动打开浏览器：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -OpenBrowser
+```
+
+也可以手动分步启动：
+
 准备 Olist 演示数据：
 
 ```powershell
