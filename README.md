@@ -1,5 +1,7 @@
 # ShopOps Agent
 
+[![ShopOps CI](https://github.com/SiriThree/ShopOps-Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/SiriThree/ShopOps-Agent/actions/workflows/ci.yml)
+
 ShopOps Agent 是一个面向中小电商团队的运营 AgentOps 平台。它不是一个简单的 AI 聊天框，而是把“生成运营日报、分析差评原因、识别低点击商品、同步报表”等自然语言任务，拆解成可编排、可审计、可审批、可配置、可评测的 Agent 执行链路。
 
 当前最适合作品集展示的主线是：
@@ -68,6 +70,24 @@ powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1
 
 脚本会自动准备 Olist 演示数据、安装 `shopops-common`、启动后端，并在启动成功后打开工作台。若 `8080` 被占用，会自动尝试 `8081` 到 `8100`。
 
+如果只安装了 Docker Desktop，可以直接构建、启动并预置完整演示链路：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops-docker.ps1
+```
+
+Docker Hub 访问受限时：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops-docker.ps1 -UseChinaMirror
+```
+
+停止容器：
+
+```powershell
+docker compose -p shopops-demo -f deploy/docker-compose.demo.yml down
+```
+
 启动后访问：
 
 ```text
@@ -90,10 +110,19 @@ powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -StrictPort
 powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1
 ```
 
+一键预置完整演示链路：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/seed-shopops-demo.ps1
+```
+
+该脚本会等待服务就绪、执行健康检查，并创建经营日报任务、报告、高风险工具审批、审批后重试和审计记录。完成后会输出任务、报告、工具、审批、审计页面地址并打开工作台。默认 memory 模式下，重启后端即可清空本次运行数据并重新预置。
+
 如果后端不在 8080：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1 -Port 8081
+powershell -ExecutionPolicy Bypass -File scripts/seed-shopops-demo.ps1 -Port 8081
 ```
 
 也可以手动分步启动：
@@ -277,6 +306,8 @@ Agent 与平台能力：
 | 组织管理 | `/admin/users.html` | 管理用户、租户、店铺、成员、店铺配置 |
 
 ## 常用命令
+
+GitHub Actions 会在每次 push 和 Pull Request 时并行执行后端测试、React 前端构建以及 Docker Compose/镜像构建，工作流位于 `.github/workflows/ci.yml`。
 
 后端全量测试：
 

@@ -4,22 +4,22 @@
 
 ## 1. 启动服务
 
-默认 memory 模式即可演示完整链路：
+推荐使用一键启动脚本，它会准备 Olist 数据、安装公共模块、启动服务并自动打开 Agent 工作台：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1
 ```
 
-如果 8080 被占用，可以换端口：
+演示前在另一个 PowerShell 窗口运行健康检查：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8081"
+powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1
 ```
 
-如果要演示外部业务数据源，可以使用示例 JSON 文件启动：
+如果脚本自动切换了端口，按实际端口检查：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.connector.order-summary.file=docs/demo-data/order-summary-demo.json --shopops.connector.negative-comments.file=docs/demo-data/negative-comments-demo.json --shopops.connector.product-candidates.file=docs/demo-data/product-candidates-demo.json --shopops.connector.ad-performance.file=docs/demo-data/ad-performance-demo.json --shopops.connector.external-reports.file=docs/demo-data/external-reports-demo.json"
+powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1 -Port 8081
 ```
 
 ## 2. 一键验收演示
@@ -37,7 +37,7 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.con
 推荐按这个顺序打开页面：
 
 ```text
-/admin/dashboard.html
+/admin/workbench.html
 /admin/tasks.html
 /admin/reports.html
 /admin/tools.html
@@ -49,7 +49,7 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--shopops.con
 
 讲解节奏：
 
-1. Dashboard：先展示任务、报告、工具调用、失败和健康状态。
+1. Workbench：从自然语言发起任务，展示意图识别、执行步骤、量化结果和报告入口。
 2. Tasks：展示 Agent 任务生命周期、步骤、Report ID、Trace ID 和事件流。
 3. Reports：展示每日经营复盘报告，说明报告由工具证据链生成。
 4. Tools：展示工具注册表、权限、风险等级、调用状态和失败记录。
@@ -83,5 +83,5 @@ Model Gateway 负责屏蔽不同模型供应商差异，并统一处理调用日
 目前还没做什么：
 
 ```text
-当前重点完成的是后端治理闭环和静态管理台演示。待完成方向包括 React / Ant Design Pro 产品化前端、用户租户管理页面、多级审批、按金额阈值配置审批策略，以及 Prompt 模板高级编辑能力。
+当前已经完成 React + TypeScript + Ant Design 主页面迁移、自然语言工作台、用户租户管理、Agent 主链路和治理闭环。仍待产品化的部分主要是真实电商平台 API Connector、生产模型与凭证管理、多级审批策略、长期线上稳定性观测，以及基于真实运营人员计时的效率对照实验。
 ```

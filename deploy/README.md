@@ -1,5 +1,33 @@
 # Deploy
 
+## Portfolio demo
+
+The demo image contains the Spring Boot application, React static assets, and generated Olist connector files. It runs in memory mode and does not require MySQL, Redis, or RabbitMQ.
+
+From the repository root on Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops-docker.ps1
+```
+
+The launcher builds the image, starts the container, waits for health checks, and seeds a complete task/report/approval/audit chain. Use `-Port 8081` when port 8080 is occupied.
+
+If Docker Hub is unavailable in the current network:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops-docker.ps1 -UseChinaMirror
+```
+
+Stop the demo:
+
+```powershell
+docker compose -p shopops-demo -f deploy/docker-compose.demo.yml down
+```
+
+Re-running the launcher after `down` starts with clean in-memory task data. The Docker image does not contain local raw datasets, secrets, evaluation files, or Git metadata.
+
+## Development infrastructure
+
 Development infrastructure:
 
 ```bash

@@ -123,6 +123,8 @@ Write-Host "Starting ShopOps Admin..."
 Write-Host "Open after startup: $workbenchUrl"
 Write-Host "Recommended demo date: $demoDate"
 Write-Host "Recommended demo task: $demoTask"
+Write-Host "Seed a complete demo chain in another terminal:"
+Write-Host "powershell -ExecutionPolicy Bypass -File scripts/seed-shopops-demo.ps1 -Port $Port"
 Write-Host "Press Ctrl+C to stop the server."
 Write-Host ""
 
