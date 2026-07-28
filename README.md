@@ -66,16 +66,22 @@ ShopOps Agent 是一个面向中小电商团队的运营 AgentOps 平台。它�
 powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1
 ```
 
-启动后打开：
+脚本会自动准备 Olist 演示数据、安装 `shopops-common`、启动后端，并在启动成功后打开工作台。若 `8080` 被占用，会自动尝试 `8081` 到 `8100`。
+
+启动后访问：
 
 ```text
 http://localhost:8080/admin/workbench.html
 ```
 
-如需启动后自动打开浏览器：
+如果脚本自动切换了端口，以脚本输出的 `Workbench` 地址为准。
+
+常用选项：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -OpenBrowser
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -Port 8081
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -NoOpenBrowser
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -StrictPort
 ```
 
 也可以手动分步启动：
