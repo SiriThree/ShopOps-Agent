@@ -84,6 +84,18 @@ powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -NoOpenBrowse
 powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -StrictPort
 ```
 
+演示前健康检查：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1
+```
+
+如果后端不在 8080：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1 -Port 8081
+```
+
 也可以手动分步启动：
 
 准备 Olist 演示数据：
