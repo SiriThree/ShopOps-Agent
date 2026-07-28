@@ -36,7 +36,10 @@ mybatis:
     map-underscore-to-camel-case: true
 
 shopops:
-  persistence: memory
+  persistence: ${SHOPOPS_PERSISTENCE:jdbc}
+  flyway:
+    enabled: ${SHOPOPS_FLYWAY_ENABLED:true}
+    baseline-version: ${SHOPOPS_FLYWAY_BASELINE_VERSION:3}
   agent:
     dispatch-mode: sync
     rabbitmq:
@@ -61,9 +64,9 @@ shopops:
     product-candidates:
       file: ${SHOPOPS_CONNECTOR_PRODUCT_CANDIDATES_FILE:docs/demo-data/olist/product-candidates-olist.json}
     ad-performance:
-      file: ${SHOPOPS_CONNECTOR_AD_PERFORMANCE_FILE:}
+      file: ${SHOPOPS_CONNECTOR_AD_PERFORMANCE_FILE:docs/demo-data/ad-performance-real.json}
     external-reports:
-      file: ${SHOPOPS_CONNECTOR_EXTERNAL_REPORTS_FILE:}
+      file: ${SHOPOPS_CONNECTOR_EXTERNAL_REPORTS_FILE:docs/demo-data/external-reports-real.json}
   feishu:
     sync:
       enabled: ${SHOPOPS_FEISHU_SYNC_ENABLED:false}

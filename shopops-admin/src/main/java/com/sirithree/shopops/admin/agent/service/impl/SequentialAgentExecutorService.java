@@ -34,16 +34,32 @@ public class SequentialAgentExecutorService implements AgentExecutorService {
     @Override
     @SuppressWarnings("unchecked")
     public AgentExecutionResult execute(AgentTaskContext context, AgentPlan plan) {
+        return execute(context, plan, null);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public AgentExecutionResult execute(AgentTaskContext context, AgentPlan plan, AgentExecutionResult baseResult) {
         AgentExecutionResult executionResult = new AgentExecutionResult();
         executionResult.setSuccess(false);
-        executionResult.setDegraded(false);
+        executionResult.setDegraded(baseResult != null && Boolean.TRUE.equals(baseResult.getDegraded()));
 
         Map<String, ToolInvokeResult> results = new LinkedHashMap<>();
         Map<String, Object> dataByTool = new HashMap<>();
+        if (baseResult != null && baseResult.getStepResults() != null) {
+            results.putAll(baseResult.getStepResults());
+            for (Map.Entry<String, ToolInvokeResult> entry : baseResult.getStepResults().entrySet()) {
+                ToolInvokeResult previous = entry.getValue();
+                if (previous != null && Boolean.TRUE.equals(previous.getSuccess()) && previous.getData() != null) {
+                    dataByTool.put(entry.getKey(), previous.getData());
+                }
+            }
+            executionResult.setReportId(baseResult.getReportId());
+        }
 
         for (AgentPlanStep step : plan.getSteps()) {
             Object input = buildInput(context, step, dataByTool);
-            Long stepId = context.resolveStepId(step.getStepNo());
+            Long stepId = stepExecutionRecorder.ensureStep(context, step);
             stepExecutionRecorder.running(context, stepId, input);
             ToolInvokeResult result = toolGatewayService.invoke(toToolContext(context, stepId), step.getToolCode(), input);
             results.put(step.getToolCode(), result);

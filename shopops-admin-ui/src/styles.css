@@ -87,6 +87,17 @@ body {
   width: 142px;
 }
 
+.context-summary {
+  justify-content: flex-end;
+}
+
+.context-summary .ant-tag {
+  margin-inline-end: 0;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
 .content {
   padding: 20px 24px 24px;
 }

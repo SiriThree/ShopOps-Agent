@@ -68,7 +68,7 @@ ShopOps Agent 是一个面向中小电商团队的运营 AgentOps 平台。它�
 powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1
 ```
 
-脚本会自动准备 Olist 演示数据、安装 `shopops-common`、启动后端，并在启动成功后打开工作台。若 `8080` 被占用，会自动尝试 `8081` 到 `8100`。
+脚本会自动准备 Olist 演示数据、安装 `shopops-common`、检查/启动本地 MySQL 持久化存储、启动后端，并在启动成功后打开工作台。若 `8080` 被占用，会自动尝试 `8081` 到 `8100`。
 
 如果只安装了 Docker Desktop，可以直接构建、启动并预置完整演示链路：
 
@@ -102,6 +102,7 @@ http://localhost:8080/admin/workbench.html
 powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -Port 8081
 powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -NoOpenBrowser
 powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -StrictPort
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -Memory
 ```
 
 演示前健康检查：
@@ -116,7 +117,7 @@ powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1
 powershell -ExecutionPolicy Bypass -File scripts/seed-shopops-demo.ps1
 ```
 
-该脚本会等待服务就绪、执行健康检查，并创建经营日报任务、报告、高风险工具审批、审批后重试和审计记录。完成后会输出任务、报告、工具、审批、审计页面地址并打开工作台。默认 memory 模式下，重启后端即可清空本次运行数据并重新预置。
+该脚本会等待服务就绪、执行健康检查，并创建经营日报任务、报告、高风险工具审批、审批后重试和审计记录。完成后会输出任务、报告、工具、审批、审计页面地址并打开工作台。默认 JDBC / MySQL 模式下，任务、报告、工具日志、审批和审计记录会保留；如需临时清空式演示，可用 `start-shopops.ps1 -Memory`。
 
 如果后端不在 8080：
 
@@ -136,7 +137,7 @@ python scripts/prepare_olist_demo.py
 启动后端：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080"
+mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev" "-Dspring-boot.run.arguments=--server.port=8080"
 ```
 
 打开 Agent 工作台：

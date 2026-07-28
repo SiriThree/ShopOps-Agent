@@ -2,6 +2,7 @@ package com.sirithree.shopops.admin.business.service.impl;
 
 import com.sirithree.shopops.admin.business.domain.OrderSummaryData;
 import com.sirithree.shopops.admin.business.service.OrderMetricsService;
+import com.sirithree.shopops.admin.business.support.BusinessFileSummaryReader;
 import com.sirithree.shopops.admin.persistence.mapper.BusinessOrderMapper;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,13 +16,20 @@ import org.springframework.stereotype.Service;
 @ConditionalOnProperty(name = "shopops.persistence", havingValue = "jdbc")
 public class JdbcOrderMetricsService implements OrderMetricsService {
     private final BusinessOrderMapper orderMapper;
+    private final BusinessFileSummaryReader fileSummaryReader;
 
-    public JdbcOrderMetricsService(BusinessOrderMapper orderMapper) {
+    public JdbcOrderMetricsService(BusinessOrderMapper orderMapper, BusinessFileSummaryReader fileSummaryReader) {
         this.orderMapper = orderMapper;
+        this.fileSummaryReader = fileSummaryReader;
     }
 
     @Override
     public Map<String, Object> querySummary(Long tenantId, Long shopId, LocalDate startDate, LocalDate endDate) {
+        java.util.Optional<Map<String, Object>> fileSummary = fileSummaryReader.orderSummary(tenantId, shopId, startDate, endDate);
+        if (fileSummary.isPresent()) {
+            return fileSummary.get();
+        }
+
         LocalDateTime startAt = startDate.atStartOfDay();
         LocalDateTime endExclusiveAt = endDate.plusDays(1).atStartOfDay();
         OrderSummaryData current = orderMapper.querySummary(tenantId, shopId, startAt, endExclusiveAt);

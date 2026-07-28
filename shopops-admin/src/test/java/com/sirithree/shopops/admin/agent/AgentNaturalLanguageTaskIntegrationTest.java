@@ -60,6 +60,13 @@ class AgentNaturalLanguageTaskIntegrationTest extends AbstractAgentTaskFlowInteg
                 .containsEntry("taskType", "daily_review");
         assertThat(result.get("intentLabel")).isNotNull();
         assertThat((List<String>) result.get("recommendedActions")).isNotEmpty();
+        assertThat(castMap(result.get("taskSpec")))
+                .containsEntry("intent", "comment_risk")
+                .containsEntry("outputFormat", "structured_markdown_report");
+        Map<String, Object> plan = castMap(result.get("plan"));
+        assertThat(plan.get("rationale").toString()).contains("差评");
+        assertThat((List<Map<String, Object>>) plan.get("steps"))
+                .allMatch(step -> step.get("reason") != null);
 
         Map<String, Object> taskResult = castMap(result.get("task"));
         Integer taskId = ((Number) taskResult.get("taskId")).intValue();
@@ -77,6 +84,14 @@ class AgentNaturalLanguageTaskIntegrationTest extends AbstractAgentTaskFlowInteg
         assertThat(report.get("summary").toString()).contains("差评风险专项");
         assertThat(castMap(report.get("evidence")))
                 .containsEntry("intent", "comment_risk");
+
+        Map<String, Object> detail = dataOf(get("/api/admin/agent/tasks/" + taskId + "/detail"));
+        List<Map<String, Object>> spans = (List<Map<String, Object>>) detail.get("spans");
+        assertThat(spans)
+                .anyMatch(span -> "agent.planner".equals(span.get("spanName"))
+                        && span.get("outputSummary").toString().contains("\"rationale\""))
+                .anyMatch(span -> "agent.verifier".equals(span.get("spanName"))
+                        && span.get("outputSummary").toString().contains("\"score\":1.0"));
     }
 
     @Test
@@ -118,6 +133,22 @@ class AgentNaturalLanguageTaskIntegrationTest extends AbstractAgentTaskFlowInteg
     }
 
     @Test
+    @SuppressWarnings("unchecked")
+    void shouldGenerateDifferentOlistDailyReviewsForDifferentCoveredDates() {
+        Map<String, Object> firstDayMetrics = olistOrderMetrics("2018-08-01");
+        Map<String, Object> lastDayMetrics = olistOrderMetrics("2018-08-07");
+
+        assertThat(firstDayMetrics)
+                .containsEntry("gmv", 48850.81)
+                .containsEntry("orderCount", 311);
+        assertThat(lastDayMetrics)
+                .containsEntry("gmv", 62057.77)
+                .containsEntry("orderCount", 370);
+        assertThat(firstDayMetrics.get("gmv")).isNotEqualTo(lastDayMetrics.get("gmv"));
+        assertThat(firstDayMetrics.get("orderCount")).isNotEqualTo(lastDayMetrics.get("orderCount"));
+    }
+
+    @Test
     void shouldRoutePortfolioDemoPrompts() {
         assertDemoPromptIntent("帮我生成今天店铺运营日报，汇总订单、评价、商品、投放和平台指标。", "daily_review");
         assertDemoPromptIntent("帮我分析最近差评原因，识别需要优先处理的风险点和受影响商品。", "comment_risk");
@@ -137,5 +168,27 @@ class AgentNaturalLanguageTaskIntegrationTest extends AbstractAgentTaskFlowInteg
         assertThat(result)
                 .containsEntry("intent", expectedIntent)
                 .containsEntry("taskType", "daily_review");
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> olistOrderMetrics(String businessDate) {
+        Map<String, Object> result = dataOf(post(
+                "/api/agent/tasks/natural-language",
+                Map.of(
+                        "userInput", "Generate an Olist daily operations report for " + businessDate + ".",
+                        "dateRange", Map.of("start", businessDate, "end", businessDate)
+                )
+        ));
+
+        Map<String, Object> taskResult = castMap(result.get("task"));
+        Integer taskId = ((Number) taskResult.get("taskId")).intValue();
+        Map<String, Object> task = dataOf(get("/api/agent/tasks/" + taskId));
+        Integer reportId = ((Number) task.get("reportId")).intValue();
+        Map<String, Object> report = dataOf(get("/api/reports/" + reportId));
+        Map<String, Object> evidence = castMap(report.get("evidence"));
+        Map<String, Object> dataSources = castMap(evidence.get("dataSources"));
+        Map<String, Object> orderSource = castMap(dataSources.get("orderSummary"));
+        assertThat(orderSource).containsEntry("connectorCode", "file.order-summary");
+        return castMap(orderSource.get("metrics"));
     }
 }

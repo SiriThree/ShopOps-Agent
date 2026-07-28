@@ -78,79 +78,82 @@ public class AdminAuditTimelineJdbcRepository {
     private String unionSql() {
         return """
                     SELECT
-                      'AUTH' AS source,
-                      CONCAT('auth:', id) AS event_id,
+                      CONVERT('AUTH' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS source,
+                      CONVERT(CONCAT('auth:', id) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_id,
                       id AS sortable_id,
-                      event_type,
-                      event_status,
+                      CONVERT(event_type USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_type,
+                      CONVERT(event_status USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_status,
                       user_id,
-                      username,
+                      CONVERT(username USING utf8mb4) COLLATE utf8mb4_unicode_ci AS username,
                       CAST(NULL AS SIGNED) AS task_id,
-                      CAST(NULL AS CHAR) AS trace_id,
-                      CAST(NULL AS CHAR) AS tool_code,
-                      request_id,
-                      'auth_audit_event' AS resource_type,
-                      CAST(id AS CHAR) AS resource_id,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS trace_id,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS tool_code,
+                      CONVERT(request_id USING utf8mb4) COLLATE utf8mb4_unicode_ci AS request_id,
+                      CONVERT('auth_audit_event' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_type,
+                      CONVERT(CAST(id AS CHAR) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_id,
                       CASE
                         WHEN event_status = 'FAILURE' THEN 'HIGH'
                         WHEN event_type IN ('ACCESS_DENIED', 'AUTHENTICATION') THEN 'MEDIUM'
                         ELSE 'LOW'
-                      END AS risk_level,
-                      CASE
-                        WHEN event_type LIKE 'ORG\\_%' ESCAPE '\\' AND failure_reason IS NOT NULL AND failure_reason <> '' THEN failure_reason
+                      END COLLATE utf8mb4_unicode_ci AS risk_level,
+                      CONVERT(CASE
+                        WHEN event_type LIKE 'ORG!_%' ESCAPE '!' AND failure_reason IS NOT NULL AND failure_reason <> '' THEN failure_reason
                         ELSE CONCAT(event_type, ' ', event_status)
-                      END AS summary,
+                      END USING utf8mb4) COLLATE utf8mb4_unicode_ci AS summary,
                       created_at,
-                      auth_type AS detail_a,
-                      client_ip AS detail_b,
-                      failure_reason AS detail_c,
-                      CAST(NULL AS CHAR) AS detail_d
+                      CONVERT(auth_type USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_a,
+                      CONVERT(client_ip USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_b,
+                      CONVERT(failure_reason USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_c,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS detail_d
                     FROM auth_audit_event
                     WHERE tenant_id = :tenantId AND shop_id = :shopId
                   UNION ALL
                     SELECT
-                      'TASK' AS source,
-                      CONCAT('task:', id) AS event_id,
+                      CONVERT('TASK' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS source,
+                      CONVERT(CONCAT('task:', id) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_id,
                       id AS sortable_id,
-                      event_type,
-                      CASE WHEN event_type = 'TASK_FAILED' THEN 'FAILURE' ELSE 'SUCCESS' END AS event_status,
+                      CONVERT(event_type USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_type,
+                      CASE WHEN event_type = 'TASK_FAILED' THEN 'FAILURE' ELSE 'SUCCESS' END COLLATE utf8mb4_unicode_ci AS event_status,
                       operator_id AS user_id,
-                      CAST(NULL AS CHAR) AS username,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS username,
                       task_id,
-                      JSON_UNQUOTE(JSON_EXTRACT(event_data_json, '$.traceId')) AS trace_id,
-                      CAST(NULL AS CHAR) AS tool_code,
-                      CAST(NULL AS CHAR) AS request_id,
-                      'agent_task' AS resource_type,
-                      CAST(task_id AS CHAR) AS resource_id,
+                      CONVERT(CASE
+                        WHEN JSON_VALID(event_data_json) THEN JSON_UNQUOTE(JSON_EXTRACT(event_data_json, '$.traceId'))
+                        ELSE NULL
+                      END USING utf8mb4) COLLATE utf8mb4_unicode_ci AS trace_id,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS tool_code,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS request_id,
+                      CONVERT('agent_task' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_type,
+                      CONVERT(CAST(task_id AS CHAR) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_id,
                       CASE
                         WHEN event_type = 'TASK_FAILED' THEN 'HIGH'
                         WHEN event_type IN ('TASK_RETRY_REQUESTED', 'TASK_REQUEUED') THEN 'MEDIUM'
                         ELSE 'LOW'
-                      END AS risk_level,
-                      event_type AS summary,
+                      END COLLATE utf8mb4_unicode_ci AS risk_level,
+                      CONVERT(event_type USING utf8mb4) COLLATE utf8mb4_unicode_ci AS summary,
                       created_at,
-                      from_status AS detail_a,
-                      to_status AS detail_b,
-                      event_data_json AS detail_c,
-                      CAST(NULL AS CHAR) AS detail_d
+                      CONVERT(from_status USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_a,
+                      CONVERT(to_status USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_b,
+                      CONVERT(event_data_json USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_c,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS detail_d
                     FROM agent_task_event
                     WHERE tenant_id = :tenantId AND shop_id = :shopId
                   UNION ALL
                     SELECT
-                      'TOOL' AS source,
-                      CONCAT('tool:', tcl.id) AS event_id,
+                      CONVERT('TOOL' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS source,
+                      CONVERT(CONCAT('tool:', tcl.id) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_id,
                       tcl.id AS sortable_id,
-                      'TOOL_CALL' AS event_type,
-                      tcl.status AS event_status,
+                      CONVERT('TOOL_CALL' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_type,
+                      CONVERT(tcl.status USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_status,
                       tcl.user_id,
-                      CAST(NULL AS CHAR) AS username,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS username,
                       tcl.task_id,
-                      tcl.trace_id,
-                      tcl.tool_code,
-                      CAST(NULL AS CHAR) AS request_id,
-                      'tool_call_log' AS resource_type,
-                      CAST(tcl.id AS CHAR) AS resource_id,
-                      COALESCE(
+                      CONVERT(tcl.trace_id USING utf8mb4) COLLATE utf8mb4_unicode_ci AS trace_id,
+                      CONVERT(tcl.tool_code USING utf8mb4) COLLATE utf8mb4_unicode_ci AS tool_code,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS request_id,
+                      CONVERT('tool_call_log' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_type,
+                      CONVERT(CAST(tcl.id AS CHAR) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_id,
+                      CONVERT(COALESCE(
                         tcl.risk_level,
                         (
                           SELECT mt.risk_level
@@ -162,104 +165,104 @@ public class AdminAuditTimelineJdbcRepository {
                           LIMIT 1
                         ),
                         'MEDIUM'
-                      ) AS risk_level,
-                      CONCAT('TOOL_CALL ', tcl.tool_code, ' ', tcl.status) AS summary,
+                      ) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS risk_level,
+                      CONVERT(CONCAT('TOOL_CALL ', tcl.tool_code, ' ', tcl.status) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS summary,
                       tcl.created_at,
-                      CAST(tcl.step_id AS CHAR) AS detail_a,
-                      CAST(tcl.latency_ms AS CHAR) AS detail_b,
-                      tcl.error_code AS detail_c,
-                      tcl.error_message AS detail_d
+                      CONVERT(CAST(tcl.step_id AS CHAR) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_a,
+                      CONVERT(CAST(tcl.latency_ms AS CHAR) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_b,
+                      CONVERT(tcl.error_code USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_c,
+                      CONVERT(tcl.error_message USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_d
                     FROM tool_call_log tcl
                     WHERE tcl.tenant_id = :tenantId AND tcl.shop_id = :shopId
                   UNION ALL
                     SELECT
-                      'APPROVAL' AS source,
-                      CONCAT('approval:', ar.id, ':created') AS event_id,
+                      CONVERT('APPROVAL' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS source,
+                      CONVERT(CONCAT('approval:', ar.id, ':created') USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_id,
                       ar.id * 10 AS sortable_id,
-                      'APPROVAL_CREATED' AS event_type,
-                      'PENDING' AS event_status,
+                      CONVERT('APPROVAL_CREATED' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_type,
+                      CONVERT('PENDING' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_status,
                       ar.requester_id AS user_id,
-                      ar.requester_name AS username,
+                      CONVERT(ar.requester_name USING utf8mb4) COLLATE utf8mb4_unicode_ci AS username,
                       ar.task_id,
-                      ar.trace_id,
-                      ar.tool_code,
-                      CAST(NULL AS CHAR) AS request_id,
-                      'approval_request' AS resource_type,
-                      CAST(ar.id AS CHAR) AS resource_id,
-                      UPPER(ar.risk_level) AS risk_level,
-                      CONCAT('APPROVAL_CREATED ', ar.status) AS summary,
+                      CONVERT(ar.trace_id USING utf8mb4) COLLATE utf8mb4_unicode_ci AS trace_id,
+                      CONVERT(ar.tool_code USING utf8mb4) COLLATE utf8mb4_unicode_ci AS tool_code,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS request_id,
+                      CONVERT('approval_request' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_type,
+                      CONVERT(CAST(ar.id AS CHAR) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_id,
+                      CONVERT(UPPER(ar.risk_level) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS risk_level,
+                      CONVERT(CONCAT('APPROVAL_CREATED ', ar.status) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS summary,
                       ar.created_at,
-                      ar.approval_no AS detail_a,
-                      ar.source_type AS detail_b,
-                      ar.title AS detail_c,
-                      CAST(NULL AS CHAR) AS detail_d
+                      CONVERT(ar.approval_no USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_a,
+                      CONVERT(ar.source_type USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_b,
+                      CONVERT(ar.title USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_c,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS detail_d
                     FROM approval_request ar
                     WHERE ar.tenant_id = :tenantId AND ar.shop_id = :shopId
                   UNION ALL
                     SELECT
-                      'APPROVAL' AS source,
-                      CONCAT('approval:', ar.id, ':decision') AS event_id,
+                      CONVERT('APPROVAL' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS source,
+                      CONVERT(CONCAT('approval:', ar.id, ':decision') USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_id,
                       ar.id * 10 + 1 AS sortable_id,
                       CASE
                         WHEN ar.status = 'WITHDRAWN' THEN 'APPROVAL_WITHDRAWN'
                         WHEN ar.status = 'EXPIRED' THEN 'APPROVAL_EXPIRED'
                         ELSE 'APPROVAL_DECIDED'
-                      END AS event_type,
+                      END COLLATE utf8mb4_unicode_ci AS event_type,
                       CASE
                         WHEN ar.status = 'REJECTED' THEN 'FAILURE'
                         WHEN ar.status = 'WITHDRAWN' THEN 'CANCELED'
                         WHEN ar.status = 'EXPIRED' THEN 'CANCELED'
                         ELSE 'SUCCESS'
-                      END AS event_status,
+                      END COLLATE utf8mb4_unicode_ci AS event_status,
                       ar.approver_id AS user_id,
-                      ar.approver_name AS username,
+                      CONVERT(ar.approver_name USING utf8mb4) COLLATE utf8mb4_unicode_ci AS username,
                       ar.task_id,
-                      ar.trace_id,
-                      ar.tool_code,
-                      CAST(NULL AS CHAR) AS request_id,
-                      'approval_request' AS resource_type,
-                      CAST(ar.id AS CHAR) AS resource_id,
-                      UPPER(ar.risk_level) AS risk_level,
-                      CONCAT(CASE
+                      CONVERT(ar.trace_id USING utf8mb4) COLLATE utf8mb4_unicode_ci AS trace_id,
+                      CONVERT(ar.tool_code USING utf8mb4) COLLATE utf8mb4_unicode_ci AS tool_code,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS request_id,
+                      CONVERT('approval_request' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_type,
+                      CONVERT(CAST(ar.id AS CHAR) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_id,
+                      CONVERT(UPPER(ar.risk_level) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS risk_level,
+                      CONVERT(CONCAT(CASE
                         WHEN ar.status = 'WITHDRAWN' THEN 'APPROVAL_WITHDRAWN'
                         WHEN ar.status = 'EXPIRED' THEN 'APPROVAL_EXPIRED'
                         ELSE 'APPROVAL_DECIDED'
-                      END, ' ', ar.status) AS summary,
+                      END, ' ', ar.status) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS summary,
                       ar.decided_at AS created_at,
-                      ar.approval_no AS detail_a,
-                      ar.status AS detail_b,
-                      ar.decision_comment AS detail_c,
-                      CAST(NULL AS CHAR) AS detail_d
+                      CONVERT(ar.approval_no USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_a,
+                      CONVERT(ar.status USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_b,
+                      CONVERT(ar.decision_comment USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_c,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS detail_d
                     FROM approval_request ar
                     WHERE ar.tenant_id = :tenantId AND ar.shop_id = :shopId
                       AND ar.status <> 'PENDING'
                       AND ar.decided_at IS NOT NULL
                   UNION ALL
                     SELECT
-                      'CONNECTOR' AS source,
-                      CONCAT('connector:', cae.id) AS event_id,
+                      CONVERT('CONNECTOR' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS source,
+                      CONVERT(CONCAT('connector:', cae.id) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_id,
                       cae.id AS sortable_id,
-                      cae.event_type,
-                      cae.event_status,
+                      CONVERT(cae.event_type USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_type,
+                      CONVERT(cae.event_status USING utf8mb4) COLLATE utf8mb4_unicode_ci AS event_status,
                       cae.user_id,
-                      cae.username,
+                      CONVERT(cae.username USING utf8mb4) COLLATE utf8mb4_unicode_ci AS username,
                       CAST(NULL AS SIGNED) AS task_id,
-                      CAST(NULL AS CHAR) AS trace_id,
-                      cae.connector_code AS tool_code,
-                      cae.request_id,
-                      'connector_audit_event' AS resource_type,
-                      CAST(cae.id AS CHAR) AS resource_id,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS trace_id,
+                      CONVERT(cae.connector_code USING utf8mb4) COLLATE utf8mb4_unicode_ci AS tool_code,
+                      CONVERT(cae.request_id USING utf8mb4) COLLATE utf8mb4_unicode_ci AS request_id,
+                      CONVERT('connector_audit_event' USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_type,
+                      CONVERT(CAST(cae.id AS CHAR) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS resource_id,
                       CASE
                         WHEN cae.event_status = 'FAILURE' THEN 'MEDIUM'
                         WHEN cae.event_type = 'CONNECTOR_CREDENTIAL_DISABLED' THEN 'MEDIUM'
                         ELSE 'LOW'
-                      END AS risk_level,
-                      CONCAT(cae.event_type, ' ', cae.connector_code, ' ', cae.event_status) AS summary,
+                      END COLLATE utf8mb4_unicode_ci AS risk_level,
+                      CONVERT(CONCAT(cae.event_type, ' ', cae.connector_code, ' ', cae.event_status) USING utf8mb4) COLLATE utf8mb4_unicode_ci AS summary,
                       cae.created_at,
-                      cae.connector_code AS detail_a,
-                      cae.message AS detail_b,
-                      cae.detail_json AS detail_c,
-                      CAST(NULL AS CHAR) AS detail_d
+                      CONVERT(cae.connector_code USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_a,
+                      CONVERT(cae.message USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_b,
+                      CONVERT(cae.detail_json USING utf8mb4) COLLATE utf8mb4_unicode_ci AS detail_c,
+                      CAST(NULL AS CHAR) COLLATE utf8mb4_unicode_ci AS detail_d
                     FROM connector_audit_event cae
                     WHERE cae.tenant_id = :tenantId AND cae.shop_id = :shopId
                 """;

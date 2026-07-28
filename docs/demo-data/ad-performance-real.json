@@ -1,0 +1,527 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-01",
+    "endDate": "2018-08-01",
+    "summary": {
+      "spend": 603.658765,
+      "impressions": 2198660,
+      "clicks": 770905,
+      "ctr": 0.3506,
+      "cpc": 0.000783,
+      "conversionRate": 0.137,
+      "roi": 9.1229,
+      "conversions": 105642,
+      "attributedConversions": 58367,
+      "metricBasis": "Criteo public attribution dataset; cost and cpo are transformed anonymized values.",
+      "campaigns": [
+        {
+          "campaignName": "Criteo campaign 32368244",
+          "campaignId": "32368244",
+          "spend": 22.595075,
+          "impressions": 27186,
+          "clicks": 12259,
+          "conversions": 5549,
+          "ctr": 0.4509,
+          "conversionRate": 0.4526,
+          "roi": 2.3585
+        },
+        {
+          "campaignName": "Criteo campaign 5061834",
+          "campaignId": "5061834",
+          "spend": 20.960081,
+          "impressions": 45814,
+          "clicks": 12395,
+          "conversions": 1270,
+          "ctr": 0.2706,
+          "conversionRate": 0.1025,
+          "roi": 3.7933
+        },
+        {
+          "campaignName": "Criteo campaign 30491418",
+          "campaignId": "30491418",
+          "spend": 20.932226,
+          "impressions": 32967,
+          "clicks": 12163,
+          "conversions": 1223,
+          "ctr": 0.3689,
+          "conversionRate": 0.1006,
+          "roi": 8.1908
+        },
+        {
+          "campaignName": "Criteo campaign 10341182",
+          "campaignId": "10341182",
+          "spend": 18.453192,
+          "impressions": 64339,
+          "clicks": 27148,
+          "conversions": 5732,
+          "ctr": 0.422,
+          "conversionRate": 0.2111,
+          "roi": 11.784
+        },
+        {
+          "campaignName": "Criteo campaign 15184511",
+          "campaignId": "15184511",
+          "spend": 16.894155,
+          "impressions": 31959,
+          "clicks": 11391,
+          "conversions": 4329,
+          "ctr": 0.3564,
+          "conversionRate": 0.38,
+          "roi": 2.3869
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-02",
+    "endDate": "2018-08-02",
+    "summary": {
+      "spend": 722.412965,
+      "impressions": 2580584,
+      "clicks": 894806,
+      "ctr": 0.3467,
+      "cpc": 0.000807,
+      "conversionRate": 0.1374,
+      "roi": 8.9793,
+      "conversions": 122918,
+      "attributedConversions": 67603,
+      "metricBasis": "Criteo public attribution dataset; cost and cpo are transformed anonymized values.",
+      "campaigns": [
+        {
+          "campaignName": "Criteo campaign 5061834",
+          "campaignId": "5061834",
+          "spend": 25.505622,
+          "impressions": 55433,
+          "clicks": 15464,
+          "conversions": 1621,
+          "ctr": 0.279,
+          "conversionRate": 0.1048,
+          "roi": 4.0034
+        },
+        {
+          "campaignName": "Criteo campaign 30491418",
+          "campaignId": "30491418",
+          "spend": 24.585407,
+          "impressions": 38201,
+          "clicks": 13640,
+          "conversions": 1354,
+          "ctr": 0.3571,
+          "conversionRate": 0.0993,
+          "roi": 6.4596
+        },
+        {
+          "campaignName": "Criteo campaign 32368244",
+          "campaignId": "32368244",
+          "spend": 23.0055,
+          "impressions": 27543,
+          "clicks": 12917,
+          "conversions": 5980,
+          "ctr": 0.469,
+          "conversionRate": 0.463,
+          "roi": 2.6263
+        },
+        {
+          "campaignName": "Criteo campaign 15184511",
+          "campaignId": "15184511",
+          "spend": 21.514435,
+          "impressions": 41841,
+          "clicks": 14726,
+          "conversions": 6018,
+          "ctr": 0.352,
+          "conversionRate": 0.4087,
+          "roi": 3.7791
+        },
+        {
+          "campaignName": "Criteo campaign 10341182",
+          "campaignId": "10341182",
+          "spend": 19.242828,
+          "impressions": 61271,
+          "clicks": 25458,
+          "conversions": 5829,
+          "ctr": 0.4155,
+          "conversionRate": 0.229,
+          "roi": 11.7715
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-03",
+    "endDate": "2018-08-03",
+    "summary": {
+      "spend": 636.451084,
+      "impressions": 2375440,
+      "clicks": 854725,
+      "ctr": 0.3598,
+      "cpc": 0.000745,
+      "conversionRate": 0.1343,
+      "roi": 9.6186,
+      "conversions": 114770,
+      "attributedConversions": 63000,
+      "metricBasis": "Criteo public attribution dataset; cost and cpo are transformed anonymized values.",
+      "campaigns": [
+        {
+          "campaignName": "Criteo campaign 10341182",
+          "campaignId": "10341182",
+          "spend": 19.811977,
+          "impressions": 62642,
+          "clicks": 27354,
+          "conversions": 6420,
+          "ctr": 0.4367,
+          "conversionRate": 0.2347,
+          "roi": 12.5722
+        },
+        {
+          "campaignName": "Criteo campaign 29427842",
+          "campaignId": "29427842",
+          "spend": 17.964062,
+          "impressions": 36129,
+          "clicks": 11802,
+          "conversions": 1956,
+          "ctr": 0.3267,
+          "conversionRate": 0.1657,
+          "roi": 11.309
+        },
+        {
+          "campaignName": "Criteo campaign 5061834",
+          "campaignId": "5061834",
+          "spend": 17.942806,
+          "impressions": 39393,
+          "clicks": 11101,
+          "conversions": 1377,
+          "ctr": 0.2818,
+          "conversionRate": 0.124,
+          "roi": 5.0812
+        },
+        {
+          "campaignName": "Criteo campaign 15184511",
+          "campaignId": "15184511",
+          "spend": 17.670945,
+          "impressions": 33480,
+          "clicks": 12761,
+          "conversions": 4832,
+          "ctr": 0.3812,
+          "conversionRate": 0.3787,
+          "roi": 4.707
+        },
+        {
+          "campaignName": "Criteo campaign 32368244",
+          "campaignId": "32368244",
+          "spend": 16.49171,
+          "impressions": 21368,
+          "clicks": 10149,
+          "conversions": 4712,
+          "ctr": 0.475,
+          "conversionRate": 0.4643,
+          "roi": 2.9576
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-04",
+    "endDate": "2018-08-04",
+    "summary": {
+      "spend": 617.01643,
+      "impressions": 2137929,
+      "clicks": 776686,
+      "ctr": 0.3633,
+      "cpc": 0.000794,
+      "conversionRate": 0.1403,
+      "roi": 9.6852,
+      "conversions": 108951,
+      "attributedConversions": 59799,
+      "metricBasis": "Criteo public attribution dataset; cost and cpo are transformed anonymized values.",
+      "campaigns": [
+        {
+          "campaignName": "Criteo campaign 15184511",
+          "campaignId": "15184511",
+          "spend": 23.322273,
+          "impressions": 39173,
+          "clicks": 13958,
+          "conversions": 5205,
+          "ctr": 0.3563,
+          "conversionRate": 0.3729,
+          "roi": 5.827
+        },
+        {
+          "campaignName": "Criteo campaign 29427842",
+          "campaignId": "29427842",
+          "spend": 22.030652,
+          "impressions": 37867,
+          "clicks": 12608,
+          "conversions": 1991,
+          "ctr": 0.333,
+          "conversionRate": 0.1579,
+          "roi": 9.4568
+        },
+        {
+          "campaignName": "Criteo campaign 32368244",
+          "campaignId": "32368244",
+          "spend": 18.945388,
+          "impressions": 20090,
+          "clicks": 10124,
+          "conversions": 5295,
+          "ctr": 0.5039,
+          "conversionRate": 0.523,
+          "roi": 2.7428
+        },
+        {
+          "campaignName": "Criteo campaign 10341182",
+          "campaignId": "10341182",
+          "spend": 18.817175,
+          "impressions": 61884,
+          "clicks": 27958,
+          "conversions": 6249,
+          "ctr": 0.4518,
+          "conversionRate": 0.2235,
+          "roi": 12.5555
+        },
+        {
+          "campaignName": "Criteo campaign 15398570",
+          "campaignId": "15398570",
+          "spend": 17.680068,
+          "impressions": 51947,
+          "clicks": 18449,
+          "conversions": 3569,
+          "ctr": 0.3552,
+          "conversionRate": 0.1935,
+          "roi": 12.6536
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-05",
+    "endDate": "2018-08-05",
+    "summary": {
+      "spend": 748.700921,
+      "impressions": 2262652,
+      "clicks": 843162,
+      "ctr": 0.3726,
+      "cpc": 0.000888,
+      "conversionRate": 0.1364,
+      "roi": 8.5506,
+      "conversions": 114969,
+      "attributedConversions": 62523,
+      "metricBasis": "Criteo public attribution dataset; cost and cpo are transformed anonymized values.",
+      "campaigns": [
+        {
+          "campaignName": "Criteo campaign 15398570",
+          "campaignId": "15398570",
+          "spend": 29.394319,
+          "impressions": 59639,
+          "clicks": 21865,
+          "conversions": 4032,
+          "ctr": 0.3666,
+          "conversionRate": 0.1844,
+          "roi": 10.3188
+        },
+        {
+          "campaignName": "Criteo campaign 29427842",
+          "campaignId": "29427842",
+          "spend": 25.629938,
+          "impressions": 39376,
+          "clicks": 13458,
+          "conversions": 2272,
+          "ctr": 0.3418,
+          "conversionRate": 0.1688,
+          "roi": 8.8666
+        },
+        {
+          "campaignName": "Criteo campaign 15184511",
+          "campaignId": "15184511",
+          "spend": 25.535122,
+          "impressions": 37616,
+          "clicks": 14139,
+          "conversions": 5619,
+          "ctr": 0.3759,
+          "conversionRate": 0.3974,
+          "roi": 7.3772
+        },
+        {
+          "campaignName": "Criteo campaign 14661605",
+          "campaignId": "14661605",
+          "spend": 22.947361,
+          "impressions": 26269,
+          "clicks": 9045,
+          "conversions": 1441,
+          "ctr": 0.3443,
+          "conversionRate": 0.1593,
+          "roi": 9.3588
+        },
+        {
+          "campaignName": "Criteo campaign 10341182",
+          "campaignId": "10341182",
+          "spend": 22.890376,
+          "impressions": 61992,
+          "clicks": 28070,
+          "conversions": 6511,
+          "ctr": 0.4528,
+          "conversionRate": 0.232,
+          "roi": 11.0683
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-06",
+    "endDate": "2018-08-06",
+    "summary": {
+      "spend": 675.638064,
+      "impressions": 2203587,
+      "clicks": 815435,
+      "ctr": 0.37,
+      "cpc": 0.000829,
+      "conversionRate": 0.1312,
+      "roi": 9.2969,
+      "conversions": 106971,
+      "attributedConversions": 59065,
+      "metricBasis": "Criteo public attribution dataset; cost and cpo are transformed anonymized values.",
+      "campaigns": [
+        {
+          "campaignName": "Criteo campaign 15398570",
+          "campaignId": "15398570",
+          "spend": 31.142,
+          "impressions": 65984,
+          "clicks": 23608,
+          "conversions": 3946,
+          "ctr": 0.3578,
+          "conversionRate": 0.1671,
+          "roi": 10.2069
+        },
+        {
+          "campaignName": "Criteo campaign 15184511",
+          "campaignId": "15184511",
+          "spend": 22.518239,
+          "impressions": 33594,
+          "clicks": 12173,
+          "conversions": 4824,
+          "ctr": 0.3624,
+          "conversionRate": 0.3963,
+          "roi": 8.399
+        },
+        {
+          "campaignName": "Criteo campaign 6686701",
+          "campaignId": "6686701",
+          "spend": 21.991571,
+          "impressions": 51621,
+          "clicks": 20412,
+          "conversions": 1487,
+          "ctr": 0.3954,
+          "conversionRate": 0.0728,
+          "roi": 8.7649
+        },
+        {
+          "campaignName": "Criteo campaign 5061834",
+          "campaignId": "5061834",
+          "spend": 17.973119,
+          "impressions": 38876,
+          "clicks": 11616,
+          "conversions": 1317,
+          "ctr": 0.2988,
+          "conversionRate": 0.1134,
+          "roi": 4.6087
+        },
+        {
+          "campaignName": "Criteo campaign 29427842",
+          "campaignId": "29427842",
+          "spend": 17.531738,
+          "impressions": 32786,
+          "clicks": 10646,
+          "conversions": 1940,
+          "ctr": 0.3247,
+          "conversionRate": 0.1822,
+          "roi": 11.1846
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-07",
+    "endDate": "2018-08-07",
+    "summary": {
+      "spend": 825.462312,
+      "impressions": 2709175,
+      "clicks": 991844,
+      "ctr": 0.3661,
+      "cpc": 0.000832,
+      "conversionRate": 0.1331,
+      "roi": 9.0897,
+      "conversions": 131975,
+      "attributedConversions": 72067,
+      "metricBasis": "Criteo public attribution dataset; cost and cpo are transformed anonymized values.",
+      "campaigns": [
+        {
+          "campaignName": "Criteo campaign 15398570",
+          "campaignId": "15398570",
+          "spend": 31.547925,
+          "impressions": 73623,
+          "clicks": 26639,
+          "conversions": 4183,
+          "ctr": 0.3618,
+          "conversionRate": 0.157,
+          "roi": 8.833
+        },
+        {
+          "campaignName": "Criteo campaign 18975823",
+          "campaignId": "18975823",
+          "spend": 29.406393,
+          "impressions": 58345,
+          "clicks": 26723,
+          "conversions": 2206,
+          "ctr": 0.458,
+          "conversionRate": 0.0826,
+          "roi": 10.6152
+        },
+        {
+          "campaignName": "Criteo campaign 15184511",
+          "campaignId": "15184511",
+          "spend": 26.371389,
+          "impressions": 38439,
+          "clicks": 14027,
+          "conversions": 6168,
+          "ctr": 0.3649,
+          "conversionRate": 0.4397,
+          "roi": 8.8995
+        },
+        {
+          "campaignName": "Criteo campaign 30491418",
+          "campaignId": "30491418",
+          "spend": 24.568838,
+          "impressions": 33765,
+          "clicks": 13496,
+          "conversions": 1650,
+          "ctr": 0.3997,
+          "conversionRate": 0.1223,
+          "roi": 9.1398
+        },
+        {
+          "campaignName": "Criteo campaign 32368244",
+          "campaignId": "32368244",
+          "spend": 24.079436,
+          "impressions": 26936,
+          "clicks": 13364,
+          "conversions": 6208,
+          "ctr": 0.4961,
+          "conversionRate": 0.4645,
+          "roi": 2.9616
+        }
+      ]
+    }
+  }
+]

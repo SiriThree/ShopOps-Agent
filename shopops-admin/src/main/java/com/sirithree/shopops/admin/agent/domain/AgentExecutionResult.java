@@ -10,6 +10,7 @@ public class AgentExecutionResult {
     private Map<String, ToolInvokeResult> stepResults = new LinkedHashMap<>();
     private Long reportId;
     private String errorMessage;
+    private AgentVerificationResult verification;
 
     public Boolean getSuccess() {
         return success;
@@ -49,5 +50,13 @@ public class AgentExecutionResult {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public AgentVerificationResult getVerification() {
+        return verification;
+    }
+
+    public void setVerification(AgentVerificationResult verification) {
+        this.verification = verification;
     }
 }

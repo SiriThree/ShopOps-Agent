@@ -115,12 +115,70 @@ class DailyReviewReportExecutorTest {
         assertThat(data.get("summary").toString()).contains("差评风险专项");
         assertThat(data.get("markdown").toString())
                 .contains("# 店铺差评风险专项分析")
-                .contains("专项任务：聚焦差评原因")
+                .contains("## 1. 差评风险结论")
+                .contains("## 2. 典型差评样本")
+                .contains("## 4. 处理建议")
                 .contains("order.query_summary, comment.query_negative, product.query_candidates");
+        assertThat(data.get("markdown").toString())
+                .doesNotContain("## 2. 广告投放")
+                .doesNotContain("## 3. 平台报表");
         assertThat(evidence)
                 .containsEntry("intent", "comment_risk");
         assertThat((List<Object>) evidence.get("toolCodes"))
                 .containsExactly("order.query_summary", "comment.query_negative", "product.query_candidates");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldGenerateProductOptimizationReportByIntent() {
+        ToolInvokeContext context = new ToolInvokeContext();
+        context.setTraceId("tr_product_optimization");
+        Map<String, Object> input = new LinkedHashMap<>(baseInput());
+        input.put("intent", "product_optimization");
+        input.put("executedToolCodes", List.of("order.query_summary", "product.query_candidates",
+                "comment.query_negative"));
+
+        ToolInvokeResult result = executor.execute(context, input);
+
+        assertThat(result.getSuccess()).isTrue();
+        Map<String, Object> data = (Map<String, Object>) result.getData();
+        assertThat(data)
+                .containsEntry("title", "店铺低点击商品优化专项");
+        assertThat(data.get("summary").toString()).contains("商品优化专项");
+        assertThat(data.get("markdown").toString())
+                .contains("# 店铺低点击商品优化专项")
+                .contains("## 1. 商品优化结论")
+                .contains("## 2. 商品候选清单")
+                .contains("## 4. 优化动作")
+                .contains("运动毛巾")
+                .doesNotContain("## 2. 广告投放");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldGenerateAdAnomalyReportByIntent() {
+        ToolInvokeContext context = new ToolInvokeContext();
+        context.setTraceId("tr_ad_anomaly");
+        Map<String, Object> input = new LinkedHashMap<>(baseInput());
+        input.put("intent", "ad_anomaly");
+        input.put("executedToolCodes", List.of("order.query_summary", "ad.query_performance",
+                "report.query_external_metrics"));
+
+        ToolInvokeResult result = executor.execute(context, input);
+
+        assertThat(result.getSuccess()).isTrue();
+        Map<String, Object> data = (Map<String, Object>) result.getData();
+        assertThat(data)
+                .containsEntry("title", "店铺投放异常专项检查");
+        assertThat(data.get("summary").toString()).contains("投放异常专项");
+        assertThat(data.get("markdown").toString())
+                .contains("# 店铺投放异常专项检查")
+                .contains("## 1. 投放异常结论")
+                .contains("## 2. 高消耗计划")
+                .contains("## 4. 预算调整建议")
+                .contains("夏季补水主推")
+                .doesNotContain("## 5. 风险评价样本")
+                .doesNotContain("## 6. 商品优化清单");
     }
 
     @Test

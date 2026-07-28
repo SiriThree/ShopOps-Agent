@@ -37,7 +37,7 @@ powershell -ExecutionPolicy Bypass -File scripts/seed-shopops-demo.ps1
 
 如果现场任务执行受环境影响，直接打开已有任务和报告记录，继续展示工具日志、配置快照与审计链路；量化证据可打开 `docs/ShopOps-resume-claim-evidence.md`。
 
-需要重新开始时，停止并重新运行 `start-shopops.ps1`，再执行 `seed-shopops-demo.ps1`。默认 memory 模式会随服务重启清空运行数据。
+需要重新开始时，停止并重新运行 `start-shopops.ps1`，再执行 `seed-shopops-demo.ps1`。默认 JDBC 模式会保留任务、报告、工具日志、审批和审计记录；如果需要清空式临时演示，可用 `start-shopops.ps1 -Memory`。
 
 ## 1. 展示目标
 

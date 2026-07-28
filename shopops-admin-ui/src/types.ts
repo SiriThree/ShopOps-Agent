@@ -7,7 +7,70 @@ export type NaturalLanguageResult = {
   focusAreas?: string[];
   dataSources?: string[];
   recommendedActions?: string[];
+  taskSpec?: AgentTaskSpec;
+  plan?: AgentPlan;
   task: AgentTask;
+};
+
+export type AgentNaturalLanguageBatchEvaluationResponse = {
+  available?: boolean;
+  summaryPath?: string;
+  checkedAt?: string;
+  message?: string;
+  summary?: AgentNaturalLanguageBatchEvaluationSummary;
+};
+
+export type AgentNaturalLanguageBatchEvaluationSummary = {
+  generatedAt?: string;
+  evaluationName?: string;
+  dateRange?: {
+    start?: string;
+    end?: string;
+    days?: number;
+  };
+  rounds?: number;
+  caseCount?: number;
+  passedCaseCount?: number;
+  passRate?: number;
+  successRate?: number;
+  intentAccuracy?: number;
+  toolInvocationCount?: number;
+  toolSuccessCount?: number;
+  toolInvocationSuccessRate?: number;
+  avgToolInvocationCount?: number;
+  avgWallClockDurationMs?: number;
+  p95WallClockDurationMs?: number;
+  avgTaskDurationMs?: number;
+  statusBreakdown?: Record<string, number>;
+  scenarioBreakdown?: Array<{
+    scenario?: string;
+    caseCount?: number;
+    passedCaseCount?: number;
+    successRate?: number;
+    avgToolInvocationCount?: number;
+    avgWallClockDurationMs?: number;
+  }>;
+};
+
+export type AgentTaskSpec = {
+  intent?: string;
+  objective?: string;
+  dateRange?: { start?: string; end?: string };
+  focusAreas?: string[];
+  requiredEvidence?: string[];
+  outputFormat?: string;
+  constraints?: Record<string, unknown>;
+};
+
+export type AgentPlan = {
+  taskType?: string;
+  rationale?: string;
+  steps?: Array<{
+    stepNo?: number;
+    stepName?: string;
+    toolCode?: string;
+    reason?: string;
+  }>;
 };
 
 export type AgentTask = {
@@ -61,8 +124,24 @@ export type AgentTaskDetail = {
   task?: AgentTask;
   steps?: AgentStep[];
   events?: AgentTaskEvent[];
+  spans?: TraceSpan[];
   shopConfigSnapshot?: Record<string, unknown>;
   [key: string]: unknown;
+};
+
+export type TraceSpan = {
+  traceId?: string;
+  spanId?: string;
+  parentSpanId?: string;
+  spanType?: string;
+  spanName?: string;
+  refType?: string;
+  refId?: number | string;
+  status?: string;
+  inputSummary?: string;
+  outputSummary?: string;
+  latencyMs?: number;
+  errorMessage?: string;
 };
 
 export type AgentTaskCreateResult = {

@@ -3,6 +3,7 @@ package com.sirithree.shopops.admin.business.service.impl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sirithree.shopops.admin.business.service.ExternalReportMetricsService;
+import com.sirithree.shopops.admin.business.support.ConfiguredFilePathResolver;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +40,7 @@ public class FileExternalReportMetricsService implements ExternalReportMetricsSe
         if (externalReportsFile == null || externalReportsFile.isBlank()) {
             return Optional.empty();
         }
-        Path path = Path.of(externalReportsFile.trim());
+        Path path = ConfiguredFilePathResolver.resolve(externalReportsFile);
         if (!Files.exists(path)) {
             throw new IllegalArgumentException("外部报表数据文件不存在: " + path);
         }

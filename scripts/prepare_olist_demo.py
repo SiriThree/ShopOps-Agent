@@ -15,11 +15,28 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate ShopOps demo JSON files from the Olist dataset.")
     parser.add_argument("--data-dir", default="data/archive", help="Directory containing Olist CSV files.")
     parser.add_argument("--output-dir", default="docs/demo-data/olist", help="Directory to write generated JSON files.")
-    parser.add_argument("--date", default="2018-08-07", help="Target business date in YYYY-MM-DD format.")
+    parser.add_argument("--date", default=None, help="Target business date in YYYY-MM-DD format. Overrides the date range.")
+    parser.add_argument("--start-date", default="2018-08-01", help="First business date in YYYY-MM-DD format.")
+    parser.add_argument("--end-date", default="2018-08-07", help="Last business date in YYYY-MM-DD format.")
     parser.add_argument("--tenant-id", type=int, default=1)
     parser.add_argument("--shop-id", type=int, default=1)
     parser.add_argument("--min-star", type=int, default=3, help="Negative comment threshold for connector metadata.")
     return parser.parse_args()
+
+
+def business_dates(args: argparse.Namespace) -> list[date]:
+    if args.date:
+        return [date.fromisoformat(args.date)]
+    start = date.fromisoformat(args.start_date)
+    end = date.fromisoformat(args.end_date)
+    if start > end:
+        raise ValueError("--start-date must be less than or equal to --end-date")
+    days = []
+    current = start
+    while current <= end:
+        days.append(current)
+        current += timedelta(days=1)
+    return days
 
 
 def decimal(value: str | int | float | Decimal | None) -> Decimal:
@@ -358,59 +375,102 @@ def write_json(path: Path, payload: object) -> None:
 
 def write_summary(
     path: Path,
-    target_date: str,
-    order_record: dict[str, object],
-    comment_record: dict[str, object],
-    product_record: dict[str, object],
+    order_records: list[dict[str, object]],
+    comment_records: list[dict[str, object]],
+    product_records: list[dict[str, object]],
 ) -> None:
-    summary = order_record["summary"]
-    comment_summary = comment_record["summary"]
-    product_summary = product_record["summary"]
+    first_date = order_records[0]["startDate"]
+    last_date = order_records[-1]["endDate"]
     lines = [
         "# Olist Demo Dataset Summary",
         "",
-        f"- Business date: {target_date}",
-        f"- GMV: {summary['gmv']}",
-        f"- Order count: {summary['orderCount']}",
-        f"- Refund proxy amount: {summary['refundAmount']}",
-        f"- Refund proxy rate: {summary['refundRate']}",
-        f"- Negative comment count: {comment_summary['negativeCount']}",
-        f"- Product candidate count: {product_summary['candidateCount']}",
+        f"- Business date range: {first_date} to {last_date}",
+        f"- Date count: {len(order_records)}",
         "",
         "## Files",
         "",
         "- `order-summary-olist.json`",
         "- `negative-comments-olist.json`",
         "- `product-candidates-olist.json`",
+        "",
+        "## Daily Summary",
+        "",
+        "| Date | GMV | Orders | Refund Rate | Negative Comments | Product Candidates |",
+        "| --- | ---: | ---: | ---: | ---: | ---: |",
     ]
+    comments_by_date = {record["startDate"]: record["summary"] for record in comment_records}
+    products_by_date = {record["startDate"]: record["summary"] for record in product_records}
+    for record in order_records:
+        current_date = record["startDate"]
+        summary = record["summary"]
+        comment_summary = comments_by_date[current_date]
+        product_summary = products_by_date[current_date]
+        lines.append(
+            f"| {current_date} | {summary['gmv']} | {summary['orderCount']} | {summary['refundRate']} | "
+            f"{comment_summary['negativeCount']} | {product_summary['candidateCount']} |"
+        )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def detect_risk_keywords(message: str) -> list[str]:
+    lower = normalize_text(message).lower()
+    labels: list[str] = []
+    rules = [
+        ("refund_or_return", ("devol", "reemb", "cancel", "troca")),
+        ("logistics_delay", ("atras", "demor", "prazo", "entrega")),
+        ("description_mismatch", ("descr", "anuncio", "an煤ncio", "foto", "difer")),
+        ("quality_or_damage", ("quebr", "defeit", "danific", "avari", "nao funciona", "n茫o funciona")),
+        ("missing_parts", ("falt", "incomplet")),
+        ("size_issue", ("tamanho",)),
+    ]
+    for label, patterns in rules:
+        if any(pattern in lower for pattern in patterns):
+            labels.append(label)
+    return labels or ["review_risk"]
+
+
+def product_reason(negative_count: int, avg_review: Decimal, sales_quantity: int) -> str:
+    if negative_count >= 3 and avg_review <= Decimal("2.5"):
+        return "Negative reviews are concentrated and average rating is low; prioritize product description, quality notes, and after-sales promise."
+    if negative_count >= 3:
+        return "Low-star reviews are concentrated; review product detail selling points and fulfillment experience."
+    if sales_quantity >= 3 and negative_count > 0:
+        return "The product has sales volume and negative feedback; optimize product details and customer-service scripts first."
+    return "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions."
 
 
 def main() -> None:
     args = parse_args()
     data_dir = Path(args.data_dir)
     output_dir = Path(args.output_dir)
-    target = date.fromisoformat(args.date)
+    targets = business_dates(args)
 
     translations = load_translation_map(data_dir)
     product_names = load_product_map(data_dir, translations)
     payments = load_payments(data_dir)
     orders = load_orders(data_dir, payments)
     daily_orders = aggregate_daily_orders(orders)
-    order_primary_item, product_sales = build_order_item_views(data_dir, orders, product_names, target.isoformat())
 
-    order_record = build_order_summary_record(target, daily_orders, args.tenant_id, args.shop_id)
-    comment_record, product_comment_stats = build_negative_comment_record(
-        data_dir, target.isoformat(), args.tenant_id, args.shop_id, args.min_star, order_primary_item
-    )
-    product_record = build_product_candidate_record(
-        target.isoformat(), args.tenant_id, args.shop_id, product_sales, product_comment_stats
-    )
+    order_records = []
+    comment_records = []
+    product_records = []
+    for target in targets:
+        order_primary_item, product_sales = build_order_item_views(data_dir, orders, product_names, target.isoformat())
+        order_record = build_order_summary_record(target, daily_orders, args.tenant_id, args.shop_id)
+        comment_record, product_comment_stats = build_negative_comment_record(
+            data_dir, target.isoformat(), args.tenant_id, args.shop_id, args.min_star, order_primary_item
+        )
+        product_record = build_product_candidate_record(
+            target.isoformat(), args.tenant_id, args.shop_id, product_sales, product_comment_stats
+        )
+        order_records.append(order_record)
+        comment_records.append(comment_record)
+        product_records.append(product_record)
 
-    write_json(output_dir / "order-summary-olist.json", [order_record])
-    write_json(output_dir / "negative-comments-olist.json", [comment_record])
-    write_json(output_dir / "product-candidates-olist.json", [product_record])
-    write_summary(output_dir / "README.md", target.isoformat(), order_record, comment_record, product_record)
+    write_json(output_dir / "order-summary-olist.json", order_records)
+    write_json(output_dir / "negative-comments-olist.json", comment_records)
+    write_json(output_dir / "product-candidates-olist.json", product_records)
+    write_summary(output_dir / "README.md", order_records, comment_records, product_records)
 
     print("Generated Olist demo files:")
     print(f"  {output_dir / 'order-summary-olist.json'}")
