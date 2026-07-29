@@ -168,7 +168,7 @@ public class InMemoryAgentTaskService implements AgentTaskService {
 
     private void seedSteps(Long taskId, AgentTaskCreateParam param) {
         List<AgentTaskStepDto> taskSteps = new ArrayList<>();
-        for (var planStep : RulePlannerService.ruleSteps(param.getIntent())) {
+        for (var planStep : RulePlannerService.ruleSteps(param)) {
             taskSteps.add(step(taskId, planStep.getStepNo(), planStep.getStepName(), planStep.getToolCode()));
         }
         steps.put(taskId, taskSteps);

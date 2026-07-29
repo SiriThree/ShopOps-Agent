@@ -2,6 +2,43 @@
 
 这份脚本用于面试或项目展示时快速讲清楚 ShopOps 的 Agent 特色：运营人员用自然语言发起任务，系统自动路由意图、编排工具、读取业务数据、生成量化报告，并把工具调用和结果沉淀到审计链路。
 
+## 0. 五分钟面试版
+
+演示前，在项目根目录打开两个 PowerShell 窗口。
+
+窗口一启动系统：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1
+```
+
+窗口二确认演示环境：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/seed-shopops-demo.ps1
+```
+
+脚本会完成健康检查并预置日报、报告、高风险审批、工具重试和审计记录。看到 `Demo chain is ready` 后，按下面的时间线展示：
+
+| 时间 | 操作 | 讲解重点 |
+|---|---|---|
+| 0:00-0:30 | 打开 Agent 工作台 | 这是运营人员的主入口，不需要理解内部任务类型 |
+| 0:30-1:20 | 选择 Olist 演示数据，发起 2018-08-07 经营日报 | 自然语言被识别为任务意图，并生成可追踪的 task |
+| 1:20-2:20 | 查看执行步骤和工具编排 | Agent 依次读取订单、评价、商品等证据，不是一次性生成文本 |
+| 2:20-3:10 | 查看量化指标和最终报告 | 展示 GMV、售后风险代理率、风险评价、商品候选和配置快照 |
+| 3:10-4:10 | 跳转工具日志、审批中心和审计中心 | 高风险动作受审批控制，任务、工具、报告和审计可以串联追踪 |
+| 4:10-5:00 | 展示评测结果并收尾 | 760 个公开真实数据样例、2670 次派生工具调用、异常召回率 100% |
+
+推荐输入：
+
+```text
+基于 Olist 真实订单和评价数据，生成 2018-08-07 店铺运营日报
+```
+
+如果现场任务执行受环境影响，直接打开已有任务和报告记录，继续展示工具日志、配置快照与审计链路；量化证据可打开 `docs/ShopOps-resume-claim-evidence.md`。
+
+需要重新开始时，停止并重新运行 `start-shopops.ps1`，再执行 `seed-shopops-demo.ps1`。默认 JDBC 模式会保留任务、报告、工具日志、审批和审计记录；如果需要清空式临时演示，可用 `start-shopops.ps1 -Memory`。
+
 ## 1. 展示目标
 
 核心一句话：
@@ -18,24 +55,24 @@
 
 ## 2. 演示准备
 
-启动后端：
+推荐使用一键启动：
 
 ```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080"
+powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1
 ```
 
-打开工作台：
+脚本会准备 Olist 演示数据、安装公共模块、启动服务并打开工作台。若 `8080` 被占用，以脚本输出的实际地址为准。
 
-```text
-http://localhost:8080/admin/workbench.html
-```
-
-如果要展示 Olist 真实数据版本，先准备数据。默认配置已经指向 `docs/demo-data/olist`，普通启动即可：
+演示前检查：
 
 ```powershell
-python scripts/prepare_olist_demo.py
+powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1
+```
 
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.arguments=--server.port=8080"
+如果服务运行在其他端口：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1 -Port 8081
 ```
 
 Olist 推荐日期：
@@ -74,18 +111,20 @@ Olist 推荐日期：
 - 数据可替换：内置 demo 数据可以替换为 Olist 文件 Connector。
 - 行为可验证：当前测试基线覆盖自然语言入口、Agent 编排、审批、审计、模型网关和配置生效。
 
-如使用当前 portfolio report，可引用这些量化结果：
+当前可引用的量化结果：
 
 | 指标 | 当前结果 |
 |---|---:|
-| Agent evaluation cases | 14 |
-| Evaluation passed cases | 14 |
-| Tool invocation success rate | 98.6% |
-| Approval decision accuracy | 100% |
-| Config effect accuracy | 100% |
-| Olist GMV | 62057.77 |
-| Olist order count | 370 |
-| Olist risk comment count | 51 |
+| 公开真实数据业务样例 | 760 |
+| 派生 MCP 工具调用 | 2670 |
+| 高风险审批路由调用 | 450 |
+| Agent 自动化评测 | 14/14 通过 |
+| 工具调用成功率 | 98.6% |
+| 异常信号评测 | Precision 94.81%，Recall 100% |
+| 飞书 webhook 批量验收 | 100/100，HTTP 200 率 100% |
+| Olist 演示日 | 370 单，GMV 62057.77，风险评价 51 条 |
+
+其中“日报从 35.4 分钟缩短到 4.2 分钟”来自固定流程估算，只能标记为 `ESTIMATED`，不能表述为人工实测结果。
 
 ## 6. 面试讲解词
 

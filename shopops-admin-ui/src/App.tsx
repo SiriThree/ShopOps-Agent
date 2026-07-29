@@ -16,6 +16,7 @@ import {
   Steps,
   Table,
   Tag,
+  Timeline,
   Typography,
   message
 } from "antd";
@@ -29,7 +30,7 @@ import {
 } from "@ant-design/icons";
 import { apiGet, apiPost, readStoredContext, type RequestContext } from "./api";
 import { AdminSidebar } from "./AdminSidebar";
-import type { AgentStep, AgentTask, DataSourceEvidence, NaturalLanguageResult, OperationReport, PageResult } from "./types";
+import type { AgentNaturalLanguageBatchEvaluationResponse, AgentStep, AgentTask, AgentTaskDetail, DataSourceEvidence, NaturalLanguageResult, OperationReport, PageResult, TraceSpan } from "./types";
 import { isTerminalStatus, moneyText, normalizeEvidence, numberText, parseOutput, percentText } from "./utils";
 import { MetricsChart } from "./MetricsChart";
 
@@ -37,6 +38,14 @@ const { Header, Content } = Layout;
 const { Text, Title, Paragraph } = Typography;
 
 const OLIST_DEMO_DATE = "2018-08-07";
+const SUPPORTED_DATE_START = "2018-08-01";
+const SUPPORTED_DATE_END = OLIST_DEMO_DATE;
+const OLIST_DEMO_CONTEXT: RequestContext = {
+  tenantId: "1",
+  shopId: "1",
+  userId: "1",
+  roles: "ADMIN,OPERATOR"
+};
 const OLIST_DEMO_PROMPT =
   "基于 Olist 真实订单和评价数据，生成 2018-08-07 店铺运营日报，重点分析 GMV、退款风险、差评原因和商品优化建议。";
 
@@ -64,8 +73,10 @@ export default function App() {
   const [understanding, setUnderstanding] = useState<NaturalLanguageResult | null>(null);
   const [task, setTask] = useState<AgentTask | null>(null);
   const [steps, setSteps] = useState<AgentStep[]>([]);
+  const [detail, setDetail] = useState<AgentTaskDetail | null>(null);
   const [report, setReport] = useState<OperationReport | null>(null);
   const [recentTasks, setRecentTasks] = useState<AgentTask[]>([]);
+  const [batchEvaluation, setBatchEvaluation] = useState<AgentNaturalLanguageBatchEvaluationResponse | null>(null);
   const timerRef = useRef<number | null>(null);
 
   const selectedTaskId = task?.taskId || understanding?.task?.taskId || "";
@@ -73,6 +84,7 @@ export default function App() {
   const evidence = useMemo(() => normalizeEvidence(report?.evidence), [report]);
   const toolOutputs = useMemo(() => outputByTool(steps), [steps]);
   const metrics = useMemo(() => buildMetrics(toolOutputs, evidence.dataSources), [toolOutputs, evidence.dataSources]);
+  const traceSpans = detail?.spans || [];
 
   const loadRecentTasks = useCallback(async () => {
     try {
@@ -80,6 +92,19 @@ export default function App() {
       setRecentTasks(page.list || []);
     } catch (error) {
       console.warn(error);
+    }
+  }, [context]);
+
+  const loadBatchEvaluation = useCallback(async () => {
+    try {
+      const result = await apiGet<AgentNaturalLanguageBatchEvaluationResponse>(
+        "/api/admin/evaluation/agent-natural-language-batch",
+        context
+      );
+      setBatchEvaluation(result);
+    } catch (error) {
+      console.warn(error);
+      setBatchEvaluation(null);
     }
   }, [context]);
 
@@ -101,11 +126,21 @@ export default function App() {
     [context]
   );
 
+  const loadDetail = useCallback(
+    async (taskId: string | number) => {
+      const nextDetail = await apiGet<AgentTaskDetail>(`/api/admin/agent/tasks/${encodeURIComponent(taskId)}/detail`, context);
+      setDetail(nextDetail);
+      return nextDetail;
+    },
+    [context]
+  );
+
   const loadTask = useCallback(
     async (taskId: string | number) => {
       const nextTask = await apiGet<AgentTask>(`/api/agent/tasks/${encodeURIComponent(taskId)}`, context);
       setTask(nextTask);
       await loadSteps(taskId);
+      await loadDetail(taskId);
       if (nextTask.reportId) {
         await loadReport(nextTask.reportId);
       }
@@ -115,7 +150,7 @@ export default function App() {
       }
       return nextTask;
     },
-    [context, loadRecentTasks, loadReport, loadSteps]
+    [context, loadDetail, loadRecentTasks, loadReport, loadSteps]
   );
 
   const stopTracking = useCallback(() => {
@@ -146,12 +181,17 @@ export default function App() {
   );
 
   useEffect(() => {
-    form.setFieldsValue({ userInput: quickPrompts[0].prompt, startDate: today(), endDate: today() });
+    form.setFieldsValue({ userInput: quickPrompts[0].prompt, startDate: OLIST_DEMO_DATE, endDate: OLIST_DEMO_DATE });
     void loadRecentTasks();
+    void loadBatchEvaluation();
     return stopTracking;
-  }, [form, loadRecentTasks, stopTracking]);
+  }, [form, loadBatchEvaluation, loadRecentTasks, stopTracking]);
 
   async function submitNaturalLanguageTask(values: { userInput: string; startDate: string; endDate: string }) {
+    if (!isSupportedDate(values.startDate) || !isSupportedDate(values.endDate) || values.startDate > values.endDate) {
+      message.warning(`请选择数据覆盖日期 ${SUPPORTED_DATE_START} 至 ${SUPPORTED_DATE_END}`);
+      return;
+    }
     setSubmitting(true);
     setStatusLine("Agent 正在理解诉求并创建任务。");
     try {
@@ -165,6 +205,7 @@ export default function App() {
       );
       setUnderstanding(result);
       setTask(result.task);
+      setDetail(null);
       setReport(null);
       setStatusLine(`已路由到 ${result.taskType}：${result.routedReason || "规则路由完成"}`);
       const nextTask = await loadTask(result.task.taskId);
@@ -181,6 +222,7 @@ export default function App() {
   }
 
   function applyOlistDemoMode() {
+    setContext(OLIST_DEMO_CONTEXT);
     form.setFieldsValue({
       startDate: OLIST_DEMO_DATE,
       endDate: OLIST_DEMO_DATE,
@@ -190,9 +232,24 @@ export default function App() {
     setStatusLine("已切换到 Olist 演示日期 2018-08-07。默认 Connector 会读取 Olist 订单、评价和商品候选数据。");
   }
 
+  function restrictDateValues(changed: Partial<{ startDate: string; endDate: string }>) {
+    const nextValues: Partial<{ startDate: string; endDate: string }> = {};
+    if (changed.startDate && !isSupportedDate(changed.startDate)) {
+      nextValues.startDate = OLIST_DEMO_DATE;
+    }
+    if (changed.endDate && !isSupportedDate(changed.endDate)) {
+      nextValues.endDate = OLIST_DEMO_DATE;
+    }
+    if (Object.keys(nextValues).length > 0) {
+      form.setFieldsValue(nextValues);
+      message.warning(`请选择数据覆盖日期 ${SUPPORTED_DATE_START} 至 ${SUPPORTED_DATE_END}`);
+    }
+  }
+
   function selectRecentTask(nextTask: AgentTask) {
     setTask(nextTask);
     setUnderstanding(null);
+    setDetail(null);
     setReport(null);
     if (nextTask.taskId) {
       void loadTask(nextTask.taskId);
@@ -208,31 +265,26 @@ export default function App() {
             <Title level={3}>Agent 工作台</Title>
             <Text type="secondary">用自然语言发起日常运营任务，追踪工具编排、量化结果、报告与审计链路。</Text>
           </div>
-          <Space wrap>
-            <Input addonBefore="租户" value={context.tenantId} onChange={(event) => setContext({ ...context, tenantId: event.target.value })} />
-            <Input addonBefore="店铺" value={context.shopId} onChange={(event) => setContext({ ...context, shopId: event.target.value })} />
-            <Input addonBefore="用户" value={context.userId} onChange={(event) => setContext({ ...context, userId: event.target.value })} />
-            <Input addonBefore="角色" value={context.roles} onChange={(event) => setContext({ ...context, roles: event.target.value })} />
-          </Space>
+          <ContextSummary context={context} />
         </Header>
         <Content className="content">
           <Row gutter={[16, 16]}>
             <Col xs={24} xl={10}>
               <Space direction="vertical" size={16} className="full">
                 <Card title="一句话发起任务" extra={<Tag color="blue">{datasetMode}</Tag>}>
-                  <Form form={form} layout="vertical" onFinish={submitNaturalLanguageTask}>
+                  <Form form={form} layout="vertical" onFinish={submitNaturalLanguageTask} onValuesChange={restrictDateValues}>
                     <Form.Item name="userInput" label="自然语言任务" rules={[{ required: true, message: "请输入运营任务" }]}>
                       <Input.TextArea rows={6} placeholder="例如：生成今天店铺运营日报" />
                     </Form.Item>
                     <Row gutter={10}>
                       <Col span={12}>
                         <Form.Item name="startDate" label="开始日期" rules={[{ required: true }]}>
-                          <Input type="date" />
+                          <Input type="date" min={SUPPORTED_DATE_START} max={SUPPORTED_DATE_END} />
                         </Form.Item>
                       </Col>
                       <Col span={12}>
                         <Form.Item name="endDate" label="结束日期" rules={[{ required: true }]}>
-                          <Input type="date" />
+                          <Input type="date" min={SUPPORTED_DATE_START} max={SUPPORTED_DATE_END} />
                         </Form.Item>
                       </Col>
                     </Row>
@@ -282,6 +334,7 @@ export default function App() {
                     )}
                   />
                 </Card>
+                <BatchEvaluationCard evaluation={batchEvaluation} onReload={loadBatchEvaluation} />
               </Space>
             </Col>
 
@@ -301,6 +354,7 @@ export default function App() {
                     }))}
                   />
                 </Card>
+                <RepairTraceCard spans={traceSpans} />
                 <Card title="量化结果" extra={<BarChartOutlined />}>
                   <Row gutter={[12, 12]}>
                     <Col xs={12} md={6}>
@@ -346,6 +400,85 @@ export default function App() {
   );
 }
 
+function BatchEvaluationCard({
+  evaluation,
+  onReload
+}: {
+  evaluation: AgentNaturalLanguageBatchEvaluationResponse | null;
+  onReload: () => void;
+}) {
+  const summary = evaluation?.summary;
+  const available = Boolean(evaluation?.available && summary);
+  return (
+    <Card
+      title="Agent 批量评测"
+      extra={
+        <Button size="small" icon={<ReloadOutlined />} onClick={onReload}>
+          刷新
+        </Button>
+      }
+    >
+      {!available ? (
+        <Alert
+          type="warning"
+          showIcon
+          message="还没有可展示的批量评测结果"
+          description="运行 scripts/run-agent-natural-language-batch.ps1 后，前端会读取最新汇总。"
+        />
+      ) : (
+        <Space direction="vertical" size={12} className="full">
+          <Row gutter={[8, 8]}>
+            <Col span={12}>
+              <Statistic title="Agent 任务" value={summary?.caseCount || 0} />
+            </Col>
+            <Col span={12}>
+              <Statistic title="工具调用" value={summary?.toolInvocationCount || 0} />
+            </Col>
+            <Col span={12}>
+              <Statistic title="任务成功率" value={percentValue(summary?.successRate)} />
+            </Col>
+            <Col span={12}>
+              <Statistic title="意图准确率" value={percentValue(summary?.intentAccuracy)} />
+            </Col>
+          </Row>
+          <Descriptions size="small" column={1} bordered>
+            <Descriptions.Item label="数据日期">
+              {summary?.dateRange?.start || "-"} 至 {summary?.dateRange?.end || "-"}
+            </Descriptions.Item>
+            <Descriptions.Item label="平均耗时">{numberText(summary?.avgWallClockDurationMs)} ms</Descriptions.Item>
+            <Descriptions.Item label="P95 耗时">{numberText(summary?.p95WallClockDurationMs)} ms</Descriptions.Item>
+            <Descriptions.Item label="生成时间">{summary?.generatedAt || "-"}</Descriptions.Item>
+          </Descriptions>
+          <Table
+            size="small"
+            pagination={false}
+            dataSource={summary?.scenarioBreakdown || []}
+            rowKey={(row) => row.scenario || "scenario"}
+            columns={[
+              { title: "场景", dataIndex: "scenario" },
+              { title: "任务", dataIndex: "caseCount", width: 72 },
+              { title: "成功率", dataIndex: "successRate", width: 92, render: percentValue },
+              { title: "平均工具", dataIndex: "avgToolInvocationCount", width: 92 }
+            ]}
+          />
+        </Space>
+      )}
+    </Card>
+  );
+}
+
+function ContextSummary({ context }: { context: RequestContext }) {
+  return (
+    <Space wrap className="context-summary">
+      <Text type="secondary">当前上下文</Text>
+      <Tag>租户 {context.tenantId || "1"}</Tag>
+      <Tag color="blue">店铺 {context.shopId || "1"}</Tag>
+      <Tag>用户 {context.userId || "1"}</Tag>
+      <Tag color="geekblue">{context.roles || "ADMIN,OPERATOR"}</Tag>
+    </Space>
+  );
+}
+
 function WorkbenchSummary({
   understanding,
   task,
@@ -360,21 +493,98 @@ function WorkbenchSummary({
   const dataSourceText = dataSourceEvidenceSummary(evidence.dataSources);
   return (
     <Card title="Agent 理解结果">
-      <Descriptions size="small" column={{ xs: 1, md: 2 }} bordered>
-        <Descriptions.Item label="意图">{understanding?.intentLabel || intentTitle(evidence.intent) || understanding?.intent || "-"}</Descriptions.Item>
-        <Descriptions.Item label="置信度">{understanding ? `${(understanding.confidence * 100).toFixed(0)}%` : "-"}</Descriptions.Item>
-        <Descriptions.Item label="任务">{task?.taskNo || task?.taskId || "-"}</Descriptions.Item>
-        <Descriptions.Item label="报告">{report?.title || report?.reportId || "-"}</Descriptions.Item>
-        <Descriptions.Item label="关注点" span={2}>
-          <TagList values={understanding?.focusAreas} fallback="默认经营复盘" />
-        </Descriptions.Item>
-        <Descriptions.Item label="数据来源" span={2}>
-          {dataSourceText}
-        </Descriptions.Item>
-        <Descriptions.Item label="建议动作" span={2}>
-          <TagList values={understanding?.recommendedActions} fallback="等待 Agent 输出" />
-        </Descriptions.Item>
-      </Descriptions>
+      <Space direction="vertical" size={14} className="full">
+        <Descriptions size="small" column={{ xs: 1, md: 2 }} bordered>
+          <Descriptions.Item label="意图">{understanding?.intentLabel || intentTitle(evidence.intent) || understanding?.intent || "-"}</Descriptions.Item>
+          <Descriptions.Item label="置信度">{understanding ? `${(understanding.confidence * 100).toFixed(0)}%` : "-"}</Descriptions.Item>
+          <Descriptions.Item label="任务">{task?.taskNo || task?.taskId || "-"}</Descriptions.Item>
+          <Descriptions.Item label="报告">{report?.title || report?.reportId || "-"}</Descriptions.Item>
+          <Descriptions.Item label="关注点" span={2}>
+            <TagList values={understanding?.focusAreas} fallback="默认经营复盘" />
+          </Descriptions.Item>
+          <Descriptions.Item label="数据来源" span={2}>
+            {dataSourceText}
+          </Descriptions.Item>
+          <Descriptions.Item label="建议动作" span={2}>
+            <TagList values={understanding?.recommendedActions} fallback="等待 Agent 输出" />
+          </Descriptions.Item>
+        </Descriptions>
+        <div>
+          <Text strong>规划依据</Text>
+          <Paragraph type="secondary" style={{ margin: "4px 0 8px" }}>
+            {understanding?.plan?.rationale || "等待 Agent 规划"}
+          </Paragraph>
+          <List
+            size="small"
+            header={<Text strong>执行计划</Text>}
+            dataSource={understanding?.plan?.steps || []}
+            locale={{ emptyText: "等待 Agent 规划" }}
+            renderItem={(step) => (
+              <List.Item key={`${step.stepNo}-${step.toolCode}`}>
+                <Space direction="vertical" size={0}>
+                  <Text strong>{step.stepNo}. {step.stepName}</Text>
+                  <Text type="secondary">{step.reason || step.toolCode}</Text>
+                </Space>
+              </List.Item>
+            )}
+          />
+        </div>
+      </Space>
+    </Card>
+  );
+}
+
+function RepairTraceCard({ spans }: { spans: TraceSpan[] }) {
+  const agentSpans = spans.filter((span) =>
+    ["agent.planner", "agent.executor", "agent.verifier", "agent.repair", "agent.verifier.retry"].includes(String(span.spanName || ""))
+  );
+  const repairSpan = agentSpans.find((span) => span.spanName === "agent.repair");
+  const verifierSpan = agentSpans.find((span) => span.spanName === "agent.verifier");
+  const retrySpan = agentSpans.find((span) => span.spanName === "agent.verifier.retry");
+  const verifierOutput = parseOutput(verifierSpan?.outputSummary);
+  const repairOutput = parseOutput(repairSpan?.outputSummary);
+  const missingEvidence = asStringList(verifierOutput.missingEvidence);
+  const repairTools = asStringList(verifierOutput.repairToolCodes);
+
+  return (
+    <Card
+      title="校验与修复链路"
+      extra={repairSpan ? <Tag color="orange">已自动补证据</Tag> : retrySpan ? <Tag color="green">二次校验通过</Tag> : <Tag color="blue">Verifier</Tag>}
+    >
+      <Space direction="vertical" size={12} className="full">
+        {agentSpans.length === 0 ? (
+          <Text type="secondary">任务完成后会展示 Planner、Executor、Verifier 与自动修复 trace。</Text>
+        ) : (
+          <Timeline
+            items={agentSpans.map((span) => ({
+              color: spanColor(span.status),
+              children: (
+                <Space direction="vertical" size={2}>
+                  <Space wrap>
+                    <Text strong>{spanTitle(span.spanName)}</Text>
+                    <StatusTag status={span.status} />
+                    {span.latencyMs !== undefined && <Text type="secondary">{span.latencyMs} ms</Text>}
+                  </Space>
+                  <Text type="secondary">{span.errorMessage || span.inputSummary || span.outputSummary || "-"}</Text>
+                </Space>
+              )
+            }))}
+          />
+        )}
+        {(missingEvidence.length > 0 || repairTools.length > 0) && (
+          <Descriptions size="small" column={{ xs: 1, md: 2 }} bordered>
+            <Descriptions.Item label="缺失证据">
+              <TagList values={missingEvidence} fallback="无" />
+            </Descriptions.Item>
+            <Descriptions.Item label="补跑工具">
+              <TagList values={repairTools} fallback="无" />
+            </Descriptions.Item>
+            <Descriptions.Item label="修复计划" span={2}>
+              {repairOutput.rationale ? String(repairOutput.rationale) : "Verifier 触发单轮补跑并重新生成报告"}
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+      </Space>
     </Card>
   );
 }
@@ -453,6 +663,30 @@ function StatusTag({ status }: { status?: string }) {
   return <Tag color={color}>{value}</Tag>;
 }
 
+function spanColor(status?: string) {
+  const value = String(status || "").toUpperCase();
+  if (value === "SUCCESS") return "green";
+  if (value === "FAILED") return "red";
+  if (value === "APPROVAL_REQUIRED") return "orange";
+  return "blue";
+}
+
+function spanTitle(spanName?: string) {
+  if (spanName === "agent.planner") return "Planner 生成计划";
+  if (spanName === "agent.executor") return "Executor 执行工具";
+  if (spanName === "agent.verifier") return "Verifier 首次校验";
+  if (spanName === "agent.repair") return "Repair 自动补证据";
+  if (spanName === "agent.verifier.retry") return "Verifier 二次校验";
+  return spanName || "Trace Span";
+}
+
+function asStringList(value: unknown) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value.map((item) => String(item)).filter(Boolean);
+}
+
 function outputByTool(steps: AgentStep[]) {
   return steps.reduce<Record<string, Record<string, unknown>>>((outputs, step) => {
     if (step.toolCode) {
@@ -523,6 +757,17 @@ function intentTitle(intent?: string) {
   if (intent === "ad_anomaly") return "店铺投放异常专项检查";
   if (intent === "daily_review") return "店铺每日经营复盘";
   return "";
+}
+
+function percentValue(value?: number) {
+  if (value === undefined || value === null || Number.isNaN(Number(value))) {
+    return "-";
+  }
+  return `${Number(value).toFixed(1)}%`;
+}
+
+function isSupportedDate(value?: string) {
+  return Boolean(value && value >= SUPPORTED_DATE_START && value <= SUPPORTED_DATE_END);
 }
 
 function today() {

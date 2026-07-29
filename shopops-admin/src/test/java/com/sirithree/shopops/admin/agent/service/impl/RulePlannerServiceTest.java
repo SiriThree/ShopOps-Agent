@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sirithree.shopops.admin.agent.domain.AgentPlan;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskSpec;
 import com.sirithree.shopops.admin.agent.domain.DateRangeParam;
 import com.sirithree.shopops.admin.model.config.ModelGatewayPlannerProperties;
 import com.sirithree.shopops.admin.model.domain.ModelCallLogDto;
@@ -84,6 +85,27 @@ class RulePlannerServiceTest {
         assertThat(plan.getSteps()).extracting(step -> step.getToolCode())
                 .containsExactly("order.query_summary", "comment.query_negative", "product.query_candidates",
                         "ad.query_performance", "report.query_external_metrics", "report.generate_daily_review");
+    }
+
+    @Test
+    void shouldPreviewDifferentExplainablePlansFromTaskSpec() {
+        RulePlannerService planner = new RulePlannerService(new ModelGatewayPlannerProperties(), new FakeModelGatewayService(""), new ObjectMapper());
+
+        AgentTaskSpec commentSpec = new AgentTaskSpec();
+        commentSpec.setIntent("comment_risk");
+        AgentPlan commentPlan = planner.previewPlan(commentSpec);
+
+        AgentTaskSpec productSpec = new AgentTaskSpec();
+        productSpec.setIntent("product_optimization");
+        AgentPlan productPlan = planner.previewPlan(productSpec);
+
+        assertThat(commentPlan.getRationale()).contains("差评");
+        assertThat(commentPlan.getSteps()).extracting(step -> step.getToolCode())
+                .containsExactly("order.query_summary", "comment.query_negative", "product.query_candidates", "report.generate_daily_review");
+        assertThat(productPlan.getRationale()).contains("商品");
+        assertThat(productPlan.getSteps()).extracting(step -> step.getToolCode())
+                .containsExactly("order.query_summary", "product.query_candidates", "comment.query_negative", "report.generate_daily_review");
+        assertThat(productPlan.getSteps()).allMatch(step -> step.getReason() != null && !step.getReason().isBlank());
     }
 
     private AgentTaskContext context() {

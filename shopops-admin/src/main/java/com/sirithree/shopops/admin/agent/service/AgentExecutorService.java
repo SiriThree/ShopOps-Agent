@@ -6,4 +6,8 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 
 public interface AgentExecutorService {
     AgentExecutionResult execute(AgentTaskContext context, AgentPlan plan);
+
+    default AgentExecutionResult execute(AgentTaskContext context, AgentPlan plan, AgentExecutionResult baseResult) {
+        return execute(context, plan);
+    }
 }

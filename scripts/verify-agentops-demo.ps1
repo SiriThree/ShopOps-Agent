@@ -319,6 +319,7 @@ if ($task.data.startedAt -and $task.data.finishedAt) {
 }
 
 $demoLinks = [ordered]@{
+    workbench = "$baseUrl/admin/workbench.html"
     dashboard = "$baseUrl/admin/dashboard.html"
     tasks = "$baseUrl/admin/tasks.html?taskId=$taskId"
     reports = "$baseUrl/admin/reports.html?reportId=$reportId"
@@ -388,6 +389,7 @@ Write-Host "   Summary MD:   $summaryMdPath"
 
 Write-Host ""
 Write-Host "Demo links:"
+Write-Host "   Workbench:  $($demoLinks.workbench)"
 Write-Host "   Dashboard:  $($demoLinks.dashboard)"
 Write-Host "   Tasks:      $($demoLinks.tasks)"
 Write-Host "   Reports:    $($demoLinks.reports)"

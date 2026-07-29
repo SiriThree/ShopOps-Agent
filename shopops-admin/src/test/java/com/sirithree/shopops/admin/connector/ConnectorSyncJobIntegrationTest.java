@@ -17,7 +17,10 @@ import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = "shopops.persistence=memory"
+        properties = {
+                "shopops.persistence=memory",
+                "shopops.connector.external-reports.file="
+        }
 )
 class ConnectorSyncJobIntegrationTest {
     private static final String UNCONFIGURED_CONNECTOR_CODE = "file.external-reports";

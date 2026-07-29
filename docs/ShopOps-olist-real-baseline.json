@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-07-23 18:13:24",
+  "baselineName": "shopops-olist-real-baseline-v1",
+  "dataSource": "Brazilian E-Commerce Public Dataset by Olist",
+  "sourceFiles": [
+    "olist_orders_dataset.csv",
+    "olist_order_payments_dataset.csv",
+    "olist_order_items_dataset.csv",
+    "olist_order_reviews_dataset.csv",
+    "olist_products_dataset.csv",
+    "product_category_name_translation.csv"
+  ],
+  "realOrderCount": 99441,
+  "realReviewCount": 99224,
+  "realProductCount": 32951,
+  "businessSampleCount": 400,
+  "toolCount": 18,
+  "toolCallCount": 1350,
+  "routedToolCallCount": 1350,
+  "toolRoutingCoverage": 100.0,
+  "highRiskToolCallCount": 150,
+  "approvalRoutedHighRiskCallCount": 150,
+  "approvalRouteRate": 100.0,
+  "manualDailyReportMinutes": 35,
+  "agentDailyReportMinutes": 4,
+  "anomalyLabelCount": 800,
+  "recalledAnomalyCount": 734,
+  "anomalyRecallRate": 91.75,
+  "sampleTypeCounts": {
+    "order_anomaly": 80,
+    "refund_increase": 70,
+    "low_score_comment": 90,
+    "product_review_risk": 80,
+    "delivery_delay_risk": 80
+  },
+  "toolCallCounts": {
+    "order.query_summary": 80,
+    "order.query_detail": 160,
+    "report.generate_daily_review": 230,
+    "order.query_refund_risk": 70,
+    "comment.query_negative": 240,
+    "order.refund_execute": 70,
+    "comment.analyze_sentiment": 90,
+    "comment.create_reply_draft": 170,
+    "product.query_candidates": 80,
+    "product.optimize_title": 80,
+    "product.update_title": 80
+  },
+  "limitations": [
+    "Olist does not contain real advertising impressions, clicks, cost, or ROI.",
+    "Olist does not contain real product click-through-rate data.",
+    "Refund is represented by canceled/unavailable order payment amount as an after-sales risk proxy."
+  ]
+}

@@ -1,12 +1,12 @@
 ﻿# ShopOps Portfolio Report
 
-Generated at: 2026-07-22 17:18:08
+Generated at: 2026-07-23 22:45:57
 
 ## 1. Positioning
 
 ShopOps is an AgentOps admin platform for ecommerce operations. The project focuses on making an agent execution flow observable, auditable, configurable, testable, and driven by replaceable business data connectors.
 
-The strongest portfolio story now is: generate a daily operation review from Olist public ecommerce data, then show the task lifecycle, tool evidence, approval workflow, audit timeline, shop configuration snapshot, and quantitative evaluation baseline.
+The strongest portfolio story now is: generate a daily operation review from Olist public ecommerce data, then use the public multi-source real-data baseline to prove the Agent can cover orders, reviews, products, ad campaigns, refund proxies, and external-event context.
 
 ## 2. Quantitative Results
 
@@ -29,20 +29,30 @@ The strongest portfolio story now is: generate a daily operation review from Oli
 |Olist demo|Risk comment count|51|
 |Olist demo|Product candidate count|10|
 |Olist demo|Daily review task duration|43.9 ms|
+|Public real-data baseline|Business samples|760|
+|Public real-data baseline|Derived MCP tool calls|2670|
+|Public real-data baseline|High-risk approval-routed calls|450|
+|Public real-data baseline|Criteo ad impressions|16468027|
+|Public real-data baseline|Criteo ad clicks|5947563|
+|Public real-data baseline|Criteo ad conversions|806196|
+|Public real-data baseline|UCI retail lines|541909|
+|Public real-data baseline|Store Sales holiday events|350|
 
-## 3. Olist Data Integration
+## 3. Real Data Integration
 
 | Connector | Data source | Status | Role |
 |---|---|---|---|
 |file.order-summary|Olist orders + payments|UP|GMV, order count, average order amount, refund proxy rate|
 |file.negative-comments|Olist reviews + order items|UP|Low-score reviews, risk samples, product risk aggregation|
 |file.product-candidates|Olist products + reviews + items|UP|Optimization candidates, risk score, product priority|
-|file.ad-performance|Not covered by Olist|NOT_CONFIGURED|Uses built-in demo data for now|
-|file.external-reports|Not covered by Olist|NOT_CONFIGURED|Uses built-in demo data for now|
+|file.ad-performance|Criteo attribution dataset baseline|NOT_CONFIGURED|Real ad impression, click, conversion, and cost benchmark; connector still falls back in the Olist live demo|
+|file.external-reports|Store Sales holiday events baseline|NOT_CONFIGURED|Real external-event benchmark; connector still falls back in the Olist live demo|
 
 Olist sample date: 2018-08-07. The selected day contains 370 orders, GMV 62057.77, and 51 risk comments. This is enough to demonstrate a real-data-driven agent report.
 
 Top product priority: Furniture Bedroom / 4f18ca98, score 80.0, risk comments 2.
+
+Public real-data baseline: 760 samples across Olist, Criteo, UCI Online Retail, and Store Sales, deriving 2670 MCP tool calls and 450 approval-routed high-risk calls.
 
 ## 4. AgentOps Demo Chain
 
@@ -71,7 +81,7 @@ The current baseline covers daily review tasks, model policies, runtime config t
 
 ## 6. Interview Pitch
 
-> ShopOps is not a plain AI report demo. It is an AgentOps backend for ecommerce operations. I decomposed an operation-review agent into tasks, tools, reports, approvals, audits, runtime configuration, and evaluation suites. The current build passes 14/14 evaluation cases, reaches 98.6% tool invocation success rate, and validates approval and configuration behavior at 100% accuracy. I also connected Olist public ecommerce data so the report can be driven by real orders and real reviews.
+> ShopOps is not a plain AI report demo. It is an AgentOps backend for ecommerce operations. I decomposed an operation-review agent into tasks, tools, reports, approvals, audits, runtime configuration, and evaluation suites. The current build passes 14/14 evaluation cases, reaches 98.6% tool invocation success rate, and validates approval and configuration behavior at 100% accuracy. I also built a public multi-source real-data baseline from Olist, Criteo, UCI Online Retail, and Store Sales, covering 760 business samples and 2670 derived MCP tool calls.
 
 Recommended demo flow:
 
@@ -86,7 +96,9 @@ Recommended demo flow:
 ## 7. Current Boundaries
 
 - Olist does not provide a real refund amount field, so canceled / unavailable payment amount is used as a refund or after-sales risk proxy.
-- Olist does not include ad performance or external environment metrics, so those two connectors still use built-in demo data.
+- The public datasets come from different sources, so they are described as a public multi-source benchmark instead of one real merchant.
+- Criteo covers real ad impression/click/conversion/cost benchmark data, but campaign IDs are anonymized and are not linked to Olist product IDs.
+- Store Sales currently only includes holidays_events.csv locally, so it supports external-event context rather than full sales forecasting.
 - Current demo report generation mode is RULE. Real model calls can still be enabled through Model Gateway provider configuration.
 - Olist does not provide native product titles. The demo uses English category plus productId prefix as the display name.
 
@@ -114,4 +126,10 @@ Refresh the evaluation baseline:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/run-agent-evaluation.ps1
+```
+
+Refresh the public real-data baseline:
+
+```powershell
+python scripts/generate-public-real-baseline.py
 ```

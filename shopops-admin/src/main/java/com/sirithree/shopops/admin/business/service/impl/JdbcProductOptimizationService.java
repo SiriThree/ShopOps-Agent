@@ -2,6 +2,7 @@ package com.sirithree.shopops.admin.business.service.impl;
 
 import com.sirithree.shopops.admin.business.domain.ProductCandidateRow;
 import com.sirithree.shopops.admin.business.service.ProductOptimizationService;
+import com.sirithree.shopops.admin.business.support.BusinessFileSummaryReader;
 import com.sirithree.shopops.admin.persistence.mapper.BusinessProductMapper;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,13 +19,21 @@ import org.springframework.stereotype.Service;
 @ConditionalOnProperty(name = "shopops.persistence", havingValue = "jdbc")
 public class JdbcProductOptimizationService implements ProductOptimizationService {
     private final BusinessProductMapper productMapper;
+    private final BusinessFileSummaryReader fileSummaryReader;
 
-    public JdbcProductOptimizationService(BusinessProductMapper productMapper) {
+    public JdbcProductOptimizationService(BusinessProductMapper productMapper, BusinessFileSummaryReader fileSummaryReader) {
         this.productMapper = productMapper;
+        this.fileSummaryReader = fileSummaryReader;
     }
 
     @Override
     public Map<String, Object> queryCandidates(Long tenantId, Long shopId, LocalDate startDate, LocalDate endDate, Integer limit) {
+        java.util.Optional<Map<String, Object>> fileSummary =
+                fileSummaryReader.productCandidates(tenantId, shopId, startDate, endDate, limit);
+        if (fileSummary.isPresent()) {
+            return fileSummary.get();
+        }
+
         LocalDateTime startAt = startDate.atStartOfDay();
         LocalDateTime endExclusiveAt = endDate.plusDays(1).atStartOfDay();
         int safeLimit = limit == null || limit <= 0 ? 10 : limit;

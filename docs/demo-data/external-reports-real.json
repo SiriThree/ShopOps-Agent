@@ -1,0 +1,681 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-01",
+    "endDate": "2018-08-01",
+    "summary": {
+      "visitorCount": 1427574,
+      "newVisitorCount": 1018559,
+      "conversionRate": 0.0478,
+      "repeatPurchaseRate": 0.2865,
+      "favoriteCount": 770905,
+      "cartAddCount": 105642,
+      "metricBasis": "Criteo public traffic proxy: clicks map to engagement, conversions map to action intent.",
+      "topChannels": [
+        {
+          "channelName": "Criteo traffic segment 30763035",
+          "visitorCount": 645189,
+          "impressions": 996963,
+          "clicks": 385842,
+          "conversionRate": 0.0404
+        },
+        {
+          "channelName": "Criteo traffic segment 138937",
+          "visitorCount": 201109,
+          "impressions": 242390,
+          "clicks": 81247,
+          "conversionRate": 0.0165
+        },
+        {
+          "channelName": "Criteo traffic segment 28928366",
+          "visitorCount": 167282,
+          "impressions": 248390,
+          "clicks": 75497,
+          "conversionRate": 0.0956
+        }
+      ],
+      "externalEventContext": {
+        "source": "Corporacion Favorita Store Sales holidays_events.csv",
+        "dateRange": {
+          "start": "2012-03-02",
+          "end": "2017-12-26"
+        },
+        "eventCount": 350,
+        "transferredEventCount": 12,
+        "typeCounts": {
+          "Holiday": 221,
+          "Event": 56,
+          "Additional": 51,
+          "Transfer": 12,
+          "Bridge": 5,
+          "Work Day": 5
+        },
+        "localeCounts": {
+          "National": 174,
+          "Local": 152,
+          "Regional": 24
+        },
+        "sampleEvents": [
+          {
+            "date": "2012-03-02",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Manta",
+            "description": "Fundacion de Manta"
+          },
+          {
+            "date": "2012-04-01",
+            "type": "Holiday",
+            "locale": "Regional",
+            "localeName": "Cotopaxi",
+            "description": "Provincializacion de Cotopaxi"
+          },
+          {
+            "date": "2012-04-12",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Cuenca",
+            "description": "Fundacion de Cuenca"
+          },
+          {
+            "date": "2012-04-14",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Libertad",
+            "description": "Cantonizacion de Libertad"
+          },
+          {
+            "date": "2012-04-21",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Riobamba",
+            "description": "Cantonizacion de Riobamba"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-02",
+    "endDate": "2018-08-02",
+    "summary": {
+      "visitorCount": 1644372,
+      "newVisitorCount": 1156401,
+      "conversionRate": 0.0475,
+      "repeatPurchaseRate": 0.2968,
+      "favoriteCount": 894806,
+      "cartAddCount": 122918,
+      "metricBasis": "Criteo public traffic proxy: clicks map to engagement, conversions map to action intent.",
+      "topChannels": [
+        {
+          "channelName": "Criteo traffic segment 30763035",
+          "visitorCount": 733727,
+          "impressions": 1153223,
+          "clicks": 440968,
+          "conversionRate": 0.0414
+        },
+        {
+          "channelName": "Criteo traffic segment 138937",
+          "visitorCount": 237345,
+          "impressions": 288383,
+          "clicks": 95635,
+          "conversionRate": 0.0163
+        },
+        {
+          "channelName": "Criteo traffic segment 28928366",
+          "visitorCount": 193412,
+          "impressions": 290808,
+          "clicks": 88009,
+          "conversionRate": 0.0965
+        }
+      ],
+      "externalEventContext": {
+        "source": "Corporacion Favorita Store Sales holidays_events.csv",
+        "dateRange": {
+          "start": "2012-03-02",
+          "end": "2017-12-26"
+        },
+        "eventCount": 350,
+        "transferredEventCount": 12,
+        "typeCounts": {
+          "Holiday": 221,
+          "Event": 56,
+          "Additional": 51,
+          "Transfer": 12,
+          "Bridge": 5,
+          "Work Day": 5
+        },
+        "localeCounts": {
+          "National": 174,
+          "Local": 152,
+          "Regional": 24
+        },
+        "sampleEvents": [
+          {
+            "date": "2012-03-02",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Manta",
+            "description": "Fundacion de Manta"
+          },
+          {
+            "date": "2012-04-01",
+            "type": "Holiday",
+            "locale": "Regional",
+            "localeName": "Cotopaxi",
+            "description": "Provincializacion de Cotopaxi"
+          },
+          {
+            "date": "2012-04-12",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Cuenca",
+            "description": "Fundacion de Cuenca"
+          },
+          {
+            "date": "2012-04-14",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Libertad",
+            "description": "Cantonizacion de Libertad"
+          },
+          {
+            "date": "2012-04-21",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Riobamba",
+            "description": "Cantonizacion de Riobamba"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-03",
+    "endDate": "2018-08-03",
+    "summary": {
+      "visitorCount": 1552187,
+      "newVisitorCount": 1113930,
+      "conversionRate": 0.0475,
+      "repeatPurchaseRate": 0.2823,
+      "favoriteCount": 854725,
+      "cartAddCount": 114770,
+      "metricBasis": "Criteo public traffic proxy: clicks map to engagement, conversions map to action intent.",
+      "topChannels": [
+        {
+          "channelName": "Criteo traffic segment 30763035",
+          "visitorCount": 683999,
+          "impressions": 1052613,
+          "clicks": 417355,
+          "conversionRate": 0.0404
+        },
+        {
+          "channelName": "Criteo traffic segment 138937",
+          "visitorCount": 218985,
+          "impressions": 261998,
+          "clicks": 90713,
+          "conversionRate": 0.0154
+        },
+        {
+          "channelName": "Criteo traffic segment 28928366",
+          "visitorCount": 177447,
+          "impressions": 260627,
+          "clicks": 82961,
+          "conversionRate": 0.0968
+        }
+      ],
+      "externalEventContext": {
+        "source": "Corporacion Favorita Store Sales holidays_events.csv",
+        "dateRange": {
+          "start": "2012-03-02",
+          "end": "2017-12-26"
+        },
+        "eventCount": 350,
+        "transferredEventCount": 12,
+        "typeCounts": {
+          "Holiday": 221,
+          "Event": 56,
+          "Additional": 51,
+          "Transfer": 12,
+          "Bridge": 5,
+          "Work Day": 5
+        },
+        "localeCounts": {
+          "National": 174,
+          "Local": 152,
+          "Regional": 24
+        },
+        "sampleEvents": [
+          {
+            "date": "2012-03-02",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Manta",
+            "description": "Fundacion de Manta"
+          },
+          {
+            "date": "2012-04-01",
+            "type": "Holiday",
+            "locale": "Regional",
+            "localeName": "Cotopaxi",
+            "description": "Provincializacion de Cotopaxi"
+          },
+          {
+            "date": "2012-04-12",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Cuenca",
+            "description": "Fundacion de Cuenca"
+          },
+          {
+            "date": "2012-04-14",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Libertad",
+            "description": "Cantonizacion de Libertad"
+          },
+          {
+            "date": "2012-04-21",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Riobamba",
+            "description": "Cantonizacion de Riobamba"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-04",
+    "endDate": "2018-08-04",
+    "summary": {
+      "visitorCount": 1395955,
+      "newVisitorCount": 1003372,
+      "conversionRate": 0.0494,
+      "repeatPurchaseRate": 0.2812,
+      "favoriteCount": 776686,
+      "cartAddCount": 108951,
+      "metricBasis": "Criteo public traffic proxy: clicks map to engagement, conversions map to action intent.",
+      "topChannels": [
+        {
+          "channelName": "Criteo traffic segment 30763035",
+          "visitorCount": 615289,
+          "impressions": 950001,
+          "clicks": 381548,
+          "conversionRate": 0.0419
+        },
+        {
+          "channelName": "Criteo traffic segment 138937",
+          "visitorCount": 190664,
+          "impressions": 228111,
+          "clicks": 77296,
+          "conversionRate": 0.0155
+        },
+        {
+          "channelName": "Criteo traffic segment 28928366",
+          "visitorCount": 165989,
+          "impressions": 245370,
+          "clicks": 78875,
+          "conversionRate": 0.1002
+        }
+      ],
+      "externalEventContext": {
+        "source": "Corporacion Favorita Store Sales holidays_events.csv",
+        "dateRange": {
+          "start": "2012-03-02",
+          "end": "2017-12-26"
+        },
+        "eventCount": 350,
+        "transferredEventCount": 12,
+        "typeCounts": {
+          "Holiday": 221,
+          "Event": 56,
+          "Additional": 51,
+          "Transfer": 12,
+          "Bridge": 5,
+          "Work Day": 5
+        },
+        "localeCounts": {
+          "National": 174,
+          "Local": 152,
+          "Regional": 24
+        },
+        "sampleEvents": [
+          {
+            "date": "2012-03-02",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Manta",
+            "description": "Fundacion de Manta"
+          },
+          {
+            "date": "2012-04-01",
+            "type": "Holiday",
+            "locale": "Regional",
+            "localeName": "Cotopaxi",
+            "description": "Provincializacion de Cotopaxi"
+          },
+          {
+            "date": "2012-04-12",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Cuenca",
+            "description": "Fundacion de Cuenca"
+          },
+          {
+            "date": "2012-04-14",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Libertad",
+            "description": "Cantonizacion de Libertad"
+          },
+          {
+            "date": "2012-04-21",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Riobamba",
+            "description": "Cantonizacion de Riobamba"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-05",
+    "endDate": "2018-08-05",
+    "summary": {
+      "visitorCount": 1480158,
+      "newVisitorCount": 1061568,
+      "conversionRate": 0.0491,
+      "repeatPurchaseRate": 0.2828,
+      "favoriteCount": 843162,
+      "cartAddCount": 114969,
+      "metricBasis": "Criteo public traffic proxy: clicks map to engagement, conversions map to action intent.",
+      "topChannels": [
+        {
+          "channelName": "Criteo traffic segment 30763035",
+          "visitorCount": 647690,
+          "impressions": 997348,
+          "clicks": 411446,
+          "conversionRate": 0.0418
+        },
+        {
+          "channelName": "Criteo traffic segment 138937",
+          "visitorCount": 206738,
+          "impressions": 247382,
+          "clicks": 86380,
+          "conversionRate": 0.0158
+        },
+        {
+          "channelName": "Criteo traffic segment 28928366",
+          "visitorCount": 174641,
+          "impressions": 255856,
+          "clicks": 84519,
+          "conversionRate": 0.0995
+        }
+      ],
+      "externalEventContext": {
+        "source": "Corporacion Favorita Store Sales holidays_events.csv",
+        "dateRange": {
+          "start": "2012-03-02",
+          "end": "2017-12-26"
+        },
+        "eventCount": 350,
+        "transferredEventCount": 12,
+        "typeCounts": {
+          "Holiday": 221,
+          "Event": 56,
+          "Additional": 51,
+          "Transfer": 12,
+          "Bridge": 5,
+          "Work Day": 5
+        },
+        "localeCounts": {
+          "National": 174,
+          "Local": 152,
+          "Regional": 24
+        },
+        "sampleEvents": [
+          {
+            "date": "2012-03-02",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Manta",
+            "description": "Fundacion de Manta"
+          },
+          {
+            "date": "2012-04-01",
+            "type": "Holiday",
+            "locale": "Regional",
+            "localeName": "Cotopaxi",
+            "description": "Provincializacion de Cotopaxi"
+          },
+          {
+            "date": "2012-04-12",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Cuenca",
+            "description": "Fundacion de Cuenca"
+          },
+          {
+            "date": "2012-04-14",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Libertad",
+            "description": "Cantonizacion de Libertad"
+          },
+          {
+            "date": "2012-04-21",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Riobamba",
+            "description": "Cantonizacion de Riobamba"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-06",
+    "endDate": "2018-08-06",
+    "summary": {
+      "visitorCount": 1446678,
+      "newVisitorCount": 1041044,
+      "conversionRate": 0.047,
+      "repeatPurchaseRate": 0.2804,
+      "favoriteCount": 815435,
+      "cartAddCount": 106971,
+      "metricBasis": "Criteo public traffic proxy: clicks map to engagement, conversions map to action intent.",
+      "topChannels": [
+        {
+          "channelName": "Criteo traffic segment 30763035",
+          "visitorCount": 632887,
+          "impressions": 974402,
+          "clicks": 400601,
+          "conversionRate": 0.0403
+        },
+        {
+          "channelName": "Criteo traffic segment 138937",
+          "visitorCount": 198861,
+          "impressions": 238521,
+          "clicks": 82821,
+          "conversionRate": 0.0152
+        },
+        {
+          "channelName": "Criteo traffic segment 28928366",
+          "visitorCount": 165842,
+          "impressions": 242547,
+          "clicks": 80715,
+          "conversionRate": 0.0991
+        }
+      ],
+      "externalEventContext": {
+        "source": "Corporacion Favorita Store Sales holidays_events.csv",
+        "dateRange": {
+          "start": "2012-03-02",
+          "end": "2017-12-26"
+        },
+        "eventCount": 350,
+        "transferredEventCount": 12,
+        "typeCounts": {
+          "Holiday": 221,
+          "Event": 56,
+          "Additional": 51,
+          "Transfer": 12,
+          "Bridge": 5,
+          "Work Day": 5
+        },
+        "localeCounts": {
+          "National": 174,
+          "Local": 152,
+          "Regional": 24
+        },
+        "sampleEvents": [
+          {
+            "date": "2012-03-02",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Manta",
+            "description": "Fundacion de Manta"
+          },
+          {
+            "date": "2012-04-01",
+            "type": "Holiday",
+            "locale": "Regional",
+            "localeName": "Cotopaxi",
+            "description": "Provincializacion de Cotopaxi"
+          },
+          {
+            "date": "2012-04-12",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Cuenca",
+            "description": "Fundacion de Cuenca"
+          },
+          {
+            "date": "2012-04-14",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Libertad",
+            "description": "Cantonizacion de Libertad"
+          },
+          {
+            "date": "2012-04-21",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Riobamba",
+            "description": "Cantonizacion de Riobamba"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-07",
+    "endDate": "2018-08-07",
+    "summary": {
+      "visitorCount": 1692344,
+      "newVisitorCount": 1182014,
+      "conversionRate": 0.0469,
+      "repeatPurchaseRate": 0.3016,
+      "favoriteCount": 991844,
+      "cartAddCount": 131975,
+      "metricBasis": "Criteo public traffic proxy: clicks map to engagement, conversions map to action intent.",
+      "topChannels": [
+        {
+          "channelName": "Criteo traffic segment 30763035",
+          "visitorCount": 732815,
+          "impressions": 1184583,
+          "clicks": 484462,
+          "conversionRate": 0.0425
+        },
+        {
+          "channelName": "Criteo traffic segment 138937",
+          "visitorCount": 243151,
+          "impressions": 298887,
+          "clicks": 102258,
+          "conversionRate": 0.0159
+        },
+        {
+          "channelName": "Criteo traffic segment 28928366",
+          "visitorCount": 195482,
+          "impressions": 298666,
+          "clicks": 97409,
+          "conversionRate": 0.1015
+        }
+      ],
+      "externalEventContext": {
+        "source": "Corporacion Favorita Store Sales holidays_events.csv",
+        "dateRange": {
+          "start": "2012-03-02",
+          "end": "2017-12-26"
+        },
+        "eventCount": 350,
+        "transferredEventCount": 12,
+        "typeCounts": {
+          "Holiday": 221,
+          "Event": 56,
+          "Additional": 51,
+          "Transfer": 12,
+          "Bridge": 5,
+          "Work Day": 5
+        },
+        "localeCounts": {
+          "National": 174,
+          "Local": 152,
+          "Regional": 24
+        },
+        "sampleEvents": [
+          {
+            "date": "2012-03-02",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Manta",
+            "description": "Fundacion de Manta"
+          },
+          {
+            "date": "2012-04-01",
+            "type": "Holiday",
+            "locale": "Regional",
+            "localeName": "Cotopaxi",
+            "description": "Provincializacion de Cotopaxi"
+          },
+          {
+            "date": "2012-04-12",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Cuenca",
+            "description": "Fundacion de Cuenca"
+          },
+          {
+            "date": "2012-04-14",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Libertad",
+            "description": "Cantonizacion de Libertad"
+          },
+          {
+            "date": "2012-04-21",
+            "type": "Holiday",
+            "locale": "Local",
+            "localeName": "Riobamba",
+            "description": "Cantonizacion de Riobamba"
+          }
+        ]
+      }
+    }
+  }
+]

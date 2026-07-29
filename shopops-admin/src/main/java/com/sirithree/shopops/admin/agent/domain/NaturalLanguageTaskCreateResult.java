@@ -12,6 +12,8 @@ public class NaturalLanguageTaskCreateResult {
     private List<String> dataSources;
     private List<String> recommendedActions;
     private DateRangeParam dateRange;
+    private AgentTaskSpec taskSpec;
+    private AgentPlan plan;
     private AgentTaskCreateResult task;
 
     public String getIntent() {
@@ -84,6 +86,22 @@ public class NaturalLanguageTaskCreateResult {
 
     public void setDateRange(DateRangeParam dateRange) {
         this.dateRange = dateRange;
+    }
+
+    public AgentTaskSpec getTaskSpec() {
+        return taskSpec;
+    }
+
+    public void setTaskSpec(AgentTaskSpec taskSpec) {
+        this.taskSpec = taskSpec;
+    }
+
+    public AgentPlan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(AgentPlan plan) {
+        this.plan = plan;
     }
 
     public AgentTaskCreateResult getTask() {

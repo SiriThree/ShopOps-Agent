@@ -4,11 +4,17 @@ public class AgentPlanStep {
     private Integer stepNo;
     private String stepName;
     private String toolCode;
+    private String reason;
 
     public AgentPlanStep(Integer stepNo, String stepName, String toolCode) {
+        this(stepNo, stepName, toolCode, null);
+    }
+
+    public AgentPlanStep(Integer stepNo, String stepName, String toolCode, String reason) {
         this.stepNo = stepNo;
         this.stepName = stepName;
         this.toolCode = toolCode;
+        this.reason = reason;
     }
 
     public Integer getStepNo() {
@@ -33,5 +39,13 @@ public class AgentPlanStep {
 
     public void setToolCode(String toolCode) {
         this.toolCode = toolCode;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

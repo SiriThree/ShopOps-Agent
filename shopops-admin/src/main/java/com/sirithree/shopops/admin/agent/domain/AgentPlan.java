@@ -5,6 +5,7 @@ import java.util.List;
 
 public class AgentPlan {
     private String taskType;
+    private String rationale;
     private List<AgentPlanStep> steps = new ArrayList<>();
 
     public String getTaskType() {
@@ -13,6 +14,14 @@ public class AgentPlan {
 
     public void setTaskType(String taskType) {
         this.taskType = taskType;
+    }
+
+    public String getRationale() {
+        return rationale;
+    }
+
+    public void setRationale(String rationale) {
+        this.rationale = rationale;
     }
 
     public List<AgentPlanStep> getSteps() {

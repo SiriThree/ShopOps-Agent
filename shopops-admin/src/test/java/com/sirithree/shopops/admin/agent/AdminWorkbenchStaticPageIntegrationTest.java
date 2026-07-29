@@ -53,6 +53,7 @@ class AdminWorkbenchStaticPageIntegrationTest {
                 .contains("/api/agent/tasks/natural-language")
                 .contains("/api/agent/tasks/")
                 .contains("/api/admin/agent/tasks?pageNum=1&pageSize=5")
+                .contains("/api/admin/evaluation/agent-natural-language-batch")
                 .contains("/api/reports/")
                 .contains("/admin/tasks.html?taskId=")
                 .contains("shopops.auth.token")
@@ -68,7 +69,10 @@ class AdminWorkbenchStaticPageIntegrationTest {
                 .contains("natural-language")
                 .contains("orderSummary")
                 .contains("negativeComments")
-                .contains("productCandidates");
+                .contains("productCandidates")
+                .contains("/api/admin/agent/tasks/")
+                .contains("agent.repair")
+                .contains("agent.verifier.retry");
     }
 
     @Test

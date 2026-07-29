@@ -157,6 +157,9 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                 context.getTraceId()
         );
         ruleMarkdown = specializeMarkdown(ruleMarkdown, intent, reportTitle, toolCodes);
+        ruleMarkdown = intentSpecificMarkdown(ruleMarkdown, intent, reportTitle, dateRange, orderSummary,
+                negativeComments, productCandidates, adPerformance, externalReportMetrics, riskComments, products,
+                campaigns, channels, runtimeConfig, toolCodes, context.getTraceId());
         ModelReportView modelReport = modelReport(context, payload, orderSummary, negativeComments, productCandidates,
                 adPerformance, externalReportMetrics, runtimeConfig, ruleMarkdown);
         String markdown = modelReport.markdown();
@@ -451,6 +454,279 @@ public class DailyReviewReportExecutor implements ToolExecutor {
             specialized = specialized.replaceFirst("\\R\\R", "\n\n" + intro);
         }
         return specialized;
+    }
+
+    private String intentSpecificMarkdown(String dailyMarkdown,
+                                          String intent,
+                                          String reportTitle,
+                                          DateRangeView dateRange,
+                                          Map<String, Object> orderSummary,
+                                          Map<String, Object> negativeComments,
+                                          Map<String, Object> productCandidates,
+                                          Map<String, Object> adPerformance,
+                                          Map<String, Object> externalReportMetrics,
+                                          List<Map<String, Object>> riskComments,
+                                          List<Map<String, Object>> products,
+                                          List<Map<String, Object>> campaigns,
+                                          List<Map<String, Object>> channels,
+                                          ReportRuntimeConfig runtimeConfig,
+                                          List<String> toolCodes,
+                                          String traceId) {
+        return switch (intent) {
+            case "comment_risk" -> commentRiskMarkdown(reportTitle, dateRange, orderSummary, negativeComments,
+                    productCandidates, riskComments, products, runtimeConfig, toolCodes, traceId);
+            case "product_optimization" -> productOptimizationMarkdown(reportTitle, dateRange, orderSummary,
+                    negativeComments, productCandidates, riskComments, products, runtimeConfig, toolCodes, traceId);
+            case "ad_anomaly" -> adAnomalyMarkdown(reportTitle, dateRange, orderSummary, adPerformance,
+                    externalReportMetrics, campaigns, channels, toolCodes, traceId);
+            default -> dailyMarkdown;
+        };
+    }
+
+    private String commentRiskMarkdown(String reportTitle,
+                                       DateRangeView dateRange,
+                                       Map<String, Object> orderSummary,
+                                       Map<String, Object> negativeComments,
+                                       Map<String, Object> productCandidates,
+                                       List<Map<String, Object>> riskComments,
+                                       List<Map<String, Object>> products,
+                                       ReportRuntimeConfig runtimeConfig,
+                                       List<String> toolCodes,
+                                       String traceId) {
+        return """
+                # %s
+
+                分析周期：%s 至 %s
+
+                ## 1. 差评风险结论
+
+                - 风险评价数：%s
+                - 退款率：%s，预警阈值：%s
+                - 关联待优化商品：%s
+                - 优先关注：%s
+
+                ## 2. 典型差评样本
+
+                %s
+
+                ## 3. 受影响商品
+
+                %s
+
+                ## 4. 处理建议
+
+                %s
+
+                ## 5. 数据证据
+
+                - 工具调用链：%s
+                - Trace ID：%s
+                """.formatted(
+                reportTitle,
+                dateRange.start(),
+                dateRange.end(),
+                number(negativeComments.get("negativeCount")),
+                percent(orderSummary.get("refundRate")),
+                percent(runtimeConfig.refundRateWarnThreshold()),
+                number(productCandidates.get("candidateCount")),
+                focusLine(riskComments, products),
+                renderRiskComments(riskComments),
+                renderProductCandidates(products),
+                commentRiskActions(orderSummary, negativeComments, riskComments, products, runtimeConfig),
+                String.join(", ", toolCodes),
+                traceId
+        );
+    }
+
+    private String productOptimizationMarkdown(String reportTitle,
+                                               DateRangeView dateRange,
+                                               Map<String, Object> orderSummary,
+                                               Map<String, Object> negativeComments,
+                                               Map<String, Object> productCandidates,
+                                               List<Map<String, Object>> riskComments,
+                                               List<Map<String, Object>> products,
+                                               ReportRuntimeConfig runtimeConfig,
+                                               List<String> toolCodes,
+                                               String traceId) {
+        return """
+                # %s
+
+                分析周期：%s 至 %s
+
+                ## 1. 商品优化结论
+
+                - 待优化商品数：%s
+                - 区间 GMV：%s
+                - 风险评价数：%s，预警阈值：%s
+                - 优先商品：%s
+
+                ## 2. 商品候选清单
+
+                %s
+
+                ## 3. 关联评价信号
+
+                %s
+
+                ## 4. 优化动作
+
+                %s
+
+                ## 5. 数据证据
+
+                - 工具调用链：%s
+                - Trace ID：%s
+                """.formatted(
+                reportTitle,
+                dateRange.start(),
+                dateRange.end(),
+                number(productCandidates.get("candidateCount")),
+                number(orderSummary.get("gmv")),
+                number(negativeComments.get("negativeCount")),
+                number(runtimeConfig.negativeCommentWarnThreshold()),
+                products.isEmpty() ? "暂无待优化商品" : value(products.get(0), "productName"),
+                renderProductCandidates(products),
+                renderRiskComments(riskComments),
+                productOptimizationActions(products, negativeComments),
+                String.join(", ", toolCodes),
+                traceId
+        );
+    }
+
+    private String adAnomalyMarkdown(String reportTitle,
+                                     DateRangeView dateRange,
+                                     Map<String, Object> orderSummary,
+                                     Map<String, Object> adPerformance,
+                                     Map<String, Object> externalReportMetrics,
+                                     List<Map<String, Object>> campaigns,
+                                     List<Map<String, Object>> channels,
+                                     List<String> toolCodes,
+                                     String traceId) {
+        return """
+                # %s
+
+                分析周期：%s 至 %s
+
+                ## 1. 投放异常结论
+
+                - 广告消耗：%s
+                - ROI：%s
+                - CTR：%s，转化率：%s
+                - 订单 GMV：%s
+                - 平台访客：%s，报表转化率：%s
+
+                ## 2. 高消耗计划
+
+                %s
+
+                ## 3. 平台环境对比
+
+                %s
+
+                ## 4. 预算调整建议
+
+                %s
+
+                ## 5. 数据证据
+
+                - 工具调用链：%s
+                - Trace ID：%s
+                """.formatted(
+                reportTitle,
+                dateRange.start(),
+                dateRange.end(),
+                number(adPerformance.get("spend")),
+                number(adPerformance.get("roi")),
+                percent(adPerformance.get("ctr")),
+                percent(adPerformance.get("conversionRate")),
+                number(orderSummary.get("gmv")),
+                number(externalReportMetrics.get("visitorCount")),
+                percent(externalReportMetrics.get("conversionRate")),
+                renderCampaignRows(campaigns),
+                renderChannelRows(channels),
+                adAnomalyActions(adPerformance, externalReportMetrics),
+                String.join(", ", toolCodes),
+                traceId
+        );
+    }
+
+    private String commentRiskActions(Map<String, Object> orderSummary,
+                                      Map<String, Object> negativeComments,
+                                      List<Map<String, Object>> riskComments,
+                                      List<Map<String, Object>> products,
+                                      ReportRuntimeConfig runtimeConfig) {
+        StringBuilder builder = new StringBuilder();
+        if (decimal(negativeComments.get("negativeCount")).compareTo(runtimeConfig.negativeCommentWarnThreshold()) >= 0) {
+            builder.append("- 差评数量已达到配置阈值，先按商品聚类分配客服跟进。\n");
+        }
+        if (decimal(orderSummary.get("refundRate")).compareTo(runtimeConfig.refundRateWarnThreshold()) >= 0) {
+            builder.append("- 退款率同步触发预警，优先排查差评商品的售后与描述一致性。\n");
+        }
+        if (!riskComments.isEmpty()) {
+            builder.append("- 对典型低星评价提取原因标签，沉淀客服回复模板和商品页修正文案。\n");
+        }
+        if (!products.isEmpty()) {
+            builder.append("- 将受影响商品加入标题、主图、详情页和库存策略复核清单。");
+        }
+        return builder.isEmpty() ? "- 暂无明显差评异常，保持评价监控。" : builder.toString().stripTrailing();
+    }
+
+    private String productOptimizationActions(List<Map<String, Object>> products,
+                                              Map<String, Object> negativeComments) {
+        StringBuilder builder = new StringBuilder();
+        if (!products.isEmpty()) {
+            builder.append("- 优先处理候选商品的标题关键词、主图卖点和详情页首屏承接。\n");
+            builder.append("- 对高库存低销量商品设置短期促销或关联搭配，提高曝光后的转化效率。\n");
+        }
+        if (decimal(negativeComments.get("negativeCount")).compareTo(BigDecimal.ZERO) > 0) {
+            builder.append("- 将评价中的描述不符、质量、物流问题同步到商品优化需求。");
+        }
+        return builder.isEmpty() ? "- 暂无明显商品优化候选，保持现有商品策略。" : builder.toString().stripTrailing();
+    }
+
+    private String adAnomalyActions(Map<String, Object> adPerformance,
+                                    Map<String, Object> externalReportMetrics) {
+        StringBuilder builder = new StringBuilder();
+        if (decimal(adPerformance.get("roi")).compareTo(new BigDecimal("3.0")) < 0) {
+            builder.append("- ROI 低于 3，建议暂停高消耗低转化计划，并收缩预算。\n");
+        } else {
+            builder.append("- 当前整体 ROI 尚可，建议只压缩低 ROI 子计划预算。\n");
+        }
+        if (decimal(adPerformance.get("ctr")).compareTo(new BigDecimal("0.03")) < 0) {
+            builder.append("- CTR 偏低，优先更换创意图和标题关键词。\n");
+        }
+        if (decimal(externalReportMetrics.get("conversionRate")).compareTo(new BigDecimal("0.03")) < 0) {
+            builder.append("- 平台转化偏低，预算调整前先排除活动承接和页面转化问题。");
+        }
+        return builder.toString().stripTrailing();
+    }
+
+    private String renderCampaignRows(List<Map<String, Object>> campaigns) {
+        if (campaigns.isEmpty()) {
+            return "暂无广告计划明细。";
+        }
+        return campaigns.stream()
+                .limit(5)
+                .map(item -> "- %s：消耗 %s，ROI %s".formatted(
+                        value(item, "campaignName"),
+                        number(item.get("spend")),
+                        number(item.get("roi"))
+                ))
+                .collect(Collectors.joining("\n"));
+    }
+
+    private String renderChannelRows(List<Map<String, Object>> channels) {
+        if (channels.isEmpty()) {
+            return "暂无平台渠道明细。";
+        }
+        return channels.stream()
+                .limit(5)
+                .map(item -> "- %s：访客 %s，转化率 %s".formatted(
+                        value(item, "channelName"),
+                        number(item.get("visitorCount")),
+                        percent(item.get("conversionRate"))
+                ))
+                .collect(Collectors.joining("\n"));
     }
 
     @SuppressWarnings("unchecked")

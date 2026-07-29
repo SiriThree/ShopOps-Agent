@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sirithree.shopops.admin.agent.domain.AgentPlan;
 import com.sirithree.shopops.admin.agent.domain.AgentPlanStep;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskSpec;
 import com.sirithree.shopops.admin.agent.service.PlannerService;
 import com.sirithree.shopops.admin.model.config.ModelGatewayPlannerProperties;
 import com.sirithree.shopops.admin.model.domain.ModelCallStatus;
@@ -44,7 +46,7 @@ public class RulePlannerService implements PlannerService {
         if (!"daily_review".equals(context.getCreateParam().getTaskType())) {
             throw new IllegalArgumentException("P0 仅支持 daily_review 任务");
         }
-        String intent = context.getCreateParam().getIntent();
+        String intent = resolveIntent(context);
         if (hasText(intent) && !"daily_review".equals(intent)) {
             return rulePlan(intent);
         }
@@ -52,6 +54,11 @@ public class RulePlannerService implements PlannerService {
             return modelPlanOrFallback(context);
         }
         return rulePlan("daily_review");
+    }
+
+    @Override
+    public AgentPlan previewPlan(AgentTaskSpec taskSpec) {
+        return rulePlan(taskSpec == null ? "daily_review" : taskSpec.getIntent());
     }
 
     private AgentPlan modelPlanOrFallback(AgentTaskContext context) {
@@ -69,7 +76,8 @@ public class RulePlannerService implements PlannerService {
                     "taskType", context.getCreateParam().getTaskType(),
                     "userInput", context.getCreateParam().getUserInput(),
                     "dateRange", context.getCreateParam().getDateRange(),
-                    "allowedToolCodes", DAILY_REVIEW_TOOL_CODES
+                    "allowedToolCodes", DAILY_REVIEW_TOOL_CODES,
+                    "taskSpec", context.getCreateParam().getTaskSpec() == null ? Map.of() : context.getCreateParam().getTaskSpec()
             ));
 
             ModelInvokeResult result = modelGatewayService.invoke(
@@ -101,7 +109,7 @@ public class RulePlannerService implements PlannerService {
                 6. report.generate_daily_review
 
                 输出格式：
-                {"taskType":"daily_review","steps":[{"stepNo":1,"stepName":"查询订单核心指标","toolCode":"order.query_summary"}]}
+                {"taskType":"daily_review","rationale":"说明整体规划依据","steps":[{"stepNo":1,"stepName":"查询订单核心指标","toolCode":"order.query_summary","reason":"说明选择该工具的原因"}]}
 
                 用户输入：%s
                 日期范围：%s 至 %s
@@ -117,6 +125,7 @@ public class RulePlannerService implements PlannerService {
             JsonNode root = objectMapper.readTree(extractJson(outputText));
             AgentPlan plan = new AgentPlan();
             plan.setTaskType(text(root, "taskType"));
+            plan.setRationale(text(root, "rationale"));
             List<AgentPlanStep> steps = new ArrayList<>();
             JsonNode stepNodes = root.get("steps");
             if (stepNodes != null && stepNodes.isArray()) {
@@ -124,7 +133,8 @@ public class RulePlannerService implements PlannerService {
                     steps.add(new AgentPlanStep(
                             stepNode.path("stepNo").isInt() ? stepNode.path("stepNo").asInt() : null,
                             text(stepNode, "stepName"),
-                            text(stepNode, "toolCode")
+                            text(stepNode, "toolCode"),
+                            text(stepNode, "reason")
                     ));
                 }
             }
@@ -172,36 +182,43 @@ public class RulePlannerService implements PlannerService {
     static List<AgentPlanStep> ruleSteps(String intent) {
         if ("comment_risk".equals(intent)) {
             return List.of(
-                    new AgentPlanStep(1, "分析订单基线", "order.query_summary"),
-                    new AgentPlanStep(2, "聚类差评风险", "comment.query_negative"),
-                    new AgentPlanStep(3, "检查受影响商品", "product.query_candidates"),
-                    new AgentPlanStep(4, "生成差评风险报告", "report.generate_daily_review")
+                    new AgentPlanStep(1, "分析订单基线", "order.query_summary", "建立差评数量与整体交易规模的对照基线"),
+                    new AgentPlanStep(2, "聚类差评风险", "comment.query_negative", "提取低星评价、风险原因和类目分布"),
+                    new AgentPlanStep(3, "检查受影响商品", "product.query_candidates", "关联需要优先处理的商品候选"),
+                    new AgentPlanStep(4, "生成差评风险报告", "report.generate_daily_review", "汇总证据并生成可追溯专项报告")
             );
         }
         if ("product_optimization".equals(intent)) {
             return List.of(
-                    new AgentPlanStep(1, "分析订单基线", "order.query_summary"),
-                    new AgentPlanStep(2, "识别低点击商品", "product.query_candidates"),
-                    new AgentPlanStep(3, "检查关联评价信号", "comment.query_negative"),
-                    new AgentPlanStep(4, "生成商品优化报告", "report.generate_daily_review")
+                    new AgentPlanStep(1, "分析订单基线", "order.query_summary", "建立商品表现判断所需的经营基线"),
+                    new AgentPlanStep(2, "识别低点击商品", "product.query_candidates", "筛选低点击或高风险商品候选"),
+                    new AgentPlanStep(3, "检查关联评价信号", "comment.query_negative", "避免只依据点击指标给出片面建议"),
+                    new AgentPlanStep(4, "生成商品优化报告", "report.generate_daily_review", "生成商品级优化清单和证据")
             );
         }
         if ("ad_anomaly".equals(intent)) {
             return List.of(
-                    new AgentPlanStep(1, "分析订单基线", "order.query_summary"),
-                    new AgentPlanStep(2, "检查投放异常", "ad.query_performance"),
-                    new AgentPlanStep(3, "对比平台外部指标", "report.query_external_metrics"),
-                    new AgentPlanStep(4, "生成投放异常报告", "report.generate_daily_review")
+                    new AgentPlanStep(1, "分析订单基线", "order.query_summary", "建立转化与收入对照基线"),
+                    new AgentPlanStep(2, "检查投放异常", "ad.query_performance", "识别高消耗低转化计划"),
+                    new AgentPlanStep(3, "对比平台外部指标", "report.query_external_metrics", "排除整体流量波动带来的误判"),
+                    new AgentPlanStep(4, "生成投放异常报告", "report.generate_daily_review", "输出预算调整建议及依据")
             );
         }
         return List.of(
-                new AgentPlanStep(1, "查询订单核心指标", "order.query_summary"),
-                new AgentPlanStep(2, "查询差评风险", "comment.query_negative"),
-                new AgentPlanStep(3, "查询待优化商品", "product.query_candidates"),
-                new AgentPlanStep(4, "查询广告投放指标", "ad.query_performance"),
-                new AgentPlanStep(5, "查询外部报表指标", "report.query_external_metrics"),
-                new AgentPlanStep(6, "生成经营复盘报告", "report.generate_daily_review")
+                new AgentPlanStep(1, "查询订单核心指标", "order.query_summary", "获取 GMV、订单和售后基线"),
+                new AgentPlanStep(2, "查询差评风险", "comment.query_negative", "识别评价异常和主要风险原因"),
+                new AgentPlanStep(3, "查询待优化商品", "product.query_candidates", "定位商品层面的优化候选"),
+                new AgentPlanStep(4, "查询广告投放指标", "ad.query_performance", "检查投放消耗和转化效率"),
+                new AgentPlanStep(5, "查询外部报表指标", "report.query_external_metrics", "补充平台环境与整体趋势"),
+                new AgentPlanStep(6, "生成经营复盘报告", "report.generate_daily_review", "融合全部证据生成结构化结论")
         );
+    }
+
+    static List<AgentPlanStep> ruleSteps(AgentTaskCreateParam param) {
+        if (param != null && param.getTaskSpec() != null && hasTextValue(param.getTaskSpec().getIntent())) {
+            return ruleSteps(param.getTaskSpec().getIntent());
+        }
+        return ruleSteps(param == null ? null : param.getIntent());
     }
 
     static String taskResultSummary(String intent, boolean degraded) {
@@ -221,11 +238,33 @@ public class RulePlannerService implements PlannerService {
     private AgentPlan rulePlan(String intent) {
         AgentPlan plan = new AgentPlan();
         plan.setTaskType("daily_review");
+        plan.setRationale(planRationale(intent));
         plan.getSteps().addAll(ruleSteps(intent));
         return plan;
     }
 
+    private String resolveIntent(AgentTaskContext context) {
+        AgentTaskSpec taskSpec = context.getCreateParam().getTaskSpec();
+        if (taskSpec != null && hasText(taskSpec.getIntent())) {
+            return taskSpec.getIntent();
+        }
+        return context.getCreateParam().getIntent();
+    }
+
+    private String planRationale(String intent) {
+        return switch (intent) {
+            case "comment_risk" -> "围绕差评原因与受影响商品选择必要证据，跳过无关投放步骤。";
+            case "product_optimization" -> "围绕商品候选与评价信号规划，避免执行无关投放查询。";
+            case "ad_anomaly" -> "围绕投放效率与外部环境规划，跳过无关评价和商品步骤。";
+            default -> "经营日报需要覆盖订单、评价、商品、投放和外部环境的完整证据。";
+        };
+    }
+
     private boolean hasText(String value) {
+        return value != null && !value.isBlank();
+    }
+
+    private static boolean hasTextValue(String value) {
         return value != null && !value.isBlank();
     }
 }

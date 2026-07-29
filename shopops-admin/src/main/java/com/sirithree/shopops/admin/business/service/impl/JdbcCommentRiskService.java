@@ -2,6 +2,7 @@ package com.sirithree.shopops.admin.business.service.impl;
 
 import com.sirithree.shopops.admin.business.domain.CommentRiskRow;
 import com.sirithree.shopops.admin.business.service.CommentRiskService;
+import com.sirithree.shopops.admin.business.support.BusinessFileSummaryReader;
 import com.sirithree.shopops.admin.persistence.mapper.BusinessCommentMapper;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,13 +19,21 @@ public class JdbcCommentRiskService implements CommentRiskService {
     private static final List<String> RISK_KEYWORDS = List.of("退款", "破损", "物流慢", "描述不符", "质量", "客服");
 
     private final BusinessCommentMapper commentMapper;
+    private final BusinessFileSummaryReader fileSummaryReader;
 
-    public JdbcCommentRiskService(BusinessCommentMapper commentMapper) {
+    public JdbcCommentRiskService(BusinessCommentMapper commentMapper, BusinessFileSummaryReader fileSummaryReader) {
         this.commentMapper = commentMapper;
+        this.fileSummaryReader = fileSummaryReader;
     }
 
     @Override
     public Map<String, Object> queryNegativeComments(Long tenantId, Long shopId, LocalDate startDate, LocalDate endDate, Integer minStar) {
+        java.util.Optional<Map<String, Object>> fileSummary =
+                fileSummaryReader.negativeComments(tenantId, shopId, startDate, endDate, minStar);
+        if (fileSummary.isPresent()) {
+            return fileSummary.get();
+        }
+
         int safeMinStar = minStar == null ? 3 : minStar;
         LocalDateTime startAt = startDate.atStartOfDay();
         LocalDateTime endExclusiveAt = endDate.plusDays(1).atStartOfDay();

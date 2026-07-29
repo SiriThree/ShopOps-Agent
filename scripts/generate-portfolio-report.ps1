@@ -3,6 +3,7 @@ param(
     [string]$EvaluationSummaryPath = "",
     [string]$DemoSummaryPath = "",
     [string]$OlistDataDir = "docs/demo-data/olist",
+    [string]$PublicBaselinePath = "docs/ShopOps-public-real-baseline.json",
     [string]$OutputPath = "docs/ShopOps-portfolio-report.md"
 )
 
@@ -18,6 +19,7 @@ if ([string]::IsNullOrWhiteSpace($DemoSummaryPath)) {
     $DemoSummaryPath = Join-Path $workspaceRoot "$Module/target/demo/olist-agentops-demo-summary.json"
 }
 $olistRoot = Join-Path $workspaceRoot $OlistDataDir
+$publicBaselineFile = Join-Path $workspaceRoot $PublicBaselinePath
 $outputFile = Join-Path $workspaceRoot $OutputPath
 
 function Read-JsonFile([string]$Path) {
@@ -44,6 +46,7 @@ $demo = Read-JsonFile $DemoSummaryPath
 $orderSummary = @(Read-JsonFile (Join-Path $olistRoot "order-summary-olist.json"))[0]
 $commentSummary = @(Read-JsonFile (Join-Path $olistRoot "negative-comments-olist.json"))[0]
 $productSummary = @(Read-JsonFile (Join-Path $olistRoot "product-candidates-olist.json"))[0]
+$publicBaseline = Read-JsonFile $publicBaselineFile
 
 $order = $orderSummary.summary
 $comments = $commentSummary.summary
@@ -61,7 +64,7 @@ $lines += "## 1. Positioning"
 $lines += ""
 $lines += "ShopOps is an AgentOps admin platform for ecommerce operations. The project focuses on making an agent execution flow observable, auditable, configurable, testable, and driven by replaceable business data connectors."
 $lines += ""
-$lines += "The strongest portfolio story now is: generate a daily operation review from Olist public ecommerce data, then show the task lifecycle, tool evidence, approval workflow, audit timeline, shop configuration snapshot, and quantitative evaluation baseline."
+$lines += "The strongest portfolio story now is: generate a daily operation review from Olist public ecommerce data, then use the public multi-source real-data baseline to prove the Agent can cover orders, reviews, products, ad campaigns, refund proxies, and external-event context."
 $lines += ""
 $lines += "## 2. Quantitative Results"
 $lines += ""
@@ -84,20 +87,30 @@ $lines += "|Olist demo|Refund proxy rate|$(Format-Percent ([double]$order.refund
 $lines += "|Olist demo|Risk comment count|$($comments.negativeCount)|"
 $lines += "|Olist demo|Product candidate count|$($products.candidateCount)|"
 $lines += "|Olist demo|Daily review task duration|$($demo.task.durationMs) ms|"
+$lines += "|Public real-data baseline|Business samples|$($publicBaseline.businessSampleCount)|"
+$lines += "|Public real-data baseline|Derived MCP tool calls|$($publicBaseline.toolCallCount)|"
+$lines += "|Public real-data baseline|High-risk approval-routed calls|$($publicBaseline.approvalRoutedHighRiskCallCount)|"
+$lines += "|Public real-data baseline|Criteo ad impressions|$($publicBaseline.criteoImpressionCount)|"
+$lines += "|Public real-data baseline|Criteo ad clicks|$($publicBaseline.criteoClickCount)|"
+$lines += "|Public real-data baseline|Criteo ad conversions|$($publicBaseline.criteoConversionCount)|"
+$lines += "|Public real-data baseline|UCI retail lines|$($publicBaseline.onlineRetailLineCount)|"
+$lines += "|Public real-data baseline|Store Sales holiday events|$($publicBaseline.storeHolidayEventCount)|"
 $lines += ""
-$lines += "## 3. Olist Data Integration"
+$lines += "## 3. Real Data Integration"
 $lines += ""
 $lines += "| Connector | Data source | Status | Role |"
 $lines += "|---|---|---|---|"
 $lines += "|file.order-summary|Olist orders + payments|$(Get-ConnectorStatus $demo 'file.order-summary')|GMV, order count, average order amount, refund proxy rate|"
 $lines += "|file.negative-comments|Olist reviews + order items|$(Get-ConnectorStatus $demo 'file.negative-comments')|Low-score reviews, risk samples, product risk aggregation|"
 $lines += "|file.product-candidates|Olist products + reviews + items|$(Get-ConnectorStatus $demo 'file.product-candidates')|Optimization candidates, risk score, product priority|"
-$lines += "|file.ad-performance|Not covered by Olist|$(Get-ConnectorStatus $demo 'file.ad-performance')|Uses built-in demo data for now|"
-$lines += "|file.external-reports|Not covered by Olist|$(Get-ConnectorStatus $demo 'file.external-reports')|Uses built-in demo data for now|"
+$lines += "|file.ad-performance|Criteo attribution dataset baseline|$(Get-ConnectorStatus $demo 'file.ad-performance')|Real ad impression, click, conversion, and cost benchmark; connector still falls back in the Olist live demo|"
+$lines += "|file.external-reports|Store Sales holiday events baseline|$(Get-ConnectorStatus $demo 'file.external-reports')|Real external-event benchmark; connector still falls back in the Olist live demo|"
 $lines += ""
 $lines += "Olist sample date: $($orderSummary.startDate). The selected day contains $($order.orderCount) orders, GMV $($order.gmv), and $($comments.negativeCount) risk comments. This is enough to demonstrate a real-data-driven agent report."
 $lines += ""
 $lines += "Top product priority: $($topProduct.productName), score $($topProduct.score), risk comments $($topProduct.negativeCount)."
+$lines += ""
+$lines += "Public real-data baseline: $($publicBaseline.businessSampleCount) samples across Olist, Criteo, UCI Online Retail, and Store Sales, deriving $($publicBaseline.toolCallCount) MCP tool calls and $($publicBaseline.approvalRoutedHighRiskCallCount) approval-routed high-risk calls."
 $lines += ""
 $lines += "## 4. AgentOps Demo Chain"
 $lines += ""
@@ -126,7 +139,7 @@ $lines += "The current baseline covers daily review tasks, model policies, runti
 $lines += ""
 $lines += "## 6. Interview Pitch"
 $lines += ""
-$lines += "> ShopOps is not a plain AI report demo. It is an AgentOps backend for ecommerce operations. I decomposed an operation-review agent into tasks, tools, reports, approvals, audits, runtime configuration, and evaluation suites. The current build passes 14/14 evaluation cases, reaches 98.6% tool invocation success rate, and validates approval and configuration behavior at 100% accuracy. I also connected Olist public ecommerce data so the report can be driven by real orders and real reviews."
+$lines += "> ShopOps is not a plain AI report demo. It is an AgentOps backend for ecommerce operations. I decomposed an operation-review agent into tasks, tools, reports, approvals, audits, runtime configuration, and evaluation suites. The current build passes 14/14 evaluation cases, reaches 98.6% tool invocation success rate, and validates approval and configuration behavior at 100% accuracy. I also built a public multi-source real-data baseline from Olist, Criteo, UCI Online Retail, and Store Sales, covering $($publicBaseline.businessSampleCount) business samples and $($publicBaseline.toolCallCount) derived MCP tool calls."
 $lines += ""
 $lines += "Recommended demo flow:"
 $lines += ""
@@ -141,7 +154,9 @@ $lines += ""
 $lines += "## 7. Current Boundaries"
 $lines += ""
 $lines += "- Olist does not provide a real refund amount field, so `canceled / unavailable` payment amount is used as a refund or after-sales risk proxy."
-$lines += "- Olist does not include ad performance or external environment metrics, so those two connectors still use built-in demo data."
+$lines += "- The public datasets come from different sources, so they are described as a public multi-source benchmark instead of one real merchant."
+$lines += "- Criteo covers real ad impression/click/conversion/cost benchmark data, but campaign IDs are anonymized and are not linked to Olist product IDs."
+$lines += "- Store Sales currently only includes `holidays_events.csv` locally, so it supports external-event context rather than full sales forecasting."
 $lines += "- Current demo report generation mode is $($demo.report.generationMode). Real model calls can still be enabled through Model Gateway provider configuration."
 $lines += "- Olist does not provide native product titles. The demo uses English category plus productId prefix as the display name."
 $lines += ""
@@ -169,6 +184,12 @@ $lines += "Refresh the evaluation baseline:"
 $lines += ""
 $lines += '```powershell'
 $lines += "powershell -ExecutionPolicy Bypass -File scripts/run-agent-evaluation.ps1"
+$lines += '```'
+$lines += ""
+$lines += "Refresh the public real-data baseline:"
+$lines += ""
+$lines += '```powershell'
+$lines += "python scripts/generate-public-real-baseline.py"
 $lines += '```'
 
 New-Item -ItemType Directory -Path (Split-Path -Parent $outputFile) -Force | Out-Null

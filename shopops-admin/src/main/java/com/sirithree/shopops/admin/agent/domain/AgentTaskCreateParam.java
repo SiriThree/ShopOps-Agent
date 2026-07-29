@@ -14,6 +14,9 @@ public class AgentTaskCreateParam {
     private String intent;
 
     @Valid
+    private AgentTaskSpec taskSpec;
+
+    @Valid
     @NotNull
     private DateRangeParam dateRange;
 
@@ -39,6 +42,14 @@ public class AgentTaskCreateParam {
 
     public void setIntent(String intent) {
         this.intent = intent;
+    }
+
+    public AgentTaskSpec getTaskSpec() {
+        return taskSpec;
+    }
+
+    public void setTaskSpec(AgentTaskSpec taskSpec) {
+        this.taskSpec = taskSpec;
     }
 
     public DateRangeParam getDateRange() {

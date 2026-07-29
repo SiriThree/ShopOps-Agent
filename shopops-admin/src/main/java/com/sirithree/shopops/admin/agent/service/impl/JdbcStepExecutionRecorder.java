@@ -1,6 +1,7 @@
 package com.sirithree.shopops.admin.agent.service.impl;
 
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
+import com.sirithree.shopops.admin.agent.domain.AgentPlanStep;
 import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
 import com.sirithree.shopops.admin.agent.service.StepExecutionRecorder;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
@@ -19,6 +20,26 @@ public class JdbcStepExecutionRecorder implements StepExecutionRecorder {
     public JdbcStepExecutionRecorder(AgentTaskStepMapper agentTaskStepMapper, JacksonJsonSupport jsonSupport) {
         this.agentTaskStepMapper = agentTaskStepMapper;
         this.jsonSupport = jsonSupport;
+    }
+
+    @Override
+    public Long ensureStep(AgentTaskContext context, AgentPlanStep planStep) {
+        Long existing = context.getStepIdByStepNo().get(planStep.getStepNo());
+        if (existing != null) {
+            return existing;
+        }
+        AgentTaskStep step = new AgentTaskStep();
+        step.setTenantId(context.getTenantId());
+        step.setShopId(context.getShopId());
+        step.setTaskId(context.getTaskId());
+        step.setStepNo(planStep.getStepNo());
+        step.setStepName(planStep.getStepName());
+        step.setToolCode(planStep.getToolCode());
+        step.setStatus(AgentStepStatus.PENDING.name());
+        step.setRetryCount(0);
+        agentTaskStepMapper.insert(step);
+        context.getStepIdByStepNo().put(planStep.getStepNo(), step.getId());
+        return step.getId();
     }
 
     @Override

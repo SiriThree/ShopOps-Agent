@@ -256,7 +256,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
 
     private Map<Integer, Long> seedSteps(AgentTask task, AgentTaskCreateParam param) {
         Map<Integer, Long> stepIdByStepNo = new HashMap<>();
-        for (var planStep : RulePlannerService.ruleSteps(param.getIntent())) {
+        for (var planStep : RulePlannerService.ruleSteps(param)) {
             stepIdByStepNo.put(planStep.getStepNo(), insertStep(task, planStep.getStepNo(), planStep.getStepName(), planStep.getToolCode()));
         }
         return stepIdByStepNo;
