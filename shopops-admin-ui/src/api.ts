@@ -29,7 +29,7 @@ export function readStoredContext(): Partial<RequestContext> {
 
 export const apiClient = axios.create({
   baseURL: "",
-  timeout: 10000
+  timeout: 60000
 });
 
 export async function apiGet<T>(path: string, context: RequestContext): Promise<T> {
