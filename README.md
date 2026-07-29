@@ -407,15 +407,12 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 
 ## Model Gateway
 
-默认报告生成可以走规则 fallback，因此本地无需真实 API Key 也能完成演示。若要启用真实模型调用，可配置 OpenAI-compatible provider：
+Model Gateway 默认开启，并优先尝试 OpenAI-compatible provider 参与 Planner 与 Report 生成；本地没有真实 API Key 或模型服务不可用时，会自动降级到规则链路，保证演示可继续。若要让默认链路真正命中真实 LLM，只需要配置 provider 地址与 API Key：
 
 ```powershell
-$env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_ENABLED="true"
 $env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_BASE_URL="https://your-provider.example/v1"
 $env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_API_KEY="your-api-key"
 $env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_DEFAULT_MODEL="your-model"
-$env:SHOPOPS_MODEL_GATEWAY_REPORT_ENABLED="true"
-$env:SHOPOPS_MODEL_GATEWAY_PLANNER_ENABLED="true"
 ```
 
 相关脚本：

@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {
                 "shopops.persistence=memory",
+                "shopops.model-gateway.planner.enabled=false",
                 "shopops.model-gateway.report.enabled=true",
                 "shopops.model-gateway.report.provider-code=echo",
                 "shopops.model-gateway.report.prompt-code=daily_review.report"

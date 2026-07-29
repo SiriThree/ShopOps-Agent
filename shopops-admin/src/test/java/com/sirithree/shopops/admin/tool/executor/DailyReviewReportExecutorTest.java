@@ -218,6 +218,33 @@ class DailyReviewReportExecutorTest {
                 .contains("规则版报告");
     }
 
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldFallbackToRuleReportWhenModelGatewayReturnsFallbackProvider() {
+        ModelGatewayReportProperties properties = new ModelGatewayReportProperties();
+        properties.setEnabled(true);
+        properties.setProviderCode("openai-compatible");
+        DailyReviewReportExecutor modelExecutor = new DailyReviewReportExecutor(properties, new CapturingModelGatewayService());
+
+        ToolInvokeContext context = new ToolInvokeContext();
+        context.setTenantId(1L);
+        context.setShopId(1L);
+        context.setUserId(2L);
+        context.setTaskId(10001L);
+        context.setTraceId("tr_model_report_fallback");
+
+        ToolInvokeResult result = modelExecutor.execute(context, baseInput());
+
+        assertThat(result.getSuccess()).isTrue();
+        Map<String, Object> data = (Map<String, Object>) result.getData();
+        Map<String, Object> evidence = (Map<String, Object>) data.get("evidence");
+        assertThat(data.get("markdown").toString()).contains("## 1.");
+        assertThat(evidence)
+                .containsEntry("generationMode", "RULE_FALLBACK")
+                .containsEntry("modelCallId", null)
+                .containsEntry("modelProviderCode", null);
+    }
+
     private Map<String, Object> baseInput() {
         DateRangeParam dateRange = new DateRangeParam();
         dateRange.setStart("2026-07-18");

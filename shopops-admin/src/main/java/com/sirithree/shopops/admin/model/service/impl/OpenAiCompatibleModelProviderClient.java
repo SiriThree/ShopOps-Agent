@@ -19,11 +19,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConditionalOnProperty(name = "shopops.model-gateway.openai-compatible.enabled", havingValue = "true")
+@ConditionalOnExpression("'${shopops.model-gateway.openai-compatible.enabled:false}' == 'true' && '${shopops.model-gateway.openai-compatible.api-key:}' != ''")
 public class OpenAiCompatibleModelProviderClient implements ModelProviderClient {
     private static final TypeReference<Map<String, Object>> MAP_TYPE = new TypeReference<>() {
     };

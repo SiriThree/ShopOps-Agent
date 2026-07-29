@@ -223,7 +223,8 @@ public class DailyReviewReportExecutor implements ToolExecutor {
             ));
             ModelInvokeResult result = modelGatewayService.invoke(
                     context.getTenantId(), context.getShopId(), context.getUserId(), "agent-report", param);
-            if (ModelCallStatus.SUCCESS.equals(result.getStatus()) && !blank(result.getOutputText())) {
+            if (ModelCallStatus.SUCCESS.equals(result.getStatus()) && !blank(result.getOutputText())
+                    && sameProvider(result.getProviderCode(), reportProperties.getProviderCode())) {
                 return new ModelReportView(result.getOutputText(), "MODEL_GATEWAY", result.getCallId(), result.getProviderCode());
             }
         } catch (RuntimeException ignored) {
@@ -249,6 +250,13 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         result.put("externalReportMetrics", sourceMetrics(externalReportMetrics,
                 "visitorCount", "conversionRate", "favoriteCount", "cartAddCount"));
         return result;
+    }
+
+    private boolean sameProvider(String actualProviderCode, String expectedProviderCode) {
+        if (blank(expectedProviderCode)) {
+            return true;
+        }
+        return actualProviderCode != null && actualProviderCode.equalsIgnoreCase(expectedProviderCode.trim());
     }
 
     private Map<String, Object> sourceMetrics(Map<String, Object> source, String... metricKeys) {

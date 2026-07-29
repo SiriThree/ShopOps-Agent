@@ -19,7 +19,8 @@ import org.springframework.context.annotation.Bean;
                 "shopops.persistence=memory",
                 "shopops.model-gateway.planner.enabled=true",
                 "shopops.model-gateway.planner.provider-code=plan-json",
-                "shopops.model-gateway.planner.prompt-code=daily_review.plan"
+                "shopops.model-gateway.planner.prompt-code=daily_review.plan",
+                "shopops.model-gateway.report.enabled=false"
         }
 )
 class AgentTaskModelPlannerIntegrationTest extends AbstractAgentTaskFlowIntegrationTest {
