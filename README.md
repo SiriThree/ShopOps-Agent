@@ -24,7 +24,7 @@ ShopOps 是一个面向电商运营场景的 AgentOps 管理平台。项目目�
 ## 项目亮点
 
 - 自然语言 Agent 工作台：运营人员可以输入“生成今天店铺运营日报”“分析最近差评原因”“找出低点击商品并给优化建议”等任务，系统自动路由并展示执行步骤、工具调用和最终报告。
-- MCP 风格工具编排：统一封装订单查询、评价分析、商品优化、投放复盘、Excel 导出、飞书同步等 18 个工具，所有调用进入工具日志、审计链路和评测统计。
+- 标准 MCP 工具服务：提供 `/mcp` JSON-RPC 入口，支持 `server/discover`、`initialize`、`tools/list`、`tools/call`，并将订单查询、评价分析、商品优化、投放复盘、Excel 导出、飞书同步等 18 个工具暴露为 MCP tools。
 - Agent 执行闭环：支持任务创建、意图路由、步骤执行、同步/异步调度、失败重试、降级处理、任务追踪和报告落库。
 - 风控与人工审批：退款执行、商品标题修改、广告预算建议等高风险工具进入审批流程，支持确认语、撤回、批量处理、过期处理和审计追踪。
 - 店铺运行配置：退款率阈值、差评阈值、审批开关、模型策略可按店铺配置，并在 Agent 报告和工具执行中真实生效。
@@ -39,7 +39,7 @@ ShopOps 是一个面向电商运营场景的 AgentOps 管理平台。项目目�
 |---|---|---|
 | Agent 工作台 | 已完成 v1 | 自然语言输入、快捷任务、Olist 演示、执行步骤、量化结果、报告入口 |
 | Agent 任务流 | 已完成 | 创建、运行、重试、步骤、事件、任务详情、异步/同步执行 |
-| MCP 工具中心 | 已完成 | 工具注册、工具网关、调用日志、失败统计、工具审批状态 |
+| MCP 工具中心 | 已完成 v1 | 标准 `/mcp` JSON-RPC 入口、工具注册、工具网关、调用日志、失败统计、工具审批状态 |
 | 审批中心 | 已完成 | 创建、通过、拒绝、撤回、批量操作、过期处理、确认语 |
 | 审计中心 | 已完成 | 总览、风险事件、时间线、详情、导出、跨页面跳转 |
 | 报告中心 | 已完成 | 报告列表、详情、Markdown 查看、报告证据链 |
@@ -234,7 +234,7 @@ Spring Boot Backend
   ├── Auth / Tenant / Shop
   ├── Agent Task Queue
   ├── Planner / Executor
-  ├── MCP-style Tool Registry
+  ├── MCP Server / Tool Registry
   ├── Tool Gateway
   ├── Approval Service
   ├── Report Service
@@ -278,7 +278,7 @@ Persistence and Integrations
 
 Agent 与平台能力：
 
-- MCP-style Tool Registry
+- MCP Server / Tool Registry
 - Agent Task Queue
 - Rule Planner
 - Sequential Executor
@@ -404,6 +404,37 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 - Excel 报表真实导出
 
 说明：`Estimated daily report time saving` 来自固定工作流估算基线，证据项标记为 `ESTIMATED`；真实人工计时仍需补充至少 5 次人工流程记录。
+
+## MCP Server
+
+ShopOps 已提供标准 MCP JSON-RPC 入口：
+
+- Endpoint：`POST /mcp`
+- Transport：HTTP JSON-RPC
+- Protocol header：响应会返回 `MCP-Protocol-Version: 2026-07-28`
+- 支持方法：`server/discover`、`initialize`、`tools/list`、`tools/call`
+- 上下文：沿用后台 Header 鉴权和租户上下文，例如 `X-Tenant-Id`、`X-Shop-Id`、`X-User-Id`、`X-User-Roles`
+- 执行链路：`tools/call` 复用现有 `ToolGatewayService`，因此工具日志、审批、店铺配置和审计链路继续生效
+
+示例：
+
+```powershell
+$headers = @{
+  "Content-Type" = "application/json"
+  "X-Tenant-Id" = "1"
+  "X-Shop-Id" = "1"
+  "X-User-Id" = "1"
+  "X-User-Roles" = "ADMIN"
+}
+
+$body = @{
+  jsonrpc = "2.0"
+  id = "tools-1"
+  method = "tools/list"
+} | ConvertTo-Json -Depth 10
+
+Invoke-RestMethod -Uri "http://localhost:8080/mcp" -Method Post -Headers $headers -Body $body
+```
 
 ## Model Gateway
 
