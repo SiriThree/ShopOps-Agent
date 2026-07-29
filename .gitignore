@@ -22,6 +22,7 @@ logs/
 # Runtime config
 .env
 .env.*
+!.env.example
 application-local.yml
 application-secret.yml
 

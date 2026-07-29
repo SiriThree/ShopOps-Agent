@@ -407,13 +407,17 @@ mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
 
 ## Model Gateway
 
-Model Gateway 默认开启，并优先尝试 OpenAI-compatible provider 参与 Planner 与 Report 生成；本地没有真实 API Key 或模型服务不可用时，会自动降级到规则链路，保证演示可继续。若要让默认链路真正命中真实 LLM，只需要配置 provider 地址与 API Key：
+Model Gateway 默认开启，并优先尝试 OpenAI-compatible provider 参与 Planner 与 Report 生成；本地没有真实 API Key 或模型服务不可用时，会自动降级到规则链路，保证演示可继续。
 
-```powershell
-$env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_BASE_URL="https://your-provider.example/v1"
-$env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_API_KEY="your-api-key"
-$env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_DEFAULT_MODEL="your-model"
+推荐复制 `.env.example` 为 `.env`，然后在 `.env` 中填写本地 API Key；`.env` 已被 Git 忽略，不会提交到仓库：
+
+```dotenv
+SHOPOPS_MODEL_OPENAI_COMPATIBLE_BASE_URL=https://api.deepseek.com/v1
+SHOPOPS_MODEL_OPENAI_COMPATIBLE_API_KEY=your-api-key
+SHOPOPS_MODEL_OPENAI_COMPATIBLE_DEFAULT_MODEL=deepseek-chat
 ```
+
+之后直接运行一键启动脚本即可，脚本会自动读取项目根目录的 `.env`。
 
 相关脚本：
 

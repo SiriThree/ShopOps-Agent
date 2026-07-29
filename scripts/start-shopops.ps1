@@ -20,6 +20,41 @@ $demoTask = "Generate the 2018-08-07 Olist shop operation daily report"
 $defaultDatasourceUrl = "jdbc:mysql://localhost:3306/shopops_agent?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true"
 $devComposeFile = Join-Path $workspaceRoot "deploy\docker-compose.dev.yml"
 
+function Import-DotEnv {
+    param([string]$Path)
+    if (-not (Test-Path $Path)) {
+        return
+    }
+
+    $loadedKeys = New-Object System.Collections.Generic.List[string]
+    foreach ($line in Get-Content $Path) {
+        $trimmed = $line.Trim()
+        if ([string]::IsNullOrWhiteSpace($trimmed) -or $trimmed.StartsWith("#")) {
+            continue
+        }
+        $parts = $trimmed -split "=", 2
+        if ($parts.Length -ne 2) {
+            continue
+        }
+        $key = $parts[0].Trim()
+        $value = $parts[1].Trim()
+        if ($value.Length -ge 2) {
+            $first = $value.Substring(0, 1)
+            $last = $value.Substring($value.Length - 1, 1)
+            if (($first -eq '"' -and $last -eq '"') -or ($first -eq "'" -and $last -eq "'")) {
+                $value = $value.Substring(1, $value.Length - 2)
+            }
+        }
+        if ($key -match "^[A-Za-z_][A-Za-z0-9_]*$" -and [string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable($key, "Process"))) {
+            [Environment]::SetEnvironmentVariable($key, $value, "Process")
+            $loadedKeys.Add($key) | Out-Null
+        }
+    }
+    if ($loadedKeys.Count -gt 0) {
+        Write-Host "Loaded .env keys: $($loadedKeys -join ', ')"
+    }
+}
+
 function Require-Command {
     param(
         [string]$Name,
@@ -161,6 +196,7 @@ function Start-WorkbenchOpener {
 }
 
 Set-Location $workspaceRoot
+Import-DotEnv -Path (Join-Path $workspaceRoot ".env")
 if ($Jdbc -and $Memory) {
     throw "Use either -Jdbc or -Memory, not both."
 }
