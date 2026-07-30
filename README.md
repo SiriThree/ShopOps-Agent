@@ -447,6 +447,32 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-mcp-server.ps1
 - `docs/evaluation/mcp-server-verification-summary.json`
 - `docs/evaluation/mcp-server-verification-summary.md`
 
+独立 stdio MCP Server 进程：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-mcp-stdio-server.ps1
+```
+
+MCP Client 配置示例：
+
+```json
+{
+  "mcpServers": {
+    "shopops": {
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\找实习\\ShopOps\\scripts\\run-mcp-stdio-server.ps1"
+      ]
+    }
+  }
+}
+```
+
+说明：stdio 进程默认以 `memory` 模式启动，便于 MCP Client 直接拉起；后台管理端仍可通过一键启动脚本使用 JDBC/MySQL 持久化。
+
 ## Model Gateway
 
 Model Gateway 默认开启，并优先尝试 OpenAI-compatible provider 参与 Planner 与 Report 生成；本地没有真实 API Key 或模型服务不可用时，会自动降级到规则链路，保证演示可继续。
