@@ -2,6 +2,8 @@ package com.sirithree.shopops.admin.mcp;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.sirithree.shopops.admin.mcp.sse.McpSseSession;
+import com.sirithree.shopops.admin.mcp.sse.McpSseSessionRegistry;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -27,6 +29,9 @@ class McpProtocolControllerIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private McpSseSessionRegistry sseSessionRegistry;
 
     @Test
     @SuppressWarnings("unchecked")
@@ -105,6 +110,48 @@ class McpProtocolControllerIntegrationTest {
                 .containsEntry("success", false)
                 .containsEntry("status", "APPROVAL_REQUIRED")
                 .containsEntry("errorCode", "APPROVAL_REQUIRED");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldAcceptMcpMessageOverSseSession() {
+        McpSseSession session = sseSessionRegistry.createSession();
+        ResponseEntity<Map> response = restTemplate.exchange(
+                "http://localhost:" + port + "/mcp/messages?sessionId=" + session.getSessionId(),
+                HttpMethod.POST,
+                new HttpEntity<>(Map.of(
+                        "jsonrpc", "2.0",
+                        "id", "sse-tools-1",
+                        "method", "tools/list"
+                ), adminHeaders()),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode().value()).isEqualTo(202);
+        Map<String, Object> responseBody = response.getBody();
+        assertThat(responseBody)
+                .containsEntry("accepted", true)
+                .containsEntry("sessionId", session.getSessionId())
+                .containsEntry("id", "sse-tools-1");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void shouldRejectMcpSseMessageForMissingSession() {
+        ResponseEntity<Map> response = restTemplate.exchange(
+                "http://localhost:" + port + "/mcp/messages?sessionId=missing",
+                HttpMethod.POST,
+                new HttpEntity<>(Map.of(
+                        "jsonrpc", "2.0",
+                        "id", "sse-missing-1",
+                        "method", "initialize"
+                ), adminHeaders()),
+                Map.class
+        );
+
+        assertThat(response.getStatusCode().value()).isEqualTo(404);
+        assertThat((Map<String, Object>) response.getBody())
+                .containsEntry("accepted", false);
     }
 
     private Map<String, Object> post(Map<String, Object> body) {
