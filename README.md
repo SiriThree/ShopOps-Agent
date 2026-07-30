@@ -452,6 +452,8 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-mcp-server.ps1
 
 - `docs/evaluation/mcp-server-verification-summary.json`
 - `docs/evaluation/mcp-server-verification-summary.md`
+- `docs/evaluation/mcp-stdio-client-verification-summary.json`
+- `docs/evaluation/mcp-stdio-client-verification-summary.md`
 
 独立 stdio MCP Server 进程：
 
@@ -478,6 +480,13 @@ MCP Client 配置示例：
 ```
 
 说明：stdio 进程默认以 `memory` 模式启动，便于 MCP Client 直接拉起；后台管理端仍可通过一键启动脚本使用 JDBC/MySQL 持久化。
+
+外部 MCP Client 验收：
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-mcp-stdio-client.ps1 -SkipCompile
+```
+
+该脚本会模拟外部客户端拉起 stdio MCP Server，并验证 `initialize`、`tools/list`、只读 `tools/call` 和高风险审批路径。详细说明见 `docs/MCP客户端接入验收说明.md`。
 
 ## Model Gateway
 

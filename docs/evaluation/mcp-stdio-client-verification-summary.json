@@ -1,0 +1,49 @@
+﻿{
+    "evidenceName":  "shopops-mcp-stdio-client-verification-v1",
+    "generatedAt":  "2026-07-30T13:38:42.3290589+08:00",
+    "transport":  "stdio",
+    "command":  "powershell",
+    "args":  [
+                 "-ExecutionPolicy",
+                 "Bypass",
+                 "-File",
+                 "scripts/run-mcp-stdio-server.ps1"
+             ],
+    "requestCount":  4,
+    "responseCount":  4,
+    "totalChecks":  5,
+    "passedChecks":  5,
+    "successRate":  100,
+    "toolCount":  18,
+    "durationMs":  14670.18,
+    "stdoutFile":  "shopops-admin/target/mcp-stdio-client-verification/stdout.jsonl",
+    "stderrFile":  "shopops-admin/target/mcp-stdio-client-verification/stderr.log",
+    "checks":  [
+                   {
+                       "name":  "stdio process exited",
+                       "passed":  true,
+                       "detail":  "completed=True, exitCode=0"
+                   },
+                   {
+                       "name":  "initialize response",
+                       "passed":  true,
+                       "detail":  "protocol=2026-07-28"
+                   },
+                   {
+                       "name":  "tools/list response",
+                       "passed":  true,
+                       "detail":  "toolCount=18"
+                   },
+                   {
+                       "name":  "read-only tools/call",
+                       "passed":  true,
+                       "detail":  "status=SUCCESS"
+                   },
+                   {
+                       "name":  "high-risk approval response",
+                       "passed":  true,
+                       "detail":  "status=APPROVAL_REQUIRED"
+                   }
+               ],
+    "claimBoundary":  "This simulates an external MCP client launching ShopOps over stdio and exchanging line-delimited JSON-RPC messages."
+}
