@@ -436,6 +436,17 @@ $body = @{
 Invoke-RestMethod -Uri "http://localhost:8080/mcp" -Method Post -Headers $headers -Body $body
 ```
 
+一键验收 MCP Server：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-mcp-server.ps1
+```
+
+输出证据：
+
+- `docs/evaluation/mcp-server-verification-summary.json`
+- `docs/evaluation/mcp-server-verification-summary.md`
+
 ## Model Gateway
 
 Model Gateway 默认开启，并优先尝试 OpenAI-compatible provider 参与 Planner 与 Report 生成；本地没有真实 API Key 或模型服务不可用时，会自动降级到规则链路，保证演示可继续。
