@@ -1,465 +1,273 @@
 # ShopOps
 
-ShopOps 是一个面向电商运营场景的 AgentOps 管理平台。项目目标是把运营人员的自然语言任务，拆解成可编排、可审计、可审批、可配置、可评测的 Agent 执行链路。
+ShopOps 是一个面向多店铺电商运营场景的全栈运营管理平台，覆盖组织、权限、店铺、订单、商品、评论、报表、连接器、异步任务、审批和审计追踪等核心能力；Agent 作为受权限、审批、幂等、预算和审计约束的自动化工作流模块嵌入平台。
 
+> 当前仓库用于工程实践、作品集和面试演示。外部电商平台主要通过公开数据文件、Webhook 或模拟适配器接入，尚未接入真实商业店铺和生产流量。
 
+## 1. 目标用户与业务场景
 
-> 运营人员在 Agent 工作台用自然语言发起日常任务，系统自动识别意图，调用订单、评价、商品、投放等工具，生成结构化运营日报、异常告警和改进建议，并沉淀任务、工具、报告、审批、审计和量化评测数据。
+目标用户是负责多个店铺的运营、主管和平台管理员。当前代码覆盖的典型场景包括：
 
-## 可验证结果
+- 查看店铺经营指标、订单汇总、差评和商品候选；
+- 生成经营日报、Excel 报表并可选同步到飞书 Webhook；
+- 创建并跟踪 Agent 自动化任务；
+- 对退款执行、商品标题修改等高风险工具进行人工审批；
+- 管理连接器、凭据、任务、工具、审计事件、Prompt 和模型配置；
+- 通过租户、店铺成员关系、角色权限点和数据范围限制访问。
 
-| 指标 | 当前结果 | 证据 |
-|---|---:|---|
-| 公开真实数据业务样例 | 760 | Olist、Criteo、UCI Online Retail、Store Sales |
-| 派生 MCP 工具调用 | 2670 | `docs/ShopOps-public-real-baseline.json` |
-| 高风险审批路由调用 | 450 | 退款、商品标题、广告预算建议 |
-| Agent 自动化评测 | 14/14 通过 | `shopops-admin/target/evaluation` |
-| 工具调用成功率 | 98.6% | `docs/ShopOps-resume-claim-evidence.md` |
-| 异常信号评测 | Precision 94.81%, Recall 100% | `docs/ShopOps-real-anomaly-evaluation.md` |
-| 飞书 webhook 批量验收 | 100/100 成功，HTTP 200 率 100% | `docs/evaluation/feishu-webhook-batch-summary.json` |
-| 飞书 webhook 平均耗时 | 311.9 ms | 100 次连续真实 webhook 调用 |
-| Excel 报表导出 | 真实 `.xlsx`，4 个 worksheet | `docs/evaluation/shopops-operation-report-sample.xlsx` |
-| 日报耗时收益 | 估算 35.4 分钟 -> 4.2 分钟 | 标记为 `ESTIMATED`，不是实测人工计时 |
+## 2. 项目定位
 
-## 项目亮点
+ShopOps 的主体是企业运营工作台，而不是聊天 Agent Demo。
 
-- 自然语言 Agent 工作台：运营人员可以输入“生成今天店铺运营日报”“分析最近差评原因”“找出低点击商品并给优化建议”等任务，系统自动路由并展示执行步骤、工具调用和最终报告。
-- MCP 风格工具编排：统一封装订单查询、评价分析、商品优化、投放复盘、Excel 导出、飞书同步等 18 个工具，所有调用进入工具日志、审计链路和评测统计。
-- Agent 执行闭环：支持任务创建、意图路由、步骤执行、同步/异步调度、失败重试、降级处理、任务追踪和报告落库。
-- 风控与人工审批：退款执行、商品标题修改、广告预算建议等高风险工具进入审批流程，支持确认语、撤回、批量处理、过期处理和审计追踪。
-- 店铺运行配置：退款率阈值、差评阈值、审批开关、模型策略可按店铺配置，并在 Agent 报告和工具执行中真实生效。
-- 真实数据与评测：Olist 作为在线演示主链路，Criteo、UCI Online Retail、Store Sales 补齐广告、退款/取消代理和外部事件评测缺口。
-- 报表输出闭环：运营日报可查看 Markdown 证据链，可导出真实 Excel 文件，并已通过 100 次真实飞书 webhook 批量同步验收。
-- React 管理前端：后台已迁移到 React + TypeScript + Axios + ECharts + Ant Design，覆盖工作台、任务、报告、审计、工具、审批、模型和组织配置等页面。
-- 可复现作品集证据：提供基线生成、Agent 评测、异常信号评测、飞书批量验收、耗时收益估算等脚本和文档。
+Agent 可以理解目标、选择受控工作流、生成计划、调用治理后的工具、汇总证据并生成建议或报告；Agent 不能自行切换租户/店铺、提升权限、绕过审批、修改风险策略或把模型判断当成外部写操作成功。
 
-## 当前完成度
+## 3. 技术栈
 
-| 模块 | 状态 | 说明 |
-|---|---|---|
-| Agent 工作台 | 已完成 v1 | 自然语言输入、快捷任务、Olist 演示、执行步骤、量化结果、报告入口 |
-| Agent 任务流 | 已完成 | 创建、运行、重试、步骤、事件、任务详情、异步/同步执行 |
-| MCP 工具中心 | 已完成 | 工具注册、工具网关、调用日志、失败统计、工具审批状态 |
-| 审批中心 | 已完成 | 创建、通过、拒绝、撤回、批量操作、过期处理、确认语 |
-| 审计中心 | 已完成 | 总览、风险事件、时间线、详情、导出、跨页面跳转 |
-| 报告中心 | 已完成 | 报告列表、详情、Markdown 查看、报告证据链 |
-| 用户与租户 | 已完成 | 用户、租户、店铺、成员、角色权限、密码重置 |
-| 店铺配置 | 已完成 | 配置维护、运行期读取、阈值和审批开关生效 |
-| Model Gateway | 已完成基础版 | Provider、Prompt 模板、调用日志、OpenAI-compatible 适配、规则 fallback |
-| React 前端 | 已完成主页面迁移 | 工作台、Dashboard、任务、报告、审计、工具、审批、模型、组织等页面 |
-| Olist 数据 | 已完成演示版 | 订单、评价、商品候选真实数据接入 |
-| 公开多源真实数据基线 | 已完成 v1 | Criteo 广告、UCI 退款/取消代理、Store Sales 外部事件已纳入评测基线 |
+| 层次 | 实际技术 |
+|---|---|
+| 后端 | Java 17、Spring Boot 3.3.7、Spring MVC、MyBatis |
+| 数据库 | MySQL 8.4、Flyway V1—V21 |
+| 异步 | RabbitMQ；数据库任务状态与租约字段 |
+| 缓存/基础设施 | Redis 依赖与健康检查，当前未形成完整业务缓存主链路 |
+| 前端 | React 19、TypeScript 5.7、Vite 6、Ant Design、Axios、ECharts |
+| 可观测性 | Spring Boot Actuator、Micrometer、Prometheus 配置、MDC、业务 Trace/Audit |
+| 测试 | JUnit 5、Spring Boot Test、Testcontainers 依赖、k6 脚本 |
+| 部署 | Dockerfile、Docker Compose、GitHub Actions |
 
-## 快速开始
+选择模块化单体而非拆分微服务，是为了先把租户边界、事务、权限、任务可靠性和测试做扎实。
 
-环境要求：
+## 4. 仓库结构
+
+```text
+shopops-common/       公共返回模型与基础类型
+shopops-admin/        Spring Boot 管理端与业务后端
+shopops-admin-ui/     React/TypeScript 运营工作台
+docs/                 架构、演示、评测和阶段交接文档
+deploy/               Docker 与 Prometheus 配置
+performance/          k6 性能脚本
+scripts/              数据准备、启动、演示和历史评测脚本
+sql/                  早期 SQL 基线；正式演进以 Flyway 为准
+```
+
+## 5. 系统架构
+
+```mermaid
+flowchart LR
+    U[运营人员/管理员] --> UI[React 运营工作台]
+    UI --> API[Spring Boot API]
+    API --> AUTH[认证与权限]
+    API --> BIZ[订单/商品/评论/报表]
+    API --> TASK[任务与审批]
+    API --> CONN[连接器]
+    API --> AGENT[Agent 自动化模块]
+    AGENT --> PLAN[工作流模板与 Plan Validator]
+    PLAN --> TOOL[Tool Gateway]
+    TOOL --> APPROVAL[审批与风险策略]
+    TOOL --> EXEC[Tool Executor]
+    EXEC --> BIZ
+    EXEC --> CONN
+    TASK --> MQ[RabbitMQ]
+    MQ --> WORKER[Worker + 数据库租约]
+    API --> DB[(MySQL)]
+    API --> OBS[Audit / Trace / Metrics]
+```
+
+更多真实组件图见 [`docs/architecture/shopops-architecture.md`](docs/architecture/shopops-architecture.md)。
+
+## 6. 多租户与权限
+
+可信请求上下文包含 tenant、user、可访问店铺、当前店铺、角色、权限点、requestId 和 traceId。
+
+- Bearer Token 提供身份基础；请求时重新核验当前用户和店铺成员关系；
+- 前端选择的 shopId 不是可信授权结果，后端会再次检查；
+- 角色映射到 `dashboard:read`、`order:read`、`approval:review`、`tool:execute`、`agent:execute` 等权限点；
+- Tool Gateway 在实际执行前重新授权；
+- RabbitMQ Worker 会用持久化任务身份复核消息，并在高风险执行前检查最新权限；
+- HIGH/CRITICAL 工具不能通过店铺配置关闭审批。
+
+当前限制：权限映射主要在代码中维护，尚未形成完整数据库化 RBAC 管理界面；所有 Mapper 仍需要持续进行 tenant/shop 条件审计。
+
+## 7. 核心业务与运营前端
+
+当前后端存在订单、商品、评论、Dashboard、报表等查询与工具执行服务。React 前端已将运营总览、任务、审批、报告、连接器、工具、审计和组织管理作为主导航，Agent 入口降为“自动化工作台”。
+
+当前仓库尚未形成独立且完整的订单、商品、评论 React 运营页；这些能力更多通过 Dashboard、工具和 Agent 工作流暴露。
+
+## 8. 写操作、审批与幂等
+
+旗舰可靠性链路为 `order.refund_execute`：
+
+```text
+Tool 请求
+→ 权限与风险检查
+→ HIGH 强制审批
+→ 审批参数摘要校验
+→ 数据库幂等记录
+→ 外部退款适配器调用
+→ 外部结果回查
+→ 本地确认
+→ Outbox
+→ Audit/Trace
+```
+
+关键机制：
+
+- 审批状态机和条件更新防止重复决策；
+- 审批参数摘要必须与执行参数一致；
+- `tool + tenant + shop + businessObject + operationRequestId` 构成业务幂等语义；
+- 外部超时进入 `EXTERNAL_UNKNOWN`，不盲目重复写；
+- 本地状态、执行记录和 Outbox 由事务服务协调；
+- 提供异常写操作回查与对账入口。
+
+当前退款外部客户端是确定性模拟适配器，不代表已接入真实电商平台退款 API。Outbox 也尚未完成完整多实例 claim、publisher confirm 和自动调度闭环。
+
+## 9. 异步任务
+
+任务状态统一为：
+
+```text
+PENDING → QUEUED → RUNNING → SUCCEEDED
+                    ├→ WAITING_APPROVAL
+                    ├→ RETRYING
+                    ├→ FAILED
+                    ├→ CANCEL_REQUESTED → CANCELLED
+                    └→ NEEDS_MANUAL_ACTION
+```
+
+Worker 通过数据库条件更新原子获取租约，记录 workerId、lockedAt、leaseExpireAt、heartbeatAt 和 attempt。重复 RabbitMQ 消息不能仅凭消息触发重复执行。
+
+当前限制：周期心跳、完整指数退避调度、DLQ 管理界面、审批后统一恢复以及全步骤取消检查仍未完全实现。
+
+## 10. 连接器
+
+当前深度治理对象为 `file.order-summary`：
+
+```text
+连接配置
+→ 文件读取
+→ 分页游标
+→ 外部 ID 提取
+→ SHA-256 内容指纹
+→ 唯一键去重/UPSERT
+→ checkpoint
+→ 同步状态与调用日志
+```
+
+连接器凭据加密存储，API 不返回可恢复明文。公开 Olist 数据用于演示，不等于真实店铺连接。
+
+## 11. Agent 自动化治理
+
+当前 Agent 使用有限工作流模板：
+
+- `daily_review`
+- `comment_risk`
+- `product_optimization`
+- `ad_anomaly`
+
+支持三种执行模式：
+
+- `ADVISORY`：分析与建议；
+- `DRAFT`：生成待确认草稿；
+- `AUTOMATIC`：仅允许策略许可的低风险动作。
+
+Plan Validator 会检查模板、工具白名单、启用状态、版本、权限、风险上限、最大步骤和自动模式审批限制。Verifier 使用工具结果、报告和必要证据做基础验证；失败时最多执行模板允许的一次补证修复。
+
+当前限制：DRAFT 尚未形成完全独立的写工具草稿分支；JSON Schema、DAG、Token/成本预算和数据库/外部状态分层验证仍不完整。
+
+## 12. 可观测性
+
+- MDC：requestId、traceId、tenantId、shopId、userId；
+- 业务记录：Agent TraceSpan、Tool 调用日志、Connector 调用日志、Audit；
+- Actuator：health、liveness、readiness、metrics、prometheus；
+- Micrometer：HTTP 指标和 ShopOps 业务指标门面；
+- Prometheus 示例：`deploy/observability/prometheus.yml`。
+
+当前没有完成标准 OpenTelemetry 全链路传播，也没有经过验证的 Grafana Dashboard 与 Alertmanager 规则。
+
+## 13. 本地运行
+
+### 环境
 
 - JDK 17
 - Maven 3.9+
-- Node.js 18+
-- Python 3.10+
-- 可选：Docker、MySQL、Redis、RabbitMQ
+- Node.js 20+
+- MySQL 8.4
+- 可选：Redis、RabbitMQ、Docker Desktop
 
-一键启动演示：
+### 后端
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1
-```
-
-脚本会自动准备 Olist 演示数据、安装 `shopops-common`、检查/启动本地 MySQL 持久化存储、启动后端，并在启动成功后打开工作台。若 `8080` 被占用，会自动尝试 `8081` 到 `8100`。
-
-如果只安装了 Docker Desktop，可以直接构建、启动并预置完整演示链路：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/start-shopops-docker.ps1
-```
-
-Docker Hub 访问受限时：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/start-shopops-docker.ps1 -UseChinaMirror
-```
-
-停止容器：
-
-```powershell
-docker compose -p shopops-demo -f deploy/docker-compose.demo.yml down
-```
-
-启动后访问：
-
-```text
-http://localhost:8080/admin/workbench.html
-```
-
-如果脚本自动切换了端口，以脚本输出的 `Workbench` 地址为准。
-
-常用选项：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -Port 8081
-powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -NoOpenBrowser
-powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -StrictPort
-powershell -ExecutionPolicy Bypass -File scripts/start-shopops.ps1 -Memory
-```
-
-演示前健康检查：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1
-```
-
-一键预置完整演示链路：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/seed-shopops-demo.ps1
-```
-
-该脚本会等待服务就绪、执行健康检查，并创建经营日报任务、报告、高风险工具审批、审批后重试和审计记录。完成后会输出任务、报告、工具、审批、审计页面地址并打开工作台。默认 JDBC / MySQL 模式下，任务、报告、工具日志、审批和审计记录会保留；如需临时清空式演示，可用 `start-shopops.ps1 -Memory`。
-
-如果后端不在 8080：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/check-shopops.ps1 -Port 8081
-powershell -ExecutionPolicy Bypass -File scripts/seed-shopops-demo.ps1 -Port 8081
-```
-
-也可以手动分步启动：
-
-准备 Olist 演示数据：
-
-```powershell
-python scripts/prepare_olist_demo.py
-```
-
-启动后端：
-
-```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev" "-Dspring-boot.run.arguments=--server.port=8080"
-```
-
-打开 Agent 工作台：
-
-```text
-http://localhost:8080/admin/workbench.html
-```
-
-推荐演示日期：
-
-```text
-2018-08-07
-```
-
-工作台里可以点击 “Olist 演示数据”，再启动 Agent 任务。
-
-## 推荐演示流程
-
-1. 打开 `/admin/workbench.html`，说明这是运营人员的主入口。
-2. 输入或选择快捷任务，例如“基于 Olist 真实订单和评价数据，生成 2018-08-07 店铺运营日报”。
-3. 启动 Agent，观察意图识别、任务创建、步骤执行和工具调用过程。
-4. 查看量化指标：GMV、退款代理率、风险评价数、商品候选数。
-5. 打开最终报告，展示 Markdown 经营日报、证据链和店铺配置快照。
-6. 跳转任务详情，展示步骤、状态、重试和追踪能力。
-7. 跳转工具日志，展示 MCP 工具调用记录。
-8. 跳转审计中心，展示任务、报告、工具、审批的关联链路。
-9. 展示审批中心，说明高风险动作需要人工确认。
-10. 最后展示评测报告，强调项目不是只做页面，而是有量化验收。
-
-## Olist 数据演示
-
-项目默认读取：
-
-```text
-docs/demo-data/olist/order-summary-olist.json
-docs/demo-data/olist/negative-comments-olist.json
-docs/demo-data/olist/product-candidates-olist.json
-```
-
-这些文件由脚本从 Brazilian E-Commerce Public Dataset by Olist 生成：
-
-```powershell
-python scripts/prepare_olist_demo.py
-```
-
-当前 Olist 演示摘要：
-
-| 指标 | 结果 |
-|---|---:|
-| 业务日期 | 2018-08-07 |
-| GMV | 62057.77 |
-| 订单数 | 370 |
-| 售后/退款代理金额 | 4732.62 |
-| 售后/退款代理率 | 7.63% |
-| 风险评价数 | 51 |
-| 商品候选数 | 10 |
-
-说明：
-
-- Olist 不包含真实退款金额，项目使用 `canceled / unavailable` 订单支付金额作为售后风险代理值。
-- Olist 不包含真实广告投放数据，广告表现已在公开多源基线中使用 Criteo Attribution 数据补齐；当前 Olist 在线演示连接器仍可回退到内置演示数据。
-- Olist 不包含平台外部环境指标，外部事件已在公开多源基线中使用 Store Sales `holidays_events.csv` 补齐；当前 Olist 在线演示连接器仍可回退到内置演示数据。
-- Olist 不提供商品标题，当前使用英文类目和 productId 前缀生成展示名称。
-
-## Agent 主链路
-
-```text
-自然语言任务
-  -> 意图识别与路由
-  -> Agent task
-  -> Planner 生成执行步骤
-  -> Tool Gateway 统一调用工具
-  -> order.query_summary
-  -> comment.query_negative
-  -> product.query_candidates
-  -> ad.query_performance
-  -> report.query_external_metrics
-  -> report.generate_daily_review
-  -> 运营报告
-  -> 工具日志 / 审批中心 / 审计时间线
-```
-
-## 架构概览
-
-```text
-React Admin Console
-  ├── Agent Workbench
-  ├── Dashboard
-  ├── Tasks / Reports
-  ├── Tool Logs / Approval Center
-  ├── Audit Center
-  ├── Model Gateway
-  └── Organization / Shop Config
-
-Spring Boot Backend
-  ├── Auth / Tenant / Shop
-  ├── Agent Task Queue
-  ├── Planner / Executor
-  ├── MCP-style Tool Registry
-  ├── Tool Gateway
-  ├── Approval Service
-  ├── Report Service
-  ├── Audit Service
-  ├── Model Gateway
-  └── Connector Layer
-
-Persistence and Integrations
-  ├── Memory mode for local demo and tests
-  ├── JDBC / MySQL mode for dev deployment
-  ├── Redis and RabbitMQ optional infrastructure
-  ├── Olist file connectors
-  └── OpenAI-compatible model provider
-```
-
-## 技术栈
-
-后端：
-
-- Java 17
-- Spring Boot 3.3
-- Maven 多模块
-- Spring MVC
-- MyBatis
-- Flyway
-- MySQL
-- Redis
-- RabbitMQ
-- JUnit 5
-- Spring Boot Test
-
-前端：
-
-- React 19
-- TypeScript
-- Vite
-- Axios
-- ECharts
-- Ant Design
-- Ant Design Icons
-
-Agent 与平台能力：
-
-- MCP-style Tool Registry
-- Agent Task Queue
-- Rule Planner
-- Sequential Executor
-- Tool Gateway
-- Approval Center
-- Audit Timeline
-- Report Center
-- Model Gateway
-- OpenAI-compatible Provider
-- Shop Runtime Configuration
-
-## 主要页面
-
-| 页面 | 地址 | 用途 |
-|---|---|---|
-| Agent 工作台 | `/admin/workbench.html` | 自然语言发起任务，查看执行过程和最终报告 |
-| Dashboard | `/admin/dashboard.html` | 总览任务、报告、工具、审计指标 |
-| 任务中心 | `/admin/tasks.html` | 查看任务列表、详情、步骤、重试 |
-| 报告中心 | `/admin/reports.html` | 查看运营报告、Markdown 内容、证据链 |
-| 审计中心 | `/admin/audit.html` | 查看风险事件、时间线、关联详情 |
-| 工具中心 | `/admin/tools.html` | 查看工具注册、调用日志、失败统计 |
-| 审批中心 | `/admin/approvals.html` | 处理高风险工具审批 |
-| 模型网关 | `/admin/prompts.html` | 管理 Prompt、模型调用和 Provider |
-| 组织管理 | `/admin/users.html` | 管理用户、租户、店铺、成员、店铺配置 |
-
-## 常用命令
-
-GitHub Actions 会在每次 push 和 Pull Request 时并行执行后端测试、React 前端构建以及 Docker Compose/镜像构建，工作流位于 `.github/workflows/ci.yml`。
-
-后端全量测试：
-
-```powershell
+```bash
 mvn -pl shopops-admin -am test
+mvn -pl shopops-admin -am package
+mvn -pl shopops-admin spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-前端构建：
+### 前端
 
-```powershell
+```bash
 cd shopops-admin-ui
+npm ci
+npm run typecheck
 npm run build
+npm run dev
 ```
 
-Agent 工作台相关测试：
+### Docker 演示
 
-```powershell
-mvn -pl shopops-admin "-Dtest=AdminWorkbenchStaticPageIntegrationTest,AgentNaturalLanguageTaskIntegrationTest" test
+```bash
+docker compose -p shopops-demo -f deploy/docker-compose.demo.yml config
+docker compose -p shopops-demo -f deploy/docker-compose.demo.yml up --build
 ```
 
-刷新 Agent 评测基线：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/run-agent-evaluation.ps1
-```
-
-生成作品集量化报告：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/generate-portfolio-report.ps1
-```
-
-验证 Olist 演示链路：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/verify-agentops-demo.ps1 -Port 8080 -Start 2018-08-07 -End 2018-08-07 -Scenario olist-agentops-demo -Dataset olist
-```
-
-启动 MySQL / Redis / RabbitMQ 开发环境：
-
-```powershell
-docker compose -f deploy/docker-compose.dev.yml up -d
-```
-
-JDBC dev profile 启动：
-
-```powershell
-mvn -pl shopops-admin spring-boot:run "-Dspring-boot.run.profiles=dev"
-```
-
-## 量化验收
-
-当前作品集基线：
-
-| 维度 | 结果 |
-|---|---:|
-| Agent evaluation cases | 14 |
-| Passed cases | 14 |
-| Completion rate | 100% |
-| Tool invocation success rate | 98.6% |
-| Approval decision accuracy | 100% |
-| Config effect accuracy | 100% |
-| Public real-data business samples | 760 |
-| Public real-data derived MCP tool calls | 2670 |
-| Public real-data high-risk approval-routed calls | 450 |
-| Olist real orders | 99441 |
-| Olist real reviews | 99224 |
-| Olist real products | 32951 |
-| Criteo real ad impressions | 16468027 |
-| Criteo real ad clicks | 5947563 |
-| Criteo real ad conversions | 806196 |
-| UCI Online Retail lines | 541909 |
-| UCI cancellation/refund proxy lines | 10624 |
-| Store Sales holiday events | 350 |
-| Real anomaly signal precision | 94.81% |
-| Real anomaly signal recall | 100% |
-| Feishu webhook batch success rate | 100/100 |
-| Feishu webhook HTTP 200 rate | 100% |
-| Feishu webhook average latency | 311.9 ms |
-| Estimated daily report time saving | 35.4 min -> 4.2 min |
-| 最近全量测试 | 88 tests, 0 failures, 8 skipped |
-
-评测覆盖：
-
-- 日常经营日报任务
-- 差评风险识别
-- 商品优化候选识别
-- 工具调用成功率
-- 高风险工具审批
-- 关闭审批后的直接执行
-- 店铺阈值配置生效
-- 模型策略进入报告 evidence
-- 模型失败后的降级完成
-- 飞书 webhook 真实 HTTP 同步
-- Excel 报表真实导出
-
-说明：`Estimated daily report time saving` 来自固定工作流估算基线，证据项标记为 `ESTIMATED`；真实人工计时仍需补充至少 5 次人工流程记录。
-
-## Model Gateway
-
-默认报告生成可以走规则 fallback，因此本地无需真实 API Key 也能完成演示。若要启用真实模型调用，可配置 OpenAI-compatible provider：
-
-```powershell
-$env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_ENABLED="true"
-$env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_BASE_URL="https://your-provider.example/v1"
-$env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_API_KEY="your-api-key"
-$env:SHOPOPS_MODEL_OPENAI_COMPATIBLE_DEFAULT_MODEL="your-model"
-$env:SHOPOPS_MODEL_GATEWAY_REPORT_ENABLED="true"
-$env:SHOPOPS_MODEL_GATEWAY_PLANNER_ENABLED="true"
-```
-
-相关脚本：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/start-model-gateway-demo.ps1
-powershell -ExecutionPolicy Bypass -File scripts/verify-model-gateway-demo.ps1 -Port 8080
-```
-
-## 目录结构
+演示配置中的数据库密码和 Secret 仅用于本地演示。prod profile 必须显式提供：
 
 ```text
-.
-├── shopops-admin
-│   ├── src/main/java/com/sirithree/shopops/admin
-│   ├── src/main/resources
-│   └── src/test/java/com/sirithree/shopops/admin
-├── shopops-common
-├── shopops-admin-ui
-│   └── src
-├── docs
-│   └── demo-data/olist
-├── scripts
-└── deploy
+SHOPOPS_AUTH_TOKEN_SECRET
+SHOPOPS_CONNECTOR_CREDENTIAL_SECRET
+SHOPOPS_DATASOURCE_URL
+SHOPOPS_DATASOURCE_USERNAME
+SHOPOPS_DATASOURCE_PASSWORD
 ```
 
-## 关键文档
+生产配置检测到开发 Header 登录或默认危险 Secret 时应拒绝启动。
 
-- [Agent 工作台作品集演示脚本](docs/Agent工作台作品集演示脚本.md)
-- [ShopOps 作品集量化报告](docs/ShopOps-portfolio-report.md)
-- [ShopOps 公开多源真实数据基线](docs/ShopOps-public-real-baseline.md)
-- [ShopOps 真实异常信号评测](docs/ShopOps-real-anomaly-evaluation.md)
-- [ShopOps 简历指标证据表](docs/ShopOps-resume-claim-evidence.md)
-- [ShopOps 简历项目描述 LaTeX](docs/ShopOps简历项目描述-LaTeX.md)
-- [ShopOps 日报耗时证据表](docs/ShopOps-operation-timing-evidence.md)
-- [ShopOps Olist 真实数据基线](docs/ShopOps-olist-real-baseline.md)
-- [ShopOps 简历量化基线](docs/ShopOps-resume-baseline.md)
-- [Feishu 同步 Webhook 验收说明](docs/Feishu同步Webhook验收说明.md)
-- [Feishu 批量同步验收记录](docs/Feishu批量同步验收记录.md)
-- [ShopOps 作品集中文演示讲稿](docs/ShopOps作品集中文演示讲稿.md)
-- [Olist 真实数据接入说明](docs/Olist真实数据接入说明.md)
-- [Agent 评测基线与作品集数据](docs/Agent评测基线与作品集数据.md)
-- [真实模型网关演示](docs/真实模型网关演示.md)
-- [本地开发启动指南](docs/本地开发启动指南.md)
-- [文档索引](docs/README.md)
+## 14. 演示
 
+推荐从运营总览进入任务、审批、报告、连接器和自动化工作台。完整演示说明见：
 
+- [`docs/demo/flagship-workflow.md`](docs/demo/flagship-workflow.md)
+- [`docs/architecture/shopops-architecture.md`](docs/architecture/shopops-architecture.md)
+
+## 15. 测试、性能与 CI
+
+仓库包含单元测试、Spring 集成测试、Agent 评测测试、认证/审批/连接器测试、Testcontainers 依赖和 k6 脚本。GitHub Actions 执行：
+
+- Maven 测试；
+- 前端 `npm ci`、类型检查和构建；
+- Docker Compose 校验与镜像构建；
+- 测试报告归档。
+
+本次最终交付环境没有 Maven 和 Docker，npm 依赖安装也受镜像问题影响，因此没有重新得到完整测试数量、通过率、性能 P95/P99 或 Agent 成功率。历史 `docs/evaluation` 和基线文件只能作为历史执行记录，不能自动等同于当前版本已通过。
+
+## 16. 已知限制
+
+- 未接入真实商业电商平台、真实商家账号或生产流量；
+- 退款为模拟外部适配器；
+- Redis 尚未形成完整缓存、锁或限流主链路；
+- RabbitMQ 恢复、心跳、DLQ 和 Outbox 仍需继续完善；
+- 前端缺少完整订单/商品/评论页面和 E2E 测试；
+- 权限点尚未数据库化；
+- OpenTelemetry、告警和性能基线尚未完成真实验证；
+- Agent 的预算、Schema、DAG 和分层 Verifier 仍有限。
+
+## 17. 后续规划
+
+后续应优先完成真实基础设施集成测试、修复前端类型检查、完善 RabbitMQ/Outbox 恢复闭环、补齐核心业务页面，再考虑接入真实沙箱电商 API。不要继续增加大量浅层工具或扩大 Agent 自主权限。
+
+## 18. 项目材料
+
+- 阶段交接：`docs/enterprise-upgrade/`
+- 架构说明：`docs/architecture/shopops-architecture.md`
+- 演示流程：`docs/demo/flagship-workflow.md`
+- 简历与面试：`docs/resume/shopops-resume-material.md`
+- 最终交付：`docs/enterprise-upgrade/phase-7-delivery.md`

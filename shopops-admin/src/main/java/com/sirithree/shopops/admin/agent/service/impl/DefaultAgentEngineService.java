@@ -10,6 +10,7 @@ import com.sirithree.shopops.admin.agent.service.AgentExecutorService;
 import com.sirithree.shopops.admin.agent.service.PlanValidator;
 import com.sirithree.shopops.admin.agent.service.PlannerService;
 import com.sirithree.shopops.admin.agent.service.VerifierService;
+import com.sirithree.shopops.admin.agent.governance.WorkflowTemplateRegistry;
 import com.sirithree.shopops.admin.audit.domain.TraceSpanCreateCommand;
 import com.sirithree.shopops.admin.audit.service.TraceService;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
@@ -26,23 +27,28 @@ public class DefaultAgentEngineService implements AgentEngineService {
     private final VerifierService verifierService;
     private final TraceService traceService;
     private final JacksonJsonSupport jsonSupport;
+    private final WorkflowTemplateRegistry templateRegistry;
 
     public DefaultAgentEngineService(PlannerService plannerService,
                                      PlanValidator planValidator,
                                      AgentExecutorService executorService,
                                      VerifierService verifierService,
                                      TraceService traceService,
-                                     JacksonJsonSupport jsonSupport) {
+                                     JacksonJsonSupport jsonSupport,
+                                     WorkflowTemplateRegistry templateRegistry) {
         this.plannerService = plannerService;
         this.planValidator = planValidator;
         this.executorService = executorService;
         this.verifierService = verifierService;
         this.traceService = traceService;
         this.jsonSupport = jsonSupport;
+        this.templateRegistry = templateRegistry;
     }
 
     @Override
     public AgentExecutionResult executeTask(AgentTaskContext context) {
+        context.setStartedAtMillis(System.currentTimeMillis());
+        context.setRepairAttempts(0);
         String rootSpan = startSpan(context, null, "agent", "agent.task", "task", context.getTaskId(), context.getCreateParam().getUserInput());
         String activeChildSpan = null;
         try {
@@ -72,7 +78,7 @@ public class DefaultAgentEngineService implements AgentEngineService {
             AgentVerificationResult verification = verifierService.verify(context, result);
             result.setVerification(verification);
             if (!verification.isPassed()) {
-                if (verification.isRepairable()) {
+                if (verification.isRepairable() && context.getRepairAttempts() < maxRepairAttempts(context)) {
                     traceService.finishSpan(context.getTraceId(), verifierSpan, "FAILED", jsonSupport.toJson(verification), "verification failed, repair required");
                     activeChildSpan = null;
                     result = repairAndVerify(context, rootSpan, plan, result);
@@ -103,7 +109,9 @@ public class DefaultAgentEngineService implements AgentEngineService {
                                                  String rootSpan,
                                                  AgentPlan originalPlan,
                                                  AgentExecutionResult baseResult) {
+        context.setRepairAttempts(context.getRepairAttempts() + 1);
         AgentPlan repairPlan = repairPlan(originalPlan, baseResult.getVerification());
+        planValidator.validate(context, repairPlan);
         String repairSpan = startSpan(context, rootSpan, "executor", "agent.repair", "task", context.getTaskId(), "repair missing evidence");
         context.setExecutorSpanId(repairSpan);
         AgentExecutionResult repairedResult = executorService.execute(context, repairPlan, baseResult);
@@ -124,6 +132,13 @@ public class DefaultAgentEngineService implements AgentEngineService {
         }
         traceService.finishSpan(context.getTraceId(), reverifySpan, "SUCCESS", jsonSupport.toJson(verification), null);
         return repairedResult;
+    }
+
+    private int maxRepairAttempts(AgentTaskContext context) {
+        String workflowType = context.getCreateParam().getTaskSpec() != null && context.getCreateParam().getTaskSpec().getIntent() != null
+                ? context.getCreateParam().getTaskSpec().getIntent()
+                : (context.getCreateParam().getIntent() == null ? "daily_review" : context.getCreateParam().getIntent());
+        return templateRegistry.require(workflowType).maxRepairAttempts();
     }
 
     private AgentPlan repairPlan(AgentPlan originalPlan, AgentVerificationResult verification) {

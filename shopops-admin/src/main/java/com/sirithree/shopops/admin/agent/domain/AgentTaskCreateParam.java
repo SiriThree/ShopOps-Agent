@@ -13,6 +13,8 @@ public class AgentTaskCreateParam {
 
     private String intent;
 
+    private String executionMode = "ADVISORY";
+
     @Valid
     private AgentTaskSpec taskSpec;
 
@@ -42,6 +44,14 @@ public class AgentTaskCreateParam {
 
     public void setIntent(String intent) {
         this.intent = intent;
+    }
+
+    public String getExecutionMode() {
+        return executionMode;
+    }
+
+    public void setExecutionMode(String executionMode) {
+        this.executionMode = executionMode;
     }
 
     public AgentTaskSpec getTaskSpec() {

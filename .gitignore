@@ -29,11 +29,10 @@ application-secret.yml
 node_modules/
 dist/
 *.tsbuildinfo
-shopops-admin-ui/vite.config.js
-shopops-admin-ui/vite.config.d.ts
+
+# Local datasets
+data/
 
 # Third-party reference project kept locally, not committed to this repo
 mall-master/
 
-# Local public datasets used to generate demo connector files
-data/

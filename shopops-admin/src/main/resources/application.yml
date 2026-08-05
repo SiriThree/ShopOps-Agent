@@ -52,7 +52,7 @@ shopops:
   bootstrap:
     legacy-enabled: false
   auth:
-    header-dev-mode: true
+    header-dev-mode: ${SHOPOPS_AUTH_HEADER_DEV_MODE:true}
     token-secret: ${SHOPOPS_AUTH_TOKEN_SECRET:shopops-dev-token-secret-change-me}
     token-ttl-seconds: ${SHOPOPS_AUTH_TOKEN_TTL_SECONDS:7200}
   connector:
@@ -103,3 +103,27 @@ shopops:
     tenant-id: 1
     shop-id: 1
     user-id: 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: when_authorized
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      percentiles:
+        http.server.requests: 0.5,0.95,0.99

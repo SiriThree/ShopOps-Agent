@@ -23,4 +23,8 @@ public interface ApprovalRequestService {
 
     ApprovalBatchDecisionResult expireStale(
             Long tenantId, Long shopId, Long operatorId, String operatorName, Integer timeoutMinutes, Integer limit);
+
+    default boolean markExecuting(Long tenantId, Long shopId, Long approvalId) { return true; }
+    default void markExecuted(Long tenantId, Long shopId, Long approvalId) { }
+    default void markExecutionFailed(Long tenantId, Long shopId, Long approvalId, String message) { }
 }

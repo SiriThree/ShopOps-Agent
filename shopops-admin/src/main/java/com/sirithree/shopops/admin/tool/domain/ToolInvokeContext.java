@@ -1,5 +1,7 @@
 package com.sirithree.shopops.admin.tool.domain;
 
+import java.util.Set;
+
 public class ToolInvokeContext {
     private Long tenantId;
     private Long shopId;
@@ -9,6 +11,7 @@ public class ToolInvokeContext {
     private String traceId;
     private String parentSpanId;
     private Long approvalId;
+    private Set<String> permissions = Set.of();
     private Boolean manualInvoke = false;
 
     public Long getTenantId() {
@@ -73,6 +76,18 @@ public class ToolInvokeContext {
 
     public void setApprovalId(Long approvalId) {
         this.approvalId = approvalId;
+    }
+
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions == null ? Set.of() : Set.copyOf(permissions);
+    }
+
+    public boolean hasPermission(String permission) {
+        return permissions.contains(permission);
     }
 
     public Boolean getManualInvoke() {

@@ -543,6 +543,9 @@ export type CurrentUser = {
   authType?: string;
   authenticated?: boolean;
   requestId?: string;
+  permissions?: string[];
+  accessibleShopIds?: Array<number | string>;
+  dataScope?: string;
 };
 
 export type LoginResult = {

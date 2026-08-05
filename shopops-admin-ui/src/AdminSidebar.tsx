@@ -1,40 +1,54 @@
+import type React from "react";
 import { Layout } from "antd";
-import { RobotOutlined } from "@ant-design/icons";
+import {
+  AppstoreOutlined,
+  AuditOutlined,
+  CheckSquareOutlined,
+  DashboardOutlined,
+  DatabaseOutlined,
+  FileTextOutlined,
+  RobotOutlined,
+  SafetyCertificateOutlined,
+  SettingOutlined,
+  ShopOutlined,
+  TeamOutlined,
+  ToolOutlined
+} from "@ant-design/icons";
+import { hasPermission } from "./session";
 
 const { Sider } = Layout;
 
-const navItems = [
-  ["/admin/workbench.html", "Agent 工作台"],
-  ["/admin/dashboard.html", "Dashboard"],
-  ["/admin/tasks.html", "任务"],
-  ["/admin/reports.html", "报告"],
-  ["/admin/audit.html", "审计"],
-  ["/admin/tools.html", "工具"],
-  ["/admin/approvals.html", "审批"],
-  ["/admin/connectors.html", "Connector"],
-  ["/admin/prompts.html", "Prompt"],
-  ["/admin/users.html", "组织"],
-  ["/admin/auth.html", "认证"]
+type NavItem = { href: string; label: string; active: string; permission?: string; icon: React.ReactNode };
+
+const navItems: NavItem[] = [
+  { href: "/admin/dashboard.html", label: "运营总览", active: "dashboard", permission: "dashboard:read", icon: <DashboardOutlined /> },
+  { href: "/admin/tasks.html", label: "任务中心", active: "tasks", permission: "task:read", icon: <CheckSquareOutlined /> },
+  { href: "/admin/approvals.html", label: "审批中心", active: "approvals", permission: "approval:read", icon: <SafetyCertificateOutlined /> },
+  { href: "/admin/reports.html", label: "报告中心", active: "reports", permission: "report:generate", icon: <FileTextOutlined /> },
+  { href: "/admin/connectors.html", label: "连接器", active: "connectors", permission: "connector:read", icon: <DatabaseOutlined /> },
+  { href: "/admin/workbench.html", label: "自动化工作台", active: "workbench", permission: "agent:execute", icon: <RobotOutlined /> },
+  { href: "/admin/tools.html", label: "工具治理", active: "tools", permission: "tool:read", icon: <ToolOutlined /> },
+  { href: "/admin/audit.html", label: "审计中心", active: "audit", permission: "audit:read", icon: <AuditOutlined /> },
+  { href: "/admin/users.html", label: "组织与店铺", active: "users", permission: "user:manage", icon: <TeamOutlined /> },
+  { href: "/admin/prompts.html", label: "Prompt 配置", active: "prompts", permission: "agent:execute", icon: <SettingOutlined /> },
+  { href: "/admin/auth.html", label: "身份与会话", active: "auth", icon: <ShopOutlined /> }
 ];
 
-type AdminSidebarProps = {
-  active: string;
-};
+type AdminSidebarProps = { active: string };
 
 export function AdminSidebar({ active }: AdminSidebarProps) {
+  const visibleItems = navItems.filter((item) => hasPermission(item.permission));
   return (
-    <Sider width={232} className="sidebar">
+    <Sider width={240} className="sidebar" breakpoint="lg" collapsedWidth="0">
       <div className="brand">
-        <RobotOutlined />
-        <div>
-          <strong>ShopOps</strong>
-          <span>Agent 运营平台</span>
-        </div>
+        <AppstoreOutlined />
+        <div><strong>ShopOps</strong><span>多店铺运营管理平台</span></div>
       </div>
+      <div className="nav-section-label">运营工作台</div>
       <nav className="nav" aria-label="后台导航">
-        {navItems.map(([href, label]) => (
-          <a className={href.includes(active) ? "active" : ""} href={href} key={href}>
-            {label}
+        {visibleItems.map((item) => (
+          <a className={active === item.active ? "active" : ""} href={item.href} key={item.href}>
+            <span className="nav-icon">{item.icon}</span><span>{item.label}</span>
           </a>
         ))}
       </nav>

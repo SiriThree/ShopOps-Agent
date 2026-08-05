@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface AgentTaskService {
     AgentTaskCreateResult createTask(Long tenantId, Long shopId, Long userId, AgentTaskCreateParam param);
 
+    AgentTaskDto cancelTask(Long tenantId, Long shopId, Long userId, Long taskId, String reason);
+
     AgentTaskCreateResult retryTask(Long tenantId, Long shopId, Long userId, Long taskId);
 
     AgentTaskRecoveryResult requeueStaleTasks(Long tenantId, Long shopId, Long userId, Integer queuedTimeoutMinutes, Integer runningTimeoutMinutes, Integer limit);

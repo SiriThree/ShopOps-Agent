@@ -31,7 +31,7 @@ import {
 } from "@ant-design/icons";
 import { apiGet, readStoredContext, type RequestContext } from "./api";
 import { AdminSidebar } from "./AdminSidebar";
-import type { AuditRiskSummary, DashboardSummary, HealthCheck, SystemHealth } from "./types";
+import type { AgentTask, ApprovalRequest, AuditRiskSummary, ConnectorStatus, DashboardSummary, HealthCheck, PageResult, SystemHealth } from "./types";
 import { numberText, percentText } from "./utils";
 import { DashboardTaskChart } from "./DashboardTaskChart";
 import "./styles.css";
@@ -51,6 +51,9 @@ function DashboardApp() {
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [health, setHealth] = useState<SystemHealth | null>(null);
   const [risk, setRisk] = useState<AuditRiskSummary | null>(null);
+  const [pendingApprovals, setPendingApprovals] = useState<ApprovalRequest[]>([]);
+  const [attentionTasks, setAttentionTasks] = useState<AgentTask[]>([]);
+  const [connectorAlerts, setConnectorAlerts] = useState<ConnectorStatus[]>([]);
   const [loading, setLoading] = useState(false);
   const [statusLine, setStatusLine] = useState("Dashboard 已就绪。");
 
@@ -62,7 +65,10 @@ function DashboardApp() {
     const results = await Promise.allSettled([
       apiGet<DashboardSummary>("/api/admin/dashboard/summary", context),
       apiGet<SystemHealth>("/api/system/health", context),
-      apiGet<AuditRiskSummary>("/api/admin/audit/high-risk", context)
+      apiGet<AuditRiskSummary>("/api/admin/audit/high-risk", context),
+      apiGet<PageResult<ApprovalRequest>>("/api/admin/approvals?pageNum=1&pageSize=5&status=PENDING", context),
+      apiGet<PageResult<AgentTask>>("/api/admin/agent/tasks?pageNum=1&pageSize=5&status=NEEDS_MANUAL_ACTION", context),
+      apiGet<ConnectorStatus[]>("/api/admin/connectors/status", context)
     ]);
 
     if (results[0].status === "fulfilled") {
@@ -80,6 +86,13 @@ function DashboardApp() {
     } else {
       renderRiskError(results[2].reason);
     }
+
+    if (results[3].status === "fulfilled") setPendingApprovals(results[3].value.list || []);
+    else setPendingApprovals([]);
+    if (results[4].status === "fulfilled") setAttentionTasks(results[4].value.list || []);
+    else setAttentionTasks([]);
+    if (results[5].status === "fulfilled") setConnectorAlerts((results[5].value || []).filter((item) => !item.available || item.status === "FAILED"));
+    else setConnectorAlerts([]);
 
     const failedCount = results.filter((result) => result.status === "rejected").length;
     setStatusLine(failedCount ? `Dashboard 已刷新，${failedCount} 个面板加载失败。` : "Dashboard 已刷新。");
@@ -114,6 +127,23 @@ function DashboardApp() {
             type="info"
             showIcon
           />
+
+          <Card title="今日待办" className="section-card" loading={loading} extra={<Text type="secondary">数据来自当前租户与店铺</Text>}>
+            <div className="action-grid">
+              <a className="action-card" href="/admin/approvals.html?status=PENDING">
+                <strong>{pendingApprovals.length} 项待审批</strong><span>查看高风险工具与业务写操作</span>
+              </a>
+              <a className="action-card" href="/admin/tasks.html?status=NEEDS_MANUAL_ACTION">
+                <strong>{attentionTasks.length} 项需人工处理</strong><span>定位外部结果未知或恢复失败任务</span>
+              </a>
+              <a className="action-card" href="/admin/connectors.html">
+                <strong>{connectorAlerts.length} 个连接器异常</strong><span>检查凭据、同步状态与调用失败</span>
+              </a>
+              <a className="action-card" href="/admin/workbench.html">
+                <strong>创建自动化任务</strong><span>在当前店铺上下文中生成运营工作流</span>
+              </a>
+            </div>
+          </Card>
 
           <Row gutter={[16, 16]}>
             <MetricCard title="Agent 任务" value={summary?.taskMetrics?.total || 0} suffix={`${percentText(summary?.taskMetrics?.successRate || 0)} 成功率`} />

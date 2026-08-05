@@ -42,6 +42,7 @@ public class ToolInvokeController {
         context.setUserId(requestContext.getUserId());
         context.setTraceId("tr_manual_" + UUID.randomUUID().toString().replace("-", ""));
         context.setApprovalId(longValue(input.get("approvalId")));
+        context.setPermissions(requestContext.getPermissions());
         context.setManualInvoke(true);
         return CommonResult.success(toolGatewayService.invoke(context, toolCode, input));
     }

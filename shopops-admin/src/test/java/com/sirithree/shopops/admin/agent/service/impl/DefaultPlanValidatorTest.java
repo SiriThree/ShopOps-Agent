@@ -10,6 +10,9 @@ import static org.mockito.Mockito.when;
 import com.sirithree.shopops.admin.agent.domain.AgentPlan;
 import com.sirithree.shopops.admin.agent.domain.AgentPlanStep;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
+import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
+import com.sirithree.shopops.admin.agent.governance.WorkflowTemplateRegistry;
+import com.sirithree.shopops.admin.auth.service.AuthorizationService;
 import com.sirithree.shopops.admin.tool.domain.McpToolDto;
 import com.sirithree.shopops.admin.tool.service.McpToolService;
 import java.util.List;
@@ -17,11 +20,13 @@ import org.junit.jupiter.api.Test;
 
 class DefaultPlanValidatorTest {
     private final McpToolService toolService = mock(McpToolService.class);
-    private final DefaultPlanValidator validator = new DefaultPlanValidator(toolService);
+    private final AuthorizationService authorizationService = mock(AuthorizationService.class);
+    private final DefaultPlanValidator validator = new DefaultPlanValidator(toolService, authorizationService, new WorkflowTemplateRegistry());
 
     @Test
     void shouldAcceptSequentialPlanEndingWithReport() {
         when(toolService.getTool(anyLong(), anyString())).thenReturn(tool());
+        when(authorizationService.isAuthorized(anyLong(), anyLong(), anyLong(), anyString())).thenReturn(true);
 
         assertThatCode(() -> validator.validate(context(), plan(
                 new AgentPlanStep(1, "查询订单", "order.query_summary"),
@@ -32,6 +37,7 @@ class DefaultPlanValidatorTest {
     @Test
     void shouldRejectDuplicateOrOutOfOrderTools() {
         when(toolService.getTool(anyLong(), anyString())).thenReturn(tool());
+        when(authorizationService.isAuthorized(anyLong(), anyLong(), anyLong(), anyString())).thenReturn(true);
 
         assertThatThrownBy(() -> validator.validate(context(), plan(
                 new AgentPlanStep(1, "查询订单", "order.query_summary"),
@@ -48,6 +54,7 @@ class DefaultPlanValidatorTest {
     @Test
     void shouldRejectReportToolBeforeFinalStep() {
         when(toolService.getTool(anyLong(), anyString())).thenReturn(tool());
+        when(authorizationService.isAuthorized(anyLong(), anyLong(), anyLong(), anyString())).thenReturn(true);
 
         assertThatThrownBy(() -> validator.validate(context(), plan(
                 new AgentPlanStep(1, "生成报告", "report.generate_daily_review"),
@@ -56,8 +63,14 @@ class DefaultPlanValidatorTest {
     }
 
     private AgentTaskContext context() {
+        AgentTaskCreateParam param = new AgentTaskCreateParam();
+        param.setTaskType("daily_review");
+        param.setIntent("daily_review");
         AgentTaskContext context = new AgentTaskContext();
         context.setTenantId(1L);
+        context.setShopId(1L);
+        context.setUserId(1L);
+        context.setCreateParam(param);
         return context;
     }
 

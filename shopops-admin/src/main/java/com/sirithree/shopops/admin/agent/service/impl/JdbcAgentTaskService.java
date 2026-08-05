@@ -60,7 +60,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
     public AgentTaskCreateResult createTask(Long tenantId, Long shopId, Long userId, AgentTaskCreateParam param) {
         AgentTask task = newTask(tenantId, shopId, userId, param);
         agentTaskMapper.insert(task);
-        appendEvent(task, null, AgentTaskStatus.CREATED.name(), "TASK_CREATED", userId);
+        appendEvent(task, null, AgentTaskStatus.PENDING.name(), "TASK_CREATED", userId);
 
         try {
             Map<Integer, Long> stepIdByStepNo = seedSteps(task, param);
@@ -85,7 +85,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
             AgentExecutionResult result = dispatchResult.getExecutionResult();
 
             task.setReportId(result.getReportId());
-            transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
+            transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.NEEDS_MANUAL_ACTION : AgentTaskStatus.SUCCEEDED);
             task.setResultSummary(RulePlannerService.taskResultSummary(param.getIntent(), Boolean.TRUE.equals(result.getDegraded())));
             task.setFinishedAt(LocalDateTime.now());
             agentTaskMapper.updateExecutionState(task);
@@ -101,6 +101,20 @@ public class JdbcAgentTaskService implements AgentTaskService {
         }
 
         return new AgentTaskCreateResult(task.getId(), task.getTaskNo(), task.getStatus(), task.getTraceId());
+    }
+
+    @Override
+    public AgentTaskDto cancelTask(Long tenantId, Long shopId, Long userId, Long taskId, String reason) {
+        AgentTask task = agentTaskMapper.selectById(tenantId, shopId, taskId);
+        if (task == null) throw new IllegalArgumentException("任务不存在");
+        AgentTaskStatus current = TaskStatusTransitionValidator.parse(task.getStatus());
+        if (current.terminal()) return toDto(task);
+        int updated = agentTaskMapper.requestCancel(tenantId, shopId, taskId, LocalDateTime.now(),
+                reason == null || reason.isBlank() ? "Cancelled by operator" : reason.trim());
+        if (updated == 0) throw new IllegalStateException("任务状态已变化，取消请求未生效");
+        String from = task.getStatus(); task.setStatus(AgentTaskStatus.CANCEL_REQUESTED.name());
+        appendEvent(task, from, task.getStatus(), "TASK_CANCEL_REQUESTED", userId);
+        return toDto(task);
     }
 
     @Override
@@ -187,7 +201,7 @@ public class JdbcAgentTaskService implements AgentTaskService {
         task.setTaskNo("TASK" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")));
         task.setTaskType(param.getTaskType());
         task.setUserInput(param.getUserInput());
-        task.setStatus(AgentTaskStatus.CREATED.name());
+        task.setStatus(AgentTaskStatus.PENDING.name());
         task.setPriority(5);
         task.setPlanJson(jsonSupport.toJson(param));
         task.setTraceId("tr_" + UUID.randomUUID().toString().replace("-", ""));
@@ -199,13 +213,13 @@ public class JdbcAgentTaskService implements AgentTaskService {
         transitionTask(task, AgentTaskStatus.RUNNING);
         task.setStartedAt(LocalDateTime.now());
         agentTaskMapper.updateExecutionState(task);
-        appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
+        appendEvent(task, AgentTaskStatus.PENDING.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
     }
 
     private void queueTask(AgentTask task, Long userId) {
         transitionTask(task, AgentTaskStatus.QUEUED);
         agentTaskMapper.updateExecutionState(task);
-        appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.QUEUED.name(), "TASK_QUEUED", userId);
+        appendEvent(task, AgentTaskStatus.PENDING.name(), AgentTaskStatus.QUEUED.name(), "TASK_QUEUED", userId);
     }
 
     private boolean requeueStaleTask(AgentTask task, Long userId) {
@@ -278,7 +292,13 @@ public class JdbcAgentTaskService implements AgentTaskService {
 
     private void transitionTask(AgentTask task, AgentTaskStatus toStatus) {
         TaskStatusTransitionValidator.requireTransition(task.getStatus(), toStatus);
-        task.setStatus(toStatus.name());
+        task.setStatus(statusValue(toStatus));
+    }
+
+    private String statusValue(AgentTaskStatus status) {
+        if (status == AgentTaskStatus.SUCCEEDED) return "SUCCESS";
+        if (status == AgentTaskStatus.NEEDS_MANUAL_ACTION) return "DEGRADED";
+        return status.name();
     }
 
     private void appendEvent(AgentTask task, String fromStatus, String toStatus, String eventType, Long userId) {

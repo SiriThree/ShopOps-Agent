@@ -11,6 +11,8 @@ public class ApprovalRequestCreateParam {
     private String title;
     private String reason;
     private String inputSummary;
+    private String inputHash;
+    private String businessObjectId;
 
     public String getSourceType() { return sourceType; }
     public void setSourceType(String sourceType) { this.sourceType = sourceType; }
@@ -32,4 +34,8 @@ public class ApprovalRequestCreateParam {
     public void setReason(String reason) { this.reason = reason; }
     public String getInputSummary() { return inputSummary; }
     public void setInputSummary(String inputSummary) { this.inputSummary = inputSummary; }
+    public String getInputHash() { return inputHash; }
+    public void setInputHash(String inputHash) { this.inputHash = inputHash; }
+    public String getBusinessObjectId() { return businessObjectId; }
+    public void setBusinessObjectId(String businessObjectId) { this.businessObjectId = businessObjectId; }
 }

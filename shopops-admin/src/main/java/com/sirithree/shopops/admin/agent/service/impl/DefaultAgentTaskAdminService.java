@@ -169,12 +169,12 @@ public class DefaultAgentTaskAdminService implements AgentTaskAdminService {
         AgentTaskMetricsDto metrics = new AgentTaskMetricsDto();
         metrics.setStatusBreakdown(statusCounts);
         metrics.setTotal(total);
-        metrics.setCreated(statusCounts.getOrDefault("CREATED", 0L));
+        metrics.setCreated(statusCounts.getOrDefault("PENDING", 0L));
         metrics.setQueued(statusCounts.getOrDefault("QUEUED", 0L));
         metrics.setRunning(statusCounts.getOrDefault("RUNNING", 0L));
-        metrics.setSuccess(statusCounts.getOrDefault("SUCCESS", 0L));
+        metrics.setSuccess(statusCounts.getOrDefault("SUCCESS", 0L) + statusCounts.getOrDefault("SUCCEEDED", 0L));
         metrics.setFailed(statusCounts.getOrDefault("FAILED", 0L));
-        metrics.setDegraded(statusCounts.getOrDefault("DEGRADED", 0L));
+        metrics.setDegraded(statusCounts.getOrDefault("DEGRADED", 0L) + statusCounts.getOrDefault("NEEDS_MANUAL_ACTION", 0L));
         metrics.setAvgLatencyMs(avgLatencyMs);
         metrics.setSuccessRate(successRate(metrics.getSuccess(), total));
         return metrics;

@@ -59,12 +59,12 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         task.setTaskNo(taskNo);
         task.setTaskType(param.getTaskType());
         task.setUserInput(param.getUserInput());
-        task.setStatus(AgentTaskStatus.CREATED.name());
+        task.setStatus(AgentTaskStatus.PENDING.name());
         task.setTraceId(traceId);
         task.setCreatedAt(LocalDateTime.now());
         tasks.put(taskId, task);
         originalParams.put(taskId, param);
-        appendEvent(task, null, AgentTaskStatus.CREATED.name(), "TASK_CREATED", userId);
+        appendEvent(task, null, AgentTaskStatus.PENDING.name(), "TASK_CREATED", userId);
 
         try {
             AgentTaskContext context = new AgentTaskContext();
@@ -78,18 +78,18 @@ public class InMemoryAgentTaskService implements AgentTaskService {
 
             if (agentTaskDispatcher.isAsynchronous()) {
                 transitionTask(task, AgentTaskStatus.QUEUED);
-                appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.QUEUED.name(), "TASK_QUEUED", userId);
+                appendEvent(task, AgentTaskStatus.PENDING.name(), AgentTaskStatus.QUEUED.name(), "TASK_QUEUED", userId);
                 agentTaskDispatcher.dispatch(context);
                 return new AgentTaskCreateResult(taskId, taskNo, task.getStatus(), traceId);
             }
 
             transitionTask(task, AgentTaskStatus.RUNNING);
             task.setStartedAt(LocalDateTime.now());
-            appendEvent(task, AgentTaskStatus.CREATED.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
+            appendEvent(task, AgentTaskStatus.PENDING.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
             AgentDispatchResult dispatchResult = agentTaskDispatcher.dispatch(context);
             AgentExecutionResult result = dispatchResult.getExecutionResult();
             task.setReportId(result.getReportId());
-            transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
+            transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.NEEDS_MANUAL_ACTION : AgentTaskStatus.SUCCEEDED);
             task.setResultSummary(RulePlannerService.taskResultSummary(param.getIntent(), Boolean.TRUE.equals(result.getDegraded())));
             task.setFinishedAt(LocalDateTime.now());
             appendEvent(task, AgentTaskStatus.RUNNING.name(), task.getStatus(), "TASK_FINISHED", userId);
@@ -103,6 +103,20 @@ public class InMemoryAgentTaskService implements AgentTaskService {
         }
 
         return new AgentTaskCreateResult(taskId, taskNo, task.getStatus(), traceId);
+    }
+
+    @Override
+    public AgentTaskDto cancelTask(Long tenantId, Long shopId, Long userId, Long taskId, String reason) {
+        AgentTaskDto task = tasks.get(taskId);
+        if (task == null || !tenantId.equals(task.getTenantId()) || !shopId.equals(task.getShopId())) {
+            throw new IllegalArgumentException("任务不存在");
+        }
+        AgentTaskStatus current = TaskStatusTransitionValidator.parse(task.getStatus());
+        if (!current.terminal()) {
+            transitionTask(task, AgentTaskStatus.CANCEL_REQUESTED);
+            appendEvent(task, current.name(), AgentTaskStatus.CANCEL_REQUESTED.name(), "TASK_CANCEL_REQUESTED", userId);
+        }
+        return task;
     }
 
     @Override
@@ -187,7 +201,13 @@ public class InMemoryAgentTaskService implements AgentTaskService {
 
     private void transitionTask(AgentTaskDto task, AgentTaskStatus toStatus) {
         TaskStatusTransitionValidator.requireTransition(task.getStatus(), toStatus);
-        task.setStatus(toStatus.name());
+        task.setStatus(statusValue(toStatus));
+    }
+
+    private String statusValue(AgentTaskStatus status) {
+        if (status == AgentTaskStatus.SUCCEEDED) return "SUCCESS";
+        if (status == AgentTaskStatus.NEEDS_MANUAL_ACTION) return "DEGRADED";
+        return status.name();
     }
 
     private void appendEvent(AgentTaskDto task, String fromStatus, String toStatus, String eventType, Long operatorId) {

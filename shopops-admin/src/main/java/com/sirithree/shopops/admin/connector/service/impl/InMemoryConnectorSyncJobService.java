@@ -95,7 +95,7 @@ public class InMemoryConnectorSyncJobService implements ConnectorSyncJobService 
     private void run(ConnectorSyncJobDto job, String requestId) {
         job.setStatus("RUNNING");
         ConnectorSyncJobExecutor.ConnectorSyncResult result = executor.run(
-                job.getTenantId(), job.getShopId(), job.getJobId(), job.getConnectorCode(), requestId);
+                job.getTenantId(), job.getShopId(), job.getJobId(), job.getConnectorCode(), requestId, null);
         job.setStatus(result.status());
         job.setMessage(result.message());
         job.setDetail(result.detail());

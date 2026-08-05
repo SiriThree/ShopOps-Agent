@@ -18,6 +18,15 @@ public class AgentTask {
     private Long reportId;
     private String errorCode;
     private String errorMessage;
+    private String workerId;
+    private LocalDateTime lockedAt;
+    private LocalDateTime leaseExpireAt;
+    private LocalDateTime heartbeatAt;
+    private Integer attempt;
+    private Integer maxAttempts;
+    private String errorType;
+    private String statusReason;
+    private LocalDateTime cancelRequestedAt;
     private LocalDateTime createdAt;
     private LocalDateTime startedAt;
     private LocalDateTime finishedAt;
@@ -52,6 +61,24 @@ public class AgentTask {
     public void setErrorCode(String errorCode) { this.errorCode = errorCode; }
     public String getErrorMessage() { return errorMessage; }
     public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
+    public String getWorkerId() { return workerId; }
+    public void setWorkerId(String workerId) { this.workerId = workerId; }
+    public LocalDateTime getLockedAt() { return lockedAt; }
+    public void setLockedAt(LocalDateTime lockedAt) { this.lockedAt = lockedAt; }
+    public LocalDateTime getLeaseExpireAt() { return leaseExpireAt; }
+    public void setLeaseExpireAt(LocalDateTime leaseExpireAt) { this.leaseExpireAt = leaseExpireAt; }
+    public LocalDateTime getHeartbeatAt() { return heartbeatAt; }
+    public void setHeartbeatAt(LocalDateTime heartbeatAt) { this.heartbeatAt = heartbeatAt; }
+    public Integer getAttempt() { return attempt; }
+    public void setAttempt(Integer attempt) { this.attempt = attempt; }
+    public Integer getMaxAttempts() { return maxAttempts; }
+    public void setMaxAttempts(Integer maxAttempts) { this.maxAttempts = maxAttempts; }
+    public String getErrorType() { return errorType; }
+    public void setErrorType(String errorType) { this.errorType = errorType; }
+    public String getStatusReason() { return statusReason; }
+    public void setStatusReason(String statusReason) { this.statusReason = statusReason; }
+    public LocalDateTime getCancelRequestedAt() { return cancelRequestedAt; }
+    public void setCancelRequestedAt(LocalDateTime cancelRequestedAt) { this.cancelRequestedAt = cancelRequestedAt; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getStartedAt() { return startedAt; }

@@ -7,6 +7,10 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskDispatchMessage;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskStatus;
 import com.sirithree.shopops.admin.agent.service.AgentEngineService;
 import com.sirithree.shopops.admin.agent.service.TaskStatusTransitionValidator;
+import com.sirithree.shopops.admin.agent.reliability.TaskErrorClassifier;
+import com.sirithree.shopops.admin.agent.reliability.TaskErrorType;
+import com.sirithree.shopops.admin.auth.domain.PermissionCode;
+import com.sirithree.shopops.admin.auth.service.AuthorizationService;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.persistence.mapper.AgentTaskEventMapper;
 import com.sirithree.shopops.admin.persistence.mapper.AgentTaskMapper;
@@ -15,6 +19,8 @@ import com.sirithree.shopops.admin.persistence.model.AgentTask;
 import com.sirithree.shopops.admin.persistence.model.AgentTaskEvent;
 import com.sirithree.shopops.admin.persistence.model.AgentTaskStep;
 import java.time.LocalDateTime;
+import java.time.Duration;
+import java.util.UUID;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,18 +34,25 @@ public class JdbcAgentTaskExecutionWorker {
     private final AgentTaskStepMapper agentTaskStepMapper;
     private final AgentTaskEventMapper agentTaskEventMapper;
     private final AgentEngineService agentEngineService;
+    private final AuthorizationService authorizationService;
     private final JacksonJsonSupport jsonSupport;
+    private final TaskErrorClassifier errorClassifier;
+    private static final Duration LEASE_DURATION = Duration.ofMinutes(5);
 
     public JdbcAgentTaskExecutionWorker(AgentTaskMapper agentTaskMapper,
                                         AgentTaskStepMapper agentTaskStepMapper,
                                         AgentTaskEventMapper agentTaskEventMapper,
                                         AgentEngineService agentEngineService,
-                                        JacksonJsonSupport jsonSupport) {
+                                        AuthorizationService authorizationService,
+                                        JacksonJsonSupport jsonSupport,
+                                        TaskErrorClassifier errorClassifier) {
         this.agentTaskMapper = agentTaskMapper;
         this.agentTaskStepMapper = agentTaskStepMapper;
         this.agentTaskEventMapper = agentTaskEventMapper;
         this.agentEngineService = agentEngineService;
+        this.authorizationService = authorizationService;
         this.jsonSupport = jsonSupport;
+        this.errorClassifier = errorClassifier;
     }
 
     public void execute(AgentTaskDispatchMessage message) {
@@ -47,16 +60,22 @@ public class JdbcAgentTaskExecutionWorker {
         if (task == null) {
             throw new IllegalArgumentException("Task does not exist: " + message.getTaskId());
         }
+        if (!task.getTenantId().equals(message.getTenantId()) || !task.getShopId().equals(message.getShopId())
+                || !task.getUserId().equals(message.getUserId())) {
+            throw new SecurityException("Dispatch identity does not match persisted task");
+        }
+        if (!authorizationService.isAuthorized(task.getTenantId(), task.getShopId(), task.getUserId(),
+                PermissionCode.AGENT_EXECUTE)) {
+            failTask(task, task.getUserId(), new SecurityException("Agent execution permission has been revoked"));
+            return;
+        }
         AgentTaskStatus currentStatus = TaskStatusTransitionValidator.parse(task.getStatus());
-        if (currentStatus == AgentTaskStatus.SUCCESS || currentStatus == AgentTaskStatus.FAILED || currentStatus == AgentTaskStatus.DEGRADED) {
-            return;
-        }
-        if (currentStatus != AgentTaskStatus.QUEUED) {
-            return;
-        }
+        if (currentStatus.terminal() || currentStatus == AgentTaskStatus.CANCEL_REQUESTED) return;
+        if (currentStatus != AgentTaskStatus.QUEUED && currentStatus != AgentTaskStatus.RETRYING) return;
 
+        String workerId = "worker-" + UUID.randomUUID();
         try {
-            if (!startQueuedTask(task, message.getUserId())) {
+            if (!acquireLease(task, workerId, message.getUserId())) {
                 return;
             }
             AgentExecutionResult result = agentEngineService.executeTask(buildContext(task, message));
@@ -87,21 +106,19 @@ public class JdbcAgentTaskExecutionWorker {
         return context;
     }
 
-    private boolean startQueuedTask(AgentTask task, Long userId) {
+    private boolean acquireLease(AgentTask task, String workerId, Long userId) {
         LocalDateTime startedAt = LocalDateTime.now();
-        int updated = agentTaskMapper.updateStatusIfCurrent(
-                task.getTenantId(),
-                task.getShopId(),
-                task.getId(),
-                AgentTaskStatus.QUEUED.name(),
-                AgentTaskStatus.RUNNING.name(),
-                startedAt
-        );
+        int updated = agentTaskMapper.acquireLease(task.getTenantId(), task.getShopId(), task.getId(),
+                workerId, startedAt, startedAt.plus(LEASE_DURATION));
         if (updated == 0) {
             return false;
         }
         task.setStatus(AgentTaskStatus.RUNNING.name());
         task.setStartedAt(startedAt);
+        task.setWorkerId(workerId);
+        task.setLockedAt(startedAt);
+        task.setHeartbeatAt(startedAt);
+        task.setLeaseExpireAt(startedAt.plus(LEASE_DURATION));
         appendEvent(task, AgentTaskStatus.QUEUED.name(), AgentTaskStatus.RUNNING.name(), "TASK_STARTED", userId);
         return true;
     }
@@ -109,7 +126,7 @@ public class JdbcAgentTaskExecutionWorker {
     private void finishTask(AgentTask task, AgentExecutionResult result, Long userId) {
         AgentTaskCreateParam param = jsonSupport.fromJson(task.getPlanJson(), AgentTaskCreateParam.class);
         task.setReportId(result.getReportId());
-        transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.DEGRADED : AgentTaskStatus.SUCCESS);
+        transitionTask(task, Boolean.TRUE.equals(result.getDegraded()) ? AgentTaskStatus.NEEDS_MANUAL_ACTION : AgentTaskStatus.SUCCEEDED);
         task.setResultSummary(RulePlannerService.taskResultSummary(
                 param == null ? null : param.getIntent(),
                 Boolean.TRUE.equals(result.getDegraded())
@@ -121,17 +138,28 @@ public class JdbcAgentTaskExecutionWorker {
 
     private void failTask(AgentTask task, Long userId, RuntimeException ex) {
         String fromStatus = task.getStatus();
-        transitionTask(task, AgentTaskStatus.FAILED);
-        task.setErrorCode("TASK_EXECUTE_ERROR");
+        TaskErrorType errorType = errorClassifier.classify(ex);
+        AgentTaskStatus target = errorType.requiresLookup() || errorType.manualAfterFailure()
+                ? AgentTaskStatus.NEEDS_MANUAL_ACTION : AgentTaskStatus.FAILED;
+        transitionTask(task, target);
+        task.setErrorType(errorType.name());
+        task.setStatusReason(errorType.requiresLookup() ? "External result must be checked before retry" : ex.getMessage());
+        task.setErrorCode("TASK_" + errorType.name());
         task.setErrorMessage(ex.getMessage());
         task.setFinishedAt(LocalDateTime.now());
         agentTaskMapper.updateExecutionState(task);
-        appendEvent(task, fromStatus, AgentTaskStatus.FAILED.name(), "TASK_FAILED", userId);
+        appendEvent(task, fromStatus, target.name(), "TASK_FAILED", userId);
     }
 
     private void transitionTask(AgentTask task, AgentTaskStatus toStatus) {
         TaskStatusTransitionValidator.requireTransition(task.getStatus(), toStatus);
-        task.setStatus(toStatus.name());
+        task.setStatus(statusValue(toStatus));
+    }
+
+    private String statusValue(AgentTaskStatus status) {
+        if (status == AgentTaskStatus.SUCCEEDED) return "SUCCESS";
+        if (status == AgentTaskStatus.NEEDS_MANUAL_ACTION) return "DEGRADED";
+        return status.name();
     }
 
     private void appendEvent(AgentTask task, String fromStatus, String toStatus, String eventType, Long userId) {

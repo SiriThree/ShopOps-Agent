@@ -67,6 +67,11 @@ public class DefaultToolGatewayService implements ToolGatewayService {
             if (!Boolean.TRUE.equals(tool.getEnabled())) {
                 return fail(context, spanId, logId, started, "TOOL_DISABLED", "工具已停用: " + toolCode);
             }
+            if (tool.getPermissionCode() == null || tool.getPermissionCode().isBlank()
+                    || !context.hasPermission(tool.getPermissionCode())) {
+                return fail(context, spanId, logId, started, "TOOL_PERMISSION_DENIED",
+                        "当前主体无权执行工具: " + toolCode);
+            }
             boolean toolNeedsApproval = Boolean.TRUE.equals(tool.getNeedApproval());
             boolean toolApprovalEnabled = approvalEnabled(context);
             boolean approvalBypassedByShopConfig = toolNeedsApproval && !toolApprovalEnabled;
@@ -74,7 +79,7 @@ public class DefaultToolGatewayService implements ToolGatewayService {
                 if (context.getApprovalId() == null) {
                     return approvalRequired(context, spanId, logId, started, tool, input);
                 }
-                if (!isApprovedForTool(context, toolCode)) {
+                if (!isApprovedForTool(context, toolCode, input)) {
                     return fail(context, spanId, logId, started, "APPROVAL_NOT_APPROVED", "审批单不存在、未通过或不匹配工具: " + context.getApprovalId());
                 }
             }
@@ -82,20 +87,36 @@ public class DefaultToolGatewayService implements ToolGatewayService {
             if (executor == null) {
                 return fail(context, spanId, logId, started, "EXECUTOR_NOT_FOUND", "未注册工具执行器: " + toolCode);
             }
+            boolean approvalExecutionStarted = false;
+            if (context.getApprovalId() != null) {
+                ApprovalRequestDto approval = approvalRequestService.get(context.getTenantId(), context.getShopId(), context.getApprovalId()).orElse(null);
+                if (approval != null && ApprovalStatus.APPROVED.equals(approval.getStatus())) {
+                    approvalExecutionStarted = approvalRequestService.markExecuting(context.getTenantId(), context.getShopId(), context.getApprovalId());
+                    if (!approvalExecutionStarted) {
+                        return fail(context, spanId, logId, started, "APPROVAL_EXECUTION_CONFLICT", "审批已被并发执行");
+                    }
+                }
+            }
             ToolInvokeResult result = executor.execute(context, input);
             if (Boolean.TRUE.equals(result.getSuccess())) {
+                if (context.getApprovalId() != null && approvalExecutionStarted) {
+                    approvalRequestService.markExecuted(context.getTenantId(), context.getShopId(), context.getApprovalId());
+                }
                 if (approvalBypassedByShopConfig) {
-                    String message = "店铺配置 agent_tool_approval_enabled=false，已绕过工具审批: " + toolCode;
                     toolCallLogService.successWithGovernanceNote(logId, result.getData(), normalizedRiskLevel(tool.getRiskLevel()),
-                            "APPROVAL_BYPASSED_BY_SHOP_CONFIG", message, System.currentTimeMillis() - started);
-                    traceService.finishSpan(context.getTraceId(), spanId, "SUCCESS", message, null);
+                            "APPROVAL_BYPASSED_BY_SHOP_CONFIG",
+                            "agent_tool_approval_enabled=false; approval was bypassed by shop runtime config",
+                            System.currentTimeMillis() - started);
                 } else {
                     toolCallLogService.success(logId, result.getData(), System.currentTimeMillis() - started);
-                    traceService.finishSpan(context.getTraceId(), spanId, "SUCCESS", "工具调用成功: " + toolCode, null);
                 }
+                traceService.finishSpan(context.getTraceId(), spanId, "SUCCESS", "工具调用成功: " + toolCode, null);
                 result.setToolCallLogId(logId);
                 result.setApprovalId(context.getApprovalId());
                 return result;
+            }
+            if (context.getApprovalId() != null && approvalExecutionStarted) {
+                approvalRequestService.markExecutionFailed(context.getTenantId(), context.getShopId(), context.getApprovalId(), result.getErrorMessage());
             }
             toolCallLogService.failed(logId, result.getErrorCode(), result.getErrorMessage(), System.currentTimeMillis() - started);
             traceService.finishSpan(context.getTraceId(), spanId, "FAILED", null, result.getErrorMessage());
@@ -153,15 +174,43 @@ public class DefaultToolGatewayService implements ToolGatewayService {
         param.setRiskLevel(normalizedRiskLevel(tool.getRiskLevel()));
         param.setTitle("审批工具调用: " + tool.getToolName());
         param.setReason("工具风险等级或注册元数据要求人工审批");
-        param.setInputSummary(jsonSupport.toJson(input));
+        String canonicalInput = canonicalInputJson(input);
+        param.setInputSummary(canonicalInput);
+        param.setInputHash(sha256(canonicalInput));
+        param.setBusinessObjectId(businessObjectId(input));
         return param;
     }
 
-    private boolean isApprovedForTool(ToolInvokeContext context, String toolCode) {
+    private boolean isApprovedForTool(ToolInvokeContext context, String toolCode, Object input) {
         return approvalRequestService.get(context.getTenantId(), context.getShopId(), context.getApprovalId())
-                .filter(approval -> ApprovalStatus.APPROVED.equals(approval.getStatus()))
+                .filter(approval -> ApprovalStatus.APPROVED.equals(approval.getStatus()) || ApprovalStatus.EXECUTING.equals(approval.getStatus()) || ApprovalStatus.EXECUTED.equals(approval.getStatus()))
                 .filter(approval -> toolCode.equals(approval.getToolCode()))
+                .filter(approval -> canonicalInputJson(input).equals(approval.getInputSummary()))
                 .isPresent();
+    }
+
+    private String canonicalInputJson(Object input) {
+        Map<String, Object> values = new java.util.TreeMap<>(jsonSupport.toMap(jsonSupport.toJson(input)));
+        values.remove("approvalId");
+        return jsonSupport.toJson(values);
+    }
+
+    private String businessObjectId(Object input) {
+        Map<String, Object> values = jsonSupport.toMap(jsonSupport.toJson(input));
+        Object value = values.get("orderId");
+        if (value == null) value = values.get("productId");
+        if (value == null) value = values.get("reportId");
+        return value == null ? "unspecified" : String.valueOf(value);
+    }
+
+    private String sha256(String value) {
+        try {
+            byte[] digest = java.security.MessageDigest.getInstance("SHA-256")
+                    .digest(value.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            return java.util.HexFormat.of().formatHex(digest);
+        } catch (java.security.NoSuchAlgorithmException ex) {
+            throw new IllegalStateException("SHA-256 unavailable", ex);
+        }
     }
 
     private boolean approvalEnabled(ToolInvokeContext context) {

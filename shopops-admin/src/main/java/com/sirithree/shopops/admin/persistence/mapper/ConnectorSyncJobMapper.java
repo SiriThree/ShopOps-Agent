@@ -16,11 +16,11 @@ public interface ConnectorSyncJobMapper {
             INSERT INTO connector_sync_job (
               tenant_id, shop_id, connector_code, status, attempt, max_attempts,
               trigger_type, created_by, request_id, message, detail_json,
-              started_at, finished_at, created_at, updated_at
+              started_at, finished_at, created_at, updated_at, cursor_value, checkpoint_json, error_type, next_retry_at
             ) VALUES (
               #{tenantId}, #{shopId}, #{connectorCode}, #{status}, #{attempt}, #{maxAttempts},
               #{triggerType}, #{createdBy}, #{requestId}, #{message}, #{detailJson},
-              #{startedAt}, #{finishedAt}, #{createdAt}, #{updatedAt}
+              #{startedAt}, #{finishedAt}, #{createdAt}, #{updatedAt}, #{cursorValue}, #{checkpointJson}, #{errorType}, #{nextRetryAt}
             )
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
@@ -33,6 +33,8 @@ public interface ConnectorSyncJobMapper {
                 request_id = #{requestId},
                 message = #{message},
                 detail_json = #{detailJson},
+                cursor_value = #{cursorValue}, checkpoint_json = #{checkpointJson},
+                error_type = #{errorType}, next_retry_at = #{nextRetryAt},
                 started_at = #{startedAt},
                 finished_at = #{finishedAt},
                 updated_at = #{updatedAt}

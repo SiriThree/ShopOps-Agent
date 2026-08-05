@@ -15,6 +15,14 @@ public class ConnectorSyncJob {
     private String requestId;
     private String message;
     private String detailJson;
+    private String cursorValue;
+    private String checkpointJson;
+    private String errorType;
+    private LocalDateTime nextRetryAt;
+    private String workerId;
+    private LocalDateTime leaseExpireAt;
+    private LocalDateTime heartbeatAt;
+    private LocalDateTime cancelRequestedAt;
     private LocalDateTime startedAt;
     private LocalDateTime finishedAt;
     private LocalDateTime createdAt;
@@ -44,6 +52,14 @@ public class ConnectorSyncJob {
     public void setMessage(String message) { this.message = message; }
     public String getDetailJson() { return detailJson; }
     public void setDetailJson(String detailJson) { this.detailJson = detailJson; }
+    public String getCursorValue(){return cursorValue;} public void setCursorValue(String v){cursorValue=v;}
+    public String getCheckpointJson(){return checkpointJson;} public void setCheckpointJson(String v){checkpointJson=v;}
+    public String getErrorType(){return errorType;} public void setErrorType(String v){errorType=v;}
+    public LocalDateTime getNextRetryAt(){return nextRetryAt;} public void setNextRetryAt(LocalDateTime v){nextRetryAt=v;}
+    public String getWorkerId(){return workerId;} public void setWorkerId(String v){workerId=v;}
+    public LocalDateTime getLeaseExpireAt(){return leaseExpireAt;} public void setLeaseExpireAt(LocalDateTime v){leaseExpireAt=v;}
+    public LocalDateTime getHeartbeatAt(){return heartbeatAt;} public void setHeartbeatAt(LocalDateTime v){heartbeatAt=v;}
+    public LocalDateTime getCancelRequestedAt(){return cancelRequestedAt;} public void setCancelRequestedAt(LocalDateTime v){cancelRequestedAt=v;}
     public LocalDateTime getStartedAt() { return startedAt; }
     public void setStartedAt(LocalDateTime startedAt) { this.startedAt = startedAt; }
     public LocalDateTime getFinishedAt() { return finishedAt; }

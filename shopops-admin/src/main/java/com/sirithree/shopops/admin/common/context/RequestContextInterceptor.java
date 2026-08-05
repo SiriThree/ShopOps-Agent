@@ -28,6 +28,7 @@ public class RequestContextInterceptor implements HandlerInterceptor {
         MDC.put("shopId", String.valueOf(context.getShopId()));
         MDC.put("userId", String.valueOf(context.getUserId()));
         MDC.put("requestId", context.getRequestId());
+        MDC.put("traceId", context.getTraceId());
         response.setHeader(RequestContextResolver.HEADER_REQUEST_ID, context.getRequestId());
         return true;
     }

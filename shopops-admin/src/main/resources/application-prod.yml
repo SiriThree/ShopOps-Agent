@@ -1,0 +1,8 @@
+shopops:
+  auth:
+    header-dev-mode: false
+    token-secret: ${SHOPOPS_AUTH_TOKEN_SECRET}
+  connector:
+    credential-secret: ${SHOPOPS_CONNECTOR_CREDENTIAL_SECRET}
+server:
+  forward-headers-strategy: framework

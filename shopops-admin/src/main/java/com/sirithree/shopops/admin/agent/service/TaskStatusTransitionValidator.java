@@ -10,7 +10,16 @@ public class TaskStatusTransitionValidator {
         if (status == null || status.isBlank()) {
             return null;
         }
-        return AgentTaskStatus.valueOf(status);
+        try {
+            return switch (status.trim().toUpperCase()) {
+                case "CREATED" -> AgentTaskStatus.PENDING;
+                case "SUCCESS" -> AgentTaskStatus.SUCCEEDED;
+                case "DEGRADED" -> AgentTaskStatus.NEEDS_MANUAL_ACTION;
+                default -> AgentTaskStatus.valueOf(status.trim().toUpperCase());
+            };
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalStateException("Unknown task status: " + status, ex);
+        }
     }
 
     public static void requireTransition(String fromStatus, AgentTaskStatus toStatus) {

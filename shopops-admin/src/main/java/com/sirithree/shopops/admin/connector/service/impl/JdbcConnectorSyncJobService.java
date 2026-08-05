@@ -59,8 +59,9 @@ public class JdbcConnectorSyncJobService implements ConnectorSyncJobService {
         if (job == null) {
             throw new IllegalArgumentException("同步任务不存在: " + jobId);
         }
-        if (!"FAILED".equals(job.getStatus())) {
-            throw new IllegalArgumentException("只有失败的同步任务可以重试");
+        boolean resumablePage = "SUCCESS".equals(job.getStatus()) && job.getCursorValue() != null && !job.getCursorValue().isBlank();
+        if (!"FAILED".equals(job.getStatus()) && !resumablePage) {
+            throw new IllegalArgumentException("只有失败任务或存在下一页游标的任务可以恢复");
         }
         if (job.getAttempt() >= job.getMaxAttempts()) {
             throw new IllegalArgumentException("同步任务已达到最大重试次数");
@@ -90,10 +91,16 @@ public class JdbcConnectorSyncJobService implements ConnectorSyncJobService {
     private void run(ConnectorSyncJob job, String requestId) {
         job.setStatus("RUNNING");
         ConnectorSyncJobExecutor.ConnectorSyncResult result = executor.run(
-                job.getTenantId(), job.getShopId(), job.getId(), job.getConnectorCode(), requestId);
+                job.getTenantId(), job.getShopId(), job.getId(), job.getConnectorCode(), requestId, job.getCursorValue());
         job.setStatus(result.status());
         job.setMessage(result.message());
         job.setDetailJson(jsonSupport.toJson(result.detail()));
+        job.setCursorValue(result.nextCursor());
+        Map<String, Object> checkpoint = new java.util.LinkedHashMap<>();
+        checkpoint.put("cursor", result.nextCursor());
+        checkpoint.put("detail", result.detail());
+        job.setCheckpointJson(jsonSupport.toJson(checkpoint));
+        job.setErrorType(result.errorType());
         job.setFinishedAt(result.finishedAt());
         job.setUpdatedAt(result.finishedAt());
         job.setRequestId(requestId);

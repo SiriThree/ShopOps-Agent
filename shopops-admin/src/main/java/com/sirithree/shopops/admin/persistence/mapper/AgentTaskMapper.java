@@ -132,7 +132,8 @@ public interface AgentTaskMapper {
                 error_code = #{errorCode},
                 error_message = #{errorMessage},
                 started_at = #{startedAt},
-                finished_at = #{finishedAt}
+                finished_at = #{finishedAt},
+                worker_id = NULL, lease_expire_at = NULL, heartbeat_at = NULL
             WHERE id = #{id}
               AND tenant_id = #{tenantId}
               AND shop_id = #{shopId}
@@ -162,7 +163,7 @@ public interface AgentTaskMapper {
               AND shop_id = #{shopId}
               AND (
                 (status = 'QUEUED' AND created_at <= #{queuedBefore})
-                OR (status = 'RUNNING' AND started_at <= #{runningBefore})
+                OR (status = 'RUNNING' AND lease_expire_at IS NOT NULL AND lease_expire_at <= NOW())
               )
             ORDER BY id ASC
             LIMIT #{limit}
@@ -172,6 +173,38 @@ public interface AgentTaskMapper {
                                       @Param("queuedBefore") LocalDateTime queuedBefore,
                                       @Param("runningBefore") LocalDateTime runningBefore,
                                       @Param("limit") Integer limit);
+
+    @Update("""
+            UPDATE agent_task
+            SET status = 'RUNNING', worker_id = #{workerId}, locked_at = #{now},
+                heartbeat_at = #{now}, lease_expire_at = #{leaseExpireAt}, attempt = attempt + 1,
+                started_at = COALESCE(started_at, #{now}), status_reason = 'Worker lease acquired'
+            WHERE id = #{id} AND tenant_id = #{tenantId} AND shop_id = #{shopId}
+              AND status IN ('QUEUED', 'RETRYING')
+              AND (lease_expire_at IS NULL OR lease_expire_at &lt; #{now})
+              AND cancel_requested_at IS NULL
+            """)
+    int acquireLease(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("id") Long id,
+                     @Param("workerId") String workerId, @Param("now") LocalDateTime now,
+                     @Param("leaseExpireAt") LocalDateTime leaseExpireAt);
+
+    @Update("""
+            UPDATE agent_task SET heartbeat_at = #{now}, lease_expire_at = #{leaseExpireAt}
+            WHERE id = #{id} AND tenant_id = #{tenantId} AND shop_id = #{shopId}
+              AND status = 'RUNNING' AND worker_id = #{workerId}
+            """)
+    int heartbeat(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("id") Long id,
+                  @Param("workerId") String workerId, @Param("now") LocalDateTime now,
+                  @Param("leaseExpireAt") LocalDateTime leaseExpireAt);
+
+    @Update("""
+            UPDATE agent_task SET status = 'CANCEL_REQUESTED', cancel_requested_at = #{now},
+                status_reason = #{reason}
+            WHERE id = #{id} AND tenant_id = #{tenantId} AND shop_id = #{shopId}
+              AND status IN ('PENDING','QUEUED','RUNNING','WAITING_APPROVAL','RETRYING')
+            """)
+    int requestCancel(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("id") Long id,
+                      @Param("now") LocalDateTime now, @Param("reason") String reason);
 
     @Select("""
             SELECT status AS taskStatus, COUNT(*) AS taskCount

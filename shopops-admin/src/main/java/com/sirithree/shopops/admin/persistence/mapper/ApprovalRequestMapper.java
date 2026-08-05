@@ -15,12 +15,12 @@ public interface ApprovalRequestMapper {
     @Insert("""
             INSERT INTO approval_request (
               tenant_id, shop_id, approval_no, source_type, source_id, task_id, step_id,
-              trace_id, tool_code, risk_level, title, reason, input_summary, status,
+              trace_id, tool_code, business_object_id, risk_level, title, reason, input_summary, input_hash, status,
               requester_id, requester_name, approver_id, approver_name, decision_comment,
               created_at, decided_at, updated_at
             ) VALUES (
               #{tenantId}, #{shopId}, #{approvalNo}, #{sourceType}, #{sourceId}, #{taskId}, #{stepId},
-              #{traceId}, #{toolCode}, #{riskLevel}, #{title}, #{reason}, #{inputSummary}, #{status},
+              #{traceId}, #{toolCode}, #{businessObjectId}, #{riskLevel}, #{title}, #{reason}, #{inputSummary}, #{inputHash}, #{status},
               #{requesterId}, #{requesterName}, #{approverId}, #{approverName}, #{decisionComment},
               #{createdAt}, #{decidedAt}, #{updatedAt}
             )
@@ -168,4 +168,9 @@ public interface ApprovalRequestMapper {
               AND status = 'PENDING'
             """)
     int decide(ApprovalRequest approval);
+
+    @Update("UPDATE approval_request SET status=#{toStatus}, execution_started_at=CASE WHEN #{toStatus}='EXECUTING' THEN #{now} ELSE execution_started_at END, execution_finished_at=CASE WHEN #{toStatus} IN ('EXECUTED','EXECUTION_FAILED') THEN #{now} ELSE execution_finished_at END, decision_comment=COALESCE(#{message},decision_comment), updated_at=#{now} WHERE id=#{approvalId} AND tenant_id=#{tenantId} AND shop_id=#{shopId} AND status=#{fromStatus}")
+    int transitionExecution(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("approvalId") Long approvalId,
+                            @Param("fromStatus") String fromStatus, @Param("toStatus") String toStatus,
+                            @Param("message") String message, @Param("now") java.time.LocalDateTime now);
 }

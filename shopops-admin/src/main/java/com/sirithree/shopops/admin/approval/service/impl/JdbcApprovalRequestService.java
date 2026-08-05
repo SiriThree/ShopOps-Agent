@@ -42,10 +42,12 @@ public class JdbcApprovalRequestService implements ApprovalRequestService {
         approval.setStepId(param.getStepId());
         approval.setTraceId(param.getTraceId());
         approval.setToolCode(param.getToolCode());
+        approval.setBusinessObjectId(param.getBusinessObjectId());
         approval.setRiskLevel(defaultString(param.getRiskLevel(), "MEDIUM").toUpperCase(Locale.ROOT));
         approval.setTitle(defaultString(param.getTitle(), "Approval request"));
         approval.setReason(param.getReason());
         approval.setInputSummary(param.getInputSummary());
+        approval.setInputHash(param.getInputHash());
         approval.setStatus(ApprovalStatus.PENDING);
         approval.setRequesterId(requesterId);
         approval.setRequesterName(requesterName);
@@ -157,6 +159,24 @@ public class JdbcApprovalRequestService implements ApprovalRequestService {
         if (!HIGH_RISK_APPROVAL_CONFIRM_TEXT.equals(confirmText == null ? null : confirmText.trim())) {
             throw new IllegalArgumentException("高风险审批通过前需输入确认语：确认通过");
         }
+    }
+
+    @Override
+    public boolean markExecuting(Long tenantId, Long shopId, Long approvalId) {
+        return approvalRequestMapper.transitionExecution(tenantId, shopId, approvalId, ApprovalStatus.APPROVED,
+                ApprovalStatus.EXECUTING, null, LocalDateTime.now()) == 1;
+    }
+
+    @Override
+    public void markExecuted(Long tenantId, Long shopId, Long approvalId) {
+        approvalRequestMapper.transitionExecution(tenantId, shopId, approvalId, ApprovalStatus.EXECUTING,
+                ApprovalStatus.EXECUTED, null, LocalDateTime.now());
+    }
+
+    @Override
+    public void markExecutionFailed(Long tenantId, Long shopId, Long approvalId, String message) {
+        approvalRequestMapper.transitionExecution(tenantId, shopId, approvalId, ApprovalStatus.EXECUTING,
+                ApprovalStatus.EXECUTION_FAILED, message, LocalDateTime.now());
     }
 
     private ApprovalRequestDto toDto(ApprovalRequest approval) {

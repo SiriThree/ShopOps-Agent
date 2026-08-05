@@ -1,17 +1,22 @@
 package com.sirithree.shopops.admin.common.context;
 
 import com.sirithree.shopops.admin.auth.domain.AuthAuditEventCreateCommand;
+import com.sirithree.shopops.admin.auth.domain.DataScope;
+import com.sirithree.shopops.admin.auth.domain.PermissionCode;
 import com.sirithree.shopops.admin.auth.domain.TokenPrincipal;
 import com.sirithree.shopops.admin.auth.domain.UserRoleProfile;
 import com.sirithree.shopops.admin.auth.exception.AuthenticationException;
 import com.sirithree.shopops.admin.auth.service.AuthAuditService;
+import com.sirithree.shopops.admin.auth.service.AuthorizationService;
 import com.sirithree.shopops.admin.auth.service.TokenSessionService;
 import com.sirithree.shopops.admin.auth.service.TokenService;
 import com.sirithree.shopops.admin.auth.service.UserRoleService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -27,17 +32,20 @@ public class RequestContextResolver {
     public static final String HEADER_AUTHORIZATION = "Authorization";
 
     private final UserRoleService userRoleService;
+    private final AuthorizationService authorizationService;
     private final TokenService tokenService;
     private final AuthAuditService authAuditService;
     private final TokenSessionService tokenSessionService;
     private final boolean headerDevMode;
 
     public RequestContextResolver(UserRoleService userRoleService,
+                                  AuthorizationService authorizationService,
                                   TokenService tokenService,
                                   AuthAuditService authAuditService,
                                   TokenSessionService tokenSessionService,
-                                  @Value("${shopops.auth.header-dev-mode:true}") boolean headerDevMode) {
+                                  @Value("${shopops.auth.header-dev-mode:false}") boolean headerDevMode) {
         this.userRoleService = userRoleService;
+        this.authorizationService = authorizationService;
         this.tokenService = tokenService;
         this.authAuditService = authAuditService;
         this.tokenSessionService = tokenSessionService;
@@ -58,16 +66,15 @@ public class RequestContextResolver {
                 recordAuthenticationFailure(request, requestId, "BEARER", "Token session is inactive");
                 throw new AuthenticationException("Token session is inactive");
             }
+            AuthorizationService.AuthorizationSnapshot authorization = authorizationService.resolve(
+                    principal.getTenantId(), principal.getShopId(), principal.getUserId());
+            List<String> roles = principal.getRoles() == null || principal.getRoles().isEmpty()
+                    ? authorization.roles()
+                    : principal.getRoles();
             return new RequestContext(
-                    principal.getTokenId(),
-                    principal.getTenantId(),
-                    principal.getShopId(),
-                    principal.getUserId(),
-                    requestId,
-                    principal.getUsername(),
-                    principal.getRoles(),
-                    "BEARER",
-                    true
+                    principal.getTokenId(), principal.getTenantId(), principal.getShopId(), principal.getUserId(),
+                    requestId, requestId, principal.getUsername(), authorization.accessibleShopIds(),
+                    roles, permissionsFor(roles), dataScopeFor(roles), "BEARER", true
             );
         }
         if (!headerDevMode) {
@@ -81,11 +88,12 @@ public class RequestContextResolver {
         Long tenantId = longHeader(request, HEADER_TENANT_ID, 1L);
         Long shopId = longHeader(request, HEADER_SHOP_ID, 1L);
         Long userId = longHeader(request, HEADER_USER_ID, 1L);
+        AuthorizationService.AuthorizationSnapshot authorization = authorizationService.resolve(tenantId, shopId, userId);
         Optional<UserRoleProfile> userRoleProfile = userRoleService.getUserRoleProfile(tenantId, shopId, userId);
         String username = username(request, userId, userRoleProfile);
         List<String> roles = roles(request.getHeader(HEADER_USER_ROLES), userRoleProfile);
-        String authType = authType(request.getHeader(HEADER_AUTHORIZATION));
-        return new RequestContext(tenantId, shopId, userId, requestId, username, roles, authType, true);
+        return new RequestContext(null, tenantId, shopId, userId, requestId, requestId, username,
+                authorization.accessibleShopIds(), roles, permissionsFor(roles), dataScopeFor(roles), "HEADER", true);
     }
 
     private boolean isLoginRequest(HttpServletRequest request) {
@@ -94,7 +102,7 @@ public class RequestContextResolver {
     }
 
     private RequestContext anonymousContext(String requestId) {
-        return new RequestContext(0L, 0L, 0L, requestId, "anonymous", List.of(), "ANONYMOUS", false);
+        return new RequestContext(null, 0L, 0L, 0L, requestId, requestId, "anonymous", List.of(), List.of(), java.util.Set.of(), com.sirithree.shopops.admin.auth.domain.DataScope.SELF_CREATED, "ANONYMOUS", false);
     }
 
     private void recordAuthenticationFailure(HttpServletRequest request, String requestId, String authType, String reason) {
@@ -189,6 +197,31 @@ public class RequestContextResolver {
             return "BEARER";
         }
         return "HEADER";
+    }
+
+    private Set<String> permissionsFor(List<String> roles) {
+        Set<String> permissions = new LinkedHashSet<>();
+        if (roles.contains("VIEWER") || roles.contains("OPERATOR") || roles.contains("ADMIN")) {
+            permissions.addAll(Set.of(PermissionCode.DASHBOARD_READ, PermissionCode.ORDER_READ,
+                    PermissionCode.PRODUCT_READ, PermissionCode.REVIEW_READ, PermissionCode.TASK_READ,
+                    PermissionCode.APPROVAL_READ, PermissionCode.CONNECTOR_READ, PermissionCode.TOOL_READ,
+                    "comment:read", "ad:read", "report:read"));
+        }
+        if (roles.contains("OPERATOR") || roles.contains("ADMIN")) {
+            permissions.addAll(Set.of(PermissionCode.ORDER_EXPORT, PermissionCode.PRODUCT_UPDATE,
+                    PermissionCode.REPORT_GENERATE, PermissionCode.TASK_CANCEL,
+                    PermissionCode.TOOL_EXECUTE, PermissionCode.AGENT_EXECUTE,
+                    "order:refund", "product:write", "ad:write", "report:export", "feishu:write"));
+        }
+        if (roles.contains("ADMIN")) {
+            permissions.addAll(Set.of(PermissionCode.APPROVAL_REVIEW, PermissionCode.CONNECTOR_MANAGE,
+                    PermissionCode.AUDIT_READ, PermissionCode.USER_MANAGE));
+        }
+        return Set.copyOf(permissions);
+    }
+
+    private DataScope dataScopeFor(List<String> roles) {
+        return roles.contains("ADMIN") ? DataScope.ALL_TENANT : DataScope.ASSIGNED_SHOPS;
     }
 
     private String headerOrDefault(HttpServletRequest request, String name, String defaultValue) {

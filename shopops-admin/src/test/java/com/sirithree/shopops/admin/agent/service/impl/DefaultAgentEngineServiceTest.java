@@ -19,6 +19,7 @@ import com.sirithree.shopops.admin.agent.service.AgentExecutorService;
 import com.sirithree.shopops.admin.agent.service.PlanValidator;
 import com.sirithree.shopops.admin.agent.service.PlannerService;
 import com.sirithree.shopops.admin.agent.service.VerifierService;
+import com.sirithree.shopops.admin.agent.governance.WorkflowTemplateRegistry;
 import com.sirithree.shopops.admin.audit.domain.TraceSpanCreateCommand;
 import com.sirithree.shopops.admin.audit.service.TraceService;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
@@ -41,7 +42,8 @@ class DefaultAgentEngineServiceTest {
             executorService,
             verifierService,
             traceService,
-            new JacksonJsonSupport(new ObjectMapper())
+            new JacksonJsonSupport(new ObjectMapper()),
+            new WorkflowTemplateRegistry()
     );
 
     @Test

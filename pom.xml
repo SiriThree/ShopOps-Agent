@@ -9,8 +9,8 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>shopops-agent</name>
-    <description>Enterprise ecommerce AgentOps platform</description>
+    <name>shopops</name>
+    <description>Multi-store ecommerce operations management platform with governed agent automation</description>
 
     <modules>
         <module>shopops-common</module>

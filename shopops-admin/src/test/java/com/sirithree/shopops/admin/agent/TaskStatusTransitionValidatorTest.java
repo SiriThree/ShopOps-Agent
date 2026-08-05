@@ -20,9 +20,9 @@ class TaskStatusTransitionValidatorTest {
                 .doesNotThrowAnyException();
         assertThatCode(() -> TaskStatusTransitionValidator.requireTransition("QUEUED", AgentTaskStatus.FAILED))
                 .doesNotThrowAnyException();
-        assertThatCode(() -> TaskStatusTransitionValidator.requireTransition("RUNNING", AgentTaskStatus.SUCCESS))
+        assertThatCode(() -> TaskStatusTransitionValidator.requireTransition("RUNNING", AgentTaskStatus.SUCCEEDED))
                 .doesNotThrowAnyException();
-        assertThatCode(() -> TaskStatusTransitionValidator.requireTransition("RUNNING", AgentTaskStatus.DEGRADED))
+        assertThatCode(() -> TaskStatusTransitionValidator.requireTransition("RUNNING", AgentTaskStatus.NEEDS_MANUAL_ACTION))
                 .doesNotThrowAnyException();
         assertThatCode(() -> TaskStatusTransitionValidator.requireTransition("RUNNING", AgentTaskStatus.FAILED))
                 .doesNotThrowAnyException();
@@ -30,15 +30,15 @@ class TaskStatusTransitionValidatorTest {
 
     @Test
     void shouldRejectTerminalAndSkippedTaskStatusTransitions() {
-        assertThatThrownBy(() -> TaskStatusTransitionValidator.requireTransition("CREATED", AgentTaskStatus.SUCCESS))
+        assertThatThrownBy(() -> TaskStatusTransitionValidator.requireTransition("CREATED", AgentTaskStatus.SUCCEEDED))
                 .isInstanceOf(IllegalStateException.class);
-        assertThatThrownBy(() -> TaskStatusTransitionValidator.requireTransition("QUEUED", AgentTaskStatus.SUCCESS))
+        assertThatThrownBy(() -> TaskStatusTransitionValidator.requireTransition("QUEUED", AgentTaskStatus.SUCCEEDED))
                 .isInstanceOf(IllegalStateException.class);
         assertThatThrownBy(() -> TaskStatusTransitionValidator.requireTransition("SUCCESS", AgentTaskStatus.FAILED))
                 .isInstanceOf(IllegalStateException.class);
         assertThatThrownBy(() -> TaskStatusTransitionValidator.requireTransition("FAILED", AgentTaskStatus.RUNNING))
                 .isInstanceOf(IllegalStateException.class);
-        assertThatThrownBy(() -> TaskStatusTransitionValidator.requireTransition("DEGRADED", AgentTaskStatus.SUCCESS))
+        assertThatThrownBy(() -> TaskStatusTransitionValidator.requireTransition("DEGRADED", AgentTaskStatus.SUCCEEDED))
                 .isInstanceOf(IllegalStateException.class);
     }
 }

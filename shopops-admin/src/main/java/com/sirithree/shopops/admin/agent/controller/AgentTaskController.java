@@ -85,6 +85,15 @@ public class AgentTaskController {
         return CommonResult.success(result);
     }
 
+    @PostMapping("/{taskId}/cancel")
+    @RequireRole(AuthRole.OPERATOR)
+    public CommonResult<AgentTaskDto> cancelTask(@PathVariable Long taskId,
+                                                  @RequestParam(required = false) String reason) {
+        RequestContext context = RequestContextHolder.current();
+        return CommonResult.success(agentTaskService.cancelTask(context.getTenantId(), context.getShopId(),
+                context.getUserId(), taskId, reason));
+    }
+
     @PostMapping("/{taskId}/retry")
     @RequireRole(AuthRole.ADMIN)
     public CommonResult<AgentTaskCreateResult> retryTask(@PathVariable Long taskId) {
