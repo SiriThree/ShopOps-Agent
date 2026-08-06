@@ -9,16 +9,15 @@ import com.sirithree.shopops.admin.audit.service.TraceService;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.organization.service.ShopRuntimeConfigService;
 import com.sirithree.shopops.admin.tool.domain.McpToolDto;
+import com.sirithree.shopops.admin.tool.domain.ToolGovernanceException;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.admin.tool.service.McpToolService;
 import com.sirithree.shopops.admin.tool.service.ToolCallLogService;
-import com.sirithree.shopops.admin.tool.service.ToolExecutor;
+import com.sirithree.shopops.admin.tool.service.ToolProvider;
 import com.sirithree.shopops.admin.tool.service.ToolGatewayService;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,9 @@ public class DefaultToolGatewayService implements ToolGatewayService {
     private final ApprovalRequestService approvalRequestService;
     private final ShopRuntimeConfigService shopRuntimeConfigService;
     private final JacksonJsonSupport jsonSupport;
-    private final Map<String, ToolExecutor> executors;
+    private final ToolInputSchemaValidator toolInputSchemaValidator;
+    private final TrustedToolInputNormalizer trustedToolInputNormalizer;
+    private final List<ToolProvider> toolProviders;
     private final String failCode;
 
     public DefaultToolGatewayService(McpToolService mcpToolService,
@@ -39,7 +40,9 @@ public class DefaultToolGatewayService implements ToolGatewayService {
                                      ApprovalRequestService approvalRequestService,
                                      ShopRuntimeConfigService shopRuntimeConfigService,
                                      JacksonJsonSupport jsonSupport,
-                                     List<ToolExecutor> executors,
+                                     ToolInputSchemaValidator toolInputSchemaValidator,
+                                     TrustedToolInputNormalizer trustedToolInputNormalizer,
+                                     List<ToolProvider> toolProviders,
                                      @Value("${shopops.tool.fail-code:}") String failCode) {
         this.mcpToolService = mcpToolService;
         this.toolCallLogService = toolCallLogService;
@@ -47,7 +50,9 @@ public class DefaultToolGatewayService implements ToolGatewayService {
         this.approvalRequestService = approvalRequestService;
         this.shopRuntimeConfigService = shopRuntimeConfigService;
         this.jsonSupport = jsonSupport;
-        this.executors = executors.stream().collect(Collectors.toMap(ToolExecutor::toolCode, Function.identity()));
+        this.toolInputSchemaValidator = toolInputSchemaValidator;
+        this.trustedToolInputNormalizer = trustedToolInputNormalizer;
+        this.toolProviders = List.copyOf(toolProviders);
         this.failCode = failCode;
     }
 
@@ -67,6 +72,8 @@ public class DefaultToolGatewayService implements ToolGatewayService {
             if (!Boolean.TRUE.equals(tool.getEnabled())) {
                 return fail(context, spanId, logId, started, "TOOL_DISABLED", "工具已停用: " + toolCode);
             }
+            Object normalizedInput = trustedToolInputNormalizer.normalize(context, tool, input);
+            toolInputSchemaValidator.validate(tool, normalizedInput);
             if (tool.getPermissionCode() == null || tool.getPermissionCode().isBlank()
                     || !context.hasPermission(tool.getPermissionCode())) {
                 return fail(context, spanId, logId, started, "TOOL_PERMISSION_DENIED",
@@ -77,16 +84,24 @@ public class DefaultToolGatewayService implements ToolGatewayService {
             boolean approvalBypassedByShopConfig = toolNeedsApproval && !toolApprovalEnabled;
             if (toolNeedsApproval && toolApprovalEnabled) {
                 if (context.getApprovalId() == null) {
-                    return approvalRequired(context, spanId, logId, started, tool, input);
+                    return approvalRequired(context, spanId, logId, started, tool, normalizedInput);
                 }
-                if (!isApprovedForTool(context, toolCode, input)) {
+                if (!isApprovedForTool(context, toolCode, normalizedInput)) {
                     return fail(context, spanId, logId, started, "APPROVAL_NOT_APPROVED", "审批单不存在、未通过或不匹配工具: " + context.getApprovalId());
                 }
             }
-            ToolExecutor executor = executors.get(toolCode);
-            if (executor == null) {
-                return fail(context, spanId, logId, started, "EXECUTOR_NOT_FOUND", "未注册工具执行器: " + toolCode);
+            List<ToolProvider> matchingProviders = toolProviders.stream()
+                    .filter(provider -> provider.supports(tool))
+                    .toList();
+            if (matchingProviders.isEmpty()) {
+                return fail(context, spanId, logId, started, "TOOL_PROVIDER_NOT_FOUND",
+                        "未注册工具 Provider: " + toolCode + " providerType=" + tool.getProviderType());
             }
+            if (matchingProviders.size() > 1) {
+                return fail(context, spanId, logId, started, "TOOL_PROVIDER_CONFLICT",
+                        "多个 ToolProvider 同时匹配: " + toolCode);
+            }
+            ToolProvider provider = matchingProviders.get(0);
             boolean approvalExecutionStarted = false;
             if (context.getApprovalId() != null) {
                 ApprovalRequestDto approval = approvalRequestService.get(context.getTenantId(), context.getShopId(), context.getApprovalId()).orElse(null);
@@ -97,7 +112,7 @@ public class DefaultToolGatewayService implements ToolGatewayService {
                     }
                 }
             }
-            ToolInvokeResult result = executor.execute(context, input);
+            ToolInvokeResult result = provider.invoke(context, tool, normalizedInput);
             if (Boolean.TRUE.equals(result.getSuccess())) {
                 if (context.getApprovalId() != null && approvalExecutionStarted) {
                     approvalRequestService.markExecuted(context.getTenantId(), context.getShopId(), context.getApprovalId());
@@ -123,6 +138,8 @@ public class DefaultToolGatewayService implements ToolGatewayService {
             result.setToolCallLogId(logId);
             result.setApprovalId(context.getApprovalId());
             return result;
+        } catch (ToolGovernanceException ex) {
+            return fail(context, spanId, logId, started, ex.getErrorCode(), ex.getMessage());
         } catch (RuntimeException ex) {
             traceService.finishSpan(context.getTraceId(), spanId, "FAILED", null, ex.getMessage());
             return fail(logId, started, "TOOL_EXECUTE_ERROR", ex.getMessage());

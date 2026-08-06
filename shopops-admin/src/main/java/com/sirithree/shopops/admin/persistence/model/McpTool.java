@@ -21,6 +21,13 @@ public class McpTool {
     private Integer enabled;
     private String version;
     private String owner;
+    private String providerType;
+    private String mcpServerCode;
+    private String remoteToolName;
+    private String schemaHash;
+    private String remoteVersion;
+    private String discoveryStatus;
+    private LocalDateTime lastDiscoveredAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -60,6 +67,20 @@ public class McpTool {
     public void setVersion(String version) { this.version = version; }
     public String getOwner() { return owner; }
     public void setOwner(String owner) { this.owner = owner; }
+    public String getProviderType() { return providerType; }
+    public void setProviderType(String providerType) { this.providerType = providerType; }
+    public String getMcpServerCode() { return mcpServerCode; }
+    public void setMcpServerCode(String mcpServerCode) { this.mcpServerCode = mcpServerCode; }
+    public String getRemoteToolName() { return remoteToolName; }
+    public void setRemoteToolName(String remoteToolName) { this.remoteToolName = remoteToolName; }
+    public String getSchemaHash() { return schemaHash; }
+    public void setSchemaHash(String schemaHash) { this.schemaHash = schemaHash; }
+    public String getRemoteVersion() { return remoteVersion; }
+    public void setRemoteVersion(String remoteVersion) { this.remoteVersion = remoteVersion; }
+    public String getDiscoveryStatus() { return discoveryStatus; }
+    public void setDiscoveryStatus(String discoveryStatus) { this.discoveryStatus = discoveryStatus; }
+    public LocalDateTime getLastDiscoveredAt() { return lastDiscoveredAt; }
+    public void setLastDiscoveredAt(LocalDateTime lastDiscoveredAt) { this.lastDiscoveredAt = lastDiscoveredAt; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }

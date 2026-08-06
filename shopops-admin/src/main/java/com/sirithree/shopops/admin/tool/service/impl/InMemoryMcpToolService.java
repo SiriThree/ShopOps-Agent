@@ -2,6 +2,7 @@ package com.sirithree.shopops.admin.tool.service.impl;
 
 import com.sirithree.shopops.admin.tool.domain.McpToolDto;
 import com.sirithree.shopops.admin.tool.service.McpToolService;
+import com.sirithree.shopops.common.mcp.CommerceMcpContracts;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,7 +21,25 @@ public class InMemoryMcpToolService implements McpToolService {
         register(new McpToolDto("order.query_refund_risk", "Refund risk query", "order", "order:read", "medium"));
         register(approvalTool("order.refund_execute", "Refund execution", "order", "order:refund", "high"));
 
-        register(new McpToolDto("comment.query_negative", "Negative comment query", "comment", "comment:read", "low"));
+        McpToolDto negativeComment = new McpToolDto(
+                CommerceMcpContracts.COMMENT_QUERY_NEGATIVE,
+                "Negative comment query",
+                "comment",
+                "comment:read",
+                "low");
+        negativeComment.setDescription("Query low-star and high-risk comments through the Commerce MCP server");
+        negativeComment.setInputSchema(CommerceMcpContracts.canonicalJson(
+                CommerceMcpContracts.commentQueryNegativeInputSchema()));
+        negativeComment.setOutputSchema(CommerceMcpContracts.canonicalJson(
+                CommerceMcpContracts.commentQueryNegativeOutputSchema()));
+        negativeComment.setProviderType(CommerceMcpContracts.PROVIDER_MCP);
+        negativeComment.setMcpServerCode(CommerceMcpContracts.SERVER_CODE);
+        negativeComment.setRemoteToolName(CommerceMcpContracts.COMMENT_QUERY_NEGATIVE);
+        negativeComment.setSchemaHash(CommerceMcpContracts.commentQueryNegativeSchemaHash());
+        negativeComment.setRemoteVersion("1.0.0");
+        negativeComment.setDiscoveryStatus(CommerceMcpContracts.DISCOVERY_READY);
+        negativeComment.setIdempotent(true);
+        register(negativeComment);
         register(new McpToolDto("comment.analyze_sentiment", "Comment sentiment analysis", "comment", "comment:read", "low"));
         register(new McpToolDto("comment.create_reply_draft", "Comment reply draft", "comment", "comment:write", "medium"));
 

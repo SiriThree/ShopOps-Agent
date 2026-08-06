@@ -99,6 +99,18 @@ shopops:
       timeout: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_TIMEOUT:30s}
       max-attempts: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_MAX_ATTEMPTS:1}
       retry-backoff: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_RETRY_BACKOFF:200ms}
+
+  mcp:
+    servers:
+      commerce:
+        server-code: ${SHOPOPS_COMMERCE_MCP_SERVER_CODE:commerce-default}
+        base-url: ${SHOPOPS_COMMERCE_MCP_BASE_URL:http://localhost:8090}
+        endpoint: ${SHOPOPS_COMMERCE_MCP_ENDPOINT:/mcp}
+        bearer-token: ${SHOPOPS_COMMERCE_MCP_TOKEN:}
+        enabled: ${SHOPOPS_COMMERCE_MCP_ENABLED:false}
+        connect-timeout-ms: ${SHOPOPS_COMMERCE_MCP_CONNECT_TIMEOUT_MS:3000}
+        request-timeout-ms: ${SHOPOPS_COMMERCE_MCP_REQUEST_TIMEOUT_MS:5000}
+
   p0:
     tenant-id: 1
     shop-id: 1

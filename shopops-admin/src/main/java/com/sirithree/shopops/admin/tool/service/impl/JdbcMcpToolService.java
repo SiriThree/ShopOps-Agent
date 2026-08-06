@@ -36,9 +36,21 @@ public class JdbcMcpToolService implements McpToolService {
                 tool.getPermissionCode(),
                 tool.getRiskLevel()
         );
+        dto.setDescription(tool.getDescription());
+        dto.setInputSchema(tool.getInputSchema());
+        dto.setOutputSchema(tool.getOutputSchema());
         dto.setNeedApproval(Integer.valueOf(1).equals(tool.getNeedApproval()));
+        dto.setIdempotent(Integer.valueOf(1).equals(tool.getIdempotent()));
+        dto.setTimeoutMs(tool.getTimeoutMs());
+        dto.setRetryCount(tool.getRetryCount());
         dto.setEnabled(Integer.valueOf(1).equals(tool.getEnabled()));
         dto.setVersion(tool.getVersion());
+        dto.setProviderType(tool.getProviderType());
+        dto.setMcpServerCode(tool.getMcpServerCode());
+        dto.setRemoteToolName(tool.getRemoteToolName());
+        dto.setSchemaHash(tool.getSchemaHash());
+        dto.setRemoteVersion(tool.getRemoteVersion());
+        dto.setDiscoveryStatus(tool.getDiscoveryStatus());
         return dto;
     }
 }
