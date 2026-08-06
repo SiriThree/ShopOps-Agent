@@ -10,11 +10,15 @@ RUN apt-get update \
 WORKDIR /workspace
 
 COPY pom.xml .
+
 COPY shopops-common/pom.xml shopops-common/pom.xml
 COPY shopops-admin/pom.xml shopops-admin/pom.xml
+COPY shopops-commerce-mcp-server/pom.xml shopops-commerce-mcp-server/pom.xml
 
 COPY shopops-common/src shopops-common/src
 COPY shopops-admin/src shopops-admin/src
+COPY shopops-commerce-mcp-server/src shopops-commerce-mcp-server/src
+
 RUN --mount=type=cache,target=/root/.m2 \
     mvn -pl shopops-admin -am package -DskipTests
 
