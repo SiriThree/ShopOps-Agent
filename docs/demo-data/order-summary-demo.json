@@ -1,0 +1,23 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2026-07-18",
+    "endDate": "2026-07-18",
+    "summary": {
+      "gmv": 156780.25,
+      "orderCount": 963,
+      "refundAmount": 6128.00,
+      "refundRate": 0.0391,
+      "avgOrderAmount": 162.80,
+      "compareYesterday": {
+        "gmvGrowth": 0.1160,
+        "orderGrowth": 0.0820
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0470,
+        "refundRateDelta": -0.0060
+      }
+    }
+  }
+]

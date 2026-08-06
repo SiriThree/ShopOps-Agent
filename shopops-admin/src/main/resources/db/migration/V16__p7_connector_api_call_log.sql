@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `connector_api_call_log` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `tenant_id` bigint NOT NULL,
+  `shop_id` bigint NOT NULL,
+  `job_id` bigint DEFAULT NULL,
+  `connector_code` varchar(80) NOT NULL,
+  `request_method` varchar(16) NOT NULL,
+  `endpoint` varchar(160) NOT NULL,
+  `request_target` varchar(500) DEFAULT NULL,
+  `status` varchar(20) NOT NULL,
+  `status_code` int DEFAULT NULL,
+  `latency_ms` bigint NOT NULL DEFAULT 0,
+  `error_code` varchar(80) DEFAULT NULL,
+  `error_message` varchar(500) DEFAULT NULL,
+  `request_id` varchar(64) DEFAULT NULL,
+  `detail_json` json DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_connector_api_scope` (`tenant_id`, `shop_id`, `created_at`),
+  KEY `idx_connector_api_connector` (`tenant_id`, `shop_id`, `connector_code`, `status`),
+  KEY `idx_connector_api_job` (`tenant_id`, `shop_id`, `job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

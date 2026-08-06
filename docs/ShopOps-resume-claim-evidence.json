@@ -1,0 +1,248 @@
+{
+  "generatedAt": "2026-07-24 01:48:59",
+  "evidenceName": "shopops-resume-claim-evidence-v1",
+  "claimCount": 16,
+  "verifiedClaimCount": 9,
+  "estimatedClaimCount": 1,
+  "notVerifiedClaimCount": 6,
+  "sampleTypeCounts": {
+    "order_anomaly": 80,
+    "refund_increase": 70,
+    "low_score_comment": 90,
+    "product_review_risk": 80,
+    "delivery_delay_risk": 80,
+    "ad_low_conversion": 180,
+    "retail_cancel_refund": 120,
+    "external_event_context": 60
+  },
+  "claims": [
+    {
+      "key": "public_real_data_scale",
+      "title": "公开真实数据规模",
+      "status": "VERIFIED",
+      "value": {
+        "olistOrders": 99441,
+        "olistReviews": 99224,
+        "olistProducts": 32951,
+        "criteoImpressions": 16468027,
+        "criteoClicks": 5947563,
+        "criteoConversions": 806196,
+        "uciRetailLines": 541909,
+        "storeHolidayEvents": 350
+      },
+      "howMeasured": "读取本地公开数据集并全量聚合。Criteo TSV 为全量扫描，UCI xlsx 使用只读模式遍历。",
+      "sources": [
+        "docs/ShopOps-public-real-baseline.json"
+      ]
+    },
+    {
+      "key": "real_business_sample_count",
+      "title": "真实数据业务样例数",
+      "status": "VERIFIED",
+      "value": 760,
+      "howMeasured": "由 Olist、Criteo、UCI Online Retail、Store Sales 样例合并生成。",
+      "sources": [
+        "docs/evaluation/public-real-business-samples.json",
+        "docs/ShopOps-public-real-baseline.json"
+      ]
+    },
+    {
+      "key": "derived_mcp_tool_calls",
+      "title": "派生 MCP 工具调用数",
+      "status": "VERIFIED",
+      "value": 2670,
+      "howMeasured": "按每个真实数据业务样例的 recommendedTools 聚合，代表评测链路规划出的工具调用量。",
+      "sources": [
+        "docs/evaluation/public-real-business-samples.json"
+      ],
+      "toolCallCounts": {
+        "order.query_summary": 80,
+        "order.query_detail": 280,
+        "report.generate_daily_review": 590,
+        "order.query_refund_risk": 190,
+        "comment.query_negative": 240,
+        "order.refund_execute": 190,
+        "comment.analyze_sentiment": 90,
+        "comment.create_reply_draft": 170,
+        "product.query_candidates": 80,
+        "product.optimize_title": 80,
+        "product.update_title": 80,
+        "ad.query_performance": 180,
+        "ad.query_campaign_detail": 180,
+        "ad.suggest_budget": 180,
+        "report.query_external_metrics": 60
+      }
+    },
+    {
+      "key": "high_risk_approval_routed_calls",
+      "title": "高风险动作审批路由数",
+      "status": "VERIFIED",
+      "value": 450,
+      "howMeasured": "统计真实样例链路中 order.refund_execute、product.update_title、ad.suggest_budget 三类高风险工具路由。",
+      "sources": [
+        "docs/evaluation/public-real-business-samples.json"
+      ]
+    },
+    {
+      "key": "low_roi_ad_detection_proxy",
+      "title": "低转化/低 ROI 投放识别效果",
+      "status": "VERIFIED",
+      "value": {
+        "labeledAdRiskSamples": 180,
+        "routedAdRiskSamples": 180,
+        "routingRecall": 100.0
+      },
+      "howMeasured": "基于 Criteo 真实广告曝光、点击、转化、成本聚合出广告风险样例，并验证样例均被路由到广告表现查询和预算建议工具。该指标是工具路由召回，不等同于线上 ROI 模型精度。",
+      "sources": [
+        "docs/evaluation/public-real-business-samples.json"
+      ]
+    },
+    {
+      "key": "real_anomaly_signal_evaluation",
+      "title": "Public real-sample anomaly signal evaluation",
+      "status": "VERIFIED",
+      "value": {
+        "sampleCount": 760,
+        "passedSampleCount": 760,
+        "samplePassRate": 100.0,
+        "precision": 94.81,
+        "recall": 100.0,
+        "f1": 97.34
+      },
+      "howMeasured": "Runs scripts/run-real-anomaly-evaluation.py over public-real-business-samples.json and compares predicted anomaly signals with expectedSignals.",
+      "sources": [
+        "docs/ShopOps-real-anomaly-evaluation.json",
+        "scripts/run-real-anomaly-evaluation.py"
+      ]
+    },
+    {
+      "key": "agent_evaluation_suite",
+      "title": "Agent 自动化评测套件",
+      "status": "VERIFIED",
+      "value": {
+        "caseCount": 14,
+        "passedCaseCount": 14,
+        "toolInvocationSuccessRate": 98.6,
+        "approvalDecisionAccuracy": 100,
+        "configEffectAccuracy": 100,
+        "avgTaskDurationMs": 33.8
+      },
+      "howMeasured": "由 Maven 集成测试生成 target/evaluation/agent-eval-portfolio-summary.json。",
+      "sources": [
+        "shopops-admin/target/evaluation/agent-eval-portfolio-summary.json"
+      ]
+    },
+    {
+      "key": "excel_real_xlsx_export",
+      "title": "真实 Excel xlsx 文件导出",
+      "status": "VERIFIED",
+      "value": {
+        "filePath": "docs/evaluation/shopops-operation-report-sample.xlsx",
+        "sourceFilePath": "shopops-admin/target/shopops-exports/shopops-operation-report-XLSX-20260724011620095.xlsx",
+        "fileSizeBytes": 3742,
+        "worksheetCount": 4
+      },
+      "howMeasured": "通过工具网关调用 report.export_excel 生成本地 .xlsx 文件，并用 ZipFile 校验 workbook 与 4 个 worksheet XML。",
+      "sources": [
+        "docs/evaluation/shopops-operation-report-sample.xlsx",
+        "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ReportExportExcelExecutor.java",
+        "shopops-admin/src/test/java/com/sirithree/shopops/admin/tool/McpToolCatalogIntegrationTest.java"
+      ]
+    },
+    {
+      "key": "estimated_daily_report_time_saving",
+      "title": "Estimated daily report workflow time saving",
+      "status": "ESTIMATED",
+      "value": {
+        "estimatedRecords": 5,
+        "estimatedManualAvgMinutes": 35.4,
+        "estimatedAgentAssistedAvgMinutes": 4.2,
+        "estimatedSavedMinutes": 31.2,
+        "estimatedReductionRatePercent": 88.14
+      },
+      "howEstimated": "Uses docs/evaluation/manual-report-timing-estimated.csv to estimate a fixed ecommerce operation workflow. This is not measured human timing.",
+      "sources": [
+        "docs/evaluation/manual-report-timing-estimated.csv",
+        "docs/ShopOps-operation-timing-evidence.json",
+        "scripts/generate-operation-timing-evidence.py"
+      ]
+    },
+    {
+      "key": "feishu_real_sync_success_rate",
+      "title": "Feishu webhook batch sync success rate",
+      "status": "VERIFIED",
+      "value": {
+        "requestCount": 100,
+        "successCount": 100,
+        "successRate": 100,
+        "webhookModeRate": 100,
+        "http200Rate": 100,
+        "avgLatencyMs": 311.9
+      },
+      "howMeasured": "Runs scripts/run-feishu-webhook-batch.ps1 against a configured Feishu custom-bot webhook and records ShopOps tool success, webhook mode, HTTP 200, and latency.",
+      "sources": [
+        "docs/evaluation/feishu-webhook-batch-summary.json",
+        "docs/evaluation/feishu-webhook-batch-details.csv",
+        "scripts/run-feishu-webhook-batch.ps1"
+      ]
+    },
+    {
+      "key": "manual_35min_to_agent_4min",
+      "title": "单次日报从 35 分钟降到 4 分钟",
+      "status": "NOT_VERIFIED",
+      "reason": "当前没有至少 5 次人工手工流程计时记录，不能把机器侧耗时换算成运营人员节省时间。",
+      "required": "设计人工基线实验：固定任务、固定输入表、记录至少 5 次手工整理耗时；同时记录同一任务的 Agent 端到端耗时。",
+      "timingEvidence": {
+        "manualAvgMinutes": null,
+        "agentDemoMinutes": 0.0007,
+        "savedMinutes": null,
+        "reductionRatePercent": null,
+        "claimable": false,
+        "requirement": "Need at least 5 manual timing records in docs/evaluation/manual-report-timing.csv and a fresh Olist demo summary."
+      }
+    },
+    {
+      "key": "old_120_simulated_tasks",
+      "title": "120 个模拟运营任务",
+      "status": "NOT_VERIFIED",
+      "reason": "当前真实基线是 760 个公开真实数据业务样例；旧的 120 模拟任务数字没有对应现存复跑产物，不建议继续使用。",
+      "replacement": "使用 public_real_data_scale + real_business_sample_count。"
+    },
+    {
+      "key": "old_462_tool_calls",
+      "title": "462 次工具调用",
+      "status": "NOT_VERIFIED",
+      "reason": "当前可复跑的公开真实基线为 2670 次派生 MCP 工具调用；旧 462 没有对应现存复跑产物。",
+      "replacement": "使用 derived_mcp_tool_calls。"
+    },
+    {
+      "key": "old_96_8_tool_success_rate",
+      "title": "96.8% 工具调用成功率",
+      "status": "NOT_VERIFIED",
+      "reason": "当前 Maven 自动化评测真实产物中的工具调用成功率为 98.6%；旧 96.8% 不建议继续使用。",
+      "replacement": "使用 agent_evaluation_suite.toolInvocationSuccessRate。"
+    },
+    {
+      "key": "excel_real_export_time_saving",
+      "title": "Excel 导出真实耗时收益",
+      "status": "NOT_VERIFIED",
+      "reason": "当前已经能生成真实 xlsx 文件，但还没有人工整理 Excel 的计时对比，因此不能写“节省多少时间”。",
+      "required": "记录同一份运营日报人工整理 Excel 的耗时，并与 report.export_excel 的接口耗时/文件生成耗时对比。",
+      "timingEvidence": {
+        "recordCount": 0,
+        "avgManualMinutes": 0,
+        "minManualMinutes": 0,
+        "maxManualMinutes": 0,
+        "source": "docs/evaluation/manual-report-timing.csv",
+        "template": "docs/evaluation/manual-report-timing-template.csv"
+      }
+    },
+    {
+      "key": "anomaly_recall_88_5",
+      "title": "异常指标召回率 88.5%",
+      "status": "NOT_VERIFIED",
+      "reason": "旧 88.5% 没有独立预测结果与真实标签对比产物。当前可以引用 Criteo 广告风险工具路由召回，但不能写成异常检测召回率。",
+      "replacement": "使用 low_roi_ad_detection_proxy.routingRecall，并明确称为工具路由召回。"
+    }
+  ]
+}

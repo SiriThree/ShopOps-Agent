@@ -1,0 +1,37 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-07",
+    "endDate": "2018-08-07",
+    "summary": {
+      "spend": 21580.5,
+      "impressions": 512000,
+      "clicks": 24860,
+      "ctr": 0.0486,
+      "cpc": 0.87,
+      "conversionRate": 0.091,
+      "roi": 4.06,
+      "campaigns": [
+        {
+          "campaignName": "夏季补水主推",
+          "spend": 11200.0,
+          "roi": 4.42,
+          "conversionRate": 0.098
+        },
+        {
+          "campaignName": "收纳好物拉新",
+          "spend": 6680.5,
+          "roi": 3.12,
+          "conversionRate": 0.076
+        },
+        {
+          "campaignName": "运动毛巾复购",
+          "spend": 3700.0,
+          "roi": 4.33,
+          "conversionRate": 0.094
+        }
+      ]
+    }
+  }
+]

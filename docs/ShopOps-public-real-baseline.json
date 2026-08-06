@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-23 22:34:19",
+  "baselineName": "shopops-public-real-baseline-v1",
+  "dataSources": [
+    "Brazilian E-Commerce Public Dataset by Olist",
+    "Criteo Attribution Modeling for Bidding Dataset",
+    "UCI Online Retail",
+    "Corporación Favorita / Store Sales holidays_events"
+  ],
+  "sourceFiles": {
+    "olist": [
+      "data/archive/olist_orders_dataset.csv",
+      "data/archive/olist_order_payments_dataset.csv",
+      "data/archive/olist_order_items_dataset.csv",
+      "data/archive/olist_order_reviews_dataset.csv",
+      "data/archive/olist_products_dataset.csv"
+    ],
+    "criteo": [
+      "data/criteo_attribution_dataset/criteo_attribution_dataset.tsv/pcb_dataset_final.tsv"
+    ],
+    "onlineRetail": [
+      "data/online+retail/Online Retail.xlsx"
+    ],
+    "storeSales": [
+      "data/Store Sales/holidays_events.csv"
+    ]
+  },
+  "realOrderCount": 99441,
+  "realReviewCount": 99224,
+  "realProductCount": 32951,
+  "criteoImpressionCount": 16468027,
+  "criteoClickCount": 5947563,
+  "criteoConversionCount": 806196,
+  "criteoCampaignCount": 675,
+  "onlineRetailLineCount": 541909,
+  "onlineRetailCancelLineCount": 10624,
+  "onlineRetailCancelAmount": 896812.49,
+  "storeHolidayEventCount": 350,
+  "businessSampleCount": 760,
+  "sampleTypeCounts": {
+    "order_anomaly": 80,
+    "refund_increase": 70,
+    "low_score_comment": 90,
+    "product_review_risk": 80,
+    "delivery_delay_risk": 80,
+    "ad_low_conversion": 180,
+    "retail_cancel_refund": 120,
+    "external_event_context": 60
+  },
+  "sampleDatasetCounts": {
+    "olist": 400,
+    "criteo_attribution": 180,
+    "uci_online_retail": 120,
+    "store_sales_holidays": 60
+  },
+  "toolCount": 18,
+  "toolCallCount": 2670,
+  "routedToolCallCount": 2670,
+  "toolRoutingCoverage": 100.0,
+  "highRiskToolCallCount": 450,
+  "approvalRoutedHighRiskCallCount": 450,
+  "approvalRouteRate": 100.0,
+  "toolCallCounts": {
+    "order.query_summary": 80,
+    "order.query_detail": 280,
+    "report.generate_daily_review": 590,
+    "order.query_refund_risk": 190,
+    "comment.query_negative": 240,
+    "order.refund_execute": 190,
+    "comment.analyze_sentiment": 90,
+    "comment.create_reply_draft": 170,
+    "product.query_candidates": 80,
+    "product.optimize_title": 80,
+    "product.update_title": 80,
+    "ad.query_performance": 180,
+    "ad.query_campaign_detail": 180,
+    "ad.suggest_budget": 180,
+    "report.query_external_metrics": 60
+  },
+  "limitations": [
+    "The public datasets come from different sources and should be described as a multi-source benchmark, not a single real merchant.",
+    "Store Sales currently only includes holidays_events.csv in the local data folder, so it is used for external event context rather than sales forecasting.",
+    "UCI Online Retail return/after-sales risk is represented by cancellation invoices or negative quantities.",
+    "Criteo campaign identifiers are anonymized, so ShopOps maps them to ad campaign analysis scenarios instead of real product IDs."
+  ]
+}

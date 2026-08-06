@@ -1,0 +1,38 @@
+# Build outputs
+target/
+out/
+build/
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Runtime config
+.env
+.env.*
+application-local.yml
+application-secret.yml
+
+# Node / frontend
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Local datasets
+data/
+
+# Third-party reference project kept locally, not committed to this repo
+mall-master/
+

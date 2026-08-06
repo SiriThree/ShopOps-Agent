@@ -1,0 +1,141 @@
+server:
+  port: 8080
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%thread] [%X{requestId:-} tenant=%X{tenantId:-} shop=%X{shopId:-} user=%X{userId:-}] %logger{36} - %msg%n"
+
+spring:
+  application:
+    name: shopops-admin
+  flyway:
+    enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "${SHOPOPS_DATASOURCE_URL:jdbc:mysql://localhost:3306/shopops_agent?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}"
+    username: ${SHOPOPS_DATASOURCE_USERNAME:root}
+    password: ${SHOPOPS_DATASOURCE_PASSWORD:root}
+    hikari:
+      initialization-fail-timeout: -1
+  data:
+    redis:
+      host: ${SHOPOPS_REDIS_HOST:localhost}
+      port: ${SHOPOPS_REDIS_PORT:6379}
+  rabbitmq:
+    host: ${SHOPOPS_RABBITMQ_HOST:localhost}
+    port: ${SHOPOPS_RABBITMQ_PORT:5672}
+    username: ${SHOPOPS_RABBITMQ_USERNAME:shopops}
+    password: ${SHOPOPS_RABBITMQ_PASSWORD:shopops}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+shopops:
+  persistence: ${SHOPOPS_PERSISTENCE:jdbc}
+  flyway:
+    enabled: ${SHOPOPS_FLYWAY_ENABLED:true}
+    baseline-version: ${SHOPOPS_FLYWAY_BASELINE_VERSION:3}
+  agent:
+    dispatch-mode: sync
+    rabbitmq:
+      exchange: shopops.agent.exchange
+      queue: shopops.agent.task.execute
+      routing-key: agent.task.execute
+      dead-letter-exchange: shopops.agent.dlx
+      dead-letter-queue: shopops.agent.task.execute.dlq
+      dead-letter-routing-key: agent.task.execute.dead
+  bootstrap:
+    legacy-enabled: false
+  auth:
+    header-dev-mode: ${SHOPOPS_AUTH_HEADER_DEV_MODE:true}
+    token-secret: ${SHOPOPS_AUTH_TOKEN_SECRET:shopops-dev-token-secret-change-me}
+    token-ttl-seconds: ${SHOPOPS_AUTH_TOKEN_TTL_SECONDS:7200}
+  connector:
+    credential-secret: ${SHOPOPS_CONNECTOR_CREDENTIAL_SECRET:shopops-dev-connector-secret-change-me}
+    order-summary:
+      file: ${SHOPOPS_CONNECTOR_ORDER_SUMMARY_FILE:docs/demo-data/olist/order-summary-olist.json}
+    negative-comments:
+      file: ${SHOPOPS_CONNECTOR_NEGATIVE_COMMENTS_FILE:docs/demo-data/olist/negative-comments-olist.json}
+    product-candidates:
+      file: ${SHOPOPS_CONNECTOR_PRODUCT_CANDIDATES_FILE:docs/demo-data/olist/product-candidates-olist.json}
+    ad-performance:
+      file: ${SHOPOPS_CONNECTOR_AD_PERFORMANCE_FILE:docs/demo-data/ad-performance-real.json}
+    external-reports:
+      file: ${SHOPOPS_CONNECTOR_EXTERNAL_REPORTS_FILE:docs/demo-data/external-reports-real.json}
+  feishu:
+    sync:
+      enabled: ${SHOPOPS_FEISHU_SYNC_ENABLED:false}
+      webhook-url: ${SHOPOPS_FEISHU_SYNC_WEBHOOK_URL:}
+      timeout-ms: ${SHOPOPS_FEISHU_SYNC_TIMEOUT_MS:3000}
+  model-gateway:
+    resilience:
+      fallback-enabled: ${SHOPOPS_MODEL_GATEWAY_FALLBACK_ENABLED:true}
+      fallback-provider-code: ${SHOPOPS_MODEL_GATEWAY_FALLBACK_PROVIDER_CODE:echo}
+    report:
+      enabled: ${SHOPOPS_MODEL_GATEWAY_REPORT_ENABLED:false}
+      provider-code: ${SHOPOPS_MODEL_GATEWAY_REPORT_PROVIDER_CODE:openai-compatible}
+      model-name: ${SHOPOPS_MODEL_GATEWAY_REPORT_MODEL_NAME:}
+      prompt-code: ${SHOPOPS_MODEL_GATEWAY_REPORT_PROMPT_CODE:daily_review.report}
+      prompt-version: ${SHOPOPS_MODEL_GATEWAY_REPORT_PROMPT_VERSION:}
+      timeout-ms: ${SHOPOPS_MODEL_GATEWAY_REPORT_TIMEOUT_MS:}
+    planner:
+      enabled: ${SHOPOPS_MODEL_GATEWAY_PLANNER_ENABLED:false}
+      provider-code: ${SHOPOPS_MODEL_GATEWAY_PLANNER_PROVIDER_CODE:openai-compatible}
+      model-name: ${SHOPOPS_MODEL_GATEWAY_PLANNER_MODEL_NAME:}
+      prompt-code: ${SHOPOPS_MODEL_GATEWAY_PLANNER_PROMPT_CODE:daily_review.plan}
+      prompt-version: ${SHOPOPS_MODEL_GATEWAY_PLANNER_PROMPT_VERSION:}
+      timeout-ms: ${SHOPOPS_MODEL_GATEWAY_PLANNER_TIMEOUT_MS:}
+    openai-compatible:
+      enabled: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_ENABLED:false}
+      provider-code: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_PROVIDER_CODE:openai-compatible}
+      base-url: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_BASE_URL:http://localhost:11434/v1}
+      api-key: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_API_KEY:}
+      default-model: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_DEFAULT_MODEL:gpt-4o-mini}
+      timeout: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_TIMEOUT:30s}
+      max-attempts: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_MAX_ATTEMPTS:1}
+      retry-backoff: ${SHOPOPS_MODEL_OPENAI_COMPATIBLE_RETRY_BACKOFF:200ms}
+
+  mcp:
+    servers:
+      commerce:
+        server-code: ${SHOPOPS_COMMERCE_MCP_SERVER_CODE:commerce-default}
+        base-url: ${SHOPOPS_COMMERCE_MCP_BASE_URL:http://localhost:8090}
+        endpoint: ${SHOPOPS_COMMERCE_MCP_ENDPOINT:/mcp}
+        bearer-token: ${SHOPOPS_COMMERCE_MCP_TOKEN:}
+        enabled: ${SHOPOPS_COMMERCE_MCP_ENABLED:false}
+        connect-timeout-ms: ${SHOPOPS_COMMERCE_MCP_CONNECT_TIMEOUT_MS:3000}
+        request-timeout-ms: ${SHOPOPS_COMMERCE_MCP_REQUEST_TIMEOUT_MS:5000}
+
+  p0:
+    tenant-id: 1
+    shop-id: 1
+    user-id: 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: when_authorized
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      percentiles:
+        http.server.requests: 0.5,0.95,0.99

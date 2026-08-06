@@ -1,0 +1,637 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-01",
+    "endDate": "2018-08-01",
+    "summary": {
+      "candidateCount": 10,
+      "products": [
+        {
+          "productId": "2fea0f2cec6b6324a277d4a61c2ed2c6",
+          "productName": "Health Beauty / 2fea0f2c",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 80.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 2
+        },
+        {
+          "productId": "f7740e5b4337a3cc4a8a204553101a85",
+          "productName": "Health Beauty / f7740e5b",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 77.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "89e4362d74afa10ac57f8d67210132a6",
+          "productName": "Fashion Bags Accessories / 89e4362d",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "8fc803c7d0a99a53798c7896a7c1e93c",
+          "productName": "Housewares / 8fc803c7",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "a92930c327948861c015c919a0bcb4a8",
+          "productName": "Watches Gifts / a92930c3",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "0fb9aa9a6103872d8f580d721e099f89",
+          "productName": "Costruction Tools Garden / 0fb9aa9a",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "19a6ffd4e245a92747a693805163a60f",
+          "productName": "Consoles Games / 19a6ffd4",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "19c91ef95d509ea33eda93495c4d3481",
+          "productName": "Health Beauty / 19c91ef9",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "1a080577618e7fe4d9ddd8fb2b47a964",
+          "productName": "Watches Gifts / 1a080577",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "1f5542855786adc0116f56cfd6f9f830",
+          "productName": "Unknown / 1f554285",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-02",
+    "endDate": "2018-08-02",
+    "summary": {
+      "candidateCount": 10,
+      "products": [
+        {
+          "productId": "a92930c327948861c015c919a0bcb4a8",
+          "productName": "Watches Gifts / a92930c3",
+          "reason": "Negative reviews are concentrated and average rating is low; prioritize product description, quality notes, and after-sales promise.",
+          "score": 85.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 4
+        },
+        {
+          "productId": "d285360f29ac7fd97640bf0baef03de0",
+          "productName": "Watches Gifts / d285360f",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 80.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 2
+        },
+        {
+          "productId": "628f5ed6c14790dcb9233c8dbf596175",
+          "productName": "Health Beauty / 628f5ed6",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 77.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "2ff995aead9c63a1f37a07b3664ead37",
+          "productName": "Furniture Living Room / 2ff995ae",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "5403528d987ad26e8d7cb25940411987",
+          "productName": "Watches Gifts / 5403528d",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "6f58431a7150fa91bac9f28f5454a8e8",
+          "productName": "Computers Accessories / 6f58431a",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "092be1e8336fc404c57bd5970d056886",
+          "productName": "Food / 092be1e8",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "12f066474dfa3c415c169051c5e1967e",
+          "productName": "Telephony / 12f06647",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "16cc7a098d176187b6d8e9519fa81585",
+          "productName": "Computers Accessories / 16cc7a09",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "173e9fe34bfe97f3a5e6dc57fe897b74",
+          "productName": "Books Technical / 173e9fe3",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-03",
+    "endDate": "2018-08-03",
+    "summary": {
+      "candidateCount": 10,
+      "products": [
+        {
+          "productId": "bb77135946e78428a7a5634a46113a22",
+          "productName": "Baby / bb771359",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "016cae136d358dcdacbd7ac9f1864c09",
+          "productName": "Sports Leisure / 016cae13",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "14a804caa27d1d738183cbbad4d84346",
+          "productName": "Electronics / 14a804ca",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "1686ad611d0c19159f8052758f93f660",
+          "productName": "Telephony / 1686ad61",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "17d98fc630d23a628ec1130f8d69d1d2",
+          "productName": "Cool Stuff / 17d98fc6",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "224f4ce3262279a31db214df54befe1b",
+          "productName": "Health Beauty / 224f4ce3",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "24a046fcc8b971ab9962537f2694bc77",
+          "productName": "Bed Bath Table / 24a046fc",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "3db0b74faf0d26a6b252528659d6b849",
+          "productName": "Cool Stuff / 3db0b74f",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "3fbc0ef745950c7932d5f2a446189725",
+          "productName": "Health Beauty / 3fbc0ef7",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "4180a49d4b879e727ad2c8e82a9f4d87",
+          "productName": "Sports Leisure / 4180a49d",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-04",
+    "endDate": "2018-08-04",
+    "summary": {
+      "candidateCount": 10,
+      "products": [
+        {
+          "productId": "2fea0f2cec6b6324a277d4a61c2ed2c6",
+          "productName": "Health Beauty / 2fea0f2c",
+          "reason": "Negative reviews are concentrated and average rating is low; prioritize product description, quality notes, and after-sales promise.",
+          "score": 88.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 3
+        },
+        {
+          "productId": "3fbc0ef745950c7932d5f2a446189725",
+          "productName": "Health Beauty / 3fbc0ef7",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 80.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 2
+        },
+        {
+          "productId": "55b71bf300a2765a382eaec566df531f",
+          "productName": "Sports Leisure / 55b71bf3",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "69523f67543ff9ea6b1a15858fb59b3b",
+          "productName": "Watches Gifts / 69523f67",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "9fe172fa8e662ca8572cf12abf8bce23",
+          "productName": "Fashion Bags Accessories / 9fe172fa",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "efcef300fe9b2c558a8ea258127f6e6f",
+          "productName": "Pet Shop / efcef300",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "033e5e4f49acb5621c782ac8a37aa90b",
+          "productName": "Luggage Accessories / 033e5e4f",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "054515fd15bc1a2029f10de97ffa9120",
+          "productName": "Sports Leisure / 054515fd",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "1c6cf85f4af5c2787a812d273b836c01",
+          "productName": "Housewares / 1c6cf85f",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "26028d8fc5ad4bb87ebc3675d49b2ae9",
+          "productName": "Sports Leisure / 26028d8f",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-05",
+    "endDate": "2018-08-05",
+    "summary": {
+      "candidateCount": 10,
+      "products": [
+        {
+          "productId": "3fbc0ef745950c7932d5f2a446189725",
+          "productName": "Health Beauty / 3fbc0ef7",
+          "reason": "Negative reviews are concentrated and average rating is low; prioritize product description, quality notes, and after-sales promise.",
+          "score": 89.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 3
+        },
+        {
+          "productId": "19c91ef95d509ea33eda93495c4d3481",
+          "productName": "Health Beauty / 19c91ef9",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 81.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 2
+        },
+        {
+          "productId": "1bfb290d7273a442c874dbe74b4abae6",
+          "productName": "Office Furniture / 1bfb290d",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "1cf4209f5358de32c5cae2c2dbb84aed",
+          "productName": "Telephony / 1cf4209f",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "44d097d59e8430f88a67517cd0c4f865",
+          "productName": "Fashion Bags Accessories / 44d097d5",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "6026308f343d15d492324e7e35ba5685",
+          "productName": "Watches Gifts / 6026308f",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "84f456958365164420cfc80fbe4c7fab",
+          "productName": "Bed Bath Table / 84f45695",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "90aa2ab699cd0e459be93124aa91c82f",
+          "productName": "Bed Bath Table / 90aa2ab6",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "ab6edd00a29d1e29948284a492497854",
+          "productName": "Home Appliances / ab6edd00",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "ad88641611c35ebd59ecda07a9f17099",
+          "productName": "Unknown / ad886416",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-06",
+    "endDate": "2018-08-06",
+    "summary": {
+      "candidateCount": 2,
+      "products": [
+        {
+          "productId": "c7c57beb314dfd634634c758da3eba64",
+          "productName": "Consoles Games / c7c57beb",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "e70b02b0b99965f2ff4341de50a35c5d",
+          "productName": "Furniture Decor / e70b02b0",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 63.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-07",
+    "endDate": "2018-08-07",
+    "summary": {
+      "candidateCount": 10,
+      "products": [
+        {
+          "productId": "4f18ca9862f511ecba98258b2194d061",
+          "productName": "Furniture Bedroom / 4f18ca98",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 80.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 2
+        },
+        {
+          "productId": "cf857bce01d442bb8631a548a4432def",
+          "productName": "Baby / cf857bce",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 73.5,
+          "stock": 0,
+          "salesQuantity": 1,
+          "negativeCount": 1
+        },
+        {
+          "productId": "060f0122cdc8f25db4a0d7359fdae7b0",
+          "productName": "Watches Gifts / 060f0122",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "1ce47626d790bdfe279ad4cedc159009",
+          "productName": "Furniture Decor / 1ce47626",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "220bc6afbb138c2e99fffc0f9838afd4",
+          "productName": "Computers Accessories / 220bc6af",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "37dffde0476450e75dae423136954b0f",
+          "productName": "Auto / 37dffde0",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "3b068029db5363533440150014d95d9b",
+          "productName": "Baby / 3b068029",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "4d99eefee32b7d89a78915c19936c8a4",
+          "productName": "Auto / 4d99eefe",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "4fe644d766c7566dbc46fb851363cb3b",
+          "productName": "Art / 4fe644d7",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "6f3b5b605d91b7439c5e3f5a8dffeea7",
+          "productName": "Watches Gifts / 6f3b5b60",
+          "reason": "Low-star feedback appeared; add clearer specs, logistics expectations, and after-sales instructions.",
+          "score": 72.0,
+          "stock": 0,
+          "salesQuantity": 0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  }
+]

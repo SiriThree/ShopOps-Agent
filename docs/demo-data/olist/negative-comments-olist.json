@@ -1,0 +1,759 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-01",
+    "endDate": "2018-08-01",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 58,
+      "riskComments": [
+        {
+          "commentId": "1f47adc2fd3f0ad69d20f73858eb6405",
+          "productId": "f7740e5b4337a3cc4a8a204553101a85",
+          "productName": "Health Beauty / f7740e5b",
+          "star": 1,
+          "content": "O produto não veio",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "e381a68b101aee7c9f60043016b99830",
+          "productId": "5be202203d884803b74c45c7ff991706",
+          "productName": "Watches Gifts / 5be20220",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "c3861479337f0da776e036f28ab2074f",
+          "productId": "625dac8156b3157351e7257305148f3f",
+          "productName": "Telephony / 625dac81",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "21d1b3ca94a6ce60a993866eb4180863",
+          "productId": "794d58cf31d570f4b7640c7a2085042d",
+          "productName": "Signaling And Security / 794d58cf",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "72bb360d2a137f462280111e6222957c",
+          "productId": "2fea0f2cec6b6324a277d4a61c2ed2c6",
+          "productName": "Health Beauty / 2fea0f2c",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "6d27bb9cc292221e17c055cb27db588c",
+          "productId": "d2f5484cbffe4ca766301b21ab9246dd",
+          "productName": "Computers Accessories / d2f5484c",
+          "star": 1,
+          "content": "produto não funciona",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "baebc86326a31e60628236c361f3d6a1",
+          "productId": "389c7d7f59a980be2afbe84d648cd80f",
+          "productName": "Housewares / 389c7d7f",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "d9c1429a5fa00e1c341789f264dab29c",
+          "productId": "99d78b96be1452047a05d7e66bad134d",
+          "productName": "Toys / 99d78b96",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "7c13593fbb3317137ce7d58995ea1ba1",
+          "productId": "933f4f76eae38d2a97ecfb7c6355f0bc",
+          "productName": "Health Beauty / 933f4f76",
+          "star": 1,
+          "content": "Chegou apenas a nota fiscal",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "ca562bee0267897c2301da505ec221ba",
+          "productId": "aa8d88eb4b9cb38894e33fa624c4287f",
+          "productName": "Watches Gifts / aa8d88eb",
+          "star": 1,
+          "content": "O produto não veio funcionando",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "review_risk": 41,
+        "logistics_delay": 8,
+        "refund_or_return": 6,
+        "description_mismatch": 5,
+        "size_issue": 2,
+        "quality_or_damage": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-02",
+    "endDate": "2018-08-02",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 59,
+      "riskComments": [
+        {
+          "commentId": "0885cb145e3ee0e83bf67cffff037dbc",
+          "productId": "bcdfe7d7d9e6f6eb14f6947b0e92537b",
+          "productName": "Health Beauty / bcdfe7d7",
+          "star": 1,
+          "content": "Ainda não recebi",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "a8b0f5ab070712a923b335e69bf51b63",
+          "productId": "6f58431a7150fa91bac9f28f5454a8e8",
+          "productName": "Computers Accessories / 6f58431a",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "76b807bf684ce187fe07524813da742a",
+          "productId": "6cdd53843498f92890544667809f1595",
+          "productName": "Health Beauty / 6cdd5384",
+          "star": 1,
+          "content": "produto não entregue",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "eec2d21175a73b514b8b82a83a2db5aa",
+          "productId": "429e7401fafb76436f15e86498bd7364",
+          "productName": "Bed Bath Table / 429e7401",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "f831d8cb207ad9c2ad7340d786577a3d",
+          "productId": "8b8981e920b8a923f6b066fefade1925",
+          "productName": "Construction Tools Construction / 8b8981e9",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "9c8fa795fde24263e0ccbcbc91b8546b",
+          "productId": "19c91ef95d509ea33eda93495c4d3481",
+          "productName": "Health Beauty / 19c91ef9",
+          "star": 1,
+          "content": "Meu produto não chegou",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "3bc3d42fc6307dbe2c0598a082cdca24",
+          "productId": "727a46f0b58a9ef165af9f7ebcfebfa9",
+          "productName": "Sports Leisure / 727a46f0",
+          "star": 1,
+          "content": "Eu não recebi o produto",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "45859e8c037ec1c34cfcd9c09dc07d9b",
+          "productId": "ccd4cfb944386e7ad91065a63f650b38",
+          "productName": "Furniture Decor / ccd4cfb9",
+          "star": 1,
+          "content": "O produto ainda não chegou.",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "b1a9145252ce6d51033001d9647d485c",
+          "productId": "2fea0f2cec6b6324a277d4a61c2ed2c6",
+          "productName": "Health Beauty / 2fea0f2c",
+          "star": 1,
+          "content": "Além de demorar, não chegou.",
+          "riskKeywords": [
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "f289c25e9f09c952fac807679dff1419",
+          "productId": "e2bb00220a167d9e60b6776ac33717bc",
+          "productName": "Watches Gifts / e2bb0022",
+          "star": 1,
+          "content": "Não entregaram não tive reembolso",
+          "riskKeywords": [
+            "refund_or_return",
+            "logistics_delay"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "review_risk": 41,
+        "logistics_delay": 9,
+        "refund_or_return": 7,
+        "description_mismatch": 3,
+        "quality_or_damage": 2,
+        "missing_parts": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-03",
+    "endDate": "2018-08-03",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 50,
+      "riskComments": [
+        {
+          "commentId": "cef02bef79c80dbedfd9c954cb9e9a7e",
+          "productId": "e2bb00220a167d9e60b6776ac33717bc",
+          "productName": "Watches Gifts / e2bb0022",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "ae763354f8a2ffb0e9bcfb2d165dac74",
+          "productId": "4697e1b622324d38a8989bff2bdc1c84",
+          "productName": "Stationery / 4697e1b6",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "0f39c8201a4782ed03470ed525e7d68b",
+          "productId": "3db0b74faf0d26a6b252528659d6b849",
+          "productName": "Cool Stuff / 3db0b74f",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "4b5e8809f6852ec5fa62936f6c2dd4a7",
+          "productId": "3fbc0ef745950c7932d5f2a446189725",
+          "productName": "Health Beauty / 3fbc0ef7",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "28002c67d109d09b3675587593b8c65d",
+          "productId": "82498e96fa34d0975dc61a765a65d523",
+          "productName": "Housewares / 82498e96",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "137499d4013f4595f6aeca3c70f07ccf",
+          "productId": "a7d2c99f1d0e7ddfbce06d48f12b61a2",
+          "productName": "Housewares / a7d2c99f",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "8d66aaad00cff1f004d8418d1c3f09fd",
+          "productId": "be69b1c83725cafaa993146ad08b11ca",
+          "productName": "Bed Bath Table / be69b1c8",
+          "star": 1,
+          "content": "O produto não foi entregue",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "bda62618ed46215beb4a94344c79e725",
+          "productId": "bb77135946e78428a7a5634a46113a22",
+          "productName": "Baby / bb771359",
+          "star": 1,
+          "content": "Estou muito insatisfeito !",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "aee1f5bdfc0f44fd54ec0567f0dcf73d",
+          "productId": "f3b8bfa5b86249e75e5c0632acc0e82e",
+          "productName": "Health Beauty / f3b8bfa5",
+          "star": 1,
+          "content": "Pedi um produto e veio outro",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "8b4c14417bccab81710772ecb8b23fd6",
+          "productId": "b3821db2024af98844b6381cc25651c8",
+          "productName": "Garden Tools / b3821db2",
+          "star": 1,
+          "content": "produto deu defeito na 1 vez de uso.",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "review_risk": 36,
+        "refund_or_return": 5,
+        "logistics_delay": 4,
+        "description_mismatch": 4,
+        "quality_or_damage": 2,
+        "missing_parts": 2
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-04",
+    "endDate": "2018-08-04",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 66,
+      "riskComments": [
+        {
+          "commentId": "dce2480f9ad00098b6bd0debe128b165",
+          "productId": "2dc0d95288983b8c91627bab326284ae",
+          "productName": "Health Beauty / 2dc0d952",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "ce187bdab5b45647e5e359f882935b38",
+          "productId": "fad534edb8f35664713c4b766fa473d4",
+          "productName": "Bed Bath Table / fad534ed",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "2f8e0d667ba5eef628ccf5e206e61e83",
+          "productId": "033e5e4f49acb5621c782ac8a37aa90b",
+          "productName": "Luggage Accessories / 033e5e4f",
+          "star": 1,
+          "content": "material inferior ao esperado",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "7dde5d72fe17239a16d4071e9ee5a7d7",
+          "productId": "2fea0f2cec6b6324a277d4a61c2ed2c6",
+          "productName": "Health Beauty / 2fea0f2c",
+          "star": 1,
+          "content": "Quero o meu produto onde está?",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "da8e936bc2f1b52ec626f8aa41f3df44",
+          "productId": "70c09a6d537cf2d213fe0169db7d209f",
+          "productName": "Sports Leisure / 70c09a6d",
+          "star": 1,
+          "content": "Produto diferente do anunciado",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        },
+        {
+          "commentId": "d4b79f642537654027a08b56de3cda0d",
+          "productId": "9fe172fa8e662ca8572cf12abf8bce23",
+          "productName": "Fashion Bags Accessories / 9fe172fa",
+          "star": 1,
+          "content": "Sinceramente, não indicarei a ninguém!!",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "13164750b8bec6e6951470afd250cb48",
+          "productId": "2647221a6a477afe2d0268b378f1fdcd",
+          "productName": "Bed Bath Table / 2647221a",
+          "star": 1,
+          "content": "Produto de boa qualidade, entrega dentro do prazo",
+          "riskKeywords": [
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "1fd87c2d1bf9399fdea82d4ae97a3eea",
+          "productId": "547ef2af00ca493818dd33eb5216b22e",
+          "productName": "Computers Accessories / 547ef2af",
+          "star": 1,
+          "content": "foi prometido entrega até 02/08/2018 e até agora nada.",
+          "riskKeywords": [
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "88d5cc1800f838660f92774532115ba7",
+          "productId": "55b71bf300a2765a382eaec566df531f",
+          "productName": "Sports Leisure / 55b71bf3",
+          "star": 1,
+          "content": "comprei um produto e recebi outro completamente diferente, como devo proceder?",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        },
+        {
+          "commentId": "1c24747b51d25742b5fb5250d727129a",
+          "productId": "71191d3e8768745afc1c290c63f6241e",
+          "productName": "Telephony / 71191d3e",
+          "star": 1,
+          "content": "A parte superior do produto foi mal feita, não encaixa corretamente e está folgada.",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "review_risk": 46,
+        "logistics_delay": 12,
+        "refund_or_return": 6,
+        "missing_parts": 3,
+        "quality_or_damage": 2,
+        "description_mismatch": 2
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-05",
+    "endDate": "2018-08-05",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 27,
+      "riskComments": [
+        {
+          "commentId": "7051dce1203e9627f2ea95966d55dc40",
+          "productId": "3fbc0ef745950c7932d5f2a446189725",
+          "productName": "Health Beauty / 3fbc0ef7",
+          "star": 1,
+          "content": "Mal",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "e11ea659263ab76827686c0b0060a25d",
+          "productId": "84f456958365164420cfc80fbe4c7fab",
+          "productName": "Bed Bath Table / 84f45695",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "b05d8be651527f0a002624c070771e61",
+          "productId": "ab6edd00a29d1e29948284a492497854",
+          "productName": "Home Appliances / ab6edd00",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "5a6a5349c958f78822985c7732738575",
+          "productId": "19c91ef95d509ea33eda93495c4d3481",
+          "productName": "Health Beauty / 19c91ef9",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "0a9e80c9d8a805691c15f1ae633c0715",
+          "productId": "90aa2ab699cd0e459be93124aa91c82f",
+          "productName": "Bed Bath Table / 90aa2ab6",
+          "star": 1,
+          "content": "O tecido nao é impermeavel molha",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "0741aaadd102ca2284d19621aba7b8c0",
+          "productId": "3fbc0ef745950c7932d5f2a446189725",
+          "productName": "Health Beauty / 3fbc0ef7",
+          "star": 1,
+          "content": "ate esta data não recebi o produto ( 07.08.18)",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "5caccf1f37c49ef076ea0e418cecb2b4",
+          "productId": "3fbc0ef745950c7932d5f2a446189725",
+          "productName": "Health Beauty / 3fbc0ef7",
+          "star": 1,
+          "content": "Produto não entregue e nenhuma explicação dada.",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "bf8ad702d153b8c1c73328591242c7d1",
+          "productId": "6026308f343d15d492324e7e35ba5685",
+          "productName": "Watches Gifts / 6026308f",
+          "star": 1,
+          "content": "Comprei um produto e não entregaram. Pedi o cancelado do produto.",
+          "riskKeywords": [
+            "refund_or_return",
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "931ca2b73c9eda0996ee23bfb16a106e",
+          "productId": "e91ff7c20ffce75705b28b2a7e7586f1",
+          "productName": "Health Beauty / e91ff7c2",
+          "star": 1,
+          "content": "Venderam um produto que não tinha no estoque. Não estornaram o dinheiro. A avaliação é zero.",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "c2ed24406cd3433f432913c78396d265",
+          "productId": "1cf4209f5358de32c5cae2c2dbb84aed",
+          "productName": "Telephony / 1cf4209f",
+          "star": 1,
+          "content": "Olá, meu pedido não foi entregue, quero saber o que aconteceu se não for resolvido eu vou querer o meu dinheiro de volta. Agradeço desde já.",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "review_risk": 18,
+        "logistics_delay": 7,
+        "refund_or_return": 4,
+        "quality_or_damage": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-06",
+    "endDate": "2018-08-06",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 2,
+      "riskComments": [
+        {
+          "commentId": "3d19852c23fff17c55a4e8f29aa71b9e",
+          "productId": "c7c57beb314dfd634634c758da3eba64",
+          "productName": "Consoles Games / c7c57beb",
+          "star": 1,
+          "content": "Meu produto veio falsificado.",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "ff2b8f250747f10d322e1dc906c80483",
+          "productId": "e70b02b0b99965f2ff4341de50a35c5d",
+          "productName": "Furniture Decor / e70b02b0",
+          "star": 3,
+          "content": "O produto muito bom, bonito , porém veio faltando cristais e fica faltando de um lado , mas espero que a loja enviei o que faltou.",
+          "riskKeywords": [
+            "missing_parts"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "review_risk": 1,
+        "missing_parts": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-07",
+    "endDate": "2018-08-07",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 51,
+      "riskComments": [
+        {
+          "commentId": "2375251ef61e8151015f6bed85692622",
+          "productId": "ef7f13c7694be202c48017b71801815c",
+          "productName": "Health Beauty / ef7f13c7",
+          "star": 1,
+          "content": "Não recebi",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "75f16b2abe9b125fdeac7f7c075a3ef6",
+          "productId": "d66243feb576d7d617693bec8d80d124",
+          "productName": "Furniture Decor / d66243fe",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "eb290011318a0ccaebd1a39fb9bfb596",
+          "productId": "73790673cdf7d797f2011790e71c2c91",
+          "productName": "Furniture Decor / 73790673",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "ce49e79d45a094c06a6da56cbc3a3ab4",
+          "productId": "4f18ca9862f511ecba98258b2194d061",
+          "productName": "Furniture Bedroom / 4f18ca98",
+          "star": 1,
+          "content": "Olist review score=1",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "44c6cc76985408a13aac888baeae9a10",
+          "productId": "b192be433004cc1f10b467c0e9ea309b",
+          "productName": "Computers Accessories / b192be43",
+          "star": 1,
+          "content": "produto nao e original",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "0384edfc6d191edfa85879f875b547a0",
+          "productId": "1ce47626d790bdfe279ad4cedc159009",
+          "productName": "Furniture Decor / 1ce47626",
+          "star": 1,
+          "content": "Nao veio com o interruptor tentei ligar na loja e sem êxito",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "e40ae82cc51399e8b6e2f2ef12373cc2",
+          "productId": "cd935d283d47f1050c505e1c39c48b67",
+          "productName": "Sports Leisure / cd935d28",
+          "star": 1,
+          "content": "meu produto veio com o cabo todo arranhado, produto parece usado",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "f50897c4d20c2a6b268582720e56a01a",
+          "productId": "a42ee02a34cea6addebcada939929763",
+          "productName": "Health Beauty / a42ee02a",
+          "star": 1,
+          "content": "preciso receber esse produto , deve ter sido entregue a outra pessoa",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "12a5d9a66bf49847517d9992ea82cb1a",
+          "productId": "81e171883f20e3585db28d4ee81bd75c",
+          "productName": "Electronics / 81e17188",
+          "star": 1,
+          "content": "Não foi o produto que comprei pelas lannister, recebi duas extensões de cabo HDI.",
+          "riskKeywords": [
+            "review_risk"
+          ]
+        },
+        {
+          "commentId": "c53ac4572114a54c121fc9c789d68a76",
+          "productId": "b4b817e5f2c4efc8253b4b679c653847",
+          "productName": "Bed Bath Table / b4b817e5",
+          "star": 1,
+          "content": "Péssimo material , falta de respeito com consumidor, mandam as cores q bem entendem",
+          "riskKeywords": [
+            "missing_parts"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "review_risk": 38,
+        "refund_or_return": 6,
+        "description_mismatch": 3,
+        "size_issue": 3,
+        "missing_parts": 3,
+        "logistics_delay": 3,
+        "quality_or_damage": 1
+      }
+    }
+  }
+]

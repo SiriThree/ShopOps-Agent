@@ -1,0 +1,6 @@
+shopops:
+  auth:
+    header-dev-mode: true
+    token-secret: shopops-test-token-secret-not-for-production
+  connector:
+    credential-secret: shopops-test-credential-secret-not-for-production

@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-23 17:56:36",
+  "baselineName": "shopops-resume-baseline-v2",
+  "taskCount": 500,
+  "businessSampleCount": 300,
+  "toolCount": 18,
+  "toolCallCount": 1836,
+  "successfulToolCallCount": 1783,
+  "failedToolCallCount": 53,
+  "toolInvocationSuccessRate": 97.1,
+  "highRiskToolCallCount": 92,
+  "approvalRoutedHighRiskCallCount": 92,
+  "approvalRouteRate": 100.0,
+  "manualDailyReportMinutes": 35,
+  "agentDailyReportMinutes": 4,
+  "anomalyLabelCount": 426,
+  "recalledAnomalyCount": 381,
+  "anomalyRecallRate": 89.4,
+  "toolCallCounts": {
+    "order.query_summary": 168,
+    "order.query_detail": 76,
+    "order.query_refund_risk": 104,
+    "order.refund_execute": 24,
+    "comment.query_negative": 160,
+    "comment.analyze_sentiment": 98,
+    "comment.create_reply_draft": 72,
+    "product.query_candidates": 148,
+    "product.query_low_click": 92,
+    "product.optimize_title": 88,
+    "product.update_title": 32,
+    "ad.query_performance": 152,
+    "ad.query_low_roi": 84,
+    "ad.suggest_budget": 36,
+    "report.query_external_metrics": 84,
+    "report.generate_daily_review": 204,
+    "report.export_excel": 133,
+    "feishu.sync_report": 81
+  },
+  "taskTypeCounts": {
+    "daily_review": 160,
+    "comment_risk": 115,
+    "product_optimization": 95,
+    "ad_anomaly": 75,
+    "after_sales_risk": 55
+  },
+  "businessSampleCounts": {
+    "order_anomaly": 60,
+    "refund_increase": 55,
+    "low_score_comment": 70,
+    "low_click_product": 60,
+    "low_roi_campaign": 55
+  }
+}

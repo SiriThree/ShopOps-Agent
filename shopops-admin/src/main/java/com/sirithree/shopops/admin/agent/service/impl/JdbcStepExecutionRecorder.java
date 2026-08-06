@@ -1,0 +1,80 @@
+package com.sirithree.shopops.admin.agent.service.impl;
+
+import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
+import com.sirithree.shopops.admin.agent.domain.AgentPlanStep;
+import com.sirithree.shopops.admin.agent.domain.AgentStepStatus;
+import com.sirithree.shopops.admin.agent.service.StepExecutionRecorder;
+import com.sirithree.shopops.admin.common.JacksonJsonSupport;
+import com.sirithree.shopops.admin.persistence.mapper.AgentTaskStepMapper;
+import com.sirithree.shopops.admin.persistence.model.AgentTaskStep;
+import java.time.LocalDateTime;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Service;
+
+@Service
+@ConditionalOnProperty(name = "shopops.persistence", havingValue = "jdbc")
+public class JdbcStepExecutionRecorder implements StepExecutionRecorder {
+    private final AgentTaskStepMapper agentTaskStepMapper;
+    private final JacksonJsonSupport jsonSupport;
+
+    public JdbcStepExecutionRecorder(AgentTaskStepMapper agentTaskStepMapper, JacksonJsonSupport jsonSupport) {
+        this.agentTaskStepMapper = agentTaskStepMapper;
+        this.jsonSupport = jsonSupport;
+    }
+
+    @Override
+    public Long ensureStep(AgentTaskContext context, AgentPlanStep planStep) {
+        Long existing = context.getStepIdByStepNo().get(planStep.getStepNo());
+        if (existing != null) {
+            return existing;
+        }
+        AgentTaskStep step = new AgentTaskStep();
+        step.setTenantId(context.getTenantId());
+        step.setShopId(context.getShopId());
+        step.setTaskId(context.getTaskId());
+        step.setStepNo(planStep.getStepNo());
+        step.setStepName(planStep.getStepName());
+        step.setToolCode(planStep.getToolCode());
+        step.setStatus(AgentStepStatus.PENDING.name());
+        step.setRetryCount(0);
+        agentTaskStepMapper.insert(step);
+        context.getStepIdByStepNo().put(planStep.getStepNo(), step.getId());
+        return step.getId();
+    }
+
+    @Override
+    public void running(AgentTaskContext context, Long stepId, Object input) {
+        AgentTaskStep step = base(context, stepId);
+        step.setStatus(AgentStepStatus.RUNNING.name());
+        step.setInputJson(jsonSupport.toJson(input));
+        step.setStartedAt(LocalDateTime.now());
+        agentTaskStepMapper.updateExecutionState(step);
+    }
+
+    @Override
+    public void success(AgentTaskContext context, Long stepId, Object output) {
+        AgentTaskStep step = base(context, stepId);
+        step.setStatus(AgentStepStatus.SUCCESS.name());
+        step.setOutputJson(jsonSupport.toJson(output));
+        step.setFinishedAt(LocalDateTime.now());
+        agentTaskStepMapper.updateExecutionState(step);
+    }
+
+    @Override
+    public void failed(AgentTaskContext context, Long stepId, String errorCode, String errorMessage) {
+        AgentTaskStep step = base(context, stepId);
+        step.setStatus(AgentStepStatus.FAILED.name());
+        step.setErrorCode(errorCode);
+        step.setErrorMessage(errorMessage);
+        step.setFinishedAt(LocalDateTime.now());
+        agentTaskStepMapper.updateExecutionState(step);
+    }
+
+    private AgentTaskStep base(AgentTaskContext context, Long stepId) {
+        AgentTaskStep step = new AgentTaskStep();
+        step.setId(stepId);
+        step.setTenantId(context.getTenantId());
+        step.setShopId(context.getShopId());
+        return step;
+    }
+}

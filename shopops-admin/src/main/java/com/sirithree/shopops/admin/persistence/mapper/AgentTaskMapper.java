@@ -1,0 +1,227 @@
+package com.sirithree.shopops.admin.persistence.mapper;
+
+import com.sirithree.shopops.admin.agent.domain.AgentTaskQueryParam;
+import com.sirithree.shopops.admin.persistence.model.AgentTask;
+import java.time.LocalDateTime;
+import java.util.List;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+@Mapper
+public interface AgentTaskMapper {
+    @Insert("""
+            INSERT INTO agent_task (
+              tenant_id, shop_id, user_id, task_no, task_type, user_input,
+              status, priority, plan_json, result_summary, trace_id, report_id,
+              error_code, error_message, created_at, started_at, finished_at
+            ) VALUES (
+              #{tenantId}, #{shopId}, #{userId}, #{taskNo}, #{taskType}, #{userInput},
+              #{status}, #{priority}, #{planJson}, #{resultSummary}, #{traceId}, #{reportId},
+              #{errorCode}, #{errorMessage}, #{createdAt}, #{startedAt}, #{finishedAt}
+            )
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    int insert(AgentTask task);
+
+    @Select("""
+            SELECT *
+            FROM agent_task
+            WHERE id = #{id}
+              AND tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+            """)
+    AgentTask selectById(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("id") Long id);
+
+    @Select("""
+            <script>
+            SELECT *
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              <if test="query.status != null and query.status != ''">
+                AND status = #{query.status}
+              </if>
+              <if test="query.taskType != null and query.taskType != ''">
+                AND task_type = #{query.taskType}
+              </if>
+              <if test="query.taskNo != null and query.taskNo != ''">
+                AND task_no = #{query.taskNo}
+              </if>
+              <if test="query.userId != null">
+                AND user_id = #{query.userId}
+              </if>
+              <if test="query.traceId != null and query.traceId != ''">
+                AND trace_id = #{query.traceId}
+              </if>
+              <if test="query.reportId != null">
+                AND report_id = #{query.reportId}
+              </if>
+              <if test="query.createdStart != null">
+                AND created_at &gt;= #{query.createdStart}
+              </if>
+              <if test="query.createdEnd != null">
+                AND created_at &lt;= #{query.createdEnd}
+              </if>
+              <if test="query.finishedStart != null">
+                AND finished_at &gt;= #{query.finishedStart}
+              </if>
+              <if test="query.finishedEnd != null">
+                AND finished_at &lt;= #{query.finishedEnd}
+              </if>
+            ORDER BY id DESC
+            LIMIT #{limit} OFFSET #{offset}
+            </script>
+            """)
+    List<AgentTask> listByPage(@Param("tenantId") Long tenantId,
+                               @Param("shopId") Long shopId,
+                               @Param("query") AgentTaskQueryParam query,
+                               @Param("offset") Integer offset,
+                               @Param("limit") Integer limit);
+
+    @Select("""
+            <script>
+            SELECT COUNT(*)
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              <if test="query.status != null and query.status != ''">
+                AND status = #{query.status}
+              </if>
+              <if test="query.taskType != null and query.taskType != ''">
+                AND task_type = #{query.taskType}
+              </if>
+              <if test="query.taskNo != null and query.taskNo != ''">
+                AND task_no = #{query.taskNo}
+              </if>
+              <if test="query.userId != null">
+                AND user_id = #{query.userId}
+              </if>
+              <if test="query.traceId != null and query.traceId != ''">
+                AND trace_id = #{query.traceId}
+              </if>
+              <if test="query.reportId != null">
+                AND report_id = #{query.reportId}
+              </if>
+              <if test="query.createdStart != null">
+                AND created_at &gt;= #{query.createdStart}
+              </if>
+              <if test="query.createdEnd != null">
+                AND created_at &lt;= #{query.createdEnd}
+              </if>
+              <if test="query.finishedStart != null">
+                AND finished_at &gt;= #{query.finishedStart}
+              </if>
+              <if test="query.finishedEnd != null">
+                AND finished_at &lt;= #{query.finishedEnd}
+              </if>
+            </script>
+            """)
+    Long countByPage(@Param("tenantId") Long tenantId,
+                     @Param("shopId") Long shopId,
+                     @Param("query") AgentTaskQueryParam query);
+
+    @Update("""
+            UPDATE agent_task
+            SET status = #{status},
+                result_summary = #{resultSummary},
+                report_id = #{reportId},
+                error_code = #{errorCode},
+                error_message = #{errorMessage},
+                started_at = #{startedAt},
+                finished_at = #{finishedAt},
+                worker_id = NULL, lease_expire_at = NULL, heartbeat_at = NULL
+            WHERE id = #{id}
+              AND tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+            """)
+    int updateExecutionState(AgentTask task);
+
+    @Update("""
+            UPDATE agent_task
+            SET status = #{toStatus},
+                started_at = #{startedAt}
+            WHERE id = #{id}
+              AND tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND status = #{fromStatus}
+            """)
+    int updateStatusIfCurrent(@Param("tenantId") Long tenantId,
+                              @Param("shopId") Long shopId,
+                              @Param("id") Long id,
+                              @Param("fromStatus") String fromStatus,
+                              @Param("toStatus") String toStatus,
+                              @Param("startedAt") LocalDateTime startedAt);
+
+    @Select("""
+            SELECT *
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND (
+                (status = 'QUEUED' AND created_at <= #{queuedBefore})
+                OR (status = 'RUNNING' AND lease_expire_at IS NOT NULL AND lease_expire_at <= NOW())
+              )
+            ORDER BY id ASC
+            LIMIT #{limit}
+            """)
+    List<AgentTask> listStaleInFlight(@Param("tenantId") Long tenantId,
+                                      @Param("shopId") Long shopId,
+                                      @Param("queuedBefore") LocalDateTime queuedBefore,
+                                      @Param("runningBefore") LocalDateTime runningBefore,
+                                      @Param("limit") Integer limit);
+
+    @Update("""
+            UPDATE agent_task
+            SET status = 'RUNNING', worker_id = #{workerId}, locked_at = #{now},
+                heartbeat_at = #{now}, lease_expire_at = #{leaseExpireAt}, attempt = attempt + 1,
+                started_at = COALESCE(started_at, #{now}), status_reason = 'Worker lease acquired'
+            WHERE id = #{id} AND tenant_id = #{tenantId} AND shop_id = #{shopId}
+              AND status IN ('QUEUED', 'RETRYING')
+              AND (lease_expire_at IS NULL OR lease_expire_at &lt; #{now})
+              AND cancel_requested_at IS NULL
+            """)
+    int acquireLease(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("id") Long id,
+                     @Param("workerId") String workerId, @Param("now") LocalDateTime now,
+                     @Param("leaseExpireAt") LocalDateTime leaseExpireAt);
+
+    @Update("""
+            UPDATE agent_task SET heartbeat_at = #{now}, lease_expire_at = #{leaseExpireAt}
+            WHERE id = #{id} AND tenant_id = #{tenantId} AND shop_id = #{shopId}
+              AND status = 'RUNNING' AND worker_id = #{workerId}
+            """)
+    int heartbeat(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("id") Long id,
+                  @Param("workerId") String workerId, @Param("now") LocalDateTime now,
+                  @Param("leaseExpireAt") LocalDateTime leaseExpireAt);
+
+    @Update("""
+            UPDATE agent_task SET status = 'CANCEL_REQUESTED', cancel_requested_at = #{now},
+                status_reason = #{reason}
+            WHERE id = #{id} AND tenant_id = #{tenantId} AND shop_id = #{shopId}
+              AND status IN ('PENDING','QUEUED','RUNNING','WAITING_APPROVAL','RETRYING')
+            """)
+    int requestCancel(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId, @Param("id") Long id,
+                      @Param("now") LocalDateTime now, @Param("reason") String reason);
+
+    @Select("""
+            SELECT status AS taskStatus, COUNT(*) AS taskCount
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+            GROUP BY status
+            """)
+    List<java.util.Map<String, Object>> countGroupByStatus(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId);
+
+    @Select("""
+            SELECT CAST(COALESCE(AVG(TIMESTAMPDIFF(MICROSECOND, started_at, finished_at) / 1000), 0) AS SIGNED)
+            FROM agent_task
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND started_at IS NOT NULL
+              AND finished_at IS NOT NULL
+            """)
+    Long selectAverageLatencyMs(@Param("tenantId") Long tenantId, @Param("shopId") Long shopId);
+}

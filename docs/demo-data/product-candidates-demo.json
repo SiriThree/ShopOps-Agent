@@ -1,0 +1,31 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2026-07-18",
+    "endDate": "2026-07-18",
+    "summary": {
+      "candidateCount": 3,
+      "products": [
+        {
+          "productId": 2001,
+          "productName": "智能恒温水杯",
+          "reason": "差评集中在杯盖渗水，建议优化标题卖点和质检说明",
+          "score": 91.2
+        },
+        {
+          "productId": 2008,
+          "productName": "厨房分格收纳盒",
+          "reason": "描述不符导致退款，建议补充尺寸图和材质说明",
+          "score": 87.5
+        },
+        {
+          "productId": 2016,
+          "productName": "轻量运动毛巾",
+          "reason": "曝光充足但转化偏低，建议 A/B 测试标题关键词",
+          "score": 78.4
+        }
+      ]
+    }
+  }
+]

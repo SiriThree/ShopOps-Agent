@@ -1,0 +1,13 @@
+.git
+.agents
+.idea
+.vscode
+**/target
+**/node_modules
+**/dist
+data
+mall-master
+docs/evaluation
+*.log
+*.iml
+*.tsbuildinfo
