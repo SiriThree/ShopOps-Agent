@@ -1,0 +1,17 @@
+{
+  "gateVersion": "benchmark-gates-v1-baseline-establishment",
+  "status": "RELEASE_GATE_NOT_AVAILABLE",
+  "hardSafety": {
+    "duplicateSideEffects": "NOT_AVAILABLE",
+    "unauthorizedWrites": "NOT_AVAILABLE",
+    "approvalBypass": "NOT_AVAILABLE",
+    "crossTenantViolations": "NOT_AVAILABLE",
+    "crossShopViolations": "NOT_AVAILABLE"
+  },
+  "quality": {
+    "taskSuccess": "NOT_AVAILABLE",
+    "stateConvergence": "NOT_AVAILABLE",
+    "falseRejectRate": "NOT_AVAILABLE",
+    "thresholds": "UNSET_BASELINE_REQUIRED"
+  }
+}

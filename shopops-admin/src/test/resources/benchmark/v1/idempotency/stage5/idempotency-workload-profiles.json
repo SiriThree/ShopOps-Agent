@@ -1,0 +1,198 @@
+{
+  "contractVersion": "stage5-idempotency-workload-v1",
+  "formalRunOccurred": false,
+  "requiredExecutionSemantics": {
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "approvalReplayPolicy": "Each legal repeated request that must reach WriteOperationService must use a fresh approval bound to the same canonical business payload; reusing an already consumed approval is not valid idempotency evidence.",
+    "logicalOperationIdentity": "Each workload logical operation gets a unique operationRequestId; attempts within that logical operation reuse it.",
+    "metricDenominator": "logicalOperationsEvaluated, never requestAttemptCount",
+    "observe": [
+      "repeatedRequestAttempts",
+      "externalAttempts",
+      "expectedEffectiveSideEffects",
+      "actualEffectiveSideEffects",
+      "duplicateSideEffects",
+      "missingSideEffects"
+    ]
+  },
+  "profiles": {
+    "SMOKE": {
+      "purpose": "fast dataset/plumbing validation; not formal metric",
+      "scenarioAllocations": [
+        {
+          "semanticRootId": "idempotency:baseline_single_delivery",
+          "logicalOperations": 2,
+          "attemptsPerOperation": 1,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:sequential_retry",
+          "logicalOperations": 2,
+          "attemptsPerOperation": 3,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:same_key_different_payload",
+          "logicalOperations": 2,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:timeout_before_external_success",
+          "logicalOperations": 2,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        }
+      ],
+      "semanticScenarioCount": 4,
+      "logicalOperationCount": 8,
+      "plannedRepeatedRequestAttempts": 16,
+      "heldOutMetricLogicalOperations": 0
+    },
+    "INTEGRATION": {
+      "purpose": "JDBC/MySQL integration across development/validation semantic scenarios; not held-out formal metric",
+      "scenarioAllocations": [
+        {
+          "semanticRootId": "idempotency:baseline_single_delivery",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 1,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:sequential_retry",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 3,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:concurrent_retry",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 5,
+          "workers": 5
+        },
+        {
+          "semanticRootId": "idempotency:same_key_different_payload",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:timeout_after_external_success",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:external_success_local_failure",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:response_loss_after_local_confirm",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:timeout_before_external_success",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:external_idempotent_comparison",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 3,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:concurrent_external_success_local_failure",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 5,
+          "workers": 5
+        },
+        {
+          "semanticRootId": "idempotency:payload_conflict_after_timeout_before_acceptance",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        },
+        {
+          "semanticRootId": "idempotency:payload_conflict_after_external_success_local_failure",
+          "logicalOperations": 4,
+          "attemptsPerOperation": 2,
+          "workers": 1
+        }
+      ],
+      "semanticScenarioCount": 12,
+      "logicalOperationCount": 48,
+      "plannedRepeatedRequestAttempts": 124,
+      "heldOutMetricLogicalOperations": 0
+    },
+    "FORMAL": {
+      "purpose": "future held-out JDBC metric workload; Stage5 designs but does not execute it",
+      "metricScenarioAllocations": [
+        {
+          "semanticRootId": "idempotency:concurrent_timeout_after_acceptance",
+          "logicalOperations": 60,
+          "attemptsPerOperation": 5,
+          "workers": 5,
+          "expectedEffectiveSideEffectsPerOperation": 1
+        },
+        {
+          "semanticRootId": "idempotency:payload_conflict_after_timeout_after_acceptance",
+          "logicalOperations": 60,
+          "attemptsPerOperation": 2,
+          "workers": 1,
+          "expectedEffectiveSideEffectsPerOperation": 1
+        },
+        {
+          "semanticRootId": "idempotency:payload_conflict_after_terminal_external_failure",
+          "logicalOperations": 60,
+          "attemptsPerOperation": 2,
+          "workers": 1,
+          "expectedEffectiveSideEffectsPerOperation": 0
+        },
+        {
+          "semanticRootId": "idempotency:payload_conflict_after_response_loss_commit",
+          "logicalOperations": 60,
+          "attemptsPerOperation": 2,
+          "workers": 1,
+          "expectedEffectiveSideEffectsPerOperation": 1
+        }
+      ],
+      "controlAllocations": [
+        {
+          "semanticRootId": "idempotency:baseline_single_delivery",
+          "logicalOperations": 10,
+          "attemptsPerOperation": 1,
+          "excludedFromHeldOutNumerator": true
+        },
+        {
+          "semanticRootId": "idempotency:sequential_retry",
+          "logicalOperations": 10,
+          "attemptsPerOperation": 3,
+          "excludedFromHeldOutNumerator": true
+        }
+      ],
+      "semanticScenarioCount": 4,
+      "heldOutMetricLogicalOperations": 240,
+      "controlLogicalOperations": 20,
+      "logicalOperationCount": 260,
+      "heldOutPlannedRepeatedRequestAttempts": 660,
+      "plannedRepeatedRequestAttempts": 700,
+      "heldOutExpectedEffectiveSideEffects": 180,
+      "controlExpectedEffectiveSideEffects": 20,
+      "expectedEffectiveSideEffects": 200,
+      "plannedAttemptRange": {
+        "min": 700,
+        "max": 700
+      },
+      "concurrencyDistribution": {
+        "workers1LogicalOperations": 180,
+        "workers5LogicalOperations": 60
+      }
+    }
+  }
+}

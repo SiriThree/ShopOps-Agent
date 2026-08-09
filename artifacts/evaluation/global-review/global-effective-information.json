@@ -1,0 +1,33 @@
+{
+  "artifactVersion": "stage8a-global-effective-information-v1",
+  "benchmarks": {
+    "TASK": {
+      "cases": 189,
+      "independentUnits": 116,
+      "heldOutIndependentUnits": 63,
+      "testCases": 103
+    },
+    "GOVERNANCE": {
+      "cases": 106,
+      "independentUnits": 96,
+      "heldOutIndependentUnits": 54,
+      "testCases": 54
+    },
+    "RECOVERY": {
+      "cases": 21,
+      "independentUnits": 15,
+      "heldOutIndependentUnits": 6,
+      "testCases": 6
+    },
+    "IDEMPOTENCY": {
+      "cases": 22,
+      "independentUnits": 16,
+      "heldOutIndependentUnits": 4,
+      "testCases": 4
+    }
+  },
+  "totalDedicatedCases": 338,
+  "totalIndependentInformationUnits": 243,
+  "totalHeldOutIndependentUnits": 127,
+  "note": "Raw cases and independent semantic/causal units are intentionally separate; they must not be reported as one metric."
+}

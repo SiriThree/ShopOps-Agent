@@ -46,6 +46,8 @@ public class InMemoryApprovalRequestService implements ApprovalRequestService {
         dto.setTitle(defaultString(param.getTitle(), "Approval request"));
         dto.setReason(param.getReason());
         dto.setInputSummary(param.getInputSummary());
+        dto.setInputHash(param.getInputHash());
+        dto.setBusinessObjectId(param.getBusinessObjectId());
         dto.setStatus(ApprovalStatus.PENDING);
         dto.setRequesterId(requesterId);
         dto.setRequesterName(requesterName);
@@ -134,6 +136,40 @@ public class InMemoryApprovalRequestService implements ApprovalRequestService {
         result.setSuccessCount(result.getSucceeded().size());
         result.setFailedCount(result.getFailedApprovalIds().size());
         return result;
+    }
+
+    @Override
+    public boolean markExecuting(Long tenantId, Long shopId, Long approvalId) {
+        java.util.concurrent.atomic.AtomicBoolean transitioned = new java.util.concurrent.atomic.AtomicBoolean(false);
+        approvals.computeIfPresent(approvalId, (id, dto) -> {
+            if (tenantId.equals(dto.getTenantId()) && shopId.equals(dto.getShopId())
+                    && ApprovalStatus.APPROVED.equals(dto.getStatus())) {
+                dto.setStatus(ApprovalStatus.EXECUTING);
+                transitioned.set(true);
+            }
+            return dto;
+        });
+        return transitioned.get();
+    }
+
+    @Override
+    public void markExecuted(Long tenantId, Long shopId, Long approvalId) {
+        transitionExecution(tenantId, shopId, approvalId, ApprovalStatus.EXECUTING, ApprovalStatus.EXECUTED, null);
+    }
+
+    @Override
+    public void markExecutionFailed(Long tenantId, Long shopId, Long approvalId, String message) {
+        transitionExecution(tenantId, shopId, approvalId, ApprovalStatus.EXECUTING, ApprovalStatus.EXECUTION_FAILED, message);
+    }
+
+    private void transitionExecution(Long tenantId, Long shopId, Long approvalId, String from, String to, String message) {
+        approvals.computeIfPresent(approvalId, (id, dto) -> {
+            if (tenantId.equals(dto.getTenantId()) && shopId.equals(dto.getShopId()) && from.equals(dto.getStatus())) {
+                dto.setStatus(to);
+                if (message != null && !message.isBlank()) dto.setDecisionComment(message);
+            }
+            return dto;
+        });
     }
 
     private Optional<ApprovalRequestDto> decide(Long tenantId, Long shopId, Long approvalId, Long approverId,

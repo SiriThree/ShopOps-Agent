@@ -1,0 +1,2 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage7b; import static org.assertj.core.api.Assertions.assertThat; import org.junit.jupiter.api.Test;
+class GovernanceScaleupSplitIsolationTest { @Test void rootsAndParentsNeverCrossSplits() throws Exception { assertThat(Stage7BGovernanceDatasetSupport.crossSplitRootCount()).isZero(); assertThat(Stage7BGovernanceDatasetSupport.crossSplitParentCount()).isZero(); assertThat(Stage7BGovernanceDatasetSupport.testRoots()).hasSize(54); }}

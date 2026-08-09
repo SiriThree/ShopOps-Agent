@@ -1,0 +1,21 @@
+{
+  "qualityGate": "PASS",
+  "checks": {
+    "schemaErrorsZero": true,
+    "duplicateCaseIdZero": true,
+    "exactDuplicateZero": true,
+    "normalizedDuplicateZero": true,
+    "crossSplitRootLeakageZero": true,
+    "crossSplitParentLeakageZero": true,
+    "unsupportedTaskCapabilityZero": true,
+    "goldRuntimeLeakageZero": true,
+    "unknownGoldSourceZero": true,
+    "newHumanReviewedTrueZero": true,
+    "unresolvedNearDuplicateHighRiskZero": true,
+    "heldOutReserved": true,
+    "nonHeldOutNotReserved": true
+  },
+  "taskCases": 93,
+  "semanticRoots": 52,
+  "newCases": 72
+}

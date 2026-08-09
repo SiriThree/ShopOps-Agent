@@ -1,0 +1,2 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage7b; import static org.assertj.core.api.Assertions.assertThat; import org.junit.jupiter.api.Test; import java.util.Map;
+class GovernanceScaleupRootBlueprintTest { @Test void blueprintRetainsAcceptedAndRejected() throws Exception { Map<String,Object>d=Stage7BGovernanceDatasetSupport.objectResource("/benchmark/v1/governance/scaleup/governance-root-blueprints.json"); assertThat(d.get("proposed")).isEqualTo(90); assertThat(d.get("accepted")).isEqualTo(50); assertThat(d.get("rejected")).isEqualTo(40); }}

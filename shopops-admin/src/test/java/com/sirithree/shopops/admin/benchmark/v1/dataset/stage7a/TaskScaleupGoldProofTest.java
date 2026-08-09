@@ -1,0 +1,3 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage7a;
+import static org.assertj.core.api.Assertions.assertThat; import org.junit.jupiter.api.Test; import java.util.*;
+class TaskScaleupGoldProofTest { @Test void everyNewRootHasIndependentFixtureGoldProof() throws Exception { Map<String,Object>d=Stage7ATaskDatasetSupport.objectResource("/benchmark/v1/task/stage7a/task-gold-proof.json"); @SuppressWarnings("unchecked") List<Map<String,Object>> p=(List<Map<String,Object>>)d.get("proofs"); assertThat(p).hasSize(64); assertThat(p).allSatisfy(x->{assertThat(x.get("agentOutputUsed")).isEqualTo(false); assertThat(x.get("productionBusinessServiceUsed")).isEqualTo(false); assertThat(x.get("goldSourceType")).isNull();}); }}

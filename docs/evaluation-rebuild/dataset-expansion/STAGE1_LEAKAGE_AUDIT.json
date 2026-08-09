@@ -1,0 +1,435 @@
+[
+  {
+    "semanticRootId": "governance:approval_replay",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-test-approval-replay",
+        "split": "test"
+      },
+      {
+        "caseId": "gov-val-approval-replay-control",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:approval_target_mismatch",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-test-approval-target-mismatch",
+        "split": "test"
+      },
+      {
+        "caseId": "gov-val-approval-target-mismatch-control",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:cross_shop_refund",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-dev-cross-shop-refund",
+        "split": "dev"
+      },
+      {
+        "caseId": "gov-test-cross-shop-refund",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:cross_tenant_refund",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-dev-cross-tenant-refund",
+        "split": "dev"
+      },
+      {
+        "caseId": "gov-test-cross-tenant-refund",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:schema_wrong_type",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-test-schema-wrong-type",
+        "split": "test"
+      },
+      {
+        "caseId": "gov-val-schema-wrong-type",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:unknown_tool",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-dev-unknown-tool",
+        "split": "dev"
+      },
+      {
+        "caseId": "gov-test-unknown-tool",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:valid_approved_refund",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-test-valid-approved-refund",
+        "split": "test"
+      },
+      {
+        "caseId": "gov-val-valid-approved-refund-control",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:valid_high_risk_preapproval",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-test-valid-preapproval",
+        "split": "test"
+      },
+      {
+        "caseId": "gov-val-valid-preapproval",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:valid_mcp_read",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-test-valid-mcp-read",
+        "split": "test"
+      },
+      {
+        "caseId": "gov-val-valid-mcp-read-control",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "governance:viewer_refund_permission",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "gov-dev-viewer-refund",
+        "split": "dev"
+      },
+      {
+        "caseId": "gov-test-viewer-refund",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "idempotency:baseline_single_delivery",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "idem-dev-baseline-001",
+        "split": "dev"
+      },
+      {
+        "caseId": "idem-test-baseline-001",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "idempotency:concurrent_retry",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "idem-dev-concurrent-retry-001",
+        "split": "dev"
+      },
+      {
+        "caseId": "idem-test-concurrent-retry-001",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "idempotency:external_success_local_failure",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "idem-test-external-success-local-failure-001",
+        "split": "test"
+      },
+      {
+        "caseId": "idem-val-external-success-local-failure-001",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "idempotency:same_key_different_payload",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "idem-dev-payload-conflict-001",
+        "split": "dev"
+      },
+      {
+        "caseId": "idem-test-payload-conflict-001",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "idempotency:sequential_retry",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "idem-dev-sequential-retry-001",
+        "split": "dev"
+      },
+      {
+        "caseId": "idem-test-sequential-retry-001",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "idempotency:timeout_after_external_success",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "idem-dev-timeout-after-success-001",
+        "split": "dev"
+      },
+      {
+        "caseId": "idem-test-timeout-after-success-001",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "recovery:duplicate_reconciliation",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "recovery-test-r8-duplicate-reconciliation",
+        "split": "test"
+      },
+      {
+        "caseId": "recovery-val-r8-duplicate-reconciliation",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "recovery:external_success_local_failure",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "recovery-dev-r1-external-success-local-failure",
+        "split": "dev"
+      },
+      {
+        "caseId": "recovery-test-r1-request-correlation",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "recovery:reconciliation_temporary_failure",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "recovery-test-r5-query-temporary-failure",
+        "split": "test"
+      },
+      {
+        "caseId": "recovery-val-r5-query-temporary-failure",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "recovery:recovery_budget_exhausted",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "recovery-test-r6-budget-exhausted",
+        "split": "test"
+      },
+      {
+        "caseId": "recovery-val-r6-budget-exhausted",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "recovery:timeout_after_external_acceptance",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "recovery-dev-r3-timeout-after-accept",
+        "split": "dev"
+      },
+      {
+        "caseId": "recovery-test-r3-timeout-after-accept",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "recovery:timeout_before_external_acceptance",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "recovery-dev-r2-timeout-before-accept",
+        "split": "dev"
+      },
+      {
+        "caseId": "recovery-test-r2-timeout-before-accept",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "dev-task-ad-risk-001",
+        "split": "dev"
+      },
+      {
+        "caseId": "dev-task-ad-risk-002",
+        "split": "dev"
+      },
+      {
+        "caseId": "test-task-ad-risk-001",
+        "split": "test"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "task:comment_risk:safe-default",
+    "splits": [
+      "test",
+      "validation"
+    ],
+    "cases": [
+      {
+        "caseId": "test-task-comment-ambiguous-001",
+        "split": "test"
+      },
+      {
+        "caseId": "validation-task-comment-missing-date-001",
+        "split": "validation"
+      },
+      {
+        "caseId": "validation-task-comment-ambiguous-001",
+        "split": "validation"
+      }
+    ]
+  },
+  {
+    "semanticRootId": "task:daily_review:safe-default",
+    "splits": [
+      "dev",
+      "test"
+    ],
+    "cases": [
+      {
+        "caseId": "dev-task-daily-missing-date-001",
+        "split": "dev"
+      },
+      {
+        "caseId": "test-task-daily-missing-date-001",
+        "split": "test"
+      }
+    ]
+  }
+]

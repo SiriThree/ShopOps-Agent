@@ -1,0 +1,78 @@
+{
+  "shopops-admin/src/main": {
+    "baselineCount": 513,
+    "currentCount": 513,
+    "modified": [],
+    "added": [],
+    "removed": []
+  },
+  "shopops-common/src/main": {
+    "baselineCount": 5,
+    "currentCount": 5,
+    "modified": [],
+    "added": [],
+    "removed": []
+  },
+  "shopops-commerce-mcp-server/src/main": {
+    "baselineCount": 12,
+    "currentCount": 12,
+    "modified": [],
+    "added": [],
+    "removed": []
+  },
+  "shopops-admin/src/test/resources/benchmark/v1/task": {
+    "baselineCount": 22,
+    "currentCount": 22,
+    "modified": [],
+    "added": [],
+    "removed": []
+  },
+  "shopops-admin/src/test/resources/benchmark/v1/recovery": {
+    "baselineCount": 7,
+    "currentCount": 7,
+    "modified": [],
+    "added": [],
+    "removed": []
+  },
+  "shopops-admin/src/test/resources/benchmark/v1/idempotency": {
+    "baselineCount": 12,
+    "currentCount": 12,
+    "modified": [],
+    "added": [],
+    "removed": []
+  },
+  "docs/evaluation-rebuild/evaluation-hardening": {
+    "baselineCount": 7,
+    "currentCount": 7,
+    "modified": [],
+    "added": [],
+    "removed": []
+  },
+  "governanceEvaluatorFiles": {
+    "modified": [],
+    "added": [],
+    "removed": [],
+    "baselineCount": 4,
+    "currentCount": 4
+  },
+  "shopops-admin/src/test/resources/benchmark/v1/benchmark-manifest-v1.json": {
+    "unchanged": true,
+    "sha256": "2bb543ffa6a76fa8051989d755c8109f3107cf66b2a5d6e8fe6cece3fc3f24ad"
+  },
+  "shopops-admin/src/test/resources/benchmark/v1/benchmark-task-stage7a-scaleup-candidate-manifest.json": {
+    "unchanged": true,
+    "sha256": "5b2637ad20ae3b853c50975e9ca630444d5942ed6f81c0bbafab55905d1a01f4"
+  },
+  "shopops-admin/src/test/resources/benchmark/v1/benchmark-recovery-stage4-candidate-manifest.json": {
+    "unchanged": true,
+    "sha256": "775da3f194e2815004a21cfa72aff70a3cd768ff7c52c97dc868ca588b7d2a01"
+  },
+  "shopops-admin/src/test/resources/benchmark/v1/benchmark-idempotency-stage5-candidate-manifest.json": {
+    "unchanged": true,
+    "sha256": "ba9b53cd8ce22f23afd3bd61ab86df0c689884b31375238d6b4783bb9c21a27d"
+  },
+  "shopops-admin/src/test/resources/benchmark/v1/stage6-idempotency-evaluation-contract-manifest.json": {
+    "unchanged": true,
+    "sha256": "e3baea01d0d6fe1a8abaf04406aabd2c3a3fa2aaaa992c48434c4010074638b7"
+  }
+}

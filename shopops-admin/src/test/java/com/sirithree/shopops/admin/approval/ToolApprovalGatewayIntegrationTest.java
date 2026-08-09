@@ -140,7 +140,7 @@ class ToolApprovalGatewayIntegrationTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    void shouldBypassApprovalWhenShopConfigDisablesToolApproval() {
+    void shouldNotBypassHighRiskApprovalWhenShopConfigDisablesGenericApproval() {
         Map<String, Object> savedConfig = dataOf(post(
                 "/api/admin/organization/shops/1/configs",
                 Map.of(
@@ -156,70 +156,21 @@ class ToolApprovalGatewayIntegrationTest {
 
         Map<String, Object> result = dataOf(post(
                 "/api/tools/order.refund_execute/invoke",
-                Map.of("shopId", 1, "refundAmount", 1288, "reason", "shop policy disabled approval"),
+                Map.of("shopId", 1, "refundAmount", 1288, "reason", "high-risk approval remains mandatory"),
                 adminHeaders()
         ));
 
-        Integer toolCallLogId = ((Number) result.get("toolCallLogId")).intValue();
         assertThat(result)
-                .containsEntry("success", true)
-                .containsEntry("status", "SUCCESS")
-                .containsEntry("toolCallLogId", toolCallLogId);
-        assertThat(result.get("approvalId")).isNull();
-        Map<String, Object> output = (Map<String, Object>) result.get("data");
-        assertThat(output)
-                .containsEntry("status", "EXECUTED")
-                .containsEntry("approvalId", null)
-                .containsEntry("refundAmount", 1288);
+                .containsEntry("success", false)
+                .containsEntry("status", "APPROVAL_REQUIRED")
+                .containsEntry("errorCode", "APPROVAL_REQUIRED");
+        assertThat(result.get("approvalId")).isNotNull();
 
         Map<String, Object> approvalPage = dataOf(get(
                 "/api/admin/approvals?status=PENDING&toolCode=order.refund_execute",
                 adminHeaders()
         ));
-        assertThat(approvalPage.get("total")).isEqualTo(0);
-
-        Map<String, Object> logPage = dataOf(get(
-                "/api/tools/call-logs?status=SUCCESS&toolCode=order.refund_execute",
-                adminHeaders()
-        ));
-        assertThat(logPage.get("total")).isEqualTo(1);
-        Map<String, Object> log = ((List<Map<String, Object>>) logPage.get("list")).get(0);
-        assertThat(log)
-                .containsEntry("id", toolCallLogId)
-                .containsEntry("approvalId", null)
-                .containsEntry("riskLevel", "HIGH")
-                .containsEntry("errorCode", "APPROVAL_BYPASSED_BY_SHOP_CONFIG");
-        assertThat(log.get("errorMessage").toString()).contains("agent_tool_approval_enabled=false");
-
-        Map<String, Object> auditPage = dataOf(get(
-                "/api/admin/audit/timeline?source=TOOL&toolCode=order.refund_execute&pageNum=1&pageSize=10",
-                adminHeaders()
-        ));
-        List<Map<String, Object>> events = (List<Map<String, Object>>) auditPage.get("list");
-        Map<String, Object> event = events.stream()
-                .filter(item -> toolCallLogId.toString().equals(item.get("resourceId")))
-                .findFirst()
-                .orElseThrow();
-        assertThat(event)
-                .containsEntry("source", "TOOL")
-                .containsEntry("eventStatus", "SUCCESS")
-                .containsEntry("riskLevel", "HIGH");
-        Map<String, Object> detail = (Map<String, Object>) event.get("detail");
-        assertThat(detail)
-                .containsEntry("errorCode", "APPROVAL_BYPASSED_BY_SHOP_CONFIG");
-        assertThat(detail.get("errorMessage").toString()).contains("agent_tool_approval_enabled=false");
-
-        Map<String, Object> auditDetail = dataOf(get(
-                "/api/admin/audit/timeline/TOOL/" + toolCallLogId,
-                adminHeaders()
-        ));
-        Map<String, Object> context = (Map<String, Object>) auditDetail.get("context");
-        assertThat((Map<String, Object>) auditDetail.get("event"))
-                .containsEntry("source", "TOOL")
-                .containsEntry("resourceId", toolCallLogId.toString());
-        assertThat((Map<String, Object>) context.get("recentShopConfigChange"))
-                .containsEntry("eventType", "ORG_SHOP_CONFIG_SAVED");
-        assertThat(context.get("recentShopConfigChange").toString()).contains("agent_tool_approval_enabled");
+        assertThat(approvalPage.get("total")).isEqualTo(1);
     }
 
     private Map<String, Object> get(String path, HttpHeaders headers) {

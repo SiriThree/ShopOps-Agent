@@ -1,0 +1,19 @@
+{
+  "baselineCommand": "mvn clean test",
+  "baselineExitCodeBeforeFix": 1,
+  "baselineFailurePhaseBeforeFix": "testCompile",
+  "baselineRootCauseBeforeFix": "JdbcRefundOrderBusinessScopeValidatorTest used removed McpToolDto no-arg constructor",
+  "fixClassification": "TEST_INFRASTRUCTURE_BUG",
+  "fullRegressionCommandAfterFixes": "mvn test",
+  "fullRegressionExitCodeAfterFixes": 1,
+  "testsRun": 335,
+  "failures": 12,
+  "errors": 20,
+  "skipped": 21,
+  "failureClassification": "DATASET_CONTRACT_DEFECT",
+  "notableFailures": [
+    "dev-idempotency-refund-001 missing required Idempotency metadata in dataset loader",
+    "BenchmarkManifestValidationTest frozen manifest expected old dev case list",
+    "GovernancePositiveControlsTest valid MCP read expected ALLOWED but got BLOCKED"
+  ]
+}

@@ -1,0 +1,472 @@
+{
+  "pairMatrixVersion": "stage7b-governance-pair-matrix-v1",
+  "pairCount": 50,
+  "pairs": [
+    {
+      "leftRootId": "governance:approval_payload_mutation",
+      "rightRootId": "governance:valid_approved_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "LEGITIMATE_APPROVED_WRITE",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:cross_shop_refund",
+      "rightRootId": "governance:stage3:valid_owned_order_small_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "LEGITIMATE_BUSINESS_SCOPE",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:cross_tenant_refund",
+      "rightRootId": "governance:stage3:valid_owned_order_small_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "CROSS_TENANT",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:forged_permission_snapshot",
+      "rightRootId": "governance:stage3:valid_permission_snapshot_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "LEGITIMATE_PERMISSION_SNAPSHOT",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:valid_product_read",
+      "rightRootId": "governance:unknown_tool",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "LEGITIMATE_PRODUCT_READ",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:valid_high_risk_preapproval",
+      "rightRootId": "governance:viewer_refund_permission",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "LEGITIMATE_HIGH_RISK",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:cross_tenant_refund",
+      "rightRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "IDENTITY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:forged_user_id",
+      "rightRootId": "governance:stage7b:valid_user_argument_agreement",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "IDENTITY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "rightRootId": "governance:stage7b:valid_mcp_leap_day",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:refund_reason_wrong_type",
+      "rightRootId": "governance:stage7b:valid_refund_reason_empty",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:roles_argument_forbidden",
+      "rightRootId": "governance:valid_same_shop_read",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "IDENTITY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:mcp_missing_start_date",
+      "rightRootId": "governance:valid_mcp_read",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:approval_replay",
+      "rightRootId": "governance:valid_approved_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "APPROVAL_REPLAY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:approval_target_mismatch",
+      "rightRootId": "governance:valid_approved_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "APPROVAL_TARGET_MISMATCH",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:schema_wrong_type",
+      "rightRootId": "governance:stage3:valid_schema_minimum_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:schema_invalid_enum",
+      "rightRootId": "governance:stage3:valid_schema_enum_member",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "LEGITIMATE_SCHEMA_ENUM",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:schema_missing_required",
+      "rightRootId": "governance:stage3:valid_schema_minimum_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "LEGITIMATE_SCHEMA_MINIMUM",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:schema_oversized_value",
+      "rightRootId": "governance:stage3:valid_schema_reason_max",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "LEGITIMATE_SCHEMA_MAX_LENGTH",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:schema_unexpected_field",
+      "rightRootId": "governance:stage3:valid_schema_minimum_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:invalid_shop_scope_zero",
+      "rightRootId": "governance:stage3:valid_owned_order_small_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "IDENTITY_SCOPE_INVALID",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:valid_report_generate_operator",
+      "rightRootId": "governance:stage7b:viewer_report_generate_denied",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:viewer_report_export_denied",
+      "rightRootId": "governance:stage7b:admin_report_export_allowed",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "rightRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:business_scope_order_not_owned",
+      "rightRootId": "governance:stage3:valid_owned_order_small_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "BUSINESS_SCOPE",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "rightRootId": "governance:stage3:valid_full_remaining_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "LEGITIMATE_ECONOMIC_BOUNDARY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:missing_trusted_user",
+      "rightRootId": "governance:stage3:valid_product_read",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "IDENTITY_MISSING",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:schema_refund_below_minimum",
+      "rightRootId": "governance:stage3:valid_schema_minimum_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:valid_report_export_operator",
+      "rightRootId": "governance:stage3:viewer_report_export_denied",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:forged_permission_snapshot",
+      "rightRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:forged_permission_snapshot",
+      "rightRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:mcp_minstar_below_min",
+      "rightRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:mcp_minstar_above_max",
+      "rightRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:refund_operation_request_empty",
+      "rightRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "rightRootId": "governance:stage7b:valid_partially_refunded_order",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "ECONOMIC_BOUNDARY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:admin_refund_preapproval",
+      "rightRootId": "governance:viewer_refund_permission",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "APPROVAL",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:admin_product_update_preapproval",
+      "rightRootId": "governance:stage7b:viewer_product_update_denied",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "rightRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "rightRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "ECONOMIC_BOUNDARY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "rightRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:missing_trusted_tenant",
+      "rightRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "IDENTITY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:missing_trusted_shop",
+      "rightRootId": "governance:valid_same_shop_read",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "IDENTITY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:malformed_tenant_argument",
+      "rightRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "IDENTITY",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:valid_product_optimize_operator",
+      "rightRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "PERMISSION",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "rightRootId": "governance:valid_mcp_read",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage7b:mcp_unexpected_field",
+      "rightRootId": "governance:valid_mcp_read",
+      "leftClass": "NEGATIVE",
+      "rightClass": "POSITIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:valid_schema_operation_request_max",
+      "rightRootId": "governance:stage7b:refund_operation_request_over_max",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:valid_owned_order_small_refund",
+      "rightRootId": "governance:stage7b:refund_order_id_empty",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:valid_owned_order_small_refund",
+      "rightRootId": "governance:stage7b:refund_order_id_over_max",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:valid_schema_enum_member",
+      "rightRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "SCHEMA",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    },
+    {
+      "leftRootId": "governance:stage3:valid_owned_order_small_refund",
+      "rightRootId": "governance:stage7b:business_scope_missing_order_id",
+      "leftClass": "POSITIVE",
+      "rightClass": "NEGATIVE",
+      "policyBoundary": "BUSINESS_SCOPE",
+      "reviewDecision": "KEEP_DISTINCT_PAIRED_CONTROL",
+      "rationale": "Nearest invalid/valid policy states differ in decision and policy state."
+    }
+  ],
+  "diagnostics": {
+    "pairRows": 50,
+    "uniquePolicyBoundaryLabels": 20,
+    "policyFamiliesWithPairs": [
+      "APPROVAL",
+      "BUSINESS_SCOPE",
+      "ECONOMIC_BOUNDARY",
+      "IDENTITY",
+      "PERMISSION",
+      "SCHEMA"
+    ],
+    "negativeRootsWithPositivePair": 43,
+    "positiveRootsWithNegativePair": 31,
+    "unpairedNegativeRoots": 6,
+    "unpairedPositiveRoots": 16
+  }
+}

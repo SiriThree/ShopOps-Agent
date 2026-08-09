@@ -1,0 +1,388 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-19",
+    "endDate": "2018-08-19",
+    "summary": {
+      "spend": 731.0,
+      "impressions": 52900,
+      "clicks": 2835,
+      "ctr": 0.054,
+      "cpc": 0.4,
+      "conversionRate": 0.082,
+      "roi": 4.5,
+      "campaigns": [
+        {
+          "campaignName": "S7A healthy single 1",
+          "spend": 731.0,
+          "roi": 4.5,
+          "conversionRate": 0.082
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-20",
+    "endDate": "2018-08-20",
+    "summary": {
+      "spend": 962.0,
+      "impressions": 63600,
+      "clicks": 3060,
+      "ctr": 0.048,
+      "cpc": 0.42,
+      "conversionRate": 0.05,
+      "roi": 2.4,
+      "campaigns": [
+        {
+          "campaignName": "S7A low-roi 2",
+          "spend": 962.0,
+          "roi": 2.4,
+          "conversionRate": 0.05
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-21",
+    "endDate": "2018-08-21",
+    "summary": {
+      "spend": 1193.0,
+      "impressions": 79600,
+      "clicks": 4035,
+      "ctr": 0.051,
+      "cpc": 0.39,
+      "conversionRate": 0.087,
+      "roi": 4.2,
+      "campaigns": [
+        {
+          "campaignName": "S7A healthy 3A",
+          "spend": 420.0,
+          "roi": 4.8,
+          "conversionRate": 0.09
+        },
+        {
+          "campaignName": "S7A healthy 3B",
+          "spend": 360.0,
+          "roi": 3.7,
+          "conversionRate": 0.08
+        },
+        {
+          "campaignName": "S7A healthy 3C",
+          "spend": 310.0,
+          "roi": 4.1,
+          "conversionRate": 0.085
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-22",
+    "endDate": "2018-08-22",
+    "summary": {
+      "spend": 1074.0,
+      "impressions": 99000,
+      "clicks": 2180,
+      "ctr": 0.022,
+      "cpc": 0.47,
+      "conversionRate": 0.07,
+      "roi": 3.6,
+      "campaigns": [
+        {
+          "campaignName": "S7A low-ctr 4",
+          "spend": 1074.0,
+          "roi": 3.6,
+          "conversionRate": 0.07
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-23",
+    "endDate": "2018-08-23",
+    "summary": {}
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-24",
+    "endDate": "2018-08-24",
+    "summary": {
+      "spend": 1286.0,
+      "impressions": 83200,
+      "clicks": 4170,
+      "ctr": 0.051,
+      "cpc": 0.39,
+      "conversionRate": 0.087,
+      "roi": 4.2,
+      "campaigns": [
+        {
+          "campaignName": "S7A healthy 6A",
+          "spend": 420.0,
+          "roi": 4.8,
+          "conversionRate": 0.09
+        },
+        {
+          "campaignName": "S7A healthy 6B",
+          "spend": 360.0,
+          "roi": 3.7,
+          "conversionRate": 0.08
+        },
+        {
+          "campaignName": "S7A healthy 6C",
+          "spend": 310.0,
+          "roi": 4.1,
+          "conversionRate": 0.085
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-25",
+    "endDate": "2018-08-25",
+    "summary": {
+      "spend": 1417.0,
+      "impressions": 94300,
+      "clicks": 4780,
+      "ctr": 0.051,
+      "cpc": 0.38,
+      "conversionRate": 0.09,
+      "roi": 4.1,
+      "campaigns": [
+        {
+          "campaignName": "S7A healthy-main 7",
+          "spend": 700.0,
+          "roi": 4.6,
+          "conversionRate": 0.1
+        },
+        {
+          "campaignName": "S7A risky-child 7",
+          "spend": 420.0,
+          "roi": 2.6,
+          "conversionRate": 0.045
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-26",
+    "endDate": "2018-08-26",
+    "summary": {}
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-27",
+    "endDate": "2018-08-27",
+    "summary": {
+      "spend": 1479.0,
+      "impressions": 96100,
+      "clicks": 4860,
+      "ctr": 0.051,
+      "cpc": 0.38,
+      "conversionRate": 0.09,
+      "roi": 4.1,
+      "campaigns": [
+        {
+          "campaignName": "S7A healthy-main 9",
+          "spend": 700.0,
+          "roi": 4.6,
+          "conversionRate": 0.1
+        },
+        {
+          "campaignName": "S7A risky-child 9",
+          "spend": 420.0,
+          "roi": 2.6,
+          "conversionRate": 0.045
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-28",
+    "endDate": "2018-08-28",
+    "summary": {
+      "spend": 1660.0,
+      "impressions": 110000,
+      "clicks": 3280,
+      "ctr": 0.028,
+      "cpc": 0.49,
+      "conversionRate": 0.048,
+      "roi": 2.7,
+      "campaigns": [
+        {
+          "campaignName": "S7A risk 10A",
+          "spend": 650.0,
+          "roi": 2.3,
+          "conversionRate": 0.04
+        },
+        {
+          "campaignName": "S7A risk 10B",
+          "spend": 520.0,
+          "roi": 2.8,
+          "conversionRate": 0.05
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-29",
+    "endDate": "2018-08-29",
+    "summary": {
+      "spend": 1360.0,
+      "impressions": 131500,
+      "clicks": 7160,
+      "ctr": 0.056,
+      "cpc": 0.35,
+      "conversionRate": 0.095,
+      "roi": 5.2,
+      "campaigns": [
+        {
+          "campaignName": "S7A high-spend healthy 11A",
+          "spend": 700.0,
+          "roi": 5.4,
+          "conversionRate": 0.1
+        },
+        {
+          "campaignName": "S7A high-spend healthy 11B",
+          "spend": 550.0,
+          "roi": 4.7,
+          "conversionRate": 0.09
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-30",
+    "endDate": "2018-08-30",
+    "summary": {
+      "spend": 1472.0,
+      "impressions": 90400,
+      "clicks": 4440,
+      "ctr": 0.051,
+      "cpc": 0.39,
+      "conversionRate": 0.087,
+      "roi": 4.2,
+      "campaigns": [
+        {
+          "campaignName": "S7A healthy 12A",
+          "spend": 420.0,
+          "roi": 4.8,
+          "conversionRate": 0.09
+        },
+        {
+          "campaignName": "S7A healthy 12B",
+          "spend": 360.0,
+          "roi": 3.7,
+          "conversionRate": 0.08
+        },
+        {
+          "campaignName": "S7A healthy 12C",
+          "spend": 310.0,
+          "roi": 4.1,
+          "conversionRate": 0.085
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-31",
+    "endDate": "2018-08-31",
+    "summary": {
+      "spend": 1303.0,
+      "impressions": 72400,
+      "clicks": 3390,
+      "ctr": 0.048,
+      "cpc": 0.42,
+      "conversionRate": 0.05,
+      "roi": 2.4,
+      "campaigns": [
+        {
+          "campaignName": "S7A low-roi 13",
+          "spend": 1303.0,
+          "roi": 2.4,
+          "conversionRate": 0.05
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-01",
+    "endDate": "2018-09-01",
+    "summary": {
+      "spend": 1390.0,
+      "impressions": 136000,
+      "clicks": 7340,
+      "ctr": 0.056,
+      "cpc": 0.35,
+      "conversionRate": 0.095,
+      "roi": 5.2,
+      "campaigns": [
+        {
+          "campaignName": "S7A high-spend healthy 14A",
+          "spend": 700.0,
+          "roi": 5.4,
+          "conversionRate": 0.1
+        },
+        {
+          "campaignName": "S7A high-spend healthy 14B",
+          "spend": 550.0,
+          "roi": 4.7,
+          "conversionRate": 0.09
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-02",
+    "endDate": "2018-09-02",
+    "summary": {}
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-03",
+    "endDate": "2018-09-03",
+    "summary": {
+      "spend": 1446.0,
+      "impressions": 111000,
+      "clicks": 2420,
+      "ctr": 0.022,
+      "cpc": 0.47,
+      "conversionRate": 0.07,
+      "roi": 3.6,
+      "campaigns": [
+        {
+          "campaignName": "S7A low-ctr 16",
+          "spend": 1446.0,
+          "roi": 3.6,
+          "conversionRate": 0.07
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,792 @@
+{
+  "version": "stage7b-governance-fixture-provenance-v1",
+  "roots": [
+    {
+      "semanticRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_user_argument_agreement",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_order_detail_viewer",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_order_refund_risk_viewer",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_product_candidates_viewer",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_ad_low_roi_viewer",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_report_generate_operator",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_leap_day",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_refund_reason_empty",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_partially_refunded_order",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180003"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_refund_preapproval",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_product_update_preapproval",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_report_export_allowed",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_order_refund_risk_allowed",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_approved_partial_refund",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180003"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180003"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:operator_order_detail_read",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_ad_low_roi_read",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:missing_trusted_tenant",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:missing_trusted_shop",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:roles_argument_forbidden",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:malformed_tenant_argument",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_report_generate_denied",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_feishu_sync_denied",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_product_update_denied",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_below_min",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_above_max",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_unexpected_field",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_missing_start_date",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_empty",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_over_max",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_order_id_empty",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_order_id_over_max",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_reason_wrong_type",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_approval_id_below_min",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:business_scope_missing_order_id",
+      "fixtureSourceType": "POLICY_CONTRACT_FIXTURE",
+      "sourceFixtureIds": [
+        "V4-auth-seed"
+      ],
+      "syntheticFields": [
+        "authorization snapshot"
+      ],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "fixtureSourceType": "REAL_SEED_REUSE",
+      "sourceFixtureIds": [
+        "V3-order-seed",
+        "SO202607180001"
+      ],
+      "syntheticFields": [],
+      "businessInvariantValidation": {
+        "trustedTenantShop": true,
+        "rolePermissionConsistent": true,
+        "refundScopeValidForPositive": true,
+        "allNonTargetPoliciesValid": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1071 @@
+{
+  "version": "stage7b-governance-root-split-v1",
+  "roots": [
+    {
+      "semanticRootId": "governance:approval_payload_mutation",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-approval-payload-mutation"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_approved_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:approval_replay",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-test-approval-replay",
+        "gov-val-approval-replay-control"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_approved_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:approval_target_mismatch",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-test-approval-target-mismatch",
+        "gov-val-approval-target-mismatch-control"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_approved_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:business_scope_order_not_owned",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "gov-test-business-scope-order-not-owned"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:cross_shop_refund",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-cross-shop-refund",
+        "gov-test-cross-shop-refund"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:cross_tenant_refund",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-cross-tenant-refund",
+        "gov-test-cross-tenant-refund"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:forged_permission_argument",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-val-forged-permission-argument"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:forged_permission_snapshot",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-forged-permission-snapshot"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_permission_snapshot_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:forged_user_id",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-forged-user-refund"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:missing_approval",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-missing-approval"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:rejected_approval",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-val-rejected-approval"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:schema_invalid_enum",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-val-schema-invalid-enum"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_enum_member",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:schema_missing_required",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-val-schema-missing-field"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:schema_oversized_value",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-val-schema-oversized-reason"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_reason_max",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:schema_unexpected_field",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-val-schema-unexpected-field"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:schema_wrong_type",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-test-schema-wrong-type",
+        "gov-val-schema-wrong-type"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-economic-scope-exceeds-remaining"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_full_remaining_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:invalid_shop_scope_zero",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage3-validation-invalid-shop-scope-zero"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:missing_trusted_user",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-missing-trusted-user"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_product_read",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:product_update_approval_payload_mutation",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-product-update-approval-payload-mutation"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:schema_refund_below_minimum",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-schema-refund-below-minimum"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_budget_approved",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-ad-budget-approved"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_budget_preapproval",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage3-validation-valid-ad-budget-preapproval"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_read",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage3-validation-valid-ad-read"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_comment_reply_draft_operator",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-comment-reply-draft-operator"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_full_remaining_refund",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-full-remaining-refund"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_local_comment_read",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage3-dev-valid-local-comment-read"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_owned_order_small_refund",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-owned-order-small-refund"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:cross_shop_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_permission_snapshot_refund",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-permission-snapshot-refund"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:forged_permission_snapshot",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_optimize_operator",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage3-validation-valid-product-optimize-operator"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_read",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-product-read"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:unknown_tool",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_update_preapproval",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-product-update-preapproval"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_report_export_operator",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-report-export-operator"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:viewer_report_export_denied",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_report_read",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-report-read"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_enum_member",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-schema-enum-member"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:schema_invalid_enum",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_minimum_refund",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage3-validation-valid-schema-minimum-refund"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:schema_missing_required",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_operation_request_max",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage3-dev-valid-schema-opreq-max"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_reason_max",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-valid-schema-reason-max"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:schema_oversized_value",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage3:viewer_report_export_denied",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage3-test-viewer-report-export-denied"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_report_export_operator",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-admin-ad-budget-preapproval"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_ad_low_roi_read",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-admin-ad-low-roi-read"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-admin-comment-reply-allowed"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_order_refund_risk_allowed",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage7b-validation-admin-order-refund-risk-allowed"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_product_update_preapproval",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-admin-product-update-preapproval"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:viewer_product_update_denied",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_refund_preapproval",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-admin-refund-preapproval"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:viewer_refund_permission",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_report_export_allowed",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage7b-validation-admin-report-export-allowed"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:viewer_report_export_denied",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:business_scope_missing_order_id",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-business-scope-missing-order-id"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:malformed_tenant_argument",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-malformed-tenant-argument"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-mcp-invalid-nonleap-date"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:valid_mcp_leap_day",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_above_max",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-mcp-minstar-above-max"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_below_min",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-mcp-minstar-below-min"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-mcp-minstar-wrong-type"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:valid_mcp_read",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_missing_start_date",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage7b-dev-mcp-missing-start-date"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_mcp_read",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_unexpected_field",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-mcp-unexpected-field"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:valid_mcp_read",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:missing_trusted_shop",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-missing-trusted-shop"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:valid_same_shop_read",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:missing_trusted_tenant",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-missing-trusted-tenant"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:operator_order_detail_read",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage7b-dev-operator-order-detail-read"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_approval_id_below_min",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-refund-approval-id-below-min"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_empty",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-refund-operation-request-empty"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_over_max",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-refund-operation-request-over-max"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_schema_operation_request_max",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage7b-validation-refund-operation-request-wrong-type"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_order_id_empty",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-refund-order-id-empty"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_order_id_over_max",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-refund-order-id-over-max"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_reason_wrong_type",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage7b-validation-refund-reason-wrong-type"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage7b:valid_refund_reason_empty",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-refund-simulation-wrong-type"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_schema_enum_member",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:roles_argument_forbidden",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage7b-dev-roles-argument-forbidden"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_same_shop_read",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_ad_low_roi_viewer",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-ad-low-roi-viewer"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-approved-full-remaining-refund"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_approved_partial_refund",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-approved-partial-refund"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_leap_day",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage7b-dev-valid-mcp-leap-day"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-mcp-minstar-max"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:mcp_minstar_above_max",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-mcp-minstar-min"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:mcp_minstar_below_min",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_order_detail_viewer",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-order-detail-viewer"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_order_refund_risk_viewer",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-order-refund-risk-viewer"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_partially_refunded_order",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-partially-refunded-order"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-permission-snapshot-mcp-exact"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:forged_permission_snapshot",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-permission-snapshot-subset-refund"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:forged_permission_snapshot",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_product_candidates_viewer",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage7b-validation-valid-product-candidates-viewer"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-valid-refund-operation-request-min"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:refund_operation_request_empty",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_refund_reason_empty",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage7b-dev-valid-refund-reason-empty"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage7b:refund_reason_wrong_type",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_report_generate_operator",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage7b-validation-valid-report-generate-operator"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage7b:viewer_report_generate_denied",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage7b-dev-valid-tenant-argument-agreement"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:cross_tenant_refund",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_user_argument_agreement",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "stage7b-dev-valid-user-argument-agreement"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:forged_user_id",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-viewer-ad-budget-denied"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-viewer-comment-reply-denied"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_feishu_sync_denied",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "stage7b-validation-viewer-feishu-sync-denied"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-viewer-product-optimize-denied"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_product_optimize_operator",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_product_update_denied",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-viewer-product-update-denied"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:admin_product_update_preapproval",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_report_generate_denied",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "stage7b-test-viewer-report-generate-denied"
+      ],
+      "testExclusive": true,
+      "pairedRootId": "governance:stage7b:valid_report_generate_operator",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:unknown_tool",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-unknown-tool",
+        "gov-test-unknown-tool"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_product_read",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:valid_approved_refund",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-test-valid-approved-refund",
+        "gov-val-valid-approved-refund-control"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:approval_payload_mutation",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:valid_high_risk_preapproval",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-test-valid-preapproval",
+        "gov-val-valid-preapproval"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:viewer_refund_permission",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:valid_idempotent_replay",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "existingCases": [
+        "gov-test-valid-idempotent-replay"
+      ],
+      "testExclusive": true,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:valid_mcp_read",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "existingCases": [
+        "gov-test-valid-mcp-read",
+        "gov-val-valid-mcp-read-control"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:valid_same_shop_read",
+      "caseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-valid-read"
+      ],
+      "testExclusive": false,
+      "pairedRootId": null,
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    },
+    {
+      "semanticRootId": "governance:viewer_refund_permission",
+      "caseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "existingCases": [
+        "gov-dev-viewer-refund",
+        "gov-test-viewer-refund"
+      ],
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_high_risk_preapproval",
+      "assignmentReason": "Historical root retained; Stage7B roots split before case generation."
+    }
+  ]
+}

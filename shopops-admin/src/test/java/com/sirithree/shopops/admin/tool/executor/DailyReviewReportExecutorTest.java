@@ -183,6 +183,34 @@ class DailyReviewReportExecutorTest {
 
     @Test
     @SuppressWarnings("unchecked")
+    void shouldNotTreatMissingAdDataAsZeroPerformanceRisk() {
+        ToolInvokeContext context = new ToolInvokeContext();
+        context.setTraceId("tr_ad_no_data");
+        Map<String, Object> input = new LinkedHashMap<>(baseInput());
+        input.put("intent", "ad_anomaly");
+        input.put("adPerformance", Map.of("connectorCode", "file.ad-performance"));
+        input.put("executedToolCodes", List.of("order.query_summary", "ad.query_performance",
+                "report.query_external_metrics"));
+
+        ToolInvokeResult result = executor.execute(context, input);
+
+        assertThat(result.getSuccess()).isTrue();
+        Map<String, Object> data = (Map<String, Object>) result.getData();
+        Map<String, Object> evidence = (Map<String, Object>) data.get("evidence");
+        assertThat(evidence).containsEntry("adDataStatus", "NO_DATA");
+        assertThat(data.get("summary").toString())
+                .contains("暂无广告投放数据")
+                .doesNotContain("建议排查高消耗低转化计划");
+        assertThat(data.get("markdown").toString())
+                .contains("暂无广告投放指标")
+                .contains("广告数据状态：NO_DATA")
+                .doesNotContain("ROI：0")
+                .doesNotContain("ROI 低于 3")
+                .doesNotContain("当前整体 ROI 尚可");
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
     void shouldGenerateReportThroughModelGatewayWhenEnabled() {
         ModelGatewayReportProperties properties = new ModelGatewayReportProperties();
         properties.setEnabled(true);

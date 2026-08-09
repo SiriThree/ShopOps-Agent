@@ -1,0 +1,8 @@
+{
+  "status": "RUNTIME_CONTRACT_FAILED",
+  "runtimeContractsTargeted": "PASS",
+  "fullRegression": "FAIL",
+  "formalMetrics": "NOT_AVAILABLE",
+  "formalHeldOutBenchmarkRun": false,
+  "recommendedNextStep": "Fix the existing dataset/manifest contract defects only; do not expand dataset or run held-out formal benchmark."
+}

@@ -1,0 +1,867 @@
+{
+  "contractVersion": "stage7a-task-fixture-manifest-v1",
+  "fixtureProfile": "stage7a-controlled-v1",
+  "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+  "sourcePolicy": "Benchmark-only controlled synthetic rows constrained by Stage2/public-derived distributions; not production/online data.",
+  "tenantIds": [
+    1
+  ],
+  "shopIds": [
+    1
+  ],
+  "dateRange": {
+    "start": "2018-08-19",
+    "end": "2018-09-03"
+  },
+  "rowCountPerFixture": 16,
+  "files": [
+    {
+      "resource": "benchmark/v1/task/fixtures/stage7a/ad-performance-stage7a.json",
+      "sha256": "bd4d0e3a4f25590939382f2be8fa1218dd5a66d1fb4bf1d6bfbea40a60940095"
+    },
+    {
+      "resource": "benchmark/v1/task/fixtures/stage7a/external-reports-stage7a.json",
+      "sha256": "f4d5c33d1c34f8a03135d5ff96b3b5ac5568f553bb5467fa34bef2cb3512ea93"
+    },
+    {
+      "resource": "benchmark/v1/task/fixtures/stage7a/negative-comments-stage7a.json",
+      "sha256": "956bdc8dc409e7d29665a04eb9f8d8893c700c836414da0f11d4506521ab7368"
+    },
+    {
+      "resource": "benchmark/v1/task/fixtures/stage7a/order-summary-stage7a.json",
+      "sha256": "87217292caec33428417d9ce34d2d588d0bed099d7f27d81f40a497657bbffe6"
+    },
+    {
+      "resource": "benchmark/v1/task/fixtures/stage7a/product-candidates-stage7a.json",
+      "sha256": "3442bbee2200dd495fd09b6d42ca59959a775c2d914c86be82720b85d002ec55"
+    }
+  ],
+  "businessInvariantChecks": [
+    "tenant/shop positive",
+    "date exact and valid",
+    "all numeric counts >= 0",
+    "amounts >= 0",
+    "refundRate in [0,1]",
+    "comment product relation overlaps candidates when comments exist",
+    "ad metric types numeric",
+    "campaign names unique per row"
+  ],
+  "plausibilityEvidence": [
+    {
+      "date": "2018-08-19",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 75,
+        "gmv": 9900,
+        "refundRate": 0.005,
+        "negativeCount": 0,
+        "candidateCount": 0,
+        "adSpend": 731.0,
+        "visitorCount": 37700
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-20",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 210,
+        "gmv": 31080,
+        "refundRate": 0.012,
+        "negativeCount": 1,
+        "candidateCount": 1,
+        "adSpend": 962.0,
+        "visitorCount": 39400
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-21",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 720,
+        "gmv": 123120,
+        "refundRate": 0.009,
+        "negativeCount": 3,
+        "candidateCount": 4,
+        "adSpend": 1193.0,
+        "visitorCount": 41100
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-22",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 360,
+        "gmv": 59040,
+        "refundRate": 0.075,
+        "negativeCount": 4,
+        "candidateCount": 2,
+        "adSpend": 1074.0,
+        "visitorCount": 42800
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-23",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 0,
+        "gmv": 0,
+        "refundRate": 0.0,
+        "negativeCount": 0,
+        "candidateCount": 0,
+        "adSpend": null,
+        "visitorCount": 44500
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-24",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 140,
+        "gmv": 19460,
+        "refundRate": 0.01,
+        "negativeCount": 0,
+        "candidateCount": 2,
+        "adSpend": 1286.0,
+        "visitorCount": 46200
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-25",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 42,
+        "gmv": 5334,
+        "refundRate": 0.0,
+        "negativeCount": 2,
+        "candidateCount": 1,
+        "adSpend": 1417.0,
+        "visitorCount": 47900
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-26",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 295,
+        "gmv": 46610,
+        "refundRate": 0.018,
+        "negativeCount": 5,
+        "candidateCount": 3,
+        "adSpend": null,
+        "visitorCount": 49600
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-27",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 610,
+        "gmv": 107360,
+        "refundRate": 0.011,
+        "negativeCount": 1,
+        "candidateCount": 5,
+        "adSpend": 1479.0,
+        "visitorCount": 51300
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-28",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 185,
+        "gmv": 27935,
+        "refundRate": 0.024,
+        "negativeCount": 4,
+        "candidateCount": 4,
+        "adSpend": 1660.0,
+        "visitorCount": 53000
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-29",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 430,
+        "gmv": 72670,
+        "refundRate": 0.085,
+        "negativeCount": 0,
+        "candidateCount": 1,
+        "adSpend": 1360.0,
+        "visitorCount": 54700
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-30",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 325,
+        "gmv": 50050,
+        "refundRate": 0.02,
+        "negativeCount": 3,
+        "candidateCount": 6,
+        "adSpend": 1472.0,
+        "visitorCount": 56400
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-08-31",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 58,
+        "gmv": 7888,
+        "refundRate": 0.034,
+        "negativeCount": 2,
+        "candidateCount": 2,
+        "adSpend": 1303.0,
+        "visitorCount": 58100
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-09-01",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 790,
+        "gmv": 137460,
+        "refundRate": 0.052,
+        "negativeCount": 6,
+        "candidateCount": 8,
+        "adSpend": 1390.0,
+        "visitorCount": 59800
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-09-02",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 275,
+        "gmv": 44275,
+        "refundRate": 0.026,
+        "negativeCount": 2,
+        "candidateCount": 3,
+        "adSpend": null,
+        "visitorCount": 61500
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    },
+    {
+      "date": "2018-09-03",
+      "sourceDistribution": {
+        "orderCount": {
+          "min": 0,
+          "median": 301,
+          "max": 800
+        },
+        "gmv": {
+          "min": 0,
+          "median": 46966.35,
+          "max": 140000
+        },
+        "refundRate": {
+          "min": 0,
+          "median": 0.0133,
+          "max": 0.09
+        },
+        "negativeCount": {
+          "min": 0,
+          "median": 2,
+          "max": 66
+        },
+        "candidateCount": {
+          "min": 0,
+          "median": 3,
+          "max": 10
+        },
+        "adSpend": {
+          "min": 603.658765,
+          "median": 1153,
+          "max": 1306
+        },
+        "visitorCount": {
+          "min": 35848,
+          "median": 42061.5,
+          "max": 1692344
+        }
+      },
+      "selectedRange": "inside Stage2/public-derived observed min/max for primary numeric fields",
+      "generatedValue": {
+        "orderCount": 345,
+        "gmv": 57270,
+        "refundRate": 0.061,
+        "negativeCount": 3,
+        "candidateCount": 2,
+        "adSpend": 1446.0,
+        "visitorCount": 63200
+      },
+      "whyPlausible": "Controlled benchmark-only state uses real schema and values bounded by prior public-derived/Stage2 fixture distributions."
+    }
+  ]
+}

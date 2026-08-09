@@ -1,0 +1,426 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shopops.local/benchmark/v1/benchmark-case.schema.json",
+  "title": "ShopOpsBench v1 Benchmark Case",
+  "type": "object",
+  "required": [
+    "caseId",
+    "benchmarkType",
+    "scenario",
+    "difficulty",
+    "input",
+    "identity",
+    "initialState",
+    "expectedOutcome",
+    "requiredCapabilities",
+    "acceptableTools",
+    "forbiddenTools",
+    "sideEffectExpectation",
+    "approvalExpectation",
+    "faultInjection",
+    "tags",
+    "goldVersion"
+  ],
+  "properties": {
+    "caseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "benchmarkType": {
+      "enum": [
+        "TASK",
+        "IDEMPOTENCY",
+        "RECOVERY",
+        "GOVERNANCE"
+      ]
+    },
+    "scenario": {
+      "type": "string",
+      "minLength": 1
+    },
+    "difficulty": {
+      "enum": [
+        "EASY",
+        "MEDIUM",
+        "HARD"
+      ]
+    },
+    "input": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "identity": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "initialState": {
+      "type": "object"
+    },
+    "expectedOutcome": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "requiredCapabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "acceptableTools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "forbiddenTools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "sideEffectExpectation": {
+      "type": "object",
+      "required": [
+        "expectedLogicalSideEffects"
+      ],
+      "properties": {
+        "expectedLogicalSideEffects": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "allowedEffectTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbiddenEffectTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constraints": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "approvalExpectation": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "mustBlockBeforeApproval": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "requiredRiskLevel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "constraints": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "faultInjection": {
+      "type": "object"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "goldVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "optionalCapabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "semanticTaskId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "origin": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "LEGACY",
+        "HAND_AUTHORED",
+        "PERTURBED",
+        "PUBLIC_DATA_DERIVED",
+        null
+      ]
+    },
+    "parentCaseId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "perturbationType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "generationMethod": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "humanReviewed": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "operationType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "logicalWriteCount": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "expectedEffectiveSideEffects": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "deliveryPattern": {
+      "type": "object"
+    },
+    "concurrency": {
+      "type": "object"
+    },
+    "idempotencyExpectation": {
+      "type": "object"
+    },
+    "externalSystemMode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "faultSeed": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "initialLocalState": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "initialExternalState": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "faultType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "faultPoint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expectedTerminalStates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expectedExternalState": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expectedConvergence": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "maxRecoveryAttempts": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "manualReviewAllowed": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "governanceCaseClass": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NEGATIVE",
+        "POSITIVE",
+        null
+      ]
+    },
+    "attackType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "toolCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "arguments": {
+      "type": "object"
+    },
+    "expectedDecision": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "ALLOWED",
+        "REQUIRES_APPROVAL",
+        "BLOCKED",
+        "ERROR",
+        null
+      ]
+    },
+    "expectedReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "externalSideEffectAllowed": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "targetTenant": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "targetShop": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "riskLevel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authorizationMode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "semanticRootId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "goldSourceType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "BUSINESS_FIXTURE_DERIVED",
+        "DOMAIN_INVARIANT",
+        "SECURITY_POLICY_DERIVED",
+        "FAULT_CONTRACT_DERIVED",
+        "HAND_AUTHORED",
+        "LEGACY_MIGRATED",
+        "MODEL_GENERATED",
+        "UNKNOWN",
+        null
+      ]
+    },
+    "reviewStatus": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "UNREVIEWED",
+        "MODEL_REVIEWED",
+        "HUMAN_REVIEWED",
+        "HUMAN_SPOT_CHECKED",
+        null
+      ]
+    },
+    "reservedForHeldOut": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "pairedRootId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

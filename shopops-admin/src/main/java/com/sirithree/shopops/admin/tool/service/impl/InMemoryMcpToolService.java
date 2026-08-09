@@ -19,7 +19,7 @@ public class InMemoryMcpToolService implements McpToolService {
         register(new McpToolDto("order.query_summary", "Order summary query", "order", "order:read", "low"));
         register(new McpToolDto("order.query_detail", "Order detail query", "order", "order:read", "low"));
         register(new McpToolDto("order.query_refund_risk", "Refund risk query", "order", "order:read", "medium"));
-        register(approvalTool("order.refund_execute", "Refund execution", "order", "order:refund", "high"));
+        register(refundApprovalTool());
 
         McpToolDto negativeComment = new McpToolDto(
                 CommerceMcpContracts.COMMENT_QUERY_NEGATIVE,
@@ -66,6 +66,23 @@ public class InMemoryMcpToolService implements McpToolService {
     @Override
     public McpToolDto getTool(Long tenantId, String toolCode) {
         return tools.get(toolCode);
+    }
+
+    private McpToolDto refundApprovalTool() {
+        McpToolDto tool = approvalTool("order.refund_execute", "Refund execution", "order", "order:refund", "high");
+        tool.setIdempotent(true);
+        tool.setInputSchema("""
+                {"type":"object","required":["shopId","refundAmount"],"properties":{
+                  "shopId":{"type":"integer","minimum":1},
+                  "refundAmount":{"type":"integer","minimum":1},
+                  "reason":{"type":"string","maxLength":500},
+                  "approvalId":{"type":"integer","minimum":1},
+                  "orderId":{"type":"string","minLength":1,"maxLength":64},
+                  "operationRequestId":{"type":"string","minLength":1,"maxLength":128},
+                  "simulation":{"type":"string","enum":["success","failure","timeout_before_success","timeout_after_success"]}
+                },"additionalProperties":false}
+                """);
+        return tool;
     }
 
     private void register(McpToolDto tool) {

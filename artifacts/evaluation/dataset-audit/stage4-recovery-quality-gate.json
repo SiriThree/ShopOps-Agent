@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "schemaErrors": 0,
+  "duplicateCaseId": 0,
+  "exactDuplicate": 0,
+  "normalizedDuplicate": 0,
+  "crossSplitRootLeakage": 0,
+  "crossSplitParentLeakage": 0,
+  "unsupportedRecoveryCapability": 0,
+  "unknownGoldSource": 0,
+  "newHumanReviewedTrue": 0,
+  "goldRuntimeLeakage": 0,
+  "unresolvedHighRiskNearDuplicate": 0,
+  "semanticRootsBefore": 7,
+  "semanticRootsAfter": 15,
+  "testExclusiveRootsBefore": 1,
+  "testExclusiveRootsAfter": 6
+}

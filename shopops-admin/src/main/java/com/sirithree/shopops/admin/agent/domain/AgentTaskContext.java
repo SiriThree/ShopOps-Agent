@@ -11,6 +11,10 @@ public class AgentTaskContext {
     private String executorSpanId;
     private long startedAtMillis;
     private int repairAttempts;
+    private String plannerMode;
+    private boolean plannerFallback;
+    private String plannerFallbackReason;
+    private java.util.List<String> plannedToolCodes = java.util.List.of();
 
     public Long getTenantId() {
         return tenantId;
@@ -83,5 +87,16 @@ public class AgentTaskContext {
 
     public void setExecutorSpanId(String executorSpanId) {
         this.executorSpanId = executorSpanId;
+    }
+
+    public String getPlannerMode() { return plannerMode; }
+    public void setPlannerMode(String plannerMode) { this.plannerMode = plannerMode; }
+    public boolean isPlannerFallback() { return plannerFallback; }
+    public void setPlannerFallback(boolean plannerFallback) { this.plannerFallback = plannerFallback; }
+    public String getPlannerFallbackReason() { return plannerFallbackReason; }
+    public void setPlannerFallbackReason(String plannerFallbackReason) { this.plannerFallbackReason = plannerFallbackReason; }
+    public java.util.List<String> getPlannedToolCodes() { return plannedToolCodes; }
+    public void setPlannedToolCodes(java.util.List<String> plannedToolCodes) {
+        this.plannedToolCodes = plannedToolCodes == null ? java.util.List.of() : java.util.List.copyOf(plannedToolCodes);
     }
 }

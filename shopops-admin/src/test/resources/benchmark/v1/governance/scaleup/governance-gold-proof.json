@@ -1,0 +1,2873 @@
+{
+  "proofVersion": "stage7b-governance-gold-proof-v1",
+  "roots": [
+    {
+      "semanticRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_IDENTITY_NORMALIZER": "dae00233cea6427d2e5051476ac18518fd8abc97610d6309c1b6d2e1111ff9b9",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_AUTH_SEED": "94439865894a926355240ea6ff0b63bbfe56d71f31ce9c99c523bad6afa6d973"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_summary",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct IDENTITY policy state for order.query_summary with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_user_argument_agreement",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_IDENTITY_NORMALIZER": "dae00233cea6427d2e5051476ac18518fd8abc97610d6309c1b6d2e1111ff9b9",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_AUTH_SEED": "94439865894a926355240ea6ff0b63bbfe56d71f31ce9c99c523bad6afa6d973"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_summary",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct IDENTITY policy state for order.query_summary with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ],
+        "contextPermissions": [
+          "order:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "BEFORE_APPROVAL"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ],
+        "contextPermissions": [
+          "comment:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for comment.query_negative with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_order_detail_viewer",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_detail",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for order.query_detail with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_order_refund_risk_viewer",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_refund_risk",
+        "riskLevel": "MEDIUM"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for order.query_refund_risk with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_product_candidates_viewer",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "product.query_candidates",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for product.query_candidates with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_ad_low_roi_viewer",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "ad.query_low_roi",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for ad.query_low_roi with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_report_generate_operator",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "report.generate_daily_review",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for report.generate_daily_review with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_mcp_leap_day",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "BEFORE_APPROVAL"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_refund_reason_empty",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "BEFORE_APPROVAL"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_partially_refunded_order",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_REFUND_SCOPE": "fa5ef521f7120d99e8030f1db329708b3e6f6aeb29c8052b14aff73b834a4677",
+        "POL_ORDER_SEED": "928270579e900c51c0b779cd4aa7dcd75bc8fd7fa4be27c12a5ea65e94852beb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "BEFORE_APPROVAL"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180003"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct ECONOMIC_BOUNDARY policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_refund_preapproval",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_APPROVAL": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "BEFORE_APPROVAL"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct APPROVAL policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_product_update_preapproval",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_APPROVAL": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "product.update_title",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "BEFORE_APPROVAL"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct APPROVAL policy state for product.update_title with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_report_export_allowed",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "report.export_excel",
+        "riskLevel": "MEDIUM"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for report.export_excel with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_order_refund_risk_allowed",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_refund_risk",
+        "riskLevel": "MEDIUM"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for order.query_refund_risk with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.create_reply_draft",
+        "riskLevel": "MEDIUM"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for comment.create_reply_draft with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_approved_partial_refund",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_APPROVAL": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "APPROVED_MATCHING"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180003"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct APPROVAL policy state for order.refund_execute with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_REFUND_SCOPE": "fa5ef521f7120d99e8030f1db329708b3e6f6aeb29c8052b14aff73b834a4677",
+        "POL_ORDER_SEED": "928270579e900c51c0b779cd4aa7dcd75bc8fd7fa4be27c12a5ea65e94852beb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "APPROVED_MATCHING"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180003"
+      },
+      "economicFacts": {
+        "refundAmount": 177
+      },
+      "whyDecisionIsCorrect": "Distinct ECONOMIC_BOUNDARY policy state for order.refund_execute with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_APPROVAL": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "ad.suggest_budget",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "BEFORE_APPROVAL"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct APPROVAL policy state for ad.suggest_budget with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:operator_order_detail_read",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_detail",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for order.query_detail with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:admin_ad_low_roi_read",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "ad.query_low_roi",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for ad.query_low_roi with expected decision ALLOWED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:missing_trusted_tenant",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_TRUSTED_CONTEXT_MISSING",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_IDENTITY_NORMALIZER": "dae00233cea6427d2e5051476ac18518fd8abc97610d6309c1b6d2e1111ff9b9",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_AUTH_SEED": "94439865894a926355240ea6ff0b63bbfe56d71f31ce9c99c523bad6afa6d973"
+      },
+      "trustedPrincipal": {
+        "tenantId": 0,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_summary",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct IDENTITY policy state for order.query_summary with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:missing_trusted_shop",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_TRUSTED_CONTEXT_MISSING",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_IDENTITY_NORMALIZER": "dae00233cea6427d2e5051476ac18518fd8abc97610d6309c1b6d2e1111ff9b9",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_AUTH_SEED": "94439865894a926355240ea6ff0b63bbfe56d71f31ce9c99c523bad6afa6d973"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 0,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_summary",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct IDENTITY policy state for order.query_summary with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:roles_argument_forbidden",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_AUTHORIZATION_ARGUMENT_FORBIDDEN",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_IDENTITY_NORMALIZER": "dae00233cea6427d2e5051476ac18518fd8abc97610d6309c1b6d2e1111ff9b9",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_AUTH_SEED": "94439865894a926355240ea6ff0b63bbfe56d71f31ce9c99c523bad6afa6d973"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_summary",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct IDENTITY policy state for order.query_summary with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:malformed_tenant_argument",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_SCOPE_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_IDENTITY_NORMALIZER": "dae00233cea6427d2e5051476ac18518fd8abc97610d6309c1b6d2e1111ff9b9",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_AUTH_SEED": "94439865894a926355240ea6ff0b63bbfe56d71f31ce9c99c523bad6afa6d973"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.query_summary",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct IDENTITY policy state for order.query_summary with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.create_reply_draft",
+        "riskLevel": "MEDIUM"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for comment.create_reply_draft with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "product.optimize_title",
+        "riskLevel": "MEDIUM"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for product.optimize_title with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "ad.suggest_budget",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for ad.suggest_budget with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_report_generate_denied",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "report.generate_daily_review",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for report.generate_daily_review with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_feishu_sync_denied",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "feishu.sync_report",
+        "riskLevel": "MEDIUM"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for feishu.sync_report with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:viewer_product_update_denied",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_GATEWAY_PERMISSION": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_AUTH_MAPPING": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+        "POL_TOOL_CATALOG": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+        "POL_PORTFOLIO_TOOLS": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "product.update_title",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct PERMISSION policy state for product.update_title with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_below_min",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_above_max",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_unexpected_field",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:mcp_missing_start_date",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_MCP_COMMENT_SCHEMA": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "comment.query_negative",
+        "riskLevel": "LOW"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": null
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_empty",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_over_max",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_order_id_empty",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": ""
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_order_id_over_max",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_reason_wrong_type",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_approval_id_below_min",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:business_scope_missing_order_id",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "BUSINESS_SCOPE_VIOLATION",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_REFUND_SCOPE": "fa5ef521f7120d99e8030f1db329708b3e6f6aeb29c8052b14aff73b834a4677",
+        "POL_ORDER_SEED": "928270579e900c51c0b779cd4aa7dcd75bc8fd7fa4be27c12a5ea65e94852beb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "VALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": null
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct BUSINESS_SCOPE policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    },
+    {
+      "semanticRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "policySourceHashes": {
+        "POL_GATEWAY_AUTH": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+        "POL_SCHEMA_VALIDATOR": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+        "POL_REFUND_SCHEMA": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+      },
+      "trustedPrincipal": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "toolPolicy": {
+        "toolCode": "order.refund_execute",
+        "riskLevel": "HIGH"
+      },
+      "schemaFacts": {
+        "state": "TARGET_INVALID"
+      },
+      "approvalFacts": {
+        "setup": "NONE"
+      },
+      "businessScopeFacts": {
+        "orderId": "SO202607180001"
+      },
+      "economicFacts": {
+        "refundAmount": 100
+      },
+      "whyDecisionIsCorrect": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "goldDerivedBeforeRuntime": true,
+      "runtimeOutputUsed": false
+    }
+  ]
+}

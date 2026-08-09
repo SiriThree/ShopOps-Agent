@@ -1,0 +1,267 @@
+{
+  "contractVersion": "stage5-root-split-plan-v1",
+  "roots": [
+    {
+      "semanticRootId": "idempotency:baseline_single_delivery",
+      "scenarioFamily": "BASELINE_SINGLE_DELIVERY",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SINGLE",
+      "faultSemantics": "NONE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-dev-baseline-001",
+        "idem-test-baseline-001"
+      ],
+      "assignedSplit": "dev",
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "assignmentReason": "historically contaminated; all variants reassigned away from held-out"
+    },
+    {
+      "semanticRootId": "idempotency:concurrent_external_success_local_failure",
+      "scenarioFamily": "CONCURRENT_EXTERNAL_SUCCESS_LOCAL_FAILURE",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "CONCURRENT_FIRST_WRITE",
+      "faultSemantics": "EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE",
+      "concurrencySemantics": "CONCURRENT",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "stage5-idem-dev-concurrent-local-failure-001"
+      ],
+      "assignedSplit": "dev",
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "assignmentReason": "coverage-stratified development/validation root"
+    },
+    {
+      "semanticRootId": "idempotency:concurrent_retry",
+      "scenarioFamily": "CONCURRENT_RETRY",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "CONCURRENT_FIRST_WRITE",
+      "faultSemantics": "NONE",
+      "concurrencySemantics": "CONCURRENT",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-dev-concurrent-retry-001",
+        "idem-test-concurrent-retry-001"
+      ],
+      "assignedSplit": "dev",
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "assignmentReason": "historically contaminated; all variants reassigned away from held-out"
+    },
+    {
+      "semanticRootId": "idempotency:concurrent_timeout_after_acceptance",
+      "scenarioFamily": "CONCURRENT_TIMEOUT_AFTER_ACCEPTANCE",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "CONCURRENT_FIRST_WRITE",
+      "faultSemantics": "TIMEOUT_AFTER_ACCEPTANCE",
+      "concurrencySemantics": "CONCURRENT",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "stage5-idem-test-concurrent-timeout-after-001"
+      ],
+      "assignedSplit": "test",
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "assignmentReason": "new Stage5 root reserved before case generation for held-out"
+    },
+    {
+      "semanticRootId": "idempotency:external_idempotent_comparison",
+      "scenarioFamily": "EXTERNAL_IDEMPOTENT_COMPARISON",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "IDEMPOTENT_EXTERNAL_CONTROL",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-val-external-idempotent-comparison-001"
+      ],
+      "assignedSplit": "validation",
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "assignmentReason": "coverage-stratified development/validation root"
+    },
+    {
+      "semanticRootId": "idempotency:external_success_local_failure",
+      "scenarioFamily": "EXTERNAL_SUCCESS_LOCAL_FAILURE",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-test-external-success-local-failure-001",
+        "idem-val-external-success-local-failure-001"
+      ],
+      "assignedSplit": "validation",
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "assignmentReason": "historically contaminated; all variants reassigned away from held-out"
+    },
+    {
+      "semanticRootId": "idempotency:payload_conflict_after_external_success_local_failure",
+      "scenarioFamily": "PAYLOAD_CONFLICT_AFTER_EXTERNAL_SUCCESS_LOCAL_FAILURE",
+      "payloadRelation": "DIFFERENT_BUSINESS_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE",
+      "faultSemantics": "EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "stage5-idem-val-conflict-local-failure-001"
+      ],
+      "assignedSplit": "validation",
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "assignmentReason": "coverage-stratified development/validation root"
+    },
+    {
+      "semanticRootId": "idempotency:payload_conflict_after_response_loss_commit",
+      "scenarioFamily": "PAYLOAD_CONFLICT_AFTER_RESPONSE_LOSS_COMMIT",
+      "payloadRelation": "DIFFERENT_BUSINESS_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_CONFLICT_AFTER_COMMIT_RESPONSE_LOSS",
+      "faultSemantics": "RESPONSE_LOSS_AFTER_LOCAL_COMMIT",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "stage5-idem-test-conflict-response-loss-001"
+      ],
+      "assignedSplit": "test",
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "assignmentReason": "new Stage5 root reserved before case generation for held-out"
+    },
+    {
+      "semanticRootId": "idempotency:payload_conflict_after_terminal_external_failure",
+      "scenarioFamily": "PAYLOAD_CONFLICT_AFTER_TERMINAL_EXTERNAL_FAILURE",
+      "payloadRelation": "DIFFERENT_BUSINESS_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_CONFLICT_AFTER_TERMINAL_FAILURE",
+      "faultSemantics": "EXTERNAL_BUSINESS_FAILURE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "stage5-idem-test-conflict-terminal-failure-001"
+      ],
+      "assignedSplit": "test",
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "assignmentReason": "new Stage5 root reserved before case generation for held-out"
+    },
+    {
+      "semanticRootId": "idempotency:payload_conflict_after_timeout_after_acceptance",
+      "scenarioFamily": "PAYLOAD_CONFLICT_AFTER_TIMEOUT_AFTER_ACCEPTANCE",
+      "payloadRelation": "DIFFERENT_BUSINESS_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT",
+      "faultSemantics": "TIMEOUT_AFTER_ACCEPTANCE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "stage5-idem-test-conflict-timeout-after-001"
+      ],
+      "assignedSplit": "test",
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "assignmentReason": "new Stage5 root reserved before case generation for held-out"
+    },
+    {
+      "semanticRootId": "idempotency:payload_conflict_after_timeout_before_acceptance",
+      "scenarioFamily": "PAYLOAD_CONFLICT_AFTER_TIMEOUT_BEFORE_ACCEPTANCE",
+      "payloadRelation": "DIFFERENT_BUSINESS_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT",
+      "faultSemantics": "TIMEOUT_BEFORE_ACCEPTANCE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "stage5-idem-val-conflict-timeout-before-001"
+      ],
+      "assignedSplit": "validation",
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "assignmentReason": "coverage-stratified development/validation root"
+    },
+    {
+      "semanticRootId": "idempotency:response_loss_after_local_confirm",
+      "scenarioFamily": "RESPONSE_LOSS_AFTER_LOCAL_CONFIRM",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "RESPONSE_LOSS_AFTER_LOCAL_COMMIT",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-val-response-loss-after-confirm-001"
+      ],
+      "assignedSplit": "validation",
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "assignmentReason": "coverage-stratified development/validation root"
+    },
+    {
+      "semanticRootId": "idempotency:same_key_different_payload",
+      "scenarioFamily": "SAME_KEY_DIFFERENT_PAYLOAD",
+      "payloadRelation": "DIFFERENT_BUSINESS_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_CONFLICT",
+      "faultSemantics": "NONE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-dev-payload-conflict-001",
+        "idem-test-payload-conflict-001"
+      ],
+      "assignedSplit": "dev",
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "assignmentReason": "historically contaminated; all variants reassigned away from held-out"
+    },
+    {
+      "semanticRootId": "idempotency:sequential_retry",
+      "scenarioFamily": "SEQUENTIAL_RETRY",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "NONE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-dev-sequential-retry-001",
+        "idem-test-sequential-retry-001"
+      ],
+      "assignedSplit": "dev",
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "assignmentReason": "historically contaminated; all variants reassigned away from held-out"
+    },
+    {
+      "semanticRootId": "idempotency:timeout_after_external_success",
+      "scenarioFamily": "TIMEOUT_AFTER_EXTERNAL_SUCCESS",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "TIMEOUT_AFTER_ACCEPTANCE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-dev-timeout-after-success-001",
+        "idem-test-timeout-after-success-001"
+      ],
+      "assignedSplit": "dev",
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "assignmentReason": "historically contaminated; all variants reassigned away from held-out"
+    },
+    {
+      "semanticRootId": "idempotency:timeout_before_external_success",
+      "scenarioFamily": "TIMEOUT_BEFORE_EXTERNAL_SUCCESS",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "TIMEOUT_BEFORE_ACCEPTANCE",
+      "concurrencySemantics": "SEQUENTIAL",
+      "externalMode": "NON_IDEMPOTENT_EXTERNAL",
+      "existingCases": [
+        "idem-val-timeout-before-success-001"
+      ],
+      "assignedSplit": "validation",
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "assignmentReason": "coverage-stratified development/validation root"
+    }
+  ]
+}

@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sirithree.shopops.admin.approval.service.ApprovalRequestService;
+import com.sirithree.shopops.admin.auth.domain.DataScope;
+import com.sirithree.shopops.admin.auth.service.AuthorizationService;
 import com.sirithree.shopops.admin.audit.service.TraceService;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.organization.service.ShopRuntimeConfigService;
@@ -32,6 +34,7 @@ class McpToolGatewayGovernanceTest {
     void shouldRejectPermissionBeforeSelectingOrInvokingMcpProvider() {
         JacksonJsonSupport jsonSupport = new JacksonJsonSupport(new ObjectMapper());
         McpToolService toolService = mock(McpToolService.class);
+        AuthorizationService authorizationService = mock(AuthorizationService.class);
         ToolCallLogService callLogService = mock(ToolCallLogService.class);
         TraceService traceService = mock(TraceService.class);
         ApprovalRequestService approvalService = mock(ApprovalRequestService.class);
@@ -43,9 +46,12 @@ class McpToolGatewayGovernanceTest {
         when(callLogService.start(any(), eq(CommerceMcpContracts.COMMENT_QUERY_NEGATIVE), any()))
                 .thenReturn(9101L);
         when(traceService.startSpan(any())).thenReturn("span-permission-denied");
+        when(authorizationService.resolve(1L, 1L, 7L)).thenReturn(
+                new AuthorizationService.AuthorizationSnapshot(java.util.List.of(1L), java.util.List.of("VIEWER"), Set.of(), DataScope.ASSIGNED_SHOPS));
 
         DefaultToolGatewayService gateway = new DefaultToolGatewayService(
                 toolService,
+                authorizationService,
                 callLogService,
                 traceService,
                 approvalService,

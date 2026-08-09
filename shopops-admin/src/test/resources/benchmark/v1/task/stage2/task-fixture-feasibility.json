@@ -1,0 +1,32 @@
+{
+  "fixtureProfile": "stage2-controlled-v1",
+  "sourcePolicy": "Existing public-derived baseline 2018-08-01..07 plus controlled test-resource states 2018-08-08..18; no production DB mutation.",
+  "tenantIds": [
+    1
+  ],
+  "shopIds": [
+    1
+  ],
+  "dates": [
+    "2018-08-08",
+    "2018-08-09",
+    "2018-08-10",
+    "2018-08-11",
+    "2018-08-12",
+    "2018-08-13",
+    "2018-08-14",
+    "2018-08-15",
+    "2018-08-16",
+    "2018-08-17",
+    "2018-08-18"
+  ],
+  "acceptedRoots": 40,
+  "rejectedRoots": 10,
+  "files": [
+    "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/ad-performance-stage2.json",
+    "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/external-reports-stage2.json",
+    "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/negative-comments-stage2.json",
+    "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/order-summary-stage2.json",
+    "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/product-candidates-stage2.json"
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "datasetName": "ShopOpsBench",
+  "datasetVersion": "1.5.0-phase6-unified",
+  "splits": [
+    "dev",
+    "validation",
+    "test"
+  ],
+  "goldVersion": "per-benchmark; see benchmark-manifest-v1.json",
+  "reportRequiredFields": [
+    "datasetVersion",
+    "caseCount",
+    "gitCommit",
+    "runtimeConfig",
+    "modelConfig",
+    "toolMode",
+    "timestamp"
+  ],
+  "policy": {
+    "dev": "development and debugging allowed",
+    "validation": "tuning and regression allowed",
+    "test": "held out for final metrics; must not drive rule authoring"
+  },
+  "taskBenchmark": {
+    "primaryMetric": "End-to-End Agent Task Success",
+    "binaryComposition": [
+      "BusinessOutcomeCorrect",
+      "ToolExecutionValid",
+      "GovernanceSatisfied",
+      "NoUnexpectedSideEffect",
+      "FinalStateCorrect"
+    ],
+    "formalSplit": "test",
+    "routineDevRunnerExcludesFormalTestByDefault": true,
+    "candidateDatasetVersion": "1.2.0-stage2-task-candidate",
+    "candidateGoldVersion": "shopopsbench-gold-v1.2-task-stage2",
+    "candidateManifest": "benchmark-task-stage2-candidate-manifest.json",
+    "groupSplitInvariant": "one semanticRootId may exist in exactly one of dev/validation/test",
+    "candidateFormalRunOccurred": false
+  },
+  "idempotencyBenchmark": {
+    "primaryMetrics": [
+      "Duplicate Side Effect Count",
+      "Duplicate Side Effect Rate"
+    ],
+    "rawCounts": [
+      "Logical Write Requests",
+      "Delivery Attempts",
+      "Execution Attempts",
+      "Tool Attempts",
+      "External Attempts",
+      "Expected Effective Side Effects",
+      "Actual Effective Side Effects",
+      "Duplicate Side Effects",
+      "Missing Side Effects"
+    ],
+    "formalSplit": "test",
+    "formalGate": [
+      "production write code executed",
+      "independent external ground truth available",
+      "no harness-side deduplication",
+      "repeated attempts reached production boundary",
+      "JDBC path runtime verified"
+    ],
+    "defaultExternalSystemMode": "NON_IDEMPOTENT_EXTERNAL"
+  },
+  "recoveryBenchmark": {
+    "primaryMetrics": [
+      "Terminal Convergence Rate",
+      "State Correctness Rate",
+      "Permanent Stuck Rate"
+    ],
+    "rawCounts": [
+      "Fault Cases",
+      "Terminal Reached",
+      "State Correct",
+      "Permanent Stuck",
+      "Incorrect Terminal State",
+      "Manual Review",
+      "Duplicate Side Effects"
+    ],
+    "formalSplit": "test",
+    "formalGate": [
+      "production recovery code executed",
+      "independent external truth available",
+      "fault injected at production boundary",
+      "benchmark did not mutate recovery state",
+      "final local state observed",
+      "duplicate side effects checked",
+      "JDBC path runtime verified"
+    ]
+  },
+  "governanceBenchmark": {
+    "primaryMetrics": [
+      "Unauthorized Block Rate",
+      "False Reject Rate"
+    ],
+    "criticalCounts": [
+      "Unauthorized Write Count",
+      "Approval Bypass Count",
+      "Cross-Tenant Violation Count",
+      "Cross-Shop Violation Count"
+    ],
+    "formalSplit": "test",
+    "formalGate": [
+      "production Tool Gateway executed",
+      "trusted authorization path executed",
+      "negative cases reached production boundary",
+      "decision evidence available",
+      "independent external side-effect ground truth checked",
+      "legitimate control cases executed on same production path",
+      "JDBC/real authorization path runtime verified"
+    ],
+    "primaryExecutionLevel": "TOOL_GATEWAY"
+  },
+  "formalManifest": "benchmark-manifest-v1.json",
+  "releaseGateConfig": "benchmark-gates-v1.json",
+  "formalEligibilityPolicy": "Any unsatisfied formal gate means the benchmark metric is NOT AVAILABLE."
+}

@@ -11,6 +11,8 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sirithree.shopops.admin.approval.service.ApprovalRequestService;
+import com.sirithree.shopops.admin.auth.domain.DataScope;
+import com.sirithree.shopops.admin.auth.service.AuthorizationService;
 import com.sirithree.shopops.admin.audit.service.TraceService;
 import com.sirithree.shopops.admin.common.JacksonJsonSupport;
 import com.sirithree.shopops.admin.mcp.client.OfficialCommerceMcpClient;
@@ -48,6 +50,7 @@ class OfficialCommerceMcpClientExternalIntegrationTest {
 
         McpToolService toolService = mock(McpToolService.class);
         ToolCallLogService callLogService = mock(ToolCallLogService.class);
+        AuthorizationService authorizationService = mock(AuthorizationService.class);
         TraceService traceService = mock(TraceService.class);
         ApprovalRequestService approvalService =
                 mock(ApprovalRequestService.class);
@@ -67,6 +70,8 @@ class OfficialCommerceMcpClientExternalIntegrationTest {
 
         when(traceService.startSpan(any()))
                 .thenReturn("span-phase8-mcp");
+        when(authorizationService.resolve(1L, 1L, 7L)).thenReturn(
+                new AuthorizationService.AuthorizationSnapshot(java.util.List.of(1L), java.util.List.of("OPERATOR"), Set.of("comment:read"), DataScope.ASSIGNED_SHOPS));
 
         when(runtimeConfigService.value(
                 anyLong(),
@@ -77,6 +82,7 @@ class OfficialCommerceMcpClientExternalIntegrationTest {
         DefaultToolGatewayService gateway =
                 new DefaultToolGatewayService(
                         toolService,
+                        authorizationService,
                         callLogService,
                         traceService,
                         approvalService,

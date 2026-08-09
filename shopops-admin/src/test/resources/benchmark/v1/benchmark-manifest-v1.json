@@ -1,0 +1,245 @@
+{
+  "manifestVersion": "ShopOpsBench-v1-manifest-1",
+  "benchmarkVersion": "ShopOpsBench-v1",
+  "schemaVersion": "benchmark-case.schema.json",
+  "schemaSha256": "2cc4bc37f72f2c650e3177bab7731fed6dbc548fc0dfbe9334ca0b60c8cb3151",
+  "generatedAt": "2026-08-08T10:43:26.653649+00:00",
+  "gitCommit": null,
+  "gitMetadataAvailable": false,
+  "benchmarks": {
+    "TASK": {
+      "datasetVersion": "1.1.0-phase2-task",
+      "goldVersion": "shopopsbench-gold-v1.1",
+      "splits": {
+        "dev": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/dev/cases.json",
+          "caseCount": 9,
+          "caseIds": [
+            "dev-task-daily-review-001",
+            "dev-task-daily-review-002",
+            "dev-task-daily-missing-date-001",
+            "dev-task-comment-risk-001",
+            "dev-task-comment-risk-002",
+            "dev-task-product-opt-001",
+            "dev-task-product-opt-002",
+            "dev-task-ad-risk-001",
+            "dev-task-ad-risk-002"
+          ],
+          "selectedCasesSha256": "06c544735948b06ced15a65d96cd5e027027e68c9703c14d7c372713a22d74c3"
+        },
+        "validation": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/validation/cases.json",
+          "caseCount": 6,
+          "caseIds": [
+            "validation-task-daily-review-001",
+            "validation-task-comment-missing-date-001",
+            "validation-task-comment-ambiguous-001",
+            "validation-task-product-missing-date-001",
+            "validation-task-ad-missing-date-001",
+            "validation-task-daily-variant-001"
+          ],
+          "selectedCasesSha256": "7121ab2ad6a7c221e01099800775318297375e76693cceca2551950dc29c0225"
+        },
+        "test": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/test/cases.json",
+          "caseCount": 6,
+          "caseIds": [
+            "test-task-daily-review-001",
+            "test-task-comment-risk-001",
+            "test-task-product-opt-001",
+            "test-task-ad-risk-001",
+            "test-task-daily-missing-date-001",
+            "test-task-comment-ambiguous-001"
+          ],
+          "selectedCasesSha256": "a95f9d37fdd641bead1905f49331ebb9b9a855696202fd32578b317d3c5ccc0b"
+        }
+      },
+      "caseCount": 21,
+      "heldOutTestCaseIds": [
+        "test-task-daily-review-001",
+        "test-task-comment-risk-001",
+        "test-task-product-opt-001",
+        "test-task-ad-risk-001",
+        "test-task-daily-missing-date-001",
+        "test-task-comment-ambiguous-001"
+      ]
+    },
+    "IDEMPOTENCY": {
+      "datasetVersion": "1.2.1-phase6-final-idempotency",
+      "goldVersion": "shopopsbench-gold-v1.2-idempotency",
+      "splits": {
+        "dev": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/idempotency/dev/cases.json",
+          "caseCount": 5,
+          "caseIds": [
+            "idem-dev-baseline-001",
+            "idem-dev-sequential-retry-001",
+            "idem-dev-concurrent-retry-001",
+            "idem-dev-payload-conflict-001",
+            "idem-dev-timeout-after-success-001"
+          ],
+          "selectedCasesSha256": "61e99084355630f9e7d86ae2dd6fe79d6ae81afce20f406ff599e9c91fd88605"
+        },
+        "validation": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/idempotency/validation/cases.json",
+          "caseCount": 4,
+          "caseIds": [
+            "idem-val-external-success-local-failure-001",
+            "idem-val-response-loss-after-confirm-001",
+            "idem-val-timeout-before-success-001",
+            "idem-val-external-idempotent-comparison-001"
+          ],
+          "selectedCasesSha256": "940325cbbfdfead73a2e35b5156094381768d7fb4964bd867deb80a488268472"
+        },
+        "test": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/idempotency/test/cases.json",
+          "caseCount": 6,
+          "caseIds": [
+            "idem-test-baseline-001",
+            "idem-test-sequential-retry-001",
+            "idem-test-concurrent-retry-001",
+            "idem-test-payload-conflict-001",
+            "idem-test-external-success-local-failure-001",
+            "idem-test-timeout-after-success-001"
+          ],
+          "selectedCasesSha256": "cf66a14487197baa1002c8d08c6984526712d99c00c044b85e04065180cb3f05"
+        }
+      },
+      "caseCount": 15,
+      "heldOutTestCaseIds": [
+        "idem-test-baseline-001",
+        "idem-test-sequential-retry-001",
+        "idem-test-concurrent-retry-001",
+        "idem-test-payload-conflict-001",
+        "idem-test-external-success-local-failure-001",
+        "idem-test-timeout-after-success-001"
+      ]
+    },
+    "RECOVERY": {
+      "datasetVersion": "1.3.1-phase6-final-recovery",
+      "goldVersion": "shopopsbench-gold-v1.3-recovery",
+      "splits": {
+        "dev": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/recovery/dev/cases.json",
+          "caseCount": 3,
+          "caseIds": [
+            "recovery-dev-r1-external-success-local-failure",
+            "recovery-dev-r2-timeout-before-accept",
+            "recovery-dev-r3-timeout-after-accept"
+          ],
+          "selectedCasesSha256": "61b2b70de044b40a111d7b0ed521833fd31d50f770a39eb39282e6b5bf915d77"
+        },
+        "validation": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/recovery/validation/cases.json",
+          "caseCount": 3,
+          "caseIds": [
+            "recovery-val-r5-query-temporary-failure",
+            "recovery-val-r6-budget-exhausted",
+            "recovery-val-r8-duplicate-reconciliation"
+          ],
+          "selectedCasesSha256": "a73fc439ea038523f427686e2a58d06953bd58ba82144d885cba07df78dd1d1f"
+        },
+        "test": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/recovery/test/cases.json",
+          "caseCount": 7,
+          "caseIds": [
+            "recovery-test-state-update-failure",
+            "recovery-test-r1-request-correlation",
+            "recovery-test-r2-timeout-before-accept",
+            "recovery-test-r3-timeout-after-accept",
+            "recovery-test-r5-query-temporary-failure",
+            "recovery-test-r6-budget-exhausted",
+            "recovery-test-r8-duplicate-reconciliation"
+          ],
+          "selectedCasesSha256": "a8a1f633c7d3b8668b4281cec8d192686b388f25374cfb582bab325c8023f0f4"
+        }
+      },
+      "caseCount": 13,
+      "heldOutTestCaseIds": [
+        "recovery-test-state-update-failure",
+        "recovery-test-r1-request-correlation",
+        "recovery-test-r2-timeout-before-accept",
+        "recovery-test-r3-timeout-after-accept",
+        "recovery-test-r5-query-temporary-failure",
+        "recovery-test-r6-budget-exhausted",
+        "recovery-test-r8-duplicate-reconciliation"
+      ]
+    },
+    "GOVERNANCE": {
+      "datasetVersion": "1.4.1-phase6-final-governance",
+      "goldVersion": "shopopsbench-gold-v1.4-governance",
+      "splits": {
+        "dev": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/governance/dev/cases.json",
+          "caseCount": 9,
+          "caseIds": [
+            "gov-dev-cross-shop-refund",
+            "gov-dev-cross-tenant-refund",
+            "gov-dev-forged-user-refund",
+            "gov-dev-viewer-refund",
+            "gov-dev-forged-permission-snapshot",
+            "gov-dev-missing-approval",
+            "gov-dev-approval-payload-mutation",
+            "gov-dev-unknown-tool",
+            "gov-dev-valid-read"
+          ],
+          "selectedCasesSha256": "561c677c52647de4a1111e010c9fcd977e7f27e962321d643434c06ed43da46d"
+        },
+        "validation": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/governance/validation/cases.json",
+          "caseCount": 12,
+          "caseIds": [
+            "gov-val-forged-permission-argument",
+            "gov-val-schema-missing-field",
+            "gov-val-schema-wrong-type",
+            "gov-val-schema-unexpected-field",
+            "gov-val-schema-invalid-enum",
+            "gov-val-schema-oversized-reason",
+            "gov-val-rejected-approval",
+            "gov-val-valid-preapproval",
+            "gov-val-approval-target-mismatch-control",
+            "gov-val-approval-replay-control",
+            "gov-val-valid-approved-refund-control",
+            "gov-val-valid-mcp-read-control"
+          ],
+          "selectedCasesSha256": "d42c6e754a2ff8baf192c20393859f17d737fe0f4ba3eb4edbeffa5b656d42c7"
+        },
+        "test": {
+          "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/governance/test/cases.json",
+          "caseCount": 12,
+          "caseIds": [
+            "gov-test-approval-target-mismatch",
+            "gov-test-approval-replay",
+            "gov-test-valid-approved-refund",
+            "gov-test-valid-idempotent-replay",
+            "gov-test-valid-mcp-read",
+            "gov-test-cross-shop-refund",
+            "gov-test-cross-tenant-refund",
+            "gov-test-viewer-refund",
+            "gov-test-schema-wrong-type",
+            "gov-test-unknown-tool",
+            "gov-test-valid-preapproval",
+            "gov-test-business-scope-order-not-owned"
+          ],
+          "selectedCasesSha256": "72d7f5cc4f232e3c95a5c67ec70175d6febca1e80bbaa800e3e550df2befdd3e"
+        }
+      },
+      "caseCount": 33,
+      "heldOutTestCaseIds": [
+        "gov-test-approval-target-mismatch",
+        "gov-test-approval-replay",
+        "gov-test-valid-approved-refund",
+        "gov-test-valid-idempotent-replay",
+        "gov-test-valid-mcp-read",
+        "gov-test-cross-shop-refund",
+        "gov-test-cross-tenant-refund",
+        "gov-test-viewer-refund",
+        "gov-test-schema-wrong-type",
+        "gov-test-unknown-tool",
+        "gov-test-valid-preapproval",
+        "gov-test-business-scope-order-not-owned"
+      ]
+    }
+  },
+  "formalHeldOutCaseCount": 31
+}

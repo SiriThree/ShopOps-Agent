@@ -1,0 +1,67 @@
+{
+  "production": {
+    "baselineCount": 530,
+    "currentCount": 530,
+    "modified": [],
+    "added": [],
+    "removed": [],
+    "pass": true
+  },
+  "benchmarkResources": {
+    "baselineCount": 82,
+    "currentCount": 82,
+    "modified": [],
+    "added": [],
+    "removed": [],
+    "pass": true
+  },
+  "stage6Contract": {
+    "baselineCount": 7,
+    "currentCount": 7,
+    "modified": [],
+    "added": [],
+    "removed": [],
+    "pass": true
+  },
+  "benchmarkEvaluators": {
+    "baselineCount": 18,
+    "currentCount": 18,
+    "modified": [],
+    "added": [],
+    "removed": [],
+    "pass": true
+  },
+  "manifests": {
+    "shopops-admin/src/test/resources/benchmark/v1/benchmark-task-stage7a-scaleup-candidate-manifest.json": {
+      "sha256": "5b2637ad20ae3b853c50975e9ca630444d5942ed6f81c0bbafab55905d1a01f4",
+      "baselineSha256": "5b2637ad20ae3b853c50975e9ca630444d5942ed6f81c0bbafab55905d1a01f4",
+      "unchanged": true
+    },
+    "shopops-admin/src/test/resources/benchmark/v1/benchmark-governance-stage7b-scaleup-candidate-manifest.json": {
+      "sha256": "e19278cda8081f098e1e8dd4d9b042c146dc5a790ac90e9e78aa7b7b77cfb19b",
+      "baselineSha256": "e19278cda8081f098e1e8dd4d9b042c146dc5a790ac90e9e78aa7b7b77cfb19b",
+      "unchanged": true
+    },
+    "shopops-admin/src/test/resources/benchmark/v1/benchmark-recovery-stage4-candidate-manifest.json": {
+      "sha256": "775da3f194e2815004a21cfa72aff70a3cd768ff7c52c97dc868ca588b7d2a01",
+      "baselineSha256": "775da3f194e2815004a21cfa72aff70a3cd768ff7c52c97dc868ca588b7d2a01",
+      "unchanged": true
+    },
+    "shopops-admin/src/test/resources/benchmark/v1/benchmark-idempotency-stage5-candidate-manifest.json": {
+      "sha256": "ba9b53cd8ce22f23afd3bd61ab86df0c689884b31375238d6b4783bb9c21a27d",
+      "baselineSha256": "ba9b53cd8ce22f23afd3bd61ab86df0c689884b31375238d6b4783bb9c21a27d",
+      "unchanged": true
+    },
+    "shopops-admin/src/test/resources/benchmark/v1/stage6-idempotency-evaluation-contract-manifest.json": {
+      "sha256": "e3baea01d0d6fe1a8abaf04406aabd2c3a3fa2aaaa992c48434c4010074638b7",
+      "baselineSha256": "e3baea01d0d6fe1a8abaf04406aabd2c3a3fa2aaaa992c48434c4010074638b7",
+      "unchanged": true
+    },
+    "shopops-admin/src/test/resources/benchmark/v1/benchmark-manifest-v1.json": {
+      "sha256": "2bb543ffa6a76fa8051989d755c8109f3107cf66b2a5d6e8fe6cece3fc3f24ad",
+      "baselineSha256": "2bb543ffa6a76fa8051989d755c8109f3107cf66b2a5d6e8fe6cece3fc3f24ad",
+      "unchanged": true
+    }
+  },
+  "overallPass": true
+}

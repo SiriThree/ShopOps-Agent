@@ -1,0 +1,9 @@
+{
+  "productionSrcMainModifiedByStage8BR": 0,
+  "productionSrcMainAddedByStage8BR": 0,
+  "productionSrcMainRemovedByStage8BR": 0,
+  "testInfrastructureFilesChanged": [
+    "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/formal/JdbcRefundOrderBusinessScopeValidatorTest.java",
+    "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/JdbcRefundIdempotencyIntegrationTest.java"
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-08-08T10:44:43.012197+00:00",
+  "benchmarkVersion": "ShopOpsBench-v1",
+  "manifestVersion": "ShopOpsBench-v1-manifest-1",
+  "formalHeldOutCaseCount": 31,
+  "sources": {
+    "task": null,
+    "idempotency": null,
+    "recovery": null,
+    "governance": null
+  },
+  "benchmarks": {
+    "task": {
+      "status": "NOT_AVAILABLE",
+      "taskSuccess": {
+        "numerator": null,
+        "denominator": null,
+        "rate": null,
+        "percent": null,
+        "wilson95": null,
+        "status": "NOT_AVAILABLE"
+      }
+    },
+    "idempotency": {
+      "status": "NOT_AVAILABLE"
+    },
+    "recovery": {
+      "status": "NOT_AVAILABLE",
+      "convergence": {
+        "numerator": null,
+        "denominator": null,
+        "rate": null,
+        "percent": null,
+        "wilson95": null,
+        "status": "NOT_AVAILABLE"
+      }
+    },
+    "governance": {
+      "status": "NOT_AVAILABLE",
+      "unauthorizedBlockRate": {
+        "numerator": null,
+        "denominator": null,
+        "rate": null,
+        "percent": null,
+        "wilson95": null,
+        "status": "NOT_AVAILABLE"
+      },
+      "falseRejectRate": {
+        "numerator": null,
+        "denominator": null,
+        "rate": null,
+        "percent": null,
+        "wilson95": null,
+        "status": "NOT_AVAILABLE"
+      }
+    }
+  },
+  "releaseGate": {
+    "status": "RELEASE_GATE_NOT_AVAILABLE",
+    "failures": [],
+    "unavailable": [
+      "maxDuplicateSideEffects",
+      "maxUnauthorizedWrites",
+      "maxApprovalBypass",
+      "maxCrossTenantViolations",
+      "maxCrossShopViolations",
+      "minimumTaskSuccess",
+      "minimumStateConvergence",
+      "maximumFalseRejectRate"
+    ],
+    "configVersion": "benchmark-gates-v1-baseline-establishment"
+  }
+}

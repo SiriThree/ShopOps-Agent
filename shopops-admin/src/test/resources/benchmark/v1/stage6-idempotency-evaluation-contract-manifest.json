@@ -1,0 +1,79 @@
+{
+  "manifestVersion": "ShopOpsBench-Idempotency-Stage6-Evaluation-Contract-1",
+  "status": "EVALUATION_CONTRACT_CANDIDATE",
+  "formalRunOccurred": false,
+  "heldOutExecutionOccurred": false,
+  "readyForGlobalFreeze": false,
+  "readyForGlobalFreezeReason": "Stage 6 Spring/JUnit contract tests are NOT RUN because Maven/Maven Wrapper are unavailable in the current environment.",
+  "benchmarkType": "IDEMPOTENCY",
+  "datasetVersion": "1.3.0-stage5-idempotency-candidate",
+  "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+  "datasetSemanticScenarioCount": 16,
+  "datasetCaseCount": 22,
+  "stage5CandidateManifest": {
+    "path": "benchmark/v1/benchmark-idempotency-stage5-candidate-manifest.json",
+    "sha256": "ba9b53cd8ce22f23afd3bd61ab86df0c689884b31375238d6b4783bb9c21a27d"
+  },
+  "stage5WorkloadProfile": {
+    "path": "benchmark/v1/idempotency/stage5/idempotency-workload-profiles.json",
+    "sha256": "970edc2ca45c5feeaefc09d9cd2af83f85cae5d32581beade9af40604c02e6c5",
+    "plannedFormalLogicalOperations": 260,
+    "plannedFormalAttempts": 700
+  },
+  "driverContractVersion": "stage6-idempotency-driver-v1",
+  "evaluatorContractVersion": "stage6-idempotency-evaluator-v1",
+  "attributionContractVersion": "stage6-idempotency-attribution-v1",
+  "attributionContract": {
+    "path": "benchmark/v1/idempotency/stage6/idempotency-attribution-contract.json",
+    "sha256": "e4f84265519213b1ceb6ae9d6a3c80456e83ee8d6d2619b174fc12d1c6bdfa32"
+  },
+  "workloadAttributionOverlay": {
+    "path": "benchmark/v1/idempotency/stage6/idempotency-workload-attribution-overlay.json",
+    "sha256": "ea32cfe85352b5e78dfd7c1b38bf93853c36380ff33093535d8f6644c76bf051"
+  },
+  "productionTree": {
+    "fileCount": 530,
+    "sha256": "15846b40317611e24d6eab1d00de5a235ff98373c69fd0b5bf9a28c82c4e953f",
+    "expectedStage5Sha256": "15846b40317611e24d6eab1d00de5a235ff98373c69fd0b5bf9a28c82c4e953f",
+    "unchanged": true
+  },
+  "contractSourceHashes": {
+    "driver": {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/RefundIdempotencyBenchmarkExecutor.java",
+      "sha256": "b0464d4cb92742e735204afdff72f941d28f54fd8a069af8b4378ce588f235e4"
+    },
+    "freshApprovalFactory": {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/FreshReplayApprovalFactory.java",
+      "sha256": "699a8e6eb5c1e006b592c4e9aceacf065c2c78c5ccb74a701af5806102f1de67"
+    },
+    "classifier": {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/IdempotencyAttributionClassifier.java",
+      "sha256": "fa38d230b17d91cd075afd7713419d4d76160f6cae2522fca1b96d718513747b"
+    },
+    "eligibility": {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/IdempotencyAttributionEligibility.java",
+      "sha256": "a32324832a945eeaceb8fe40e9fc7e662d9831d3f0ed16c0f3f72e5b40c44d38"
+    },
+    "evaluator": {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/SideEffectIdempotencyEvaluator.java",
+      "sha256": "dea98f0a20abbbbd096bc39a0fa4937cf98ba67e2faad78ccd1b2f9ac3d765fc"
+    },
+    "formalEligibility": {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/formal/FormalBenchmarkEligibility.java",
+      "sha256": "94ebec6639801a54ce79428af75e5691c144b69972f455e9fc8a649a96a36dfc"
+    },
+    "evidence": {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evidence/CollectedEvidence.java",
+      "sha256": "4215c4d82dc053fcb39d9112f447a5529b7555403232a7bbfe470374e49561b5"
+    }
+  },
+  "testEvidence": {
+    "staticAudit": "PASS",
+    "isolatedJavac": "PASS",
+    "pureAttributionHarness": "PASS",
+    "springJUnit": "NOT_RUN",
+    "jdbcFormal": "NOT_RUN",
+    "heldOutFormal": "NOT_RUN"
+  },
+  "formalIdempotencyMetric": "NOT_AVAILABLE"
+}

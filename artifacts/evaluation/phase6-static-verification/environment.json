@@ -1,0 +1,12 @@
+{
+  "evidenceLevel": "STATIC_AND_PURE_ONLY",
+  "projectJavaTarget": "17",
+  "availableJavaRuntime": "OpenJDK 21.0.11",
+  "maven": "NOT_FOUND",
+  "mavenWrapper": "ABSENT",
+  "docker": "NOT_FOUND",
+  "springJUnit": "NOT_RUN",
+  "mysqlJdbc": "NOT_RUN",
+  "rabbitMq": "NOT_RUN",
+  "gitMetadata": "UNAVAILABLE_IN_DELIVERED_WORKTREE"
+}

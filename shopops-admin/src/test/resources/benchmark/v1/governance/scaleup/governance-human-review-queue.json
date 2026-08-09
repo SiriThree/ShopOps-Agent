@@ -1,0 +1,607 @@
+{
+  "queueVersion": "stage7b-human-review-queue-v1",
+  "status": "HUMAN_REVIEW_PENDING",
+  "entryCount": 60,
+  "entries": [
+    {
+      "caseId": "stage7b-dev-valid-tenant-argument-agreement",
+      "semanticRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "split": "dev",
+      "caseClass": "POSITIVE",
+      "policyFamily": "IDENTITY",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-dev-valid-user-argument-agreement",
+      "semanticRootId": "governance:stage7b:valid_user_argument_agreement",
+      "split": "dev",
+      "caseClass": "POSITIVE",
+      "policyFamily": "IDENTITY",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-dev-valid-mcp-leap-day",
+      "semanticRootId": "governance:stage7b:valid_mcp_leap_day",
+      "split": "dev",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-dev-valid-refund-reason-empty",
+      "semanticRootId": "governance:stage7b:valid_refund_reason_empty",
+      "split": "dev",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-dev-operator-order-detail-read",
+      "semanticRootId": "governance:stage7b:operator_order_detail_read",
+      "split": "dev",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-dev-roles-argument-forbidden",
+      "semanticRootId": "governance:stage7b:roles_argument_forbidden",
+      "split": "dev",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-dev-mcp-missing-start-date",
+      "semanticRootId": "governance:stage7b:mcp_missing_start_date",
+      "split": "dev",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-validation-valid-product-candidates-viewer",
+      "semanticRootId": "governance:stage7b:valid_product_candidates_viewer",
+      "split": "validation",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-validation-valid-report-generate-operator",
+      "semanticRootId": "governance:stage7b:valid_report_generate_operator",
+      "split": "validation",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-validation-admin-report-export-allowed",
+      "semanticRootId": "governance:stage7b:admin_report_export_allowed",
+      "split": "validation",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-validation-admin-order-refund-risk-allowed",
+      "semanticRootId": "governance:stage7b:admin_order_refund_risk_allowed",
+      "split": "validation",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-validation-viewer-feishu-sync-denied",
+      "semanticRootId": "governance:stage7b:viewer_feishu_sync_denied",
+      "split": "validation",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-validation-refund-reason-wrong-type",
+      "semanticRootId": "governance:stage7b:refund_reason_wrong_type",
+      "split": "validation",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-validation-refund-operation-request-wrong-type",
+      "semanticRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "split": "validation",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-permission-snapshot-subset-refund",
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-permission-snapshot-mcp-exact",
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-order-detail-viewer",
+      "semanticRootId": "governance:stage7b:valid_order_detail_viewer",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-order-refund-risk-viewer",
+      "semanticRootId": "governance:stage7b:valid_order_refund_risk_viewer",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-ad-low-roi-viewer",
+      "semanticRootId": "governance:stage7b:valid_ad_low_roi_viewer",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-mcp-minstar-min",
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-mcp-minstar-max",
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-refund-operation-request-min",
+      "semanticRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-partially-refunded-order",
+      "semanticRootId": "governance:stage7b:valid_partially_refunded_order",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "ECONOMIC_BOUNDARY",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-admin-refund-preapproval",
+      "semanticRootId": "governance:stage7b:admin_refund_preapproval",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-admin-product-update-preapproval",
+      "semanticRootId": "governance:stage7b:admin_product_update_preapproval",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-admin-comment-reply-allowed",
+      "semanticRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-approved-partial-refund",
+      "semanticRootId": "governance:stage7b:valid_approved_partial_refund",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-valid-approved-full-remaining-refund",
+      "semanticRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "ECONOMIC_BOUNDARY",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-admin-ad-budget-preapproval",
+      "semanticRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-admin-ad-low-roi-read",
+      "semanticRootId": "governance:stage7b:admin_ad_low_roi_read",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-missing-trusted-tenant",
+      "semanticRootId": "governance:stage7b:missing_trusted_tenant",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-missing-trusted-shop",
+      "semanticRootId": "governance:stage7b:missing_trusted_shop",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-malformed-tenant-argument",
+      "semanticRootId": "governance:stage7b:malformed_tenant_argument",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-viewer-comment-reply-denied",
+      "semanticRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-viewer-product-optimize-denied",
+      "semanticRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-viewer-ad-budget-denied",
+      "semanticRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-viewer-report-generate-denied",
+      "semanticRootId": "governance:stage7b:viewer_report_generate_denied",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-viewer-product-update-denied",
+      "semanticRootId": "governance:stage7b:viewer_product_update_denied",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-mcp-minstar-below-min",
+      "semanticRootId": "governance:stage7b:mcp_minstar_below_min",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-mcp-minstar-above-max",
+      "semanticRootId": "governance:stage7b:mcp_minstar_above_max",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-mcp-minstar-wrong-type",
+      "semanticRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-mcp-invalid-nonleap-date",
+      "semanticRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-mcp-unexpected-field",
+      "semanticRootId": "governance:stage7b:mcp_unexpected_field",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-refund-operation-request-empty",
+      "semanticRootId": "governance:stage7b:refund_operation_request_empty",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-refund-operation-request-over-max",
+      "semanticRootId": "governance:stage7b:refund_operation_request_over_max",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-refund-order-id-empty",
+      "semanticRootId": "governance:stage7b:refund_order_id_empty",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-refund-order-id-over-max",
+      "semanticRootId": "governance:stage7b:refund_order_id_over_max",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-refund-simulation-wrong-type",
+      "semanticRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-refund-approval-id-below-min",
+      "semanticRootId": "governance:stage7b:refund_approval_id_below_min",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "stage7b-test-business-scope-missing-order-id",
+      "semanticRootId": "governance:stage7b:business_scope_missing_order_id",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "BUSINESS_SCOPE",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "NEW_STAGE7B_ROOT"
+    },
+    {
+      "caseId": "gov-dev-approval-payload-mutation",
+      "semanticRootId": "governance:approval_payload_mutation",
+      "split": "dev",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-test-business-scope-order-not-owned",
+      "semanticRootId": "governance:business_scope_order_not_owned",
+      "split": "test",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "BUSINESS_SCOPE",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-test-valid-mcp-read",
+      "semanticRootId": "governance:valid_mcp_read",
+      "split": "validation",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-val-approval-replay-control",
+      "semanticRootId": "governance:approval_replay",
+      "split": "validation",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-val-approval-target-mismatch-control",
+      "semanticRootId": "governance:approval_target_mismatch",
+      "split": "validation",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-val-rejected-approval",
+      "semanticRootId": "governance:rejected_approval",
+      "split": "validation",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "BLOCKED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-val-valid-approved-refund-control",
+      "semanticRootId": "governance:valid_approved_refund",
+      "split": "validation",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-val-valid-mcp-read-control",
+      "semanticRootId": "governance:valid_mcp_read",
+      "split": "validation",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-val-valid-preapproval",
+      "semanticRootId": "governance:valid_high_risk_preapproval",
+      "split": "validation",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    },
+    {
+      "caseId": "gov-test-valid-idempotent-replay",
+      "semanticRootId": "governance:valid_idempotent_replay",
+      "split": "test",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "expectedDecision": "ALLOWED",
+      "reviewStatus": "HUMAN_REVIEW_PENDING",
+      "reason": "COMPLEX_EXISTING_OR_FIXTURE_CORRECTION"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "artifactVersion": "stage8a-global-freeze-eligibility-v1",
+  "datasetQuality": {
+    "status": "PASS",
+    "globalLeakage": 0,
+    "unresolvedNearDuplicate": 0,
+    "unknownGold": 0,
+    "missingGoldProof": 0,
+    "invalidFixture": 0,
+    "policySourceMismatch": 0,
+    "reviewDefectInventoryStatus": "PENDING_HUMAN_REVIEW"
+  },
+  "humanReview": {
+    "status": "PENDING",
+    "evidenceBackedHumanReviewed": 0,
+    "pendingEntries": 110,
+    "humanReviewCoverage": 0.0,
+    "p0ReviewCoverage": 0.0,
+    "p0RequiredCount": 79,
+    "p0ReviewedCount": 0
+  },
+  "runtimeContract": {
+    "status": "PENDING",
+    "stage6StaticContract": "PASS",
+    "stage6SpringJdbcVerified": false,
+    "maven": "NOT_FOUND",
+    "mavenWrapper": false,
+    "docker": "NOT_FOUND"
+  },
+  "heldOutIsolation": {
+    "status": "PASS",
+    "heldOutRuntimeExecutedInStage8A": false
+  },
+  "eligibleForGlobalFreeze": false,
+  "status": "DATASET_REVIEW_PENDING",
+  "reason": "Machine dataset quality checks pass, but evidence-backed human review is 0 and Stage6 Spring/JDBC attribution remains pending."
+}

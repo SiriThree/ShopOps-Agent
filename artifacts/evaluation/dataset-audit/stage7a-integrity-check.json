@@ -1,0 +1,33 @@
+{
+  "production": {
+    "baselineCount": 530,
+    "modified": [],
+    "missing": [],
+    "added": [],
+    "modifiedCount": 0,
+    "missingCount": 0,
+    "addedCount": 0
+  },
+  "taskOutcomeEvaluator": {
+    "baselineCount": 7,
+    "modified": [],
+    "missing": [],
+    "added": [],
+    "modifiedCount": 0,
+    "missingCount": 0,
+    "addedCount": 0
+  },
+  "otherBenchmarkAndManifests": {
+    "baselineCount": 28,
+    "modified": [],
+    "missing": [],
+    "added": [],
+    "modifiedCount": 0,
+    "missingCount": 0,
+    "addedCount": 0
+  },
+  "heldOutRuntimeExecutionEvidence": {
+    "count": 0,
+    "files": []
+  }
+}

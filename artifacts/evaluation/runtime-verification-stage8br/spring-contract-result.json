@@ -1,0 +1,10 @@
+{
+  "command": "mvn -pl shopops-admin -am -Dtest=IdempotencyReplayApprovalIsolationTest,IdempotencyReplayBoundaryReachabilityTest,IdempotencyPreBoundaryBlockDetectionTest,IdempotencyCanonicalPayloadAcrossFreshApprovalTest,IdempotencyPayloadConflictAcrossFreshApprovalTest,IdempotencyExternalLedgerAttributionTest,IdempotencyMissingEffectMetricTest,IdempotencyAttributionEligibilityTest -Dsurefire.failIfNoSpecifiedTests=false test",
+  "exitCode": 0,
+  "testsRun": 9,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "persistenceMode": "memory",
+  "springContext": "PASS"
+}

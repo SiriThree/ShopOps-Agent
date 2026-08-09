@@ -1,0 +1,18 @@
+{
+  "artifactVersion": "stage8a-global-split-verification-v1",
+  "benchmarkLeakage": {
+    "TASK": 0,
+    "GOVERNANCE": 0,
+    "RECOVERY": 0,
+    "IDEMPOTENCY": 0
+  },
+  "globalCrossSplitRootLeakage": 0,
+  "parentLeakageCount": 0,
+  "parentLeaks": [],
+  "details": {
+    "TASK": [],
+    "GOVERNANCE": [],
+    "RECOVERY": [],
+    "IDEMPOTENCY": []
+  }
+}

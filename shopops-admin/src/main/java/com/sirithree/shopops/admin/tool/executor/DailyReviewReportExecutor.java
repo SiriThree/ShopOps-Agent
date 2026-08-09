@@ -176,6 +176,7 @@ public class DailyReviewReportExecutor implements ToolExecutor {
         evidence.put("modelProviderCode", modelReport.providerCode());
         evidence.put("dataSources", dataSourceSummary(orderSummary, negativeComments, productCandidates,
                 adPerformance, externalReportMetrics));
+        evidence.put("adDataStatus", adDataStatus(adPerformance));
         evidence.put("shopConfig", runtimeConfig.evidence());
 
         Map<String, Object> data = Map.of(
@@ -602,6 +603,44 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                                      List<Map<String, Object>> channels,
                                      List<String> toolCodes,
                                      String traceId) {
+        if ("NO_DATA".equals(adDataStatus(adPerformance))) {
+            return """
+                    # %s
+
+                    分析周期：%s 至 %s
+
+                    ## 1. 投放数据状态
+
+                    - 广告数据状态：NO_DATA
+                    - 查询区间暂无可用广告投放指标，无法据此判断 ROI、CTR 或投放异常。
+                    - 订单 GMV：%s
+                    - 平台访客：%s，报表转化率：%s
+
+                    ## 2. 平台环境对比
+
+                    %s
+
+                    ## 3. 后续动作
+
+                    %s
+
+                    ## 4. 数据证据
+
+                    - 工具调用链：%s
+                    - Trace ID：%s
+                    """.formatted(
+                    reportTitle,
+                    dateRange.start(),
+                    dateRange.end(),
+                    number(orderSummary.get("gmv")),
+                    number(externalReportMetrics.get("visitorCount")),
+                    percent(externalReportMetrics.get("conversionRate")),
+                    renderChannelRows(channels),
+                    adAnomalyActions(adPerformance, externalReportMetrics),
+                    String.join(", ", toolCodes),
+                    traceId
+            );
+        }
         return """
                 # %s
 
@@ -686,6 +725,9 @@ public class DailyReviewReportExecutor implements ToolExecutor {
 
     private String adAnomalyActions(Map<String, Object> adPerformance,
                                     Map<String, Object> externalReportMetrics) {
+        if ("NO_DATA".equals(adDataStatus(adPerformance))) {
+            return "- 查询区间暂无广告投放指标，无法判断 ROI/CTR 异常；建议先核对数据源或日期范围。";
+        }
         StringBuilder builder = new StringBuilder();
         if (decimal(adPerformance.get("roi")).compareTo(new BigDecimal("3.0")) < 0) {
             builder.append("- ROI 低于 3，建议暂停高消耗低转化计划，并收缩预算。\n");
@@ -759,6 +801,11 @@ public class DailyReviewReportExecutor implements ToolExecutor {
             );
         }
         if ("ad_anomaly".equals(intent)) {
+            if ("NO_DATA".equals(adDataStatus(adPerformance))) {
+                return "投放异常专项：查询区间暂无广告投放数据，无法判断 ROI/CTR 是否异常；平台访客 %s。".formatted(
+                        number(externalReportMetrics.get("visitorCount"))
+                );
+            }
             return "投放异常专项：广告消耗 %s，ROI %s，平台访客 %s，建议排查高消耗低转化计划。".formatted(
                     number(adPerformance.get("spend")),
                     number(adPerformance.get("roi")),
@@ -776,6 +823,20 @@ public class DailyReviewReportExecutor implements ToolExecutor {
                 number(externalReportMetrics.get("visitorCount")),
                 percent(externalReportMetrics.get("conversionRate"))
         );
+    }
+
+
+    private String adDataStatus(Map<String, Object> adPerformance) {
+        if (adPerformance == null || adPerformance.isEmpty()) {
+            return "NO_DATA";
+        }
+        boolean hasMetric = adPerformance.containsKey("spend")
+                || adPerformance.containsKey("impressions")
+                || adPerformance.containsKey("clicks")
+                || adPerformance.containsKey("ctr")
+                || adPerformance.containsKey("roi");
+        boolean hasCampaign = !listOfMap(adPerformance.get("campaigns")).isEmpty();
+        return hasMetric || hasCampaign ? "AVAILABLE" : "NO_DATA";
     }
 
     private String growthText(Object value) {

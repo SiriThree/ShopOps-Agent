@@ -1,0 +1,11 @@
+{
+  "taskDatasetChanges": 0,
+  "governanceDatasetChanges": 0,
+  "recoveryDatasetChanges": 0,
+  "idempotencyDatasetChanges": 0,
+  "goldChanges": 0,
+  "splitChanges": 0,
+  "rootMappingChanges": 0,
+  "runtimeRunDidNotModifyDataset": true,
+  "existingDatasetContractFailures": true
+}

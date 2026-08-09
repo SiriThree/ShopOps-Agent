@@ -1,0 +1,226 @@
+[
+  {
+    "caseId": "smoke-task-daily-review-001",
+    "benchmarkType": "TASK",
+    "scenario": "daily_review",
+    "difficulty": "EASY",
+    "input": {
+      "userInput": "Generate a daily shop operations review",
+      "dateRange": {
+        "start": "2018-08-01",
+        "end": "2018-08-01"
+      }
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1,
+      "roles": [
+        "ADMIN"
+      ]
+    },
+    "initialState": {
+      "runtime": "memory"
+    },
+    "expectedOutcome": {
+      "reportRequired": true,
+      "requiredEvidenceDomains": [
+        "orders",
+        "comments",
+        "products",
+        "ads",
+        "external_metrics"
+      ],
+      "requiredTerminalTaskStates": [
+        "SUCCESS"
+      ]
+    },
+    "requiredCapabilities": [
+      "order_read",
+      "comment_read",
+      "product_read",
+      "ad_read",
+      "report_generate"
+    ],
+    "acceptableTools": [
+      "order.query_summary",
+      "comment.query_negative",
+      "product.query_candidates",
+      "ad.query_performance",
+      "report.query_external_metrics",
+      "report.generate_daily_review"
+    ],
+    "forbiddenTools": [
+      "order.refund_execute",
+      "product.update_title"
+    ],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 0,
+      "allowedEffectTypes": [
+        "REPORT_CREATED"
+      ],
+      "forbiddenEffectTypes": [
+        "REFUND_CREATED",
+        "PRODUCT_MUTATED"
+      ]
+    },
+    "approvalExpectation": {
+      "required": false,
+      "mustBlockBeforeApproval": false
+    },
+    "faultInjection": {},
+    "tags": [
+      "SMOKE",
+      "TASK",
+      "READ_ONLY",
+      "CLEAN"
+    ],
+    "goldVersion": "shopopsbench-gold-v1"
+  },
+  {
+    "caseId": "smoke-task-comment-risk-001",
+    "benchmarkType": "TASK",
+    "scenario": "comment_risk",
+    "difficulty": "MEDIUM",
+    "input": {
+      "userInput": "Analyze negative comment risks and affected products",
+      "dateRange": {
+        "start": "2018-08-02",
+        "end": "2018-08-02"
+      }
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1,
+      "roles": [
+        "ADMIN"
+      ]
+    },
+    "initialState": {
+      "runtime": "memory"
+    },
+    "expectedOutcome": {
+      "reportRequired": true,
+      "requiredEvidenceDomains": [
+        "orders",
+        "comments",
+        "products"
+      ],
+      "requiredTerminalTaskStates": [
+        "SUCCESS"
+      ]
+    },
+    "requiredCapabilities": [
+      "order_read",
+      "comment_read",
+      "product_read",
+      "report_generate"
+    ],
+    "acceptableTools": [
+      "order.query_summary",
+      "comment.query_negative",
+      "product.query_candidates",
+      "report.generate_daily_review"
+    ],
+    "forbiddenTools": [
+      "order.refund_execute",
+      "ad.update_budget"
+    ],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 0,
+      "allowedEffectTypes": [
+        "REPORT_CREATED"
+      ],
+      "forbiddenEffectTypes": [
+        "REFUND_CREATED",
+        "PRODUCT_MUTATED"
+      ]
+    },
+    "approvalExpectation": {
+      "required": false,
+      "mustBlockBeforeApproval": false
+    },
+    "faultInjection": {},
+    "tags": [
+      "SMOKE",
+      "TASK",
+      "MULTI_TOOL",
+      "CLEAN"
+    ],
+    "goldVersion": "shopopsbench-gold-v1"
+  },
+  {
+    "caseId": "smoke-task-degraded-ad-001",
+    "benchmarkType": "TASK",
+    "scenario": "ad_anomaly",
+    "difficulty": "MEDIUM",
+    "input": {
+      "userInput": "Check ad campaign conversion anomalies",
+      "dateRange": {
+        "start": "2018-08-03",
+        "end": "2018-08-03"
+      }
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1,
+      "roles": [
+        "ADMIN"
+      ]
+    },
+    "initialState": {
+      "runtime": "memory"
+    },
+    "expectedOutcome": {
+      "reportRequired": true,
+      "requiredEvidenceDomains": [
+        "orders",
+        "ads",
+        "external_metrics"
+      ],
+      "requiredTerminalTaskStates": [
+        "DEGRADED"
+      ]
+    },
+    "requiredCapabilities": [
+      "order_read",
+      "ad_read",
+      "report_generate"
+    ],
+    "acceptableTools": [
+      "order.query_summary",
+      "ad.query_performance",
+      "report.query_external_metrics",
+      "report.generate_daily_review"
+    ],
+    "forbiddenTools": [
+      "order.refund_execute"
+    ],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 0,
+      "allowedEffectTypes": [
+        "REPORT_CREATED"
+      ],
+      "forbiddenEffectTypes": [
+        "REFUND_CREATED"
+      ]
+    },
+    "approvalExpectation": {
+      "required": false,
+      "mustBlockBeforeApproval": false
+    },
+    "faultInjection": {
+      "point": "tool",
+      "toolCode": "ad.query_performance",
+      "mode": "fail"
+    },
+    "tags": [
+      "SMOKE",
+      "TASK",
+      "DEGRADED"
+    ],
+    "goldVersion": "shopopsbench-gold-v1"
+  }
+]

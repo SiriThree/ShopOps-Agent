@@ -9,6 +9,28 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface BusinessOrderMapper {
     @Select("""
+            SELECT COUNT(*)
+            FROM shop_order
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND order_no = #{orderNo}
+            """)
+    int countByOrderNoAndScope(@Param("tenantId") Long tenantId,
+                               @Param("shopId") Long shopId,
+                               @Param("orderNo") String orderNo);
+
+    @Select("""
+            SELECT GREATEST(pay_amount - refund_amount, 0)
+            FROM shop_order
+            WHERE tenant_id = #{tenantId}
+              AND shop_id = #{shopId}
+              AND order_no = #{orderNo}
+            """)
+    java.math.BigDecimal queryRemainingRefundableAmount(@Param("tenantId") Long tenantId,
+                                                        @Param("shopId") Long shopId,
+                                                        @Param("orderNo") String orderNo);
+
+    @Select("""
             SELECT
               COALESCE(SUM(pay_amount), 0) AS gmv,
               COUNT(*) AS order_count,

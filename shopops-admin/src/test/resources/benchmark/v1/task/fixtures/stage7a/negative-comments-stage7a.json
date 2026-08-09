@@ -1,0 +1,613 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-19",
+    "endDate": "2018-08-19",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 0,
+      "riskComments": [],
+      "categoryStats": {}
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-20",
+    "endDate": "2018-08-20",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 1,
+      "riskComments": [
+        {
+          "commentId": "S7A-P201-1",
+          "productId": "P201",
+          "productName": "Benchmark product P201",
+          "star": 2,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "quality_or_damage": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-21",
+    "endDate": "2018-08-21",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 3,
+      "riskComments": [
+        {
+          "commentId": "S7A-P202-1",
+          "productId": "P202",
+          "productName": "Benchmark product P202",
+          "star": 2,
+          "content": "物流延迟影响体验",
+          "riskKeywords": [
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "S7A-P203-2",
+          "productId": "P203",
+          "productName": "Benchmark product P203",
+          "star": 2,
+          "content": "描述与实物不一致",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        },
+        {
+          "commentId": "S7A-P204-3",
+          "productId": "P204",
+          "productName": "Benchmark product P204",
+          "star": 3,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "logistics_delay": 1,
+        "description_mismatch": 1,
+        "service": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-22",
+    "endDate": "2018-08-22",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 4,
+      "riskComments": [
+        {
+          "commentId": "S7A-P206-1",
+          "productId": "P206",
+          "productName": "Benchmark product P206",
+          "star": 1,
+          "content": "用户要求退款或退货",
+          "riskKeywords": [
+            "refund_or_return"
+          ]
+        },
+        {
+          "commentId": "S7A-P206-2",
+          "productId": "P206",
+          "productName": "Benchmark product P206",
+          "star": 2,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        },
+        {
+          "commentId": "S7A-P206-3",
+          "productId": "P206",
+          "productName": "Benchmark product P206",
+          "star": 2,
+          "content": "描述与实物不一致",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        },
+        {
+          "commentId": "S7A-P207-4",
+          "productId": "P207",
+          "productName": "Benchmark product P207",
+          "star": 3,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "refund_or_return": 1,
+        "quality_or_damage": 1,
+        "description_mismatch": 1,
+        "service": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-23",
+    "endDate": "2018-08-23",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 0,
+      "riskComments": [],
+      "categoryStats": {}
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-24",
+    "endDate": "2018-08-24",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 0,
+      "riskComments": [],
+      "categoryStats": {}
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-25",
+    "endDate": "2018-08-25",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 2,
+      "riskComments": [
+        {
+          "commentId": "S7A-P210-1",
+          "productId": "P210",
+          "productName": "Benchmark product P210",
+          "star": 2,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        },
+        {
+          "commentId": "S7A-P210-2",
+          "productId": "P210",
+          "productName": "Benchmark product P210",
+          "star": 3,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "quality_or_damage": 1,
+        "service": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-26",
+    "endDate": "2018-08-26",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 5,
+      "riskComments": [
+        {
+          "commentId": "S7A-P211-1",
+          "productId": "P211",
+          "productName": "Benchmark product P211",
+          "star": 1,
+          "content": "用户要求退款或退货",
+          "riskKeywords": [
+            "refund_or_return"
+          ]
+        },
+        {
+          "commentId": "S7A-P211-2",
+          "productId": "P211",
+          "productName": "Benchmark product P211",
+          "star": 2,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        },
+        {
+          "commentId": "S7A-P211-3",
+          "productId": "P211",
+          "productName": "Benchmark product P211",
+          "star": 2,
+          "content": "物流延迟影响体验",
+          "riskKeywords": [
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "S7A-P212-4",
+          "productId": "P212",
+          "productName": "Benchmark product P212",
+          "star": 3,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        },
+        {
+          "commentId": "S7A-P211-5",
+          "productId": "P211",
+          "productName": "Benchmark product P211",
+          "star": 1,
+          "content": "描述与实物不一致",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "refund_or_return": 1,
+        "quality_or_damage": 1,
+        "logistics_delay": 1,
+        "service": 1,
+        "description_mismatch": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-27",
+    "endDate": "2018-08-27",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 1,
+      "riskComments": [
+        {
+          "commentId": "S7A-P214-1",
+          "productId": "P214",
+          "productName": "Benchmark product P214",
+          "star": 2,
+          "content": "描述与实物不一致",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "description_mismatch": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-28",
+    "endDate": "2018-08-28",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 4,
+      "riskComments": [
+        {
+          "commentId": "S7A-P219-1",
+          "productId": "P219",
+          "productName": "Benchmark product P219",
+          "star": 1,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        },
+        {
+          "commentId": "S7A-P220-2",
+          "productId": "P220",
+          "productName": "Benchmark product P220",
+          "star": 2,
+          "content": "物流延迟影响体验",
+          "riskKeywords": [
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "S7A-P221-3",
+          "productId": "P221",
+          "productName": "Benchmark product P221",
+          "star": 2,
+          "content": "描述与实物不一致",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        },
+        {
+          "commentId": "S7A-P222-4",
+          "productId": "P222",
+          "productName": "Benchmark product P222",
+          "star": 3,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "quality_or_damage": 1,
+        "logistics_delay": 1,
+        "description_mismatch": 1,
+        "service": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-29",
+    "endDate": "2018-08-29",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 0,
+      "riskComments": [],
+      "categoryStats": {}
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-30",
+    "endDate": "2018-08-30",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 3,
+      "riskComments": [
+        {
+          "commentId": "S7A-P224-1",
+          "productId": "P224",
+          "productName": "Benchmark product P224",
+          "star": 2,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        },
+        {
+          "commentId": "S7A-P225-2",
+          "productId": "P225",
+          "productName": "Benchmark product P225",
+          "star": 2,
+          "content": "物流延迟影响体验",
+          "riskKeywords": [
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "S7A-P226-3",
+          "productId": "P226",
+          "productName": "Benchmark product P226",
+          "star": 3,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "quality_or_damage": 1,
+        "logistics_delay": 1,
+        "service": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-31",
+    "endDate": "2018-08-31",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 2,
+      "riskComments": [
+        {
+          "commentId": "S7A-P230-1",
+          "productId": "P230",
+          "productName": "Benchmark product P230",
+          "star": 1,
+          "content": "用户要求退款或退货",
+          "riskKeywords": [
+            "refund_or_return"
+          ]
+        },
+        {
+          "commentId": "S7A-P231-2",
+          "productId": "P231",
+          "productName": "Benchmark product P231",
+          "star": 2,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "refund_or_return": 1,
+        "quality_or_damage": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-01",
+    "endDate": "2018-09-01",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 6,
+      "riskComments": [
+        {
+          "commentId": "S7A-P232-1",
+          "productId": "P232",
+          "productName": "Benchmark product P232",
+          "star": 1,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        },
+        {
+          "commentId": "S7A-P232-2",
+          "productId": "P232",
+          "productName": "Benchmark product P232",
+          "star": 2,
+          "content": "用户要求退款或退货",
+          "riskKeywords": [
+            "refund_or_return"
+          ]
+        },
+        {
+          "commentId": "S7A-P233-3",
+          "productId": "P233",
+          "productName": "Benchmark product P233",
+          "star": 2,
+          "content": "物流延迟影响体验",
+          "riskKeywords": [
+            "logistics_delay"
+          ]
+        },
+        {
+          "commentId": "S7A-P234-4",
+          "productId": "P234",
+          "productName": "Benchmark product P234",
+          "star": 1,
+          "content": "描述与实物不一致",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        },
+        {
+          "commentId": "S7A-P235-5",
+          "productId": "P235",
+          "productName": "Benchmark product P235",
+          "star": 2,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        },
+        {
+          "commentId": "S7A-P236-6",
+          "productId": "P236",
+          "productName": "Benchmark product P236",
+          "star": 3,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "quality_or_damage": 2,
+        "refund_or_return": 1,
+        "logistics_delay": 1,
+        "description_mismatch": 1,
+        "service": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-02",
+    "endDate": "2018-09-02",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 2,
+      "riskComments": [
+        {
+          "commentId": "S7A-P240-1",
+          "productId": "P240",
+          "productName": "Benchmark product P240",
+          "star": 2,
+          "content": "描述与实物不一致",
+          "riskKeywords": [
+            "description_mismatch"
+          ]
+        },
+        {
+          "commentId": "S7A-P241-2",
+          "productId": "P241",
+          "productName": "Benchmark product P241",
+          "star": 3,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "description_mismatch": 1,
+        "service": 1
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-03",
+    "endDate": "2018-09-03",
+    "minStar": 3,
+    "summary": {
+      "negativeCount": 3,
+      "riskComments": [
+        {
+          "commentId": "S7A-P243-1",
+          "productId": "P243",
+          "productName": "Benchmark product P243",
+          "star": 1,
+          "content": "用户要求退款或退货",
+          "riskKeywords": [
+            "refund_or_return"
+          ]
+        },
+        {
+          "commentId": "S7A-P244-2",
+          "productId": "P244",
+          "productName": "Benchmark product P244",
+          "star": 2,
+          "content": "商品存在质量/破损问题",
+          "riskKeywords": [
+            "quality_or_damage"
+          ]
+        },
+        {
+          "commentId": "S7A-P243-3",
+          "productId": "P243",
+          "productName": "Benchmark product P243",
+          "star": 3,
+          "content": "客服响应偏慢",
+          "riskKeywords": [
+            "service"
+          ]
+        }
+      ],
+      "categoryStats": {
+        "refund_or_return": 1,
+        "quality_or_damage": 1,
+        "service": 1
+      }
+    }
+  }
+]

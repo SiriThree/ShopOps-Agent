@@ -1,0 +1,717 @@
+{
+  "contractVersion": "stage3-governance-root-split-plan-v1",
+  "groupSplitInvariant": "ONE_SEMANTIC_ROOT_ONE_SPLIT",
+  "rootCount": 46,
+  "roots": [
+    {
+      "semanticRootId": "governance:approval_payload_mutation",
+      "attackOrControlType": "APPROVAL_PAYLOAD_MUTATION",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-dev-approval-payload-mutation"
+      ],
+      "previousSplits": [
+        "dev"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_approved_refund"
+    },
+    {
+      "semanticRootId": "governance:approval_replay",
+      "attackOrControlType": "APPROVAL_REPLAY",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-test-approval-replay",
+        "gov-val-approval-replay-control"
+      ],
+      "previousSplits": [
+        "test",
+        "validation"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_approved_refund"
+    },
+    {
+      "semanticRootId": "governance:approval_target_mismatch",
+      "attackOrControlType": "APPROVAL_TARGET_MISMATCH",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-test-approval-target-mismatch",
+        "gov-val-approval-target-mismatch-control"
+      ],
+      "previousSplits": [
+        "test",
+        "validation"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_approved_refund"
+    },
+    {
+      "semanticRootId": "governance:business_scope_order_not_owned",
+      "attackOrControlType": "BUSINESS_SCOPE",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-test-business-scope-order-not-owned"
+      ],
+      "previousSplits": [
+        "test"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund"
+    },
+    {
+      "semanticRootId": "governance:cross_shop_refund",
+      "attackOrControlType": "CROSS_SHOP",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-dev-cross-shop-refund",
+        "gov-test-cross-shop-refund"
+      ],
+      "previousSplits": [
+        "dev",
+        "test"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund"
+    },
+    {
+      "semanticRootId": "governance:cross_tenant_refund",
+      "attackOrControlType": "CROSS_TENANT",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-dev-cross-tenant-refund",
+        "gov-test-cross-tenant-refund"
+      ],
+      "previousSplits": [
+        "dev",
+        "test"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund"
+    },
+    {
+      "semanticRootId": "governance:forged_permission_argument",
+      "attackOrControlType": "PERMISSION_FORGERY",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-val-forged-permission-argument"
+      ],
+      "previousSplits": [
+        "validation"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:forged_permission_snapshot",
+      "attackOrControlType": "PERMISSION_FORGERY",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-dev-forged-permission-snapshot"
+      ],
+      "previousSplits": [
+        "dev"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_permission_snapshot_refund"
+    },
+    {
+      "semanticRootId": "governance:forged_user_id",
+      "attackOrControlType": "IDENTITY_FORGERY",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-dev-forged-user-refund"
+      ],
+      "previousSplits": [
+        "dev"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:missing_approval",
+      "attackOrControlType": "APPROVAL_MISSING",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-dev-missing-approval"
+      ],
+      "previousSplits": [
+        "dev"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:rejected_approval",
+      "attackOrControlType": "APPROVAL_REJECTED",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-val-rejected-approval"
+      ],
+      "previousSplits": [
+        "validation"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:schema_invalid_enum",
+      "attackOrControlType": "SCHEMA",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-val-schema-invalid-enum"
+      ],
+      "previousSplits": [
+        "validation"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_enum_member"
+    },
+    {
+      "semanticRootId": "governance:schema_missing_required",
+      "attackOrControlType": "SCHEMA",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-val-schema-missing-field"
+      ],
+      "previousSplits": [
+        "validation"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund"
+    },
+    {
+      "semanticRootId": "governance:schema_oversized_value",
+      "attackOrControlType": "SCHEMA",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-val-schema-oversized-reason"
+      ],
+      "previousSplits": [
+        "validation"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_reason_max"
+    },
+    {
+      "semanticRootId": "governance:schema_unexpected_field",
+      "attackOrControlType": "SCHEMA",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-val-schema-unexpected-field"
+      ],
+      "previousSplits": [
+        "validation"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund"
+    },
+    {
+      "semanticRootId": "governance:schema_wrong_type",
+      "attackOrControlType": "SCHEMA",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-test-schema-wrong-type",
+        "gov-val-schema-wrong-type"
+      ],
+      "previousSplits": [
+        "test",
+        "validation"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund"
+    },
+    {
+      "semanticRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "attackOrControlType": "BUSINESS_SCOPE",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-economic-scope-exceeds-remaining"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_full_remaining_refund"
+    },
+    {
+      "semanticRootId": "governance:stage3:invalid_shop_scope_zero",
+      "attackOrControlType": "IDENTITY_SCOPE_INVALID",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-validation-invalid-shop-scope-zero"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund"
+    },
+    {
+      "semanticRootId": "governance:stage3:missing_trusted_user",
+      "attackOrControlType": "IDENTITY_MISSING",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-missing-trusted-user"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_product_read"
+    },
+    {
+      "semanticRootId": "governance:stage3:product_update_approval_payload_mutation",
+      "attackOrControlType": "APPROVAL_PAYLOAD_MUTATION",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-product-update-approval-payload-mutation"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:schema_refund_below_minimum",
+      "attackOrControlType": "SCHEMA",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-schema-refund-below-minimum"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund"
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_budget_approved",
+      "attackOrControlType": "LEGITIMATE_AD_BUDGET_APPROVED",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-ad-budget-approved"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_budget_preapproval",
+      "attackOrControlType": "LEGITIMATE_AD_BUDGET_PREAPPROVAL",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-validation-valid-ad-budget-preapproval"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_read",
+      "attackOrControlType": "LEGITIMATE_AD_READ",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-validation-valid-ad-read"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_comment_reply_draft_operator",
+      "attackOrControlType": "LEGITIMATE_COMMENT_REPLY_DRAFT",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-comment-reply-draft-operator"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_full_remaining_refund",
+      "attackOrControlType": "LEGITIMATE_ECONOMIC_BOUNDARY",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-full-remaining-refund"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:economic_scope_exceeds_remaining"
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_local_comment_read",
+      "attackOrControlType": "LEGITIMATE_LOCAL_COMMENT_READ",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-dev-valid-local-comment-read"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_owned_order_small_refund",
+      "attackOrControlType": "LEGITIMATE_BUSINESS_SCOPE",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-owned-order-small-refund"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:cross_shop_refund"
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_permission_snapshot_refund",
+      "attackOrControlType": "LEGITIMATE_PERMISSION_SNAPSHOT",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-permission-snapshot-refund"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:forged_permission_snapshot"
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_optimize_operator",
+      "attackOrControlType": "LEGITIMATE_PRODUCT_OPTIMIZE",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-validation-valid-product-optimize-operator"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_read",
+      "attackOrControlType": "LEGITIMATE_PRODUCT_READ",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-product-read"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:unknown_tool"
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_update_preapproval",
+      "attackOrControlType": "LEGITIMATE_PRODUCT_UPDATE_PREAPPROVAL",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-product-update-preapproval"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_report_export_operator",
+      "attackOrControlType": "LEGITIMATE_REPORT_EXPORT",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-report-export-operator"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:viewer_report_export_denied"
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_report_read",
+      "attackOrControlType": "LEGITIMATE_REPORT_READ",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-report-read"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_enum_member",
+      "attackOrControlType": "LEGITIMATE_SCHEMA_ENUM",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-schema-enum-member"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:schema_invalid_enum"
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_minimum_refund",
+      "attackOrControlType": "LEGITIMATE_SCHEMA_MINIMUM",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-validation-valid-schema-minimum-refund"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": "governance:schema_missing_required"
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_operation_request_max",
+      "attackOrControlType": "LEGITIMATE_SCHEMA_MAX_LENGTH",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-dev-valid-schema-opreq-max"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_reason_max",
+      "attackOrControlType": "LEGITIMATE_SCHEMA_MAX_LENGTH",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-valid-schema-reason-max"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:schema_oversized_value"
+    },
+    {
+      "semanticRootId": "governance:stage3:viewer_report_export_denied",
+      "attackOrControlType": "PERMISSION",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_CASE_GENERATION",
+      "existingCases": [
+        "stage3-test-viewer-report-export-denied"
+      ],
+      "previousSplits": [],
+      "previouslyLeaked": false,
+      "testExclusive": true,
+      "pairedRootId": "governance:stage3:valid_report_export_operator"
+    },
+    {
+      "semanticRootId": "governance:unknown_tool",
+      "attackOrControlType": "UNKNOWN_TOOL",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-dev-unknown-tool",
+        "gov-test-unknown-tool"
+      ],
+      "previousSplits": [
+        "dev",
+        "test"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:stage3:valid_product_read"
+    },
+    {
+      "semanticRootId": "governance:valid_approved_refund",
+      "attackOrControlType": "LEGITIMATE_APPROVED_WRITE",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-test-valid-approved-refund",
+        "gov-val-valid-approved-refund-control"
+      ],
+      "previousSplits": [
+        "test",
+        "validation"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:approval_payload_mutation"
+    },
+    {
+      "semanticRootId": "governance:valid_high_risk_preapproval",
+      "attackOrControlType": "LEGITIMATE_HIGH_RISK",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-test-valid-preapproval",
+        "gov-val-valid-preapproval"
+      ],
+      "previousSplits": [
+        "test",
+        "validation"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:viewer_refund_permission"
+    },
+    {
+      "semanticRootId": "governance:valid_idempotent_replay",
+      "attackOrControlType": "LEGITIMATE_IDEMPOTENT_REPLAY",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "test",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-test-valid-idempotent-replay"
+      ],
+      "previousSplits": [
+        "test"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:valid_mcp_read",
+      "attackOrControlType": "LEGITIMATE_MCP_READ",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "validation",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-test-valid-mcp-read",
+        "gov-val-valid-mcp-read-control"
+      ],
+      "previousSplits": [
+        "test",
+        "validation"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:valid_same_shop_read",
+      "attackOrControlType": "LEGITIMATE_READ",
+      "governanceCaseClass": "POSITIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "gov-dev-valid-read"
+      ],
+      "previousSplits": [
+        "dev"
+      ],
+      "previouslyLeaked": false,
+      "testExclusive": false,
+      "pairedRootId": null
+    },
+    {
+      "semanticRootId": "governance:viewer_refund_permission",
+      "attackOrControlType": "PERMISSION",
+      "governanceCaseClass": "NEGATIVE",
+      "assignedSplit": "dev",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "gov-dev-viewer-refund",
+        "gov-test-viewer-refund"
+      ],
+      "previousSplits": [
+        "dev",
+        "test"
+      ],
+      "previouslyLeaked": true,
+      "testExclusive": false,
+      "pairedRootId": "governance:valid_high_risk_preapproval"
+    }
+  ]
+}

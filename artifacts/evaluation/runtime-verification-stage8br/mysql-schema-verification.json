@@ -1,0 +1,9 @@
+{
+  "databaseVersion": "8.4.10",
+  "flywayValidatedMigrations": 24,
+  "latestMigrations": ["24 phase5 execution governance", "23 phase4 write recovery", "22 phase8 readonly mcp"],
+  "writeOperationTablePresent": true,
+  "idempotencyKeyColumn": "varchar(512) NOT NULL",
+  "uniqueConstraint": "uk_write_operation_idempotency on write_operation(idempotency_key)",
+  "realJdbcMode": true
+}

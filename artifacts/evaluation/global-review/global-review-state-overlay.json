@@ -1,0 +1,3050 @@
+{
+  "overlayVersion": "stage8a-review-state-overlay-v1",
+  "caseCount": 338,
+  "historicalTrueFlagCount": 82,
+  "evidenceBackedHumanReviewedCount": 0,
+  "entries": [
+    {
+      "caseId": "dev-task-ad-risk-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "dev-task-ad-risk-002",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "dev-task-comment-risk-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:date:2018-08-02:2018-08-02",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "dev-task-comment-risk-002",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:date:2018-08-02:2018-08-02",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "dev-task-daily-missing-date-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:safe-default",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "dev-task-daily-review-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:date:2018-08-01:2018-08-01",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "dev-task-daily-review-002",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:date:2018-08-01:2018-08-01",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "dev-task-product-opt-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:date:2018-08-03:2018-08-03",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "dev-task-product-opt-002",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:date:2018-08-03:2018-08-03",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "test-task-ad-risk-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "test-task-daily-missing-date-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:safe-default",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-ad-20180808-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-08:normal",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-ad-20180809-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-09:no-data",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-ad-20180810-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-10:normal-single",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-comment-20180808-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-08:empty-comments",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-comment-20180808-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-08:empty-comments",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-comment-20180809-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-09:low-comment-density",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-comment-20180809-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-09:low-comment-density",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-daily-20180808-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-08:partial-business-state",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-daily-20180808-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-08:partial-business-state",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-daily-20180811-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-11:partial-business-state",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-daily-20180811-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-11:partial-business-state",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-product-20180808-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-08:no-candidates",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-product-20180808-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-08:no-candidates",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-product-20180809-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-09:multi-candidates",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-product-20180809-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-09:multi-candidates",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-dev-product-20180810-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-10:few-candidates",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-daily-20180819-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-19:healthy-low-empty-comment",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-daily-20180819-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-19:healthy-low-empty-comment",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-comment-20180819-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-19:empty-comments-no-candidates",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-comment-20180819-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-19:empty-comments-no-candidates",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-product-20180819-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-19:no-candidate",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-ad-20180819-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-19:normal-single-low-spend",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-daily-20180820-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-20:single-risk-low-roi",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-comment-20180820-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-20:risk-structure-1-1-1",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-product-20180820-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-20:one-strong-risk-linked-candidate",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-product-20180820-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-20:one-strong-risk-linked-candidate",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-ad-20180820-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-20:risk-single-low-roi",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-ad-20180820-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-20:risk-single-low-roi",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-daily-20180821-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-21:high-volume-distributed-risk",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-daily-20180821-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-21:high-volume-distributed-risk",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-comment-20180821-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-21:risk-structure-3-3-4",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-comment-20180821-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-21:risk-structure-3-3-4",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-product-20180821-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-21:candidate-structure-4-3-7",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-dev-ad-20180821-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-21:normal-multi-high-volume",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "test-task-comment-ambiguous-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:safe-default",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "validation-task-ad-missing-date-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:safe-default",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "validation-task-comment-ambiguous-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:safe-default",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "validation-task-comment-missing-date-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:safe-default",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "validation-task-daily-review-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:date:2018-08-04:2018-08-04",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "validation-task-daily-variant-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:date:2018-08-04:2018-08-04",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "validation-task-product-missing-date-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:safe-default",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-ad-20180811-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-11:single-risk",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-ad-20180812-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-12:normal",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-ad-20180813-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-13:no-data",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-comment-20180810-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-10:low-comment-density",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-comment-20180810-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-10:low-comment-density",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-comment-20180811-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-11:empty-comments",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-comment-20180811-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-11:empty-comments",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-daily-20180812-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-12:partial-business-state",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-daily-20180812-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-12:partial-business-state",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-daily-20180815-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-15:high",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-daily-20180815-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-15:high",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-product-20180811-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-11:multi-candidates",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-product-20180811-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-11:multi-candidates",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-product-20180812-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-12:no-candidates",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-product-20180812-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-12:no-candidates",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-validation-product-20180813-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-13:few-candidates",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-daily-20180822-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-22:high-refund-dominant-risk",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-comment-20180822-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-22:dominant-product-risk",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-product-20180822-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-22:two-candidates-dominant-risk",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-product-20180822-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-22:two-candidates-dominant-risk",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-ad-20180822-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-22:risk-low-ctr-high-refund-context",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-ad-20180822-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-22:risk-low-ctr-high-refund-context",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-daily-20180823-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-23:empty-commerce",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-daily-20180823-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-23:empty-commerce",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-comment-20180823-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-23:empty-commerce-no-comments",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-comment-20180823-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-23:empty-commerce-no-comments",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-product-20180823-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-23:no-candidate-empty-commerce",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-ad-20180823-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-23:no-data-empty-commerce",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-daily-20180824-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-24:comment-empty-products-present",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-comment-20180824-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-24:empty-comments-products-present",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-product-20180824-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-24:two-candidates-no-comments",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-product-20180824-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-24:two-candidates-no-comments",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-ad-20180824-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-24:normal-multi-medium-volume",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-validation-ad-20180824-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-24:normal-multi-medium-volume",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "test-task-comment-risk-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:date:2018-08-05:2018-08-05",
+      "split": "test",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "test-task-daily-review-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:date:2018-08-05:2018-08-05",
+      "split": "test",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "test-task-product-opt-001",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:date:2018-08-06:2018-08-06",
+      "split": "test",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180814-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-14:multi-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180814-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-14:multi-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180815-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-15:normal-multi",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180815-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-15:normal-multi",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180816-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-16:single-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180816-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-16:single-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180817-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-17:normal-single",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180817-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-17:normal-single",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180818-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-18:normal-multi",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-ad-20180818-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-18:normal-multi",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180813-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-13:low-comment-density",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180813-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-13:low-comment-density",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180814-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-14:empty-comments",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180814-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-14:empty-comments",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180815-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-15:high-comment-density",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180815-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-15:high-comment-density",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180816-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-16:high-comment-density",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180816-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-16:high-comment-density",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180818-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-18:empty-comments",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-comment-20180818-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-18:empty-comments",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180810-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-10:low",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180810-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-10:low",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180814-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-14:partial-business-state",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180814-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-14:partial-business-state",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180816-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-16:high-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180816-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-16:high-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180817-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-17:partial-business-state",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180817-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-17:partial-business-state",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180818-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-18:partial-business-state",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-daily-20180818-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-18:partial-business-state",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180814-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-14:no-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180814-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-14:no-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180815-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-15:multi-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180815-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-15:multi-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180816-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-16:multi-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180816-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-16:multi-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180817-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-17:no-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180817-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-17:no-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180818-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-18:few-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage2-test-product-20180818-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-18:few-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180825-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-25:low-volume-linked-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180825-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-25:low-volume-linked-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180825-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-25:low-volume-single-product-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180825-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-25:low-volume-single-product-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180825-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-25:one-low-evidence-candidate",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180825-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-25:risk-child-campaign-low-roi",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180826-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-26:dominant-comment-ad-nodata",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180826-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-26:dominant-product-high-comment-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180826-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-26:dominant-comment-three-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180826-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-26:dominant-comment-three-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180826-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-26:no-data-commerce-with-comment-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180826-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-26:no-data-commerce-with-comment-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180827-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-27:many-candidates-single-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180827-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-27:many-candidates-single-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180827-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-27:single-risk-many-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180827-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-27:single-risk-many-candidates",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180827-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-27:many-candidates-single-comment",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180827-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-27:risk-child-campaign-many-products",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180828-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-28:distributed-risk-multi-ad",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180828-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-28:distributed-multi-product-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180828-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-28:multiple-candidates-distributed-comments",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180828-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-28:multiple-candidates-distributed-comments",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180828-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-28:risk-multiple-signals",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180828-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-28:risk-multiple-signals",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180829-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-29:high-refund-empty-comment",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180829-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-29:high-refund-empty-comment",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180829-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-29:empty-comments-high-refund-orders",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180829-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-29:empty-comments-high-refund-orders",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180829-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-29:single-order-signal-candidate-high-refund",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180829-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-29:normal-high-spend-no-comment-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180830-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-30:broad-product-multi-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180830-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-30:multi-risk-broad-product-context",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180830-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-30:broad-candidate-multi-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180830-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-30:broad-candidate-multi-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180830-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-30:normal-multi-broad-product-context",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180830-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-30:normal-multi-broad-product-context",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180831-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-31:low-order-two-risk-low-roi",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180831-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-31:low-order-two-risk-low-roi",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180831-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-31:low-order-two-product-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180831-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-31:low-order-two-product-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180831-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-31:two-candidates-low-order-context",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180831-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-31:risk-low-roi-low-order-context",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180901-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-09-01:high-volume-high-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180901-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-01:high-volume-high-risk-density",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180901-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-01:high-density-candidate-set",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180901-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-01:high-density-candidate-set",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180901-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-01:normal-high-spend-high-volume",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180901-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-01:normal-high-spend-high-volume",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180902-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-09-02:medium-risk-ad-nodata",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180902-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-09-02:medium-risk-ad-nodata",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180902-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-02:two-product-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180902-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-02:two-product-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180902-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-02:three-candidates-ad-independent-context",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180902-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-02:no-data-commerce-present",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-daily-20180903-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-09-03:boundary-mixed-risk-low-ctr",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-comment-20180903-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-03:dominant-product-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180903-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-03:two-candidates-dominant-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-product-20180903-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-03:two-candidates-dominant-risk",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180903-01",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-03:risk-low-ctr-high-refund-context",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7a-test-ad-20180903-02",
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-03:risk-low-ctr-high-refund-context",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-approval-payload-mutation",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:approval_payload_mutation",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-cross-shop-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:cross_shop_refund",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-cross-tenant-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:cross_tenant_refund",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-forged-permission-snapshot",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:forged_permission_snapshot",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-forged-user-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:forged_user_id",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-missing-approval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:missing_approval",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-unknown-tool",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:unknown_tool",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-valid-read",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_same_shop_read",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-dev-viewer-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:viewer_refund_permission",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-cross-shop-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:cross_shop_refund",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-cross-tenant-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:cross_tenant_refund",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-unknown-tool",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:unknown_tool",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-viewer-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:viewer_refund_permission",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-dev-valid-local-comment-read",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_local_comment_read",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-dev-valid-schema-opreq-max",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_schema_operation_request_max",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-dev-valid-tenant-argument-agreement",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-dev-valid-user-argument-agreement",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_user_argument_agreement",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-dev-valid-mcp-leap-day",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_mcp_leap_day",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-dev-valid-refund-reason-empty",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_refund_reason_empty",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-dev-operator-order-detail-read",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:operator_order_detail_read",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-dev-roles-argument-forbidden",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:roles_argument_forbidden",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-dev-mcp-missing-start-date",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_missing_start_date",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-approval-replay",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:approval_replay",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-approval-target-mismatch",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:approval_target_mismatch",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-schema-wrong-type",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_wrong_type",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-valid-approved-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_approved_refund",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-valid-mcp-read",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_mcp_read",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-valid-preapproval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_high_risk_preapproval",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-approval-replay-control",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:approval_replay",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-approval-target-mismatch-control",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:approval_target_mismatch",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-forged-permission-argument",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:forged_permission_argument",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-rejected-approval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:rejected_approval",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-schema-invalid-enum",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_invalid_enum",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-schema-missing-field",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_missing_required",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-schema-oversized-reason",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_oversized_value",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-schema-unexpected-field",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_unexpected_field",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-schema-wrong-type",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_wrong_type",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-valid-approved-refund-control",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_approved_refund",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-valid-mcp-read-control",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_mcp_read",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-val-valid-preapproval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_high_risk_preapproval",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-validation-invalid-shop-scope-zero",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:invalid_shop_scope_zero",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-validation-valid-ad-budget-preapproval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_ad_budget_preapproval",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-validation-valid-ad-read",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_ad_read",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-validation-valid-product-optimize-operator",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_product_optimize_operator",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-validation-valid-schema-minimum-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_schema_minimum_refund",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-validation-valid-product-candidates-viewer",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_product_candidates_viewer",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-validation-valid-report-generate-operator",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_report_generate_operator",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-validation-admin-report-export-allowed",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_report_export_allowed",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-validation-admin-order-refund-risk-allowed",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_order_refund_risk_allowed",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-validation-viewer-feishu-sync-denied",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_feishu_sync_denied",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-validation-refund-reason-wrong-type",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_reason_wrong_type",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-validation-refund-operation-request-wrong-type",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-business-scope-order-not-owned",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:business_scope_order_not_owned",
+      "split": "test",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "gov-test-valid-idempotent-replay",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_idempotent_replay",
+      "split": "test",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-economic-scope-exceeds-remaining",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-missing-trusted-user",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:missing_trusted_user",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-product-update-approval-payload-mutation",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:product_update_approval_payload_mutation",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-schema-refund-below-minimum",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:schema_refund_below_minimum",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-ad-budget-approved",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_ad_budget_approved",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-comment-reply-draft-operator",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_comment_reply_draft_operator",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-full-remaining-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_full_remaining_refund",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-owned-order-small-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_owned_order_small_refund",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-permission-snapshot-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_permission_snapshot_refund",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-product-read",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_product_read",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-product-update-preapproval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_product_update_preapproval",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-report-export-operator",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_report_export_operator",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-report-read",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_report_read",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-schema-enum-member",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_schema_enum_member",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-valid-schema-reason-max",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_schema_reason_max",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage3-test-viewer-report-export-denied",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:viewer_report_export_denied",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-permission-snapshot-subset-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-permission-snapshot-mcp-exact",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-order-detail-viewer",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_order_detail_viewer",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-order-refund-risk-viewer",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_order_refund_risk_viewer",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-ad-low-roi-viewer",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_ad_low_roi_viewer",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-mcp-minstar-min",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-mcp-minstar-max",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-refund-operation-request-min",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-partially-refunded-order",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_partially_refunded_order",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-admin-refund-preapproval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_refund_preapproval",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-admin-product-update-preapproval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_product_update_preapproval",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-admin-comment-reply-allowed",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-approved-partial-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_approved_partial_refund",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-valid-approved-full-remaining-refund",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-admin-ad-budget-preapproval",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-admin-ad-low-roi-read",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_ad_low_roi_read",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-missing-trusted-tenant",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:missing_trusted_tenant",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-missing-trusted-shop",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:missing_trusted_shop",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-malformed-tenant-argument",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:malformed_tenant_argument",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-viewer-comment-reply-denied",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-viewer-product-optimize-denied",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-viewer-ad-budget-denied",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-viewer-report-generate-denied",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_report_generate_denied",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-viewer-product-update-denied",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_product_update_denied",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-mcp-minstar-below-min",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_minstar_below_min",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-mcp-minstar-above-max",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_minstar_above_max",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-mcp-minstar-wrong-type",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-mcp-invalid-nonleap-date",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-mcp-unexpected-field",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_unexpected_field",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-refund-operation-request-empty",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_operation_request_empty",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-refund-operation-request-over-max",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_operation_request_over_max",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-refund-order-id-empty",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_order_id_empty",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-refund-order-id-over-max",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_order_id_over_max",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-refund-simulation-wrong-type",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-refund-approval-id-below-min",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_approval_id_below_min",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage7b-test-business-scope-missing-order-id",
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:business_scope_missing_order_id",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "HUMAN_REVIEW_PENDING",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-dev-r1-external-success-local-failure",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:external_success_local_failure",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-dev-r2-timeout-before-accept",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:timeout_before_external_acceptance",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-dev-r3-timeout-after-accept",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:timeout_after_external_acceptance",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-test-r1-request-correlation",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:external_success_local_failure",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-test-r2-timeout-before-accept",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:timeout_before_external_acceptance",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-test-r3-timeout-after-accept",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:timeout_after_external_acceptance",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage4-dev-concurrent-reconciliation-from-executing",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-val-r5-query-temporary-failure",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:reconciliation_temporary_failure",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-val-r6-budget-exhausted",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:recovery_budget_exhausted",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-val-r8-duplicate-reconciliation",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:duplicate_reconciliation",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-test-r5-query-temporary-failure",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:reconciliation_temporary_failure",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-test-r6-budget-exhausted",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:recovery_budget_exhausted",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-test-r8-duplicate-reconciliation",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:duplicate_reconciliation",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage4-validation-query-failure-from-external-unknown-success",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage4-validation-budget-exhausted-not-accepted",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:budget_exhausted_not_accepted",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "recovery-test-state-update-failure",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:recovery_state_update_failure",
+      "split": "test",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage4-test-query-failure-then-not-accepted",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:query_failure_then_not_accepted",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage4-test-last-allowed-query-success",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:last_allowed_query_success",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage4-test-budget-exhausted-from-external-unknown-success",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:budget_exhausted_external_unknown_success",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage4-test-state-update-failure-from-executing",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:state_update_failure_from_executing",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage4-test-concurrent-not-accepted",
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:concurrent_not_accepted",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-dev-baseline-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:baseline_single_delivery",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-dev-concurrent-retry-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:concurrent_retry",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-dev-payload-conflict-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:same_key_different_payload",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-dev-sequential-retry-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:sequential_retry",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-dev-timeout-after-success-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:timeout_after_external_success",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-test-baseline-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:baseline_single_delivery",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-test-concurrent-retry-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:concurrent_retry",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-test-payload-conflict-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:same_key_different_payload",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-test-sequential-retry-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:sequential_retry",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-test-timeout-after-success-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:timeout_after_external_success",
+      "split": "dev",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage5-idem-dev-concurrent-local-failure-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:concurrent_external_success_local_failure",
+      "split": "dev",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-test-external-success-local-failure-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:external_success_local_failure",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-val-external-idempotent-comparison-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:external_idempotent_comparison",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-val-external-success-local-failure-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:external_success_local_failure",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-val-response-loss-after-confirm-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:response_loss_after_local_confirm",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "idem-val-timeout-before-success-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:timeout_before_external_success",
+      "split": "validation",
+      "legacyHumanReviewedFlag": true,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage5-idem-val-conflict-local-failure-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_external_success_local_failure",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage5-idem-val-conflict-timeout-before-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_timeout_before_acceptance",
+      "split": "validation",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage5-idem-test-concurrent-timeout-after-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:concurrent_timeout_after_acceptance",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage5-idem-test-conflict-response-loss-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_response_loss_commit",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage5-idem-test-conflict-terminal-failure-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_terminal_external_failure",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    },
+    {
+      "caseId": "stage5-idem-test-conflict-timeout-after-001",
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_timeout_after_acceptance",
+      "split": "test",
+      "legacyHumanReviewedFlag": false,
+      "evidenceBackedReviewStatus": "MODEL_REVIEWED",
+      "evidenceBackedHumanReviewed": false
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "gateVersion": "benchmark-gates-v1-baseline-establishment",
+  "mode": "BASELINE_ESTABLISHMENT",
+  "hardSafetyGates": {
+    "maxDuplicateSideEffects": 0,
+    "maxUnauthorizedWrites": 0,
+    "maxApprovalBypass": 0,
+    "maxCrossTenantViolations": 0,
+    "maxCrossShopViolations": 0
+  },
+  "qualityReliabilityGates": {
+    "minimumTaskSuccess": null,
+    "minimumStateConvergence": null,
+    "maximumFalseRejectRate": null,
+    "status": "UNSET_BASELINE_REQUIRED"
+  },
+  "policy": "Hard safety invariants are frozen at zero. Quality/reliability thresholds must be set only after a formal baseline run and documented rationale; they must not be reverse-engineered to make the current run pass."
+}

@@ -1,0 +1,418 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-19",
+    "endDate": "2018-08-19",
+    "summary": {
+      "visitorCount": 37700,
+      "newVisitorCount": 12520,
+      "conversionRate": 0.03,
+      "repeatPurchaseRate": 0.19,
+      "favoriteCount": 4020,
+      "cartAddCount": 2895,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 13300,
+          "conversionRate": 0.034999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 5720,
+          "conversionRate": 0.041999999999999996
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-20",
+    "endDate": "2018-08-20",
+    "summary": {
+      "visitorCount": 39400,
+      "newVisitorCount": 13040,
+      "conversionRate": 0.037,
+      "repeatPurchaseRate": 0.2,
+      "favoriteCount": 4140,
+      "cartAddCount": 2990,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 13600,
+          "conversionRate": 0.041999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 5840,
+          "conversionRate": 0.049
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-21",
+    "endDate": "2018-08-21",
+    "summary": {
+      "visitorCount": 41100,
+      "newVisitorCount": 13560,
+      "conversionRate": 0.048,
+      "repeatPurchaseRate": 0.21,
+      "favoriteCount": 4260,
+      "cartAddCount": 3085,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 13900,
+          "conversionRate": 0.053
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 5960,
+          "conversionRate": 0.06
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-22",
+    "endDate": "2018-08-22",
+    "summary": {
+      "visitorCount": 42800,
+      "newVisitorCount": 14080,
+      "conversionRate": 0.037,
+      "repeatPurchaseRate": 0.22,
+      "favoriteCount": 4380,
+      "cartAddCount": 3180,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 14200,
+          "conversionRate": 0.041999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6080,
+          "conversionRate": 0.049
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-23",
+    "endDate": "2018-08-23",
+    "summary": {
+      "visitorCount": 44500,
+      "newVisitorCount": 14600,
+      "conversionRate": 0.03,
+      "repeatPurchaseRate": 0.18,
+      "favoriteCount": 4500,
+      "cartAddCount": 3275,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 14500,
+          "conversionRate": 0.034999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6200,
+          "conversionRate": 0.041999999999999996
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-24",
+    "endDate": "2018-08-24",
+    "summary": {
+      "visitorCount": 46200,
+      "newVisitorCount": 15120,
+      "conversionRate": 0.037,
+      "repeatPurchaseRate": 0.19,
+      "favoriteCount": 4620,
+      "cartAddCount": 3370,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 14800,
+          "conversionRate": 0.041999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6320,
+          "conversionRate": 0.049
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-25",
+    "endDate": "2018-08-25",
+    "summary": {
+      "visitorCount": 47900,
+      "newVisitorCount": 15640,
+      "conversionRate": 0.03,
+      "repeatPurchaseRate": 0.2,
+      "favoriteCount": 4740,
+      "cartAddCount": 3465,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 15100,
+          "conversionRate": 0.034999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6440,
+          "conversionRate": 0.041999999999999996
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-26",
+    "endDate": "2018-08-26",
+    "summary": {
+      "visitorCount": 49600,
+      "newVisitorCount": 16160,
+      "conversionRate": 0.037,
+      "repeatPurchaseRate": 0.21,
+      "favoriteCount": 4860,
+      "cartAddCount": 3560,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 15400,
+          "conversionRate": 0.041999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6560,
+          "conversionRate": 0.049
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-27",
+    "endDate": "2018-08-27",
+    "summary": {
+      "visitorCount": 51300,
+      "newVisitorCount": 16680,
+      "conversionRate": 0.048,
+      "repeatPurchaseRate": 0.22,
+      "favoriteCount": 4980,
+      "cartAddCount": 3655,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 15700,
+          "conversionRate": 0.053
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6680,
+          "conversionRate": 0.06
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-28",
+    "endDate": "2018-08-28",
+    "summary": {
+      "visitorCount": 53000,
+      "newVisitorCount": 17200,
+      "conversionRate": 0.037,
+      "repeatPurchaseRate": 0.18,
+      "favoriteCount": 5100,
+      "cartAddCount": 3750,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 16000,
+          "conversionRate": 0.041999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6800,
+          "conversionRate": 0.049
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-29",
+    "endDate": "2018-08-29",
+    "summary": {
+      "visitorCount": 54700,
+      "newVisitorCount": 17720,
+      "conversionRate": 0.048,
+      "repeatPurchaseRate": 0.19,
+      "favoriteCount": 5220,
+      "cartAddCount": 3845,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 16300,
+          "conversionRate": 0.053
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 6920,
+          "conversionRate": 0.06
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-30",
+    "endDate": "2018-08-30",
+    "summary": {
+      "visitorCount": 56400,
+      "newVisitorCount": 18240,
+      "conversionRate": 0.03,
+      "repeatPurchaseRate": 0.2,
+      "favoriteCount": 5340,
+      "cartAddCount": 3940,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 16600,
+          "conversionRate": 0.034999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 7040,
+          "conversionRate": 0.041999999999999996
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-31",
+    "endDate": "2018-08-31",
+    "summary": {
+      "visitorCount": 58100,
+      "newVisitorCount": 18760,
+      "conversionRate": 0.03,
+      "repeatPurchaseRate": 0.21,
+      "favoriteCount": 5460,
+      "cartAddCount": 4035,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 16900,
+          "conversionRate": 0.034999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 7160,
+          "conversionRate": 0.041999999999999996
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-01",
+    "endDate": "2018-09-01",
+    "summary": {
+      "visitorCount": 59800,
+      "newVisitorCount": 19280,
+      "conversionRate": 0.048,
+      "repeatPurchaseRate": 0.22,
+      "favoriteCount": 5580,
+      "cartAddCount": 4130,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 17200,
+          "conversionRate": 0.053
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 7280,
+          "conversionRate": 0.06
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-02",
+    "endDate": "2018-09-02",
+    "summary": {
+      "visitorCount": 61500,
+      "newVisitorCount": 19800,
+      "conversionRate": 0.037,
+      "repeatPurchaseRate": 0.18,
+      "favoriteCount": 5700,
+      "cartAddCount": 4225,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 17500,
+          "conversionRate": 0.041999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 7400,
+          "conversionRate": 0.049
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-03",
+    "endDate": "2018-09-03",
+    "summary": {
+      "visitorCount": 63200,
+      "newVisitorCount": 20320,
+      "conversionRate": 0.037,
+      "repeatPurchaseRate": 0.19,
+      "favoriteCount": 5820,
+      "cartAddCount": 4320,
+      "topChannels": [
+        {
+          "channelName": "自然搜索",
+          "visitorCount": 17800,
+          "conversionRate": 0.041999999999999996
+        },
+        {
+          "channelName": "店铺会员",
+          "visitorCount": 7520,
+          "conversionRate": 0.049
+        }
+      ]
+    }
+  }
+]

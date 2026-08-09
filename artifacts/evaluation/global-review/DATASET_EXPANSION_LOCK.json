@@ -1,0 +1,28 @@
+{
+  "artifactVersion": "stage8a-dataset-expansion-lock-v1",
+  "stage": "STAGE8A_GLOBAL_QUALITY_CONSOLIDATION",
+  "bulkExpansionCompleted": true,
+  "newSemanticRootsAllowedByDefault": 0,
+  "benchmarks": {
+    "TASK": {
+      "bulkExpansionStatus": "CLOSED",
+      "targetedCorrectionOnly": true
+    },
+    "GOVERNANCE": {
+      "bulkExpansionStatus": "CLOSED",
+      "targetedCorrectionOnly": true
+    },
+    "RECOVERY": {
+      "bulkExpansionStatus": "NOT_APPLICABLE",
+      "reason": "causal-root benchmark; no bulk case scaling"
+    },
+    "IDEMPOTENCY": {
+      "bulkExpansionStatus": "NOT_APPLICABLE",
+      "reason": "semantic-scenario/workload benchmark; no bulk JSON scaling"
+    }
+  },
+  "heldOutRuntimeExecutionAllowed": false,
+  "productionChangesAllowed": false,
+  "formalFreezeCreated": false,
+  "status": "CANDIDATE_REVIEW_PREPARATION"
+}

@@ -6,7 +6,7 @@ import com.sirithree.shopops.admin.agent.domain.AgentPlanStep;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.service.AgentExecutorService;
 import com.sirithree.shopops.admin.agent.service.StepExecutionRecorder;
-import com.sirithree.shopops.admin.auth.domain.PermissionCode;
+import com.sirithree.shopops.admin.auth.service.AuthorizationService;
 import com.sirithree.shopops.admin.report.domain.OperationReportDto;
 import com.sirithree.shopops.admin.report.service.OperationReportService;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,13 +23,16 @@ public class SequentialAgentExecutorService implements AgentExecutorService {
     private final ToolGatewayService toolGatewayService;
     private final OperationReportService operationReportService;
     private final StepExecutionRecorder stepExecutionRecorder;
+    private final AuthorizationService authorizationService;
 
     public SequentialAgentExecutorService(ToolGatewayService toolGatewayService,
                                           OperationReportService operationReportService,
-                                          StepExecutionRecorder stepExecutionRecorder) {
+                                          StepExecutionRecorder stepExecutionRecorder,
+                                          AuthorizationService authorizationService) {
         this.toolGatewayService = toolGatewayService;
         this.operationReportService = operationReportService;
         this.stepExecutionRecorder = stepExecutionRecorder;
+        this.authorizationService = authorizationService;
     }
 
     @Override
@@ -105,18 +107,9 @@ public class SequentialAgentExecutorService implements AgentExecutorService {
         toolContext.setStepId(stepId);
         toolContext.setTraceId(context.getTraceId());
         toolContext.setParentSpanId(context.getExecutorSpanId());
-        toolContext.setPermissions(Set.of(
-                PermissionCode.ORDER_READ,
-                PermissionCode.PRODUCT_READ,
-                PermissionCode.REVIEW_READ,
-                PermissionCode.REPORT_GENERATE,
-                PermissionCode.TOOL_EXECUTE,
-                "comment:read",
-                "ad:read",
-                "report:read",
-                "report:export",
-                "feishu:write"
-        ));
+        AuthorizationService.AuthorizationSnapshot authorization = authorizationService.resolve(
+                context.getTenantId(), context.getShopId(), context.getUserId());
+        toolContext.setPermissions(authorization.permissions());
         toolContext.setManualInvoke(false);
         return toolContext;
     }

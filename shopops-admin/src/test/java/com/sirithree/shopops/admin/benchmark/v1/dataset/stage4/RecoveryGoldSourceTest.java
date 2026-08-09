@@ -1,0 +1,3 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage4;
+import static org.assertj.core.api.Assertions.assertThat; import org.junit.jupiter.api.Test;
+class RecoveryGoldSourceTest { @Test void everyRecoveryCaseHasIndependentFaultContractGold() throws Exception { assertThat(Stage4RecoveryDatasetSupport.recoveryCases()).allSatisfy(v->{ assertThat(v.benchmarkCase().goldSourceType).isEqualTo("FAULT_CONTRACT_DERIVED"); assertThat(v.benchmarkCase().expectedExternalState).isNotBlank(); assertThat(v.benchmarkCase().sideEffectExpectation.constraints.get("duplicateSideEffectsAllowed")).isEqualTo(0); }); }}

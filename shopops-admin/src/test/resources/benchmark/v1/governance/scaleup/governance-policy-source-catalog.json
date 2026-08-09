@@ -1,0 +1,109 @@
+{
+  "catalogVersion": "stage7b-policy-source-catalog-v1",
+  "sources": [
+    {
+      "policySourceId": "POL_GATEWAY_AUTH",
+      "policyFamily": "IDENTITY",
+      "sourceFile": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/DefaultToolGatewayService.java",
+      "sourceMethod": "trustedAuthorization",
+      "sourceHash": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+      "description": "Trusted tenant/shop/user and trusted authorization snapshot."
+    },
+    {
+      "policySourceId": "POL_GATEWAY_PERMISSION",
+      "policyFamily": "PERMISSION",
+      "sourceFile": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/DefaultToolGatewayService.java",
+      "sourceMethod": "invoke",
+      "sourceHash": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+      "description": "Caller permission snapshot cannot exceed trusted permissions; tool permission is required."
+    },
+    {
+      "policySourceId": "POL_GATEWAY_APPROVAL",
+      "policyFamily": "APPROVAL",
+      "sourceFile": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/DefaultToolGatewayService.java",
+      "sourceMethod": "invoke/isApprovedForTool",
+      "sourceHash": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf",
+      "description": "High-risk/needApproval tool requires a matching APPROVED request and consumes it once."
+    },
+    {
+      "policySourceId": "POL_IDENTITY_NORMALIZER",
+      "policyFamily": "IDENTITY",
+      "sourceFile": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/TrustedToolInputNormalizer.java",
+      "sourceMethod": "normalize",
+      "sourceHash": "dae00233cea6427d2e5051476ac18518fd8abc97610d6309c1b6d2e1111ff9b9",
+      "description": "Identity arguments cannot override trusted context; roles/permissions arguments are forbidden."
+    },
+    {
+      "policySourceId": "POL_SCHEMA_VALIDATOR",
+      "policyFamily": "SCHEMA",
+      "sourceFile": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/ToolInputSchemaValidator.java",
+      "sourceMethod": "validate",
+      "sourceHash": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb",
+      "description": "Recursive required/type/enum/min/max/minLength/maxLength/date/additionalProperties validation."
+    },
+    {
+      "policySourceId": "POL_AUTH_MAPPING",
+      "policyFamily": "PERMISSION",
+      "sourceFile": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/JdbcAuthorizationService.java",
+      "sourceMethod": "permissionsFor",
+      "sourceHash": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358",
+      "description": "VIEWER read permissions; OPERATOR/ADMIN write/export/refund permissions; ADMIN review/manage permissions."
+    },
+    {
+      "policySourceId": "POL_TOOL_CATALOG",
+      "policyFamily": "CAPABILITY",
+      "sourceFile": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/InMemoryMcpToolService.java",
+      "sourceMethod": "constructor",
+      "sourceHash": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45",
+      "description": "Registered tool, permission, risk and approval metadata."
+    },
+    {
+      "policySourceId": "POL_REFUND_SCHEMA",
+      "policyFamily": "SCHEMA",
+      "sourceFile": "shopops-admin/src/main/resources/db/migration/V24__phase5_execution_governance.sql",
+      "sourceMethod": "order.refund_execute",
+      "sourceHash": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a",
+      "description": "Strict refund input schema, HIGH risk, approval, order:refund permission."
+    },
+    {
+      "policySourceId": "POL_MCP_COMMENT_SCHEMA",
+      "policyFamily": "SCHEMA",
+      "sourceFile": "shopops-admin/src/main/resources/db/migration/V22__phase8_readonly_mcp.sql",
+      "sourceMethod": "comment.query_negative",
+      "sourceHash": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376",
+      "description": "Strict MCP schema with minStar 1..5 and ISO dates."
+    },
+    {
+      "policySourceId": "POL_PORTFOLIO_TOOLS",
+      "policyFamily": "PERMISSION",
+      "sourceFile": "shopops-admin/src/main/resources/db/migration/V19__portfolio_mcp_tools.sql",
+      "sourceMethod": "tool rows",
+      "sourceHash": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420",
+      "description": "Portfolio tool permission/risk/approval contracts."
+    },
+    {
+      "policySourceId": "POL_REFUND_SCOPE",
+      "policyFamily": "BUSINESS_SCOPE",
+      "sourceFile": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/JdbcRefundOrderBusinessScopeValidator.java",
+      "sourceMethod": "validate",
+      "sourceHash": "fa5ef521f7120d99e8030f1db329708b3e6f6aeb29c8052b14aff73b834a4677",
+      "description": "Order must exist in trusted tenant/shop and requested refund must be within remaining refundable amount."
+    },
+    {
+      "policySourceId": "POL_AUTH_SEED",
+      "policyFamily": "IDENTITY",
+      "sourceFile": "shopops-admin/src/main/resources/db/migration/V4__p3_auth_seed.sql",
+      "sourceMethod": "seed",
+      "sourceHash": "94439865894a926355240ea6ff0b63bbfe56d71f31ce9c99c523bad6afa6d973",
+      "description": "tenant=1 users 1/2/3 map to ADMIN/OPERATOR/VIEWER for shop=1."
+    },
+    {
+      "policySourceId": "POL_ORDER_SEED",
+      "policyFamily": "ECONOMIC",
+      "sourceFile": "shopops-admin/src/main/resources/db/migration/V3__p1_business_seed.sql",
+      "sourceMethod": "seed",
+      "sourceHash": "928270579e900c51c0b779cd4aa7dcd75bc8fd7fa4be27c12a5ea65e94852beb",
+      "description": "Owned shop-1 refund fixtures including partially refunded order SO202607180003."
+    }
+  ]
+}

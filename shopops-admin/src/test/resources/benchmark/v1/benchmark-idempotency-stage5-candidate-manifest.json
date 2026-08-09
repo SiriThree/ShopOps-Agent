@@ -1,0 +1,172 @@
+{
+  "manifestVersion": "ShopOpsBench-Idempotency-Stage5-Candidate-1",
+  "status": "EXPANSION_CANDIDATE",
+  "formalRunOccurred": false,
+  "benchmarkVersion": "ShopOpsBench-v1",
+  "benchmarkType": "IDEMPOTENCY",
+  "datasetVersion": "1.3.0-stage5-idempotency-candidate",
+  "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+  "schemaVersion": "benchmark-case.schema.json",
+  "schemaSha256": "cd99fc0740a5ba96d85109742c235ee8645663ee25ade6218b0070db8069d5eb",
+  "semanticRootMap": "benchmark/v1/audit/stage5-semantic-root-map.json",
+  "rootMapSha256": "701585abe78f66da5846dca684baa78e36fffcdb3c0382c12144db4bc1d5b002",
+  "rootSplitPlan": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json",
+  "scenarioBlueprints": "benchmark/v1/idempotency/stage5/idempotency-scenario-blueprints.json",
+  "semanticMatrix": "benchmark/v1/idempotency/stage5/idempotency-semantic-matrix.json",
+  "nearDuplicateReview": "benchmark/v1/idempotency/stage5/idempotency-near-duplicate-review.json",
+  "workloadProfile": "benchmark/v1/idempotency/stage5/idempotency-workload-profiles.json",
+  "workloadProfileSha256": "970edc2ca45c5feeaefc09d9cd2af83f85cae5d32581beade9af40604c02e6c5",
+  "caseCount": 22,
+  "semanticScenarioCount": 16,
+  "devRootCount": 6,
+  "validationRootCount": 6,
+  "testRootCount": 4,
+  "trueTestExclusiveRootCount": 4,
+  "heldOutRootIds": [
+    "idempotency:concurrent_timeout_after_acceptance",
+    "idempotency:payload_conflict_after_response_loss_commit",
+    "idempotency:payload_conflict_after_terminal_external_failure",
+    "idempotency:payload_conflict_after_timeout_after_acceptance"
+  ],
+  "payloadRelationDistribution": {
+    "SAME_PAYLOAD": 15,
+    "DIFFERENT_BUSINESS_PAYLOAD": 7
+  },
+  "repeatPatternDistribution": {
+    "SINGLE": 2,
+    "CONCURRENT_FIRST_WRITE": 4,
+    "SEQUENTIAL_CONFLICT": 2,
+    "SEQUENTIAL_RETRY": 9,
+    "SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE": 1,
+    "SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT": 2,
+    "SEQUENTIAL_CONFLICT_AFTER_COMMIT_RESPONSE_LOSS": 1,
+    "SEQUENTIAL_CONFLICT_AFTER_TERMINAL_FAILURE": 1
+  },
+  "faultFamilyDistribution": {
+    "NONE": 8,
+    "TIMEOUT_AFTER_ACCEPTANCE": 4,
+    "EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE": 4,
+    "IDEMPOTENT_EXTERNAL_CONTROL": 1,
+    "RESPONSE_LOSS_AFTER_LOCAL_COMMIT": 2,
+    "TIMEOUT_BEFORE_ACCEPTANCE": 2,
+    "EXTERNAL_BUSINESS_FAILURE": 1
+  },
+  "formalWorkloadLogicalOperationCount": 260,
+  "formalHeldOutLogicalOperationCount": 240,
+  "formalWorkloadPlannedAttempts": 700,
+  "formalWorkloadPlannedAttemptRange": {
+    "min": 700,
+    "max": 700
+  },
+  "splits": {
+    "dev": {
+      "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/idempotency/dev/cases.json",
+      "caseCount": 11,
+      "semanticRootCount": 6,
+      "caseIds": [
+        "idem-dev-baseline-001",
+        "idem-dev-concurrent-retry-001",
+        "idem-dev-payload-conflict-001",
+        "idem-dev-sequential-retry-001",
+        "idem-dev-timeout-after-success-001",
+        "idem-test-baseline-001",
+        "idem-test-concurrent-retry-001",
+        "idem-test-payload-conflict-001",
+        "idem-test-sequential-retry-001",
+        "idem-test-timeout-after-success-001",
+        "stage5-idem-dev-concurrent-local-failure-001"
+      ],
+      "semanticRootIds": [
+        "idempotency:baseline_single_delivery",
+        "idempotency:concurrent_external_success_local_failure",
+        "idempotency:concurrent_retry",
+        "idempotency:same_key_different_payload",
+        "idempotency:sequential_retry",
+        "idempotency:timeout_after_external_success"
+      ],
+      "selectedCasesSha256": "a4bb57466f47b4458e68c47b3ac7be5551bccb4480b11b571893a0b3fe9f4963"
+    },
+    "validation": {
+      "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/idempotency/validation/cases.json",
+      "caseCount": 7,
+      "semanticRootCount": 6,
+      "caseIds": [
+        "idem-test-external-success-local-failure-001",
+        "idem-val-external-idempotent-comparison-001",
+        "idem-val-external-success-local-failure-001",
+        "idem-val-response-loss-after-confirm-001",
+        "idem-val-timeout-before-success-001",
+        "stage5-idem-val-conflict-local-failure-001",
+        "stage5-idem-val-conflict-timeout-before-001"
+      ],
+      "semanticRootIds": [
+        "idempotency:external_idempotent_comparison",
+        "idempotency:external_success_local_failure",
+        "idempotency:payload_conflict_after_external_success_local_failure",
+        "idempotency:payload_conflict_after_timeout_before_acceptance",
+        "idempotency:response_loss_after_local_confirm",
+        "idempotency:timeout_before_external_success"
+      ],
+      "selectedCasesSha256": "bf33226da030340a529d1b1aabd69394ee94016f7125ae927924c3b29bff1d4c"
+    },
+    "test": {
+      "sourceFile": "shopops-admin/src/test/resources/benchmark/v1/idempotency/test/cases.json",
+      "caseCount": 4,
+      "semanticRootCount": 4,
+      "caseIds": [
+        "stage5-idem-test-concurrent-timeout-after-001",
+        "stage5-idem-test-conflict-response-loss-001",
+        "stage5-idem-test-conflict-terminal-failure-001",
+        "stage5-idem-test-conflict-timeout-after-001"
+      ],
+      "semanticRootIds": [
+        "idempotency:concurrent_timeout_after_acceptance",
+        "idempotency:payload_conflict_after_response_loss_commit",
+        "idempotency:payload_conflict_after_terminal_external_failure",
+        "idempotency:payload_conflict_after_timeout_after_acceptance"
+      ],
+      "selectedCasesSha256": "a39d528190aa10acb621bcf94684c0c5f0f06dd01b833a3d16bd5507f896b22b"
+    }
+  },
+  "caseHashes": {
+    "idem-dev-baseline-001": "be7608095725fa5643e5139c4a0cd7f3e9d212a1f0fee7c359ec5c318b77d44c",
+    "idem-dev-concurrent-retry-001": "81ccd8ba0fb0ca519a812879c7c9ca7b4e4bdb7bd989792ef3745eea0ebc4bde",
+    "idem-dev-payload-conflict-001": "31187f99016e4d56a2808a418200b72f5fe1dffe9a39964d920cb57e6a4c0ebe",
+    "idem-dev-sequential-retry-001": "91d85e4ac115bd2ef118bcb0a74b132829ccd67f8a6fae518d2480f32d22e4ec",
+    "idem-dev-timeout-after-success-001": "2777033a9e14e4aed2767b01fc9717ab6ae9e50ae02f1b7f94ed393c271ae0ea",
+    "idem-test-baseline-001": "ff0b2d1383310a9aacdb84c25f7ff80b3699259de84bc8c1bc4228b77cb5cc32",
+    "idem-test-concurrent-retry-001": "8895016f92e628a1fc24a317fb2a699d90f65ba1934a0f4224fa3b177fedec74",
+    "idem-test-payload-conflict-001": "89c76475d6df23def3128e6c535957c2fd8989d2e06d7db46e244a27e567e2a2",
+    "idem-test-sequential-retry-001": "8fdc42b0d3c0cd785d1374f31b1e276efe11bd6acab73b449e685b6282630066",
+    "idem-test-timeout-after-success-001": "39279e81c9a168f4f267e8c87eb7e99da0dadc9fd91d0dfe0c0d57e0677ab575",
+    "stage5-idem-dev-concurrent-local-failure-001": "9d3026fdb6be127feb1375fd568dcc908dcb9144e3643474d777824aaa8747af",
+    "idem-test-external-success-local-failure-001": "8149723c4e4b1f1486bfed019d516c64ecd14c247e234a8d1c08da0eae80c385",
+    "idem-val-external-idempotent-comparison-001": "8fc42cf88f63d75c4b23ee428e7238a3a5ee5de180660d6f60c1ce3604122bf7",
+    "idem-val-external-success-local-failure-001": "53975213c28785d14d8cc62e279789d0d933444f80a34488970d3457c164849e",
+    "idem-val-response-loss-after-confirm-001": "2ab877d0bc197bad8ca1c1ac8ddf6e84ec90e623a22c7465283d6601a87e2f6d",
+    "idem-val-timeout-before-success-001": "1249ba87566a677846d17bfab6490489770d3da023c91d2aa865f4e6366be821",
+    "stage5-idem-val-conflict-local-failure-001": "32da075686988eb52f2b84176c9f8174cae26d745ea03c9196c25388725130b7",
+    "stage5-idem-val-conflict-timeout-before-001": "9503fbaaa607acce40ab0a490585809d17e669c95de0469425548a74b5fd0b15",
+    "stage5-idem-test-concurrent-timeout-after-001": "0359120d6d8f289e2b00ca10581c80626d481df04d03a141565fd0893b2a0671",
+    "stage5-idem-test-conflict-response-loss-001": "97127d31a85900c67ca4bda07633b3b45aaae1d6c782266d10a1f93104ccba76",
+    "stage5-idem-test-conflict-terminal-failure-001": "f64fc46fe93b92d3578d138a4ad06b670312663383cfab0bdfdc9d0d37b13904",
+    "stage5-idem-test-conflict-timeout-after-001": "2b64c951a7cf86ed3c41338408c30b85bea428a7056d2b79ea20e8fd64d4d430"
+  },
+  "reviewSummary": {
+    "modelReviewedCases": 22,
+    "evidenceBackedHumanReviewedCases": 0,
+    "historicalUncertainHumanReviewedFlags": 15,
+    "newCases": 7,
+    "newCasesHumanReviewedTrue": 0,
+    "candidateScenariosProposed": 14,
+    "candidateScenariosAccepted": 7,
+    "candidateScenariosRejected": 7,
+    "nearDuplicateCandidates": 82,
+    "nearDuplicateReviewed": 82,
+    "nearDuplicateUnresolved": 0
+  },
+  "formalEligibilityNotes": [
+    "Stage5 does not execute held-out cases.",
+    "Current RefundIdempotencyBenchmarkExecutor reuses consumed approvalId across repeated deliveries; future Formal workload must harden the benchmark driver to issue fresh payload-bound approvals per legal replay before claiming Tool-Gateway idempotency evidence."
+  ]
+}

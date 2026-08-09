@@ -1,0 +1,1174 @@
+{
+  "contractVersion": "stage3-governance-root-blueprints-v1",
+  "proposedRootCount": 29,
+  "acceptedRootCount": 23,
+  "rejectedRootCount": 6,
+  "acceptedPositiveRootCount": 17,
+  "acceptedNegativeRootCount": 6,
+  "roots": [
+    {
+      "semanticRootId": "governance:stage3:valid_permission_snapshot_refund",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_PERMISSION_SNAPSHOT",
+      "governanceBoundary": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ],
+        "contextPermissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 100,
+          "operationRequestId": "S3-P-SNAPSHOT",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "LEGITIMATE_PERMISSION_SNAPSHOT",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:forged_permission_snapshot",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-permission-snapshot-refund"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_owned_order_small_refund",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_BUSINESS_SCOPE",
+      "governanceBoundary": "BUSINESS_SCOPE",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 100,
+          "operationRequestId": "S3-P-OWNED",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "LEGITIMATE_BUSINESS_SCOPE",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:cross_shop_refund",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-owned-order-small-refund"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_full_remaining_refund",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_ECONOMIC_BOUNDARY",
+      "governanceBoundary": "BUSINESS_SCOPE",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 178,
+          "operationRequestId": "S3-P-FULL",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "LEGITIMATE_ECONOMIC_BOUNDARY",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-full-remaining-refund"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_minimum_refund",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_SCHEMA_MINIMUM",
+      "governanceBoundary": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 1,
+          "operationRequestId": "S3-P-MIN",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "LEGITIMATE_SCHEMA_MINIMUM",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:schema_missing_required",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-validation-valid-schema-minimum-refund"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_reason_max",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_SCHEMA_MAX_LENGTH",
+      "governanceBoundary": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 100,
+          "operationRequestId": "S3-P-REASON",
+          "reason": "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "LEGITIMATE_SCHEMA_MAX_LENGTH",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:schema_oversized_value",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-schema-reason-max"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_operation_request_max",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_SCHEMA_MAX_LENGTH",
+      "governanceBoundary": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 100,
+          "operationRequestId": "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "LEGITIMATE_SCHEMA_MAX_LENGTH",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-dev-valid-schema-opreq-max"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_schema_enum_member",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_SCHEMA_ENUM",
+      "governanceBoundary": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 100,
+          "operationRequestId": "S3-P-ENUM",
+          "simulation": "timeout_before_success"
+        }
+      },
+      "businessGoal": "LEGITIMATE_SCHEMA_ENUM",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:schema_invalid_enum",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-schema-enum-member"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_read",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_PRODUCT_READ",
+      "governanceBoundary": "READ",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "product:read"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "product.query_low_click",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "LEGITIMATE_PRODUCT_READ",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:unknown_tool",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-product-read"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_read",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_AD_READ",
+      "governanceBoundary": "READ",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "ad.query_performance",
+        "arguments": {
+          "shopId": 1,
+          "startDate": "2018-08-01",
+          "endDate": "2018-08-07"
+        }
+      },
+      "businessGoal": "LEGITIMATE_AD_READ",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-validation-valid-ad-read"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_report_read",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_REPORT_READ",
+      "governanceBoundary": "READ",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "report:read"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "report.query_external_metrics",
+        "arguments": {
+          "shopId": 1,
+          "startDate": "2018-08-01",
+          "endDate": "2018-08-07"
+        }
+      },
+      "businessGoal": "LEGITIMATE_REPORT_READ",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-report-read"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_local_comment_read",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_LOCAL_COMMENT_READ",
+      "governanceBoundary": "READ",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "comment:read"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "comment.analyze_sentiment",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "LEGITIMATE_LOCAL_COMMENT_READ",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-dev-valid-local-comment-read"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_report_export_operator",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_REPORT_EXPORT",
+      "governanceBoundary": "AUTHORIZED_OPERATION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "report:export"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "report.export_excel",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "LEGITIMATE_REPORT_EXPORT",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:stage3:viewer_report_export_denied",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-report-export-operator"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_optimize_operator",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_PRODUCT_OPTIMIZE",
+      "governanceBoundary": "AUTHORIZED_OPERATION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "product:write"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "product.optimize_title",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "LEGITIMATE_PRODUCT_OPTIMIZE",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-validation-valid-product-optimize-operator"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_comment_reply_draft_operator",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_COMMENT_REPLY_DRAFT",
+      "governanceBoundary": "AUTHORIZED_OPERATION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "comment:write"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "comment.create_reply_draft",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "LEGITIMATE_COMMENT_REPLY_DRAFT",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-comment-reply-draft-operator"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_update_preapproval",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_PRODUCT_UPDATE_PREAPPROVAL",
+      "governanceBoundary": "LEGITIMATE_PRODUCT_UPDATE_PREAPPROVAL",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "product:write"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "product.update_title",
+        "arguments": {
+          "shopId": 1,
+          "productId": "SKU-GOV-001",
+          "newTitle": "Stage3 governance valid title"
+        }
+      },
+      "businessGoal": "LEGITIMATE_PRODUCT_UPDATE_PREAPPROVAL",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-product-update-preapproval"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_budget_preapproval",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_AD_BUDGET_PREAPPROVAL",
+      "governanceBoundary": "LEGITIMATE_AD_BUDGET_PREAPPROVAL",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:write"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "ad.suggest_budget",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "LEGITIMATE_AD_BUDGET_PREAPPROVAL",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-validation-valid-ad-budget-preapproval"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_ad_budget_approved",
+      "caseClass": "POSITIVE",
+      "attackOrControlFamily": "LEGITIMATE_AD_BUDGET_APPROVED",
+      "governanceBoundary": "LEGITIMATE_AD_BUDGET_APPROVED",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:write"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "ad.suggest_budget",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "LEGITIMATE_AD_BUDGET_APPROVED",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-valid-ad-budget-approved"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:missing_trusted_user",
+      "caseClass": "NEGATIVE",
+      "attackOrControlFamily": "IDENTITY_MISSING",
+      "governanceBoundary": "IDENTITY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 0,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "product:read"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "product.query_low_click",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "IDENTITY_MISSING",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_TRUSTED_CONTEXT_MISSING",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:stage3:valid_product_read",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-missing-trusted-user"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:viewer_report_export_denied",
+      "caseClass": "NEGATIVE",
+      "attackOrControlFamily": "PERMISSION",
+      "governanceBoundary": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "order:read",
+          "product:read"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "report.export_excel",
+        "arguments": {
+          "shopId": 1
+        }
+      },
+      "businessGoal": "PERMISSION",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": false,
+        "mustBlockBeforeApproval": false,
+        "requiredRiskLevel": null,
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:stage3:valid_report_export_operator",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-viewer-report-export-denied"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:product_update_approval_payload_mutation",
+      "caseClass": "NEGATIVE",
+      "attackOrControlFamily": "APPROVAL_PAYLOAD_MUTATION",
+      "governanceBoundary": "APPROVAL",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "product:write"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "product.update_title",
+        "arguments": {
+          "shopId": 1,
+          "productId": "SKU-GOV-001",
+          "newTitle": "Approved title A"
+        }
+      },
+      "businessGoal": "APPROVAL_PAYLOAD_MUTATION",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "APPROVAL_NOT_APPROVED",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": null,
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-product-update-approval-payload-mutation"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:schema_refund_below_minimum",
+      "caseClass": "NEGATIVE",
+      "attackOrControlFamily": "SCHEMA",
+      "governanceBoundary": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 0,
+          "operationRequestId": "S3-N-MIN",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "SCHEMA",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:stage3:valid_schema_minimum_refund",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-schema-refund-below-minimum"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "caseClass": "NEGATIVE",
+      "attackOrControlFamily": "BUSINESS_SCOPE",
+      "governanceBoundary": "BUSINESS_SCOPE",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 1,
+          "orderId": "SO202607180001",
+          "refundAmount": 179,
+          "operationRequestId": "S3-N-ECON",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "BUSINESS_SCOPE",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "BUSINESS_SCOPE_VIOLATION",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:stage3:valid_full_remaining_refund",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-test-economic-scope-exceeds-remaining"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:invalid_shop_scope_zero",
+      "caseClass": "NEGATIVE",
+      "attackOrControlFamily": "IDENTITY_SCOPE_INVALID",
+      "governanceBoundary": "IDENTITY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "order:read",
+          "order:refund"
+        ]
+      },
+      "targetResource": {
+        "toolCode": "order.refund_execute",
+        "arguments": {
+          "shopId": 0,
+          "orderId": "SO202607180001",
+          "refundAmount": 100,
+          "operationRequestId": "S3-N-SCOPE0",
+          "simulation": "success"
+        }
+      },
+      "businessGoal": "IDENTITY_SCOPE_INVALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_SCOPE_INVALID",
+      "externalSideEffectAllowed": false,
+      "approvalExpectation": {
+        "required": true,
+        "mustBlockBeforeApproval": true,
+        "requiredRiskLevel": "HIGH",
+        "constraints": {}
+      },
+      "goldSource": "SECURITY_POLICY_DERIVED",
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "authorWhyNewRoot": "Distinct governance policy state/tool permission/boundary, not an ID-only variant.",
+      "criticDecision": "ACCEPT",
+      "criticNotes": "Runtime boundary/catalog policy and deterministic Gold are observable without modifying production or evaluator.",
+      "caseIds": [
+        "stage3-validation-invalid-shop-scope-zero"
+      ]
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_product_update_approved",
+      "caseClass": "POSITIVE",
+      "family": "LEGITIMATE_PRODUCT_UPDATE",
+      "status": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "reason": "product.update_title has no independent external side-effect ground truth in current Governance evaluator."
+    },
+    {
+      "semanticRootId": "governance:stage3:valid_feishu_sync",
+      "caseClass": "POSITIVE",
+      "family": "LEGITIMATE_FEISHU_SYNC",
+      "status": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "reason": "Feishu write lacks an independent external revision ledger in ShopOpsBench."
+    },
+    {
+      "semanticRootId": "governance:stage3:admin_cross_shop_read",
+      "caseClass": "POSITIVE",
+      "family": "LEGITIMATE_ADMIN_CROSS_SHOP",
+      "status": "REJECTED_NO_FIXTURE",
+      "reason": "Current benchmark business fixture does not provide a second valid shop with equivalent governed resources."
+    },
+    {
+      "semanticRootId": "governance:stage3:approval_expired_refund",
+      "caseClass": "NEGATIVE",
+      "family": "APPROVAL_EXPIRED",
+      "status": "REJECTED_UNSUPPORTED_RUNTIME",
+      "reason": "Stage 5/3 contract excludes approval expiry as a stable execution-governance contract."
+    },
+    {
+      "semanticRootId": "governance:stage3:disabled_tool",
+      "caseClass": "NEGATIVE",
+      "family": "DISABLED_TOOL",
+      "status": "REJECTED_NO_FIXTURE",
+      "reason": "Catalog supports enabled state but current benchmark executor has no deterministic dataset-owned disabled-tool fixture."
+    },
+    {
+      "semanticRootId": "governance:stage3:unknown_tool_second_alias",
+      "caseClass": "NEGATIVE",
+      "family": "UNKNOWN_TOOL",
+      "status": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "reason": "A second invented unknown tool name does not add a new governance semantic beyond governance:unknown_tool."
+    }
+  ]
+}

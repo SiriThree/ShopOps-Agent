@@ -1,0 +1,656 @@
+[
+  {
+    "caseId": "idem-test-external-success-local-failure-001",
+    "benchmarkType": "IDEMPOTENCY",
+    "scenario": "EXTERNAL_SUCCESS_LOCAL_FAILURE",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-IDEM-TEST-EXTERNAL-SUCCESS-LOCAL-FAILURE-001",
+      "simulation": "success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {},
+    "expectedOutcome": {
+      "expectedExternalEffects": 1,
+      "expectedDuplicateEffects": 0
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "IDEMPOTENCY"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001"
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS",
+      "point": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "triggerAt": 1
+    },
+    "tags": [
+      "FAULT_INJECTED",
+      "CONTAMINATED_FOR_HELD_OUT",
+      "REASSIGNED_STAGE5"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+    "semanticTaskId": "idem-external-success-local-failure",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "manual-phase3-write-audit",
+    "humanReviewed": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "RETRY",
+      "attempts": 2
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "REPLAY",
+      "payloadConflictBehavior": "NOT_EXERCISED",
+      "exercisePayloadConflict": false,
+      "keyRelation": "SAME_KEY",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE",
+      "expectedLogicalOperations": 1,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 3301,
+    "semanticRootId": "idempotency:external_success_local_failure",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": false
+  },
+  {
+    "caseId": "idem-val-external-idempotent-comparison-001",
+    "benchmarkType": "IDEMPOTENCY",
+    "scenario": "EXTERNAL_IDEMPOTENT_COMPARISON",
+    "difficulty": "MEDIUM",
+    "input": {
+      "shopId": 1,
+      "orderId": "ORDER-IDEM-VAL-EXTERNAL-IDEMPOTENT-COMPARISON-001",
+      "refundAmount": 1288,
+      "operationRequestId": "REQ-IDEM-VAL-EXTERNAL-IDEMPOTENT-COMPARISON-001",
+      "simulation": "success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {},
+    "expectedOutcome": {
+      "expectedExternalEffects": 1,
+      "expectedDuplicateEffects": 0
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "IDEMPOTENCY"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "ORDER-IDEM-VAL-EXTERNAL-IDEMPOTENT-COMPARISON-001"
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "NONE"
+    },
+    "tags": [
+      "COMPARISON_ONLY",
+      "IDEMPOTENT_EXTERNAL"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+    "semanticTaskId": "idem-external-idempotent-comparison",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "manual-phase3-write-audit",
+    "humanReviewed": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "RETRY",
+      "attempts": 3
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "REPLAY",
+      "payloadConflictBehavior": "NOT_EXERCISED",
+      "exercisePayloadConflict": false,
+      "keyRelation": "SAME_KEY",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "IDEMPOTENT_EXTERNAL_CONTROL",
+      "expectedLogicalOperations": 1,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "externalSystemMode": "IDEMPOTENT_EXTERNAL",
+    "faultSeed": 3301,
+    "semanticRootId": "idempotency:external_idempotent_comparison",
+    "goldSourceType": "DOMAIN_INVARIANT",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": false
+  },
+  {
+    "caseId": "idem-val-external-success-local-failure-001",
+    "benchmarkType": "IDEMPOTENCY",
+    "scenario": "EXTERNAL_SUCCESS_LOCAL_FAILURE",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "ORDER-IDEM-VAL-EXTERNAL-SUCCESS-LOCAL-FAILURE-001",
+      "refundAmount": 1288,
+      "operationRequestId": "REQ-IDEM-VAL-EXTERNAL-SUCCESS-LOCAL-FAILURE-001",
+      "simulation": "success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {},
+    "expectedOutcome": {
+      "expectedExternalEffects": 1,
+      "expectedDuplicateEffects": 0
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "IDEMPOTENCY"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "ORDER-IDEM-VAL-EXTERNAL-SUCCESS-LOCAL-FAILURE-001"
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS",
+      "point": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "triggerAt": 1
+    },
+    "tags": [
+      "FAULT_INJECTED",
+      "EXTERNAL_SUCCESS_LOCAL_FAILURE"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+    "semanticTaskId": "idem-external-success-local-failure",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "manual-phase3-write-audit",
+    "humanReviewed": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "RETRY",
+      "attempts": 2
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "REPLAY",
+      "payloadConflictBehavior": "NOT_EXERCISED",
+      "exercisePayloadConflict": false,
+      "keyRelation": "SAME_KEY",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE",
+      "expectedLogicalOperations": 1,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 3301,
+    "semanticRootId": "idempotency:external_success_local_failure",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": false
+  },
+  {
+    "caseId": "idem-val-response-loss-after-confirm-001",
+    "benchmarkType": "IDEMPOTENCY",
+    "scenario": "RESPONSE_LOSS_AFTER_LOCAL_CONFIRM",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "ORDER-IDEM-VAL-RESPONSE-LOSS-AFTER-CONFIRM-001",
+      "refundAmount": 1288,
+      "operationRequestId": "REQ-IDEM-VAL-RESPONSE-LOSS-AFTER-CONFIRM-001",
+      "simulation": "success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {},
+    "expectedOutcome": {
+      "expectedExternalEffects": 1,
+      "expectedDuplicateEffects": 0
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "IDEMPOTENCY"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "ORDER-IDEM-VAL-RESPONSE-LOSS-AFTER-CONFIRM-001"
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "RESPONSE_LOSS_AFTER_LOCAL_CONFIRM",
+      "point": "AFTER_LOCAL_CONFIRM_BEFORE_ACK",
+      "triggerAt": 1
+    },
+    "tags": [
+      "FAULT_INJECTED",
+      "RESPONSE_LOSS"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+    "semanticTaskId": "idem-response-loss-after-local-confirm",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "manual-phase3-write-audit",
+    "humanReviewed": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "RETRY",
+      "attempts": 2
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "REPLAY",
+      "payloadConflictBehavior": "NOT_EXERCISED",
+      "exercisePayloadConflict": false,
+      "keyRelation": "SAME_KEY",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "RESPONSE_LOSS_AFTER_LOCAL_COMMIT",
+      "expectedLogicalOperations": 1,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 3301,
+    "semanticRootId": "idempotency:response_loss_after_local_confirm",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": false
+  },
+  {
+    "caseId": "idem-val-timeout-before-success-001",
+    "benchmarkType": "IDEMPOTENCY",
+    "scenario": "TIMEOUT_BEFORE_EXTERNAL_SUCCESS",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "ORDER-IDEM-VAL-TIMEOUT-BEFORE-SUCCESS-001",
+      "refundAmount": 1288,
+      "operationRequestId": "REQ-IDEM-VAL-TIMEOUT-BEFORE-SUCCESS-001",
+      "simulation": "timeout_before_success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {},
+    "expectedOutcome": {
+      "expectedExternalEffects": 1,
+      "expectedDuplicateEffects": 0
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "IDEMPOTENCY"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "ORDER-IDEM-VAL-TIMEOUT-BEFORE-SUCCESS-001"
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "NONE"
+    },
+    "tags": [
+      "TIMEOUT_BEFORE_SUCCESS",
+      "EXPECTED_MISSING_EFFECT_EXPOSURE"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+    "semanticTaskId": "idem-timeout-before-external-success",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "manual-phase3-write-audit",
+    "humanReviewed": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "RETRY",
+      "attempts": 2
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "REPLAY",
+      "payloadConflictBehavior": "NOT_EXERCISED",
+      "exercisePayloadConflict": false,
+      "keyRelation": "SAME_KEY",
+      "payloadRelation": "SAME_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_RETRY",
+      "faultSemantics": "TIMEOUT_BEFORE_ACCEPTANCE",
+      "expectedLogicalOperations": 1,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 3301,
+    "semanticRootId": "idempotency:timeout_before_external_success",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": false
+  },
+  {
+    "caseId": "stage5-idem-val-conflict-local-failure-001",
+    "benchmarkType": "IDEMPOTENCY",
+    "scenario": "PAYLOAD_CONFLICT_AFTER_EXTERNAL_SUCCESS_LOCAL_FAILURE",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-STAGE5-IDEM-VAL-CONFLICT-LOCAL-FAILURE-001",
+      "simulation": "success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {},
+    "expectedOutcome": {
+      "expectedExternalEffects": 1,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "IDEMPOTENCY"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001",
+        "duplicateSideEffectsAllowed": 0,
+        "missingSideEffectsAllowed": 0
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS",
+      "point": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "triggerAt": 1
+    },
+    "tags": [
+      "STAGE5_CANDIDATE",
+      "PAYLOAD_CONFLICT",
+      "FAULT_INJECTED"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+    "semanticTaskId": "idem-payload_conflict_after_external_success_local_failure",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "stage5-idempotency-author-critic",
+    "humanReviewed": false,
+    "semanticRootId": "idempotency:payload_conflict_after_external_success_local_failure",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": false,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "SINGLE",
+      "attempts": 1
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "REPLAY",
+      "payloadConflictBehavior": "REJECT",
+      "exercisePayloadConflict": true,
+      "keyRelation": "SAME_KEY",
+      "payloadRelation": "DIFFERENT_BUSINESS_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE",
+      "faultSemantics": "EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE",
+      "expectedLogicalOperations": 1,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 5501
+  },
+  {
+    "caseId": "stage5-idem-val-conflict-timeout-before-001",
+    "benchmarkType": "IDEMPOTENCY",
+    "scenario": "PAYLOAD_CONFLICT_AFTER_TIMEOUT_BEFORE_ACCEPTANCE",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-STAGE5-IDEM-VAL-CONFLICT-TIMEOUT-BEFORE-001",
+      "simulation": "timeout_before_success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {},
+    "expectedOutcome": {
+      "expectedExternalEffects": 0,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "IDEMPOTENCY"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 0,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001",
+        "duplicateSideEffectsAllowed": 0,
+        "missingSideEffectsAllowed": 0
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "NONE"
+    },
+    "tags": [
+      "STAGE5_CANDIDATE",
+      "PAYLOAD_CONFLICT",
+      "TIMEOUT_BEFORE_SUCCESS"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+    "semanticTaskId": "idem-payload_conflict_after_timeout_before_acceptance",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "stage5-idempotency-author-critic",
+    "humanReviewed": false,
+    "semanticRootId": "idempotency:payload_conflict_after_timeout_before_acceptance",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": false,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 0,
+    "deliveryPattern": {
+      "mode": "SINGLE",
+      "attempts": 1
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "REPLAY",
+      "payloadConflictBehavior": "REJECT",
+      "exercisePayloadConflict": true,
+      "keyRelation": "SAME_KEY",
+      "payloadRelation": "DIFFERENT_BUSINESS_PAYLOAD",
+      "repeatPattern": "SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT",
+      "faultSemantics": "TIMEOUT_BEFORE_ACCEPTANCE",
+      "expectedLogicalOperations": 1,
+      "expectedDuplicateEffects": 0,
+      "expectedMissingEffects": 0
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 5501
+  }
+]

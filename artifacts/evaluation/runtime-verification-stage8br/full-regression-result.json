@@ -1,0 +1,10 @@
+{
+  "command": "mvn test",
+  "exitCode": 1,
+  "testsRun": 335,
+  "passed": 282,
+  "failed": 12,
+  "errors": 20,
+  "skipped": 21,
+  "classification": "DATASET_CONTRACT_DEFECT"
+}

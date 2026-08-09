@@ -1,0 +1,61 @@
+{
+  "contractVersion": "stage6-idempotency-attribution-v1",
+  "datasetVersion": "1.3.0-stage5-idempotency-candidate",
+  "goldVersion": "shopopsbench-gold-v1.3-idempotency-stage5",
+  "formalRunOccurred": false,
+  "idempotencyDecisionBoundary": {
+    "component": "WriteOperationService",
+    "productionEntry": "HighRiskRefundExecuteExecutor.execute",
+    "decisionOperations": [
+      "prepare/find-or-create by idempotency key",
+      "semantic input hash comparison",
+      "existing operation status decision",
+      "concurrent winner/readback"
+    ]
+  },
+  "requiredPreconditions": {
+    "identity": "VALID",
+    "authorization": "VALID",
+    "schema": "VALID",
+    "businessScope": "VALID",
+    "approval": "FRESH_VALID_APPROVAL_PER_INTENDED_ATTEMPT"
+  },
+  "freshReplayApproval": {
+    "approvalIdRelation": "DIFFERENT_PER_ATTEMPT",
+    "operationRequestIdRelation": "SAME_WITHIN_LOGICAL_OPERATION",
+    "idempotencyKeyRelation": "SAME_WITHIN_LOGICAL_OPERATION",
+    "businessPayloadRelation": "SAME_UNLESS_SCENARIO_IS_PAYLOAD_CONFLICT",
+    "approvalCreationPath": "ToolGateway APPROVAL_REQUIRED -> ApprovalRequestService.approve",
+    "directStatusMutationAllowed": false
+  },
+  "requiredAttemptEvidence": [
+    "gatewayReached",
+    "authorizationPassed",
+    "schemaPassed",
+    "businessScopePassed",
+    "approvalPassed",
+    "writeExecutorReached",
+    "writeOperationBoundaryReached",
+    "externalAttemptObserved",
+    "preIdempotencyBlocked",
+    "attributionCode"
+  ],
+  "preBoundaryInvalidationCodes": [
+    "ATTRIBUTION_INVALID_AUTHORIZATION_BLOCK",
+    "ATTRIBUTION_INVALID_SCHEMA_BLOCK",
+    "ATTRIBUTION_INVALID_SCOPE_BLOCK",
+    "ATTRIBUTION_INVALID_APPROVAL_BLOCK",
+    "ATTRIBUTION_INVALID_PRE_IDEMPOTENCY_BLOCK"
+  ],
+  "eligibleMetric": "APPLICATION_IDEMPOTENCY_METRIC",
+  "formalMetricWhenIneligible": "NOT_AVAILABLE",
+  "externalGroundTruth": {
+    "source": "RecordingRefundExternalSystem",
+    "requiredMode": "NON_IDEMPOTENT_EXTERNAL",
+    "externalAttemptAndEffectiveEffectAreDistinct": true
+  },
+  "effectMetrics": {
+    "duplicateSideEffects": "max(actualEffectiveSideEffects - expectedEffectiveSideEffects, 0)",
+    "missingSideEffects": "max(expectedEffectiveSideEffects - actualEffectiveSideEffects, 0)"
+  }
+}

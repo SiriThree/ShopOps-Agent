@@ -1,0 +1,3 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage5;
+import static org.assertj.core.api.Assertions.assertThat; import org.junit.jupiter.api.Test;
+class IdempotencyExpectedEffectsContractTest { @Test void everyScenarioDeclaresDuplicateAndMissingEffectInvariants() throws Exception { assertThat(Stage5IdempotencyDatasetSupport.cases()).allSatisfy(v->{ var c=v.benchmarkCase(); assertThat(c.expectedEffectiveSideEffects).isGreaterThanOrEqualTo(0); assertThat(c.sideEffectExpectation.expectedLogicalSideEffects).isEqualTo(c.expectedEffectiveSideEffects); assertThat(c.sideEffectExpectation.constraints.get("duplicateSideEffectsAllowed")).isEqualTo(0); assertThat(c.sideEffectExpectation.constraints.get("missingSideEffectsAllowed")).isEqualTo(0); }); }}

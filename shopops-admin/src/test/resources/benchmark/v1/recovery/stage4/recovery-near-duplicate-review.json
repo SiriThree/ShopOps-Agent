@@ -1,0 +1,539 @@
+{
+  "contractVersion": "stage4-recovery-near-duplicate-review-v1",
+  "candidateCount": 59,
+  "reviewedCount": 59,
+  "reviewedBy": "MODEL_CRITIC_STAGE4",
+  "decisions": [
+    {
+      "leftCaseId": "recovery-dev-r1-external-success-local-failure",
+      "rightCaseId": "recovery-test-r5-query-temporary-failure",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS vs RECONCILIATION_QUERY_TEMPORARY_FAILURE"
+    },
+    {
+      "leftCaseId": "recovery-dev-r1-external-success-local-failure",
+      "rightCaseId": "recovery-val-r5-query-temporary-failure",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS vs RECONCILIATION_QUERY_TEMPORARY_FAILURE"
+    },
+    {
+      "leftCaseId": "recovery-dev-r1-external-success-local-failure",
+      "rightCaseId": "stage4-test-state-update-failure-from-executing",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:stage4:state_update_failure_from_executing",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS vs RECOVERY_STATE_UPDATE_FAILURE"
+    },
+    {
+      "leftCaseId": "recovery-dev-r2-timeout-before-accept",
+      "rightCaseId": "stage4-test-concurrent-not-accepted",
+      "leftRootId": "recovery:timeout_before_external_acceptance",
+      "rightRootId": "recovery:stage4:concurrent_not_accepted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: TIMEOUT_BEFORE_EXTERNAL_ACCEPTANCE vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-dev-r3-timeout-after-accept",
+      "rightCaseId": "recovery-test-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:timeout_after_external_acceptance",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-dev-r3-timeout-after-accept",
+      "rightCaseId": "recovery-test-state-update-failure",
+      "leftRootId": "recovery:timeout_after_external_acceptance",
+      "rightRootId": "recovery:recovery_state_update_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE vs RECOVERY_STATE_UPDATE_FAILURE"
+    },
+    {
+      "leftCaseId": "recovery-dev-r3-timeout-after-accept",
+      "rightCaseId": "recovery-val-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:timeout_after_external_acceptance",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-test-r1-request-correlation",
+      "rightCaseId": "recovery-test-r5-query-temporary-failure",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS vs RECONCILIATION_QUERY_TEMPORARY_FAILURE; recovery budget: 2 vs 3"
+    },
+    {
+      "leftCaseId": "recovery-test-r1-request-correlation",
+      "rightCaseId": "recovery-val-r5-query-temporary-failure",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS vs RECONCILIATION_QUERY_TEMPORARY_FAILURE; recovery budget: 2 vs 3"
+    },
+    {
+      "leftCaseId": "recovery-test-r1-request-correlation",
+      "rightCaseId": "stage4-test-state-update-failure-from-executing",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:stage4:state_update_failure_from_executing",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS vs RECOVERY_STATE_UPDATE_FAILURE; recovery budget: 2 vs 3"
+    },
+    {
+      "leftCaseId": "recovery-test-r2-timeout-before-accept",
+      "rightCaseId": "stage4-test-concurrent-not-accepted",
+      "leftRootId": "recovery:timeout_before_external_acceptance",
+      "rightRootId": "recovery:stage4:concurrent_not_accepted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: TIMEOUT_BEFORE_EXTERNAL_ACCEPTANCE vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-test-r3-timeout-after-accept",
+      "rightCaseId": "recovery-test-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:timeout_after_external_acceptance",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-test-r3-timeout-after-accept",
+      "rightCaseId": "recovery-test-state-update-failure",
+      "leftRootId": "recovery:timeout_after_external_acceptance",
+      "rightRootId": "recovery:recovery_state_update_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE vs RECOVERY_STATE_UPDATE_FAILURE"
+    },
+    {
+      "leftCaseId": "recovery-test-r3-timeout-after-accept",
+      "rightCaseId": "recovery-val-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:timeout_after_external_acceptance",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-test-state-update-failure",
+      "rightCaseId": "recovery-test-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:recovery_state_update_failure",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECOVERY_STATE_UPDATE_FAILURE vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-test-state-update-failure",
+      "rightCaseId": "recovery-val-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:recovery_state_update_failure",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECOVERY_STATE_UPDATE_FAILURE vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-test-state-update-failure",
+      "rightCaseId": "stage4-validation-query-failure-from-external-unknown-success",
+      "leftRootId": "recovery:recovery_state_update_failure",
+      "rightRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECOVERY_STATE_UPDATE_FAILURE vs RECONCILIATION_QUERY_TEMPORARY_FAILURE; fault point: None vs BEFORE_RECONCILIATION_QUERY"
+    },
+    {
+      "leftCaseId": "stage4-dev-concurrent-reconciliation-from-executing",
+      "rightCaseId": "recovery-test-r5-query-temporary-failure",
+      "leftRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: DUPLICATE_RECOVERY_ATTEMPT vs RECONCILIATION_QUERY_TEMPORARY_FAILURE; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "stage4-dev-concurrent-reconciliation-from-executing",
+      "rightCaseId": "recovery-test-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXECUTING vs EXTERNAL_UNKNOWN; fault point: AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM vs None"
+    },
+    {
+      "leftCaseId": "stage4-dev-concurrent-reconciliation-from-executing",
+      "rightCaseId": "recovery-val-r5-query-temporary-failure",
+      "leftRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: DUPLICATE_RECOVERY_ATTEMPT vs RECONCILIATION_QUERY_TEMPORARY_FAILURE; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "stage4-dev-concurrent-reconciliation-from-executing",
+      "rightCaseId": "recovery-val-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXECUTING vs EXTERNAL_UNKNOWN; fault point: AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM vs None"
+    },
+    {
+      "leftCaseId": "stage4-dev-concurrent-reconciliation-from-executing",
+      "rightCaseId": "stage4-test-state-update-failure-from-executing",
+      "leftRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "rightRootId": "recovery:stage4:state_update_failure_from_executing",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: DUPLICATE_RECOVERY_ATTEMPT vs RECOVERY_STATE_UPDATE_FAILURE; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "stage4-test-budget-exhausted-from-external-unknown-success",
+      "rightCaseId": "recovery-test-r6-budget-exhausted",
+      "leftRootId": "recovery:stage4:budget_exhausted_external_unknown_success",
+      "rightRootId": "recovery:recovery_budget_exhausted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXTERNAL_UNKNOWN vs EXECUTING; fault point: BEFORE_RECONCILIATION_QUERY vs AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM"
+    },
+    {
+      "leftCaseId": "stage4-test-budget-exhausted-from-external-unknown-success",
+      "rightCaseId": "recovery-val-r6-budget-exhausted",
+      "leftRootId": "recovery:stage4:budget_exhausted_external_unknown_success",
+      "rightRootId": "recovery:recovery_budget_exhausted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXTERNAL_UNKNOWN vs EXECUTING; fault point: BEFORE_RECONCILIATION_QUERY vs AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM"
+    },
+    {
+      "leftCaseId": "stage4-test-budget-exhausted-from-external-unknown-success",
+      "rightCaseId": "stage4-validation-budget-exhausted-not-accepted",
+      "leftRootId": "recovery:stage4:budget_exhausted_external_unknown_success",
+      "rightRootId": "recovery:stage4:budget_exhausted_not_accepted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: SUCCEEDED vs NOT_ACCEPTED"
+    },
+    {
+      "leftCaseId": "stage4-test-budget-exhausted-from-external-unknown-success",
+      "rightCaseId": "stage4-validation-query-failure-from-external-unknown-success",
+      "leftRootId": "recovery:stage4:budget_exhausted_external_unknown_success",
+      "rightRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECONCILIATION_QUERY_UNAVAILABLE vs RECONCILIATION_QUERY_TEMPORARY_FAILURE; expected terminal: ['NEEDS_MANUAL_ACTION'] vs ['SUCCEEDED']; convergence expectation: False vs True"
+    },
+    {
+      "leftCaseId": "stage4-test-concurrent-not-accepted",
+      "rightCaseId": "recovery-test-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:stage4:concurrent_not_accepted",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: NOT_ACCEPTED vs SUCCEEDED; expected terminal: ['FAILED'] vs ['SUCCEEDED']"
+    },
+    {
+      "leftCaseId": "stage4-test-concurrent-not-accepted",
+      "rightCaseId": "recovery-val-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:stage4:concurrent_not_accepted",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: NOT_ACCEPTED vs SUCCEEDED; expected terminal: ['FAILED'] vs ['SUCCEEDED']"
+    },
+    {
+      "leftCaseId": "stage4-test-last-allowed-query-success",
+      "rightCaseId": "recovery-test-r5-query-temporary-failure",
+      "leftRootId": "recovery:stage4:last_allowed_query_success",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXTERNAL_UNKNOWN vs EXECUTING; fault point: BEFORE_RECONCILIATION_QUERY vs AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM; recovery budget: 2 vs 3"
+    },
+    {
+      "leftCaseId": "stage4-test-last-allowed-query-success",
+      "rightCaseId": "recovery-val-r5-query-temporary-failure",
+      "leftRootId": "recovery:stage4:last_allowed_query_success",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXTERNAL_UNKNOWN vs EXECUTING; fault point: BEFORE_RECONCILIATION_QUERY vs AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM; recovery budget: 2 vs 3"
+    },
+    {
+      "leftCaseId": "stage4-test-last-allowed-query-success",
+      "rightCaseId": "stage4-validation-query-failure-from-external-unknown-success",
+      "leftRootId": "recovery:stage4:last_allowed_query_success",
+      "rightRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. recovery budget: 2 vs 3"
+    },
+    {
+      "leftCaseId": "stage4-test-query-failure-then-not-accepted",
+      "rightCaseId": "stage4-validation-budget-exhausted-not-accepted",
+      "leftRootId": "recovery:stage4:query_failure_then_not_accepted",
+      "rightRootId": "recovery:stage4:budget_exhausted_not_accepted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECONCILIATION_QUERY_TEMPORARY_FAILURE vs RECONCILIATION_QUERY_UNAVAILABLE; expected terminal: ['FAILED'] vs ['NEEDS_MANUAL_ACTION']; convergence expectation: True vs False"
+    },
+    {
+      "leftCaseId": "stage4-test-query-failure-then-not-accepted",
+      "rightCaseId": "stage4-validation-query-failure-from-external-unknown-success",
+      "leftRootId": "recovery:stage4:query_failure_then_not_accepted",
+      "rightRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: NOT_ACCEPTED vs SUCCEEDED; expected terminal: ['FAILED'] vs ['SUCCEEDED']"
+    },
+    {
+      "leftCaseId": "stage4-test-state-update-failure-from-executing",
+      "rightCaseId": "recovery-test-r5-query-temporary-failure",
+      "leftRootId": "recovery:stage4:state_update_failure_from_executing",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECOVERY_STATE_UPDATE_FAILURE vs RECONCILIATION_QUERY_TEMPORARY_FAILURE"
+    },
+    {
+      "leftCaseId": "stage4-test-state-update-failure-from-executing",
+      "rightCaseId": "recovery-val-r5-query-temporary-failure",
+      "leftRootId": "recovery:stage4:state_update_failure_from_executing",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECOVERY_STATE_UPDATE_FAILURE vs RECONCILIATION_QUERY_TEMPORARY_FAILURE"
+    },
+    {
+      "leftCaseId": "recovery-dev-r1-external-success-local-failure",
+      "rightCaseId": "recovery-test-r1-request-correlation",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:external_success_local_failure",
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same causal root by contract; differences are case/workload/fixture variants and remain in one split."
+    },
+    {
+      "leftCaseId": "recovery-dev-r1-external-success-local-failure",
+      "rightCaseId": "stage4-dev-concurrent-reconciliation-from-executing",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS vs DUPLICATE_RECOVERY_ATTEMPT; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-dev-r2-timeout-before-accept",
+      "rightCaseId": "recovery-dev-r3-timeout-after-accept",
+      "leftRootId": "recovery:timeout_before_external_acceptance",
+      "rightRootId": "recovery:timeout_after_external_acceptance",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: NOT_ACCEPTED vs SUCCEEDED; fault type: TIMEOUT_BEFORE_EXTERNAL_ACCEPTANCE vs TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE; expected terminal: ['FAILED'] vs ['SUCCEEDED']"
+    },
+    {
+      "leftCaseId": "recovery-dev-r2-timeout-before-accept",
+      "rightCaseId": "recovery-test-r2-timeout-before-accept",
+      "leftRootId": "recovery:timeout_before_external_acceptance",
+      "rightRootId": "recovery:timeout_before_external_acceptance",
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same causal root by contract; differences are case/workload/fixture variants and remain in one split."
+    },
+    {
+      "leftCaseId": "recovery-dev-r2-timeout-before-accept",
+      "rightCaseId": "recovery-test-r3-timeout-after-accept",
+      "leftRootId": "recovery:timeout_before_external_acceptance",
+      "rightRootId": "recovery:timeout_after_external_acceptance",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: NOT_ACCEPTED vs SUCCEEDED; fault type: TIMEOUT_BEFORE_EXTERNAL_ACCEPTANCE vs TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE; expected terminal: ['FAILED'] vs ['SUCCEEDED']"
+    },
+    {
+      "leftCaseId": "recovery-dev-r3-timeout-after-accept",
+      "rightCaseId": "recovery-test-r2-timeout-before-accept",
+      "leftRootId": "recovery:timeout_after_external_acceptance",
+      "rightRootId": "recovery:timeout_before_external_acceptance",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: SUCCEEDED vs NOT_ACCEPTED; fault type: TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE vs TIMEOUT_BEFORE_EXTERNAL_ACCEPTANCE; expected terminal: ['SUCCEEDED'] vs ['FAILED']"
+    },
+    {
+      "leftCaseId": "recovery-dev-r3-timeout-after-accept",
+      "rightCaseId": "recovery-test-r3-timeout-after-accept",
+      "leftRootId": "recovery:timeout_after_external_acceptance",
+      "rightRootId": "recovery:timeout_after_external_acceptance",
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same causal root by contract; differences are case/workload/fixture variants and remain in one split."
+    },
+    {
+      "leftCaseId": "recovery-test-r1-request-correlation",
+      "rightCaseId": "stage4-dev-concurrent-reconciliation-from-executing",
+      "leftRootId": "recovery:external_success_local_failure",
+      "rightRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS vs DUPLICATE_RECOVERY_ATTEMPT; recovery budget: 2 vs 3; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "recovery-test-r2-timeout-before-accept",
+      "rightCaseId": "recovery-test-r3-timeout-after-accept",
+      "leftRootId": "recovery:timeout_before_external_acceptance",
+      "rightRootId": "recovery:timeout_after_external_acceptance",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: NOT_ACCEPTED vs SUCCEEDED; fault type: TIMEOUT_BEFORE_EXTERNAL_ACCEPTANCE vs TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE; expected terminal: ['FAILED'] vs ['SUCCEEDED']"
+    },
+    {
+      "leftCaseId": "recovery-test-r5-query-temporary-failure",
+      "rightCaseId": "recovery-test-r6-budget-exhausted",
+      "leftRootId": "recovery:reconciliation_temporary_failure",
+      "rightRootId": "recovery:recovery_budget_exhausted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECONCILIATION_QUERY_TEMPORARY_FAILURE vs RECONCILIATION_QUERY_UNAVAILABLE; expected terminal: ['SUCCEEDED'] vs ['NEEDS_MANUAL_ACTION']; convergence expectation: True vs False"
+    },
+    {
+      "leftCaseId": "recovery-test-r5-query-temporary-failure",
+      "rightCaseId": "stage4-validation-query-failure-from-external-unknown-success",
+      "leftRootId": "recovery:reconciliation_temporary_failure",
+      "rightRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXECUTING vs EXTERNAL_UNKNOWN; fault point: AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM vs BEFORE_RECONCILIATION_QUERY"
+    },
+    {
+      "leftCaseId": "recovery-test-r6-budget-exhausted",
+      "rightCaseId": "stage4-validation-budget-exhausted-not-accepted",
+      "leftRootId": "recovery:recovery_budget_exhausted",
+      "rightRootId": "recovery:stage4:budget_exhausted_not_accepted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXECUTING vs EXTERNAL_UNKNOWN; external reality: SUCCEEDED vs NOT_ACCEPTED; fault point: AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM vs BEFORE_RECONCILIATION_QUERY"
+    },
+    {
+      "leftCaseId": "recovery-test-state-update-failure",
+      "rightCaseId": "stage4-test-last-allowed-query-success",
+      "leftRootId": "recovery:recovery_state_update_failure",
+      "rightRootId": "recovery:stage4:last_allowed_query_success",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECOVERY_STATE_UPDATE_FAILURE vs RECONCILIATION_QUERY_TEMPORARY_FAILURE; fault point: None vs BEFORE_RECONCILIATION_QUERY; recovery budget: 3 vs 2"
+    },
+    {
+      "leftCaseId": "recovery-test-state-update-failure",
+      "rightCaseId": "stage4-test-state-update-failure-from-executing",
+      "leftRootId": "recovery:recovery_state_update_failure",
+      "rightRootId": "recovery:stage4:state_update_failure_from_executing",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXTERNAL_UNKNOWN vs EXECUTING; fault point: None vs AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM"
+    },
+    {
+      "leftCaseId": "recovery-val-r5-query-temporary-failure",
+      "rightCaseId": "recovery-test-r5-query-temporary-failure",
+      "leftRootId": "recovery:reconciliation_temporary_failure",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same causal root by contract; differences are case/workload/fixture variants and remain in one split."
+    },
+    {
+      "leftCaseId": "recovery-val-r5-query-temporary-failure",
+      "rightCaseId": "recovery-test-r6-budget-exhausted",
+      "leftRootId": "recovery:reconciliation_temporary_failure",
+      "rightRootId": "recovery:recovery_budget_exhausted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECONCILIATION_QUERY_TEMPORARY_FAILURE vs RECONCILIATION_QUERY_UNAVAILABLE; expected terminal: ['SUCCEEDED'] vs ['NEEDS_MANUAL_ACTION']; convergence expectation: True vs False"
+    },
+    {
+      "leftCaseId": "recovery-val-r5-query-temporary-failure",
+      "rightCaseId": "recovery-val-r6-budget-exhausted",
+      "leftRootId": "recovery:reconciliation_temporary_failure",
+      "rightRootId": "recovery:recovery_budget_exhausted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECONCILIATION_QUERY_TEMPORARY_FAILURE vs RECONCILIATION_QUERY_UNAVAILABLE; expected terminal: ['SUCCEEDED'] vs ['NEEDS_MANUAL_ACTION']; convergence expectation: True vs False"
+    },
+    {
+      "leftCaseId": "recovery-val-r5-query-temporary-failure",
+      "rightCaseId": "stage4-validation-query-failure-from-external-unknown-success",
+      "leftRootId": "recovery:reconciliation_temporary_failure",
+      "rightRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXECUTING vs EXTERNAL_UNKNOWN; fault point: AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM vs BEFORE_RECONCILIATION_QUERY"
+    },
+    {
+      "leftCaseId": "recovery-val-r6-budget-exhausted",
+      "rightCaseId": "recovery-test-r5-query-temporary-failure",
+      "leftRootId": "recovery:recovery_budget_exhausted",
+      "rightRootId": "recovery:reconciliation_temporary_failure",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECONCILIATION_QUERY_UNAVAILABLE vs RECONCILIATION_QUERY_TEMPORARY_FAILURE; expected terminal: ['NEEDS_MANUAL_ACTION'] vs ['SUCCEEDED']; convergence expectation: False vs True"
+    },
+    {
+      "leftCaseId": "recovery-val-r6-budget-exhausted",
+      "rightCaseId": "recovery-test-r6-budget-exhausted",
+      "leftRootId": "recovery:recovery_budget_exhausted",
+      "rightRootId": "recovery:recovery_budget_exhausted",
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same causal root by contract; differences are case/workload/fixture variants and remain in one split."
+    },
+    {
+      "leftCaseId": "recovery-val-r6-budget-exhausted",
+      "rightCaseId": "stage4-validation-budget-exhausted-not-accepted",
+      "leftRootId": "recovery:recovery_budget_exhausted",
+      "rightRootId": "recovery:stage4:budget_exhausted_not_accepted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. initial local state: EXECUTING vs EXTERNAL_UNKNOWN; external reality: SUCCEEDED vs NOT_ACCEPTED; fault point: AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM vs BEFORE_RECONCILIATION_QUERY"
+    },
+    {
+      "leftCaseId": "recovery-val-r8-duplicate-reconciliation",
+      "rightCaseId": "recovery-test-r8-duplicate-reconciliation",
+      "leftRootId": "recovery:duplicate_reconciliation",
+      "rightRootId": "recovery:duplicate_reconciliation",
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same causal root by contract; differences are case/workload/fixture variants and remain in one split."
+    },
+    {
+      "leftCaseId": "stage4-test-query-failure-then-not-accepted",
+      "rightCaseId": "stage4-test-concurrent-not-accepted",
+      "leftRootId": "recovery:stage4:query_failure_then_not_accepted",
+      "rightRootId": "recovery:stage4:concurrent_not_accepted",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. fault type: RECONCILIATION_QUERY_TEMPORARY_FAILURE vs DUPLICATE_RECOVERY_ATTEMPT; fault point: BEFORE_RECONCILIATION_QUERY vs None; concurrency semantics differ"
+    },
+    {
+      "leftCaseId": "stage4-test-query-failure-then-not-accepted",
+      "rightCaseId": "stage4-test-last-allowed-query-success",
+      "leftRootId": "recovery:stage4:query_failure_then_not_accepted",
+      "rightRootId": "recovery:stage4:last_allowed_query_success",
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct recovery causal roots. external reality: NOT_ACCEPTED vs SUCCEEDED; expected terminal: ['FAILED'] vs ['SUCCEEDED']; recovery budget: 3 vs 2"
+    }
+  ]
+}

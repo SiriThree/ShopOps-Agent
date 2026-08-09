@@ -1,0 +1,72 @@
+{
+  "stage": "STAGE8A_GLOBAL_QUALITY_CONSOLIDATION",
+  "status": "DATASET_REVIEW_PENDING",
+  "newSemanticRoots": 0,
+  "formalBenchmarkRun": false,
+  "heldOutRuntimeExecution": false,
+  "baseline": {
+    "TASK": {
+      "cases": 189,
+      "roots": 116,
+      "heldOutRoots": 63,
+      "trueTestExclusiveRoots": 63,
+      "testCases": 103
+    },
+    "GOVERNANCE": {
+      "cases": 106,
+      "roots": 96,
+      "heldOutRoots": 54,
+      "trueTestExclusiveRoots": 54,
+      "testCases": 54
+    },
+    "RECOVERY": {
+      "cases": 21,
+      "roots": 15,
+      "heldOutRoots": 6,
+      "trueTestExclusiveRoots": 6,
+      "testCases": 6
+    },
+    "IDEMPOTENCY": {
+      "cases": 22,
+      "roots": 16,
+      "heldOutRoots": 4,
+      "trueTestExclusiveRoots": 4,
+      "testCases": 4
+    }
+  },
+  "reviewPack": {
+    "entries": 110,
+    "P0": 79,
+    "P1": 24,
+    "P2": 7,
+    "TASK": 50,
+    "GOVERNANCE": 60
+  },
+  "humanReview": {
+    "evidenceBackedReviewed": 0,
+    "pending": 110,
+    "rejected": 0,
+    "revised": 0
+  },
+  "goldAudit": {
+    "goldProofMismatchOrMissing": 0,
+    "unknownGold": 0,
+    "invalidFixture": 0,
+    "policySourceMismatch": 0
+  },
+  "nearDuplicate": {
+    "candidates": 1837,
+    "resolved": 1837,
+    "unresolved": 0
+  },
+  "split": {
+    "globalLeakage": 0,
+    "parentLeakage": 0
+  },
+  "effectiveInformation": {
+    "rawCases": 338,
+    "independentUnits": 243,
+    "heldOutIndependentUnits": 127
+  },
+  "freezeEligibility": "DATASET_REVIEW_PENDING"
+}

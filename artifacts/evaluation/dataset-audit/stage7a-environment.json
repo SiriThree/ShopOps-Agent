@@ -1,0 +1,9 @@
+{
+  "python": "3.13.5",
+  "java": "openjdk version \"21.0.11\" 2026-04-21",
+  "maven": "NOT_FOUND",
+  "mavenWrapper": "ABSENT",
+  "docker": "NOT_FOUND",
+  "junit": "NOT RUN",
+  "heldOutTaskExecution": "NOT RUN"
+}

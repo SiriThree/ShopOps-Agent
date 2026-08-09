@@ -195,6 +195,8 @@ public class JdbcApprovalRequestService implements ApprovalRequestService {
         dto.setTitle(approval.getTitle());
         dto.setReason(approval.getReason());
         dto.setInputSummary(approval.getInputSummary());
+        dto.setInputHash(approval.getInputHash());
+        dto.setBusinessObjectId(approval.getBusinessObjectId());
         dto.setStatus(approval.getStatus());
         dto.setRequesterId(approval.getRequesterId());
         dto.setRequesterName(approval.getRequesterName());

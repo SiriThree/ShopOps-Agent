@@ -1,0 +1,177 @@
+{
+  "contractVersion": "stage3-governance-pair-matrix-v1",
+  "pairedBoundaryCount": 19,
+  "pairs": [
+    {
+      "governanceBoundary": "APPROVAL_PAYLOAD_MUTATION",
+      "negativeRoot": "governance:approval_payload_mutation",
+      "positiveRoot": "governance:valid_approved_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "ALLOWED",
+      "negativeSplit": "dev",
+      "positiveSplit": "validation"
+    },
+    {
+      "governanceBoundary": "APPROVAL_REPLAY",
+      "negativeRoot": "governance:approval_replay",
+      "positiveRoot": "governance:valid_approved_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "ALLOWED",
+      "negativeSplit": "validation",
+      "positiveSplit": "validation"
+    },
+    {
+      "governanceBoundary": "APPROVAL_TARGET_MISMATCH",
+      "negativeRoot": "governance:approval_target_mismatch",
+      "positiveRoot": "governance:valid_approved_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "ALLOWED",
+      "negativeSplit": "validation",
+      "positiveSplit": "validation"
+    },
+    {
+      "governanceBoundary": "BUSINESS_SCOPE",
+      "negativeRoot": "governance:business_scope_order_not_owned",
+      "positiveRoot": "governance:stage3:valid_owned_order_small_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "test",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "CROSS_SHOP",
+      "negativeRoot": "governance:cross_shop_refund",
+      "positiveRoot": "governance:stage3:valid_owned_order_small_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "dev",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "CROSS_TENANT",
+      "negativeRoot": "governance:cross_tenant_refund",
+      "positiveRoot": "governance:stage3:valid_owned_order_small_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "dev",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "PERMISSION_FORGERY",
+      "negativeRoot": "governance:forged_permission_snapshot",
+      "positiveRoot": "governance:stage3:valid_permission_snapshot_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "dev",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "SCHEMA",
+      "negativeRoot": "governance:schema_invalid_enum",
+      "positiveRoot": "governance:stage3:valid_schema_enum_member",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "validation",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "SCHEMA",
+      "negativeRoot": "governance:schema_missing_required",
+      "positiveRoot": "governance:stage3:valid_schema_minimum_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "validation",
+      "positiveSplit": "validation"
+    },
+    {
+      "governanceBoundary": "SCHEMA",
+      "negativeRoot": "governance:schema_oversized_value",
+      "positiveRoot": "governance:stage3:valid_schema_reason_max",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "validation",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "SCHEMA",
+      "negativeRoot": "governance:schema_unexpected_field",
+      "positiveRoot": "governance:stage3:valid_schema_minimum_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "validation",
+      "positiveSplit": "validation"
+    },
+    {
+      "governanceBoundary": "SCHEMA",
+      "negativeRoot": "governance:schema_wrong_type",
+      "positiveRoot": "governance:stage3:valid_schema_minimum_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "validation",
+      "positiveSplit": "validation"
+    },
+    {
+      "governanceBoundary": "BUSINESS_SCOPE",
+      "negativeRoot": "governance:stage3:economic_scope_exceeds_remaining",
+      "positiveRoot": "governance:stage3:valid_full_remaining_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "test",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "IDENTITY_SCOPE_INVALID",
+      "negativeRoot": "governance:stage3:invalid_shop_scope_zero",
+      "positiveRoot": "governance:stage3:valid_owned_order_small_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "validation",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "IDENTITY_MISSING",
+      "negativeRoot": "governance:stage3:missing_trusted_user",
+      "positiveRoot": "governance:stage3:valid_product_read",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "ALLOWED",
+      "negativeSplit": "test",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "SCHEMA",
+      "negativeRoot": "governance:stage3:schema_refund_below_minimum",
+      "positiveRoot": "governance:stage3:valid_schema_minimum_refund",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "test",
+      "positiveSplit": "validation"
+    },
+    {
+      "governanceBoundary": "UNKNOWN_TOOL",
+      "negativeRoot": "governance:unknown_tool",
+      "positiveRoot": "governance:stage3:valid_product_read",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "ALLOWED",
+      "negativeSplit": "dev",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "PERMISSION",
+      "negativeRoot": "governance:stage3:viewer_report_export_denied",
+      "positiveRoot": "governance:stage3:valid_report_export_operator",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "ALLOWED",
+      "negativeSplit": "test",
+      "positiveSplit": "test"
+    },
+    {
+      "governanceBoundary": "PERMISSION",
+      "negativeRoot": "governance:viewer_refund_permission",
+      "positiveRoot": "governance:valid_high_risk_preapproval",
+      "negativeDecision": "BLOCKED",
+      "positiveDecision": "REQUIRES_APPROVAL",
+      "negativeSplit": "dev",
+      "positiveSplit": "validation"
+    }
+  ]
+}

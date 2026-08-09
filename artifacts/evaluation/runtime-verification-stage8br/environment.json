@@ -1,0 +1,15 @@
+{
+  "os": "Windows 11 10.0 amd64",
+  "javaBareRuntime": "1.8.0_501 on PATH before pinning",
+  "javaPinnedRuntime": "OpenJDK 17.0.19 Microsoft",
+  "javac": "17.0.19",
+  "maven": "Apache Maven 3.9.16 using Java 17.0.19",
+  "docker": "Docker Desktop 4.82.0, engine 29.6.1",
+  "dockerCompose": "v5.3.0",
+  "mysqlClient": "mysql CLI not installed on host; docker exec mysql used",
+  "mysqlContainer": "shopops-demo-shopops-mysql-1",
+  "mysqlVersion": "8.4.10",
+  "springProfile": "default",
+  "databaseUrlHost": "localhost:3306",
+  "secretsRedacted": true
+}

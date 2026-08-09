@@ -1,0 +1,1707 @@
+{
+  "contractVersion": "stage7a-task-admission-v1",
+  "admitted": 64,
+  "rejected": 36,
+  "records": [
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-19:healthy-low-empty-comment",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-19:empty-comments-no-candidates",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-19:no-candidate",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-19:normal-single-low-spend",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-20:single-risk-low-roi",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-20:risk-structure-1-1-1",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-20:one-strong-risk-linked-candidate",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-20:risk-single-low-roi",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-21:high-volume-distributed-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-21:risk-structure-3-3-4",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-21:candidate-structure-4-3-7",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-21:normal-multi-high-volume",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-22:high-refund-dominant-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-22:dominant-product-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-22:two-candidates-dominant-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-22:risk-low-ctr-high-refund-context",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-23:empty-commerce",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-23:empty-commerce-no-comments",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-23:no-candidate-empty-commerce",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-23:no-data-empty-commerce",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-24:comment-empty-products-present",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-24:empty-comments-products-present",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-24:two-candidates-no-comments",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-24:normal-multi-medium-volume",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-25:low-volume-linked-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-25:low-volume-single-product-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-25:one-low-evidence-candidate",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-25:risk-child-campaign-low-roi",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-26:dominant-comment-ad-nodata",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-26:dominant-product-high-comment-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-26:dominant-comment-three-candidates",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-26:no-data-commerce-with-comment-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-27:many-candidates-single-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-27:single-risk-many-candidates",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-27:many-candidates-single-comment",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-27:risk-child-campaign-many-products",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-28:distributed-risk-multi-ad",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-28:distributed-multi-product-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-28:multiple-candidates-distributed-comments",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-28:risk-multiple-signals",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-29:high-refund-empty-comment",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-29:empty-comments-high-refund-orders",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-29:single-order-signal-candidate-high-refund",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-29:normal-high-spend-no-comment-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-30:broad-product-multi-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-30:multi-risk-broad-product-context",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-30:broad-candidate-multi-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-30:normal-multi-broad-product-context",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-08-31:low-order-two-risk-low-roi",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-08-31:low-order-two-product-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-08-31:two-candidates-low-order-context",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-08-31:risk-low-roi-low-order-context",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-09-01:high-volume-high-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-09-01:high-volume-high-risk-density",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-09-01:high-density-candidate-set",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-09-01:normal-high-spend-high-volume",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-09-02:medium-risk-ad-nodata",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-09-02:two-product-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-09-02:three-candidates-ad-independent-context",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-09-02:no-data-commerce-present",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:2018-09-03:boundary-mixed-risk-low-ctr",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:2018-09-03:dominant-product-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:2018-09-03:two-candidates-dominant-risk",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:2018-09-03:risk-low-ctr-high-refund-context",
+      "decision": "ADMIT",
+      "reason": null,
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": true,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": true
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:paraphrase-only-1",
+      "decision": "REJECT",
+      "reason": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:paraphrase-only-2",
+      "decision": "REJECT",
+      "reason": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:rejected:paraphrase-only-3",
+      "decision": "REJECT",
+      "reason": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:rejected:paraphrase-only-4",
+      "decision": "REJECT",
+      "reason": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:paraphrase-only-5",
+      "decision": "REJECT",
+      "reason": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:paraphrase-only-6",
+      "decision": "REJECT",
+      "reason": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:rejected:paraphrase-only-7",
+      "decision": "REJECT",
+      "reason": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:rejected:paraphrase-only-8",
+      "decision": "REJECT",
+      "reason": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:near-duplicate-state-1",
+      "decision": "REJECT",
+      "reason": "REJECTED_NEAR_DUPLICATE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:near-duplicate-state-2",
+      "decision": "REJECT",
+      "reason": "REJECTED_NEAR_DUPLICATE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:rejected:near-duplicate-state-3",
+      "decision": "REJECT",
+      "reason": "REJECTED_NEAR_DUPLICATE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:rejected:near-duplicate-state-4",
+      "decision": "REJECT",
+      "reason": "REJECTED_NEAR_DUPLICATE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:two-window-comparison",
+      "decision": "REJECT",
+      "reason": "REJECTED_UNSUPPORTED_RUNTIME",
+      "gates": {
+        "runtimeReachable": false,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:refund-execute-as-task",
+      "decision": "REJECT",
+      "reason": "REJECTED_UNSUPPORTED_RUNTIME",
+      "gates": {
+        "runtimeReachable": false,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:report-sync-as-task",
+      "decision": "REJECT",
+      "reason": "REJECTED_UNSUPPORTED_RUNTIME",
+      "gates": {
+        "runtimeReachable": false,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:rejected:product-write-as-task",
+      "decision": "REJECT",
+      "reason": "REJECTED_UNSUPPORTED_RUNTIME",
+      "gates": {
+        "runtimeReachable": false,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:tool-failure-state",
+      "decision": "REJECT",
+      "reason": "REJECTED_UNSUPPORTED_RUNTIME",
+      "gates": {
+        "runtimeReachable": false,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:rejected:degraded-success-state",
+      "decision": "REJECT",
+      "reason": "REJECTED_UNSUPPORTED_RUNTIME",
+      "gates": {
+        "runtimeReachable": false,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:second-shop-state",
+      "decision": "REJECT",
+      "reason": "REJECTED_NO_FIXTURE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": false,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:relative-today-clock",
+      "decision": "REJECT",
+      "reason": "REJECTED_NO_FIXTURE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": false,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:rejected:external-missing-row",
+      "decision": "REJECT",
+      "reason": "REJECTED_NO_FIXTURE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": false,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:comparison-window-fixture",
+      "decision": "REJECT",
+      "reason": "REJECTED_NO_FIXTURE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": false,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:negative-count-fixture",
+      "decision": "REJECT",
+      "reason": "REJECTED_FIXTURE_INVALID",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": false,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:orphan-comment-product",
+      "decision": "REJECT",
+      "reason": "REJECTED_FIXTURE_INVALID",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": false,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:vague-shop-problem",
+      "decision": "REJECT",
+      "reason": "REJECTED_GOLD_AMBIGUOUS",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": false,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:rejected:ambiguous-optimize-write-or-analyze",
+      "decision": "REJECT",
+      "reason": "REJECTED_GOLD_AMBIGUOUS",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": false,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:rejected:ambiguous-ad-or-product",
+      "decision": "REJECT",
+      "reason": "REJECTED_GOLD_AMBIGUOUS",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": false,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:gold-from-agent-answer",
+      "decision": "REJECT",
+      "reason": "REJECTED_GOLD_NOT_INDEPENDENT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": false,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:gold-from-production-service-output",
+      "decision": "REJECT",
+      "reason": "REJECTED_GOLD_NOT_INDEPENDENT",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": false,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:comment_risk:stage7a:rejected:comment-goal-emphasis-only",
+      "decision": "REJECT",
+      "reason": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": false,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:rejected:product-rank-explanation-only",
+      "decision": "REJECT",
+      "reason": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": false,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:daily-top-risk-wording-only",
+      "decision": "REJECT",
+      "reason": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": false,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:ad_anomaly:stage7a:rejected:ad-external-conversion-claim-only",
+      "decision": "REJECT",
+      "reason": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": false,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:internal-tool-language",
+      "decision": "REJECT",
+      "reason": "REJECTED_UNREALISTIC_QUERY",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": true,
+        "naturalLanguageRealistic": false,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:daily_review:stage7a:rejected:test-fixture-reuses-dev-state",
+      "decision": "REJECT",
+      "reason": "REJECTED_CROSS_SPLIT_INFORMATION_OVERLAP",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": false,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    },
+    {
+      "candidateRootId": "task:product_optimization:stage7a:rejected:test-root-derived-from-validation-gold",
+      "decision": "REJECT",
+      "reason": "REJECTED_CROSS_SPLIT_INFORMATION_OVERLAP",
+      "gates": {
+        "runtimeReachable": true,
+        "fixtureValid": true,
+        "goldIndependent": true,
+        "goldDeterministic": true,
+        "evaluatorObservable": true,
+        "semanticallyDistinct": false,
+        "splitSafe": false,
+        "naturalLanguageRealistic": true,
+        "modelReviewed": true,
+        "nearDuplicateResolved": null
+      }
+    }
+  ]
+}

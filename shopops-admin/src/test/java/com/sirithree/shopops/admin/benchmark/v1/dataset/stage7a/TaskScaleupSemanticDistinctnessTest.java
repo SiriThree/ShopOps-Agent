@@ -1,0 +1,3 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage7a;
+import static org.assertj.core.api.Assertions.assertThat; import org.junit.jupiter.api.Test; import java.util.*;
+class TaskScaleupSemanticDistinctnessTest { @Test void newRootFingerprintsAreUnique() throws Exception { Map<String,Object>d=Stage7ATaskDatasetSupport.objectResource("/benchmark/v1/task/stage7a/task-root-fingerprints.json"); @SuppressWarnings("unchecked") List<Map<String,Object>> roots=(List<Map<String,Object>>)d.get("roots"); List<Map<String,Object>> n=roots.stream().filter(r->String.valueOf(r.get("semanticRootId")).contains(":stage7a:")).toList(); assertThat(n).hasSize(64); assertThat(n.stream().map(r->r.get("fingerprintHash")).distinct()).hasSize(64); }}

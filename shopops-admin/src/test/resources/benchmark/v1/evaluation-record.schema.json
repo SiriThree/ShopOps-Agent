@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shopops.local/benchmark/v1/evaluation-record.schema.json",
+  "title": "ShopOpsBench v1 Evaluation Record",
+  "type": "object",
+  "required": [
+    "caseId",
+    "executionStatus",
+    "input",
+    "runtimeMetadata",
+    "observedFacts",
+    "agentSteps",
+    "toolAttempts",
+    "toolResults",
+    "approvalEvents",
+    "writeOperations",
+    "sideEffects",
+    "stateTransitions",
+    "faultEvents",
+    "businessOutcome",
+    "metricBreakdown",
+    "failureReasons",
+    "evidenceRefs"
+  ],
+  "properties": {
+    "caseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "executionStatus": {
+      "type": "string",
+      "enum": [
+        "EXECUTED",
+        "PASSED",
+        "FAILED",
+        "NOT_EXECUTED",
+        "ERROR"
+      ]
+    },
+    "evaluationRunId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "taskId": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "input": {
+      "type": "object"
+    },
+    "observedIntent": {
+      "type": "object"
+    },
+    "observedPlan": {
+      "type": "object"
+    },
+    "runtimeMetadata": {
+      "type": "object"
+    },
+    "observedFacts": {
+      "type": "object"
+    },
+    "toolAttempts": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "toolResults": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "approvalEvents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "writeOperations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "sideEffects": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "stateTransitions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "faultEvents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "finalState": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "businessOutcome": {
+      "type": "object"
+    },
+    "metricBreakdown": {
+      "type": "object"
+    },
+    "failureReasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sourceType",
+          "sourceId",
+          "summary",
+          "hash",
+          "timestamp"
+        ],
+        "properties": {
+          "sourceType": {
+            "type": "string"
+          },
+          "sourceId": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "agentSteps": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "scenario": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "difficulty": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "semanticTaskId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "origin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "governanceDecision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authorizationSnapshot": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

@@ -11,6 +11,8 @@ $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
 
+Write-Warning "LEGACY EVIDENCE: this script repeats fixed prompt templates and is not a unique-task ShopOpsBench dataset. Use scripts/run-shopops-benchmark.ps1 for benchmark runs."
+
 $workspaceRoot = Split-Path -Parent $PSScriptRoot
 $outputRoot = Join-Path $workspaceRoot $OutputDir
 $baseUrl = "http://localhost:$Port"

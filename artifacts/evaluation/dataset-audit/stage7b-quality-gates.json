@@ -1,0 +1,72 @@
+{
+  "stage": "7B",
+  "status": "PASS",
+  "checks": {
+    "schemaErrorsZero": true,
+    "duplicateCaseIdZero": true,
+    "exactDuplicateZero": true,
+    "normalizedDuplicateZero": true,
+    "governanceCrossSplitRootLeakageZero": true,
+    "globalCrossSplitRootLeakageZero": true,
+    "crossSplitParentLeakageZero": true,
+    "unknownGoldSourceZero": true,
+    "goldProofMissingZero": true,
+    "fixtureProofMissingZero": true,
+    "goldSelfReferenceZero": true,
+    "unsupportedAcceptedZero": true,
+    "invalidPositiveControlZero": true,
+    "approvalMaskingZero": true,
+    "newHumanReviewedTrueZero": true,
+    "unresolvedNearDuplicateZero": true,
+    "heldOutRuntimeReferenceZero": true,
+    "productionIntegrity": true,
+    "evaluatorIntegrity": true,
+    "protectedResourcesIntegrity": true,
+    "semanticRootsExpanded": true,
+    "positiveRootsExpanded": true,
+    "testPositiveRootsExpanded": true,
+    "testNegativeRootsExpanded": true
+  },
+  "failures": [],
+  "counts": {
+    "cases": 106,
+    "semanticRoots": 96,
+    "positiveCases": 50,
+    "negativeCases": 56,
+    "positiveRoots": 47,
+    "negativeRoots": 49,
+    "testPositiveRoots": 28,
+    "testNegativeRoots": 26,
+    "trueTestExclusiveRoots": 54,
+    "newCases": 50,
+    "newRoots": 50
+  },
+  "review": {
+    "candidatePairs": 913,
+    "decisions": {
+      "KEEP_DISTINCT": 834,
+      "KEEP_DISTINCT_PAIRED_CONTROL": 69,
+      "SAME_ROOT": 10
+    }
+  },
+  "invalidPositiveControls": [],
+  "approvalBoundaryMaskedCases": [],
+  "heldOutRuntimeReferences": [],
+  "integrity": {
+    "production": {
+      "checked": 530,
+      "modified": [],
+      "missing": []
+    },
+    "governanceEvaluators": {
+      "checked": 4,
+      "modified": [],
+      "missing": []
+    },
+    "protected": {
+      "checked": 85,
+      "modified": [],
+      "missing": []
+    }
+  }
+}

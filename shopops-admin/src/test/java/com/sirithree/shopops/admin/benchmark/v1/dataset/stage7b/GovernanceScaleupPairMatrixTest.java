@@ -1,0 +1,2 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage7b; import static org.assertj.core.api.Assertions.assertThat; import org.junit.jupiter.api.Test; import java.util.*;
+class GovernanceScaleupPairMatrixTest { @Test void pairMatrixContainsAttackControlPairs() throws Exception { Map<String,Object>d=Stage7BGovernanceDatasetSupport.objectResource("/benchmark/v1/governance/scaleup/governance-pair-matrix.json"); assertThat(((Number)d.get("pairCount")).intValue()).isGreaterThanOrEqualTo(30); }}

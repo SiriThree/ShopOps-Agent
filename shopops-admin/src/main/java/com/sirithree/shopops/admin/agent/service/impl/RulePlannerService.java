@@ -48,12 +48,16 @@ public class RulePlannerService implements PlannerService {
         }
         String intent = resolveIntent(context);
         if (hasText(intent) && !"daily_review".equals(intent)) {
-            return rulePlan(intent);
+            AgentPlan plan = rulePlan(intent);
+            recordPlannerDecision(context, "RULE_BASED", false, null, plan);
+            return plan;
         }
         if (plannerProperties.isEnabled()) {
             return modelPlanOrFallback(context);
         }
-        return rulePlan("daily_review");
+        AgentPlan plan = rulePlan("daily_review");
+        recordPlannerDecision(context, "RULE_BASED", false, "MODEL_PLANNER_DISABLED", plan);
+        return plan;
     }
 
     @Override
@@ -87,13 +91,30 @@ public class RulePlannerService implements PlannerService {
                     "agent-planner",
                     param
             );
-            if (!ModelCallStatus.SUCCESS.equals(result.getStatus()) || result.getOutputText() == null || result.getOutputText().isBlank()) {
-                return rulePlan("daily_review");
+            if (!ModelCallStatus.SUCCESS.equals(result.getStatus())) {
+                AgentPlan fallback = rulePlan("daily_review");
+                recordPlannerDecision(context, "MODEL_FALLBACK", true,
+                        "MODEL_CALL_STATUS_" + result.getStatus(), fallback);
+                return fallback;
+            }
+            if (result.getOutputText() == null || result.getOutputText().isBlank()) {
+                AgentPlan fallback = rulePlan("daily_review");
+                recordPlannerDecision(context, "MODEL_FALLBACK", true, "MODEL_OUTPUT_EMPTY", fallback);
+                return fallback;
             }
             AgentPlan plan = parsePlan(result.getOutputText());
-            return isSafeDailyReviewPlan(plan) ? plan : rulePlan("daily_review");
+            if (isSafeDailyReviewPlan(plan)) {
+                recordPlannerDecision(context, "MODEL", false, null, plan);
+                return plan;
+            }
+            AgentPlan fallback = rulePlan("daily_review");
+            recordPlannerDecision(context, "MODEL_FALLBACK", true, "MODEL_PLAN_REJECTED", fallback);
+            return fallback;
         } catch (RuntimeException ex) {
-            return rulePlan("daily_review");
+            AgentPlan fallback = rulePlan("daily_review");
+            recordPlannerDecision(context, "MODEL_FALLBACK", true,
+                    "MODEL_EXCEPTION_" + ex.getClass().getSimpleName(), fallback);
+            return fallback;
         }
     }
 
@@ -241,6 +262,19 @@ public class RulePlannerService implements PlannerService {
         plan.setRationale(planRationale(intent));
         plan.getSteps().addAll(ruleSteps(intent));
         return plan;
+    }
+
+    private void recordPlannerDecision(AgentTaskContext context,
+                                       String mode,
+                                       boolean fallback,
+                                       String fallbackReason,
+                                       AgentPlan plan) {
+        context.setPlannerMode(mode);
+        context.setPlannerFallback(fallback);
+        context.setPlannerFallbackReason(fallbackReason);
+        context.setPlannedToolCodes(plan == null || plan.getSteps() == null
+                ? List.of()
+                : plan.getSteps().stream().map(AgentPlanStep::getToolCode).toList());
     }
 
     private String resolveIntent(AgentTaskContext context) {

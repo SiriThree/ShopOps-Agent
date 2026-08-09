@@ -1,0 +1,35 @@
+{
+  "contractVersion": "stage6-idempotency-workload-attribution-overlay-v1",
+  "baseWorkloadProfile": "benchmark/v1/idempotency/stage5/idempotency-workload-profiles.json",
+  "baseWorkloadProfileSha256": "970edc2ca45c5feeaefc09d9cd2af83f85cae5d32581beade9af40604c02e6c5",
+  "semanticScenarioCountUnchanged": 16,
+  "plannedFormalLogicalOperationsUnchanged": 260,
+  "plannedFormalAttemptsUnchanged": 700,
+  "formalRunOccurred": false,
+  "profiles": {
+    "SMOKE": {
+      "requireReplayBoundaryReachability": true,
+      "requireFreshApprovalPerIntendedReplay": true,
+      "metricStatus": "NON_FORMAL"
+    },
+    "INTEGRATION": {
+      "requireReplayBoundaryReachability": true,
+      "requireFreshApprovalPerIntendedReplay": true,
+      "metricStatus": "NON_FORMAL"
+    },
+    "FORMAL": {
+      "requireReplayBoundaryReachability": true,
+      "requireFreshApprovalPerIntendedReplay": true,
+      "requireIndependentExternalLedger": true,
+      "requireNonIdempotentExternal": true,
+      "requireDuplicateEffectMeasurable": true,
+      "requireMissingEffectMeasurable": true,
+      "metricStatus": "PLANNED_NOT_EXECUTED"
+    }
+  },
+  "governanceSetupAccounting": {
+    "approvalCreationCountIsLogicalOperationCount": false,
+    "approvalCreationCountIsRepeatedRequestAttemptCount": false,
+    "description": "Fresh approvals are governance setup activity required to isolate attribution; they do not increase semantic scenario, logical operation, or intended replay counts."
+  }
+}

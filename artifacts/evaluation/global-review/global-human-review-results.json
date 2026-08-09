@@ -1,0 +1,11 @@
+{
+  "resultVersion": "stage8a-human-review-results-v1",
+  "status": "HUMAN_REVIEW_PENDING",
+  "evidenceBackedHumanReviewedCount": 0,
+  "pendingCount": 110,
+  "acceptedCount": 0,
+  "revisedCount": 0,
+  "rejectedCount": 0,
+  "reviewerIdentityRequirement": "non-empty reviewer + timestamp + decision required",
+  "results": []
+}

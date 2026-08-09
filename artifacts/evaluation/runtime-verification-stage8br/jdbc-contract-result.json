@@ -1,0 +1,11 @@
+{
+  "command": "mvn -pl shopops-admin -am -Dtest=JdbcRefundIdempotencyIntegrationTest,JdbcGovernanceIntegrationTest -Dshopops.jdbc.it=true -Dsurefire.failIfNoSpecifiedTests=false test",
+  "exitCode": 0,
+  "testsRun": 6,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "databaseMode": "SPRING_JDBC_MYSQL",
+  "governanceJdbc": "PASS",
+  "refundIdempotencyJdbc": "PASS"
+}

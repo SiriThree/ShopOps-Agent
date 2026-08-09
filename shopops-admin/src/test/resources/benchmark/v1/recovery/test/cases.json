@@ -1,0 +1,647 @@
+[
+  {
+    "caseId": "recovery-test-state-update-failure",
+    "benchmarkType": "RECOVERY",
+    "scenario": "RECOVERY_STATE_UPDATE_FAILURE",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-RECOVERY-TEST-STATE-UPDATE-FAILURE",
+      "simulation": "timeout_after_success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {
+      "local": "EXTERNAL_UNKNOWN",
+      "external": "SUCCEEDED"
+    },
+    "expectedOutcome": {
+      "expectedTerminalStates": [
+        "SUCCEEDED"
+      ],
+      "expectedExternalState": "SUCCEEDED",
+      "expectedConvergence": true
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "RECOVERY",
+      "EXTERNAL_RECONCILIATION"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001",
+        "maxDuplicateEffects": 0,
+        "duplicateSideEffectsAllowed": 0
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "RECOVERY_STATE_UPDATE_FAILURE"
+    },
+    "tags": [
+      "HELD_OUT",
+      "STATE_UPDATE_FAILURE"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.4-recovery-stage4",
+    "semanticTaskId": "recovery-state-update-failure",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "manual-phase4-state-machine-audit",
+    "humanReviewed": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "SINGLE",
+      "attempts": 1
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "BLOCK_DUPLICATE_EFFECT"
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 4434,
+    "initialLocalState": "EXTERNAL_UNKNOWN",
+    "initialExternalState": "SUCCEEDED",
+    "faultType": "RECOVERY_STATE_UPDATE_FAILURE",
+    "faultPoint": null,
+    "expectedTerminalStates": [
+      "SUCCEEDED"
+    ],
+    "expectedExternalState": "SUCCEEDED",
+    "expectedConvergence": true,
+    "maxRecoveryAttempts": 3,
+    "manualReviewAllowed": false,
+    "semanticRootId": "recovery:recovery_state_update_failure",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": true
+  },
+  {
+    "caseId": "stage4-test-query-failure-then-not-accepted",
+    "benchmarkType": "RECOVERY",
+    "scenario": "RECONCILIATION_TEMPORARY_FAILURE",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-STAGE4-TEST-QUERY-FAILURE-THEN-NOT-ACCEPTED",
+      "simulation": "timeout_before_success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {
+      "local": "EXTERNAL_UNKNOWN",
+      "external": "NOT_ACCEPTED",
+      "recoveryEvidence": "operationRequestId + external query",
+      "recoveryBudgetRegion": "EARLY_SUCCESS"
+    },
+    "expectedOutcome": {
+      "expectedTerminalStates": [
+        "FAILED"
+      ],
+      "expectedExternalState": "NOT_ACCEPTED",
+      "expectedConvergence": true
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "RECOVERY",
+      "EXTERNAL_RECONCILIATION"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001",
+        "maxDuplicateEffects": 0,
+        "duplicateSideEffectsAllowed": 0
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "RECONCILIATION_QUERY_TEMPORARY_FAILURE",
+      "point": "BEFORE_RECONCILIATION_QUERY",
+      "triggerAt": 1
+    },
+    "tags": [
+      "QUERY_FAILURE",
+      "NOT_ACCEPTED",
+      "HELD_OUT",
+      "QUERY_FAILURE_THEN_FACT",
+      "EARLY_SUCCESS"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.4-recovery-stage4",
+    "semanticTaskId": "query-failure-then-not-accepted",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "stage4-recovery-causal-blueprint",
+    "humanReviewed": false,
+    "semanticRootId": "recovery:stage4:query_failure_then_not_accepted",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 0,
+    "deliveryPattern": {
+      "mode": "SINGLE",
+      "attempts": 1
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "BLOCK_DUPLICATE_EFFECT"
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 5401,
+    "initialLocalState": "EXTERNAL_UNKNOWN",
+    "initialExternalState": "NOT_ACCEPTED",
+    "faultType": "RECONCILIATION_QUERY_TEMPORARY_FAILURE",
+    "faultPoint": "BEFORE_RECONCILIATION_QUERY",
+    "expectedTerminalStates": [
+      "FAILED"
+    ],
+    "expectedExternalState": "NOT_ACCEPTED",
+    "expectedConvergence": true,
+    "maxRecoveryAttempts": 3,
+    "manualReviewAllowed": false
+  },
+  {
+    "caseId": "stage4-test-last-allowed-query-success",
+    "benchmarkType": "RECOVERY",
+    "scenario": "RECONCILIATION_TEMPORARY_FAILURE",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-STAGE4-TEST-LAST-ALLOWED-QUERY-SUCCESS",
+      "simulation": "timeout_after_success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {
+      "local": "EXTERNAL_UNKNOWN",
+      "external": "SUCCEEDED",
+      "recoveryEvidence": "externalReference + external query",
+      "recoveryBudgetRegion": "LAST_ALLOWED_SUCCESS"
+    },
+    "expectedOutcome": {
+      "expectedTerminalStates": [
+        "SUCCEEDED"
+      ],
+      "expectedExternalState": "SUCCEEDED",
+      "expectedConvergence": true
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "RECOVERY",
+      "EXTERNAL_RECONCILIATION"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001",
+        "maxDuplicateEffects": 0,
+        "duplicateSideEffectsAllowed": 0
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "RECONCILIATION_QUERY_TEMPORARY_FAILURE",
+      "point": "BEFORE_RECONCILIATION_QUERY",
+      "triggerAt": 1
+    },
+    "tags": [
+      "QUERY_FAILURE",
+      "BUDGET_BOUNDARY",
+      "HELD_OUT",
+      "LAST_ALLOWED_SUCCESS"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.4-recovery-stage4",
+    "semanticTaskId": "last-allowed-query-success",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "stage4-recovery-causal-blueprint",
+    "humanReviewed": false,
+    "semanticRootId": "recovery:stage4:last_allowed_query_success",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "SINGLE",
+      "attempts": 1
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "BLOCK_DUPLICATE_EFFECT"
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 5403,
+    "initialLocalState": "EXTERNAL_UNKNOWN",
+    "initialExternalState": "SUCCEEDED",
+    "faultType": "RECONCILIATION_QUERY_TEMPORARY_FAILURE",
+    "faultPoint": "BEFORE_RECONCILIATION_QUERY",
+    "expectedTerminalStates": [
+      "SUCCEEDED"
+    ],
+    "expectedExternalState": "SUCCEEDED",
+    "expectedConvergence": true,
+    "maxRecoveryAttempts": 2,
+    "manualReviewAllowed": false
+  },
+  {
+    "caseId": "stage4-test-budget-exhausted-from-external-unknown-success",
+    "benchmarkType": "RECOVERY",
+    "scenario": "RECOVERY_BUDGET_EXHAUSTED",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-STAGE4-TEST-BUDGET-EXHAUSTED-FROM-EXTERNAL-UNKNOWN-SUCCESS",
+      "simulation": "timeout_after_success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {
+      "local": "EXTERNAL_UNKNOWN",
+      "external": "SUCCEEDED",
+      "recoveryEvidence": "externalReference present but query unavailable",
+      "recoveryBudgetRegion": "BUDGET_EXHAUSTED"
+    },
+    "expectedOutcome": {
+      "expectedTerminalStates": [
+        "NEEDS_MANUAL_ACTION"
+      ],
+      "expectedExternalState": "SUCCEEDED",
+      "expectedConvergence": false
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "RECOVERY",
+      "EXTERNAL_RECONCILIATION"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001",
+        "maxDuplicateEffects": 0,
+        "duplicateSideEffectsAllowed": 0
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "RECONCILIATION_QUERY_UNAVAILABLE",
+      "point": "BEFORE_RECONCILIATION_QUERY",
+      "triggerAt": 1
+    },
+    "tags": [
+      "MANUAL_REVIEW",
+      "EXTERNAL_UNKNOWN",
+      "HELD_OUT",
+      "BUDGET_INITIAL_STATE",
+      "BUDGET_EXHAUSTED"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.4-recovery-stage4",
+    "semanticTaskId": "budget-exhausted-external-unknown-success",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "stage4-recovery-causal-blueprint",
+    "humanReviewed": false,
+    "semanticRootId": "recovery:stage4:budget_exhausted_external_unknown_success",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "SINGLE",
+      "attempts": 1
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "BLOCK_DUPLICATE_EFFECT"
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 5405,
+    "initialLocalState": "EXTERNAL_UNKNOWN",
+    "initialExternalState": "SUCCEEDED",
+    "faultType": "RECONCILIATION_QUERY_UNAVAILABLE",
+    "faultPoint": "BEFORE_RECONCILIATION_QUERY",
+    "expectedTerminalStates": [
+      "NEEDS_MANUAL_ACTION"
+    ],
+    "expectedExternalState": "SUCCEEDED",
+    "expectedConvergence": false,
+    "maxRecoveryAttempts": 3,
+    "manualReviewAllowed": true
+  },
+  {
+    "caseId": "stage4-test-state-update-failure-from-executing",
+    "benchmarkType": "RECOVERY",
+    "scenario": "RECOVERY_STATE_UPDATE_FAILURE",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-STAGE4-TEST-STATE-UPDATE-FAILURE-FROM-EXECUTING",
+      "simulation": "success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {
+      "local": "EXECUTING",
+      "external": "SUCCEEDED",
+      "recoveryEvidence": "operationRequestId + external success truth",
+      "recoveryBudgetRegion": "EARLY_SUCCESS"
+    },
+    "expectedOutcome": {
+      "expectedTerminalStates": [
+        "SUCCEEDED"
+      ],
+      "expectedExternalState": "SUCCEEDED",
+      "expectedConvergence": true
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "RECOVERY",
+      "EXTERNAL_RECONCILIATION"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001",
+        "maxDuplicateEffects": 0,
+        "duplicateSideEffectsAllowed": 0
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "RECOVERY_STATE_UPDATE_FAILURE",
+      "point": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "triggerAt": 1
+    },
+    "tags": [
+      "STATE_UPDATE_FAILURE",
+      "EXECUTING_INITIAL",
+      "HELD_OUT",
+      "STATE_UPDATE_INITIAL_STATE",
+      "EARLY_SUCCESS"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.4-recovery-stage4",
+    "semanticTaskId": "state-update-failure-from-executing",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "stage4-recovery-causal-blueprint",
+    "humanReviewed": false,
+    "semanticRootId": "recovery:stage4:state_update_failure_from_executing",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 1,
+    "deliveryPattern": {
+      "mode": "SINGLE",
+      "attempts": 1
+    },
+    "concurrency": {
+      "workers": 1,
+      "simultaneous": false
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "BLOCK_DUPLICATE_EFFECT"
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 5406,
+    "initialLocalState": "EXECUTING",
+    "initialExternalState": "SUCCEEDED",
+    "faultType": "RECOVERY_STATE_UPDATE_FAILURE",
+    "faultPoint": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+    "expectedTerminalStates": [
+      "SUCCEEDED"
+    ],
+    "expectedExternalState": "SUCCEEDED",
+    "expectedConvergence": true,
+    "maxRecoveryAttempts": 3,
+    "manualReviewAllowed": false
+  },
+  {
+    "caseId": "stage4-test-concurrent-not-accepted",
+    "benchmarkType": "RECOVERY",
+    "scenario": "DUPLICATE_RECONCILIATION",
+    "difficulty": "HARD",
+    "input": {
+      "shopId": 1,
+      "orderId": "SO202607180001",
+      "refundAmount": 100,
+      "operationRequestId": "REQ-STAGE4-TEST-CONCURRENT-NOT-ACCEPTED",
+      "simulation": "timeout_before_success"
+    },
+    "identity": {
+      "tenantId": 1,
+      "shopId": 1,
+      "userId": 1
+    },
+    "initialState": {
+      "local": "EXTERNAL_UNKNOWN",
+      "external": "NOT_ACCEPTED",
+      "recoveryEvidence": "operationRequestId + external not-accepted truth",
+      "recoveryBudgetRegion": "EARLY_SUCCESS"
+    },
+    "expectedOutcome": {
+      "expectedTerminalStates": [
+        "FAILED"
+      ],
+      "expectedExternalState": "NOT_ACCEPTED",
+      "expectedConvergence": true
+    },
+    "requiredCapabilities": [
+      "REFUND_WRITE",
+      "RECOVERY",
+      "EXTERNAL_RECONCILIATION"
+    ],
+    "optionalCapabilities": [],
+    "acceptableTools": [
+      "order.refund_execute"
+    ],
+    "forbiddenTools": [],
+    "sideEffectExpectation": {
+      "expectedLogicalSideEffects": 1,
+      "allowedEffectTypes": [
+        "REFUND"
+      ],
+      "forbiddenEffectTypes": [],
+      "constraints": {
+        "businessTarget": "SO202607180001",
+        "maxDuplicateEffects": 0,
+        "duplicateSideEffectsAllowed": 0
+      }
+    },
+    "approvalExpectation": {
+      "required": true,
+      "mustBlockBeforeApproval": true,
+      "requiredRiskLevel": "HIGH",
+      "constraints": {}
+    },
+    "faultInjection": {
+      "scenario": "DUPLICATE_RECOVERY_ATTEMPT"
+    },
+    "tags": [
+      "CONCURRENT",
+      "NOT_ACCEPTED",
+      "NO_DUPLICATE_EFFECT",
+      "HELD_OUT",
+      "CONCURRENCY_EXTERNAL_STATE",
+      "EARLY_SUCCESS"
+    ],
+    "goldVersion": "shopopsbench-gold-v1.4-recovery-stage4",
+    "semanticTaskId": "concurrent-not-accepted",
+    "origin": "HAND_AUTHORED",
+    "parentCaseId": null,
+    "perturbationType": null,
+    "generationMethod": "stage4-recovery-causal-blueprint",
+    "humanReviewed": false,
+    "semanticRootId": "recovery:stage4:concurrent_not_accepted",
+    "goldSourceType": "FAULT_CONTRACT_DERIVED",
+    "reviewStatus": "MODEL_REVIEWED",
+    "reservedForHeldOut": true,
+    "operationType": "order.refund_execute",
+    "logicalWriteCount": 1,
+    "expectedEffectiveSideEffects": 0,
+    "deliveryPattern": {
+      "mode": "SINGLE",
+      "attempts": 1
+    },
+    "concurrency": {
+      "workers": 2,
+      "simultaneous": true
+    },
+    "idempotencyExpectation": {
+      "sameKeyBehavior": "BLOCK_DUPLICATE_EFFECT"
+    },
+    "externalSystemMode": "NON_IDEMPOTENT_EXTERNAL",
+    "faultSeed": 5408,
+    "initialLocalState": "EXTERNAL_UNKNOWN",
+    "initialExternalState": "NOT_ACCEPTED",
+    "faultType": "DUPLICATE_RECOVERY_ATTEMPT",
+    "faultPoint": null,
+    "expectedTerminalStates": [
+      "FAILED"
+    ],
+    "expectedExternalState": "NOT_ACCEPTED",
+    "expectedConvergence": true,
+    "maxRecoveryAttempts": 3,
+    "manualReviewAllowed": false
+  }
+]

@@ -4,6 +4,12 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      run_formal_benchmark:
+        description: "Run held-out ShopOpsBench formal integration job"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -16,7 +22,7 @@ jobs:
   backend-test:
     name: Backend tests
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
@@ -29,6 +35,9 @@ jobs:
           java-version: "17"
           cache: maven
 
+      - name: Verify frozen benchmark manifest
+        run: python3 scripts/verify-benchmark-manifest.py
+
       - name: Run Maven tests
         run: mvn --batch-mode --no-transfer-progress -pl shopops-admin -am test
 
@@ -40,6 +49,83 @@ jobs:
           path: "**/target/surefire-reports/**"
           if-no-files-found: ignore
           retention-days: 7
+
+  benchmark-integration:
+    name: ShopOpsBench formal integration
+    if: github.event_name == 'workflow_dispatch' && inputs.run_formal_benchmark
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: shopops_agent
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+      rabbitmq:
+        image: rabbitmq:3.13-management
+        env:
+          RABBITMQ_DEFAULT_USER: shopops
+          RABBITMQ_DEFAULT_PASS: shopops
+        ports:
+          - 5672:5672
+        options: >-
+          --health-cmd="rabbitmq-diagnostics -q ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Verify frozen benchmark manifest
+        run: python3 scripts/verify-benchmark-manifest.py
+
+      - name: Run formal held-out benchmark integration
+        run: >-
+          mvn --batch-mode --no-transfer-progress
+          -pl shopops-admin -am
+          -Dshopops.formal.it=true
+          -Dshopops.jdbc.it=true
+          -Dshopops.rabbitmq.it=true
+          -Dsurefire.failIfNoSpecifiedTests=false
+          -Dspring.rabbitmq.host=127.0.0.1
+          -Dspring.rabbitmq.port=5672
+          -Dspring.rabbitmq.username=shopops
+          -Dspring.rabbitmq.password=shopops
+          -Dtest=FormalTaskBenchmarkIntegrationTest,FormalIdempotencyBenchmarkIntegrationTest,FormalRecoveryBenchmarkIntegrationTest,FormalGovernanceBenchmarkIntegrationTest,JdbcRefundIdempotencyIntegrationTest,JdbcRefundRecoveryIntegrationTest,JdbcGovernanceIntegrationTest,AgentTaskRabbitDispatchIntegrationTest
+          test
+
+      - name: Aggregate formal benchmark evidence
+        if: always()
+        run: python3 scripts/aggregate-shopopsbench-formal.py --formal-root shopops-admin/target/benchmark/formal --output artifacts/evaluation/formal-ci
+
+      - name: Upload formal benchmark evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shopopsbench-formal-evidence
+          path: |
+            **/target/benchmark/formal/**
+            **/target/surefire-reports/**
+            artifacts/evaluation/formal-ci/**
+          if-no-files-found: ignore
+          retention-days: 30
 
   frontend-build:
     name: Frontend build

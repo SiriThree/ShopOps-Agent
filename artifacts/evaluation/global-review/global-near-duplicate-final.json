@@ -1,0 +1,55 @@
+{
+  "artifactVersion": "stage8a-global-near-duplicate-final-v1",
+  "candidateCount": 1837,
+  "resolvedCount": 1837,
+  "reviewedCount": 1837,
+  "unresolvedHighRiskCount": 0,
+  "decisionDistribution": {
+    "KEEP_DISTINCT": 1671,
+    "SAME_ROOT": 97,
+    "KEEP_DISTINCT_PAIRED_CONTROL": 69
+  },
+  "byBenchmark": {
+    "TASK": {
+      "candidateCount": 783,
+      "reviewedCount": 783,
+      "unresolvedCount": 0,
+      "decisionDistribution": {
+        "KEEP_DISTINCT": 708,
+        "SAME_ROOT": 75
+      },
+      "source": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-near-duplicate-review.json"
+    },
+    "GOVERNANCE": {
+      "candidateCount": 913,
+      "reviewedCount": 913,
+      "unresolvedCount": 0,
+      "decisionDistribution": {
+        "KEEP_DISTINCT": 834,
+        "KEEP_DISTINCT_PAIRED_CONTROL": 69,
+        "SAME_ROOT": 10
+      },
+      "source": "shopops-admin/src/test/resources/benchmark/v1/governance/scaleup/governance-near-duplicate-review.json"
+    },
+    "RECOVERY": {
+      "candidateCount": 59,
+      "reviewedCount": 59,
+      "unresolvedCount": 0,
+      "decisionDistribution": {
+        "KEEP_DISTINCT": 53,
+        "SAME_ROOT": 6
+      },
+      "source": "shopops-admin/src/test/resources/benchmark/v1/recovery/stage4/recovery-near-duplicate-review.json"
+    },
+    "IDEMPOTENCY": {
+      "candidateCount": 82,
+      "reviewedCount": 82,
+      "unresolvedCount": 0,
+      "decisionDistribution": {
+        "KEEP_DISTINCT": 76,
+        "SAME_ROOT": 6
+      },
+      "source": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage5/idempotency-near-duplicate-review.json"
+    }
+  }
+}

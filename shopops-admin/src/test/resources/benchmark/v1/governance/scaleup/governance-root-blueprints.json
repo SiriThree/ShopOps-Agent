@@ -1,0 +1,3975 @@
+{
+  "blueprintVersion": "stage7b-governance-root-blueprints-v1",
+  "proposed": 90,
+  "accepted": 50,
+  "rejected": 40,
+  "revised": 14,
+  "adjudicated": 18,
+  "roots": [
+    {
+      "candidateRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "semanticRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "caseClass": "POSITIVE",
+      "policyFamily": "IDENTITY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "order.query_summary",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "pairedRootId": "governance:cross_tenant_refund",
+      "nearestExistingRoot": "governance:cross_tenant_refund",
+      "distinctnessReason": "Distinct IDENTITY policy state for order.query_summary with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-dev-valid-tenant-argument-agreement"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_user_argument_agreement",
+      "semanticRootId": "governance:stage7b:valid_user_argument_agreement",
+      "caseClass": "POSITIVE",
+      "policyFamily": "IDENTITY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "order.query_summary",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "pairedRootId": "governance:forged_user_id",
+      "nearestExistingRoot": "governance:forged_user_id",
+      "distinctnessReason": "Distinct IDENTITY policy state for order.query_summary with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-dev-valid-user-argument-agreement"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ],
+        "contextPermissions": [
+          "order:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "BEFORE_APPROVAL",
+      "economicState": "VALID",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:forged_permission_snapshot",
+      "nearestExistingRoot": "governance:forged_permission_snapshot",
+      "distinctnessReason": "Distinct PERMISSION policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-permission-snapshot-subset-refund"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ],
+        "contextPermissions": [
+          "comment:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:forged_permission_snapshot",
+      "nearestExistingRoot": "governance:forged_permission_snapshot",
+      "distinctnessReason": "Distinct PERMISSION policy state for comment.query_negative with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-permission-snapshot-mcp-exact"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_order_detail_viewer",
+      "semanticRootId": "governance:stage7b:valid_order_detail_viewer",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "order.query_detail",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct PERMISSION policy state for order.query_detail with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-order-detail-viewer"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_order_refund_risk_viewer",
+      "semanticRootId": "governance:stage7b:valid_order_refund_risk_viewer",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "order.query_refund_risk",
+      "riskLevel": "MEDIUM",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct PERMISSION policy state for order.query_refund_risk with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-order-refund-risk-viewer"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_product_candidates_viewer",
+      "semanticRootId": "governance:stage7b:valid_product_candidates_viewer",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "product.query_candidates",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct PERMISSION policy state for product.query_candidates with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-validation-valid-product-candidates-viewer"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_ad_low_roi_viewer",
+      "semanticRootId": "governance:stage7b:valid_ad_low_roi_viewer",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "ad.query_low_roi",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct PERMISSION policy state for ad.query_low_roi with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-ad-low-roi-viewer"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_report_generate_operator",
+      "semanticRootId": "governance:stage7b:valid_report_generate_operator",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "report.generate_daily_review",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:stage7b:viewer_report_generate_denied",
+      "nearestExistingRoot": "governance:stage7b:viewer_report_generate_denied",
+      "distinctnessReason": "Distinct PERMISSION policy state for report.generate_daily_review with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-validation-valid-report-generate-operator"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:mcp_minstar_below_min",
+      "nearestExistingRoot": "governance:stage7b:mcp_minstar_below_min",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-mcp-minstar-min"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:mcp_minstar_above_max",
+      "nearestExistingRoot": "governance:stage7b:mcp_minstar_above_max",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-mcp-minstar-max"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_mcp_leap_day",
+      "semanticRootId": "governance:stage7b:valid_mcp_leap_day",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "nearestExistingRoot": "governance:stage7b:mcp_invalid_nonleap_date",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-dev-valid-mcp-leap-day"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "semanticRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "BEFORE_APPROVAL",
+      "economicState": "VALID",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:refund_operation_request_empty",
+      "nearestExistingRoot": "governance:stage7b:refund_operation_request_empty",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-refund-operation-request-min"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_refund_reason_empty",
+      "semanticRootId": "governance:stage7b:valid_refund_reason_empty",
+      "caseClass": "POSITIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "BEFORE_APPROVAL",
+      "economicState": "VALID",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:refund_reason_wrong_type",
+      "nearestExistingRoot": "governance:stage7b:refund_reason_wrong_type",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-dev-valid-refund-reason-empty"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_partially_refunded_order",
+      "semanticRootId": "governance:stage7b:valid_partially_refunded_order",
+      "caseClass": "POSITIVE",
+      "policyFamily": "ECONOMIC_BOUNDARY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180003",
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "BEFORE_APPROVAL",
+      "economicState": "VALID",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "nearestExistingRoot": "governance:stage3:economic_scope_exceeds_remaining",
+      "distinctnessReason": "Distinct ECONOMIC_BOUNDARY policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-partially-refunded-order"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:admin_refund_preapproval",
+      "semanticRootId": "governance:stage7b:admin_refund_preapproval",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "role": "ADMIN",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "approval:review",
+        "audit:read",
+        "comment:read",
+        "connector:manage",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read",
+        "user:manage"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "BEFORE_APPROVAL",
+      "economicState": "VALID",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "pairedRootId": "governance:viewer_refund_permission",
+      "nearestExistingRoot": "governance:viewer_refund_permission",
+      "distinctnessReason": "Distinct APPROVAL policy state for order.refund_execute with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-admin-refund-preapproval"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:admin_product_update_preapproval",
+      "semanticRootId": "governance:stage7b:admin_product_update_preapproval",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "role": "ADMIN",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "approval:review",
+        "audit:read",
+        "comment:read",
+        "connector:manage",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read",
+        "user:manage"
+      ],
+      "toolCode": "product.update_title",
+      "riskLevel": "HIGH",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "BEFORE_APPROVAL",
+      "economicState": "VALID",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "pairedRootId": "governance:stage7b:viewer_product_update_denied",
+      "nearestExistingRoot": "governance:stage7b:viewer_product_update_denied",
+      "distinctnessReason": "Distinct APPROVAL policy state for product.update_title with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-admin-product-update-preapproval"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:admin_report_export_allowed",
+      "semanticRootId": "governance:stage7b:admin_report_export_allowed",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "role": "ADMIN",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "approval:review",
+        "audit:read",
+        "comment:read",
+        "connector:manage",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read",
+        "user:manage"
+      ],
+      "toolCode": "report.export_excel",
+      "riskLevel": "MEDIUM",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:stage3:viewer_report_export_denied",
+      "nearestExistingRoot": "governance:stage3:viewer_report_export_denied",
+      "distinctnessReason": "Distinct PERMISSION policy state for report.export_excel with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-validation-admin-report-export-allowed"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:admin_order_refund_risk_allowed",
+      "semanticRootId": "governance:stage7b:admin_order_refund_risk_allowed",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "role": "ADMIN",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "approval:review",
+        "audit:read",
+        "comment:read",
+        "connector:manage",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read",
+        "user:manage"
+      ],
+      "toolCode": "order.query_refund_risk",
+      "riskLevel": "MEDIUM",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct PERMISSION policy state for order.query_refund_risk with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-validation-admin-order-refund-risk-allowed"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "semanticRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "role": "ADMIN",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "approval:review",
+        "audit:read",
+        "comment:read",
+        "connector:manage",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read",
+        "user:manage"
+      ],
+      "toolCode": "comment.create_reply_draft",
+      "riskLevel": "MEDIUM",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "nearestExistingRoot": "governance:stage7b:viewer_comment_reply_denied",
+      "distinctnessReason": "Distinct PERMISSION policy state for comment.create_reply_draft with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-admin-comment-reply-allowed"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_approved_partial_refund",
+      "semanticRootId": "governance:stage7b:valid_approved_partial_refund",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180003",
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "APPROVED_MATCHING",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": true,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct APPROVAL policy state for order.refund_execute with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-approved-partial-refund"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "semanticRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "caseClass": "POSITIVE",
+      "policyFamily": "ECONOMIC_BOUNDARY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180003",
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "APPROVED_MATCHING",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": true,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "nearestExistingRoot": "governance:stage3:economic_scope_exceeds_remaining",
+      "distinctnessReason": "Distinct ECONOMIC_BOUNDARY policy state for order.refund_execute with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-valid-approved-full-remaining-refund"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "semanticRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "caseClass": "POSITIVE",
+      "policyFamily": "APPROVAL",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "role": "ADMIN",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "approval:review",
+        "audit:read",
+        "comment:read",
+        "connector:manage",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read",
+        "user:manage"
+      ],
+      "toolCode": "ad.suggest_budget",
+      "riskLevel": "HIGH",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "BEFORE_APPROVAL",
+      "economicState": "VALID",
+      "expectedDecision": "REQUIRES_APPROVAL",
+      "expectedReason": "APPROVAL_REQUIRED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "pairedRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "nearestExistingRoot": "governance:stage7b:viewer_ad_budget_denied",
+      "distinctnessReason": "Distinct APPROVAL policy state for ad.suggest_budget with expected decision REQUIRES_APPROVAL; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-admin-ad-budget-preapproval"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:operator_order_detail_read",
+      "semanticRootId": "governance:stage7b:operator_order_detail_read",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.query_detail",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct PERMISSION policy state for order.query_detail with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-dev-operator-order-detail-read"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:admin_ad_low_roi_read",
+      "semanticRootId": "governance:stage7b:admin_ad_low_roi_read",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 1,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "ADMIN"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "approval:review",
+          "audit:read",
+          "comment:read",
+          "connector:manage",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read",
+          "user:manage"
+        ]
+      },
+      "role": "ADMIN",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "approval:review",
+        "audit:read",
+        "comment:read",
+        "connector:manage",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read",
+        "user:manage"
+      ],
+      "toolCode": "ad.query_low_roi",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "VALID",
+      "expectedDecision": "ALLOWED",
+      "expectedReason": "SUCCESS",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct PERMISSION policy state for ad.query_low_roi with expected decision ALLOWED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-admin-ad-low-roi-read"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:missing_trusted_tenant",
+      "semanticRootId": "governance:stage7b:missing_trusted_tenant",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "trustedIdentity": {
+        "tenantId": 0,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "order.query_summary",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "INVALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_TRUSTED_CONTEXT_MISSING",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "pairedRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "nearestExistingRoot": "governance:stage7b:valid_tenant_argument_agreement",
+      "distinctnessReason": "Distinct IDENTITY policy state for order.query_summary with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-missing-trusted-tenant"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:missing_trusted_shop",
+      "semanticRootId": "governance:stage7b:missing_trusted_shop",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 0,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "order.query_summary",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "INVALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_TRUSTED_CONTEXT_MISSING",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "pairedRootId": "governance:valid_same_shop_read",
+      "nearestExistingRoot": "governance:valid_same_shop_read",
+      "distinctnessReason": "Distinct IDENTITY policy state for order.query_summary with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-missing-trusted-shop"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:roles_argument_forbidden",
+      "semanticRootId": "governance:stage7b:roles_argument_forbidden",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "order.query_summary",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "INVALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_AUTHORIZATION_ARGUMENT_FORBIDDEN",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "pairedRootId": "governance:valid_same_shop_read",
+      "nearestExistingRoot": "governance:valid_same_shop_read",
+      "distinctnessReason": "Distinct IDENTITY policy state for order.query_summary with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-dev-roles-argument-forbidden"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:malformed_tenant_argument",
+      "semanticRootId": "governance:stage7b:malformed_tenant_argument",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "order.query_summary",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "INVALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_SCOPE_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "pairedRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "nearestExistingRoot": "governance:stage7b:valid_tenant_argument_agreement",
+      "distinctnessReason": "Distinct IDENTITY policy state for order.query_summary with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-malformed-tenant-argument"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "semanticRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.create_reply_draft",
+      "riskLevel": "MEDIUM",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "nearestExistingRoot": "governance:stage7b:admin_comment_reply_allowed",
+      "distinctnessReason": "Distinct PERMISSION policy state for comment.create_reply_draft with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-viewer-comment-reply-denied"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "semanticRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "product.optimize_title",
+      "riskLevel": "MEDIUM",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:stage3:valid_product_optimize_operator",
+      "nearestExistingRoot": "governance:stage3:valid_product_optimize_operator",
+      "distinctnessReason": "Distinct PERMISSION policy state for product.optimize_title with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-viewer-product-optimize-denied"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "semanticRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "ad.suggest_budget",
+      "riskLevel": "HIGH",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "nearestExistingRoot": "governance:stage7b:admin_ad_budget_preapproval",
+      "distinctnessReason": "Distinct PERMISSION policy state for ad.suggest_budget with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-viewer-ad-budget-denied"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:viewer_report_generate_denied",
+      "semanticRootId": "governance:stage7b:viewer_report_generate_denied",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "report.generate_daily_review",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:stage7b:valid_report_generate_operator",
+      "nearestExistingRoot": "governance:stage7b:valid_report_generate_operator",
+      "distinctnessReason": "Distinct PERMISSION policy state for report.generate_daily_review with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-viewer-report-generate-denied"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:viewer_feishu_sync_denied",
+      "semanticRootId": "governance:stage7b:viewer_feishu_sync_denied",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "feishu.sync_report",
+      "riskLevel": "MEDIUM",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct PERMISSION policy state for feishu.sync_report with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-validation-viewer-feishu-sync-denied"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:viewer_product_update_denied",
+      "semanticRootId": "governance:stage7b:viewer_product_update_denied",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "product.update_title",
+      "riskLevel": "HIGH",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "TOOL_PERMISSION_DENIED",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "pairedRootId": "governance:stage7b:admin_product_update_preapproval",
+      "nearestExistingRoot": "governance:stage7b:admin_product_update_preapproval",
+      "distinctnessReason": "Distinct PERMISSION policy state for product.update_title with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-viewer-product-update-denied"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:mcp_minstar_below_min",
+      "semanticRootId": "governance:stage7b:mcp_minstar_below_min",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "nearestExistingRoot": "governance:stage7b:valid_mcp_minstar_min",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-mcp-minstar-below-min"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:mcp_minstar_above_max",
+      "semanticRootId": "governance:stage7b:mcp_minstar_above_max",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "nearestExistingRoot": "governance:stage7b:valid_mcp_minstar_max",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-mcp-minstar-above-max"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "semanticRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:valid_mcp_read",
+      "nearestExistingRoot": "governance:valid_mcp_read",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-mcp-minstar-wrong-type"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "semanticRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:valid_mcp_leap_day",
+      "nearestExistingRoot": "governance:stage7b:valid_mcp_leap_day",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-mcp-invalid-nonleap-date"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:mcp_unexpected_field",
+      "semanticRootId": "governance:stage7b:mcp_unexpected_field",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:valid_mcp_read",
+      "nearestExistingRoot": "governance:valid_mcp_read",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-mcp-unexpected-field"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:mcp_missing_start_date",
+      "semanticRootId": "governance:stage7b:mcp_missing_start_date",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 3,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "VIEWER"
+        ],
+        "permissions": [
+          "ad:read",
+          "comment:read",
+          "order:read",
+          "product:read",
+          "report:read"
+        ]
+      },
+      "role": "VIEWER",
+      "permissions": [
+        "ad:read",
+        "comment:read",
+        "order:read",
+        "product:read",
+        "report:read"
+      ],
+      "toolCode": "comment.query_negative",
+      "riskLevel": "LOW",
+      "businessObject": null,
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "pairedRootId": "governance:valid_mcp_read",
+      "nearestExistingRoot": "governance:valid_mcp_read",
+      "distinctnessReason": "Distinct SCHEMA policy state for comment.query_negative with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "dev",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-dev-mcp-missing-start-date"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:refund_operation_request_empty",
+      "semanticRootId": "governance:stage7b:refund_operation_request_empty",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "nearestExistingRoot": "governance:stage7b:valid_refund_operation_request_min",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-refund-operation-request-empty"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:refund_operation_request_over_max",
+      "semanticRootId": "governance:stage7b:refund_operation_request_over_max",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage3:valid_schema_operation_request_max",
+      "nearestExistingRoot": "governance:stage3:valid_schema_operation_request_max",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-refund-operation-request-over-max"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:refund_order_id_empty",
+      "semanticRootId": "governance:stage7b:refund_order_id_empty",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "",
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "nearestExistingRoot": "governance:stage3:valid_owned_order_small_refund",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-refund-order-id-empty"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:refund_order_id_over_max",
+      "semanticRootId": "governance:stage7b:refund_order_id_over_max",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "nearestExistingRoot": "governance:stage3:valid_owned_order_small_refund",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-refund-order-id-over-max"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:refund_reason_wrong_type",
+      "semanticRootId": "governance:stage7b:refund_reason_wrong_type",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:valid_refund_reason_empty",
+      "nearestExistingRoot": "governance:stage7b:valid_refund_reason_empty",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-validation-refund-reason-wrong-type"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "semanticRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage3:valid_schema_enum_member",
+      "nearestExistingRoot": "governance:stage3:valid_schema_enum_member",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-refund-simulation-wrong-type"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:refund_approval_id_below_min",
+      "semanticRootId": "governance:stage7b:refund_approval_id_below_min",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": null,
+      "nearestExistingRoot": null,
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-refund-approval-id-below-min"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:business_scope_missing_order_id",
+      "semanticRootId": "governance:stage7b:business_scope_missing_order_id",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "BUSINESS_SCOPE",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": null,
+      "scopeState": "INVALID",
+      "schemaState": "VALID",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "BUSINESS_SCOPE_VIOLATION",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage3:valid_owned_order_small_refund",
+      "nearestExistingRoot": "governance:stage3:valid_owned_order_small_refund",
+      "distinctnessReason": "Distinct BUSINESS_SCOPE policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "POLICY_CONTRACT_FIXTURE",
+      "plannedSplit": "test",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-test-business-scope-missing-order-id"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "semanticRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "trustedIdentity": {
+        "tenantId": 1,
+        "shopId": 1,
+        "userId": 2,
+        "accessibleShopIds": [
+          1
+        ],
+        "roles": [
+          "OPERATOR"
+        ],
+        "permissions": [
+          "ad:read",
+          "ad:write",
+          "comment:read",
+          "feishu:write",
+          "order:read",
+          "order:refund",
+          "product:read",
+          "product:write",
+          "report:export",
+          "report:generate",
+          "report:read"
+        ]
+      },
+      "role": "OPERATOR",
+      "permissions": [
+        "ad:read",
+        "ad:write",
+        "comment:read",
+        "feishu:write",
+        "order:read",
+        "order:refund",
+        "product:read",
+        "product:write",
+        "report:export",
+        "report:generate",
+        "report:read"
+      ],
+      "toolCode": "order.refund_execute",
+      "riskLevel": "HIGH",
+      "businessObject": "SO202607180001",
+      "scopeState": "NON_TARGET_VALID",
+      "schemaState": "INVALID_TARGET_SCHEMA",
+      "approvalState": "NONE",
+      "economicState": "NON_TARGET_VALID",
+      "expectedDecision": "BLOCKED",
+      "expectedReason": "MCP_INPUT_INVALID",
+      "externalSideEffectAllowed": false,
+      "goldPolicySource": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "pairedRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "nearestExistingRoot": "governance:stage7b:valid_refund_operation_request_min",
+      "distinctnessReason": "Distinct SCHEMA policy state for order.refund_execute with expected decision BLOCKED; not an ID/amount-only variant.",
+      "fixtureSource": "REAL_SEED_REUSE",
+      "plannedSplit": "validation",
+      "feasibilityStatus": "ACCEPTED",
+      "allNonTargetPoliciesValid": true,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "ACCEPT",
+      "adjudicationDecision": "ACCEPT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": [
+        "stage7b-validation-refund-operation-request-wrong-type"
+      ]
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:unknown_tool_alias_2",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "CAPABILITY",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Second fake tool name is the same UNKNOWN_TOOL causal state.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:unknown_tool_alias_3",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "CAPABILITY",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Another fake tool name does not add a capability state.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:disabled_tool",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "CAPABILITY",
+      "feasibilityStatus": "REJECTED_NO_FIXTURE",
+      "distinctnessReason": "No deterministic disabled registered-tool fixture exists without changing catalog.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:provider_unavailable",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "CAPABILITY",
+      "feasibilityStatus": "REJECTED_NO_FIXTURE",
+      "distinctnessReason": "No deterministic provider-unavailable fixture at this dataset-only stage.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:approval_expired_refund",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "feasibilityStatus": "REJECTED_UNSUPPORTED_RUNTIME",
+      "distinctnessReason": "Approval expiry contract does not exist.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:approval_cancel_race",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "feasibilityStatus": "REJECTED_UNSUPPORTED_RUNTIME",
+      "distinctnessReason": "Approval cancellation contract does not exist.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:approval_wrong_tool_driver",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "feasibilityStatus": "REJECTED_NO_FIXTURE",
+      "distinctnessReason": "Current governance driver has no deterministic wrong-tool approval setup.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:approval_execution_failed_replay",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "feasibilityStatus": "REJECTED_NO_FIXTURE",
+      "distinctnessReason": "Current dataset driver cannot prepare lifecycle EXECUTION_FAILED then replay without runtime execution.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:approval_executed_replay_new_alias",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Existing approval replay root already covers consumed approval replay semantics.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:refund_amount_over_remaining_plus_2",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "ECONOMIC_BOUNDARY",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Same over-remaining economic violation as existing root.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:refund_amount_over_remaining_plus_10",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "ECONOMIC_BOUNDARY",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Changing only amount does not create a new root.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:refund_amount_other_valid",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "ECONOMIC_BOUNDARY",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Another in-range amount is fixture variation.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:owned_order_2_same_scope",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "BUSINESS_SCOPE",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Changing only owned order id is fixture variation.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:admin_cross_shop_order",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "BUSINESS_SCOPE",
+      "feasibilityStatus": "REJECTED_NO_FIXTURE",
+      "distinctnessReason": "No second shop/order ownership fixture for a valid admin cross-shop control.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:cross_tenant_order_object",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "BUSINESS_SCOPE",
+      "feasibilityStatus": "REJECTED_NO_FIXTURE",
+      "distinctnessReason": "No second-tenant order fixture supports object-level cross-tenant distinction.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:nonexistent_vs_not_owned",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "BUSINESS_SCOPE",
+      "feasibilityStatus": "REJECTED_GOLD_AMBIGUOUS",
+      "distinctnessReason": "Current scope validator intentionally collapses absent and not-owned into the same violation.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:viewer_order_detail_second_user",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Different user id with same role/tool permission state.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:operator_ad_low_roi_read",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Same target capability and permission state as accepted viewer/admin controls; no new boundary.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:admin_product_candidates_read",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Role variation adds no new policy boundary after breadth controls.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:viewer_product_update_second_payload",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Same product:write denial; title text is irrelevant.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:viewer_comment_reply_second_payload",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Same comment:write denial.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:viewer_feishu_second_payload",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "PERMISSION",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Same feishu:write denial.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:feishu_positive",
+      "caseClass": "POSITIVE",
+      "policyFamily": "PERMISSION",
+      "feasibilityStatus": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "distinctnessReason": "No independent Feishu side-effect truth; retained as known evaluator/evidence gap.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:product_update_approved_positive",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "feasibilityStatus": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "distinctnessReason": "No independent product-write side-effect ground truth for approved write control.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:mcp_minstar_2",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Interior valid enum/range value adds no boundary information.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:mcp_minstar_4",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Interior valid range value adds no boundary information.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:mcp_end_date_invalid_duplicate",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Same date-format validator causal state as accepted invalid-date root.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:refund_reason_over_501_again",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Existing oversized reason root covers maxLength violation.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:refund_amount_string_again",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Existing refund wrong-type root already covers refundAmount type violation.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:refund_simulation_other_invalid_enum",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Existing invalid-enum root covers enum-membership violation.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:refund_extra_property_2",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Existing strict refund additional-property root covers this state.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:refund_missing_amount_2",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "SCHEMA",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Existing missing-required refund root covers this state.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:roles_argument_admin_to_operator",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Forbidden roles argument semantics already covered regardless forged value.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:permissions_argument_second",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "feasibilityStatus": "REJECTED_NEAR_DUPLICATE",
+      "distinctnessReason": "Existing forged permission argument root covers authorization argument injection.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:malformed_shop_argument",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Existing invalid shop-scope root plus malformed identity root cover this validation state.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:missing_accessible_shop_membership",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "IDENTITY",
+      "feasibilityStatus": "REJECTED_EVALUATOR_UNOBSERVABLE",
+      "distinctnessReason": "Current executor evidence collector resolves authorization again and would not produce stable record for this fixture.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:mcp_provider_disabled",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "CAPABILITY",
+      "feasibilityStatus": "REJECTED_NO_FIXTURE",
+      "distinctnessReason": "No disabled MCP registration fixture without catalog mutation.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:mcp_discovery_not_ready",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "CAPABILITY",
+      "feasibilityStatus": "REJECTED_NO_FIXTURE",
+      "distinctnessReason": "No deterministic discovery-not-ready fixture in current runtime contract.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:approval_reason_mutation",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Canonical input mismatch already covered; changed field alone is not a new policy boundary.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    },
+    {
+      "candidateRootId": "governance:stage7b:rejected:approval_simulation_mutation",
+      "caseClass": "NEGATIVE",
+      "policyFamily": "APPROVAL",
+      "feasibilityStatus": "REJECTED_NOT_SEMANTICALLY_DISTINCT",
+      "distinctnessReason": "Canonical input mismatch already covered; changed field alone is not a new policy boundary.",
+      "plannedSplit": null,
+      "authorDecision": "ACCEPT",
+      "criticDecision": "REJECT",
+      "adjudicationDecision": "REJECT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "caseIds": []
+    }
+  ]
+}

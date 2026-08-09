@@ -1,0 +1,620 @@
+{
+  "contractVersion": "stage2-task-root-split-plan-v1",
+  "groupSplitInvariant": "ONE_SEMANTIC_ROOT_ONE_SPLIT",
+  "rootCount": 52,
+  "roots": [
+    {
+      "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "dev",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "dev-task-ad-risk-001",
+        "dev-task-ad-risk-002",
+        "test-task-ad-risk-001"
+      ],
+      "isPreviouslyLeaked": true,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:safe-default",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "validation-task-ad-missing-date-001"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-08:normal",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-ad-20180808-01"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-09:no-data",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-ad-20180809-01"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-10:normal-single",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-ad-20180810-01"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-11:single-risk",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-ad-20180811-01"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-12:normal",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-ad-20180812-01"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-13:no-data",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-ad-20180813-01"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-14:multi-risk",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-ad-20180814-01",
+        "stage2-test-ad-20180814-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-15:normal-multi",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-ad-20180815-01",
+        "stage2-test-ad-20180815-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-16:single-risk",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-ad-20180816-01",
+        "stage2-test-ad-20180816-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-17:normal-single",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-ad-20180817-01",
+        "stage2-test-ad-20180817-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-18:normal-multi",
+      "businessScenario": "ad_anomaly",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-ad-20180818-01",
+        "stage2-test-ad-20180818-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:comment_risk:date:2018-08-02:2018-08-02",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "dev",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "dev-task-comment-risk-001",
+        "dev-task-comment-risk-002"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:date:2018-08-05:2018-08-05",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "test",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "test-task-comment-risk-001"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:comment_risk:safe-default",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "validation",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "test-task-comment-ambiguous-001",
+        "validation-task-comment-ambiguous-001",
+        "validation-task-comment-missing-date-001"
+      ],
+      "isPreviouslyLeaked": true,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-08:empty-comments",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-comment-20180808-01",
+        "stage2-dev-comment-20180808-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-09:low-comment-density",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-comment-20180809-01",
+        "stage2-dev-comment-20180809-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-10:low-comment-density",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-comment-20180810-01",
+        "stage2-validation-comment-20180810-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-11:empty-comments",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-comment-20180811-01",
+        "stage2-validation-comment-20180811-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-13:low-comment-density",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-comment-20180813-01",
+        "stage2-test-comment-20180813-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-14:empty-comments",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-comment-20180814-01",
+        "stage2-test-comment-20180814-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-15:high-comment-density",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-comment-20180815-01",
+        "stage2-test-comment-20180815-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-16:high-comment-density",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-comment-20180816-01",
+        "stage2-test-comment-20180816-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-18:empty-comments",
+      "businessScenario": "comment_risk",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-comment-20180818-01",
+        "stage2-test-comment-20180818-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:daily_review:date:2018-08-01:2018-08-01",
+      "businessScenario": "daily_review",
+      "assignedSplit": "dev",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "dev-task-daily-review-001",
+        "dev-task-daily-review-002"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:daily_review:date:2018-08-04:2018-08-04",
+      "businessScenario": "daily_review",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "validation-task-daily-review-001",
+        "validation-task-daily-variant-001"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:daily_review:date:2018-08-05:2018-08-05",
+      "businessScenario": "daily_review",
+      "assignedSplit": "test",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "test-task-daily-review-001"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:daily_review:safe-default",
+      "businessScenario": "daily_review",
+      "assignedSplit": "dev",
+      "assignmentReason": "CONTAMINATED_FOR_HELD_OUT_REASSIGNED_TO_DEVELOPMENT_OR_VALIDATION",
+      "existingCases": [
+        "dev-task-daily-missing-date-001",
+        "test-task-daily-missing-date-001"
+      ],
+      "isPreviouslyLeaked": true,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-08:partial-business-state",
+      "businessScenario": "daily_review",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-daily-20180808-01",
+        "stage2-dev-daily-20180808-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-10:low",
+      "businessScenario": "daily_review",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-daily-20180810-01",
+        "stage2-test-daily-20180810-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-11:partial-business-state",
+      "businessScenario": "daily_review",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-daily-20180811-01",
+        "stage2-dev-daily-20180811-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-12:partial-business-state",
+      "businessScenario": "daily_review",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-daily-20180812-01",
+        "stage2-validation-daily-20180812-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-14:partial-business-state",
+      "businessScenario": "daily_review",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-daily-20180814-01",
+        "stage2-test-daily-20180814-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-15:high",
+      "businessScenario": "daily_review",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-daily-20180815-01",
+        "stage2-validation-daily-20180815-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-16:high-risk",
+      "businessScenario": "daily_review",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-daily-20180816-01",
+        "stage2-test-daily-20180816-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-17:partial-business-state",
+      "businessScenario": "daily_review",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-daily-20180817-01",
+        "stage2-test-daily-20180817-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-18:partial-business-state",
+      "businessScenario": "daily_review",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-daily-20180818-01",
+        "stage2-test-daily-20180818-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:product_optimization:date:2018-08-03:2018-08-03",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "dev",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "dev-task-product-opt-001",
+        "dev-task-product-opt-002"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:date:2018-08-06:2018-08-06",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "test",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "test-task-product-opt-001"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:product_optimization:safe-default",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "validation",
+      "assignmentReason": "STAGE1_EXISTING_ROOT",
+      "existingCases": [
+        "validation-task-product-missing-date-001"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-08:no-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-product-20180808-01",
+        "stage2-dev-product-20180808-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-09:multi-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-product-20180809-01",
+        "stage2-dev-product-20180809-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-10:few-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "dev",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-dev-product-20180810-01"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-11:multi-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-product-20180811-01",
+        "stage2-validation-product-20180811-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-12:no-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-product-20180812-01",
+        "stage2-validation-product-20180812-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-13:few-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "validation",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-validation-product-20180813-01"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-14:no-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-product-20180814-01",
+        "stage2-test-product-20180814-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-15:multi-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-product-20180815-01",
+        "stage2-test-product-20180815-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-16:multi-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-product-20180816-01",
+        "stage2-test-product-20180816-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-17:no-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-product-20180817-01",
+        "stage2-test-product-20180817-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-18:few-candidates",
+      "businessScenario": "product_optimization",
+      "assignedSplit": "test",
+      "assignmentReason": "NEW_ROOT_PREASSIGNED_BEFORE_VARIANTS",
+      "existingCases": [
+        "stage2-test-product-20180818-01",
+        "stage2-test-product-20180818-02"
+      ],
+      "isPreviouslyLeaked": false,
+      "isTestExclusive": true
+    }
+  ]
+}

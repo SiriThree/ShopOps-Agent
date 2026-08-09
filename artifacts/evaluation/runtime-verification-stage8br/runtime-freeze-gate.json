@@ -1,0 +1,18 @@
+{
+  "JDK17 Runtime": "PASS",
+  "Maven Build": "FAIL",
+  "Spring Test Context": "PASS",
+  "MySQL/JDBC": "PASS",
+  "Legal Fresh-Approval Replay": "PASS",
+  "All Legal Replays Reach Boundary": "PASS",
+  "Consumed Approval Counterexample": "PASS",
+  "Payload Conflict Attribution": "PASS",
+  "Missing Effect Detection": "PASS",
+  "Independent External Ledger": "PASS",
+  "Concurrent First Write": "PASS",
+  "Production Integrity": "PASS",
+  "Dataset Integrity": "FAIL",
+  "Held-Out Isolation": "PASS",
+  "finalStatus": "RUNTIME_CONTRACT_FAILED",
+  "freezeEligibility": "NOT_READY"
+}

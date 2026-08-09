@@ -1,18 +1,40 @@
 package com.sirithree.shopops.admin.reliability.service;
 
+import com.sirithree.shopops.admin.reliability.external.RefundExternalTransport;
+import com.sirithree.shopops.admin.reliability.fault.ReliabilityFaultContext;
+import com.sirithree.shopops.admin.reliability.fault.ReliabilityFaultController;
+import com.sirithree.shopops.admin.reliability.fault.ReliabilityFaultPoint;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RefundExternalClient {
+    private final RefundExternalTransport transport;
+    private final ReliabilityFaultController faults;
+
+    public RefundExternalClient(RefundExternalTransport transport, ReliabilityFaultController faults) {
+        this.transport = transport;
+        this.faults = faults;
+    }
+
     public ExternalResult execute(String operationRequestId, String orderId, int amount, String simulation) {
-        String reference = "REF-" + operationRequestId;
-        if ("timeout_after_success".equalsIgnoreCase(simulation)) return new ExternalResult("UNKNOWN", reference, Map.of(), "外部超时，结果未知");
-        if ("failure".equalsIgnoreCase(simulation)) return new ExternalResult("FAILED", reference, Map.of(), "外部明确拒绝退款");
-        return new ExternalResult("SUCCEEDED", reference, Map.of("refundId", reference, "orderId", orderId, "refundAmount", amount, "status", "SUCCEEDED"), null);
+        faults.hit(
+                ReliabilityFaultPoint.BEFORE_EXTERNAL_CALL,
+                new ReliabilityFaultContext("order.refund_execute", operationRequestId, orderId, null));
+        RefundExternalTransport.Result result = transport.execute(operationRequestId, orderId, amount, simulation);
+        return new ExternalResult(result.status(), result.reference(), result.data(), result.message());
     }
+
     public ExternalResult query(String reference) {
-        return new ExternalResult("SUCCEEDED", reference, Map.of("refundId", reference, "status", "SUCCEEDED"), null);
+        RefundExternalTransport.Result result = transport.query(reference);
+        return new ExternalResult(result.status(), result.reference(), result.data(), result.message());
     }
-    public record ExternalResult(String status, String reference, Map<String,Object> data, String message) {}
+
+    public ExternalResult queryByOperationRequestId(String operationRequestId) {
+        RefundExternalTransport.Result result = transport.queryByOperationRequestId(operationRequestId);
+        return new ExternalResult(result.status(), result.reference(), result.data(), result.message());
+    }
+
+    public record ExternalResult(String status, String reference, Map<String, Object> data, String message) {
+    }
 }

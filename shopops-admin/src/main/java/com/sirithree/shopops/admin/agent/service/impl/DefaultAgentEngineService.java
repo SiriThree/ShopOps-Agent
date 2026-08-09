@@ -56,7 +56,13 @@ public class DefaultAgentEngineService implements AgentEngineService {
             activeChildSpan = plannerSpan;
             AgentPlan plan = plannerService.createPlan(context);
             planValidator.validate(context, plan);
-            traceService.finishSpan(context.getTraceId(), plannerSpan, "SUCCESS", jsonSupport.toJson(plan), null);
+            traceService.finishSpan(context.getTraceId(), plannerSpan, "SUCCESS", jsonSupport.toJson(java.util.Map.of(
+                    "plan", plan,
+                    "plannerMode", context.getPlannerMode() == null ? "UNAVAILABLE" : context.getPlannerMode(),
+                    "fallback", context.isPlannerFallback(),
+                    "fallbackReason", context.getPlannerFallbackReason() == null ? "" : context.getPlannerFallbackReason(),
+                    "plannedToolCodes", context.getPlannedToolCodes()
+            )), null);
             activeChildSpan = null;
 
             String executorSpan = startSpan(context, rootSpan, "executor", "agent.executor", "task", context.getTaskId(), "execute plan");

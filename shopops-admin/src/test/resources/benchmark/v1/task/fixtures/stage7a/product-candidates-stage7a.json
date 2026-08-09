@@ -1,0 +1,484 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-19",
+    "endDate": "2018-08-19",
+    "summary": {
+      "candidateCount": 0,
+      "products": []
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-20",
+    "endDate": "2018-08-20",
+    "summary": {
+      "candidateCount": 1,
+      "products": [
+        {
+          "productId": "P201",
+          "productName": "Benchmark product P201",
+          "reason": "single strong risk-linked candidate",
+          "score": 92.0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-21",
+    "endDate": "2018-08-21",
+    "summary": {
+      "candidateCount": 4,
+      "products": [
+        {
+          "productId": "P202",
+          "productName": "Benchmark product P202",
+          "reason": "risk-linked candidate",
+          "score": 84.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P203",
+          "productName": "Benchmark product P203",
+          "reason": "risk-linked candidate",
+          "score": 81.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P204",
+          "productName": "Benchmark product P204",
+          "reason": "risk-linked candidate",
+          "score": 78.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P205",
+          "productName": "Benchmark product P205",
+          "reason": "order-signal candidate",
+          "score": 73.0,
+          "negativeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-22",
+    "endDate": "2018-08-22",
+    "summary": {
+      "candidateCount": 2,
+      "products": [
+        {
+          "productId": "P206",
+          "productName": "Benchmark product P206",
+          "reason": "dominant risk candidate",
+          "score": 96.0,
+          "negativeCount": 3
+        },
+        {
+          "productId": "P207",
+          "productName": "Benchmark product P207",
+          "reason": "secondary candidate",
+          "score": 76.0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-23",
+    "endDate": "2018-08-23",
+    "summary": {
+      "candidateCount": 0,
+      "products": []
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-24",
+    "endDate": "2018-08-24",
+    "summary": {
+      "candidateCount": 2,
+      "products": [
+        {
+          "productId": "P208",
+          "productName": "Benchmark product P208",
+          "reason": "optimization opportunity without negative review",
+          "score": 88.0,
+          "negativeCount": 0
+        },
+        {
+          "productId": "P209",
+          "productName": "Benchmark product P209",
+          "reason": "secondary opportunity without negative review",
+          "score": 74.0,
+          "negativeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-25",
+    "endDate": "2018-08-25",
+    "summary": {
+      "candidateCount": 1,
+      "products": [
+        {
+          "productId": "P210",
+          "productName": "Benchmark product P210",
+          "reason": "low-volume evidence candidate",
+          "score": 79.0,
+          "negativeCount": 2
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-26",
+    "endDate": "2018-08-26",
+    "summary": {
+      "candidateCount": 3,
+      "products": [
+        {
+          "productId": "P211",
+          "productName": "Benchmark product P211",
+          "reason": "dominant negative-evidence candidate",
+          "score": 97.0,
+          "negativeCount": 4
+        },
+        {
+          "productId": "P212",
+          "productName": "Benchmark product P212",
+          "reason": "secondary candidate",
+          "score": 79.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P213",
+          "productName": "Benchmark product P213",
+          "reason": "order-only candidate",
+          "score": 71.0,
+          "negativeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-27",
+    "endDate": "2018-08-27",
+    "summary": {
+      "candidateCount": 5,
+      "products": [
+        {
+          "productId": "P214",
+          "productName": "Benchmark product P214",
+          "reason": "risk-linked candidate",
+          "score": 90.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P215",
+          "productName": "Benchmark product P215",
+          "reason": "order-signal candidate",
+          "score": 85.0,
+          "negativeCount": 0
+        },
+        {
+          "productId": "P216",
+          "productName": "Benchmark product P216",
+          "reason": "order-signal candidate",
+          "score": 82.0,
+          "negativeCount": 0
+        },
+        {
+          "productId": "P217",
+          "productName": "Benchmark product P217",
+          "reason": "order-signal candidate",
+          "score": 77.0,
+          "negativeCount": 0
+        },
+        {
+          "productId": "P218",
+          "productName": "Benchmark product P218",
+          "reason": "order-signal candidate",
+          "score": 73.0,
+          "negativeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-28",
+    "endDate": "2018-08-28",
+    "summary": {
+      "candidateCount": 4,
+      "products": [
+        {
+          "productId": "P219",
+          "productName": "Benchmark product P219",
+          "reason": "risk candidate",
+          "score": 91.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P220",
+          "productName": "Benchmark product P220",
+          "reason": "risk candidate",
+          "score": 86.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P221",
+          "productName": "Benchmark product P221",
+          "reason": "risk candidate",
+          "score": 82.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P222",
+          "productName": "Benchmark product P222",
+          "reason": "risk candidate",
+          "score": 78.0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-29",
+    "endDate": "2018-08-29",
+    "summary": {
+      "candidateCount": 1,
+      "products": [
+        {
+          "productId": "P223",
+          "productName": "Benchmark product P223",
+          "reason": "order/refund signal candidate",
+          "score": 83.0,
+          "negativeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-30",
+    "endDate": "2018-08-30",
+    "summary": {
+      "candidateCount": 6,
+      "products": [
+        {
+          "productId": "P224",
+          "productName": "Benchmark product P224",
+          "reason": "risk candidate",
+          "score": 93.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P225",
+          "productName": "Benchmark product P225",
+          "reason": "risk candidate",
+          "score": 88.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P226",
+          "productName": "Benchmark product P226",
+          "reason": "risk candidate",
+          "score": 84.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P227",
+          "productName": "Benchmark product P227",
+          "reason": "order candidate",
+          "score": 80.0,
+          "negativeCount": 0
+        },
+        {
+          "productId": "P228",
+          "productName": "Benchmark product P228",
+          "reason": "order candidate",
+          "score": 77.0,
+          "negativeCount": 0
+        },
+        {
+          "productId": "P229",
+          "productName": "Benchmark product P229",
+          "reason": "order candidate",
+          "score": 72.0,
+          "negativeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-31",
+    "endDate": "2018-08-31",
+    "summary": {
+      "candidateCount": 2,
+      "products": [
+        {
+          "productId": "P230",
+          "productName": "Benchmark product P230",
+          "reason": "risk candidate",
+          "score": 89.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P231",
+          "productName": "Benchmark product P231",
+          "reason": "risk candidate",
+          "score": 83.0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-01",
+    "endDate": "2018-09-01",
+    "summary": {
+      "candidateCount": 8,
+      "products": [
+        {
+          "productId": "P232",
+          "productName": "Benchmark product P232",
+          "reason": "dominant high-volume candidate",
+          "score": 98.0,
+          "negativeCount": 2
+        },
+        {
+          "productId": "P233",
+          "productName": "Benchmark product P233",
+          "reason": "risk candidate",
+          "score": 92.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P234",
+          "productName": "Benchmark product P234",
+          "reason": "risk candidate",
+          "score": 88.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P235",
+          "productName": "Benchmark product P235",
+          "reason": "risk candidate",
+          "score": 83.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P236",
+          "productName": "Benchmark product P236",
+          "reason": "risk candidate",
+          "score": 80.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P237",
+          "productName": "Benchmark product P237",
+          "reason": "order candidate",
+          "score": 77.0,
+          "negativeCount": 0
+        },
+        {
+          "productId": "P238",
+          "productName": "Benchmark product P238",
+          "reason": "order candidate",
+          "score": 75.0,
+          "negativeCount": 0
+        },
+        {
+          "productId": "P239",
+          "productName": "Benchmark product P239",
+          "reason": "order candidate",
+          "score": 72.0,
+          "negativeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-02",
+    "endDate": "2018-09-02",
+    "summary": {
+      "candidateCount": 3,
+      "products": [
+        {
+          "productId": "P240",
+          "productName": "Benchmark product P240",
+          "reason": "risk candidate",
+          "score": 87.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P241",
+          "productName": "Benchmark product P241",
+          "reason": "risk candidate",
+          "score": 82.0,
+          "negativeCount": 1
+        },
+        {
+          "productId": "P242",
+          "productName": "Benchmark product P242",
+          "reason": "order candidate",
+          "score": 74.0,
+          "negativeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-09-03",
+    "endDate": "2018-09-03",
+    "summary": {
+      "candidateCount": 2,
+      "products": [
+        {
+          "productId": "P243",
+          "productName": "Benchmark product P243",
+          "reason": "dominant boundary candidate",
+          "score": 95.0,
+          "negativeCount": 2
+        },
+        {
+          "productId": "P244",
+          "productName": "Benchmark product P244",
+          "reason": "secondary boundary candidate",
+          "score": 84.0,
+          "negativeCount": 1
+        }
+      ]
+    }
+  }
+]

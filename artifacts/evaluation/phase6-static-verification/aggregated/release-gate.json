@@ -1,0 +1,15 @@
+{
+  "status": "RELEASE_GATE_NOT_AVAILABLE",
+  "failures": [],
+  "unavailable": [
+    "maxDuplicateSideEffects",
+    "maxUnauthorizedWrites",
+    "maxApprovalBypass",
+    "maxCrossTenantViolations",
+    "maxCrossShopViolations",
+    "minimumTaskSuccess",
+    "minimumStateConvergence",
+    "maximumFalseRejectRate"
+  ],
+  "configVersion": "benchmark-gates-v1-baseline-establishment"
+}

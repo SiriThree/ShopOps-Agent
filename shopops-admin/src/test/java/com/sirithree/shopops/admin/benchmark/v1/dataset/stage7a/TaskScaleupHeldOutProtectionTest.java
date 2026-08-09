@@ -1,0 +1,3 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage7a;
+import static org.assertj.core.api.Assertions.assertThat; import org.junit.jupiter.api.Test;
+class TaskScaleupHeldOutProtectionTest { @Test void newHeldOutCasesAreReservedAndNeverShareRootsWithDevelopmentSplits() throws Exception { var held=Stage7ATaskDatasetSupport.taskCases().stream().filter(v->"test".equals(v.split())).map(Stage7ATaskDatasetSupport.CaseView::benchmarkCase).filter(c->c.caseId.startsWith("stage7a-")).toList(); assertThat(held).hasSize(60); assertThat(held).allSatisfy(c->{assertThat(c.reservedForHeldOut).isTrue(); assertThat(c.tags).contains("HELD_OUT");}); assertThat(Stage7ATaskDatasetSupport.crossSplitRootCount()).isZero(); }}

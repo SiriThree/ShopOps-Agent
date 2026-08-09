@@ -18,31 +18,44 @@ public class TrustedToolInputNormalizer {
     }
 
     public Object normalize(ToolInvokeContext context, McpToolDto tool, Object input) {
+        Map<String, Object> values = input == null
+                ? new LinkedHashMap<>()
+                : new LinkedHashMap<>(jsonSupport.toMap(jsonSupport.toJson(input)));
+        validateIdentityArguments(context, values);
+        rejectForgedAuthorizationArguments(values);
+
         if (!CommerceMcpContracts.PROVIDER_MCP.equalsIgnoreCase(tool.getProviderType())) {
-            validateProvidedShopScope(context, input);
             return input;
         }
-        Map<String, Object> normalized = new LinkedHashMap<>();
-        if (input != null) {
-            normalized.putAll(jsonSupport.toMap(jsonSupport.toJson(input)));
-        }
-        validateShopScope(context, normalized.get("shopId"));
-        normalized.put("shopId", requiredPositive(context.getShopId(), "trusted shopId"));
-        return normalized;
+        values.put("shopId", requiredPositive(context.getShopId(), "trusted shopId"));
+        return values;
     }
 
-    private void validateProvidedShopScope(ToolInvokeContext context, Object input) {
-        if (input == null) {
-            return;
-        }
-        Map<String, Object> values = jsonSupport.toMap(jsonSupport.toJson(input));
-        validateShopScope(context, values.get("shopId"));
+    private void validateIdentityArguments(ToolInvokeContext context, Map<String, Object> values) {
+        validateIdentityField("tenantId", context.getTenantId(), values.get("tenantId"));
+        validateIdentityField("shopId", context.getShopId(), values.get("shopId"));
+        validateIdentityField("userId", context.getUserId(), values.get("userId"));
     }
 
-    private void validateShopScope(ToolInvokeContext context, Object candidate) {
-        if (candidate == null) {
-            return;
+    private void validateIdentityField(String field, Long trustedValue, Object candidate) {
+        if (candidate == null) return;
+        long provided = positiveLong(candidate, field);
+        long trusted = requiredPositive(trustedValue, "trusted " + field);
+        if (provided != trusted) {
+            String code = "shopId".equals(field) ? "TOOL_SCOPE_MISMATCH" : "TOOL_IDENTITY_ARGUMENT_CONFLICT";
+            throw new ToolGovernanceException(code,
+                    "Tool arguments cannot override trusted " + field);
         }
+    }
+
+    private void rejectForgedAuthorizationArguments(Map<String, Object> values) {
+        if (values.containsKey("permissions") || values.containsKey("roles")) {
+            throw new ToolGovernanceException("TOOL_AUTHORIZATION_ARGUMENT_FORBIDDEN",
+                    "Tool arguments cannot supply roles or permissions");
+        }
+    }
+
+    private long positiveLong(Object candidate, String field) {
         long provided;
         if (candidate instanceof Number number) {
             provided = number.longValue();
@@ -50,14 +63,13 @@ public class TrustedToolInputNormalizer {
             try {
                 provided = Long.parseLong(String.valueOf(candidate));
             } catch (NumberFormatException ex) {
-                throw new ToolGovernanceException("TOOL_SCOPE_INVALID", "shopId must be a positive integer");
+                throw new ToolGovernanceException("TOOL_SCOPE_INVALID", field + " must be a positive integer");
             }
         }
-        long trusted = requiredPositive(context.getShopId(), "trusted shopId");
-        if (provided != trusted) {
-            throw new ToolGovernanceException("TOOL_SCOPE_MISMATCH",
-                    "Tool arguments cannot override trusted shop scope");
+        if (provided <= 0) {
+            throw new ToolGovernanceException("TOOL_SCOPE_INVALID", field + " must be a positive integer");
         }
+        return provided;
     }
 
     private long requiredPositive(Long value, String field) {

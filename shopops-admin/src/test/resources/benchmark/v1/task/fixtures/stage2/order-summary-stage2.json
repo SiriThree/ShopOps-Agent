@@ -1,0 +1,380 @@
+[
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-01",
+    "endDate": "2018-08-01",
+    "summary": {
+      "gmv": 48850.81,
+      "orderCount": 311,
+      "refundAmount": 568.56,
+      "refundRate": 0.0116,
+      "avgOrderAmount": 157.08,
+      "compareYesterday": {
+        "gmvGrowth": -0.1061,
+        "orderGrowth": -0.0342
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.1767,
+        "refundRateDelta": -0.0083
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-02",
+    "endDate": "2018-08-02",
+    "summary": {
+      "gmv": 45932.7,
+      "orderCount": 302,
+      "refundAmount": 338.28,
+      "refundRate": 0.0074,
+      "avgOrderAmount": 152.1,
+      "compareYesterday": {
+        "gmvGrowth": -0.0597,
+        "orderGrowth": -0.0289
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.1029,
+        "refundRateDelta": -0.0139
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-03",
+    "endDate": "2018-08-03",
+    "summary": {
+      "gmv": 49517.59,
+      "orderCount": 314,
+      "refundAmount": 308.46,
+      "refundRate": 0.0062,
+      "avgOrderAmount": 157.7,
+      "compareYesterday": {
+        "gmvGrowth": 0.078,
+        "orderGrowth": 0.0397
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.1722,
+        "refundRateDelta": -0.0146
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-04",
+    "endDate": "2018-08-04",
+    "summary": {
+      "gmv": 41239.97,
+      "orderCount": 245,
+      "refundAmount": 164.53,
+      "refundRate": 0.004,
+      "avgOrderAmount": 168.33,
+      "compareYesterday": {
+        "gmvGrowth": -0.1672,
+        "orderGrowth": -0.2197
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": -0.0744,
+        "refundRateDelta": -0.0177
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-05",
+    "endDate": "2018-08-05",
+    "summary": {
+      "gmv": 42272.07,
+      "orderCount": 276,
+      "refundAmount": 192.72,
+      "refundRate": 0.0046,
+      "avgOrderAmount": 153.16,
+      "compareYesterday": {
+        "gmvGrowth": 0.025,
+        "orderGrowth": 0.1265
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": -0.0837,
+        "refundRateDelta": -0.0172
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-06",
+    "endDate": "2018-08-06",
+    "summary": {
+      "gmv": 65860.43,
+      "orderCount": 372,
+      "refundAmount": 2730.53,
+      "refundRate": 0.0415,
+      "avgOrderAmount": 177.04,
+      "compareYesterday": {
+        "gmvGrowth": 0.558,
+        "orderGrowth": 0.3478
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.4023,
+        "refundRateDelta": 0.0269
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-07",
+    "endDate": "2018-08-07",
+    "summary": {
+      "gmv": 62057.77,
+      "orderCount": 370,
+      "refundAmount": 4732.62,
+      "refundRate": 0.0763,
+      "avgOrderAmount": 167.72,
+      "compareYesterday": {
+        "gmvGrowth": -0.0577,
+        "orderGrowth": -0.0054
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.2471,
+        "refundRateDelta": 0.0614
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-08",
+    "endDate": "2018-08-08",
+    "summary": {
+      "gmv": 0.0,
+      "orderCount": 0,
+      "refundAmount": 0.0,
+      "refundRate": 0,
+      "avgOrderAmount": 0,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-09",
+    "endDate": "2018-08-09",
+    "summary": {
+      "gmv": 70000.0,
+      "orderCount": 420,
+      "refundAmount": 6300.0,
+      "refundRate": 0.09,
+      "avgOrderAmount": 166.67,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-10",
+    "endDate": "2018-08-10",
+    "summary": {
+      "gmv": 7800.0,
+      "orderCount": 60,
+      "refundAmount": 78.0,
+      "refundRate": 0.01,
+      "avgOrderAmount": 130.0,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-11",
+    "endDate": "2018-08-11",
+    "summary": {
+      "gmv": 38000.0,
+      "orderCount": 250,
+      "refundAmount": 760.0,
+      "refundRate": 0.02,
+      "avgOrderAmount": 152.0,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-12",
+    "endDate": "2018-08-12",
+    "summary": {
+      "gmv": 52000.0,
+      "orderCount": 330,
+      "refundAmount": 780.0,
+      "refundRate": 0.015,
+      "avgOrderAmount": 157.58,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-13",
+    "endDate": "2018-08-13",
+    "summary": {
+      "gmv": 91000.0,
+      "orderCount": 510,
+      "refundAmount": 2730.0,
+      "refundRate": 0.03,
+      "avgOrderAmount": 178.43,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-14",
+    "endDate": "2018-08-14",
+    "summary": {
+      "gmv": 26000.0,
+      "orderCount": 180,
+      "refundAmount": 130.0,
+      "refundRate": 0.005,
+      "avgOrderAmount": 144.44,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-15",
+    "endDate": "2018-08-15",
+    "summary": {
+      "gmv": 140000.0,
+      "orderCount": 800,
+      "refundAmount": 6300.0,
+      "refundRate": 0.045,
+      "avgOrderAmount": 175.0,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-16",
+    "endDate": "2018-08-16",
+    "summary": {
+      "gmv": 48000.0,
+      "orderCount": 300,
+      "refundAmount": 960.0,
+      "refundRate": 0.02,
+      "avgOrderAmount": 160.0,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-17",
+    "endDate": "2018-08-17",
+    "summary": {
+      "gmv": 5200.0,
+      "orderCount": 40,
+      "refundAmount": 0.0,
+      "refundRate": 0,
+      "avgOrderAmount": 130.0,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  },
+  {
+    "tenantId": 1,
+    "shopId": 1,
+    "startDate": "2018-08-18",
+    "endDate": "2018-08-18",
+    "summary": {
+      "gmv": 45000.0,
+      "orderCount": 275,
+      "refundAmount": 1125.0,
+      "refundRate": 0.025,
+      "avgOrderAmount": 163.64,
+      "compareYesterday": {
+        "gmvGrowth": 0.0,
+        "orderGrowth": 0.0
+      },
+      "compareSevenDayAvg": {
+        "gmvGrowth": 0.0,
+        "refundRateDelta": 0.0
+      }
+    }
+  }
+]

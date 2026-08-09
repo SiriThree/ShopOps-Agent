@@ -1,0 +1,4112 @@
+{
+  "artifactVersion": "stage8a-global-gold-audit-v1",
+  "rootCount": 243,
+  "proofStatusDistribution": {
+    "VERIFIED": 243
+  },
+  "goldProofMissing": 0,
+  "unknownGoldSource": 0,
+  "invalidFixture": 0,
+  "policySourceMismatch": 0,
+  "policySourceHashMismatches": [],
+  "issues": [],
+  "proofIndex": [
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+      "goldSourceTypes": [
+        "HAND_AUTHORED",
+        "LEGACY_MIGRATED"
+      ],
+      "caseIds": [
+        "dev-task-ad-risk-001",
+        "dev-task-ad-risk-002",
+        "test-task-ad-risk-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_PUBLIC_DERIVED_FIXTURE_PROOF",
+      "proofReference": "docs/demo-data/olist + docs/demo-data/*-real.json",
+      "fixtureDate": "2018-08-07",
+      "derivedFacts": {
+        "orderCount": 370,
+        "gmv": 62057.77,
+        "negativeCount": 51,
+        "candidateCount": 10,
+        "adCampaignCount": 5,
+        "visitorCount": 1692344
+      },
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:safe-default",
+      "goldSourceTypes": [
+        "HAND_AUTHORED"
+      ],
+      "caseIds": [
+        "validation-task-ad-missing-date-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_SAFE_DEFAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1 case contract",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-08:normal",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-ad-20180808-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-09:no-data",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-ad-20180809-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-10:normal-single",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-ad-20180810-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-11:single-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-ad-20180811-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-12:normal",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-ad-20180812-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-13:no-data",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-ad-20180813-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-14:multi-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-ad-20180814-01",
+        "stage2-test-ad-20180814-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-15:normal-multi",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-ad-20180815-01",
+        "stage2-test-ad-20180815-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-16:single-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-ad-20180816-01",
+        "stage2-test-ad-20180816-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-17:normal-single",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-ad-20180817-01",
+        "stage2-test-ad-20180817-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-18:normal-multi",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-ad-20180818-01",
+        "stage2-test-ad-20180818-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-19:normal-single-low-spend",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-ad-20180819-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-20:risk-single-low-roi",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-ad-20180820-01",
+        "stage7a-dev-ad-20180820-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-21:normal-multi-high-volume",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-ad-20180821-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-22:risk-low-ctr-high-refund-context",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-ad-20180822-01",
+        "stage7a-validation-ad-20180822-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-23:no-data-empty-commerce",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-ad-20180823-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-24:normal-multi-medium-volume",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-ad-20180824-01",
+        "stage7a-validation-ad-20180824-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-25:risk-child-campaign-low-roi",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180825-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-26:no-data-commerce-with-comment-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180826-01",
+        "stage7a-test-ad-20180826-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-27:risk-child-campaign-many-products",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180827-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-28:risk-multiple-signals",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180828-01",
+        "stage7a-test-ad-20180828-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-29:normal-high-spend-no-comment-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180829-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-30:normal-multi-broad-product-context",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180830-01",
+        "stage7a-test-ad-20180830-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-31:risk-low-roi-low-order-context",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180831-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-01:normal-high-spend-high-volume",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180901-01",
+        "stage7a-test-ad-20180901-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-02:no-data-commerce-present",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180902-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-03:risk-low-ctr-high-refund-context",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-ad-20180903-01",
+        "stage7a-test-ad-20180903-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:date:2018-08-02:2018-08-02",
+      "goldSourceTypes": [
+        "LEGACY_MIGRATED"
+      ],
+      "caseIds": [
+        "dev-task-comment-risk-001",
+        "dev-task-comment-risk-002"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_PUBLIC_DERIVED_FIXTURE_PROOF",
+      "proofReference": "docs/demo-data/olist + docs/demo-data/*-real.json",
+      "fixtureDate": "2018-08-02",
+      "derivedFacts": {
+        "orderCount": 302,
+        "gmv": 45932.7,
+        "negativeCount": 59,
+        "candidateCount": 10,
+        "adCampaignCount": 5,
+        "visitorCount": 1644372
+      },
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:date:2018-08-05:2018-08-05",
+      "goldSourceTypes": [
+        "HAND_AUTHORED"
+      ],
+      "caseIds": [
+        "test-task-comment-risk-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_PUBLIC_DERIVED_FIXTURE_PROOF",
+      "proofReference": "docs/demo-data/olist + docs/demo-data/*-real.json",
+      "fixtureDate": "2018-08-05",
+      "derivedFacts": {
+        "orderCount": 276,
+        "gmv": 42272.07,
+        "negativeCount": 27,
+        "candidateCount": 10,
+        "adCampaignCount": 5,
+        "visitorCount": 1480158
+      },
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:safe-default",
+      "goldSourceTypes": [
+        "HAND_AUTHORED"
+      ],
+      "caseIds": [
+        "test-task-comment-ambiguous-001",
+        "validation-task-comment-ambiguous-001",
+        "validation-task-comment-missing-date-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_SAFE_DEFAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1 case contract",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-08:empty-comments",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-comment-20180808-01",
+        "stage2-dev-comment-20180808-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-09:low-comment-density",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-comment-20180809-01",
+        "stage2-dev-comment-20180809-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-10:low-comment-density",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-comment-20180810-01",
+        "stage2-validation-comment-20180810-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-11:empty-comments",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-comment-20180811-01",
+        "stage2-validation-comment-20180811-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-13:low-comment-density",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-comment-20180813-01",
+        "stage2-test-comment-20180813-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-14:empty-comments",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-comment-20180814-01",
+        "stage2-test-comment-20180814-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-15:high-comment-density",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-comment-20180815-01",
+        "stage2-test-comment-20180815-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-16:high-comment-density",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-comment-20180816-01",
+        "stage2-test-comment-20180816-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage2:2018-08-18:empty-comments",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-comment-20180818-01",
+        "stage2-test-comment-20180818-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-19:empty-comments-no-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-comment-20180819-01",
+        "stage7a-dev-comment-20180819-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-20:risk-structure-1-1-1",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-comment-20180820-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-21:risk-structure-3-3-4",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-comment-20180821-01",
+        "stage7a-dev-comment-20180821-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-22:dominant-product-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-comment-20180822-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-23:empty-commerce-no-comments",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-comment-20180823-01",
+        "stage7a-validation-comment-20180823-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-24:empty-comments-products-present",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-comment-20180824-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-25:low-volume-single-product-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180825-01",
+        "stage7a-test-comment-20180825-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-26:dominant-product-high-comment-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180826-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-27:single-risk-many-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180827-01",
+        "stage7a-test-comment-20180827-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-28:distributed-multi-product-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180828-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-29:empty-comments-high-refund-orders",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180829-01",
+        "stage7a-test-comment-20180829-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-30:multi-risk-broad-product-context",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180830-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-31:low-order-two-product-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180831-01",
+        "stage7a-test-comment-20180831-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-01:high-volume-high-risk-density",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180901-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-02:two-product-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180902-01",
+        "stage7a-test-comment-20180902-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-03:dominant-product-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-comment-20180903-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:date:2018-08-01:2018-08-01",
+      "goldSourceTypes": [
+        "LEGACY_MIGRATED"
+      ],
+      "caseIds": [
+        "dev-task-daily-review-001",
+        "dev-task-daily-review-002"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_PUBLIC_DERIVED_FIXTURE_PROOF",
+      "proofReference": "docs/demo-data/olist + docs/demo-data/*-real.json",
+      "fixtureDate": "2018-08-01",
+      "derivedFacts": {
+        "orderCount": 311,
+        "gmv": 48850.81,
+        "negativeCount": 58,
+        "candidateCount": 10,
+        "adCampaignCount": 5,
+        "visitorCount": 1427574
+      },
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:date:2018-08-04:2018-08-04",
+      "goldSourceTypes": [
+        "HAND_AUTHORED"
+      ],
+      "caseIds": [
+        "validation-task-daily-review-001",
+        "validation-task-daily-variant-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_PUBLIC_DERIVED_FIXTURE_PROOF",
+      "proofReference": "docs/demo-data/olist + docs/demo-data/*-real.json",
+      "fixtureDate": "2018-08-04",
+      "derivedFacts": {
+        "orderCount": 245,
+        "gmv": 41239.97,
+        "negativeCount": 66,
+        "candidateCount": 10,
+        "adCampaignCount": 5,
+        "visitorCount": 1395955
+      },
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:date:2018-08-05:2018-08-05",
+      "goldSourceTypes": [
+        "HAND_AUTHORED"
+      ],
+      "caseIds": [
+        "test-task-daily-review-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_PUBLIC_DERIVED_FIXTURE_PROOF",
+      "proofReference": "docs/demo-data/olist + docs/demo-data/*-real.json",
+      "fixtureDate": "2018-08-05",
+      "derivedFacts": {
+        "orderCount": 276,
+        "gmv": 42272.07,
+        "negativeCount": 27,
+        "candidateCount": 10,
+        "adCampaignCount": 5,
+        "visitorCount": 1480158
+      },
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:safe-default",
+      "goldSourceTypes": [
+        "HAND_AUTHORED"
+      ],
+      "caseIds": [
+        "dev-task-daily-missing-date-001",
+        "test-task-daily-missing-date-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_SAFE_DEFAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1 case contract",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-08:partial-business-state",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-daily-20180808-01",
+        "stage2-dev-daily-20180808-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-10:low",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-daily-20180810-01",
+        "stage2-test-daily-20180810-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-11:partial-business-state",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-daily-20180811-01",
+        "stage2-dev-daily-20180811-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-12:partial-business-state",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-daily-20180812-01",
+        "stage2-validation-daily-20180812-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-14:partial-business-state",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-daily-20180814-01",
+        "stage2-test-daily-20180814-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-15:high",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-daily-20180815-01",
+        "stage2-validation-daily-20180815-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-16:high-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-daily-20180816-01",
+        "stage2-test-daily-20180816-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-17:partial-business-state",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-daily-20180817-01",
+        "stage2-test-daily-20180817-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage2:2018-08-18:partial-business-state",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-daily-20180818-01",
+        "stage2-test-daily-20180818-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-19:healthy-low-empty-comment",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-daily-20180819-01",
+        "stage7a-dev-daily-20180819-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-20:single-risk-low-roi",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-daily-20180820-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-21:high-volume-distributed-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-daily-20180821-01",
+        "stage7a-dev-daily-20180821-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-22:high-refund-dominant-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-daily-20180822-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-23:empty-commerce",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-daily-20180823-01",
+        "stage7a-validation-daily-20180823-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-24:comment-empty-products-present",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-daily-20180824-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-25:low-volume-linked-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180825-01",
+        "stage7a-test-daily-20180825-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-26:dominant-comment-ad-nodata",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180826-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-27:many-candidates-single-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180827-01",
+        "stage7a-test-daily-20180827-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-28:distributed-risk-multi-ad",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180828-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-29:high-refund-empty-comment",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180829-01",
+        "stage7a-test-daily-20180829-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-30:broad-product-multi-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180830-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-08-31:low-order-two-risk-low-roi",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180831-01",
+        "stage7a-test-daily-20180831-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-09-01:high-volume-high-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180901-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-09-02:medium-risk-ad-nodata",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180902-01",
+        "stage7a-test-daily-20180902-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:daily_review:stage7a:2018-09-03:boundary-mixed-risk-low-ctr",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-daily-20180903-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:date:2018-08-03:2018-08-03",
+      "goldSourceTypes": [
+        "LEGACY_MIGRATED"
+      ],
+      "caseIds": [
+        "dev-task-product-opt-001",
+        "dev-task-product-opt-002"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_PUBLIC_DERIVED_FIXTURE_PROOF",
+      "proofReference": "docs/demo-data/olist + docs/demo-data/*-real.json",
+      "fixtureDate": "2018-08-03",
+      "derivedFacts": {
+        "orderCount": 314,
+        "gmv": 49517.59,
+        "negativeCount": 50,
+        "candidateCount": 10,
+        "adCampaignCount": 5,
+        "visitorCount": 1552187
+      },
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:date:2018-08-06:2018-08-06",
+      "goldSourceTypes": [
+        "HAND_AUTHORED"
+      ],
+      "caseIds": [
+        "test-task-product-opt-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_PUBLIC_DERIVED_FIXTURE_PROOF",
+      "proofReference": "docs/demo-data/olist + docs/demo-data/*-real.json",
+      "fixtureDate": "2018-08-06",
+      "derivedFacts": {
+        "orderCount": 372,
+        "gmv": 65860.43,
+        "negativeCount": 2,
+        "candidateCount": 2,
+        "adCampaignCount": 5,
+        "visitorCount": 1446678
+      },
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:safe-default",
+      "goldSourceTypes": [
+        "HAND_AUTHORED"
+      ],
+      "caseIds": [
+        "validation-task-product-missing-date-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_SAFE_DEFAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1 case contract",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-08:no-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-product-20180808-01",
+        "stage2-dev-product-20180808-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-09:multi-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-product-20180809-01",
+        "stage2-dev-product-20180809-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-10:few-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-dev-product-20180810-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-11:multi-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-product-20180811-01",
+        "stage2-validation-product-20180811-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-12:no-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-product-20180812-01",
+        "stage2-validation-product-20180812-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-13:few-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-validation-product-20180813-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-14:no-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-product-20180814-01",
+        "stage2-test-product-20180814-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-15:multi-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-product-20180815-01",
+        "stage2-test-product-20180815-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-16:multi-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-product-20180816-01",
+        "stage2-test-product-20180816-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-17:no-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-product-20180817-01",
+        "stage2-test-product-20180817-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage2:2018-08-18:few-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage2-test-product-20180818-01",
+        "stage2-test-product-20180818-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE2_FIXTURE_FACT_PROOF",
+      "proofReference": "benchmark/v1/task/stage2/task-root-blueprints.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-19:no-candidate",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-product-20180819-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-20:one-strong-risk-linked-candidate",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-product-20180820-01",
+        "stage7a-dev-product-20180820-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-21:candidate-structure-4-3-7",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-dev-product-20180821-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-22:two-candidates-dominant-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-product-20180822-01",
+        "stage7a-validation-product-20180822-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-23:no-candidate-empty-commerce",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-product-20180823-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-24:two-candidates-no-comments",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-validation-product-20180824-01",
+        "stage7a-validation-product-20180824-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-25:one-low-evidence-candidate",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180825-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-26:dominant-comment-three-candidates",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180826-01",
+        "stage7a-test-product-20180826-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-27:many-candidates-single-comment",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180827-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-28:multiple-candidates-distributed-comments",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180828-01",
+        "stage7a-test-product-20180828-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-29:single-order-signal-candidate-high-refund",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180829-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-30:broad-candidate-multi-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180830-01",
+        "stage7a-test-product-20180830-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-31:two-candidates-low-order-context",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180831-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-01:high-density-candidate-set",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180901-01",
+        "stage7a-test-product-20180901-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-02:three-candidates-ad-independent-context",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180902-01"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "TASK",
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-03:two-candidates-dominant-risk",
+      "goldSourceTypes": [
+        "BUSINESS_FIXTURE_DERIVED"
+      ],
+      "caseIds": [
+        "stage7a-test-product-20180903-01",
+        "stage7a-test-product-20180903-02"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7A_REFERENCE_ORACLE",
+      "proofReference": "benchmark/v1/task/stage7a/task-gold-proof.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:approval_payload_mutation",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-approval-payload-mutation"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_APPROVAL",
+        "POL_REFUND_SCHEMA",
+        "POL_REFUND_SCOPE"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:approval_replay",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-test-approval-replay",
+        "gov-val-approval-replay-control"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_APPROVAL",
+        "POL_REFUND_SCHEMA",
+        "POL_REFUND_SCOPE"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:approval_target_mismatch",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-test-approval-target-mismatch",
+        "gov-val-approval-target-mismatch-control"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_APPROVAL",
+        "POL_REFUND_SCHEMA",
+        "POL_REFUND_SCOPE"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:business_scope_order_not_owned",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-test-business-scope-order-not-owned"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:cross_shop_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-cross-shop-refund",
+        "gov-test-cross-shop-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:cross_tenant_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-cross-tenant-refund",
+        "gov-test-cross-tenant-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:forged_permission_argument",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-val-forged-permission-argument"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:forged_permission_snapshot",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-forged-permission-snapshot"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:forged_user_id",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-forged-user-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:missing_approval",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-missing-approval"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_APPROVAL",
+        "POL_REFUND_SCHEMA",
+        "POL_REFUND_SCOPE"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:rejected_approval",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-val-rejected-approval"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_APPROVAL",
+        "POL_REFUND_SCHEMA",
+        "POL_REFUND_SCOPE"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_invalid_enum",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-val-schema-invalid-enum"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_missing_required",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-val-schema-missing-field"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_oversized_value",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-val-schema-oversized-reason"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_unexpected_field",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-val-schema-unexpected-field"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:schema_wrong_type",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-test-schema-wrong-type",
+        "gov-val-schema-wrong-type"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:economic_scope_exceeds_remaining",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-economic-scope-exceeds-remaining"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:invalid_shop_scope_zero",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-validation-invalid-shop-scope-zero"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:missing_trusted_user",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-missing-trusted-user"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:product_update_approval_payload_mutation",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-product-update-approval-payload-mutation"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_APPROVAL",
+        "POL_REFUND_SCHEMA",
+        "POL_REFUND_SCOPE"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:schema_refund_below_minimum",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-schema-refund-below-minimum"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_ad_budget_approved",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-ad-budget-approved"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_ad_budget_preapproval",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-validation-valid-ad-budget-preapproval"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_APPROVAL",
+        "POL_REFUND_SCHEMA",
+        "POL_REFUND_SCOPE"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_ad_read",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-validation-valid-ad-read"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_comment_reply_draft_operator",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-comment-reply-draft-operator"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_full_remaining_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-full-remaining-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_local_comment_read",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-dev-valid-local-comment-read"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_owned_order_small_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-owned-order-small-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_permission_snapshot_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-permission-snapshot-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_product_optimize_operator",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-validation-valid-product-optimize-operator"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_product_read",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-product-read"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_product_update_preapproval",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-product-update-preapproval"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_APPROVAL",
+        "POL_REFUND_SCHEMA",
+        "POL_REFUND_SCOPE"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_report_export_operator",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-report-export-operator"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_report_read",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-report-read"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_schema_enum_member",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-schema-enum-member"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_schema_minimum_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-validation-valid-schema-minimum-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_schema_operation_request_max",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-dev-valid-schema-opreq-max"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:valid_schema_reason_max",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-valid-schema-reason-max"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage3:viewer_report_export_denied",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage3-test-viewer-report-export-denied"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_ad_budget_preapproval",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-admin-ad-budget-preapproval"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_ad_low_roi_read",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-admin-ad-low-roi-read"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_comment_reply_allowed",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-admin-comment-reply-allowed"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_order_refund_risk_allowed",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-validation-admin-order-refund-risk-allowed"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_product_update_preapproval",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-admin-product-update-preapproval"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_refund_preapproval",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-admin-refund-preapproval"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:admin_report_export_allowed",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-validation-admin-report-export-allowed"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:business_scope_missing_order_id",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-business-scope-missing-order-id"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:malformed_tenant_argument",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-malformed-tenant-argument"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_invalid_nonleap_date",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-mcp-invalid-nonleap-date"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_minstar_above_max",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-mcp-minstar-above-max"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_minstar_below_min",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-mcp-minstar-below-min"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_minstar_wrong_type",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-mcp-minstar-wrong-type"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_missing_start_date",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-dev-mcp-missing-start-date"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:mcp_unexpected_field",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-mcp-unexpected-field"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:missing_trusted_shop",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-missing-trusted-shop"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:missing_trusted_tenant",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-missing-trusted-tenant"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:operator_order_detail_read",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-dev-operator-order-detail-read"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_approval_id_below_min",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-refund-approval-id-below-min"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_operation_request_empty",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-refund-operation-request-empty"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_operation_request_over_max",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-refund-operation-request-over-max"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_operation_request_wrong_type",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-validation-refund-operation-request-wrong-type"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_order_id_empty",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-refund-order-id-empty"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_order_id_over_max",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-refund-order-id-over-max"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_reason_wrong_type",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-validation-refund-reason-wrong-type"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:refund_simulation_wrong_type",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-refund-simulation-wrong-type"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:roles_argument_forbidden",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-dev-roles-argument-forbidden"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_ad_low_roi_viewer",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-ad-low-roi-viewer"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_approved_full_remaining_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-approved-full-remaining-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_approved_partial_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-approved-partial-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_APPROVAL",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_mcp_leap_day",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-dev-valid-mcp-leap-day"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_max",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-mcp-minstar-max"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_mcp_minstar_min",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-mcp-minstar-min"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_MCP_COMMENT_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_order_detail_viewer",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-order-detail-viewer"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_order_refund_risk_viewer",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-order-refund-risk-viewer"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_partially_refunded_order",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-partially-refunded-order"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_REFUND_SCOPE",
+        "POL_ORDER_SEED",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_mcp_exact",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-permission-snapshot-mcp-exact"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_permission_snapshot_subset_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-permission-snapshot-subset-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_product_candidates_viewer",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-validation-valid-product-candidates-viewer"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_refund_operation_request_min",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-valid-refund-operation-request-min"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_refund_reason_empty",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-dev-valid-refund-reason-empty"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_SCHEMA_VALIDATOR",
+        "POL_REFUND_SCHEMA"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_report_generate_operator",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-validation-valid-report-generate-operator"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_tenant_argument_agreement",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-dev-valid-tenant-argument-agreement"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:valid_user_argument_agreement",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-dev-valid-user-argument-agreement"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_IDENTITY_NORMALIZER",
+        "POL_AUTH_MAPPING",
+        "POL_AUTH_SEED"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_ad_budget_denied",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-viewer-ad-budget-denied"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_comment_reply_denied",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-viewer-comment-reply-denied"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_feishu_sync_denied",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-validation-viewer-feishu-sync-denied"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_product_optimize_denied",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-viewer-product-optimize-denied"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_product_update_denied",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-viewer-product-update-denied"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:stage7b:viewer_report_generate_denied",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "stage7b-test-viewer-report-generate-denied"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "STAGE7B_POLICY_PROOF",
+      "proofReference": "benchmark/v1/governance/scaleup/governance-gold-proof.json",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG",
+        "POL_PORTFOLIO_TOOLS"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:unknown_tool",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-unknown-tool",
+        "gov-test-unknown-tool"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_approved_refund",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-test-valid-approved-refund",
+        "gov-val-valid-approved-refund-control"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_high_risk_preapproval",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-test-valid-preapproval",
+        "gov-val-valid-preapproval"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_idempotent_replay",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-test-valid-idempotent-replay"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_mcp_read",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-test-valid-mcp-read",
+        "gov-val-valid-mcp-read-control"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:valid_same_shop_read",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-valid-read"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_AUTH",
+        "POL_GATEWAY_PERMISSION",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "GOVERNANCE",
+      "semanticRootId": "governance:viewer_refund_permission",
+      "goldSourceTypes": [
+        "SECURITY_POLICY_DERIVED"
+      ],
+      "caseIds": [
+        "gov-dev-viewer-refund",
+        "gov-test-viewer-refund"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "HISTORICAL_POLICY_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/governance/stage3/governance-root-split-plan.json + current policy catalog",
+      "policySourceIds": [
+        "POL_GATEWAY_PERMISSION",
+        "POL_AUTH_MAPPING",
+        "POL_TOOL_CATALOG"
+      ],
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:duplicate_reconciliation",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "recovery-val-r8-duplicate-reconciliation",
+        "recovery-test-r8-duplicate-reconciliation"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:external_success_local_failure",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "recovery-dev-r1-external-success-local-failure",
+        "recovery-test-r1-request-correlation"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:reconciliation_temporary_failure",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "recovery-val-r5-query-temporary-failure",
+        "recovery-test-r5-query-temporary-failure"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:recovery_budget_exhausted",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "recovery-val-r6-budget-exhausted",
+        "recovery-test-r6-budget-exhausted"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:recovery_state_update_failure",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "recovery-test-state-update-failure"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:budget_exhausted_external_unknown_success",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage4-test-budget-exhausted-from-external-unknown-success"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:budget_exhausted_not_accepted",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage4-validation-budget-exhausted-not-accepted"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:concurrent_not_accepted",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage4-test-concurrent-not-accepted"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage4-dev-concurrent-reconciliation-from-executing"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:last_allowed_query_success",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage4-test-last-allowed-query-success"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage4-validation-query-failure-from-external-unknown-success"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:query_failure_then_not_accepted",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage4-test-query-failure-then-not-accepted"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:stage4:state_update_failure_from_executing",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage4-test-state-update-failure-from-executing"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:timeout_after_external_acceptance",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "recovery-dev-r3-timeout-after-accept",
+        "recovery-test-r3-timeout-after-accept"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "RECOVERY",
+      "semanticRootId": "recovery:timeout_before_external_acceptance",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "recovery-dev-r2-timeout-before-accept",
+        "recovery-test-r2-timeout-before-accept"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "FAULT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:baseline_single_delivery",
+      "goldSourceTypes": [
+        "DOMAIN_INVARIANT"
+      ],
+      "caseIds": [
+        "idem-dev-baseline-001",
+        "idem-test-baseline-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:concurrent_external_success_local_failure",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage5-idem-dev-concurrent-local-failure-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:concurrent_retry",
+      "goldSourceTypes": [
+        "DOMAIN_INVARIANT"
+      ],
+      "caseIds": [
+        "idem-dev-concurrent-retry-001",
+        "idem-test-concurrent-retry-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:concurrent_timeout_after_acceptance",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage5-idem-test-concurrent-timeout-after-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:external_idempotent_comparison",
+      "goldSourceTypes": [
+        "DOMAIN_INVARIANT"
+      ],
+      "caseIds": [
+        "idem-val-external-idempotent-comparison-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:external_success_local_failure",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "idem-test-external-success-local-failure-001",
+        "idem-val-external-success-local-failure-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_external_success_local_failure",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage5-idem-val-conflict-local-failure-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_response_loss_commit",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage5-idem-test-conflict-response-loss-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_terminal_external_failure",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage5-idem-test-conflict-terminal-failure-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_timeout_after_acceptance",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage5-idem-test-conflict-timeout-after-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:payload_conflict_after_timeout_before_acceptance",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "stage5-idem-val-conflict-timeout-before-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:response_loss_after_local_confirm",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "idem-val-response-loss-after-confirm-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:same_key_different_payload",
+      "goldSourceTypes": [
+        "DOMAIN_INVARIANT"
+      ],
+      "caseIds": [
+        "idem-dev-payload-conflict-001",
+        "idem-test-payload-conflict-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:sequential_retry",
+      "goldSourceTypes": [
+        "DOMAIN_INVARIANT"
+      ],
+      "caseIds": [
+        "idem-dev-sequential-retry-001",
+        "idem-test-sequential-retry-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:timeout_after_external_success",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "idem-dev-timeout-after-success-001",
+        "idem-test-timeout-after-success-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    },
+    {
+      "benchmarkType": "IDEMPOTENCY",
+      "semanticRootId": "idempotency:timeout_before_external_success",
+      "goldSourceTypes": [
+        "FAULT_CONTRACT_DERIVED"
+      ],
+      "caseIds": [
+        "idem-val-timeout-before-success-001"
+      ],
+      "proofStatus": "VERIFIED",
+      "proofType": "EXPECTED_EFFECT_CONTRACT_PROOF",
+      "proofReference": "benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json + idempotency-workload-profiles.json",
+      "independent": true
+    }
+  ],
+  "stage7aTaskQualityGate": "PASS",
+  "stage7bGovernanceQualityGate": "PASS",
+  "runtimeOutputUsedForNewGold": false
+}

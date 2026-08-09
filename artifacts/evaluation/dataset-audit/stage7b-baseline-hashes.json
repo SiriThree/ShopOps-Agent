@@ -1,0 +1,2485 @@
+{
+  "baseline": "Stage7A",
+  "production": [
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/ShopOpsAdminApplication.java",
+      "sha256": "ea45a82dc689a25af836881969f0d87b67cd56ceb8e02a095e7d7e9aed5b2bb8"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/config/AgentRabbitConfiguration.java",
+      "sha256": "8959f5a92684f0130d404712995c04b5750c8aa4febf20a7fdc3a9ccd86609f2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/config/AgentRabbitProperties.java",
+      "sha256": "ae6be9819b778af334a8c4ccfae9fd07dc3af94098aa31c4bf03967e1c143c9d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/controller/AdminAgentTaskController.java",
+      "sha256": "91fd0b31f59c76fc1b18adbf05a7e565ef6755d3adee6847d48b379803556e2b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/controller/AgentTaskController.java",
+      "sha256": "c473e13940cb3a7e17c693d03d1fd148c029c2beed0f71d92f72d6f37211a7b1"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentDispatchResult.java",
+      "sha256": "d1a3106bd8bb5f659e86cb4a5ca1e91e5f3d08e67d619a9676de67c7e499cfa3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentExecutionMode.java",
+      "sha256": "9393a3410893b45c9c9340138a6f97f2411165598303d102aae97cd0ba570b0e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentExecutionResult.java",
+      "sha256": "0e14f77f76211ec46634c75eb223e3d115ea61580f2682cde5efb51694c7bbef"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentPlan.java",
+      "sha256": "0d5072d2ce1f8ec7a09ee3dc019fc7b7574edd807136626ecbb887df8d4010ab"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentPlanStep.java",
+      "sha256": "5eedf13724e469cc63f61484e3a3a5cc0899eee6c0fa8cd9cbebe4fd00f186b5"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentStepStatus.java",
+      "sha256": "46e469e5f6a69316e164d928d0c09399e69e9b21232aadf644a6e54cad99d7cd"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskContext.java",
+      "sha256": "ae017c9edd8a9b2659d2806eaad03ac289c923be8f4e3bbfaece2ed3f61370ef"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskCreateParam.java",
+      "sha256": "0d02f78fdc258cc3227f9d9caa123da2168f9d858f13cb552a3f0301e3974f4a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskCreateResult.java",
+      "sha256": "246d15f2c94b0b1398e8de87138fd581a59f269cfa139753df0bc77610704ee8"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskDetailDto.java",
+      "sha256": "76a778551e3aaf61f5e20545ef52d170694f471e8053882ebd90ab3789c914fd"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskDispatchMessage.java",
+      "sha256": "8037ba4327c089417949198ebd5d22e5bbb9cebe86f027a0027234aacae6a0cf"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskDto.java",
+      "sha256": "d99382b779cf4563e806ac514aa919bf938a7a73675874a483cfc7bd37579f8f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskEventDto.java",
+      "sha256": "e4e1f474b628c9c1dab25efedec35355dfcf00cfde744f71ce90a5faf10f3d90"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskEventQueryParam.java",
+      "sha256": "0291d2fe3f7cbe63d5ec53f2e7a3b5647cd318968773f26f49af8f793ae4aa3c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskInterpretation.java",
+      "sha256": "75a083fb464ed8e95e26e626f71703117e3ab29e7dbe371f44dba68b1ba025b3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskMetricsDto.java",
+      "sha256": "2b46e489d20bec9acd30743d94d327fd6b2a795ac028cb844ae5963154cb217a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskQueryParam.java",
+      "sha256": "45b91d4a407ab8510c42684c9492d895ad6ed4b22638da29acc65dac331ffeb6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskRecoveryResult.java",
+      "sha256": "4ead5aa5fb49b1fa9195bb836658e7af233a7fc327947f00fb16d180c1db0121"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskSpec.java",
+      "sha256": "06bcba2e5cc532f48d25471d26c709e735f8249309a3c1aa9093efabbb966a45"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskStatus.java",
+      "sha256": "3b194953e62907b74b26102cd7bc391f1d261e9ea2c87cfc98467cfb14852055"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentTaskStepDto.java",
+      "sha256": "4bfbdff1ae65e88b8042861638c6055af3682e21e3547c0c7daf23ad3c7a1421"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentVerificationCheck.java",
+      "sha256": "66de4852cdeaa590b3a054289f1744ebd3667803db7e6f95c02dc59aca3f742a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/AgentVerificationResult.java",
+      "sha256": "f7bddd7b4ee8cc5f6702110f7338593ec6ef1d86ccd2ac64507bbbdccf1fe4b6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/DateRangeParam.java",
+      "sha256": "89814317ca4ab47f8b3c825a0e6b6728ee71fc05d97a1cfcd2a3c98adaabffc4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/NaturalLanguageTaskCreateResult.java",
+      "sha256": "459895d3ef2652b8d238035f6ebef6f2d79e1f0e965cf9eb2a606618ee2c32fd"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/domain/NaturalLanguageTaskRequest.java",
+      "sha256": "22a4943e8a24dab535be97e4487199b8214cd85545c2412f939280412da18894"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/governance/WorkflowTemplate.java",
+      "sha256": "937fcd989f683b5efe4f222c6d2e0e007e177c1a0917072e6ad9d289f7a66a6b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/governance/WorkflowTemplateRegistry.java",
+      "sha256": "a3ead1cb87a7bd990f8d6f0a7eedbf21be0f76fdc315b78fba10397a07b03454"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/reliability/TaskErrorClassifier.java",
+      "sha256": "e23918229380d93601672eb96e2bcca2db6e5ac007831a7c0f10e3de08e9dd6f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/reliability/TaskErrorType.java",
+      "sha256": "c19c7c15093ee45b0407bbb048deb3c5f0c66cfbe5f587abb3734d19c9b2c735"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/AgentEngineService.java",
+      "sha256": "29ee62b4acbf12c7ed60c94a81687ca140c4970e48cc6c063edb573ff74d57da"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/AgentExecutorService.java",
+      "sha256": "13d7117524345d72b8673a95d4ed47b6b2ab2ee178cc5966c33043154e7b24a0"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/AgentTaskAdminService.java",
+      "sha256": "032d6b92a1763bc368cf31587ab30deeafaf2fa425825ef457a16acb28c937b9"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/AgentTaskDispatcher.java",
+      "sha256": "76e789601d9d00c4f5970ce0e6ed2be6ea511fe80f9bc71a127998fe34375235"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/AgentTaskInterpreter.java",
+      "sha256": "72e9a66b49398ee5f6f8b131d5ef163c065e21839499e86914c37ca204080a7c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/AgentTaskService.java",
+      "sha256": "6ead1a1d76a461e848873b9b75b01ac9a2ff5160e0b26db0adec86ddb862fddb"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/PlanValidator.java",
+      "sha256": "54248bf06b276a81dcecb37a1dc907078f373696a04350f063a9324092a6eb52"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/PlannerService.java",
+      "sha256": "b62359a517fef1c7e61db2e6f0524462746b4d4cddfb6b920d64a4adce8aee8c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/StepExecutionRecorder.java",
+      "sha256": "7b7808a8ca036437f1a2032d47239e570d5b74888afe208a596260b72a458d27"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/TaskStatusTransitionValidator.java",
+      "sha256": "22944dac19924455d1a20ed7bf2aafc761ef56b6b76b3a08363dda8c099970dc"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/VerifierService.java",
+      "sha256": "1dbc79bc2124834b5a054f8047fb53e9e356ad858328afe347e268749c85c1cb"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/BasicVerifierService.java",
+      "sha256": "6ee01aa1fc9953470691dd6f4c62702437cafb9b1b09d8ce5dde5b798c7bfd54"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/DefaultAgentEngineService.java",
+      "sha256": "08ccd7c689da7d1b15d14eb7cbaa6aeefadbbe5fda27cb921f56087904775a91"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/DefaultAgentTaskAdminService.java",
+      "sha256": "22fcd726324ad2c68eaec915b2609015abd280892b03ff87f97479f54aa2e5e0"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/DefaultPlanValidator.java",
+      "sha256": "434deffaf96a0091048cc70cd2e96dfebb2b2e6bdc72db74d6335d01b6067712"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/InMemoryAgentTaskService.java",
+      "sha256": "1ef675dc1f996dfab9418fa4f177841ded9a9dfd4995b7de8214a2f3d5f2970a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/JdbcAgentTaskExecutionWorker.java",
+      "sha256": "de6da315e4a098170ab354fce867b12c4be64d60ab343819a63afc5a523b52e9"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/JdbcAgentTaskService.java",
+      "sha256": "c1f2fadc08536f34f89ec7890726f48643f3ddbb97ca8c9c193afaca6211f7c9"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/JdbcStepExecutionRecorder.java",
+      "sha256": "c31e711ba4bd4a26e0a9f3f026a970b9bb1555a3981ac0dd77d84af50094abfb"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/NoopStepExecutionRecorder.java",
+      "sha256": "0d7182190275f1ed29f76f27e1e66e360258c36f2ef3d79debeb6cd60494e34c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/RabbitAgentTaskConsumer.java",
+      "sha256": "46fde640b886f5f6624743dfc06d30441867667f256811df58e3f038a82c519a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/RabbitAgentTaskDispatcher.java",
+      "sha256": "9867b001a15c4330a1ad860d5c9c43e22ce9ceab108d316380dfcbf433fa44e6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/RuleBasedAgentTaskInterpreter.java",
+      "sha256": "935d281b1f7eeac5496aab882382b4a2e16cdd7ff64e0ee20d4293161492f524"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/RulePlannerService.java",
+      "sha256": "742047558f98fe98ea9a4b3057f102dacbb886615e4d543e288f5783003c069a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/SequentialAgentExecutorService.java",
+      "sha256": "1b9ea9d6926d09ee52de133b4e928653a87dbb0e8ff71324bed9be0301f6c522"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/agent/service/impl/SynchronousAgentTaskDispatcher.java",
+      "sha256": "595f1eb02b5a8c74e31df8049560e321cb4f95847dd6e5ca4da2dac1b36737e7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/controller/ApprovalController.java",
+      "sha256": "d4bb6ca03700dbc134eca283074f1c1cdb6e5fbe5da0d1dbb68f65bfde42a161"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/domain/ApprovalBatchDecisionParam.java",
+      "sha256": "6eb3732ee9af6b9449f15a511b6fa90719cedd93f411ad4be993d7b3db67e63f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/domain/ApprovalBatchDecisionResult.java",
+      "sha256": "42a3dbb6db36a4267e1a11ad7d8878cbfea036e2a5bfb337d3582706d6b55778"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/domain/ApprovalDecisionParam.java",
+      "sha256": "d160777bec19bdab744de1173653967b9a0e35259d9de1198f3c0d12637cc990"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/domain/ApprovalRequestCreateParam.java",
+      "sha256": "219e94d40ed5a12bf6529027130d948ead520fb70d7739b4ccaed9e0d91b0efc"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/domain/ApprovalRequestDto.java",
+      "sha256": "479aa2ca379c82fb161ac3e64b015aae9940197182b7c86f70cb170730835c0f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/domain/ApprovalRequestQueryParam.java",
+      "sha256": "0f7b94efb3892c8d2a9bb5af6a9932427caa67151894f31507c1fc433ffc99d6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/domain/ApprovalStatus.java",
+      "sha256": "a1a0c7e4e20576241847590867b0fc5733fa4da85ac669c9eccae5e983cccf07"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/service/ApprovalRequestService.java",
+      "sha256": "e2921ff59a81bf84da0209839df0d87d5a2fa127b8f661c63383745f19255433"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/service/impl/InMemoryApprovalRequestService.java",
+      "sha256": "d45f7c77882547352e96aad2f47ea307c3039e7de44ce1c7b198839cf771281e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/approval/service/impl/JdbcApprovalRequestService.java",
+      "sha256": "dc1926e334a83704930e1f1c7e66dca0b358d96b61908659cf14f81f1b1f71fc"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/controller/AdminAuditController.java",
+      "sha256": "7ef0a6275ebf39861769dea1bd626bfc5191e8c8d8b6d8faa8f6340c0bd63847"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/controller/TraceController.java",
+      "sha256": "992d6bc8ac398cf022a6c63017b7af5d80ba25da167ec27dccc0e805998f3697"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/domain/AdminAuditExportDto.java",
+      "sha256": "42e7d18531b08fcb82bb2e9d4ad516cb24a80d57586ebecdbc5fa5dc6a073534"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/domain/AdminAuditOverviewDto.java",
+      "sha256": "0bb5715c025790c9d935be47afcf46b7bdc8d848314d3a7f8ea543c900ef4563"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/domain/AdminAuditRiskSummaryDto.java",
+      "sha256": "649fdab0122039e831388df270b7745c0153a79b07b6b18f3aeac35fba4004b2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/domain/AdminAuditTimelineDetailDto.java",
+      "sha256": "dedde3635d168ccafea534bf40cddfa4d80c95da7b1b6c0fe1f75bf7bf4b277d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/domain/AdminAuditTimelineEventDto.java",
+      "sha256": "328bb86240a4fd49dd9fbdf70d77cc4f63842b606a7924554e461dbd8fdf337c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/domain/AdminAuditTimelineQueryParam.java",
+      "sha256": "54e68b11cc4f8132437dabd9faf9d9eb26fc1923fb7914449cafdf567387e410"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/domain/TraceSpanCreateCommand.java",
+      "sha256": "4ef0fd8560246747e1f5ce41f8cc0cb3af28ee8fce4b51713594bc8d9a4c1a01"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/domain/TraceSpanDto.java",
+      "sha256": "ca9b1b232f798f6ef917ee849b2a2c7819c7df09ba8027e66d1027200f22b45f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/service/AdminAuditService.java",
+      "sha256": "68734768642789dc15f96fe9718219949279b42a582a25b40b65442be9d532c0"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/service/TraceService.java",
+      "sha256": "b2c16cf22c2ac27bc9e2c5c0efad61ef55e10dff19ffbb9ffc83492b11ce57cc"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/service/impl/AdminAuditTimelineJdbcRepository.java",
+      "sha256": "70dc2d1a12743b9c6ba9de0b2b5938c7bc88ae896fc94a7bf048e4a21b38729c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/service/impl/DefaultAdminAuditService.java",
+      "sha256": "51665db96ccce3cb90c88fe88354582b0aee027ab9840c4076bfc9dffbf97959"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/service/impl/InMemoryTraceService.java",
+      "sha256": "badd3c65f47d947fbd93eaef6f53efbf48eac2e14dff3c91fdc7b3920384d7b2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/audit/service/impl/JdbcTraceService.java",
+      "sha256": "91d60f641d2819fcd76990f7da3ee9dda7cf2a19f0cd28f9ded1cd71da2eb928"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/annotation/RequireRole.java",
+      "sha256": "7942f037df3c0dcb90619d04c1ded20e5cae0c775d811cb1ad7a5b2313c07f08"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/component/PermissionAuthorizationInterceptor.java",
+      "sha256": "fe9a01bc88403a425ddb78198f433c3460317cf2258255fdda5b4dc64ef8918e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/component/RoleAuthorizationInterceptor.java",
+      "sha256": "368f0bd9c710e44816bee624ccfa290a9f8728b6e855711bae6b1a3b8209e697"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/controller/AdminAuthController.java",
+      "sha256": "d412b3a7a50397e26c8a65ca1f442a035cfd19b376d338bb9c07dd72b6260587"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/controller/AuthAuditController.java",
+      "sha256": "01e01121ffde4c8b23d88a220a21c9ed36f40d919025bfee7a30394f608d2dae"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/AuthAuditEventCreateCommand.java",
+      "sha256": "11ce3279aa50a3e71e70182fc482e5868574a049a77e8b8e84fa05408919eda1"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/AuthAuditEventDto.java",
+      "sha256": "90eaf9d6b6688fa994df0f654f9ed2eb148986ff418c15133716cd4944b72afd"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/AuthAuditEventQueryParam.java",
+      "sha256": "bfac7dbed9813e141d11400b88278cfc7b17a0ea5763ab43fe5a71f081e7f16b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/AuthRole.java",
+      "sha256": "518b785d2c48c816045b854679dfa04ea9ce4419cc995bec48f0edf82a289a03"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/CurrentUserDto.java",
+      "sha256": "67c9f1b2b3e2a33e39febb923627602b374edc460036a7a66c001bbabf1beb97"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/DataScope.java",
+      "sha256": "e333bf82f4657513f81246d2fa88f73aa1f64c51998a10326f02b5eff6a2d498"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/LoginParam.java",
+      "sha256": "bd4aca58152e683190e2aa3e831ae10465b871d15f6c41e71ebdfc85903a6406"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/LoginResult.java",
+      "sha256": "7595d1242f43758e9908481d1a3278fc3e42063089c24e27858e6a002968e5aa"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/LoginUserRecord.java",
+      "sha256": "5745a8801ce569aaa3f8e343c50cbcfeac5ef1c35ad6720880c551add4f76c10"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/LogoutResult.java",
+      "sha256": "e686f8031d320c495a7c1bcf030511f55b0ba4509bf816e6ef93ab732417ba4b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/PermissionCode.java",
+      "sha256": "eda38bc8252dd6c9458178eb491eed15e6b076bf6f66bd9cb766e8784ac14ac4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/TokenPrincipal.java",
+      "sha256": "38ad9c21306f56f6a31603832a9b46d2026d828854698acd625b3b6186a0d990"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/TokenSessionCreateCommand.java",
+      "sha256": "337b86e0d11b1ac5fab8fd3ce8c4b5f45305cae6286d65c7c981f361018ab62a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/domain/UserRoleProfile.java",
+      "sha256": "baa0317ace015e93c447c4da2aafb34d76745cd7a09e41f39cf36d4c5bb1f510"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/exception/AccessDeniedException.java",
+      "sha256": "ace2eba435b6e56d45e8daf5f1e346d73d5a2f1ff20cabd241efd26f957a7a21"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/exception/AuthenticationException.java",
+      "sha256": "30dd37d22d01a6594e7a097a2e2fd8c2df322d062450bbbd0d600c665449c52a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/AuthAuditService.java",
+      "sha256": "f039f7501448475d321211ad5dc689f23663c76817c6767cadd8620fe145b61c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/AuthService.java",
+      "sha256": "c60c44a33872c8d20d17303f7a6afabec955ae07505506dcff8971f3259d2598"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/AuthorizationService.java",
+      "sha256": "7e740d6742000e1ac1fd2b86c5ecc3cb12f2ce6a2bc90b797da01b719e28bdb6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/PasswordHashService.java",
+      "sha256": "ed3a4b19bcb76efee030c4442836fd5b2b9f8b2463f6044abc4c7d132ba58cbe"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/TokenService.java",
+      "sha256": "4d81e5215281f4e176b970e7da79b6001c045e664566b4276bd52be228ddf4de"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/TokenSessionService.java",
+      "sha256": "6d503aa0f6f33dbe6300086362472c85d87ddfe68192f67124652d74de0a4b82"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/UserRoleService.java",
+      "sha256": "db966224eed4dec5c56b321e29b3cdd7e628297706e0c4a8095276186e614038"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/InMemoryAuthAuditService.java",
+      "sha256": "4fde3d2e3cfe6c28b36f0dc3bad862bf538d7e2441ea55f00b83848034488169"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/InMemoryAuthService.java",
+      "sha256": "96ac0800da50fe29b7a98876b466d7726f9d6b3bccbae331b62c8c11b43f88b7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/InMemoryAuthorizationService.java",
+      "sha256": "014cc0f6e1e9154bc261b9527a6259690efd68ba7308b75fc87ff1a4395b245a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/InMemoryTokenSessionService.java",
+      "sha256": "9f436ea9fc4e1bd6539ee50c2b9d31c32beffec0ab01056fb83d4baec8db409a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/InMemoryUserRoleService.java",
+      "sha256": "8944a2dd85876a9fe87240545fd553d8432cb4eff17e2835fdf6f91be8f62d5b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/JdbcAuthAuditService.java",
+      "sha256": "73f50a661f86f818dbe0f387afeeebdcca70a8a6ea2a756812a07d28624c2ecb"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/JdbcAuthService.java",
+      "sha256": "fa76a2f8f403719dd75da5f09e7da2ea3d02b024f321599d878578781d2beee4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/JdbcAuthorizationService.java",
+      "sha256": "e5787b917df92827ddf95a037610bc8b9b2dad7dbc7403662b6cdf0dad589358"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/JdbcTokenSessionService.java",
+      "sha256": "71a75edfbe9b99d1aba80df785a94a36934e24dd793f4aee216f1e867f89b810"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/auth/service/impl/JdbcUserRoleService.java",
+      "sha256": "ff61d1490698ebd7a522a06baf76dfbca3b38e241f14c64bbff7ef436d456d0d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/component/P1BusinessDataBootstrapRunner.java",
+      "sha256": "4509a3be2b348311fe7b7da55802b2fc595d269364b734a3cc789392b66082c9"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/domain/CommentRiskRow.java",
+      "sha256": "2a36e2d9598554fc88ade6e55aee9694bda8320a91c19d07ec4d2a7503b333f7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/domain/OrderSummaryData.java",
+      "sha256": "c31bf044f0514d864ebb96332297ab36ff2c2270275eaca841570c9bf96652d7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/domain/ProductCandidateRow.java",
+      "sha256": "a1c48318c2de811193229349197adf31ffe110e1a1bbbc9f7b31cc4971e165a0"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/AdPerformanceService.java",
+      "sha256": "92ef852185ab50a01316502b1ce71352830bcaef431a747c34a4d26e3f81d705"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/CommentRiskService.java",
+      "sha256": "c9fecb585f4ade25eb669ed6a6bf3994f3d70f209e8ee30f90f29503fecc40e6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/ExternalReportMetricsService.java",
+      "sha256": "efdb6115c243c615781355444e8938e2f4fa5d7f40397bcf56f157db49509da4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/OrderMetricsService.java",
+      "sha256": "5bae75bab8156055f079d4a607da57f0d9952d1335efd95aaf5a9413136af500"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/ProductOptimizationService.java",
+      "sha256": "a6a01907ce4fe7bc80ba64716787b9c6b38fc57d665607d1b6797e8a1ccce8c1"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/impl/FileAdPerformanceService.java",
+      "sha256": "5684b241d62721ee270df7e21e51c61a3292a78eca04f206a5fe63587ff17fef"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/impl/FileExternalReportMetricsService.java",
+      "sha256": "ac2dbf5e7f0bb723a4267f7f2cfaa047b74f4f92c843663a2ea57fa4ec5314f2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/impl/InMemoryCommentRiskService.java",
+      "sha256": "39bf75b0e0dbc65ad2c7dd0d03d8457d1a6c22ed6283af07544dcf66e9e63826"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/impl/InMemoryOrderMetricsService.java",
+      "sha256": "f627ebfd290c065e391ea70f6ae8205b66ade7747319a2352dd9dfe0d7ed0821"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/impl/InMemoryProductOptimizationService.java",
+      "sha256": "11dcc9a45a71ae89f3ef3c5bc887f4e62a0697cb94aaf339d9f95bcd1ad5ed39"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/impl/JdbcCommentRiskService.java",
+      "sha256": "baeb20ea40be5947421929aa8c83fb95daa4173bfd6072a697859595c4d37415"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/impl/JdbcOrderMetricsService.java",
+      "sha256": "296925ad6189efb6ce4352ba464dcf89f52600b7eebe902b19fa6230bc3d3fcd"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/service/impl/JdbcProductOptimizationService.java",
+      "sha256": "137d5f5c91506f1ca06e0d28982c7fbaf9f480dabf29a82a5cd7148bb18a5ad2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/support/BusinessFileSummaryReader.java",
+      "sha256": "62e3b2a29ea46012a92f7a7a447ea905208e06df37172372292370914e422767"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/support/ConfiguredFilePathResolver.java",
+      "sha256": "4ea556784593dbd638c27d15a88f343386d66abb1545e2fb79a1c63d3bfb048b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/business/support/ToolInputParser.java",
+      "sha256": "85e10820e628eb64579673a9ca7f4f6c2dea8472a8955406d78e59948c329277"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/common/GlobalExceptionHandler.java",
+      "sha256": "6374f696c779a802f99c26dc843b3f8a2f0fc682293f8e0654ea0515ce4508ef"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/common/JacksonJsonSupport.java",
+      "sha256": "c2d8edeb446d50c294e6d066fff228c897940e2b69099abf404a6881b5a2ab4f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/common/config/StaticHtmlCharsetFilter.java",
+      "sha256": "926ca951affa22c084b93e03a9295f0175a2bca39dc67ec96af064b7cabe9216"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/common/config/WebMvcConfig.java",
+      "sha256": "4653467039cbfe183c5dd700bea6db65a4a8426dfe33635c299d00047628aa4e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/common/context/RequestContext.java",
+      "sha256": "c7d576cd5024263760982b7f6c7002bd24f55a5c9fe0fe98506d305be496fccb"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/common/context/RequestContextHolder.java",
+      "sha256": "2a3b36a3c9fa1e123086bd9b8978fa5ded81ed3d78373a8e9ba5ef58ba74d36b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/common/context/RequestContextInterceptor.java",
+      "sha256": "a7d4c3fa3733f50370190e8ffcc44f145df46d647c36d55f9ae5e9093bdde91a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/common/context/RequestContextResolver.java",
+      "sha256": "33686e4e183a6361b41a096c1f91686a5b40504855fd517e3e2d5efe8ae8bc9a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/controller/ConnectorController.java",
+      "sha256": "86d8946e43eda4b9051ba799035029a5acaea9e34eba876c2118638d799b0cb6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorApiCallLogCreateCommand.java",
+      "sha256": "418d9d0dd5c4c21facf469e1be6e86dde2cbbbc019e5fd53effe6dd47fe1c76f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorApiCallLogDto.java",
+      "sha256": "9a27d005ac127e98b7f19b534191cd87c80c244fc4a4a6920c29f77f7b4cd7df"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorApiCallLogQueryParam.java",
+      "sha256": "362bc120b786056be032ba9b5b03c163161a337a6dfb1cb04c01bd05142de0a4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorAuditEventCreateCommand.java",
+      "sha256": "0e32142a56d9873ba475455026626dc4d58f4b294ad44710f79323c1c031de32"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorAuditEventDto.java",
+      "sha256": "c733e6794650704cd166ee4d5cb12cecea4cf455259a49084338b08a700b6f40"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorAuditEventQueryParam.java",
+      "sha256": "8eb54431dd69ea578c570598f89d6c757500aaead14b5a9541c6dc1e1d312dfb"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorCredentialDto.java",
+      "sha256": "5a87f4058089d10837c29484d7bdfc96314947a53c727637a8aedd4fa543645e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorCredentialParam.java",
+      "sha256": "7f5591e4ef1adcee67cdbc9d5cc50c1bb8f469c55950b8bc10df1a6e1c0cf014"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorCredentialTestResult.java",
+      "sha256": "12b4c499534ff36099e07bf24f2913e677ba0446c5086a3f96cc5db6f9e3eed2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorStatusDto.java",
+      "sha256": "3045855bfc85e69ccd8d5074208e027c269a8f28a60bafe39aec0bcfe17d6698"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorSyncJobCreateParam.java",
+      "sha256": "81eef97ac92b643a9da09d185c3d14d5a3554dd220a2b3d182bc77a8251ac16c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorSyncJobDto.java",
+      "sha256": "02a4dae79954a84ec07ac1d48c51ffe67db64f3bc3428cf8d0084a96bed55bd4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/domain/ConnectorSyncJobQueryParam.java",
+      "sha256": "3d07fb21bab3c8bbea9769cd10ce16ee44a896eb87bc22f1746bb76c13654cb6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/ConnectorApiCallLogService.java",
+      "sha256": "ece595de6c9171bb324e18cb6e32808a440fd2773bdf85e3b69ffa680e4c05df"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/ConnectorAuditService.java",
+      "sha256": "3e5e1b53e6e6ef4277470f856923b6cbd32a6e52684f8f2caa1807daa44eef2e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/ConnectorCredentialService.java",
+      "sha256": "14365089ac121c95ccd7200c8f2342045dba736cfde748f783eaae4559795704"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/ConnectorStatusService.java",
+      "sha256": "017d869a3498dba3b3eae021c05ccb6ef6e9e672385aa38055385c10b2e7485a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/ConnectorSyncJobService.java",
+      "sha256": "3cf8dd3d8b8ad95e718c2c3cd42c98028d0669b718a6ae41077841560fb3b538"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/ConnectorCredentialCrypto.java",
+      "sha256": "91b8ac7ace11b4a5a81271c6ddc3ff6eb869339a434090c118f46034ee168edc"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/ConnectorSyncJobExecutor.java",
+      "sha256": "4bd9222847025b9b262a4c0a8443a8da5b2006cb41087793f03e07f4cd9e4daa"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/FileConnectorStatusService.java",
+      "sha256": "59e362956b7284a9fc0d1657712ae75736a272a0fec07d04ed44efb69b647118"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/InMemoryConnectorApiCallLogService.java",
+      "sha256": "075cd32b5ba0068279001adf4b6bfdebb826b2c7946a9b0046f3aa7e5634ebd3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/InMemoryConnectorAuditService.java",
+      "sha256": "f13ca4c67e1c4b5b249655cf0616f1a07c3e71454c52473d95f4fea6cf4685e6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/InMemoryConnectorCredentialService.java",
+      "sha256": "328b9a5fbe889d817e7baf37ac1a9a1aa940e250981d22e0f03c972998eed397"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/InMemoryConnectorSyncJobService.java",
+      "sha256": "13110f102a9968f2c084e53540dee47b77dbfed58bc833624066e54261d5780e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/JdbcConnectorApiCallLogService.java",
+      "sha256": "dac474fd015d82bc1eb9217f8dde6b53d1dc4cbc16402c647b782806538458b9"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/JdbcConnectorAuditService.java",
+      "sha256": "0d85aa40de3f34fb713619253113b5d6d9fac1967371d5a25aedbca85832d73b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/JdbcConnectorCredentialService.java",
+      "sha256": "4031a284d43ffe05708d768f7da25b8b1909e1926e5e873e0679a69c30183251"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/connector/service/impl/JdbcConnectorSyncJobService.java",
+      "sha256": "98645143175ac7a8e40954c1c4d1a8eb21d0b94fced71f5e8c34418ba2f5cc8d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/dashboard/controller/AdminDashboardController.java",
+      "sha256": "1cd66b6bd0202013ecd2f50d1632abbe05e9208c564ed62edad77bc9d0df460f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/dashboard/domain/AdminDashboardSummaryDto.java",
+      "sha256": "7a8e6b5295b65918eeed386d361393ddca750f9aa8681958793bfccfa188a587"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/dashboard/service/AdminDashboardService.java",
+      "sha256": "96d5713e8228207d26f30a0cb3c45d760d62f0940bb377bcb8a78ace33b582f0"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/dashboard/service/impl/DefaultAdminDashboardService.java",
+      "sha256": "2c54680a12c61bb23ede951972c48d173c8864a3cc3e21dea414f0690ae1ada2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/evaluation/controller/AgentEvaluationController.java",
+      "sha256": "15b33cb1ff9b5d67afc2ac084e906f5102a6d454201e8c0a7df48642b23a4f83"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/client/CommerceMcpClient.java",
+      "sha256": "d99b93f1a3be371c9b8194c91aaada0764debe096b476e51adfdcbd905dc606e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/client/OfficialCommerceMcpClient.java",
+      "sha256": "5186634a1ce152712e17ad98ab9d239c6cb6aa04fc1462d1256e73f21bb07b8e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/config/CommerceMcpClientProperties.java",
+      "sha256": "e1f093d24e97eb7ce9a8c1fbe10649534d3950386b008b67ed5201058c2a27d1"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/domain/McpClientException.java",
+      "sha256": "5ae0e80e8e6174526e8939c9e7a03cdd3e67ad689d629e48748882693d70958b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/domain/McpDiscoveredTool.java",
+      "sha256": "82f99ec10c00f8f534218d145d3dfb8210a606cf33ee26eefa27bd358df0228e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/domain/McpDiscoveryResult.java",
+      "sha256": "a3edee4fcf8776c4e2d25ba9c9ef0159edc203b88dd8169a306ca769a5f47f21"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/domain/McpRemoteCallResult.java",
+      "sha256": "73aac8d6458354f7efc033b3a877aff5e2cf0cf3236447be1fe93c4a4df13675"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/domain/McpVerifiedCallResult.java",
+      "sha256": "adac0b52a484c9e992526ddfbf5b3f4449e04fa0926d16733455782d759ae49a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/provider/LocalToolProvider.java",
+      "sha256": "0388527162ac7ef9e3c9a9faea08a21498e6d7ee8a2da1037e70a42297aaf93b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/mcp/provider/McpToolProvider.java",
+      "sha256": "539b7ead8e3783a4c6c31a5ca9f6bd93955dcc4f9bbf0ef118acf2760ea487de"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/config/ModelGatewayPlannerProperties.java",
+      "sha256": "7acb3c4c5688f8ec8891642884c96c15327cdb05336598c53349d57e5f5bf853"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/config/ModelGatewayReportProperties.java",
+      "sha256": "1006563ba798591091e012bbbc13729a96dc44443485ee916ed5dd44a26db225"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/config/ModelGatewayResilienceProperties.java",
+      "sha256": "e4413f8b38ca9ec6182e85b29ba6a47d654867d974040cd49c9928803279de41"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/config/OpenAiCompatibleModelProperties.java",
+      "sha256": "83a702f89f467e59d34706f7b67c7c7cd9d06a69cd736f19671d5af276a90a08"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/controller/AdminModelGatewayController.java",
+      "sha256": "24367dce7f74a379edac15ab5fe6c76c37d2f1d03de08c58df20709004f7fa43"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/controller/AdminPromptTemplateController.java",
+      "sha256": "ccc6e5eb1895ed156e7c70d6be370b22dc647e513cb6951eb4f0240364a92bda"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/ModelCallLogDto.java",
+      "sha256": "b7ac1fc7e148efbadd49c8629882d52b5495a8d8becfe2a1325ef06a353bf9d3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/ModelCallLogQueryParam.java",
+      "sha256": "41d888c215f2949f691f72dfbf16ec32cf8848a617c89f1caa5b312112ef7f24"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/ModelCallStatus.java",
+      "sha256": "a29035ea1ac1c7aa16aa83d7dc32c853392abbc7aa6064bf7497b7e2c49472ca"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/ModelInvokeParam.java",
+      "sha256": "43654b226ce45b15a9e07049bfae6c1df269535547696eea14d8775a9582d6c6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/ModelInvokeResult.java",
+      "sha256": "79f809319c1607d787d1341987bbf9942706b2ed88b9413fad589074eaa6b47f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/PromptEnableParam.java",
+      "sha256": "1cc2a019e50ac3a88a4f75b7acfc0a90682fe44bcd604ee20950b7d5d7fa1cb3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/PromptRenderResult.java",
+      "sha256": "e61b14472bd43297692efd2113bf4c430581791de2f9328f369e7e46becdfb0f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/PromptRenderTestParam.java",
+      "sha256": "53383193f6bb0dc69802ef0c2a26c72e7e297a7c6190098746dde251b825e2a7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/PromptTemplateDto.java",
+      "sha256": "4417f8fd9e17c42f84ac445d7fd9d21585abe084caec988d58e34dbedf0b67f4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/PromptTemplateQueryParam.java",
+      "sha256": "85913cc6378746c8a6f23dc44e1fb9a33c49ffc2609f065965082b4cebf8eda9"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/PromptTemplateStatus.java",
+      "sha256": "152d784711e8e5ad0f0d8c2880553a3a50d06dbadaf082be17fd03d33b0ce02a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/domain/PromptVersionParam.java",
+      "sha256": "8f1a2397d7cfa008da5e6f20a50bed084ff3298c8b211caf0ccef10c09949199"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/ModelCallLogStore.java",
+      "sha256": "baebad7025d8db05017a83ee33a336b302f7e7d19c0e63287e44e04f0009b1b6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/ModelGatewayService.java",
+      "sha256": "8ac02fc2dd3ded74be2b662d479744a0b1e622f3d5e48920425cca7897135379"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/ModelProviderClient.java",
+      "sha256": "292a725f0ce759406db26826006d0b97e2de0154770157a413e329ce14f67086"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/PromptTemplateService.java",
+      "sha256": "5e970d352de63518a6efa093737ebe53641dfb243bb542a3721490e58ab5e434"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/PromptTemplateStore.java",
+      "sha256": "2c7688020a7211aed61f9df3cded413c41557d8cbd7100da4547239d7d644505"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/impl/DefaultModelGatewayService.java",
+      "sha256": "802c4f6987e9eb1c8d4c94bbf33f2381dcd0c1f298c8cd81c196ea47b011f227"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/impl/DefaultPromptTemplateService.java",
+      "sha256": "f1ad75417c5bb4a4972289c802578f1258c7421214abb9e1e8c4653b75ec25dd"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/impl/EchoModelProviderClient.java",
+      "sha256": "68dcc2127bd4b503eb26fcfc9fd49d3dc524e718bb79596ca69ff23ffefb22a0"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/impl/InMemoryModelCallLogStore.java",
+      "sha256": "1e97209d332f84ac5bb0f90c1fd901a2d6f7043b8d0b5c30f129552f4bb5cc0c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/impl/InMemoryPromptTemplateStore.java",
+      "sha256": "e8cf46f015dcd52af7988dfe04f62c9b0ada758d324a496398da053552005f91"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/impl/JdbcModelCallLogStore.java",
+      "sha256": "b69bf6ecca81ddbb9d1dddc694262884fdd6459236791a42b17ee842439e8746"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/impl/JdbcPromptTemplateStore.java",
+      "sha256": "91f59db7f9d5766db967310101a100c5d3b0e04b2ab7d66aff72cac938106200"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/model/service/impl/OpenAiCompatibleModelProviderClient.java",
+      "sha256": "400629fe41e0f704a7e6cdc2fd002c2791b27ecb2e3e9b52a2d1bee2d62235fc"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/observability/ShopOpsMetrics.java",
+      "sha256": "80a2f829fe6f10a7d7544b733bfaf5fe98e175d0beaeff282e4797a676e1548c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/controller/OrganizationAdminController.java",
+      "sha256": "f12a0d1fe3c7a2808ed199e59e764c5828aea1abd8505e326152a9eebdc17fa4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/OrganizationOverviewDto.java",
+      "sha256": "749fef4bea79b0e9d441171ddfb3ea250f1eb411f4f2892b095add5c560fe347"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/OrganizationQueryParam.java",
+      "sha256": "5b9ef4a12880f110db48f70b21a3c8682ded7bc1b20b5ff50e136e3675668c9c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/OrganizationUserDto.java",
+      "sha256": "8eb4b76c3b04cdd1f2b52b9c5d0ad75abacd32034aac4c166727f4aa6c79b600"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/ShopConfigDto.java",
+      "sha256": "90b18a36e1b5efbf01a8e431e4f344c068169ddfb778e2919f45df34390bdcf7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/ShopConfigUpsertParam.java",
+      "sha256": "592264c1c7773cae67e53c62a548c2cda3caf36e10c33d924c81b25836cbe6ce"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/ShopDto.java",
+      "sha256": "4bff813697d7188a61550f0164838e2a7b343645531b7e395e65ec69c2c2e11c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/ShopMemberCreateParam.java",
+      "sha256": "35f43ab2db5fdc10968d76603bc1219821e72b71ffdba8f4a7eefa7317686673"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/ShopMemberDto.java",
+      "sha256": "1be3057774a33491b6136702f9febf4f0e68dbe7043ddf9a7e03a80eb9f8ba46"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/ShopMemberUpdateParam.java",
+      "sha256": "92d2d68d5f3bd0b4ef6ee165352bd8cbd8ca937688a7275ab8bd7972d3bbb8e8"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/ShopUpsertParam.java",
+      "sha256": "5e8d0884e2302e226bcc0edbdda6be7690b344b94bdfc105a3e0cb0cbb9d357d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/TenantDto.java",
+      "sha256": "c1a06d632b431e5232bea9d9917ac36cd111c12b485421f55b35d8a96b2e6da5"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/TenantUpsertParam.java",
+      "sha256": "2406046df39858bb5145eb896ece6e19688c7939e83016a15a4ad7261ab65804"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/UserCreateParam.java",
+      "sha256": "509bacf310abb8d5b07a81b8237fe8c0334ea61c6fe4ca2380a5aa9cab911c77"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/domain/UserPasswordResetParam.java",
+      "sha256": "3f44a3f59205c784b1f43bb2bc57c16ccfc396b761e36658fac5adc6e56ea114"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/service/OrganizationAdminService.java",
+      "sha256": "5405067e3448cbef61fe45e89772b7ae7f463ab3980c3627bfe4653fd30d83a7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/service/ShopRuntimeConfigService.java",
+      "sha256": "9b92b1fc729a3b576c504501f6b0075c9c8f28cdee9c14c3445a5a2a7a875038"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/service/impl/DefaultShopRuntimeConfigService.java",
+      "sha256": "29ed226a5cb04af45bad2d089e2b07ac1ff92a1ccce403a3de88eafcc129d31b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/service/impl/InMemoryOrganizationAdminService.java",
+      "sha256": "fe7b7152090a994e6a82b03747762f688f015311b7f65d97fb3ee82e02795975"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/service/impl/JdbcOrganizationAdminService.java",
+      "sha256": "70ad3a1a8d1c84bee58073d14ff115b4062623d390256b635038788961409f9f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/organization/service/impl/ShopConfigValueValidator.java",
+      "sha256": "6bef5c5cccbf4d18f2933859e395cbaf85c835191e6f4ea409fc2e757a447bb2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/component/FlywayMigrationRunner.java",
+      "sha256": "ea55df018549e62173adb84af84c4a070c9ece4b64c20c051e60041797e4f967"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/AgentTaskEventMapper.java",
+      "sha256": "5ff56871f3079f3c28971b7e41b7c6328266575a0447aeb90f7e889e9c40943f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/AgentTaskMapper.java",
+      "sha256": "e02dc2e48cf97c9984dacc4f861998990e753196de79feecfa4d0aef9c055a2f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/AgentTaskStepMapper.java",
+      "sha256": "a56e2e5b2580bfc99b38524afc8d6b4b5d742b47d035a3f8a9ae497710cf87d3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/ApprovalRequestMapper.java",
+      "sha256": "9ceded3db54a141571264be54a64bb4557ce48dc312de67761f07b90a48b0e3f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/AuthAuditEventMapper.java",
+      "sha256": "e1cfa274ccdcdad16b16af86c3ba5954901558e75c37cfc2cf31b529109e76cf"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/AuthTokenSessionMapper.java",
+      "sha256": "4365945abc3a88cf5e45c530d7e9ea1daff4ef571b8470dde2cb3b0ee00753aa"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/AuthUserMapper.java",
+      "sha256": "bdb24439b22c320ebd927c9a3847de1be9f3b8498f56663f8e3fc06730e6abe4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/BusinessCommentMapper.java",
+      "sha256": "d11663e2674680d7e67ad10fe58d588017ddc1d51030413361e4564efda3c848"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/BusinessOrderMapper.java",
+      "sha256": "ef7c9544e49227af8bee8acd0940044584779bb32393e5f4d0fa744e6f6f1db5"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/BusinessProductMapper.java",
+      "sha256": "12fdfb95616740ed39251a87981dafdb78ab37861089d7cd77d15d6d8fe41d1a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/ConnectorApiCallLogMapper.java",
+      "sha256": "6e2c8871cce1d1aad007bf18dacb611d044da09729eed230608d69f69f832a07"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/ConnectorAuditEventMapper.java",
+      "sha256": "400e5cf5e6ee31f89a23887ab1c9bbe08f41ba9065e761d3376099f4d8f9ded9"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/ConnectorCredentialMapper.java",
+      "sha256": "98f55160a551072292b056ed852479ef402c9dc670514bda772dd48aeae7cd33"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/ConnectorSyncItemMapper.java",
+      "sha256": "ba73c090d8ff1dbe2f3990aa05283bbb18269656bd7c35d5c3c6974bfcae49ba"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/ConnectorSyncJobMapper.java",
+      "sha256": "220dc3e21514a4eb5d154f94cdc8be42560f8b11205806c644cb91f3e5d238fc"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/McpToolMapper.java",
+      "sha256": "77bf92c39d052635196f9ee98b8804dce56ff9a1e777d0a091b50db58e26ca3b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/ModelCallLogMapper.java",
+      "sha256": "ed358be6a3d56ac97521a6579d239544080d73bf2a6f896ce53f8b5cc231f2b1"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/OperationReportMapper.java",
+      "sha256": "0e64bcf155ccad323df953b9f1aabc55351f59bc2b1f0bb4f39679fe713a5f81"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/OrganizationAdminMapper.java",
+      "sha256": "3831f4c0c113fd4081d0f6e82b6bfa8f7768a021ea7be2f14e3084c081025963"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/PromptTemplateMapper.java",
+      "sha256": "d0f3765ec2ac42437d4925e553763ab76dae6de5710f2cc91438dd949f63940b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/ToolCallLogMapper.java",
+      "sha256": "c99da41fdbb417630fdc936f027ce6dc76bd0ca29b356cbac63c5d2c7bb1a052"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/mapper/TraceSpanMapper.java",
+      "sha256": "780cf14ff7f856e4fe569e7390ac1d5deca1ce8d4dfbbc5f2e2cf1b20c81696d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/AgentTask.java",
+      "sha256": "cb284f5a3d4216c84dedc04db48e1d8718aca2621a4c0b7a70fd463e2463c360"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/AgentTaskEvent.java",
+      "sha256": "8cbcaef130b3b8a04a62114aff1ca30e32c6f9c2545e5bf96aed0076e7b3b203"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/AgentTaskStep.java",
+      "sha256": "55c1f35709fdc39b280207f085c1641278af33e1a5a84508648ca2e1f39f0e01"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/ApprovalRequest.java",
+      "sha256": "ff6739b218b1bc289ef4a77234c22dfaa80a00dc69a60e483028e7411408f2d2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/AuthAuditEvent.java",
+      "sha256": "46ab1b4c36bb5f7d7b18c63c5048835747e0e3efe0e5cbe4cae760caa76fe254"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/AuthTokenSession.java",
+      "sha256": "13fa2ac51e1b006f17c74aea9d8c9baf88cc9ffd81e0421f6c1b8f01ba5775c5"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/ConnectorApiCallLog.java",
+      "sha256": "bc27dcf714887e76e645505e9ae8811e4faabad0c52aeddd83ce07c09d0d3f48"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/ConnectorAuditEvent.java",
+      "sha256": "009370505157ebc75ec52e04114f37a701389b04ca7fad226602fcf1edbfea62"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/ConnectorCredential.java",
+      "sha256": "d0f489539cb13beb9c9bde3700a482c661eba85293179e0a5b6ae3b7c50a97f8"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/ConnectorSyncItem.java",
+      "sha256": "6c6d3665d58894a56e901defdf9e35d3a3c4e3d8b2d46da5ce548d9eb25bb7ae"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/ConnectorSyncJob.java",
+      "sha256": "1de39e0c477972d917625dfb8e0de2af1c074a008a9247ab576c6a4c6d9c886c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/McpTool.java",
+      "sha256": "04f64ff8c9e5565e0195bdfb4b3d0fd641c721707bd359d5ad41f7f52e6cd890"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/ModelCallLog.java",
+      "sha256": "5927feb5241a1c62780505a3a2f2deaa5c0beb781c0aee3f26487d95328dbc93"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/OperationReport.java",
+      "sha256": "a866a6fcb8c0444f0acd76433bca4e9f66d819660c84bf2efd7e49631359625a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/PromptTemplate.java",
+      "sha256": "40289ea8e9c0214029117574bbaae1d0986976a101a38e30e529254e45bd971d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/ToolCallLog.java",
+      "sha256": "7a0dec5bbe875d05d3d81d678ffc813e910ec20a6124e4ef9b2acef4bad9882d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/persistence/model/TraceSpan.java",
+      "sha256": "fe146bbe95c10260e923281ff6082b770a2d336aafef494e08e10485957cb6a3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/controller/WriteReliabilityController.java",
+      "sha256": "8aeb91710d7ba28ae34e4ad5f195a558a86c04e58de138458fb0de6d55ab905a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/domain/WriteOperation.java",
+      "sha256": "9212e6765a6f62e0746322dd8c9b1a4f37bc3071b256ed23467ac7a6d547759a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/domain/WriteOperationStatus.java",
+      "sha256": "48bd77b71dc676db6a6d479a80571f0da81e6c3be546dbe9d9cfc5b6ae042805"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/external/RefundExternalTransport.java",
+      "sha256": "2727241b13a3a52b4853d5f59fe8c42c853e76d677974c0ab45bd2d5490907c7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/external/SimulatedRefundExternalTransport.java",
+      "sha256": "0480e65c339dba8aa1552afc21a03129db9e791910fdccd60167cfcd4451e54b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/fault/ReliabilityFaultConfiguration.java",
+      "sha256": "545a82babb231624622238e2940c523e0365860696638437459bfa74bd25996d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/fault/ReliabilityFaultContext.java",
+      "sha256": "b7db81f97b7190abee16ef66086df7dbc2e224143a1eb72497f4b5095b2189b2"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/fault/ReliabilityFaultController.java",
+      "sha256": "87598780edfa8c4cb8914b35925874d6abad1f5c36b4c857aa65c417f1bd29d7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/fault/ReliabilityFaultPoint.java",
+      "sha256": "4e6b6a407203bdeb6da79a49003da468275bb014382a35f1613caaec4ee9f13e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/persistence/OutboxEventMapper.java",
+      "sha256": "c574c409719b99c1bdb9e98dbf99c38b677536ebd393e7fea7207f96cb14eced"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/persistence/WriteOperationMapper.java",
+      "sha256": "cf80f3b3d9d3ec7b781fc5257e444b97bce0c4de0150613dc87d6a461e09af3e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/service/IdempotencyConflictException.java",
+      "sha256": "c0ae25822e4b53a0d35017676899fcc896fdeb37f8e58625557b7fd0ae1adee6"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/service/OutboxPublisher.java",
+      "sha256": "5153d489f80b5c4d43b0566a7cfd88e07d314a49bf5e8dc2f885872188f58ba4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/service/RefundExternalClient.java",
+      "sha256": "75fa897d9845fe274e456f23c46d17edde5eeb66d6076e0b094951e04c42c74e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/service/WriteOperationReconciliationService.java",
+      "sha256": "ec6290f08be2e0ef280112b01ddb685a92c0fb7aae792390a4c6bb260930f9de"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/reliability/service/WriteOperationService.java",
+      "sha256": "c928be7c4e99018fc392b00f0d6b6f5d3a1e6271e6ce7ece96cb97d519dde5f3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/report/controller/OperationReportController.java",
+      "sha256": "3d643f44b3b1855bc227c72046a52521a47ae67199adaba373451bf9598af5b0"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/report/domain/OperationReportDto.java",
+      "sha256": "a445a731609a1249a3c14fe2b5a917d226fd4ad2f3ea902da9b776ce24749833"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/report/domain/OperationReportQueryParam.java",
+      "sha256": "69f20db714303e6932fd7e56f55314b7ffa63817fcc490cfbb10d12893f56881"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/report/service/OperationReportService.java",
+      "sha256": "7a718aa727ae8b2283ae3478f909ad96f1be94eb19c82883816fd44f578c9615"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/report/service/impl/InMemoryOperationReportService.java",
+      "sha256": "eedd98a56d3c02f71af34dfeacc8054e40a91b6a1015d00378d940468616c6e9"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/report/service/impl/JdbcOperationReportService.java",
+      "sha256": "e54725f4f56ee2bc3fdde71f364eab20651fe20ba12087c8eee26709b9bf2d35"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/security/ProductionSecurityConfigurationValidator.java",
+      "sha256": "290a19559bc0fefc6b2fb0567ec51e6263b52a123a8ff16a27ee74a1dd2fb6f7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/system/controller/SystemHealthController.java",
+      "sha256": "2d444db5ca943f271920d2638f6617709f7e39919fac61656393c4d44400cc08"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/system/service/SystemHealthService.java",
+      "sha256": "528a312c47bebd22431f3ac26ad285f0f6af78eda3899bc9c35e7a59f0f314c4"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/system/service/impl/DefaultSystemHealthService.java",
+      "sha256": "093bbba4380a9ae0fa197e04956e7180d3a49e89ed0ea10c840b7c29fdcb531a"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/component/P0ToolBootstrapRunner.java",
+      "sha256": "1b2291af402d6e114480a74388f7010b3620eb16559dd8fd98bd53df99aa0c7b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/config/FeishuSyncProperties.java",
+      "sha256": "12280f8cfc227c42c2719b81f10193fb57ab459fa6649affb89514e66dc24a9f"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/controller/McpToolController.java",
+      "sha256": "7f1c03f96aa0bd1550cee19f56094637e21c0e473f6813cc61c75118eda77fe7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/controller/ToolInvokeController.java",
+      "sha256": "ba259827a05b508de8c13a5c70028bc28c59ba4df917e8e5618add47737fd97b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/domain/McpToolDto.java",
+      "sha256": "9526dfd4d2e752eefdaacb90dc773c74531d19e02fa75c185336a25e8fcdb667"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/domain/ToolCallLogQueryParam.java",
+      "sha256": "1a979bec0ea486606aec76756a53fdea3e9c9cf2fb6e063e5742a44137acdd9c"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/domain/ToolGovernanceException.java",
+      "sha256": "8c9469f61670e6d7171e745194d08427f20ad54239c0cbd95be986619cecc807"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/domain/ToolInvokeContext.java",
+      "sha256": "3ba4cee182e94c80ee3bb52e8d04cb1fe221ec571289a149d2383373b3acffbf"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/domain/ToolInvokeResult.java",
+      "sha256": "0603ff687c082286dc7249d7c27a2e083723b29c4fad4ba0a21c851d68dc47ae"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/AdQueryLowRoiExecutor.java",
+      "sha256": "df8caac64f8cc9f240ef08d4b5166385842ebfbe2dfe3d2ee5a2ac4b142ef5e7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/AdQueryPerformanceExecutor.java",
+      "sha256": "bd491e01752c3008f6bffde8a13a98faea42338ef1dc0085d53071a80db6f59b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/AdSuggestBudgetExecutor.java",
+      "sha256": "0f1a49b8df7b3865ce2eed1d4e8bfa6d66483452442d212600aff11aefbf6a49"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/CommentAnalyzeSentimentExecutor.java",
+      "sha256": "8c93c0f23c951f990592ea413f40dc5b93ea03f7a0ca2e0dbb2de2a6576beebf"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/CommentCreateReplyDraftExecutor.java",
+      "sha256": "acce54dc2184686df9e604c654b35e06f9428c4585748cfdce2ea17b40a4e418"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/CommentQueryNegativeExecutor.java",
+      "sha256": "d6d0cc750a33ee8ee44e2339a3d8a5d6e6805ba8db454c1eae1ed2a4e3c2baac"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/DailyReviewReportExecutor.java",
+      "sha256": "87ad7a3cce3551a91178a59267fd429759c4aa4a449d2063ed635cce9af83dba"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/FeishuSyncReportExecutor.java",
+      "sha256": "a7ba522a73006a6ca102c1d1b1354b7e4e6f3f559dad58a7c69775156ba573d7"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/HighRiskRefundExecuteExecutor.java",
+      "sha256": "3b5ec1c26d56a67ed455fcb4cb592774c7dd6ff5599786cab27cad61760eeb46"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/OrderQueryDetailExecutor.java",
+      "sha256": "a36327d361ac72eedb5aa8621e575ffb91a2485fea7e09c808886b0892683dcf"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/OrderQueryRefundRiskExecutor.java",
+      "sha256": "3e2da9033064a188d5ead49b6e1655897813e65d71a38d378a096148df2af03b"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/OrderQuerySummaryExecutor.java",
+      "sha256": "46451af07565c85fecb6c848076af3c10e299888daa3cc89ca2019ef355ba2a8"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/PortfolioOperationToolExecutor.java",
+      "sha256": "e95ec6a68978f3c25d137f0bf073c3ec86c2d7dbd60a142aa5dcfc0681a887a0"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ProductOptimizeTitleExecutor.java",
+      "sha256": "37b170b977d4369991a58dc7db792145749937bba2df4dc01f40e072b28ace54"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ProductQueryCandidatesExecutor.java",
+      "sha256": "38364efff81413572316fbc9bd2cf4c0af1e00652b4ce77e4285192a53279249"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ProductQueryLowClickExecutor.java",
+      "sha256": "2e2c449debbbfcbc66b03c38cef405e6f2409e742e7e69e2b6b1ca46441c324d"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ProductUpdateTitleExecutor.java",
+      "sha256": "f5590cce5129ed36ea0c394e1cb3d0e95e4732e62a26d4361114d12bb1c2248e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ReportExportExcelExecutor.java",
+      "sha256": "59d4570f28ff9d88c769b9d629380fd159f8c0b7d037742d4c23539bd6b53b83"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/executor/ReportQueryExternalMetricsExecutor.java",
+      "sha256": "94b99f79ae18eecf6a65ddc498ece2bb44e7061afd1b1a94e5c30100d6f5f2f3"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/McpToolService.java",
+      "sha256": "2ff1aeabba9e163b6d1975e0e004beacd02aa55f6792ba5128c8465d9b38f17e"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/ToolBusinessScopeValidator.java",
+      "sha256": "8f7e4c5d26a157e5df039327089da3bda1a071578f205f1c4a181c3faa14c807"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/ToolCallLogService.java",
+      "sha256": "00c59643cde7e1f7742ef933dd3e8ce5a3a441261785badb79e6469f6c495552"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/ToolExecutor.java",
+      "sha256": "70860c3fe425e5ef5c040c23956273abe983cf49397164e662d9aca59d8b4908"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/ToolGatewayService.java",
+      "sha256": "ccd05e407dc68ab906fb2cabf64d37ad4fcb6b413b0d42796c1874b899615bfe"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/ToolProvider.java",
+      "sha256": "b2880962eecdd890f32e1813629e4e372e17416ec28b580f4d96dd9939991f03"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/DefaultToolGatewayService.java",
+      "sha256": "73703e08b438f3ae8801d0c0fa60bb5f76e25dfcf08182979f2ced80bbf73cbf"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/InMemoryMcpToolService.java",
+      "sha256": "9bbf7b1c6e9cea41b95947b6b179f21384be2b2794c2cccedde84cd6d6ecba45"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/InMemoryToolCallLogService.java",
+      "sha256": "5cf9516412e066cadcdf63d0a487a4404d86b60853b20ec96558a6e5e96909f8"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/JdbcMcpToolService.java",
+      "sha256": "4f457612e371b1344ca9de994d9d5e21bf6c1c609ca7f3e7ec9b907c5eb0c6ac"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/JdbcRefundOrderBusinessScopeValidator.java",
+      "sha256": "fa5ef521f7120d99e8030f1db329708b3e6f6aeb29c8052b14aff73b834a4677"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/JdbcToolCallLogService.java",
+      "sha256": "94a8dae68141bed39185f5e8a1b5cd264f1596bc7b6ea858a9c4b4e22695f284"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/ToolInputSchemaValidator.java",
+      "sha256": "08f8fda8bf4aa3f4532fb6db073059398deb92829d87a8e9f279a1ce2ee1bcfb"
+    },
+    {
+      "path": "shopops-admin/src/main/java/com/sirithree/shopops/admin/tool/service/impl/TrustedToolInputNormalizer.java",
+      "sha256": "dae00233cea6427d2e5051476ac18518fd8abc97610d6309c1b6d2e1111ff9b9"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/application-dev.yml",
+      "sha256": "083c737cf04cdbe9bd030aa72369e4e22b38678eceacea47eb57eefcfc004c0e"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/application-prod.yml",
+      "sha256": "200776246a1607774717788b8fc28e79375f1579f1cd17c6d943f173382fa861"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/application-test.yml",
+      "sha256": "aaed434ebe50857e0c213846feac68eba300deea5dee480138f111c9fdb0db0a"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/application.yml",
+      "sha256": "b120b3707df307421e01206fd13b45ef8472b957ec5fac70e6e394661e78857a"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V10__p6_model_gateway.sql",
+      "sha256": "a2f3c06bd7cea9410b264798bdd244ab78b1d0434b4f283b4160be3f6be10260"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V11__p6_prompt_template.sql",
+      "sha256": "af73022053126cbf7d0c852d31d76d9988356b1c28c92cb360a890bf1abd4577"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V12__p7_connector_credential.sql",
+      "sha256": "ff0e20e1c4bcfca6981ff8e5eabbb5df92d1cdad1defb383db56e6da637bd8ed"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V13__p7_connector_audit_event.sql",
+      "sha256": "06a5310b72f49b6a106da4ee0ce446af014413d18aad53a22042aa58b5994e38"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V14__p7_connector_credential_expiry.sql",
+      "sha256": "f3b1344c8551dbd0c5b29391398472a7e6ac5b3709fe60b3658772383c9dbc3d"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V15__p7_connector_sync_job.sql",
+      "sha256": "08ea2cc32983d167b3da07eb2206a47ec4d8f992f8e976e9cb9e98112e747ffa"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V16__p7_connector_api_call_log.sql",
+      "sha256": "c194bb6f4ebc4ea5177163d0afed382dc4f4cc9882ba1f8d5f2b6bcd247426f3"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V17__p7_ad_performance_tool.sql",
+      "sha256": "26011de5726406bfb3f965cf3fcb93a2eb23e38a7b5341251906738dde5ff406"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V18__p7_external_report_metrics_tool.sql",
+      "sha256": "4dbff6e87c875965970a850505978a280cf8265f3e35a2ac5da069dcd13331c0"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V19__portfolio_mcp_tools.sql",
+      "sha256": "d2e62bc317f6abe29a74ffc1cb58866a43f1aae48334aa639003cc871e5ce420"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V1__p0_schema.sql",
+      "sha256": "74df3c0bc6112265d7075972a26ddfdc4f7b4a0d6f5ba8d0f172c9030ed59058"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V20__phase2_write_reliability.sql",
+      "sha256": "420362ff6acedc4a93b971deb574345bbe56dff8840c47855ce282c0a3147fe9"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V21__phase3_task_connector.sql",
+      "sha256": "a97aca92a52c24ffa6f97295c3055bdab6272941fe5b46417fe7525e12b1ca01"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V22__phase8_readonly_mcp.sql",
+      "sha256": "c32a8448cceb86304ecf2d397c6a094d0df81295226e030bb485c08bcbb41376"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V23__phase4_write_recovery.sql",
+      "sha256": "7cae1cac9090f2818c502559588bd42c5ad3ef1967351bb345268c0c1609a37c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V24__phase5_execution_governance.sql",
+      "sha256": "95f1b5a3732bd2f65c3e13beda0602dac7902878563a386164446c3e93659d8a"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V2__p0_seed.sql",
+      "sha256": "97ac79a0050e29e4849c176f66865c90581148c68652befec1cbcb3bbf067242"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V3__p1_business_seed.sql",
+      "sha256": "928270579e900c51c0b779cd4aa7dcd75bc8fd7fa4be27c12a5ea65e94852beb"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V4__p3_auth_seed.sql",
+      "sha256": "94439865894a926355240ea6ff0b63bbfe56d71f31ce9c99c523bad6afa6d973"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V5__p3_login_token.sql",
+      "sha256": "3602cfcf64893db6e0745937625ad7b1584a251d2510e72bcdece5ac6fcb0128"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V6__p3_auth_audit.sql",
+      "sha256": "8f605f88f88822dc2f71727657fc0d033de8fe1be8470e711004104107e17ff2"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V7__p3_token_session.sql",
+      "sha256": "fd4bad8a1e932416fb3ebe466abb86d5e119fb403c460a4b7945c54b61baff9f"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V8__p5_approval_request.sql",
+      "sha256": "2f5eee27b45ec59a1f4d98f117b2822eee217e240fc4400da0108b2548ea5a2f"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/db/migration/V9__p5_high_risk_tool_seed.sql",
+      "sha256": "eedea123b795a517fe9cb905440d0ac7db3b874f30c57db07585f476dfd4d289"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/approvals.html",
+      "sha256": "356d34870a55f4e89cdaeb4b0af3351d41d8de4dd35891e3577af0b96b0e4bb0"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ApiOutlined-BWwueYmU.js",
+      "sha256": "b38a8c9f37c8d85749fe3ae016a7085db717a029619d7aba68fa002db18ca1a4"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ApiOutlined-C3BLm96Q.js",
+      "sha256": "3ad852d6898c7571789b9b949508e313b9835c33f888d165d1a4bea257651a08"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ApiOutlined-CqRwPpT6.js",
+      "sha256": "5aa97914ab5909a65a68117ed2c01ab05fde9e2415d43085c76d72cbc29d17da"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ApiOutlined-DMGkHgGD.js",
+      "sha256": "b09950ba0e88e5b1e384a0c1c8f12ebcae20a84315bc5736f002d6c45f385736"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ApiOutlined-R5VXOffL.js",
+      "sha256": "d414ee29dd2f0026e82458a3fba0df76b46071e9947e873e649bab97c0de61a6"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/AuditOutlined-CMwGmD7l.js",
+      "sha256": "4fae6cd12c682fdf87e250239ef6cb06af26de61384307bfe1e31f4110388a96"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/AuditOutlined-D7IGVWIo.js",
+      "sha256": "9bb13a3c194270426363c49022404e5b370c8949517d5ca301a39a705491fb8c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/CheckCircleOutlined-Bud9ZPxJ.js",
+      "sha256": "5111d548cefe74e96f58787d6995ca31fe9aa5fa97d0480a35879a67c51f2fef"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/CheckCircleOutlined-CEzlnnHL.js",
+      "sha256": "d4049f871afc2193f698991ba980b314b657f001354744f5b3c812c9186fbf02"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/CheckCircleOutlined-DJIjzB5_.js",
+      "sha256": "dc17f7b048c1f9e08ce6b90fd267558cd472718fa616782e68295b8498ad9841"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/CheckCircleOutlined-xsXj4p7f.js",
+      "sha256": "d571ede678e4c4ae2b415e92bb1794909dd9a3c67980732e393d69ad0410989b"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/DashboardOutlined-CYqVVVNF.js",
+      "sha256": "e301f4fe7f3755820b52789ac2e9fda1206a1bf0d056f118d4026aaad8812d4e"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/DashboardOutlined-DhWgz-bD.js",
+      "sha256": "aca0044028c3b2784ea48d82f006d3a80a5613b499d47c9577236dc7a679e636"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/FileTextOutlined-BfDjXTAB.js",
+      "sha256": "c40ca355269e38ee8e05e0f96a6e0fa9e1d185fdb0ef0a1983171629c14453e9"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/FileTextOutlined-DR_VCDvU.js",
+      "sha256": "e5f1314b6424080604365ca924f843f7ae5a90fc17d71dc9047e17168710938c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/FileTextOutlined-p4m6mJU1.js",
+      "sha256": "97f39d03d7d94dbe4afe1804f036c09c65ad2f47b57cba0a8347e60432a5a687"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/PlayCircleOutlined-1u_MPdLF.js",
+      "sha256": "f4850ed5dc7c17e2b035ff1458d3c316aeff95ebabcda975a5fcaa6d7a6a7240"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/PlayCircleOutlined-B2pi-Hh3.js",
+      "sha256": "dbd94cebd8980dfdd7d6b14a37397bbfc9fee3f27b2db318de7ccba92ec63c14"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/PlayCircleOutlined-BPgeLWF7.js",
+      "sha256": "ee1f1fbe14dca414d9f2545ffa098dd54081253137d735b6c2a59e5c7a1daf75"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/PlayCircleOutlined-DrJwNYB3.js",
+      "sha256": "a354d99260a12cbfb0dce21b792ce51a228be8cf722d240bb16af19796f6aef3"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/PlayCircleOutlined-g8qloYTv.js",
+      "sha256": "54b677fded938a4eb608c3fa43a867831659b470af6b5996d71d2350275f7810"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/SaveOutlined-B8Wr8aNo.js",
+      "sha256": "864f9c79d91b9852749f6ee4c5bfcc26388e17e1ce86160db191cd48e4e49f3e"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/SaveOutlined-BhiuszAI.js",
+      "sha256": "0c6f6a9449832dfd0bd2da460787d3d5c334ebf303fec0a9aa922e34888c3bc6"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/SaveOutlined-DQemwcKo.js",
+      "sha256": "24f2cc8c108ceae741155443ea7c773d81933d6142f6a1cb8a9a09b351dd66ac"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/SaveOutlined-DonLai3u.js",
+      "sha256": "1b156e1cc67c817ce7118c054b61bd2c75485f0baf4ee9d351b7285e42e8aa2b"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/StopOutlined-BGLhT2Me.js",
+      "sha256": "9daf7d37a0ea4408c1f8af2a5705cfbd20da564b7058be7c3b72fe435d98a3c2"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/StopOutlined-BJyhFOp-.js",
+      "sha256": "f91656cda167d194a5bf7b76302c052fd65ecb3cd91b97a01a93863c171709ab"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/StopOutlined-BzANPQ2U.js",
+      "sha256": "a3b8a036fa83aca02859853ad43cea13efe6bfa6fc60518b6f967f81f2eb1405"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/StopOutlined-D5Xba2Gg.js",
+      "sha256": "af07c9831b5bab3a3d9a307ae1084393991249b1ac15f6e0d2f471a0cb435f93"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/Table-BPnpTtJN.js",
+      "sha256": "7fbdd094fd118022946eb18c658dfe447bcb1ee28f01025df20c33a1bfb4169d"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/Table-Dyz4B0Xq.js",
+      "sha256": "10ce8ee7523ac7772bde75a0d656e69eed17c11a40573a575faffd221dceecb9"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/Table-Re5lJXhR.js",
+      "sha256": "04f6bf6829526b953cbe1109d60295db7a72a455686656b69207c6da5299c2b6"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/Table-sHSMbx0B.js",
+      "sha256": "1400a0f812552b80cb3c11e0e34c1a3686cf96d2b947446f44587836f02ee8a5"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/Table-srDvWU3h.js",
+      "sha256": "2bacfa5b1b60a8252903c930d9063358c895ae1aa6c2193c8d52249c6f689912"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ThunderboltOutlined-B3Ml85nf.js",
+      "sha256": "c3c44ac3a1822b15eb888b9c6777df95ec0308c089eaf1e99e29b9dafc09fc26"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ThunderboltOutlined-CGhu4Y88.js",
+      "sha256": "1892b043dadd5bf046916dc23605c2744c7cda7d903e5d78ddf3fd204649a7f5"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ThunderboltOutlined-CH2B31QN.js",
+      "sha256": "f46accae2e94cd6769a758734441045d6b4f48d6833f62348369f14186721bd8"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ThunderboltOutlined-PNUVdg_J.js",
+      "sha256": "bffabedcaf91f2549cb672f71af143347648669e51c3c5760037f726a31c7bd5"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ThunderboltOutlined-xUGxlyJ6.js",
+      "sha256": "712418ab2d524c8f1645fb565bba7c8e1adf343a9f929bb9a3b2dece4efb05c2"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ToolOutlined-DEu2Wwa5.js",
+      "sha256": "14b79a874996a1283eb4931d25c74ad7da8b449e95cbe49b196355922a21ad94"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/ToolOutlined-MDl_KHZ_.js",
+      "sha256": "f738f430cc38115a8773133a8c387b5df5a9e24c2ec3ee240c1eccfe5bca72ca"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/approvals-74T4JqXY.js",
+      "sha256": "65e094f0265183ed86cf3c1229fc9909d664869ff8878c605cfb87a8b4d7dbea"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/approvals-BYTE0-0F.js",
+      "sha256": "df2999ac665791d31ccb7bb7d841086e172fcd903f40a51ad28987ab12cd93c8"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/approvals-C3GSWOTZ.js",
+      "sha256": "6a445e9c876df931208a979684a1e1c786880e26f03018cdb9647aca5b97e857"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/approvals-CtYNoF7v.js",
+      "sha256": "a48316db0af7549f6b0f4f664b80ca78cadd539642965f5a9025d911fa15343c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/audit-BM3ODoCp.js",
+      "sha256": "3c8995f9ebce0d6a9d25b140ee2c28f42cdcd90eab334879cbe831cf23d3630b"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/audit-CHGN4kFC.js",
+      "sha256": "387f7e9be6c3778d38adbd041834c859214a79e631aeddd0e6f8c0935ccf6437"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/audit-DiM87A50.js",
+      "sha256": "12ec820063da830bf8e73137ec0765a4e3d21b1bfcf6d3821dd070fbfa8fedd6"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/audit-stiICUtL.js",
+      "sha256": "db65aeda910f3fe53f814a343ee90a3c77e00089368fc75942a6b4bf4f122b73"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/auth-BUDROF0w.js",
+      "sha256": "a5f593d1c93024f549d2262d12288c31d4f9e9c88f40c8924e0188953b5746ca"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/auth-DjVJR3n8.js",
+      "sha256": "b5d4db5ceac82f7544f2c494631995cffcc3c58c89fa5f09e17228a4b25bab39"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/auth-UlkP1Pq1.js",
+      "sha256": "a54f533dffcc918522308a735d4743d7d203a0a9dfed8b5960900fe9240357c4"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/auth-vRKx-5u-.js",
+      "sha256": "16149b9c55afac4429f28dc8431a93ddcfc99bedea70930e455a1747ff331096"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/connectors-BGD9Z17F.js",
+      "sha256": "f6680de350220c46179699d5da325c55e15317de123e87ff34a27c417f02f723"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/connectors-BT9xQgiu.js",
+      "sha256": "d1168304512ecf7877e2a70683c5545e01fc60333cf1bdcbb8186934eb18e2cd"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/connectors-DsLGTidC.js",
+      "sha256": "795ce977714f6e90555460e76efe50d8b75bfdb920b95c9a18d445ceee7febb5"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/connectors-DzQQTgSf.js",
+      "sha256": "687057f01f9ac24feb28c6b50eaa99c12dc473c2575df5a737f1761d7d1ec87d"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/dashboard-BDciB19p.js",
+      "sha256": "07d013c788931579493a59a380b48e1aa3fd28f311db986accdfebe797257d3e"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/dashboard-BI0PGwGw.js",
+      "sha256": "7fa408c9578dbd6234d5d28dc4b459e13b0501b5749046abdfbdc4c2115cd7b8"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/dashboard-BkYpEuKz.js",
+      "sha256": "655fb5818adaf8c087b58aeb86e671baf3c40a75928044e0b528ed4410599ea8"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/dashboard-FAUmOSpw.js",
+      "sha256": "6274c52eb4e9f6deffdda1d9f7624de4da67da2a3456b013ce62898554e97355"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-B1yWrl1q.js",
+      "sha256": "c8e8cac7cea13c23d9c75c96bd8205ee7695dcfbe0cac1957d4f3185088b8213"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-BPdkmFLU.js",
+      "sha256": "0f1a3452513f67e2c629595fa55191f2ad0627c1c110ad33c49f96ca0b22295c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-BQLFM9ts.js",
+      "sha256": "c00b195e7d8ec2e3d3ecb147187fb3610f89b267007d7fffec5c67e9bc5b36b2"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-BTLekULK.js",
+      "sha256": "c0f5e6b78303c641b7b6b2c250aa55cb7a929f4882b655b32fb7abaa92200f06"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-BbCTwSpC.js",
+      "sha256": "9818d631e37b8bf69e2564e51bdb1d4e7b213b68af7cfe98003d4bf0897efa1e"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-Bqcl2s-J.js",
+      "sha256": "90b2a48fdf1b6e119ad444c65284bab1930b72fc4378f29dd61e3d05ac42102e"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-CMASMmum.js",
+      "sha256": "295c6e5e11e0505531a3cc8f6b4319d5e1357c6b676af953780e09714fa1690d"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-COmHGyVC.js",
+      "sha256": "187fc3bc43e7ced61e2d9dfd257d1e4fbb239b457db82caacb246ec61a4e731c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-CXUm2XEH.js",
+      "sha256": "a62dd102ebd506a4bc51968aac0741b2d9f20da619d3be23d4c2e0b5d9235c81"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-ClPwX7rX.js",
+      "sha256": "61721a5df6cf0510992bd58d15e8ab50e43f052cf47e317b6f87d3baf848f25c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-D7Zu6-V4.js",
+      "sha256": "ecbf4245d7b932261ac284fcb430a1c1f030030828cb4b413f99b7610bd4dea8"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-DDCHfcf5.js",
+      "sha256": "400e2a9cf394b78ed286f7ed06d769ac9fc3a8c9bb66533e4ae0d4777841d9fe"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-DSBYjVbQ.js",
+      "sha256": "f90ef455695280c09ebc30ba69cf82ea7822d3c2265fdfe3bf872b826d282583"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-ZTbBnySd.js",
+      "sha256": "062d89a26245bf23c18899ae57deb4a5d7d50fabd008a612512eca719f69b8d9"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-emnzbHoJ.js",
+      "sha256": "f46e7107a22f69b7b22938f99d6603d7b74e903130ba11f462a6b72331184e8d"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/index-rsTaKYdt.js",
+      "sha256": "45a4255c29c7af63f0b324679411704f8fcc0805e4b56bd88a904812b61b8435"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/prompts-5YjLbewt.js",
+      "sha256": "d8988a2d328b2085596df31d2a7dc12067c14f9810f319f56f1dc387f9b9da3c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/prompts-B1OxfpWi.js",
+      "sha256": "7c2a78b2e991a5cc7bb448b07a12600ab11b31936fc39a47d3c4dc5c81e02620"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/prompts-BTRgTk2s.js",
+      "sha256": "084686a1d568281d9a42eb2e45debdf549f484bca853437e318343b5d96c6dd1"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/prompts-BquBVi7c.js",
+      "sha256": "0cb022306f69a0dc69fdc1849092de104b5f674c402b17c3e88f2b252f95b114"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/reports-16PlK9M4.js",
+      "sha256": "d678fbca9250a7439b601cf94b7cef1b7bb521eca7396d692db731d08b07d3a0"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/reports-Btz66FZy.js",
+      "sha256": "4e10b7ebf7a9804170a39e1b074051d64addd9d5f72ea4ebbf8d0424f0254de3"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/reports-CqVXp6N-.js",
+      "sha256": "2cde1ba33fc5f1f7ebbaefe0155c40b2d3b11952832cd458a7b4bedfb01fdbda"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/reports-Cvj5wt1m.js",
+      "sha256": "f75c2370fe555b3f38f046fc683e9defd44ee9bb2d1f87abb7b8814f9210f402"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/styles-BbPa4_lX.css",
+      "sha256": "1776d572f2d9e013f9f245bff261da8778d51267339f94b7c9d35b69573a432c"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/styles-BvvqRcSH.css",
+      "sha256": "037ac64ed1dc79329e65bdede18ae3601c77d15aa872bfffa8213538fbf9105e"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/styles-CAme-LkS.js",
+      "sha256": "2c6382305145070efb05320139b38ca86a2e5c9828acbea3fd1a69427d19e996"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/styles-CdbHnvft.js",
+      "sha256": "ab75bd730cf49a57228083b4abe3543f1e0903f116073abe737b3f3c689c27a6"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/styles-D6Ly61AY.css",
+      "sha256": "1e78d4d707982cd272aefc0d69af823c466750c970ac5c6811a76587f6347bc2"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/styles-DzUSPC-6.js",
+      "sha256": "57d69382de333729f40ab4caaba604be2b2ce49b221fe0b950bd557bb30389df"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/styles-TGaLU9Uc.js",
+      "sha256": "3d28f30dcde4570a8c8eb09e37d04a04bdd376d6e958834c5dc7528703798a39"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/styles-wrlxmsL3.js",
+      "sha256": "ab75bd730cf49a57228083b4abe3543f1e0903f116073abe737b3f3c689c27a6"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/tasks-B30wuNSx.js",
+      "sha256": "aafa6e5056af929ed1f8c5a6b3a805d74fdbcbec7db3c6d5fe341a7ecb979d70"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/tasks-DZ8VQ5iC.js",
+      "sha256": "4c2b2d7170593780fd0f8a0de3075a8b7fca969114d74c36cb1aead0a57d4ab9"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/tasks-DmoexCVG.js",
+      "sha256": "45b2985a1c8fd48f024ba075171bc0ca239b2465a8e26c729931eca23ecb6049"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/tasks-kDCd2AuY.js",
+      "sha256": "57ba6d51a7ed586ca8d324187725d0d702f0acc4a98b849a3e4400e5b5b08116"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/tools-BZ9r2gNg.js",
+      "sha256": "b7b099ce4abe6a08847c9bee37ba776bf42ec15d8f3e71813bb1ee09d833f425"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/tools-CJ7H5Q1Z.js",
+      "sha256": "1bd0c0ebe35bd90dc48631e72c66102e549e60c0bbb62fbfdb6f54729f962c6f"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/tools-DNVBRFzu.js",
+      "sha256": "b7fcd75b0343e7e256c4c3eb6c35753af52d36688b110ba2aa5da5ebacf27ff0"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/tools-DiETzEt1.js",
+      "sha256": "6188a2db16639cacbec931e65257faea0705a4a097c1c682abd1d6cfb3ce0202"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/users-B-9R5JM5.js",
+      "sha256": "ba62ca65ab475b83cf56b1c7d78662edf81a8c7459ea96f5296a849bb114e839"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/users-BPl24zWb.js",
+      "sha256": "1ca3d1a57a8485314209df0cabf402028f8f7308d3951f166cf162badd932c90"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/users-Dl6qyuUx.js",
+      "sha256": "02cf18f11e3f36d29d83c3c19b3b4cc6003133fc0ab1f9a26aecda6d9c2e0f9a"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/users-HBNypZOR.js",
+      "sha256": "a1015e29df4c9d7b7743fe18f8ebb83610e50c7378f1d1fad2b155639bd79e6f"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/workbench-BOGOrAla.js",
+      "sha256": "4e9b97d54197109affea1eb0b544823461c26648090864390b45379475431e58"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/workbench-C6XEWZyX.js",
+      "sha256": "b41d3566051c392c83a37e25d902a7d6b7f009f952079a7142e2554c39acfada"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/workbench-CY-IhXcA.js",
+      "sha256": "37582c635536289024cdfd751b716f937595b0f13f9974a88ba13df4d8bd0bbc"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/workbench-CrGfFbWr.js",
+      "sha256": "4612e04c3687a9d93f7d5057ba1fa03497438ce400c80430406b55ffb4a9f822"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/workbench-CzmvmLsS.js",
+      "sha256": "9bf483a3a2c5fdf1725c63adf58f01db223b2a1cf9036c21eac6a75cc08b5db9"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/workbench-D4FjwGSV.js",
+      "sha256": "a92be9f8901a738713a737a11d51886f876357fba5c81bec4082847ab95258db"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/workbench-DHoM7iqB.js",
+      "sha256": "48511050eb0dc0bcb9877f30c557188262eebcece38abd3c26bfa02232217360"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/assets/workbench-UjjqP63C.js",
+      "sha256": "6ee4e0d146adfa8109b591b28e5b421f1102c63dce4976ef25b7743ebbcd82b8"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/audit.html",
+      "sha256": "461862987ef73a40f6f57c33d8b45653987eba4d4d45c6424b451893d7edfec4"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/auth.html",
+      "sha256": "fe17b69269159e8dae2e7af4c89408144bc84989890d9c7dc9d7dc02518f1ff5"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/connectors.html",
+      "sha256": "77968b47412e2591d86c3ff81a1b0eb5f986dc9362c834b9231951a7d54763f7"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/dashboard.html",
+      "sha256": "2cf1ec05b1ada0facef281814e14324e2cdb4009c3024a7405a29c079a3437f9"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/index.html",
+      "sha256": "de9df848ac95bda5e389c7c75e4ffc29048680f2a8f63e69b0c32d95feb31b01"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/prompts.html",
+      "sha256": "521b619b354913509d79a13cd39035294c6677b7fd2b1df360d88eafccea29af"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/reports.html",
+      "sha256": "3764131e5ed4f2deb9e5288d8c7f81fd04394a895a075e69ac802c02890ee9e7"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/tasks.html",
+      "sha256": "a6030171d850be4f3d49b8774e8ddcc47615fe25007d8e718bc9ad054b59ed6e"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/tools.html",
+      "sha256": "5e3a0c3a450afbef56bc5af826385e53195d9cd554279e9518a753117d0e3d51"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/users.html",
+      "sha256": "0bbb73476e9704f03265b3d2d81d3ae34851893b62564483827e96ff28988494"
+    },
+    {
+      "path": "shopops-admin/src/main/resources/static/admin/workbench.html",
+      "sha256": "ec9481350e1ad194aa8168d114ab0ee9320f98b1d0a0d693f251a3b91b28a9d9"
+    },
+    {
+      "path": "shopops-common/src/main/java/com/sirithree/shopops/common/api/CommonPage.java",
+      "sha256": "d6ea79fbeafc3347e836a5eec439022e58ee6db5a85c82b3c47e9b48c80c927d"
+    },
+    {
+      "path": "shopops-common/src/main/java/com/sirithree/shopops/common/api/CommonResult.java",
+      "sha256": "a3f74794a0827b60841f115af01f3e6a464afb6d42a96e9852aa0a55cfe41f61"
+    },
+    {
+      "path": "shopops-common/src/main/java/com/sirithree/shopops/common/api/IErrorCode.java",
+      "sha256": "fc37ea1c588452309b23094c39244dd25e9573c66bf0739d0da19199b23f55bf"
+    },
+    {
+      "path": "shopops-common/src/main/java/com/sirithree/shopops/common/api/ResultCode.java",
+      "sha256": "d4ec76aecc84e3259dbc0a9bf3cec6855cbfe70c591610cf14c6566d88af449c"
+    },
+    {
+      "path": "shopops-common/src/main/java/com/sirithree/shopops/common/mcp/CommerceMcpContracts.java",
+      "sha256": "341e1626c876d9327096ab7fa824e873ec67c73a913f68e5f656a7146b4dfa00"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/CommerceMcpServerApplication.java",
+      "sha256": "fe947beb218b36e49d2bafa4fc28d6a062717a01829ce00ce03e2e538b4ce4fe"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/config/CommerceMcpServerProperties.java",
+      "sha256": "6b3849a46e1778bbbeee6c07f51dfab51ffd164619b64c578a731ddcb012cdb5"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/config/McpServerConfiguration.java",
+      "sha256": "0740093a0aff318d8e91ccb4e29bb1c525c8df24c58e1c7e4fe4db86097d7fa1"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/domain/NegativeCommentRecord.java",
+      "sha256": "5b81554cbfa5c2566ac90c430a8c88bb54452a400776fdbb344e0b37c47e1f70"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/observability/McpProtocolCaptureFilter.java",
+      "sha256": "711e72a2f486dcddd74c6d8e378523c0a5a6d40a05e6f083d4f609cfd74c061f"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/observability/McpProtocolCounters.java",
+      "sha256": "a46d8a479eec2bffae5ae23c1b5e0cd4c52a7c6b59319380ca63709d7a86a4cb"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/persistence/CommerceCommentRepository.java",
+      "sha256": "ff5d6f480a59a43ea7f1c5087f9dd03dfd589e3c0473c583855e80f37c826fad"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/persistence/InMemoryCommerceCommentRepository.java",
+      "sha256": "193884a11c11bfc6a7226b894088416c5cad381475e64ed67869d8cfc126b635"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/security/CommerceMcpBearerTokenFilter.java",
+      "sha256": "7dab754aa0fb740a4cf6d1675e325d832f6ff244893fd67c043028e1441ac42e"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/service/NegativeCommentQueryService.java",
+      "sha256": "916b1f5ca3397cd53183cb6cfd5d25494e66d92062891c536c20d1224de0d655"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/java/com/sirithree/shopops/mcp/commerce/tool/CommentQueryNegativeMcpTool.java",
+      "sha256": "c0dae4c7bac0f1c84eadf046703525864d14831b1e55b96f04ded188060bf30a"
+    },
+    {
+      "path": "shopops-commerce-mcp-server/src/main/resources/application.yml",
+      "sha256": "c4450e0bcc73d339eb522a45d9028dafeeeba8d171524c8d1a1caddc9dfd3630"
+    }
+  ],
+  "governanceEvaluators": [
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/governance/ExecutionGovernanceEvaluator.java",
+      "sha256": "a6ca450cf9c8df878ffe5161374d0ed05bb86ec753d4dc51c89aec58dfd84a25"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/metrics/GovernanceMetricsAggregator.java",
+      "sha256": "e4e89b0da8ca5b76d17b085107fdbdb13c84d0255a6afa2dbdf0c4d971f35da4"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/metrics/GovernanceMetricSummary.java",
+      "sha256": "4bee03818cf7ceb91477afc39e55598c38a6253177c0753944a56f72d61dd2d2"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluator/GovernanceEvidenceEvaluator.java",
+      "sha256": "244af13b81e70a3e4e80bf25c908e87c3850284f8e1d1ccb9b3c0bfd45d98c4e"
+    }
+  ],
+  "protected": [
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/ad-performance-stage2.json",
+      "sha256": "b9728f3270598ffb5f8608e5a10d16cbb0ce920a088632fdb6067113af6b1e24"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/external-reports-stage2.json",
+      "sha256": "a8a4b763d7e9bdccaa6106e722e1e8d8140afe8d49c629af0ff14fd4f16bebcc"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/negative-comments-stage2.json",
+      "sha256": "6e21cc11936b44061cad13c704cd943bf9b3c393f603f36085e10e3139eca04b"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/order-summary-stage2.json",
+      "sha256": "b956da0b3212091af52fc928349b1c610a8e1c328806f1cf11a5d2e317ce115c"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage2/product-candidates-stage2.json",
+      "sha256": "30db9aa594500b3c5c420bb10adde46a61d40a3522fe95a6656ba16971999a77"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage7a/ad-performance-stage7a.json",
+      "sha256": "bd4d0e3a4f25590939382f2be8fa1218dd5a66d1fb4bf1d6bfbea40a60940095"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage7a/external-reports-stage7a.json",
+      "sha256": "f4d5c33d1c34f8a03135d5ff96b3b5ac5568f553bb5467fa34bef2cb3512ea93"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage7a/negative-comments-stage7a.json",
+      "sha256": "956bdc8dc409e7d29665a04eb9f8d8893c700c836414da0f11d4506521ab7368"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage7a/order-summary-stage7a.json",
+      "sha256": "87217292caec33428417d9ce34d2d588d0bed099d7f27d81f40a497657bbffe6"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/fixtures/stage7a/product-candidates-stage7a.json",
+      "sha256": "3442bbee2200dd495fd09b6d42ca59959a775c2d914c86be82720b85d002ec55"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage2/task-fixture-feasibility.json",
+      "sha256": "5c31004b1d5b68f50fe77085bc75250214b82b0926557b0473dfc029988bb117"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage2/task-near-duplicate-review.json",
+      "sha256": "82afb12498dcafda3d91a2076f7af88266f75e6973b1c1c389bc5cdf184f99d8"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage2/task-root-blueprints.json",
+      "sha256": "c8a8de4e3b1382c3cc3a9673921c3a441436aa859581a1f0607089f969927821"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage2/task-root-split-plan.json",
+      "sha256": "69a3acfd308848d8f0bfd559ae4cc5a93225c8fde195339dd7367e49845951b1"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-dataset-admission.json",
+      "sha256": "0caca2be2cad9a098252f21aedc861be7163affaad950293f9d707348fe152b9"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-fixture-manifest.json",
+      "sha256": "4404f39a7d3a4a8c7541b857a8f55e844a4e1e7793bf4d05609d9428f47788a8"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-gold-proof.json",
+      "sha256": "52348ca51134c16fe653e55b4f0bc5d7b3974fa7da7263e4a36b6c58e66d1471"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-human-review-queue.json",
+      "sha256": "7de8e8c6d33f560467533499b49c8190521109b538e1a0275482db11714596e2"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-near-duplicate-review.json",
+      "sha256": "8f14e94c9fdd4f4a33ea9cbc1f251a4b426b85519c14d2c00f52d3319f9bb5c4"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-root-catalog.json",
+      "sha256": "068f6968d6007b29dd55aa53e49a993234c1aa381081339ca4836c76699d1ae6"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-root-fingerprints.json",
+      "sha256": "a059e941bca06e0530fcc46ca48e04953bebe298be5bd15bafa4b0009afa213c"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/task/stage7a/task-scaleup-root-blueprints.json",
+      "sha256": "b62e35270fbda4205198bdc105ddb8fbd1759da1bd704c8dd2a0eeed4dffb3c6"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/recovery/dev/cases.json",
+      "sha256": "239e8b9b9036585f94ea9444b1fa557977cbb39e53d8a2abcc9c3a9e3dfcc196"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/recovery/stage4/recovery-causal-matrix.json",
+      "sha256": "6e6e47ceeb50267d85240e9e8a3911a79e875bc38cb64bf545c59666db9d1b9e"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/recovery/stage4/recovery-near-duplicate-review.json",
+      "sha256": "566b87615bf25fee05030a071bf0c90a57a2a841d09cce71281753952c7af70f"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/recovery/stage4/recovery-root-blueprints.json",
+      "sha256": "93fc7ab259111fde8433a5042b6d85d0686fbca8b1f6eb048d2fbf0b69100c2e"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/recovery/stage4/recovery-root-split-plan.json",
+      "sha256": "61759a296b3b832a5dff6a53b5c6f90f327b487556c3e460cf9caea3db8a1f31"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/recovery/test/cases.json",
+      "sha256": "33bf5164cdd54bf86fe1d4a97856e8153939ae8b4532da5fbdef19633e6f3039"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/recovery/validation/cases.json",
+      "sha256": "bddc908259d9be77ef4bda4bdd7c8ba7bfbc446743640dd7261a7f5879797761"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/dev/cases.json",
+      "sha256": "70f7a150b18f0f360386aa7644e2a74f38dfeb50a39fad3f2ce4ddf4012e493b"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage5/idempotency-near-duplicate-review.json",
+      "sha256": "b81fa6be6635714bc86573b274c9d2efd46ba33d3277873b9e97c321677102b8"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage5/idempotency-review.json",
+      "sha256": "d58425a51098e7764712fd6a403cb65900798212c9b7a842960dc5505f5cad60"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage5/idempotency-root-split-plan.json",
+      "sha256": "4f74452d2aae184809c23373e58fcfe5abd2ae2e762e87a4247e6f37f92919e0"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage5/idempotency-scenario-blueprints.json",
+      "sha256": "51078cea53a631589cb8b11d0cce20ba740746ba175917a1450809465a14831e"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage5/idempotency-semantic-hash-contract.json",
+      "sha256": "a90a975e297a1b707e1710f6a841b6186550063d9ae42c941f1421425ccc71b6"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage5/idempotency-semantic-matrix.json",
+      "sha256": "8f1d4dd9d2ff9a67682da4ee2dd3600a16490a0d60f2c513a4b7030655ab2e46"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage5/idempotency-workload-profiles.json",
+      "sha256": "970edc2ca45c5feeaefc09d9cd2af83f85cae5d32581beade9af40604c02e6c5"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage6/idempotency-attribution-contract.json",
+      "sha256": "e4f84265519213b1ceb6ae9d6a3c80456e83ee8d6d2619b174fc12d1c6bdfa32"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/stage6/idempotency-workload-attribution-overlay.json",
+      "sha256": "ea32cfe85352b5e78dfd7c1b38bf93853c36380ff33093535d8f6644c76bf051"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/test/cases.json",
+      "sha256": "97f2365f6b8457d8a1c6d35aac0489936b944c31838b966aa1864c8abcc3ff5f"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/idempotency/validation/cases.json",
+      "sha256": "f885516aa5a16e0fc14f92b7741ed7fb41ecc76bfa687c55d53ff0dd095d1fd5"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/EvaluationRecord.java",
+      "sha256": "fb4e661a859dc953f9893ebb834809ddc12ff65f26cc1e36e7c2c3a279605874"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluator/FailureReasonCode.java",
+      "sha256": "f658d5dab0fae72edebf59a765d0fea1e8b693d8726cca96761020f88fd583b5"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evidence/CollectedEvidence.java",
+      "sha256": "4215c4d82dc053fcb39d9112f447a5529b7555403232a7bbfe470374e49561b5"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/formal/FormalBenchmarkEligibility.java",
+      "sha256": "94ebec6639801a54ce79428af75e5691c144b69972f455e9fc8a649a96a36dfc"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/formal/FormalBenchmarkEligibilityTest.java",
+      "sha256": "2fed191a00465c95a6bd5aa61085a8b8fb92baad5468cce6192ce3e3e46025a3"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/formal/FormalRuntimeCapabilities.java",
+      "sha256": "169d29467b299235be800c9fd20fa2866c46cb2010315c3c71c92afa6fdb11f6"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/AbstractRefundIdempotencyIntegrationTestSupport.java",
+      "sha256": "425435ab48839a3aaf556f80f6fe14c39bff8c7a951a12d185c14a1cff2b6163"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/RefundIdempotencyBenchmarkExecutor.java",
+      "sha256": "b0464d4cb92742e735204afdff72f941d28f54fd8a069af8b4378ce588f235e4"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/SideEffectIdempotencyEvaluator.java",
+      "sha256": "dea98f0a20abbbbd096bc39a0fa4937cf98ba67e2faad78ccd1b2f9ac3d765fc"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/metrics/IdempotencyMetricSummary.java",
+      "sha256": "e2b4f18a56f90e106f7815761a745c389cdf2cc1938d267d57edac731dddaec3"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/metrics/IdempotencyMetricsAggregator.java",
+      "sha256": "0e14a1a4bcdbf6200b3c7a1fd499b6fd7a1822602b8ee4a33b7f5c710ec619f8"
+    },
+    {
+      "path": "artifacts/evaluation/stage6-idempotency-attribution-audit.json",
+      "sha256": "000691b4499b2915d8acd18f053b84060ad11afaf8a959c1195314ec7b8f1a15"
+    },
+    {
+      "path": "artifacts/evaluation/stage6-idempotency-attribution/environment.json",
+      "sha256": "18b459a18e21bb2629be156a2aee3351b871228d4d805a63cd906a6111034ae4"
+    },
+    {
+      "path": "artifacts/evaluation/stage6-idempotency-attribution/isolated-javac.log",
+      "sha256": "eb4c5509ac87542f066feb69b9c4efede26f8c1eb232048ed6d708facb2f8a07"
+    },
+    {
+      "path": "artifacts/evaluation/stage6-idempotency-attribution/manifest-verify.log",
+      "sha256": "5b404e26d95a759e6d2bb4c71297789df98f6911fdaa84b56299cfd5e40ced08"
+    },
+    {
+      "path": "artifacts/evaluation/stage6-idempotency-attribution/pure-attribution-harness.log",
+      "sha256": "805ad34831e09af10a141d864ae236d7dcfb9b8ba26e666226e623a826a41f4a"
+    },
+    {
+      "path": "artifacts/evaluation/stage6-idempotency-attribution/static-audit.json",
+      "sha256": "000691b4499b2915d8acd18f053b84060ad11afaf8a959c1195314ec7b8f1a15"
+    },
+    {
+      "path": "artifacts/evaluation/stage6-idempotency-attribution/static-audit.log",
+      "sha256": "466e486b6d751908dd3d5dbfc9484406b2d3825565fa26d6d75f11356bf59b25"
+    },
+    {
+      "path": "docs/evaluation-rebuild/evaluation-hardening/STAGE6_ATTRIBUTION_CONTRACT.md",
+      "sha256": "197b407ac39eccf5c2712d25bed340b076b684804186f92eaaa30653c516282f"
+    },
+    {
+      "path": "docs/evaluation-rebuild/evaluation-hardening/STAGE6_BOUNDARY_EVIDENCE.md",
+      "sha256": "92770e40684386f04705ce93678efe397a8f02de1895276a152ea2da7bd6bdd8"
+    },
+    {
+      "path": "docs/evaluation-rebuild/evaluation-hardening/STAGE6_HANDOFF.md",
+      "sha256": "8fc2d397b3dc74b9d9b0dd201b8629585faf47d8935f23cd4eb527ca05becd73"
+    },
+    {
+      "path": "docs/evaluation-rebuild/evaluation-hardening/STAGE6_IDEMPOTENCY_DRIVER_AUDIT.md",
+      "sha256": "ec5c725ad67e5ae59556ed738720ce9a09c2e3d0ad6bb3ed300ee19a63d452a6"
+    },
+    {
+      "path": "docs/evaluation-rebuild/evaluation-hardening/STAGE6_IDEMPOTENCY_ELIGIBILITY.md",
+      "sha256": "7368074e097ec44116c061079ab073441d10918060491332032701ccc6ebb0cf"
+    },
+    {
+      "path": "docs/evaluation-rebuild/evaluation-hardening/STAGE6_REPLAY_APPROVAL_CONTRACT.md",
+      "sha256": "286232e59ce27084ebaa0c59b4580cd2bc0fd78a087b7348228db2e340444662"
+    },
+    {
+      "path": "docs/evaluation-rebuild/evaluation-hardening/STAGE6_RESULTS.md",
+      "sha256": "13e8dea7db3daeb077af36d151d8165a31ec6f9512c35866138a11b9877e4275"
+    },
+    {
+      "path": "scripts/audit-stage6-idempotency-attribution.py",
+      "sha256": "96dc7bcfd56158a54dc5d2258f25c1ae4345903966144b147a4c30fb5830b66e"
+    },
+    {
+      "path": "scripts/verify-stage6-idempotency-contract-manifest.py",
+      "sha256": "b3eec38d1c9d3e86aa05ae173284f30a44646721663da5f3f0009b13de1526df"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluation/stage6/IdempotencyAttributionEligibilityTest.java",
+      "sha256": "cc64b9ee90818fa846c373d98e5f8efbb77d04a8a2411a287edaaf7ecb3c4b3a"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluation/stage6/IdempotencyCanonicalPayloadAcrossFreshApprovalTest.java",
+      "sha256": "850259249b88c7f0cbef5ebe217a612a832044cf37c31d70eb176ed9fe176114"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluation/stage6/IdempotencyExternalLedgerAttributionTest.java",
+      "sha256": "36cab1517c0c62b674fc8813d13d4c29a59f06baeb8e3effc1618a5cb739ffb5"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluation/stage6/IdempotencyMissingEffectMetricTest.java",
+      "sha256": "484eb3bf681160bc2590297955ee57a14b0fe4d45cac20440d8f9ec1452b3ee0"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluation/stage6/IdempotencyPayloadConflictAcrossFreshApprovalTest.java",
+      "sha256": "f4d4fb22b399958cba5b9a2ddc2976cbc57df2846d74788d49fbb0c35022fb31"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluation/stage6/IdempotencyPreBoundaryBlockDetectionTest.java",
+      "sha256": "db101dfadf3b91aa9344b74503055e90155399b35716227152577a0532d3d4a3"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluation/stage6/IdempotencyReplayApprovalIsolationTest.java",
+      "sha256": "bf5d38844e68d4873ac935fca4d23fcc41f457c856a74deb0e417c7406f6681c"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/evaluation/stage6/IdempotencyReplayBoundaryReachabilityTest.java",
+      "sha256": "7183c5b133fe57d06c167b4781b5ce6b0275d1ef738658d1040670346d14cdff"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/FreshReplayApprovalFactory.java",
+      "sha256": "699a8e6eb5c1e006b592c4e9aceacf065c2c78c5ccb74a701af5806102f1de67"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/IdempotencyAttemptAttribution.java",
+      "sha256": "59bb9f05c4af2a672b69b7b4e421b3b289db9c0f51b32573197d3c07cddbdd73"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/IdempotencyAttributionClassifier.java",
+      "sha256": "fa38d230b17d91cd075afd7713419d4d76160f6cae2522fca1b96d718513747b"
+    },
+    {
+      "path": "shopops-admin/src/test/java/com/sirithree/shopops/admin/benchmark/v1/idempotency/IdempotencyAttributionEligibility.java",
+      "sha256": "a32324832a945eeaceb8fe40e9fc7e662d9831d3f0ed16c0f3f72e5b40c44d38"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/stage6-idempotency-evaluation-contract-manifest.json",
+      "sha256": "e3baea01d0d6fe1a8abaf04406aabd2c3a3fa2aaaa992c48434c4010074638b7"
+    },
+    {
+      "path": "STAGE6_CHANGED_FILES.txt",
+      "sha256": "7c046ce7678dfff003ac7179b3a014145ab38169a4443648b9ecf9c3f9c6f4ef"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/benchmark-manifest-v1.json",
+      "sha256": "2bb543ffa6a76fa8051989d755c8109f3107cf66b2a5d6e8fe6cece3fc3f24ad"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/benchmark-task-stage7a-scaleup-candidate-manifest.json",
+      "sha256": "5b2637ad20ae3b853c50975e9ca630444d5942ed6f81c0bbafab55905d1a01f4"
+    },
+    {
+      "path": "shopops-admin/src/test/resources/benchmark/v1/benchmark-idempotency-stage5-candidate-manifest.json",
+      "sha256": "ba9b53cd8ce22f23afd3bd61ab86df0c689884b31375238d6b4783bb9c21a27d"
+    }
+  ]
+}

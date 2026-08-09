@@ -1,0 +1,3 @@
+package com.sirithree.shopops.admin.benchmark.v1.dataset.stage4;
+import static org.assertj.core.api.Assertions.assertThat; import java.util.List; import java.util.Map; import org.junit.jupiter.api.Test;
+class RecoveryNearDuplicateReviewTest { @Test void everyStructuredNearDuplicateCandidateHasCriticDecision() throws Exception { Map<String,Object> doc=Stage4RecoveryDatasetSupport.resource("/benchmark/v1/recovery/stage4/recovery-near-duplicate-review.json"); @SuppressWarnings("unchecked") List<Map<String,Object>> decisions=(List<Map<String,Object>>)doc.get("decisions"); assertThat(decisions).hasSize(((Number)doc.get("candidateCount")).intValue()); assertThat(decisions).allSatisfy(d->assertThat(String.valueOf(d.get("reviewDecision"))).isIn("SAME_ROOT","KEEP_DISTINCT")); }}

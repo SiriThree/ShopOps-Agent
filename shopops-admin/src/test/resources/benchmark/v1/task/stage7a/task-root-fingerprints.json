@@ -1,0 +1,2478 @@
+{
+  "contractVersion": "stage7a-task-root-fingerprint-v1",
+  "rootCount": 116,
+  "roots": [
+    {
+      "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "2018-08-07",
+      "fingerprintHash": "8b969fc5fb3cdc7c0ee0fcac1903897463a9e7a36e019f23f737ea67a6ac92ce"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:safe-default",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "MISSING_PARAMETER",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "SAFE_DEFAULT",
+      "difficultyDimensions": [
+        "MISSING_PARAMETER"
+      ],
+      "fixtureStateSignature": "safe-default",
+      "fingerprintHash": "000829b690c373dc4343919f7ebb6c7de8229a019a3143ce1162c077bf65a9e5"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-08:normal",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "9facb7c390d1c7d27e1f",
+      "fingerprintHash": "6bc93e2f4eed47e66715646479fe1d49461c9ad5967adc2a2c411ab800c46284"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-09:no-data",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "EMPTY_RESULT|HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "NO_DATA",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "NO_DATA",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "4aaae2f109f5ae53828a",
+      "fingerprintHash": "a8fdb7490ecffb961a51cc79419c3df9894c1de9ccf738213f094592cd22843e"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-10:normal-single",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "bbe632bad5268757f879",
+      "fingerprintHash": "236ca9e48c2dc12ef8682da1f4967c6f2f9dc206e8315d401158d536bdf26b1c"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-11:single-risk",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "8dbb539f5cbe0972472f",
+      "fingerprintHash": "01fcc15311393642d5f51af189a1d441bb3d97432a472ad60af88c7658b039c8"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-12:normal",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "3b28b8d9b4d100261983",
+      "fingerprintHash": "498cbdb42644f76ff3129f3f5138521424b3f8462b2e0f3e95ad5c0ce42de7ee"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-13:no-data",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "EMPTY_RESULT|HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "NO_DATA",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "NO_DATA",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "fa43204b33e06ab0d9d9",
+      "fingerprintHash": "53bd8753cd92fd4b97b3cb09a043731bf9b1debdc67886a81195dbbc663ae85a"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-14:multi-risk",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "5a72b9c8510c23b0eb23",
+      "fingerprintHash": "04d91076609633b5cfa0ef0c97840dd69756065f2c91aa223c701b93b201cb34"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-15:normal-multi",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "5544c4e3c0193c5d55d2",
+      "fingerprintHash": "9973c9286b6d7148484ab7e30bccf9f73d89153ed088294f6a1089c688778d5f"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-16:single-risk",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "0ff9e853f6e5d002d882",
+      "fingerprintHash": "99115a7ac9a3d5d22e418c41aa59714c6657adb083f460e3cf0942d1724673ca"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-17:normal-single",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "009fac621be5414b962c",
+      "fingerprintHash": "5cfc1acd46a654ff0679eef4646ae23ff09f635788011f0cf444290674d952d4"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage2:2018-08-18:normal-multi",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "ad_anomaly",
+      "fixtureStateClass": "DATE_BOUNDARY",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "external_metrics_read",
+        "order_read",
+        "report_generate"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "DATE_BOUNDARY"
+      ],
+      "fixtureStateSignature": "85b035e8727b23102181",
+      "fingerprintHash": "021b027abc5ea95cbf6914eedca291a6ba03942d0158323b03e25ab205f09490"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-19:normal-single-low-spend",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "normal-single-low-spend",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "CONTROLLED_FIRST_DAY_BOUNDARY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "DATE_BOUNDARY",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "d377df56390e6bff74b34d639e50d6d589d14077cdc3423ad19fb5be8ee63dde",
+      "fingerprintHash": "5edc1249b452dda14f81108143d36e702fc48ea7e24e8995fd6b89b27b3354e3"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-20:risk-single-low-roi",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "risk-single-low-roi",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "612705828175556e3eae7644aed271c09be11dce2aa3580a29e9be677693f1fd",
+      "fingerprintHash": "68b668ba165a69820eacc9df4e73688d7fc1c2f8ca8aaa613d06a2df3d307496"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-21:normal-multi-high-volume",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "normal-multi-high-volume",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "77f645899fb3957899a65007c76ccf6300251ffda4aab2b770e2384aed5b0f84",
+      "fingerprintHash": "44e630afeada1d6443d6be4f7875bd68fd2035e8219a71250a025dedfa423493"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-22:risk-low-ctr-high-refund-context",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "risk-low-ctr-high-refund-context",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "d484ac0fbc0d4ea800759c05dfc8537ce2306e72848f782789610ceb59f6b82c",
+      "fingerprintHash": "854797a93e24b1382598dbf57ab2a79d4ede541883ff294af2cba4bc1d3b54af"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-23:no-data-empty-commerce",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "no-data-empty-commerce",
+      "expectedOutcomeClass": "NO_DATA",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NO_DATA",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "ceaea46116dd19d4cf84a027a422e6a16cc662a0623b9bb65c5a1c6df4b8d76d",
+      "fingerprintHash": "a123b8883ff1853ba17db320bbe13d1d8f44c136e4e13dc758b31a0dc20a3770"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-24:normal-multi-medium-volume",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "normal-multi-medium-volume",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "ad3ecbe23334b026a9e129676b328bfd53e050b881482d5794e66673449d7add",
+      "fingerprintHash": "a117d07b56c28e6a05d00af5ecab54dc6896e7dea353a55d1285cf93039c6cdf"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-25:risk-child-campaign-low-roi",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "risk-child-campaign-low-roi",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "63b5b8c73d9e00c45998156001e99ffa4fc3f9cba3e4534f25fad1da104ce81f",
+      "fingerprintHash": "0f5f7e0f9eb56e6c48b85172bed23466b73b9d4bdf4f8d7e1d7604eafdcc8d55"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-26:no-data-commerce-with-comment-risk",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "no-data-commerce-with-comment-risk",
+      "expectedOutcomeClass": "NO_DATA",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NO_DATA",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "EMPTY_RESULT",
+        "MEDIUM_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "58dc515003a39ace4356c0c081f6b21e48c9b658c24480543fbe88112d46e7bc",
+      "fingerprintHash": "3814ab25fc051e7cbb16903981e61c5b19aaad487cca8ccfec152f0dcda18fdb"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-27:risk-child-campaign-many-products",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "risk-child-campaign-many-products",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "6d919bfcd949c31a49650f7b8008ffda9cb8f12adc144bd7dbabf72b725f8b39",
+      "fingerprintHash": "da164e56cb600df1b894acc190ba62701bcae479e37aea567e46c43563f10e74"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-28:risk-multiple-signals",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "risk-multiple-signals",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "e7d7e7bce6cdc0a02725f9a7bf8df2a821266abefdb87c48afd79d35b45c29e8",
+      "fingerprintHash": "566c35102dabdd1c6134a3ac46fedd58368489e338fe616523ae9866203174e0"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-29:normal-high-spend-no-comment-risk",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "normal-high-spend-no-comment-risk",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "e29b4d1aba752087775f98079009c321963cdac0012bf3f6ff674549ff6739aa",
+      "fingerprintHash": "234ab315d47db3407a3183d0f497344bdfc9f9d81a329f27c2c903b9b3ca1ca1"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-30:normal-multi-broad-product-context",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "normal-multi-broad-product-context",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "e61a22f27b619d43c6c7119f21aa1202f64a36f610aef8e9e531a36a90940045",
+      "fingerprintHash": "443d21767e36ebf6b8b1fc77c30a2161fb719964d7cfef6e577a159f6c53ecfb"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-31:risk-low-roi-low-order-context",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "risk-low-roi-low-order-context",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "2a6f89f7c277454fc1b2f82696c0cbafe87fe20506693867cd6b44f13d731f7b",
+      "fingerprintHash": "e8c487d129c251f550d1b24890a361ea38cd7a6a1522e73709b1a9b940dedf6d"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-01:normal-high-spend-high-volume",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "normal-high-spend-high-volume",
+      "expectedOutcomeClass": "NORMAL",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NORMAL",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "0d699140f649b51b4d5bffc655b93a1ef68917a113b4e988eb901484479ce66a",
+      "fingerprintHash": "26309189f75ed7e95beb3bcc072cefd80939dbdc642a2b40c7e9dce048def46d"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-02:no-data-commerce-present",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "no-data-commerce-present",
+      "expectedOutcomeClass": "NO_DATA",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "NO_DATA",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "EMPTY_RESULT",
+        "MEDIUM_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "fca0b20105ea97728006edc073228f61ae301af66101adb4539cb94dc5b17bd6",
+      "fingerprintHash": "83431640adaa6fc91d8bef4537da301f55b8c2799344d07655dc8dfe0131a11a"
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-03:risk-low-ctr-high-refund-context",
+      "businessScenario": "ad_anomaly",
+      "businessGoalClass": "广告异常分析",
+      "fixtureStateClass": "risk-low-ctr-high-refund-context",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "CONTROLLED_LAST_DAY_BOUNDARY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "DATE_BOUNDARY",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "317a861c6b6824caf6627ee82e858603dabe3b6cde3d1065e19f6041281d0fb0",
+      "fingerprintHash": "fa970151b06c2f6dce722e9b8dca75097956760366f35570766b056b3fc4446c"
+    },
+    {
+      "semanticRootId": "task:comment_risk:date:2018-08-02:2018-08-02",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "2018-08-02",
+      "fingerprintHash": "e01b98ce57e86a7f2ca577cc0c7a0c4ae6e15c6e0803250b7498370162d8b96b"
+    },
+    {
+      "semanticRootId": "task:comment_risk:date:2018-08-05:2018-08-05",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "2018-08-05",
+      "fingerprintHash": "16d0e987efb9d57e512e365b40aeac5629acf53c055191f32fb9a2859eee68a3"
+    },
+    {
+      "semanticRootId": "task:comment_risk:safe-default",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "AMBIGUOUS|MISSING_PARAMETER",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "SAFE_DEFAULT",
+      "difficultyDimensions": [
+        "AMBIGUOUS",
+        "MISSING_PARAMETER"
+      ],
+      "fixtureStateSignature": "safe-default",
+      "fingerprintHash": "95cc97dae0b5b89c8d96e3e87c3e3dce3403aa73a89c48d173724de49786260e"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-08:empty-comments",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "EMPTY_RESULT|LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "EMPTY",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "EMPTY",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "66c820245a0a65adfc4e",
+      "fingerprintHash": "31ba0b93c61d653462e93cd56137d9d1a5b680a0c226e859fdde35fb1f49c5c7"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-09:low-comment-density",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "d7bcd824313c993a5ffb",
+      "fingerprintHash": "418eabb3f3477a3d0dddba5b0df8f2122267814ee41b070a05d1b1a0c0dd85a1"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-10:low-comment-density",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "7fe65e761f27fcc333f3",
+      "fingerprintHash": "9751aec8f6c7672e5d3b67e685a91ad2cc9ba6f55ad7195965b6419fd44f87da"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-11:empty-comments",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "EMPTY_RESULT",
+      "expectedOutcomeClass": "EMPTY",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "EMPTY",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT"
+      ],
+      "fixtureStateSignature": "f21bff8dc20971fcb35a",
+      "fingerprintHash": "c6b7893a7aa0e38a0fcafc181a251748f92dd6be2abdde3c8fc556d8ce4c6d25"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-13:low-comment-density",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "7a3d6f9831ac65ba4c91",
+      "fingerprintHash": "474019b240120a7e0a6c6b22a7ab98c50638e12c9c1329ca3310d6f303b84646"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-14:empty-comments",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "EMPTY_RESULT|LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "EMPTY",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "EMPTY",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "c72b6b4c640737ffc4eb",
+      "fingerprintHash": "37179e10d6b78391697647ce44a47de12eef755078f462fd77f702966729bbfd"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-15:high-comment-density",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "66e0950a79e9003b5e69",
+      "fingerprintHash": "9097020210c805e49a3b718975dad4efa256aaeb1a52905e39c2bde9ad7198ce"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-16:high-comment-density",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "ab4d649738a33ad5ee7c",
+      "fingerprintHash": "3077c67a53374de344797069b1ef0178c61c56e2691d0435346b435231309c4d"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage2:2018-08-18:empty-comments",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "comment_risk",
+      "fixtureStateClass": "DATE_BOUNDARY|EMPTY_RESULT",
+      "expectedOutcomeClass": "EMPTY",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "EMPTY",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "DATE_BOUNDARY",
+        "EMPTY_RESULT"
+      ],
+      "fixtureStateSignature": "5c3d295d01a0b646b4c3",
+      "fingerprintHash": "c70c53028c42533dcc267e5ce98ec27fb21d8b9131d2d8454e23dc8b9cc6422c"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-19:empty-comments-no-candidates",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "empty-comments-no-candidates",
+      "expectedOutcomeClass": "EMPTY",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "EMPTY",
+      "dateSemantics": "CONTROLLED_FIRST_DAY_BOUNDARY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "DATE_BOUNDARY",
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "f5b4a14844e1129d5a36f4761c62e2dbff98bab85ecfeb905b43b66b17aa10fc",
+      "fingerprintHash": "931c77888018e34d2ff424d307af778da90e4f247c3860463a3bb579f5e8b546"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-20:risk-structure-1-1-1",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "risk-structure-1-1-1",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "12771012257663d73bb4d2eb1ecb2420071a7a8aac48c5c0a5e6fc40c37189cf",
+      "fingerprintHash": "af8ac2c0d1d342c0adaa6f7a59804d214860f5fb1cd6ee7f64970908295066ee"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-21:risk-structure-3-3-4",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "risk-structure-3-3-4",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "cae4fd67e525f72fe6eb2439112af491189170419b864babf244960459013a4a",
+      "fingerprintHash": "7b058eeac8a531c40429cb2ad8a12ffb86e07c1bb6afe6c4d00bbdab16355528"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-22:dominant-product-risk",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "dominant-product-risk",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "90eb24e1dea55278e6443d106595fa8e511eb8a573eb0a55ccde606a990ee6e7",
+      "fingerprintHash": "e5aab8e9a5f99408ea4eaf19a938eb26425dea9c13bf18798e0f5d271477c30f"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-23:empty-commerce-no-comments",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "empty-commerce-no-comments",
+      "expectedOutcomeClass": "EMPTY",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "EMPTY",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "f07f05fbc732fbaa7b725682feb80878ab999f4bd0ec6bc5080ac7e52fedc863",
+      "fingerprintHash": "7e70e0531433fb1bdfebcb4b03b8290c7224ec786934aec42f7fbdfb338eaafd"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-24:empty-comments-products-present",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "empty-comments-products-present",
+      "expectedOutcomeClass": "EMPTY",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "EMPTY",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "f653f9d5b9c342c8802ea5e5e5691a498da7e086d87f358310b8618acf99505b",
+      "fingerprintHash": "d45f798966ce6c5cd05d8ce8e5a273aa0c939de9ff89200f33cd2b5ca22d388f"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-25:low-volume-single-product-risk",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "low-volume-single-product-risk",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "ec55265901a2bb03b5727bc2baeba8880272609f338f3ffda11ea70a087b71fb",
+      "fingerprintHash": "685beae56bfd54decf3a0064b59fa3984d71794a030838904fa11f16b5d24e70"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-26:dominant-product-high-comment-risk",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "dominant-product-high-comment-risk",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "77a091914cb58d2b76fadf295ee7a374cc4c4bc21cbab055cc14703fb8201e74",
+      "fingerprintHash": "1f950e80c707f2e6db020933acbf541fa0d64d425c286adcd68f16bc7fd0ec92"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-27:single-risk-many-candidates",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "single-risk-many-candidates",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "d0076e2c3f6e1bfb2152d23ecd1a9ec578315d89b787ac938bb722510789c16d",
+      "fingerprintHash": "a9b34e502b50569a5abc43a18f957f6804e2555ee4f8e4298c8594efbc677dcc"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-28:distributed-multi-product-risk",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "distributed-multi-product-risk",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "e364534b4b9b756e7b1747ceddcaec287738b3864438ee3dfea5fe6dc219e084",
+      "fingerprintHash": "f5fec79b13fa8b4da19efa9c3895f4a9c81da97b686be6176b732790915abd62"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-29:empty-comments-high-refund-orders",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "empty-comments-high-refund-orders",
+      "expectedOutcomeClass": "EMPTY",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "EMPTY",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "EMPTY_RESULT",
+        "MEDIUM_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "3a96fea64abcc2433033fa24c747bf83beadd50e4d4ca0ad289592bd2d9ee3ea",
+      "fingerprintHash": "8b5ed795b7b1081a9bcde02a7bbac9a68b40aa4e1c2aaa594978020fa5a6cd05"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-30:multi-risk-broad-product-context",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "multi-risk-broad-product-context",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "793f6dd4b970a2f91057330cd3e02ca3d9b61253482e5c7a19beea1b2e64fd3c",
+      "fingerprintHash": "933b5281b91275ab084085b0f32dfed67eaf9021cd1a4f80660f95a7db0935ac"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-31:low-order-two-product-risk",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "low-order-two-product-risk",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "bfb72815b5154363f755b6ad6ddf1d8f48ff49738867b77648c105ae60119f93",
+      "fingerprintHash": "114456a28a6ec4e9d0bb67bf0f15a577e486e5684dda0dddd5b1770286554d78"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-01:high-volume-high-risk-density",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "high-volume-high-risk-density",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "ea8765b78b93b01d50214994cc98dfc0151446228a7c933d5631a6e375bbb60c",
+      "fingerprintHash": "06746ee1d31a04005efe47fa41467c3e5d1a72eb348e5f485ca06f3c968026ad"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-02:two-product-risk",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "two-product-risk",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "62c3efe1c3947cd0df5bdac5f86fcdc3b353082801109fa2d28e892cf19b8daf",
+      "fingerprintHash": "b07c380de3f68c71df3d512292e1de8c5e2af19c03b28558f36046a2300119dc"
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-03:dominant-product-risk",
+      "businessScenario": "comment_risk",
+      "businessGoalClass": "差评风险分析",
+      "fixtureStateClass": "dominant-product-risk",
+      "expectedOutcomeClass": "RISK_FOUND",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates"
+      ],
+      "resultClass": "RISK_FOUND",
+      "dateSemantics": "CONTROLLED_LAST_DAY_BOUNDARY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "DATE_BOUNDARY",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "5fa5486cce8b7ec78d707c2c3c39cddc1f7820b917cdb895a6669295b66f6e36",
+      "fingerprintHash": "817b087e782f6498fbb33f3dfef4c711d8f6af3e944e5830decf6ddb0e74e0fa"
+    },
+    {
+      "semanticRootId": "task:daily_review:date:2018-08-01:2018-08-01",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "2018-08-01",
+      "fingerprintHash": "0781d82aff87786a8c72999f09c069d876257271d419e273a9b9126729cce692"
+    },
+    {
+      "semanticRootId": "task:daily_review:date:2018-08-04:2018-08-04",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "2018-08-04",
+      "fingerprintHash": "3f9ca736e46347b5b17a70c230e261e31748896fe03bdf42e092890b535d7b91"
+    },
+    {
+      "semanticRootId": "task:daily_review:date:2018-08-05:2018-08-05",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "2018-08-05",
+      "fingerprintHash": "8c63e421eec85b24ea822a676f4919ee1b3b162659fd85807457494addbb3fe1"
+    },
+    {
+      "semanticRootId": "task:daily_review:safe-default",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "MISSING_PARAMETER",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "SAFE_DEFAULT",
+      "difficultyDimensions": [
+        "MISSING_PARAMETER"
+      ],
+      "fixtureStateSignature": "safe-default",
+      "fingerprintHash": "e94ea89a390f49f03cc2b17d2304c75bd4a0cdde5def991640e2bb61d580cc52"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-08:partial-business-state",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "LOW_DATA_DENSITY|PARTIAL_DATA",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "f60410751a0c74318b70",
+      "fingerprintHash": "5879aa4659268a1ccd07015e7e78d2657a856f7be035fd4dbb54b695c9dd7d3d"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-10:low",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "240452337f3188557a36",
+      "fingerprintHash": "211471c6fe6fc58b243fb943cdb8a12fdd3e1f0d0e43f2cbfdc804ff9997f905"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-11:partial-business-state",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "PARTIAL_DATA",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "4040d4c14da2b38fbdfd",
+      "fingerprintHash": "7a9df2d4ba4d71669b03214d1a8e1644f096f729603aa16b5aaa38bb8cc56d16"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-12:partial-business-state",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "PARTIAL_DATA",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "9fa67aabd6d1a564680d",
+      "fingerprintHash": "9040a64b51de8e249d362d548e10ab39ba405824fbdd44a0709767dc82810a7c"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-14:partial-business-state",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "LOW_DATA_DENSITY|PARTIAL_DATA",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "0d228bd909f897fe2bc0",
+      "fingerprintHash": "69d04b51d0aa158e9254a92aa96f7347abaa4730441ea3b2cfdd321fbf9641c0"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-15:high",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "bf9f40c859e2b6c9882c",
+      "fingerprintHash": "281b9051ce978afc228651bff576403337e9a222178668ee31e81e1eb62f4823"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-16:high-risk",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "9df92c5360384111341f",
+      "fingerprintHash": "d7b91d8f33914805b4f511c1e0fc1c1b39bb08c8a9424fc106d578cd12f94e33"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-17:partial-business-state",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "LOW_DATA_DENSITY|PARTIAL_DATA",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "a6346cd9cd333488327a",
+      "fingerprintHash": "80f02ac60bf4b5c631255c4662a3b9bf4a49ab3faa992bc2940b969793cf0687"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage2:2018-08-18:partial-business-state",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "daily_review",
+      "fixtureStateClass": "DATE_BOUNDARY|PARTIAL_DATA",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "ad_read",
+        "comment_read",
+        "external_metrics_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "DATE_BOUNDARY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "4f0ac5a0a896bef7a014",
+      "fingerprintHash": "564713e05acd3f8993123bde3f0488aa43bd0702e499607e3189345948d249ed"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-19:healthy-low-empty-comment",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "healthy-low-empty-comment",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "CONTROLLED_FIRST_DAY_BOUNDARY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "DATE_BOUNDARY",
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "29bcc2510be5d49473941cb59c9a78532ed2025c2e9583199064f35909975aab",
+      "fingerprintHash": "991203684305cb9370a9040a152adebd003dbd43b971302fb900ac026a944f06"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-20:single-risk-low-roi",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "single-risk-low-roi",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "cc0254efb8d839dce87aa1441861bb2781478b8c9f3b2b4e96234eeecfe50c91",
+      "fingerprintHash": "208b3cf9a4aa2f054a7ae5ca63834509589bbc010f77ff5d20ff091fe1efd693"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-21:high-volume-distributed-risk",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "high-volume-distributed-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "bc2afc96c0758ef6865d1a915ae2fa5dc61a468e5b444383bde3bb67c951a10f",
+      "fingerprintHash": "4d3f7ad722966e8ed6d54478d7ed43894ed52fabb446a6440d77e93e01154686"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-22:high-refund-dominant-risk",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "high-refund-dominant-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "1d5bf4d31990897135f0d4f581127be5cd1d98c692e4e5bc855743ed7da3d316",
+      "fingerprintHash": "c19b213392828f48fc1bae18a03d0d9aa068a43953a2b97a464c7f426584f4a4"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-23:empty-commerce",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "empty-commerce",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "7b827fd70c5e422b67bbc13187033da8505da308a6660785034e7b0431f5ec79",
+      "fingerprintHash": "277cc7bec3bca392ca9b68b80d638e517f18874de8377baa95b7b6abf057e78a"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-24:comment-empty-products-present",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "comment-empty-products-present",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "58b5aa2cf7ebe0794ca6a594c1a5160a0f69016c98dbd5ead8ef09650b73bb7a",
+      "fingerprintHash": "d38786f86805444d75662735a59c9946483bf96ef0227c9d4aa339cdceffaf5e"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-25:low-volume-linked-risk",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "low-volume-linked-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "86d6371ff923fed17f711aac1eab729b56a97b30a9b071895c079611d7145ad1",
+      "fingerprintHash": "ede5bd6cfa22175932bf47e0976df50daaddf76b0f96571dc241ba747cc75a6d"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-26:dominant-comment-ad-nodata",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "dominant-comment-ad-nodata",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "MEDIUM_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "b1b060815c9b346f8f1b1b3a354b10020ed5a92d2139b88cadac6c24b8a351f6",
+      "fingerprintHash": "550ea64a86aba54f53514f4aa4b98b034fc8dfdb8576c984eb312c99e51c47a8"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-27:many-candidates-single-risk",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "many-candidates-single-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "eca25670fdd7fd2ab7157b988295ac68218ebe5b4e93c1bfc5fad04b9b5cdfdc",
+      "fingerprintHash": "0dc5f3ab445268e34628b72cbce9f3e10437535719caa54594246a9181ca4f04"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-28:distributed-risk-multi-ad",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "distributed-risk-multi-ad",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "c59c3e2909cc4c4e47147e33a075ab4fe949d8453a9b541a3396e37e6ac67fee",
+      "fingerprintHash": "60fd841878654e54de03f1074bcefa336a08ad232ab3671d6abecd5e8ebde62d"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-29:high-refund-empty-comment",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "high-refund-empty-comment",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "MEDIUM_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "92352273b1bc3e7f65c77ad138191452e5035afcd0bc3fb9f4be8253cee021ed",
+      "fingerprintHash": "e78afeb460dc00fe02296008a19c81683fdaf2bf9d9f693ccb899159951fa3e0"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-30:broad-product-multi-risk",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "broad-product-multi-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "40f8e4b5e37a2a3763994da601f2b5afacf55db1b94519b8bb20a640292461e0",
+      "fingerprintHash": "32609ab81fbe707ef6b5a6905b1c8eb7f5b85384837a51469408b9445e4ac458"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-31:low-order-two-risk-low-roi",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "low-order-two-risk-low-roi",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "d1443cc297d34448305efe5f61dc21cb48c9b4b10f3e1d1574dfec36f1d18455",
+      "fingerprintHash": "847839e4c5334d335dcdf0cceae389d9bdec33bf81cf0d39f0d77f08b6bc52b7"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-09-01:high-volume-high-risk",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "high-volume-high-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "e53bf2ea0c3557581556d4418b7bfdb12a9fe1ed677440dfdb954d9c6a152f65",
+      "fingerprintHash": "f43e4a1a7e1eeb18e308417944f0fd0f873a2f9ddf623299144fdbd1b0835297"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-09-02:medium-risk-ad-nodata",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "medium-risk-ad-nodata",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "MEDIUM_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "5da9ef93ba5f8979a0aed4bd2b7a128f30b61a5aac1e58f93540e88cf572a914",
+      "fingerprintHash": "ef00b61a59b40d7ca0c0fefa562aa36023fb2830848e0fe701057fc16f633053"
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-09-03:boundary-mixed-risk-low-ctr",
+      "businessScenario": "daily_review",
+      "businessGoalClass": "经营复盘",
+      "fixtureStateClass": "boundary-mixed-risk-low-ctr",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "negative_comments",
+        "product_candidates",
+        "ad_performance",
+        "external_metrics"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "CONTROLLED_LAST_DAY_BOUNDARY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "DATE_BOUNDARY",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "854e17d5be09ca16b78c45f9822061b8b0c2471a97dec811d74c846a40f1c6c0",
+      "fingerprintHash": "ab5a01c6f7c2967e9121c73025c18fbcd9f011368075243f414cd71f5b817180"
+    },
+    {
+      "semanticRootId": "task:product_optimization:date:2018-08-03:2018-08-03",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "2018-08-03",
+      "fingerprintHash": "9834378460fb6d72735340945e7ffe45032d53ba7503daad59f097292fbb5b21"
+    },
+    {
+      "semanticRootId": "task:product_optimization:date:2018-08-06:2018-08-06",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "2018-08-06",
+      "fingerprintHash": "f1574f5d8c0f33722feef27233b6e377f4ae3edc792f9419151477911d563e8e"
+    },
+    {
+      "semanticRootId": "task:product_optimization:safe-default",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "MISSING_PARAMETER",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "SAFE_DEFAULT",
+      "difficultyDimensions": [
+        "MISSING_PARAMETER"
+      ],
+      "fixtureStateSignature": "safe-default",
+      "fingerprintHash": "86b4963046eab919e746f3a2f9bf7c885de193b0c7586c8d0d0438fb1b3134ec"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-08:no-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "EMPTY_RESULT|LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "2a1f2a84c3b627766e35",
+      "fingerprintHash": "a45cb4504a51e30c5dcaef53dc4f590b08f1e169ba75feee250fdc735ce09347"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-09:multi-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "17caffc9691d20ded5f3",
+      "fingerprintHash": "ebabb4e01187540444abe8cad41f7ba35da7009e6bea553a45a447b98ac2a585"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-10:few-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "c79ff7b569243e625997",
+      "fingerprintHash": "2854dd0dbf6b2014eb383370378fad64fabda30a74619f491046706fee3c2a0d"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-11:multi-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "CLEAN",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "CLEAN"
+      ],
+      "fixtureStateSignature": "e340703984b70635b2c7",
+      "fingerprintHash": "32e8a42339021aaa2c26f5d9b0d7e51e7a7618241908a6e5d3d565c30a75ee9f"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-12:no-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "EMPTY_RESULT",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT"
+      ],
+      "fixtureStateSignature": "4b9dcd26bc6b53b9557f",
+      "fingerprintHash": "ef6cf8eb10c28dc92cdba65f1d0d06235dab8b2909af77a4bc712bcaf257e8ae"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-13:few-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "0717e72a00317103c084",
+      "fingerprintHash": "8bb7f96e8984d0288ac9ddf5e9ac3e5b03e7bbf3766500d948305e84701b5d63"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-14:no-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "EMPTY_RESULT|LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "9562905efa230f2e6bef",
+      "fingerprintHash": "6c94c32d5b7faccb94e0bae159d8004528b5ed912727b47bd106875028d64b3d"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-15:multi-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "e06f42a2634ac26a7446",
+      "fingerprintHash": "edad0020bc2081707d17e7d40cfead3829df7a7710d3677d4b68c8ae2eec5d93"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-16:multi-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "HIGH_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "f4790f50aa1ea1989e46",
+      "fingerprintHash": "3f1e92b9473d5c6f1cde06a88e0810c0ccf84e3074f66e02a77ae8de3c91d5fe"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-17:no-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "EMPTY_RESULT|LOW_DATA_DENSITY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "9a9c92c3513eb2862a30",
+      "fingerprintHash": "bc183b4fbaf1837e0bdc02357827451324bee49285458d9c5260c1de7474a622"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage2:2018-08-18:few-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "product_optimization",
+      "fixtureStateClass": "DATE_BOUNDARY",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "comment_read",
+        "order_read",
+        "product_read",
+        "report_generate"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "DATE_BOUNDARY"
+      ],
+      "fixtureStateSignature": "e078618d40e7eb5ac464",
+      "fingerprintHash": "915ce1f4b066b47250366d00944cf34e7cb2898a94ae62907c4c97b876663eaa"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-19:no-candidate",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "no-candidate",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "CONTROLLED_FIRST_DAY_BOUNDARY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "DATE_BOUNDARY",
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "98af233c4a674fdebe34cbedea268f927d9054174b77e3fd87e591a897af454e",
+      "fingerprintHash": "6a9ad35ae459988874a3bc1b6a9d9644f6e7949c176bbb18f851af27797ef01f"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-20:one-strong-risk-linked-candidate",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "one-strong-risk-linked-candidate",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "326b6b989a2c75e0ce0a2039331ab3dd63181bd9986bb8958d84aa2b5f5f41f1",
+      "fingerprintHash": "220608b1712782de52420ada7c98d6da921bca3501912a79460ea097f1456547"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-21:candidate-structure-4-3-7",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "candidate-structure-4-3-7",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "5c792c2b891bd7fe567f3329c98635f20b6a2be0360265ea20ad1c5525a4ef4b",
+      "fingerprintHash": "a48cee13acad1d9d77cf2f70f4ccf58c1825d4a0f0fec442fc5c8e8e0f888c00"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-22:two-candidates-dominant-risk",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "two-candidates-dominant-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "8cc4b07a8ca783107ce95129a2095bb770994d0b0ae347b309f6c711cf23a0bc",
+      "fingerprintHash": "5422c39217132b0fa1b99cfa6829c590ad455a5aabb087921033793bcca29294"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-23:no-candidate-empty-commerce",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "no-candidate-empty-commerce",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "EMPTY_RESULT",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "212c42dad4ec8312faf4bd5fad6e9cefe56ec0c74f70249169bf6d9d46f7eefa",
+      "fingerprintHash": "5be26c41420a272e3c659db1cbdd66d0c4cc582468b7f96d950090540de5f3b0"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-24:two-candidates-no-comments",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "two-candidates-no-comments",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "cd2071190a362ff2cc958698d93f89b7c42c44b63cf8eb8f8244c484b4216abc",
+      "fingerprintHash": "632f715ab1966f1cd33d182e46e7f19cd6300d1437f67f58527af7aa8b9f0150"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-25:one-low-evidence-candidate",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "one-low-evidence-candidate",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "f5fedc3b6b9724f601767117335dbb2464df04c460721534283310917256e2ad",
+      "fingerprintHash": "9a717a6b60e342d15735938e4b99a9e7a7c7573d53c9345ac847f8a8ea1d5586"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-26:dominant-comment-three-candidates",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "dominant-comment-three-candidates",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "28359949ba23d17086d426553636d775b094a809cb161ccc7c0501a27aacb664",
+      "fingerprintHash": "71c06398a0157b27a93b48111f0ec45ebd7c76cb7d465aa16d5fbb56dbde3327"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-27:many-candidates-single-comment",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "many-candidates-single-comment",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "abeba0be97069ac07bcd1afc47dd95e5e9612e1f560b673f21e1dc4ff7fa31c6",
+      "fingerprintHash": "46c6cdb4606be17f9c71790ee0f2fc6a197ea15932d85493fc5183cf91b09749"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-28:multiple-candidates-distributed-comments",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "multiple-candidates-distributed-comments",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "0440d224ed49ae4b0ef60681b272285cb770adace1a517d23b73942b57f2b61b",
+      "fingerprintHash": "1608ba7d0bc7e0c43000fd664d99efd62c217988d7b31290b460849422a321c0"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-29:single-order-signal-candidate-high-refund",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "single-order-signal-candidate-high-refund",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY",
+        "PARTIAL_DATA"
+      ],
+      "fixtureStateSignature": "e9cf39b8cf380c02678d571d8132561a664231460912ed50a12403522b62ece6",
+      "fingerprintHash": "4d34094f30333b8c48f5498009d0674af9f04d7d97ec17167467e842cdc87466"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-30:broad-candidate-multi-risk",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "broad-candidate-multi-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "f0ba2568b7949ead5e8285dfc9bca27b51e04bb6769e3e1d2aa46c5ffb9eeaa0",
+      "fingerprintHash": "99348774389fa0176c80b50c288610c9accad89bdcbf8256d3a4d7579a1885e6"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-31:two-candidates-low-order-context",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "two-candidates-low-order-context",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "LOW_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "570475f13fe55edcbe9807e098f10090904c04da093a67a10850d7eae4c739c5",
+      "fingerprintHash": "5a758e990930a1d98e1124a360210a5a63d1ddac8c96bea4d110b7509ccb51b8"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-01:high-density-candidate-set",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "high-density-candidate-set",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "HIGH_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "c77dd7ecec41309f3be89f538e47ccd9834f148fcec7cbd4b9250c254d70261b",
+      "fingerprintHash": "1bdea46ab3462c389b57f347e944874b7b4f64f848dcbd5c00551b54a6baf73b"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-02:three-candidates-ad-independent-context",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "three-candidates-ad-independent-context",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "EXPLICIT_SINGLE_DAY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "67779ca10f913f0efd7e2297d0eb655344c2896f80b5b7f3ce29af5b319665b0",
+      "fingerprintHash": "0c8ba34f64cc5cb7c282b28e1dcacf1f6141e41fbcf76814dc1c1d40bacf1b54"
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-03:two-candidates-dominant-risk",
+      "businessScenario": "product_optimization",
+      "businessGoalClass": "商品优化分析",
+      "fixtureStateClass": "two-candidates-dominant-risk",
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "requiredEvidenceSignature": [
+        "order_summary",
+        "product_candidates",
+        "negative_comments"
+      ],
+      "resultClass": "REPORT_SUCCESS",
+      "dateSemantics": "CONTROLLED_LAST_DAY_BOUNDARY",
+      "difficultyDimensions": [
+        "BUSINESS_RESULT_VARIATION",
+        "CLEAN",
+        "DATE_BOUNDARY",
+        "MEDIUM_DATA_DENSITY"
+      ],
+      "fixtureStateSignature": "23f329a9668c7ec2e7ea1be600631eda5415767a418b23c38a21ad12424a19a2",
+      "fingerprintHash": "5d238e71a5f9f3302e1e5a773ddaf53cccdbdec3ebec52382c4952e5179e1ecc"
+    }
+  ]
+}

@@ -1,0 +1,2978 @@
+{
+  "contractVersion": "stage7a-task-gold-proof-v1",
+  "rootCount": 64,
+  "proofs": [
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-19:healthy-low-empty-comment",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-19",
+      "sourceFixtureIds": [
+        "order:2018-08-19",
+        "comments:2018-08-19",
+        "products:2018-08-19",
+        "ad:2018-08-19",
+        "external:2018-08-19"
+      ],
+      "sourceRows": {
+        "date": "2018-08-19",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-19",
+        "orderCount": 75,
+        "gmv": 9900,
+        "refundRate": 0.005,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 0,
+        "candidateProductIds": [],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy single 1"
+        ],
+        "visitorCount": 37700,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "healthy-low-empty-comment"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-19:empty-comments-no-candidates",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-19",
+      "sourceFixtureIds": [
+        "order:2018-08-19",
+        "comments:2018-08-19",
+        "products:2018-08-19",
+        "ad:2018-08-19",
+        "external:2018-08-19"
+      ],
+      "sourceRows": {
+        "date": "2018-08-19",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-19",
+        "orderCount": 75,
+        "gmv": 9900,
+        "refundRate": 0.005,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 0,
+        "candidateProductIds": [],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy single 1"
+        ],
+        "visitorCount": 37700,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "empty-comments-no-candidates"
+      },
+      "expectedOutcomeClass": "EMPTY",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-19:no-candidate",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-19",
+      "sourceFixtureIds": [
+        "order:2018-08-19",
+        "comments:2018-08-19",
+        "products:2018-08-19",
+        "ad:2018-08-19",
+        "external:2018-08-19"
+      ],
+      "sourceRows": {
+        "date": "2018-08-19",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-19",
+        "orderCount": 75,
+        "gmv": 9900,
+        "refundRate": 0.005,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 0,
+        "candidateProductIds": [],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy single 1"
+        ],
+        "visitorCount": 37700,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "no-candidate"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-19:normal-single-low-spend",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-19",
+      "sourceFixtureIds": [
+        "order:2018-08-19",
+        "comments:2018-08-19",
+        "products:2018-08-19",
+        "ad:2018-08-19",
+        "external:2018-08-19"
+      ],
+      "sourceRows": {
+        "date": "2018-08-19",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-19",
+        "orderCount": 75,
+        "gmv": 9900,
+        "refundRate": 0.005,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 0,
+        "candidateProductIds": [],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy single 1"
+        ],
+        "visitorCount": 37700,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "normal-single-low-spend"
+      },
+      "expectedOutcomeClass": "NORMAL",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-20:single-risk-low-roi",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-20",
+      "sourceFixtureIds": [
+        "order:2018-08-20",
+        "comments:2018-08-20",
+        "products:2018-08-20",
+        "ad:2018-08-20",
+        "external:2018-08-20"
+      ],
+      "sourceRows": {
+        "date": "2018-08-20",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-20",
+        "orderCount": 210,
+        "gmv": 31080,
+        "refundRate": 0.012,
+        "negativeCount": 1,
+        "riskProductIds": [
+          "P201"
+        ],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P201"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-roi 2"
+        ],
+        "visitorCount": 39400,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "single-risk-low-roi"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-20:risk-structure-1-1-1",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-20",
+      "sourceFixtureIds": [
+        "order:2018-08-20",
+        "comments:2018-08-20",
+        "products:2018-08-20",
+        "ad:2018-08-20",
+        "external:2018-08-20"
+      ],
+      "sourceRows": {
+        "date": "2018-08-20",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-20",
+        "orderCount": 210,
+        "gmv": 31080,
+        "refundRate": 0.012,
+        "negativeCount": 1,
+        "riskProductIds": [
+          "P201"
+        ],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P201"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-roi 2"
+        ],
+        "visitorCount": 39400,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "risk-structure-1-1-1"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-20:one-strong-risk-linked-candidate",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-20",
+      "sourceFixtureIds": [
+        "order:2018-08-20",
+        "comments:2018-08-20",
+        "products:2018-08-20",
+        "ad:2018-08-20",
+        "external:2018-08-20"
+      ],
+      "sourceRows": {
+        "date": "2018-08-20",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-20",
+        "orderCount": 210,
+        "gmv": 31080,
+        "refundRate": 0.012,
+        "negativeCount": 1,
+        "riskProductIds": [
+          "P201"
+        ],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P201"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-roi 2"
+        ],
+        "visitorCount": 39400,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "one-strong-risk-linked-candidate"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-20:risk-single-low-roi",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-20",
+      "sourceFixtureIds": [
+        "order:2018-08-20",
+        "comments:2018-08-20",
+        "products:2018-08-20",
+        "ad:2018-08-20",
+        "external:2018-08-20"
+      ],
+      "sourceRows": {
+        "date": "2018-08-20",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-20",
+        "orderCount": 210,
+        "gmv": 31080,
+        "refundRate": 0.012,
+        "negativeCount": 1,
+        "riskProductIds": [
+          "P201"
+        ],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P201"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-roi 2"
+        ],
+        "visitorCount": 39400,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "risk-single-low-roi"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-21:high-volume-distributed-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-21",
+      "sourceFixtureIds": [
+        "order:2018-08-21",
+        "comments:2018-08-21",
+        "products:2018-08-21",
+        "ad:2018-08-21",
+        "external:2018-08-21"
+      ],
+      "sourceRows": {
+        "date": "2018-08-21",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-21",
+        "orderCount": 720,
+        "gmv": 123120,
+        "refundRate": 0.009,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P202",
+          "P203",
+          "P204"
+        ],
+        "candidateCount": 4,
+        "candidateProductIds": [
+          "P202",
+          "P203",
+          "P204",
+          "P205"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 3A",
+          "S7A healthy 3B",
+          "S7A healthy 3C"
+        ],
+        "visitorCount": 41100,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "high-volume-distributed-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-21:risk-structure-3-3-4",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-21",
+      "sourceFixtureIds": [
+        "order:2018-08-21",
+        "comments:2018-08-21",
+        "products:2018-08-21",
+        "ad:2018-08-21",
+        "external:2018-08-21"
+      ],
+      "sourceRows": {
+        "date": "2018-08-21",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-21",
+        "orderCount": 720,
+        "gmv": 123120,
+        "refundRate": 0.009,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P202",
+          "P203",
+          "P204"
+        ],
+        "candidateCount": 4,
+        "candidateProductIds": [
+          "P202",
+          "P203",
+          "P204",
+          "P205"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 3A",
+          "S7A healthy 3B",
+          "S7A healthy 3C"
+        ],
+        "visitorCount": 41100,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "risk-structure-3-3-4"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-21:candidate-structure-4-3-7",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-21",
+      "sourceFixtureIds": [
+        "order:2018-08-21",
+        "comments:2018-08-21",
+        "products:2018-08-21",
+        "ad:2018-08-21",
+        "external:2018-08-21"
+      ],
+      "sourceRows": {
+        "date": "2018-08-21",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-21",
+        "orderCount": 720,
+        "gmv": 123120,
+        "refundRate": 0.009,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P202",
+          "P203",
+          "P204"
+        ],
+        "candidateCount": 4,
+        "candidateProductIds": [
+          "P202",
+          "P203",
+          "P204",
+          "P205"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 3A",
+          "S7A healthy 3B",
+          "S7A healthy 3C"
+        ],
+        "visitorCount": 41100,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "candidate-structure-4-3-7"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-21:normal-multi-high-volume",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-21",
+      "sourceFixtureIds": [
+        "order:2018-08-21",
+        "comments:2018-08-21",
+        "products:2018-08-21",
+        "ad:2018-08-21",
+        "external:2018-08-21"
+      ],
+      "sourceRows": {
+        "date": "2018-08-21",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-21",
+        "orderCount": 720,
+        "gmv": 123120,
+        "refundRate": 0.009,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P202",
+          "P203",
+          "P204"
+        ],
+        "candidateCount": 4,
+        "candidateProductIds": [
+          "P202",
+          "P203",
+          "P204",
+          "P205"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 3A",
+          "S7A healthy 3B",
+          "S7A healthy 3C"
+        ],
+        "visitorCount": 41100,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "normal-multi-high-volume"
+      },
+      "expectedOutcomeClass": "NORMAL",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-22:high-refund-dominant-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-22",
+      "sourceFixtureIds": [
+        "order:2018-08-22",
+        "comments:2018-08-22",
+        "products:2018-08-22",
+        "ad:2018-08-22",
+        "external:2018-08-22"
+      ],
+      "sourceRows": {
+        "date": "2018-08-22",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-22",
+        "orderCount": 360,
+        "gmv": 59040,
+        "refundRate": 0.075,
+        "negativeCount": 4,
+        "riskProductIds": [
+          "P206",
+          "P207"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P206",
+          "P207"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-ctr 4"
+        ],
+        "visitorCount": 42800,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "high-refund-dominant-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-22:dominant-product-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-22",
+      "sourceFixtureIds": [
+        "order:2018-08-22",
+        "comments:2018-08-22",
+        "products:2018-08-22",
+        "ad:2018-08-22",
+        "external:2018-08-22"
+      ],
+      "sourceRows": {
+        "date": "2018-08-22",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-22",
+        "orderCount": 360,
+        "gmv": 59040,
+        "refundRate": 0.075,
+        "negativeCount": 4,
+        "riskProductIds": [
+          "P206",
+          "P207"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P206",
+          "P207"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-ctr 4"
+        ],
+        "visitorCount": 42800,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "dominant-product-risk"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-22:two-candidates-dominant-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-22",
+      "sourceFixtureIds": [
+        "order:2018-08-22",
+        "comments:2018-08-22",
+        "products:2018-08-22",
+        "ad:2018-08-22",
+        "external:2018-08-22"
+      ],
+      "sourceRows": {
+        "date": "2018-08-22",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-22",
+        "orderCount": 360,
+        "gmv": 59040,
+        "refundRate": 0.075,
+        "negativeCount": 4,
+        "riskProductIds": [
+          "P206",
+          "P207"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P206",
+          "P207"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-ctr 4"
+        ],
+        "visitorCount": 42800,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "two-candidates-dominant-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-22:risk-low-ctr-high-refund-context",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-22",
+      "sourceFixtureIds": [
+        "order:2018-08-22",
+        "comments:2018-08-22",
+        "products:2018-08-22",
+        "ad:2018-08-22",
+        "external:2018-08-22"
+      ],
+      "sourceRows": {
+        "date": "2018-08-22",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-22",
+        "orderCount": 360,
+        "gmv": 59040,
+        "refundRate": 0.075,
+        "negativeCount": 4,
+        "riskProductIds": [
+          "P206",
+          "P207"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P206",
+          "P207"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-ctr 4"
+        ],
+        "visitorCount": 42800,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "risk-low-ctr-high-refund-context"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-23:empty-commerce",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-23",
+      "sourceFixtureIds": [
+        "order:2018-08-23",
+        "comments:2018-08-23",
+        "products:2018-08-23",
+        "ad:2018-08-23",
+        "external:2018-08-23"
+      ],
+      "sourceRows": {
+        "date": "2018-08-23",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-23",
+        "orderCount": 0,
+        "gmv": 0,
+        "refundRate": 0.0,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 0,
+        "candidateProductIds": [],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 44500,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "empty-commerce"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-23:empty-commerce-no-comments",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-23",
+      "sourceFixtureIds": [
+        "order:2018-08-23",
+        "comments:2018-08-23",
+        "products:2018-08-23",
+        "ad:2018-08-23",
+        "external:2018-08-23"
+      ],
+      "sourceRows": {
+        "date": "2018-08-23",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-23",
+        "orderCount": 0,
+        "gmv": 0,
+        "refundRate": 0.0,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 0,
+        "candidateProductIds": [],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 44500,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "empty-commerce-no-comments"
+      },
+      "expectedOutcomeClass": "EMPTY",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-23:no-candidate-empty-commerce",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-23",
+      "sourceFixtureIds": [
+        "order:2018-08-23",
+        "comments:2018-08-23",
+        "products:2018-08-23",
+        "ad:2018-08-23",
+        "external:2018-08-23"
+      ],
+      "sourceRows": {
+        "date": "2018-08-23",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-23",
+        "orderCount": 0,
+        "gmv": 0,
+        "refundRate": 0.0,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 0,
+        "candidateProductIds": [],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 44500,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "no-candidate-empty-commerce"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-23:no-data-empty-commerce",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-23",
+      "sourceFixtureIds": [
+        "order:2018-08-23",
+        "comments:2018-08-23",
+        "products:2018-08-23",
+        "ad:2018-08-23",
+        "external:2018-08-23"
+      ],
+      "sourceRows": {
+        "date": "2018-08-23",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-23",
+        "orderCount": 0,
+        "gmv": 0,
+        "refundRate": 0.0,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 0,
+        "candidateProductIds": [],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 44500,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "no-data-empty-commerce"
+      },
+      "expectedOutcomeClass": "NO_DATA",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-24:comment-empty-products-present",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-24",
+      "sourceFixtureIds": [
+        "order:2018-08-24",
+        "comments:2018-08-24",
+        "products:2018-08-24",
+        "ad:2018-08-24",
+        "external:2018-08-24"
+      ],
+      "sourceRows": {
+        "date": "2018-08-24",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-24",
+        "orderCount": 140,
+        "gmv": 19460,
+        "refundRate": 0.01,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P208",
+          "P209"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 6A",
+          "S7A healthy 6B",
+          "S7A healthy 6C"
+        ],
+        "visitorCount": 46200,
+        "externalConversionRate": 0.037,
+        "densityProfile": "LOW",
+        "businessStateClass": "comment-empty-products-present"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-24:empty-comments-products-present",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-24",
+      "sourceFixtureIds": [
+        "order:2018-08-24",
+        "comments:2018-08-24",
+        "products:2018-08-24",
+        "ad:2018-08-24",
+        "external:2018-08-24"
+      ],
+      "sourceRows": {
+        "date": "2018-08-24",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-24",
+        "orderCount": 140,
+        "gmv": 19460,
+        "refundRate": 0.01,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P208",
+          "P209"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 6A",
+          "S7A healthy 6B",
+          "S7A healthy 6C"
+        ],
+        "visitorCount": 46200,
+        "externalConversionRate": 0.037,
+        "densityProfile": "LOW",
+        "businessStateClass": "empty-comments-products-present"
+      },
+      "expectedOutcomeClass": "EMPTY",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-24:two-candidates-no-comments",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-24",
+      "sourceFixtureIds": [
+        "order:2018-08-24",
+        "comments:2018-08-24",
+        "products:2018-08-24",
+        "ad:2018-08-24",
+        "external:2018-08-24"
+      ],
+      "sourceRows": {
+        "date": "2018-08-24",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-24",
+        "orderCount": 140,
+        "gmv": 19460,
+        "refundRate": 0.01,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P208",
+          "P209"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 6A",
+          "S7A healthy 6B",
+          "S7A healthy 6C"
+        ],
+        "visitorCount": 46200,
+        "externalConversionRate": 0.037,
+        "densityProfile": "LOW",
+        "businessStateClass": "two-candidates-no-comments"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-24:normal-multi-medium-volume",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-24",
+      "sourceFixtureIds": [
+        "order:2018-08-24",
+        "comments:2018-08-24",
+        "products:2018-08-24",
+        "ad:2018-08-24",
+        "external:2018-08-24"
+      ],
+      "sourceRows": {
+        "date": "2018-08-24",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-24",
+        "orderCount": 140,
+        "gmv": 19460,
+        "refundRate": 0.01,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P208",
+          "P209"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 6A",
+          "S7A healthy 6B",
+          "S7A healthy 6C"
+        ],
+        "visitorCount": 46200,
+        "externalConversionRate": 0.037,
+        "densityProfile": "LOW",
+        "businessStateClass": "normal-multi-medium-volume"
+      },
+      "expectedOutcomeClass": "NORMAL",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-25:low-volume-linked-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-25",
+      "sourceFixtureIds": [
+        "order:2018-08-25",
+        "comments:2018-08-25",
+        "products:2018-08-25",
+        "ad:2018-08-25",
+        "external:2018-08-25"
+      ],
+      "sourceRows": {
+        "date": "2018-08-25",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-25",
+        "orderCount": 42,
+        "gmv": 5334,
+        "refundRate": 0.0,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P210"
+        ],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P210"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A healthy-main 7",
+          "S7A risky-child 7"
+        ],
+        "visitorCount": 47900,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "low-volume-linked-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-25:low-volume-single-product-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-25",
+      "sourceFixtureIds": [
+        "order:2018-08-25",
+        "comments:2018-08-25",
+        "products:2018-08-25",
+        "ad:2018-08-25",
+        "external:2018-08-25"
+      ],
+      "sourceRows": {
+        "date": "2018-08-25",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-25",
+        "orderCount": 42,
+        "gmv": 5334,
+        "refundRate": 0.0,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P210"
+        ],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P210"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A healthy-main 7",
+          "S7A risky-child 7"
+        ],
+        "visitorCount": 47900,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "low-volume-single-product-risk"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-25:one-low-evidence-candidate",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-25",
+      "sourceFixtureIds": [
+        "order:2018-08-25",
+        "comments:2018-08-25",
+        "products:2018-08-25",
+        "ad:2018-08-25",
+        "external:2018-08-25"
+      ],
+      "sourceRows": {
+        "date": "2018-08-25",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-25",
+        "orderCount": 42,
+        "gmv": 5334,
+        "refundRate": 0.0,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P210"
+        ],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P210"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A healthy-main 7",
+          "S7A risky-child 7"
+        ],
+        "visitorCount": 47900,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "one-low-evidence-candidate"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-25:risk-child-campaign-low-roi",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-25",
+      "sourceFixtureIds": [
+        "order:2018-08-25",
+        "comments:2018-08-25",
+        "products:2018-08-25",
+        "ad:2018-08-25",
+        "external:2018-08-25"
+      ],
+      "sourceRows": {
+        "date": "2018-08-25",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-25",
+        "orderCount": 42,
+        "gmv": 5334,
+        "refundRate": 0.0,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P210"
+        ],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P210"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A healthy-main 7",
+          "S7A risky-child 7"
+        ],
+        "visitorCount": 47900,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "risk-child-campaign-low-roi"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-26:dominant-comment-ad-nodata",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-26",
+      "sourceFixtureIds": [
+        "order:2018-08-26",
+        "comments:2018-08-26",
+        "products:2018-08-26",
+        "ad:2018-08-26",
+        "external:2018-08-26"
+      ],
+      "sourceRows": {
+        "date": "2018-08-26",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-26",
+        "orderCount": 295,
+        "gmv": 46610,
+        "refundRate": 0.018,
+        "negativeCount": 5,
+        "riskProductIds": [
+          "P211",
+          "P212"
+        ],
+        "candidateCount": 3,
+        "candidateProductIds": [
+          "P211",
+          "P212",
+          "P213"
+        ],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 49600,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "dominant-comment-ad-nodata"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-26:dominant-product-high-comment-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-26",
+      "sourceFixtureIds": [
+        "order:2018-08-26",
+        "comments:2018-08-26",
+        "products:2018-08-26",
+        "ad:2018-08-26",
+        "external:2018-08-26"
+      ],
+      "sourceRows": {
+        "date": "2018-08-26",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-26",
+        "orderCount": 295,
+        "gmv": 46610,
+        "refundRate": 0.018,
+        "negativeCount": 5,
+        "riskProductIds": [
+          "P211",
+          "P212"
+        ],
+        "candidateCount": 3,
+        "candidateProductIds": [
+          "P211",
+          "P212",
+          "P213"
+        ],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 49600,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "dominant-product-high-comment-risk"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-26:dominant-comment-three-candidates",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-26",
+      "sourceFixtureIds": [
+        "order:2018-08-26",
+        "comments:2018-08-26",
+        "products:2018-08-26",
+        "ad:2018-08-26",
+        "external:2018-08-26"
+      ],
+      "sourceRows": {
+        "date": "2018-08-26",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-26",
+        "orderCount": 295,
+        "gmv": 46610,
+        "refundRate": 0.018,
+        "negativeCount": 5,
+        "riskProductIds": [
+          "P211",
+          "P212"
+        ],
+        "candidateCount": 3,
+        "candidateProductIds": [
+          "P211",
+          "P212",
+          "P213"
+        ],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 49600,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "dominant-comment-three-candidates"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-26:no-data-commerce-with-comment-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-26",
+      "sourceFixtureIds": [
+        "order:2018-08-26",
+        "comments:2018-08-26",
+        "products:2018-08-26",
+        "ad:2018-08-26",
+        "external:2018-08-26"
+      ],
+      "sourceRows": {
+        "date": "2018-08-26",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-26",
+        "orderCount": 295,
+        "gmv": 46610,
+        "refundRate": 0.018,
+        "negativeCount": 5,
+        "riskProductIds": [
+          "P211",
+          "P212"
+        ],
+        "candidateCount": 3,
+        "candidateProductIds": [
+          "P211",
+          "P212",
+          "P213"
+        ],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 49600,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "no-data-commerce-with-comment-risk"
+      },
+      "expectedOutcomeClass": "NO_DATA",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-27:many-candidates-single-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-27",
+      "sourceFixtureIds": [
+        "order:2018-08-27",
+        "comments:2018-08-27",
+        "products:2018-08-27",
+        "ad:2018-08-27",
+        "external:2018-08-27"
+      ],
+      "sourceRows": {
+        "date": "2018-08-27",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-27",
+        "orderCount": 610,
+        "gmv": 107360,
+        "refundRate": 0.011,
+        "negativeCount": 1,
+        "riskProductIds": [
+          "P214"
+        ],
+        "candidateCount": 5,
+        "candidateProductIds": [
+          "P214",
+          "P215",
+          "P216",
+          "P217",
+          "P218"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A healthy-main 9",
+          "S7A risky-child 9"
+        ],
+        "visitorCount": 51300,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "many-candidates-single-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-27:single-risk-many-candidates",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-27",
+      "sourceFixtureIds": [
+        "order:2018-08-27",
+        "comments:2018-08-27",
+        "products:2018-08-27",
+        "ad:2018-08-27",
+        "external:2018-08-27"
+      ],
+      "sourceRows": {
+        "date": "2018-08-27",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-27",
+        "orderCount": 610,
+        "gmv": 107360,
+        "refundRate": 0.011,
+        "negativeCount": 1,
+        "riskProductIds": [
+          "P214"
+        ],
+        "candidateCount": 5,
+        "candidateProductIds": [
+          "P214",
+          "P215",
+          "P216",
+          "P217",
+          "P218"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A healthy-main 9",
+          "S7A risky-child 9"
+        ],
+        "visitorCount": 51300,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "single-risk-many-candidates"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-27:many-candidates-single-comment",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-27",
+      "sourceFixtureIds": [
+        "order:2018-08-27",
+        "comments:2018-08-27",
+        "products:2018-08-27",
+        "ad:2018-08-27",
+        "external:2018-08-27"
+      ],
+      "sourceRows": {
+        "date": "2018-08-27",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-27",
+        "orderCount": 610,
+        "gmv": 107360,
+        "refundRate": 0.011,
+        "negativeCount": 1,
+        "riskProductIds": [
+          "P214"
+        ],
+        "candidateCount": 5,
+        "candidateProductIds": [
+          "P214",
+          "P215",
+          "P216",
+          "P217",
+          "P218"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A healthy-main 9",
+          "S7A risky-child 9"
+        ],
+        "visitorCount": 51300,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "many-candidates-single-comment"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-27:risk-child-campaign-many-products",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-27",
+      "sourceFixtureIds": [
+        "order:2018-08-27",
+        "comments:2018-08-27",
+        "products:2018-08-27",
+        "ad:2018-08-27",
+        "external:2018-08-27"
+      ],
+      "sourceRows": {
+        "date": "2018-08-27",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-27",
+        "orderCount": 610,
+        "gmv": 107360,
+        "refundRate": 0.011,
+        "negativeCount": 1,
+        "riskProductIds": [
+          "P214"
+        ],
+        "candidateCount": 5,
+        "candidateProductIds": [
+          "P214",
+          "P215",
+          "P216",
+          "P217",
+          "P218"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A healthy-main 9",
+          "S7A risky-child 9"
+        ],
+        "visitorCount": 51300,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "risk-child-campaign-many-products"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-28:distributed-risk-multi-ad",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-28",
+      "sourceFixtureIds": [
+        "order:2018-08-28",
+        "comments:2018-08-28",
+        "products:2018-08-28",
+        "ad:2018-08-28",
+        "external:2018-08-28"
+      ],
+      "sourceRows": {
+        "date": "2018-08-28",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-28",
+        "orderCount": 185,
+        "gmv": 27935,
+        "refundRate": 0.024,
+        "negativeCount": 4,
+        "riskProductIds": [
+          "P219",
+          "P220",
+          "P221",
+          "P222"
+        ],
+        "candidateCount": 4,
+        "candidateProductIds": [
+          "P219",
+          "P220",
+          "P221",
+          "P222"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A risk 10A",
+          "S7A risk 10B"
+        ],
+        "visitorCount": 53000,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "distributed-risk-multi-ad"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-28:distributed-multi-product-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-28",
+      "sourceFixtureIds": [
+        "order:2018-08-28",
+        "comments:2018-08-28",
+        "products:2018-08-28",
+        "ad:2018-08-28",
+        "external:2018-08-28"
+      ],
+      "sourceRows": {
+        "date": "2018-08-28",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-28",
+        "orderCount": 185,
+        "gmv": 27935,
+        "refundRate": 0.024,
+        "negativeCount": 4,
+        "riskProductIds": [
+          "P219",
+          "P220",
+          "P221",
+          "P222"
+        ],
+        "candidateCount": 4,
+        "candidateProductIds": [
+          "P219",
+          "P220",
+          "P221",
+          "P222"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A risk 10A",
+          "S7A risk 10B"
+        ],
+        "visitorCount": 53000,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "distributed-multi-product-risk"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-28:multiple-candidates-distributed-comments",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-28",
+      "sourceFixtureIds": [
+        "order:2018-08-28",
+        "comments:2018-08-28",
+        "products:2018-08-28",
+        "ad:2018-08-28",
+        "external:2018-08-28"
+      ],
+      "sourceRows": {
+        "date": "2018-08-28",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-28",
+        "orderCount": 185,
+        "gmv": 27935,
+        "refundRate": 0.024,
+        "negativeCount": 4,
+        "riskProductIds": [
+          "P219",
+          "P220",
+          "P221",
+          "P222"
+        ],
+        "candidateCount": 4,
+        "candidateProductIds": [
+          "P219",
+          "P220",
+          "P221",
+          "P222"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A risk 10A",
+          "S7A risk 10B"
+        ],
+        "visitorCount": 53000,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "multiple-candidates-distributed-comments"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-28:risk-multiple-signals",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-28",
+      "sourceFixtureIds": [
+        "order:2018-08-28",
+        "comments:2018-08-28",
+        "products:2018-08-28",
+        "ad:2018-08-28",
+        "external:2018-08-28"
+      ],
+      "sourceRows": {
+        "date": "2018-08-28",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-28",
+        "orderCount": 185,
+        "gmv": 27935,
+        "refundRate": 0.024,
+        "negativeCount": 4,
+        "riskProductIds": [
+          "P219",
+          "P220",
+          "P221",
+          "P222"
+        ],
+        "candidateCount": 4,
+        "candidateProductIds": [
+          "P219",
+          "P220",
+          "P221",
+          "P222"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A risk 10A",
+          "S7A risk 10B"
+        ],
+        "visitorCount": 53000,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "risk-multiple-signals"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-29:high-refund-empty-comment",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-29",
+      "sourceFixtureIds": [
+        "order:2018-08-29",
+        "comments:2018-08-29",
+        "products:2018-08-29",
+        "ad:2018-08-29",
+        "external:2018-08-29"
+      ],
+      "sourceRows": {
+        "date": "2018-08-29",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-29",
+        "orderCount": 430,
+        "gmv": 72670,
+        "refundRate": 0.085,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P223"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A high-spend healthy 11A",
+          "S7A high-spend healthy 11B"
+        ],
+        "visitorCount": 54700,
+        "externalConversionRate": 0.048,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "high-refund-empty-comment"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-29:empty-comments-high-refund-orders",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-29",
+      "sourceFixtureIds": [
+        "order:2018-08-29",
+        "comments:2018-08-29",
+        "products:2018-08-29",
+        "ad:2018-08-29",
+        "external:2018-08-29"
+      ],
+      "sourceRows": {
+        "date": "2018-08-29",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-29",
+        "orderCount": 430,
+        "gmv": 72670,
+        "refundRate": 0.085,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P223"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A high-spend healthy 11A",
+          "S7A high-spend healthy 11B"
+        ],
+        "visitorCount": 54700,
+        "externalConversionRate": 0.048,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "empty-comments-high-refund-orders"
+      },
+      "expectedOutcomeClass": "EMPTY",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-29:single-order-signal-candidate-high-refund",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-29",
+      "sourceFixtureIds": [
+        "order:2018-08-29",
+        "comments:2018-08-29",
+        "products:2018-08-29",
+        "ad:2018-08-29",
+        "external:2018-08-29"
+      ],
+      "sourceRows": {
+        "date": "2018-08-29",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-29",
+        "orderCount": 430,
+        "gmv": 72670,
+        "refundRate": 0.085,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P223"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A high-spend healthy 11A",
+          "S7A high-spend healthy 11B"
+        ],
+        "visitorCount": 54700,
+        "externalConversionRate": 0.048,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "single-order-signal-candidate-high-refund"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-29:normal-high-spend-no-comment-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-29",
+      "sourceFixtureIds": [
+        "order:2018-08-29",
+        "comments:2018-08-29",
+        "products:2018-08-29",
+        "ad:2018-08-29",
+        "external:2018-08-29"
+      ],
+      "sourceRows": {
+        "date": "2018-08-29",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-29",
+        "orderCount": 430,
+        "gmv": 72670,
+        "refundRate": 0.085,
+        "negativeCount": 0,
+        "riskProductIds": [],
+        "candidateCount": 1,
+        "candidateProductIds": [
+          "P223"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A high-spend healthy 11A",
+          "S7A high-spend healthy 11B"
+        ],
+        "visitorCount": 54700,
+        "externalConversionRate": 0.048,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "normal-high-spend-no-comment-risk"
+      },
+      "expectedOutcomeClass": "NORMAL",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-30:broad-product-multi-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-30",
+      "sourceFixtureIds": [
+        "order:2018-08-30",
+        "comments:2018-08-30",
+        "products:2018-08-30",
+        "ad:2018-08-30",
+        "external:2018-08-30"
+      ],
+      "sourceRows": {
+        "date": "2018-08-30",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-30",
+        "orderCount": 325,
+        "gmv": 50050,
+        "refundRate": 0.02,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P224",
+          "P225",
+          "P226"
+        ],
+        "candidateCount": 6,
+        "candidateProductIds": [
+          "P224",
+          "P225",
+          "P226",
+          "P227",
+          "P228",
+          "P229"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 12A",
+          "S7A healthy 12B",
+          "S7A healthy 12C"
+        ],
+        "visitorCount": 56400,
+        "externalConversionRate": 0.03,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "broad-product-multi-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-30:multi-risk-broad-product-context",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-30",
+      "sourceFixtureIds": [
+        "order:2018-08-30",
+        "comments:2018-08-30",
+        "products:2018-08-30",
+        "ad:2018-08-30",
+        "external:2018-08-30"
+      ],
+      "sourceRows": {
+        "date": "2018-08-30",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-30",
+        "orderCount": 325,
+        "gmv": 50050,
+        "refundRate": 0.02,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P224",
+          "P225",
+          "P226"
+        ],
+        "candidateCount": 6,
+        "candidateProductIds": [
+          "P224",
+          "P225",
+          "P226",
+          "P227",
+          "P228",
+          "P229"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 12A",
+          "S7A healthy 12B",
+          "S7A healthy 12C"
+        ],
+        "visitorCount": 56400,
+        "externalConversionRate": 0.03,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "multi-risk-broad-product-context"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-30:broad-candidate-multi-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-30",
+      "sourceFixtureIds": [
+        "order:2018-08-30",
+        "comments:2018-08-30",
+        "products:2018-08-30",
+        "ad:2018-08-30",
+        "external:2018-08-30"
+      ],
+      "sourceRows": {
+        "date": "2018-08-30",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-30",
+        "orderCount": 325,
+        "gmv": 50050,
+        "refundRate": 0.02,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P224",
+          "P225",
+          "P226"
+        ],
+        "candidateCount": 6,
+        "candidateProductIds": [
+          "P224",
+          "P225",
+          "P226",
+          "P227",
+          "P228",
+          "P229"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 12A",
+          "S7A healthy 12B",
+          "S7A healthy 12C"
+        ],
+        "visitorCount": 56400,
+        "externalConversionRate": 0.03,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "broad-candidate-multi-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-30:normal-multi-broad-product-context",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-30",
+      "sourceFixtureIds": [
+        "order:2018-08-30",
+        "comments:2018-08-30",
+        "products:2018-08-30",
+        "ad:2018-08-30",
+        "external:2018-08-30"
+      ],
+      "sourceRows": {
+        "date": "2018-08-30",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-30",
+        "orderCount": 325,
+        "gmv": 50050,
+        "refundRate": 0.02,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P224",
+          "P225",
+          "P226"
+        ],
+        "candidateCount": 6,
+        "candidateProductIds": [
+          "P224",
+          "P225",
+          "P226",
+          "P227",
+          "P228",
+          "P229"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A healthy 12A",
+          "S7A healthy 12B",
+          "S7A healthy 12C"
+        ],
+        "visitorCount": 56400,
+        "externalConversionRate": 0.03,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "normal-multi-broad-product-context"
+      },
+      "expectedOutcomeClass": "NORMAL",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-08-31:low-order-two-risk-low-roi",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-31",
+      "sourceFixtureIds": [
+        "order:2018-08-31",
+        "comments:2018-08-31",
+        "products:2018-08-31",
+        "ad:2018-08-31",
+        "external:2018-08-31"
+      ],
+      "sourceRows": {
+        "date": "2018-08-31",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-31",
+        "orderCount": 58,
+        "gmv": 7888,
+        "refundRate": 0.034,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P230",
+          "P231"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P230",
+          "P231"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-roi 13"
+        ],
+        "visitorCount": 58100,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "low-order-two-risk-low-roi"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-08-31:low-order-two-product-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-31",
+      "sourceFixtureIds": [
+        "order:2018-08-31",
+        "comments:2018-08-31",
+        "products:2018-08-31",
+        "ad:2018-08-31",
+        "external:2018-08-31"
+      ],
+      "sourceRows": {
+        "date": "2018-08-31",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-31",
+        "orderCount": 58,
+        "gmv": 7888,
+        "refundRate": 0.034,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P230",
+          "P231"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P230",
+          "P231"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-roi 13"
+        ],
+        "visitorCount": 58100,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "low-order-two-product-risk"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-08-31:two-candidates-low-order-context",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-31",
+      "sourceFixtureIds": [
+        "order:2018-08-31",
+        "comments:2018-08-31",
+        "products:2018-08-31",
+        "ad:2018-08-31",
+        "external:2018-08-31"
+      ],
+      "sourceRows": {
+        "date": "2018-08-31",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-31",
+        "orderCount": 58,
+        "gmv": 7888,
+        "refundRate": 0.034,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P230",
+          "P231"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P230",
+          "P231"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-roi 13"
+        ],
+        "visitorCount": 58100,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "two-candidates-low-order-context"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-08-31:risk-low-roi-low-order-context",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-08-31",
+      "sourceFixtureIds": [
+        "order:2018-08-31",
+        "comments:2018-08-31",
+        "products:2018-08-31",
+        "ad:2018-08-31",
+        "external:2018-08-31"
+      ],
+      "sourceRows": {
+        "date": "2018-08-31",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-08-31",
+        "orderCount": 58,
+        "gmv": 7888,
+        "refundRate": 0.034,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P230",
+          "P231"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P230",
+          "P231"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-roi 13"
+        ],
+        "visitorCount": 58100,
+        "externalConversionRate": 0.03,
+        "densityProfile": "LOW",
+        "businessStateClass": "risk-low-roi-low-order-context"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-09-01:high-volume-high-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-01",
+      "sourceFixtureIds": [
+        "order:2018-09-01",
+        "comments:2018-09-01",
+        "products:2018-09-01",
+        "ad:2018-09-01",
+        "external:2018-09-01"
+      ],
+      "sourceRows": {
+        "date": "2018-09-01",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-01",
+        "orderCount": 790,
+        "gmv": 137460,
+        "refundRate": 0.052,
+        "negativeCount": 6,
+        "riskProductIds": [
+          "P232",
+          "P233",
+          "P234",
+          "P235",
+          "P236"
+        ],
+        "candidateCount": 8,
+        "candidateProductIds": [
+          "P232",
+          "P233",
+          "P234",
+          "P235",
+          "P236",
+          "P237",
+          "P238",
+          "P239"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A high-spend healthy 14A",
+          "S7A high-spend healthy 14B"
+        ],
+        "visitorCount": 59800,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "high-volume-high-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-01:high-volume-high-risk-density",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-01",
+      "sourceFixtureIds": [
+        "order:2018-09-01",
+        "comments:2018-09-01",
+        "products:2018-09-01",
+        "ad:2018-09-01",
+        "external:2018-09-01"
+      ],
+      "sourceRows": {
+        "date": "2018-09-01",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-01",
+        "orderCount": 790,
+        "gmv": 137460,
+        "refundRate": 0.052,
+        "negativeCount": 6,
+        "riskProductIds": [
+          "P232",
+          "P233",
+          "P234",
+          "P235",
+          "P236"
+        ],
+        "candidateCount": 8,
+        "candidateProductIds": [
+          "P232",
+          "P233",
+          "P234",
+          "P235",
+          "P236",
+          "P237",
+          "P238",
+          "P239"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A high-spend healthy 14A",
+          "S7A high-spend healthy 14B"
+        ],
+        "visitorCount": 59800,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "high-volume-high-risk-density"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-01:high-density-candidate-set",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-01",
+      "sourceFixtureIds": [
+        "order:2018-09-01",
+        "comments:2018-09-01",
+        "products:2018-09-01",
+        "ad:2018-09-01",
+        "external:2018-09-01"
+      ],
+      "sourceRows": {
+        "date": "2018-09-01",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-01",
+        "orderCount": 790,
+        "gmv": 137460,
+        "refundRate": 0.052,
+        "negativeCount": 6,
+        "riskProductIds": [
+          "P232",
+          "P233",
+          "P234",
+          "P235",
+          "P236"
+        ],
+        "candidateCount": 8,
+        "candidateProductIds": [
+          "P232",
+          "P233",
+          "P234",
+          "P235",
+          "P236",
+          "P237",
+          "P238",
+          "P239"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A high-spend healthy 14A",
+          "S7A high-spend healthy 14B"
+        ],
+        "visitorCount": 59800,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "high-density-candidate-set"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-01:normal-high-spend-high-volume",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-01",
+      "sourceFixtureIds": [
+        "order:2018-09-01",
+        "comments:2018-09-01",
+        "products:2018-09-01",
+        "ad:2018-09-01",
+        "external:2018-09-01"
+      ],
+      "sourceRows": {
+        "date": "2018-09-01",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-01",
+        "orderCount": 790,
+        "gmv": 137460,
+        "refundRate": 0.052,
+        "negativeCount": 6,
+        "riskProductIds": [
+          "P232",
+          "P233",
+          "P234",
+          "P235",
+          "P236"
+        ],
+        "candidateCount": 8,
+        "candidateProductIds": [
+          "P232",
+          "P233",
+          "P234",
+          "P235",
+          "P236",
+          "P237",
+          "P238",
+          "P239"
+        ],
+        "adResultClass": "NORMAL",
+        "adCampaignNames": [
+          "S7A high-spend healthy 14A",
+          "S7A high-spend healthy 14B"
+        ],
+        "visitorCount": 59800,
+        "externalConversionRate": 0.048,
+        "densityProfile": "HIGH",
+        "businessStateClass": "normal-high-spend-high-volume"
+      },
+      "expectedOutcomeClass": "NORMAL",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-09-02:medium-risk-ad-nodata",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-02",
+      "sourceFixtureIds": [
+        "order:2018-09-02",
+        "comments:2018-09-02",
+        "products:2018-09-02",
+        "ad:2018-09-02",
+        "external:2018-09-02"
+      ],
+      "sourceRows": {
+        "date": "2018-09-02",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-02",
+        "orderCount": 275,
+        "gmv": 44275,
+        "refundRate": 0.026,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P240",
+          "P241"
+        ],
+        "candidateCount": 3,
+        "candidateProductIds": [
+          "P240",
+          "P241",
+          "P242"
+        ],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 61500,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "medium-risk-ad-nodata"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-02:two-product-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-02",
+      "sourceFixtureIds": [
+        "order:2018-09-02",
+        "comments:2018-09-02",
+        "products:2018-09-02",
+        "ad:2018-09-02",
+        "external:2018-09-02"
+      ],
+      "sourceRows": {
+        "date": "2018-09-02",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-02",
+        "orderCount": 275,
+        "gmv": 44275,
+        "refundRate": 0.026,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P240",
+          "P241"
+        ],
+        "candidateCount": 3,
+        "candidateProductIds": [
+          "P240",
+          "P241",
+          "P242"
+        ],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 61500,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "two-product-risk"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-02:three-candidates-ad-independent-context",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-02",
+      "sourceFixtureIds": [
+        "order:2018-09-02",
+        "comments:2018-09-02",
+        "products:2018-09-02",
+        "ad:2018-09-02",
+        "external:2018-09-02"
+      ],
+      "sourceRows": {
+        "date": "2018-09-02",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-02",
+        "orderCount": 275,
+        "gmv": 44275,
+        "refundRate": 0.026,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P240",
+          "P241"
+        ],
+        "candidateCount": 3,
+        "candidateProductIds": [
+          "P240",
+          "P241",
+          "P242"
+        ],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 61500,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "three-candidates-ad-independent-context"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-02:no-data-commerce-present",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-02",
+      "sourceFixtureIds": [
+        "order:2018-09-02",
+        "comments:2018-09-02",
+        "products:2018-09-02",
+        "ad:2018-09-02",
+        "external:2018-09-02"
+      ],
+      "sourceRows": {
+        "date": "2018-09-02",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-02",
+        "orderCount": 275,
+        "gmv": 44275,
+        "refundRate": 0.026,
+        "negativeCount": 2,
+        "riskProductIds": [
+          "P240",
+          "P241"
+        ],
+        "candidateCount": 3,
+        "candidateProductIds": [
+          "P240",
+          "P241",
+          "P242"
+        ],
+        "adResultClass": "NO_DATA",
+        "adCampaignNames": [],
+        "visitorCount": 61500,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "no-data-commerce-present"
+      },
+      "expectedOutcomeClass": "NO_DATA",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:daily_review:stage7a:2018-09-03:boundary-mixed-risk-low-ctr",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-03",
+      "sourceFixtureIds": [
+        "order:2018-09-03",
+        "comments:2018-09-03",
+        "products:2018-09-03",
+        "ad:2018-09-03",
+        "external:2018-09-03"
+      ],
+      "sourceRows": {
+        "date": "2018-09-03",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-03",
+        "orderCount": 345,
+        "gmv": 57270,
+        "refundRate": 0.061,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P243",
+          "P244"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P243",
+          "P244"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-ctr 16"
+        ],
+        "visitorCount": 63200,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "boundary-mixed-risk-low-ctr"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:comment_risk:stage7a:2018-09-03:dominant-product-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-03",
+      "sourceFixtureIds": [
+        "order:2018-09-03",
+        "comments:2018-09-03",
+        "products:2018-09-03",
+        "ad:2018-09-03",
+        "external:2018-09-03"
+      ],
+      "sourceRows": {
+        "date": "2018-09-03",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-03",
+        "orderCount": 345,
+        "gmv": 57270,
+        "refundRate": 0.061,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P243",
+          "P244"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P243",
+          "P244"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-ctr 16"
+        ],
+        "visitorCount": 63200,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "dominant-product-risk"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:product_optimization:stage7a:2018-09-03:two-candidates-dominant-risk",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-03",
+      "sourceFixtureIds": [
+        "order:2018-09-03",
+        "comments:2018-09-03",
+        "products:2018-09-03",
+        "ad:2018-09-03",
+        "external:2018-09-03"
+      ],
+      "sourceRows": {
+        "date": "2018-09-03",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-03",
+        "orderCount": 345,
+        "gmv": 57270,
+        "refundRate": 0.061,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P243",
+          "P244"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P243",
+          "P244"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-ctr 16"
+        ],
+        "visitorCount": 63200,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "two-candidates-dominant-risk"
+      },
+      "expectedOutcomeClass": "REPORT_SUCCESS",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    },
+    {
+      "semanticRootId": "task:ad_anomaly:stage7a:2018-09-03:risk-low-ctr-high-refund-context",
+      "fixtureSourceType": "CONTROLLED_SYNTHETIC_FIXTURE",
+      "fixtureSource": "benchmark/v1/task/fixtures/stage7a/*::2018-09-03",
+      "sourceFixtureIds": [
+        "order:2018-09-03",
+        "comments:2018-09-03",
+        "products:2018-09-03",
+        "ad:2018-09-03",
+        "external:2018-09-03"
+      ],
+      "sourceRows": {
+        "date": "2018-09-03",
+        "tenantId": 1,
+        "shopId": 1
+      },
+      "derivedFacts": {
+        "date": "2018-09-03",
+        "orderCount": 345,
+        "gmv": 57270,
+        "refundRate": 0.061,
+        "negativeCount": 3,
+        "riskProductIds": [
+          "P243",
+          "P244"
+        ],
+        "candidateCount": 2,
+        "candidateProductIds": [
+          "P243",
+          "P244"
+        ],
+        "adResultClass": "RISK_FOUND",
+        "adCampaignNames": [
+          "S7A low-ctr 16"
+        ],
+        "visitorCount": 63200,
+        "externalConversionRate": 0.037,
+        "densityProfile": "MEDIUM",
+        "businessStateClass": "risk-low-ctr-high-refund-context"
+      },
+      "expectedOutcomeClass": "RISK_FOUND",
+      "derivationMethod": "stage7a-reference-oracle-v1(raw fixture only)",
+      "derivationVersion": "stage7a-reference-oracle-v1",
+      "agentOutputUsed": false,
+      "productionBusinessServiceUsed": false
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "defectVersion": "stage8a-review-defects-v1",
+  "status": "PENDING_HUMAN_REVIEW",
+  "defectCount": 0,
+  "taxonomy": [
+    "QUERY_UNREALISTIC",
+    "QUERY_LEAKAGE",
+    "FIXTURE_IMPLAUSIBLE",
+    "FIXTURE_INVALID",
+    "GOLD_INCORRECT",
+    "GOLD_INCOMPLETE",
+    "GOLD_OVERBROAD",
+    "GOLD_AMBIGUOUS",
+    "SEMANTIC_DUPLICATE",
+    "WRONG_ROOT_ASSIGNMENT",
+    "WRONG_SPLIT",
+    "POLICY_SOURCE_INCORRECT",
+    "POSITIVE_CONTROL_NOT_LEGITIMATE",
+    "PAIR_NOT_SYMMETRIC",
+    "OTHER"
+  ],
+  "defects": []
+}

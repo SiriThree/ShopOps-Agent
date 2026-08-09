@@ -1,0 +1,181 @@
+{
+  "before": {
+    "cases": 56,
+    "roots": 46,
+    "positiveRoots": 22,
+    "negativeRoots": 24,
+    "trueTestExclusiveRoots": 18,
+    "testPositiveRoots": 12,
+    "testNegativeRoots": 6
+  },
+  "after": {
+    "cases": 106,
+    "roots": 96,
+    "positiveRoots": 47,
+    "negativeRoots": 49,
+    "trueTestExclusiveRoots": 54,
+    "testPositiveRoots": 28,
+    "testNegativeRoots": 26
+  },
+  "splits": {
+    "dev": {
+      "cases": 22,
+      "roots": 18
+    },
+    "validation": {
+      "cases": 30,
+      "roots": 24
+    },
+    "test": {
+      "cases": 54,
+      "roots": 54
+    }
+  },
+  "candidate": {
+    "proposed": 90,
+    "accepted": 50,
+    "rejected": 40,
+    "revised": 14,
+    "adjudicated": 18,
+    "rejectionTaxonomy": {
+      "REJECTED_NEAR_DUPLICATE": 11,
+      "REJECTED_NO_FIXTURE": 8,
+      "REJECTED_UNSUPPORTED_RUNTIME": 2,
+      "REJECTED_NOT_SEMANTICALLY_DISTINCT": 15,
+      "REJECTED_GOLD_AMBIGUOUS": 1,
+      "REJECTED_EVALUATOR_UNOBSERVABLE": 3
+    }
+  },
+  "classCases": {
+    "NEGATIVE": 56,
+    "POSITIVE": 50
+  },
+  "decisionDistribution": {
+    "BLOCKED": 55,
+    "REQUIRES_APPROVAL": 19,
+    "ALLOWED": 32
+  },
+  "policyFamilyCoverage": {
+    "IDENTITY": {
+      "cases": 13,
+      "roots": 11,
+      "testRoots": 4
+    },
+    "PERMISSION": {
+      "cases": 34,
+      "roots": 32,
+      "testRoots": 18
+    },
+    "APPROVAL": {
+      "cases": 20,
+      "roots": 16,
+      "testRoots": 8
+    },
+    "SCHEMA": {
+      "cases": 30,
+      "roots": 29,
+      "testRoots": 17
+    },
+    "CAPABILITY": {
+      "cases": 2,
+      "roots": 1,
+      "testRoots": 0
+    },
+    "BUSINESS_SCOPE": {
+      "cases": 3,
+      "roots": 3,
+      "testRoots": 3
+    },
+    "ECONOMIC_BOUNDARY": {
+      "cases": 4,
+      "roots": 4,
+      "testRoots": 4
+    }
+  },
+  "positiveControlCoverage": {
+    "LEGITIMATE_READ": {
+      "cases": 20,
+      "roots": 19,
+      "testRoots": 9
+    },
+    "LEGITIMATE_MEDIUM_RISK": {
+      "cases": 6,
+      "roots": 6,
+      "testRoots": 3
+    },
+    "LEGITIMATE_HIGH_RISK_PREAPPROVAL": {
+      "cases": 18,
+      "roots": 17,
+      "testRoots": 12
+    },
+    "LEGITIMATE_APPROVED_WRITE": {
+      "cases": 6,
+      "roots": 5,
+      "testRoots": 4
+    },
+    "LEGITIMATE_SCHEMA_BOUNDARY": {
+      "cases": 9,
+      "roots": 9,
+      "testRoots": 5
+    },
+    "LEGITIMATE_BUSINESS_SCOPE": {
+      "cases": 1,
+      "roots": 1,
+      "testRoots": 1
+    },
+    "LEGITIMATE_ECONOMIC_BOUNDARY": {
+      "cases": 3,
+      "roots": 3,
+      "testRoots": 3
+    },
+    "LEGITIMATE_PERMISSION_SNAPSHOT": {
+      "cases": 3,
+      "roots": 3,
+      "testRoots": 3
+    },
+    "LEGITIMATE_IDEMPOTENT_REPLAY": {
+      "cases": 1,
+      "roots": 1,
+      "testRoots": 1
+    },
+    "LEGITIMATE_MCP_READ": {
+      "cases": 6,
+      "roots": 5,
+      "testRoots": 3
+    }
+  },
+  "pairCoverage": {
+    "pairRows": 50,
+    "uniquePolicyBoundaryLabels": 20,
+    "policyFamiliesWithPairs": [
+      "APPROVAL",
+      "BUSINESS_SCOPE",
+      "ECONOMIC_BOUNDARY",
+      "IDENTITY",
+      "PERMISSION",
+      "SCHEMA"
+    ],
+    "negativeRootsWithPositivePair": 43,
+    "positiveRootsWithNegativePair": 31,
+    "unpairedNegativeRoots": 6,
+    "unpairedPositiveRoots": 16
+  },
+  "fixtureProvenance": {
+    "POLICY_CONTRACT_FIXTURE": 37,
+    "REAL_SEED_REUSE": 13
+  },
+  "goldProvenance": {
+    "SECURITY_POLICY_DERIVED": 106
+  },
+  "caseRootRatio": 1.1041666666666667,
+  "newCaseNewRootRatio": 1.0,
+  "humanReviewQueueCount": 60,
+  "nearDuplicate": {
+    "candidatePairs": 913,
+    "sameRoot": 10,
+    "keepDistinct": 834,
+    "keepDistinctPairedControl": 69,
+    "rejectedAtPairReview": 0,
+    "unresolved": 0
+  }
+}

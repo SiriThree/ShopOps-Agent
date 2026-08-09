@@ -1,0 +1,664 @@
+{
+  "contractVersion": "stage5-idempotency-near-duplicate-review-v1",
+  "candidateCount": 82,
+  "reviewedCount": 82,
+  "unresolvedCount": 0,
+  "decisions": [
+    {
+      "leftCaseId": "idem-dev-baseline-001",
+      "rightCaseId": "idem-val-external-idempotent-comparison-001",
+      "similarity": 0.724832,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SINGLE != SEQUENTIAL_RETRY; faultSemantics: NONE != IDEMPOTENT_EXTERNAL_CONTROL; externalMode: NON_IDEMPOTENT_EXTERNAL != IDEMPOTENT_EXTERNAL"
+    },
+    {
+      "leftCaseId": "idem-dev-concurrent-retry-001",
+      "rightCaseId": "stage5-idem-test-concurrent-timeout-after-001",
+      "similarity": 0.818182,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != TIMEOUT_AFTER_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "stage5-idem-test-conflict-response-loss-001",
+      "similarity": 0.8,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_COMMIT_RESPONSE_LOSS; faultSemantics: NONE != RESPONSE_LOSS_AFTER_LOCAL_COMMIT"
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "stage5-idem-test-conflict-terminal-failure-001",
+      "similarity": 0.806818,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_TERMINAL_FAILURE; faultSemantics: NONE != EXTERNAL_BUSINESS_FAILURE; expectedEffects: 1 != 0"
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "stage5-idem-test-conflict-timeout-after-001",
+      "similarity": 0.771277,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT; faultSemantics: NONE != TIMEOUT_AFTER_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "stage5-idem-val-conflict-local-failure-001",
+      "similarity": 0.783784,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE; faultSemantics: NONE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "stage5-idem-val-conflict-timeout-before-001",
+      "similarity": 0.720812,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT; faultSemantics: NONE != TIMEOUT_BEFORE_ACCEPTANCE; expectedEffects: 1 != 0"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-test-external-success-local-failure-001",
+      "similarity": 0.790123,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-val-external-idempotent-comparison-001",
+      "similarity": 0.840278,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != IDEMPOTENT_EXTERNAL_CONTROL; externalMode: NON_IDEMPOTENT_EXTERNAL != IDEMPOTENT_EXTERNAL"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-val-external-success-local-failure-001",
+      "similarity": 0.790123,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-val-response-loss-after-confirm-001",
+      "similarity": 0.79375,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != RESPONSE_LOSS_AFTER_LOCAL_COMMIT"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-val-timeout-before-success-001",
+      "similarity": 0.810127,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != TIMEOUT_BEFORE_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-dev-timeout-after-success-001",
+      "rightCaseId": "idem-val-external-idempotent-comparison-001",
+      "similarity": 0.737805,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != IDEMPOTENT_EXTERNAL_CONTROL; externalMode: NON_IDEMPOTENT_EXTERNAL != IDEMPOTENT_EXTERNAL"
+    },
+    {
+      "leftCaseId": "idem-dev-timeout-after-success-001",
+      "rightCaseId": "idem-val-response-loss-after-confirm-001",
+      "similarity": 0.744318,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != RESPONSE_LOSS_AFTER_LOCAL_COMMIT"
+    },
+    {
+      "leftCaseId": "idem-dev-timeout-after-success-001",
+      "rightCaseId": "idem-val-timeout-before-success-001",
+      "similarity": 0.9125,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != TIMEOUT_BEFORE_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-dev-timeout-after-success-001",
+      "rightCaseId": "stage5-idem-test-concurrent-timeout-after-001",
+      "similarity": 0.776471,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_RETRY != CONCURRENT_FIRST_WRITE"
+    },
+    {
+      "leftCaseId": "idem-dev-timeout-after-success-001",
+      "rightCaseId": "stage5-idem-test-conflict-timeout-after-001",
+      "similarity": 0.777778,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SEQUENTIAL_RETRY != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT"
+    },
+    {
+      "leftCaseId": "idem-test-baseline-001",
+      "rightCaseId": "idem-val-external-idempotent-comparison-001",
+      "similarity": 0.724832,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SINGLE != SEQUENTIAL_RETRY; faultSemantics: NONE != IDEMPOTENT_EXTERNAL_CONTROL; externalMode: NON_IDEMPOTENT_EXTERNAL != IDEMPOTENT_EXTERNAL"
+    },
+    {
+      "leftCaseId": "idem-test-concurrent-retry-001",
+      "rightCaseId": "stage5-idem-test-concurrent-timeout-after-001",
+      "similarity": 0.818182,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != TIMEOUT_AFTER_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-test-payload-conflict-001",
+      "rightCaseId": "stage5-idem-test-conflict-response-loss-001",
+      "similarity": 0.8,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_COMMIT_RESPONSE_LOSS; faultSemantics: NONE != RESPONSE_LOSS_AFTER_LOCAL_COMMIT"
+    },
+    {
+      "leftCaseId": "idem-test-payload-conflict-001",
+      "rightCaseId": "stage5-idem-test-conflict-terminal-failure-001",
+      "similarity": 0.806818,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_TERMINAL_FAILURE; faultSemantics: NONE != EXTERNAL_BUSINESS_FAILURE; expectedEffects: 1 != 0"
+    },
+    {
+      "leftCaseId": "idem-test-payload-conflict-001",
+      "rightCaseId": "stage5-idem-test-conflict-timeout-after-001",
+      "similarity": 0.771277,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT; faultSemantics: NONE != TIMEOUT_AFTER_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-test-payload-conflict-001",
+      "rightCaseId": "stage5-idem-val-conflict-local-failure-001",
+      "similarity": 0.783784,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE; faultSemantics: NONE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-test-payload-conflict-001",
+      "rightCaseId": "stage5-idem-val-conflict-timeout-before-001",
+      "similarity": 0.720812,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT; faultSemantics: NONE != TIMEOUT_BEFORE_ACCEPTANCE; expectedEffects: 1 != 0"
+    },
+    {
+      "leftCaseId": "idem-test-sequential-retry-001",
+      "rightCaseId": "idem-test-external-success-local-failure-001",
+      "similarity": 0.790123,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-test-sequential-retry-001",
+      "rightCaseId": "idem-val-external-idempotent-comparison-001",
+      "similarity": 0.840278,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != IDEMPOTENT_EXTERNAL_CONTROL; externalMode: NON_IDEMPOTENT_EXTERNAL != IDEMPOTENT_EXTERNAL"
+    },
+    {
+      "leftCaseId": "idem-test-sequential-retry-001",
+      "rightCaseId": "idem-val-external-success-local-failure-001",
+      "similarity": 0.790123,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-test-sequential-retry-001",
+      "rightCaseId": "idem-val-response-loss-after-confirm-001",
+      "similarity": 0.79375,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != RESPONSE_LOSS_AFTER_LOCAL_COMMIT"
+    },
+    {
+      "leftCaseId": "idem-test-sequential-retry-001",
+      "rightCaseId": "idem-val-timeout-before-success-001",
+      "similarity": 0.810127,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != TIMEOUT_BEFORE_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-test-timeout-after-success-001",
+      "rightCaseId": "idem-val-external-idempotent-comparison-001",
+      "similarity": 0.737805,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != IDEMPOTENT_EXTERNAL_CONTROL; externalMode: NON_IDEMPOTENT_EXTERNAL != IDEMPOTENT_EXTERNAL"
+    },
+    {
+      "leftCaseId": "idem-test-timeout-after-success-001",
+      "rightCaseId": "idem-val-response-loss-after-confirm-001",
+      "similarity": 0.744318,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != RESPONSE_LOSS_AFTER_LOCAL_COMMIT"
+    },
+    {
+      "leftCaseId": "idem-test-timeout-after-success-001",
+      "rightCaseId": "idem-val-timeout-before-success-001",
+      "similarity": 0.9125,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != TIMEOUT_BEFORE_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-test-timeout-after-success-001",
+      "rightCaseId": "stage5-idem-test-concurrent-timeout-after-001",
+      "similarity": 0.776471,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_RETRY != CONCURRENT_FIRST_WRITE"
+    },
+    {
+      "leftCaseId": "idem-test-timeout-after-success-001",
+      "rightCaseId": "stage5-idem-test-conflict-timeout-after-001",
+      "similarity": 0.777778,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SEQUENTIAL_RETRY != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT"
+    },
+    {
+      "leftCaseId": "stage5-idem-dev-concurrent-local-failure-001",
+      "rightCaseId": "idem-test-external-success-local-failure-001",
+      "similarity": 0.798851,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: CONCURRENT_FIRST_WRITE != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "stage5-idem-dev-concurrent-local-failure-001",
+      "rightCaseId": "idem-val-external-success-local-failure-001",
+      "similarity": 0.798851,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: CONCURRENT_FIRST_WRITE != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-response-loss-001",
+      "rightCaseId": "idem-val-response-loss-after-confirm-001",
+      "similarity": 0.833333,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: DIFFERENT_BUSINESS_PAYLOAD != SAME_PAYLOAD; repeatPattern: SEQUENTIAL_CONFLICT_AFTER_COMMIT_RESPONSE_LOSS != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-response-loss-001",
+      "rightCaseId": "stage5-idem-val-conflict-local-failure-001",
+      "similarity": 0.762376,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT_AFTER_COMMIT_RESPONSE_LOSS != SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE; faultSemantics: RESPONSE_LOSS_AFTER_LOCAL_COMMIT != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-terminal-failure-001",
+      "rightCaseId": "stage5-idem-val-conflict-local-failure-001",
+      "similarity": 0.822917,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT_AFTER_TERMINAL_FAILURE != SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE; faultSemantics: EXTERNAL_BUSINESS_FAILURE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE; expectedEffects: 0 != 1"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-terminal-failure-001",
+      "rightCaseId": "stage5-idem-val-conflict-timeout-before-001",
+      "similarity": 0.725962,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT_AFTER_TERMINAL_FAILURE != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT; faultSemantics: EXTERNAL_BUSINESS_FAILURE != TIMEOUT_BEFORE_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-timeout-after-001",
+      "rightCaseId": "idem-val-timeout-before-success-001",
+      "similarity": 0.72449,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: DIFFERENT_BUSINESS_PAYLOAD != SAME_PAYLOAD; repeatPattern: SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT != SEQUENTIAL_RETRY; faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != TIMEOUT_BEFORE_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-timeout-after-001",
+      "rightCaseId": "stage5-idem-val-conflict-timeout-before-001",
+      "similarity": 0.927835,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != TIMEOUT_BEFORE_ACCEPTANCE; expectedEffects: 1 != 0"
+    },
+    {
+      "leftCaseId": "idem-dev-baseline-001",
+      "rightCaseId": "idem-dev-concurrent-retry-001",
+      "similarity": 0.788732,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SINGLE != CONCURRENT_FIRST_WRITE"
+    },
+    {
+      "leftCaseId": "idem-dev-baseline-001",
+      "rightCaseId": "idem-dev-payload-conflict-001",
+      "similarity": 0.772727,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SINGLE != SEQUENTIAL_CONFLICT"
+    },
+    {
+      "leftCaseId": "idem-dev-baseline-001",
+      "rightCaseId": "idem-dev-sequential-retry-001",
+      "similarity": 0.868613,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SINGLE != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-dev-baseline-001",
+      "rightCaseId": "idem-test-baseline-001",
+      "similarity": 1.0,
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same business payload/key relation, repeat/fault causality and expected effect semantics; differences are fixture/workload variants only."
+    },
+    {
+      "leftCaseId": "idem-dev-baseline-001",
+      "rightCaseId": "idem-test-concurrent-retry-001",
+      "similarity": 0.788732,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SINGLE != CONCURRENT_FIRST_WRITE"
+    },
+    {
+      "leftCaseId": "idem-dev-baseline-001",
+      "rightCaseId": "idem-test-payload-conflict-001",
+      "similarity": 0.772727,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SINGLE != SEQUENTIAL_CONFLICT"
+    },
+    {
+      "leftCaseId": "idem-dev-baseline-001",
+      "rightCaseId": "idem-test-sequential-retry-001",
+      "similarity": 0.868613,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SINGLE != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-dev-concurrent-retry-001",
+      "rightCaseId": "idem-dev-sequential-retry-001",
+      "similarity": 0.746667,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: CONCURRENT_FIRST_WRITE != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-dev-concurrent-retry-001",
+      "rightCaseId": "idem-test-baseline-001",
+      "similarity": 0.788732,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: CONCURRENT_FIRST_WRITE != SINGLE"
+    },
+    {
+      "leftCaseId": "idem-dev-concurrent-retry-001",
+      "rightCaseId": "idem-test-concurrent-retry-001",
+      "similarity": 1.0,
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same business payload/key relation, repeat/fault causality and expected effect semantics; differences are fixture/workload variants only."
+    },
+    {
+      "leftCaseId": "idem-dev-concurrent-retry-001",
+      "rightCaseId": "idem-test-sequential-retry-001",
+      "similarity": 0.746667,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: CONCURRENT_FIRST_WRITE != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-dev-concurrent-retry-001",
+      "rightCaseId": "stage5-idem-dev-concurrent-local-failure-001",
+      "similarity": 0.792453,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "idem-dev-sequential-retry-001",
+      "similarity": 0.812903,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: DIFFERENT_BUSINESS_PAYLOAD != SAME_PAYLOAD; repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "idem-test-baseline-001",
+      "similarity": 0.772727,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: DIFFERENT_BUSINESS_PAYLOAD != SAME_PAYLOAD; repeatPattern: SEQUENTIAL_CONFLICT != SINGLE"
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "idem-test-payload-conflict-001",
+      "similarity": 1.0,
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same business payload/key relation, repeat/fault causality and expected effect semantics; differences are fixture/workload variants only."
+    },
+    {
+      "leftCaseId": "idem-dev-payload-conflict-001",
+      "rightCaseId": "idem-test-sequential-retry-001",
+      "similarity": 0.812903,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: DIFFERENT_BUSINESS_PAYLOAD != SAME_PAYLOAD; repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-dev-timeout-after-success-001",
+      "similarity": 0.820513,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != TIMEOUT_AFTER_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-test-baseline-001",
+      "similarity": 0.868613,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_RETRY != SINGLE"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-test-concurrent-retry-001",
+      "similarity": 0.746667,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_RETRY != CONCURRENT_FIRST_WRITE"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-test-payload-conflict-001",
+      "similarity": 0.812903,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SEQUENTIAL_RETRY != SEQUENTIAL_CONFLICT"
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-test-sequential-retry-001",
+      "similarity": 1.0,
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same business payload/key relation, repeat/fault causality and expected effect semantics; differences are fixture/workload variants only."
+    },
+    {
+      "leftCaseId": "idem-dev-sequential-retry-001",
+      "rightCaseId": "idem-test-timeout-after-success-001",
+      "similarity": 0.820513,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != TIMEOUT_AFTER_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-dev-timeout-after-success-001",
+      "rightCaseId": "idem-test-sequential-retry-001",
+      "similarity": 0.820513,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: TIMEOUT_AFTER_ACCEPTANCE != NONE"
+    },
+    {
+      "leftCaseId": "idem-dev-timeout-after-success-001",
+      "rightCaseId": "idem-test-timeout-after-success-001",
+      "similarity": 1.0,
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same business payload/key relation, repeat/fault causality and expected effect semantics; differences are fixture/workload variants only."
+    },
+    {
+      "leftCaseId": "idem-test-baseline-001",
+      "rightCaseId": "idem-test-concurrent-retry-001",
+      "similarity": 0.788732,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SINGLE != CONCURRENT_FIRST_WRITE"
+    },
+    {
+      "leftCaseId": "idem-test-baseline-001",
+      "rightCaseId": "idem-test-payload-conflict-001",
+      "similarity": 0.772727,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SINGLE != SEQUENTIAL_CONFLICT"
+    },
+    {
+      "leftCaseId": "idem-test-baseline-001",
+      "rightCaseId": "idem-test-sequential-retry-001",
+      "similarity": 0.868613,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SINGLE != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-test-concurrent-retry-001",
+      "rightCaseId": "idem-test-sequential-retry-001",
+      "similarity": 0.746667,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: CONCURRENT_FIRST_WRITE != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-test-concurrent-retry-001",
+      "rightCaseId": "stage5-idem-dev-concurrent-local-failure-001",
+      "similarity": 0.792453,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != EXTERNAL_SUCCESS_LOCAL_PERSIST_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-test-external-success-local-failure-001",
+      "rightCaseId": "idem-val-external-success-local-failure-001",
+      "similarity": 1.0,
+      "reviewDecision": "SAME_ROOT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Same business payload/key relation, repeat/fault causality and expected effect semantics; differences are fixture/workload variants only."
+    },
+    {
+      "leftCaseId": "idem-test-external-success-local-failure-001",
+      "rightCaseId": "stage5-idem-val-conflict-local-failure-001",
+      "similarity": 0.812834,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SEQUENTIAL_RETRY != SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-test-payload-conflict-001",
+      "rightCaseId": "idem-test-sequential-retry-001",
+      "similarity": 0.812903,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: DIFFERENT_BUSINESS_PAYLOAD != SAME_PAYLOAD; repeatPattern: SEQUENTIAL_CONFLICT != SEQUENTIAL_RETRY"
+    },
+    {
+      "leftCaseId": "idem-test-sequential-retry-001",
+      "rightCaseId": "idem-test-timeout-after-success-001",
+      "similarity": 0.820513,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: NONE != TIMEOUT_AFTER_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "idem-val-external-idempotent-comparison-001",
+      "rightCaseId": "idem-val-response-loss-after-confirm-001",
+      "similarity": 0.745455,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: IDEMPOTENT_EXTERNAL_CONTROL != RESPONSE_LOSS_AFTER_LOCAL_COMMIT; externalMode: IDEMPOTENT_EXTERNAL != NON_IDEMPOTENT_EXTERNAL"
+    },
+    {
+      "leftCaseId": "idem-val-external-idempotent-comparison-001",
+      "rightCaseId": "idem-val-timeout-before-success-001",
+      "similarity": 0.728916,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: faultSemantics: IDEMPOTENT_EXTERNAL_CONTROL != TIMEOUT_BEFORE_ACCEPTANCE; externalMode: IDEMPOTENT_EXTERNAL != NON_IDEMPOTENT_EXTERNAL"
+    },
+    {
+      "leftCaseId": "idem-val-external-success-local-failure-001",
+      "rightCaseId": "stage5-idem-val-conflict-local-failure-001",
+      "similarity": 0.812834,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SEQUENTIAL_RETRY != SEQUENTIAL_CONFLICT_AFTER_LOCAL_FAILURE"
+    },
+    {
+      "leftCaseId": "idem-val-timeout-before-success-001",
+      "rightCaseId": "stage5-idem-val-conflict-timeout-before-001",
+      "similarity": 0.737374,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: payloadRelation: SAME_PAYLOAD != DIFFERENT_BUSINESS_PAYLOAD; repeatPattern: SEQUENTIAL_RETRY != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT; expectedEffects: 1 != 0"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-response-loss-001",
+      "rightCaseId": "stage5-idem-test-conflict-terminal-failure-001",
+      "similarity": 0.746193,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT_AFTER_COMMIT_RESPONSE_LOSS != SEQUENTIAL_CONFLICT_AFTER_TERMINAL_FAILURE; faultSemantics: RESPONSE_LOSS_AFTER_LOCAL_COMMIT != EXTERNAL_BUSINESS_FAILURE; expectedEffects: 1 != 0"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-response-loss-001",
+      "rightCaseId": "stage5-idem-test-conflict-timeout-after-001",
+      "similarity": 0.7343,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT_AFTER_COMMIT_RESPONSE_LOSS != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT; faultSemantics: RESPONSE_LOSS_AFTER_LOCAL_COMMIT != TIMEOUT_AFTER_ACCEPTANCE"
+    },
+    {
+      "leftCaseId": "stage5-idem-test-conflict-terminal-failure-001",
+      "rightCaseId": "stage5-idem-test-conflict-timeout-after-001",
+      "similarity": 0.721951,
+      "reviewDecision": "KEEP_DISTINCT",
+      "reviewStatus": "MODEL_REVIEWED",
+      "rationale": "Distinct idempotency causal semantics: repeatPattern: SEQUENTIAL_CONFLICT_AFTER_TERMINAL_FAILURE != SEQUENTIAL_CONFLICT_AFTER_UNCERTAIN_RESULT; faultSemantics: EXTERNAL_BUSINESS_FAILURE != TIMEOUT_AFTER_ACCEPTANCE; expectedEffects: 0 != 1"
+    }
+  ]
+}

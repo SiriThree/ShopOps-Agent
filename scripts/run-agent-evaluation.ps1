@@ -6,6 +6,8 @@ $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
 
+Write-Warning "DEPRECATED: this runner is Fixed Workflow Regression, not ShopOpsBench. Use scripts/run-shopops-benchmark.ps1 for Task/Idempotency/Recovery/Governance benchmark runs."
+
 $workspaceRoot = Split-Path -Parent $PSScriptRoot
 $moduleRoot = Join-Path $workspaceRoot $Module
 $evaluationDir = Join-Path $moduleRoot "target\evaluation"

@@ -1,0 +1,90 @@
+{
+  "stage": "STAGE6_IDEMPOTENCY_ATTRIBUTION",
+  "status": "PASS",
+  "formalHeldOutExecuted": false,
+  "formalIdempotencyMetric": "NOT_AVAILABLE",
+  "checks": {
+    "productionIntegrity": {
+      "actualSha256": "15846b40317611e24d6eab1d00de5a235ff98373c69fd0b5bf9a28c82c4e953f",
+      "expectedSha256": "15846b40317611e24d6eab1d00de5a235ff98373c69fd0b5bf9a28c82c4e953f",
+      "fileCount": 530,
+      "expectedFileCount": 530,
+      "pass": true
+    },
+    "otherBenchmarkIntegrity": {
+      "actualSha256": "fad17293f0642dd126814956552299ae97dc9c2a0087b158e8584430138215f0",
+      "expectedSha256": "fad17293f0642dd126814956552299ae97dc9c2a0087b158e8584430138215f0",
+      "fileCount": 23,
+      "expectedFileCount": 23,
+      "pass": true
+    },
+    "datasetUnchanged": {
+      "caseCount": 22,
+      "semanticScenarioCount": 16,
+      "crossSplitRootLeakage": 0,
+      "rootLeakIds": [],
+      "caseFiles": {
+        "dev": {
+          "actual": "70f7a150b18f0f360386aa7644e2a74f38dfeb50a39fad3f2ce4ddf4012e493b",
+          "expected": "70f7a150b18f0f360386aa7644e2a74f38dfeb50a39fad3f2ce4ddf4012e493b",
+          "pass": true
+        },
+        "validation": {
+          "actual": "f885516aa5a16e0fc14f92b7741ed7fb41ecc76bfa687c55d53ff0dd095d1fd5",
+          "expected": "f885516aa5a16e0fc14f92b7741ed7fb41ecc76bfa687c55d53ff0dd095d1fd5",
+          "pass": true
+        },
+        "test": {
+          "actual": "97f2365f6b8457d8a1c6d35aac0489936b944c31838b966aa1864c8abcc3ff5f",
+          "expected": "97f2365f6b8457d8a1c6d35aac0489936b944c31838b966aa1864c8abcc3ff5f",
+          "pass": true
+        }
+      },
+      "pass": true
+    },
+    "stage5ArtifactsUnchanged": {
+      "manifestSha256": "ba9b53cd8ce22f23afd3bd61ab86df0c689884b31375238d6b4783bb9c21a27d",
+      "workloadSha256": "970edc2ca45c5feeaefc09d9cd2af83f85cae5d32581beade9af40604c02e6c5",
+      "pass": true
+    },
+    "canonicalHashContract": {
+      "writeOperationExcludesApprovalId": true,
+      "gatewayApprovalBindingExcludesApprovalId": true,
+      "pass": true
+    },
+    "freshApprovalContract": {
+      "factoryExists": true,
+      "usesApprovalServiceApprove": true,
+      "usesGatewayApprovalRequiredPath": true,
+      "directApprovalStatusMutation": false,
+      "driverCreatesFreshApprovalPerAttempt": true,
+      "oldSingleApprovalReusePatternPresent": false,
+      "pass": true
+    },
+    "attributionEvidence": {
+      "perAttemptEvidence": true,
+      "eligibilityGateInEvaluator": true,
+      "preBoundaryApprovalBlock": true,
+      "formalEligibilityUpgrade": true,
+      "pass": true
+    },
+    "effectContract": {
+      "duplicateFormula": true,
+      "missingFormula": true,
+      "pass": true
+    },
+    "heldOutDiscipline": {
+      "testExclusiveIdsReferencedByStage6ContractTests": [],
+      "pass": true
+    },
+    "benchmarkHackScan": {
+      "hits": [],
+      "pass": true
+    },
+    "environment": {
+      "maven": "NOT_FOUND",
+      "mavenWrapper": false,
+      "docker": "NOT_FOUND"
+    }
+  }
+}

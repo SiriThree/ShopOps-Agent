@@ -1,0 +1,1164 @@
+{
+  "auditVersion": "stage1-dataset-audit-v1",
+  "sourceManifest": "benchmark/v1/benchmark-manifest-v1.json",
+  "allCaseCount": 89,
+  "dedicatedCaseCount": 82,
+  "resourceRoleCounts": {
+    "DEDICATED": 82,
+    "CONTRACT_EXAMPLE": 4,
+    "SMOKE": 3
+  },
+  "schemaValidation": {
+    "errorCount": 0,
+    "errors": []
+  },
+  "semanticRootMapping": {
+    "mappingCaseCount": 89,
+    "missingCaseIds": [],
+    "unknownCaseIds": []
+  },
+  "benchmarks": {
+    "TASK": {
+      "caseCount": 21,
+      "semanticRootCount": 12,
+      "splitCaseCounts": {
+        "dev": 9,
+        "test": 6,
+        "validation": 6
+      },
+      "heldOutCaseCount": 6,
+      "heldOutSemanticRootCount": 6,
+      "testExclusiveSemanticRootCount": 3,
+      "crossSplitRootLeakCount": 3
+    },
+    "IDEMPOTENCY": {
+      "caseCount": 15,
+      "semanticRootCount": 9,
+      "splitCaseCounts": {
+        "dev": 5,
+        "test": 6,
+        "validation": 4
+      },
+      "heldOutCaseCount": 6,
+      "heldOutSemanticRootCount": 6,
+      "testExclusiveSemanticRootCount": 0,
+      "crossSplitRootLeakCount": 6
+    },
+    "RECOVERY": {
+      "caseCount": 13,
+      "semanticRootCount": 7,
+      "splitCaseCounts": {
+        "dev": 3,
+        "test": 7,
+        "validation": 3
+      },
+      "heldOutCaseCount": 7,
+      "heldOutSemanticRootCount": 7,
+      "testExclusiveSemanticRootCount": 1,
+      "crossSplitRootLeakCount": 6
+    },
+    "GOVERNANCE": {
+      "caseCount": 33,
+      "semanticRootCount": 23,
+      "splitCaseCounts": {
+        "dev": 9,
+        "test": 12,
+        "validation": 12
+      },
+      "heldOutCaseCount": 12,
+      "heldOutSemanticRootCount": 12,
+      "testExclusiveSemanticRootCount": 2,
+      "crossSplitRootLeakCount": 10
+    }
+  },
+  "dedicatedSemanticRootCount": 51,
+  "heldOutDedicatedCaseCount": 31,
+  "heldOutSemanticRootCount": 31,
+  "testExclusiveSemanticRootCount": 6,
+  "leakage": {
+    "dedicatedCrossSplitSemanticRootCount": 25,
+    "dedicatedCrossSplitSemanticRoots": [
+      {
+        "semanticRootId": "governance:approval_replay",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-test-approval-replay",
+            "split": "test"
+          },
+          {
+            "caseId": "gov-val-approval-replay-control",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:approval_target_mismatch",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-test-approval-target-mismatch",
+            "split": "test"
+          },
+          {
+            "caseId": "gov-val-approval-target-mismatch-control",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:cross_shop_refund",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-dev-cross-shop-refund",
+            "split": "dev"
+          },
+          {
+            "caseId": "gov-test-cross-shop-refund",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:cross_tenant_refund",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-dev-cross-tenant-refund",
+            "split": "dev"
+          },
+          {
+            "caseId": "gov-test-cross-tenant-refund",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:schema_wrong_type",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-test-schema-wrong-type",
+            "split": "test"
+          },
+          {
+            "caseId": "gov-val-schema-wrong-type",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:unknown_tool",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-dev-unknown-tool",
+            "split": "dev"
+          },
+          {
+            "caseId": "gov-test-unknown-tool",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:valid_approved_refund",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-test-valid-approved-refund",
+            "split": "test"
+          },
+          {
+            "caseId": "gov-val-valid-approved-refund-control",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:valid_high_risk_preapproval",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-test-valid-preapproval",
+            "split": "test"
+          },
+          {
+            "caseId": "gov-val-valid-preapproval",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:valid_mcp_read",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-test-valid-mcp-read",
+            "split": "test"
+          },
+          {
+            "caseId": "gov-val-valid-mcp-read-control",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "governance:viewer_refund_permission",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "gov-dev-viewer-refund",
+            "split": "dev"
+          },
+          {
+            "caseId": "gov-test-viewer-refund",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "idempotency:baseline_single_delivery",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "idem-dev-baseline-001",
+            "split": "dev"
+          },
+          {
+            "caseId": "idem-test-baseline-001",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "idempotency:concurrent_retry",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "idem-dev-concurrent-retry-001",
+            "split": "dev"
+          },
+          {
+            "caseId": "idem-test-concurrent-retry-001",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "idempotency:external_success_local_failure",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "idem-test-external-success-local-failure-001",
+            "split": "test"
+          },
+          {
+            "caseId": "idem-val-external-success-local-failure-001",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "idempotency:same_key_different_payload",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "idem-dev-payload-conflict-001",
+            "split": "dev"
+          },
+          {
+            "caseId": "idem-test-payload-conflict-001",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "idempotency:sequential_retry",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "idem-dev-sequential-retry-001",
+            "split": "dev"
+          },
+          {
+            "caseId": "idem-test-sequential-retry-001",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "idempotency:timeout_after_external_success",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "idem-dev-timeout-after-success-001",
+            "split": "dev"
+          },
+          {
+            "caseId": "idem-test-timeout-after-success-001",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "recovery:duplicate_reconciliation",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "recovery-test-r8-duplicate-reconciliation",
+            "split": "test"
+          },
+          {
+            "caseId": "recovery-val-r8-duplicate-reconciliation",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "recovery:external_success_local_failure",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "recovery-dev-r1-external-success-local-failure",
+            "split": "dev"
+          },
+          {
+            "caseId": "recovery-test-r1-request-correlation",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "recovery:reconciliation_temporary_failure",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "recovery-test-r5-query-temporary-failure",
+            "split": "test"
+          },
+          {
+            "caseId": "recovery-val-r5-query-temporary-failure",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "recovery:recovery_budget_exhausted",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "recovery-test-r6-budget-exhausted",
+            "split": "test"
+          },
+          {
+            "caseId": "recovery-val-r6-budget-exhausted",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "recovery:timeout_after_external_acceptance",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "recovery-dev-r3-timeout-after-accept",
+            "split": "dev"
+          },
+          {
+            "caseId": "recovery-test-r3-timeout-after-accept",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "recovery:timeout_before_external_acceptance",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "recovery-dev-r2-timeout-before-accept",
+            "split": "dev"
+          },
+          {
+            "caseId": "recovery-test-r2-timeout-before-accept",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "dev-task-ad-risk-001",
+            "split": "dev"
+          },
+          {
+            "caseId": "dev-task-ad-risk-002",
+            "split": "dev"
+          },
+          {
+            "caseId": "test-task-ad-risk-001",
+            "split": "test"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "task:comment_risk:safe-default",
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "cases": [
+          {
+            "caseId": "test-task-comment-ambiguous-001",
+            "split": "test"
+          },
+          {
+            "caseId": "validation-task-comment-missing-date-001",
+            "split": "validation"
+          },
+          {
+            "caseId": "validation-task-comment-ambiguous-001",
+            "split": "validation"
+          }
+        ]
+      },
+      {
+        "semanticRootId": "task:daily_review:safe-default",
+        "splits": [
+          "dev",
+          "test"
+        ],
+        "cases": [
+          {
+            "caseId": "dev-task-daily-missing-date-001",
+            "split": "dev"
+          },
+          {
+            "caseId": "test-task-daily-missing-date-001",
+            "split": "test"
+          }
+        ]
+      }
+    ],
+    "allResourceCrossSplitSemanticRootCount": 26,
+    "crossSplitParentLeakCount": 0,
+    "crossSplitParentLeaks": [],
+    "nearDuplicateCrossSplitCount": 27,
+    "productionCaseIdReferences": [],
+    "heldOutInputEvaluatorReferences": []
+  },
+  "duplicates": {
+    "exactRuntimePayloadPairCount": 0,
+    "exactRuntimePayloadPairs": [],
+    "normalizedRuntimePayloadPairCount": 0,
+    "normalizedRuntimePayloadPairs": [],
+    "exactInputGoldSignaturePairCount": 0,
+    "exactInputGoldSignaturePairs": [],
+    "normalizedInputGoldSignaturePairCount": 0,
+    "normalizedInputGoldSignaturePairs": [],
+    "nearDuplicateCandidateCount": 33,
+    "nearDuplicateCandidates": [
+      {
+        "leftCaseId": "gov-dev-cross-shop-refund",
+        "rightCaseId": "gov-test-cross-shop-refund",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:cross_shop_refund",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-dev-cross-tenant-refund",
+        "rightCaseId": "gov-test-cross-tenant-refund",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:cross_tenant_refund",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-dev-unknown-tool",
+        "rightCaseId": "gov-test-unknown-tool",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:unknown_tool",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-dev-viewer-refund",
+        "rightCaseId": "gov-test-viewer-refund",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:viewer_refund_permission",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-test-approval-replay",
+        "rightCaseId": "gov-val-approval-replay-control",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:approval_replay",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-test-approval-target-mismatch",
+        "rightCaseId": "gov-val-approval-target-mismatch-control",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:approval_target_mismatch",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-test-schema-wrong-type",
+        "rightCaseId": "gov-val-schema-wrong-type",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:schema_wrong_type",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-test-valid-approved-refund",
+        "rightCaseId": "gov-val-valid-approved-refund-control",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:valid_approved_refund",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-test-valid-mcp-read",
+        "rightCaseId": "gov-val-valid-mcp-read-control",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:valid_mcp_read",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "gov-test-valid-preapproval",
+        "rightCaseId": "gov-val-valid-preapproval",
+        "benchmarkType": "GOVERNANCE",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "governance:valid_high_risk_preapproval",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "idem-dev-baseline-001",
+        "rightCaseId": "idem-test-baseline-001",
+        "benchmarkType": "IDEMPOTENCY",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "idempotency:baseline_single_delivery",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "idem-dev-concurrent-retry-001",
+        "rightCaseId": "idem-test-concurrent-retry-001",
+        "benchmarkType": "IDEMPOTENCY",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "idempotency:concurrent_retry",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "idem-dev-payload-conflict-001",
+        "rightCaseId": "idem-test-payload-conflict-001",
+        "benchmarkType": "IDEMPOTENCY",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "idempotency:same_key_different_payload",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "idem-dev-sequential-retry-001",
+        "rightCaseId": "idem-test-sequential-retry-001",
+        "benchmarkType": "IDEMPOTENCY",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "idempotency:sequential_retry",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "idem-dev-timeout-after-success-001",
+        "rightCaseId": "idem-test-timeout-after-success-001",
+        "benchmarkType": "IDEMPOTENCY",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "idempotency:timeout_after_external_success",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "idem-test-external-success-local-failure-001",
+        "rightCaseId": "idem-val-external-success-local-failure-001",
+        "benchmarkType": "IDEMPOTENCY",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "idempotency:external_success_local_failure",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "recovery-dev-r1-external-success-local-failure",
+        "rightCaseId": "recovery-test-r1-request-correlation",
+        "benchmarkType": "RECOVERY",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "recovery:external_success_local_failure",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "recovery-dev-r2-timeout-before-accept",
+        "rightCaseId": "recovery-test-r2-timeout-before-accept",
+        "benchmarkType": "RECOVERY",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "recovery:timeout_before_external_acceptance",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "recovery-dev-r3-timeout-after-accept",
+        "rightCaseId": "recovery-test-r3-timeout-after-accept",
+        "benchmarkType": "RECOVERY",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "recovery:timeout_after_external_acceptance",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "recovery-test-r5-query-temporary-failure",
+        "rightCaseId": "recovery-val-r5-query-temporary-failure",
+        "benchmarkType": "RECOVERY",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "recovery:reconciliation_temporary_failure",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "recovery-test-r6-budget-exhausted",
+        "rightCaseId": "recovery-val-r6-budget-exhausted",
+        "benchmarkType": "RECOVERY",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "recovery:recovery_budget_exhausted",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "recovery-test-r8-duplicate-reconciliation",
+        "rightCaseId": "recovery-val-r8-duplicate-reconciliation",
+        "benchmarkType": "RECOVERY",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "recovery:duplicate_reconciliation",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "dev-task-ad-risk-001",
+        "rightCaseId": "test-task-ad-risk-001",
+        "benchmarkType": "TASK",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0625,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "dev-task-ad-risk-002",
+        "rightCaseId": "test-task-ad-risk-001",
+        "benchmarkType": "TASK",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.129032,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "dev-task-daily-missing-date-001",
+        "rightCaseId": "test-task-daily-missing-date-001",
+        "benchmarkType": "TASK",
+        "leftSplit": "dev",
+        "rightSplit": "test",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:daily_review:safe-default",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "test-task-comment-ambiguous-001",
+        "rightCaseId": "validation-task-comment-ambiguous-001",
+        "benchmarkType": "TASK",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.155556,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:comment_risk:safe-default",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "test-task-comment-ambiguous-001",
+        "rightCaseId": "validation-task-comment-missing-date-001",
+        "benchmarkType": "TASK",
+        "leftSplit": "test",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:comment_risk:safe-default",
+        "decision": "SAME_ROOT",
+        "crossSplit": true
+      },
+      {
+        "leftCaseId": "dev-task-ad-risk-001",
+        "rightCaseId": "dev-task-ad-risk-002",
+        "benchmarkType": "TASK",
+        "leftSplit": "dev",
+        "rightSplit": "dev",
+        "similarity": 0.058824,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:ad_anomaly:date:2018-08-07:2018-08-07",
+        "decision": "SAME_ROOT",
+        "crossSplit": false
+      },
+      {
+        "leftCaseId": "dev-task-comment-risk-001",
+        "rightCaseId": "dev-task-comment-risk-002",
+        "benchmarkType": "TASK",
+        "leftSplit": "dev",
+        "rightSplit": "dev",
+        "similarity": 0.061856,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:comment_risk:date:2018-08-02:2018-08-02",
+        "decision": "SAME_ROOT",
+        "crossSplit": false
+      },
+      {
+        "leftCaseId": "dev-task-daily-review-001",
+        "rightCaseId": "dev-task-daily-review-002",
+        "benchmarkType": "TASK",
+        "leftSplit": "dev",
+        "rightSplit": "dev",
+        "similarity": 0.082192,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:daily_review:date:2018-08-01:2018-08-01",
+        "decision": "SAME_ROOT",
+        "crossSplit": false
+      },
+      {
+        "leftCaseId": "dev-task-product-opt-001",
+        "rightCaseId": "dev-task-product-opt-002",
+        "benchmarkType": "TASK",
+        "leftSplit": "dev",
+        "rightSplit": "dev",
+        "similarity": 0.055046,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:product_optimization:date:2018-08-03:2018-08-03",
+        "decision": "SAME_ROOT",
+        "crossSplit": false
+      },
+      {
+        "leftCaseId": "validation-task-comment-missing-date-001",
+        "rightCaseId": "validation-task-comment-ambiguous-001",
+        "benchmarkType": "TASK",
+        "leftSplit": "validation",
+        "rightSplit": "validation",
+        "similarity": 0.0,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:comment_risk:safe-default",
+        "decision": "SAME_ROOT",
+        "crossSplit": false
+      },
+      {
+        "leftCaseId": "validation-task-daily-review-001",
+        "rightCaseId": "validation-task-daily-variant-001",
+        "benchmarkType": "TASK",
+        "leftSplit": "validation",
+        "rightSplit": "validation",
+        "similarity": 0.056604,
+        "sameSemanticRoot": true,
+        "semanticRootId": "task:daily_review:date:2018-08-04:2018-08-04",
+        "decision": "SAME_ROOT",
+        "crossSplit": false
+      }
+    ]
+  },
+  "legacySemanticTaskIdAudit": {
+    "semanticTaskIdFalseMergeCount": 1,
+    "falseMerges": {
+      "missing-approval": [
+        "governance:business_scope_order_not_owned",
+        "governance:missing_approval"
+      ]
+    },
+    "semanticRootFragmentationCount": 7,
+    "fragmentedRoots": {
+      "task:daily_review:safe-default": [
+        "sem-daily-missing-date",
+        "sem-test-daily-missing"
+      ],
+      "task:ad_anomaly:date:2018-08-07:2018-08-07": [
+        "sem-ad-risk",
+        "sem-test-ad"
+      ],
+      "governance:approval_target_mismatch": [
+        "approval-target-mismatch",
+        "gov-val-approval-target-mismatch-control"
+      ],
+      "governance:approval_replay": [
+        "approval-replay",
+        "gov-val-approval-replay-control"
+      ],
+      "governance:valid_approved_refund": [
+        "gov-val-valid-approved-refund-control",
+        "valid-approved-refund"
+      ],
+      "governance:valid_mcp_read": [
+        "gov-val-valid-mcp-read-control",
+        "valid-mcp-read"
+      ],
+      "task:comment_risk:safe-default": [
+        "sem-comment-ambiguous",
+        "sem-comment-missing-date",
+        "sem-test-comment-ambiguous"
+      ]
+    }
+  },
+  "goldProvenance": {
+    "dedicatedCounts": {
+      "LEGACY_MIGRATED": 8,
+      "HAND_AUTHORED": 13,
+      "SECURITY_POLICY_DERIVED": 33,
+      "DOMAIN_INVARIANT": 9,
+      "FAULT_CONTRACT_DERIVED": 19
+    },
+    "directSelfReferenceEvidenceCount": 0,
+    "legacyMigratedProvenanceUnverifiableCount": 8,
+    "traceOverconstrainedGoldCount": 0,
+    "traceOverconstrainedCaseIds": []
+  },
+  "reviewTruth": {
+    "historicalHumanReviewedTrueFlags": 82,
+    "evidenceBackedHumanReviewed": 0,
+    "currentAuditReviewStatusCounts": {
+      "MODEL_REVIEWED": 89
+    },
+    "reviewEvidenceArtifactsFound": 0
+  },
+  "taskCapabilityReachability": {
+    "ad_anomaly": {
+      "interpreter": true,
+      "planner": true,
+      "reachable": true
+    },
+    "comment_risk": {
+      "interpreter": true,
+      "planner": true,
+      "reachable": true
+    },
+    "daily_review": {
+      "interpreter": true,
+      "planner": true,
+      "reachable": true
+    },
+    "product_optimization": {
+      "interpreter": true,
+      "planner": true,
+      "reachable": true
+    }
+  },
+  "coverage": {
+    "task": {
+      "scenarioCases": {
+        "daily_review": 7,
+        "comment_risk": 6,
+        "product_optimization": 4,
+        "ad_anomaly": 4
+      },
+      "scenarioSemanticRoots": {
+        "ad_anomaly": 2,
+        "comment_risk": 3,
+        "daily_review": 4,
+        "product_optimization": 3
+      },
+      "difficulty": {
+        "EASY": 4,
+        "MEDIUM": 13,
+        "HARD": 4
+      },
+      "tags": {
+        "TASK": 21,
+        "READ_ONLY": 21,
+        "CLEAN": 9,
+        "MULTI_TOOL": 21,
+        "NATURAL_LANGUAGE_VARIANT": 5,
+        "MISSING_PARAMETER": 7,
+        "HELD_OUT": 6,
+        "AMBIGUOUS": 2
+      },
+      "fixtureDateRanges": {
+        "{\"end\":\"2018-08-01\",\"start\":\"2018-08-01\"}": 2,
+        "null": 7,
+        "{\"end\":\"2018-08-02\",\"start\":\"2018-08-02\"}": 2,
+        "{\"end\":\"2018-08-03\",\"start\":\"2018-08-03\"}": 2,
+        "{\"end\":\"2018-08-07\",\"start\":\"2018-08-07\"}": 3,
+        "{\"end\":\"2018-08-05\",\"start\":\"2018-08-05\"}": 2,
+        "{\"end\":\"2018-08-06\",\"start\":\"2018-08-06\"}": 1,
+        "{\"end\":\"2018-08-04\",\"start\":\"2018-08-04\"}": 2
+      },
+      "shopConcentration": {
+        "1": 21
+      },
+      "explicitNaturalLanguageVariantTags": 5,
+      "rootDerivedAdditionalVariants": 9
+    },
+    "governance": {
+      "negativeCases": 25,
+      "positiveCases": 8,
+      "negativeSemanticRoots": 18,
+      "positiveSemanticRoots": 5,
+      "heldOutPositiveCases": 4,
+      "heldOutNegativeCases": 8,
+      "attackTypeCases": {
+        "CROSS_SHOP": 2,
+        "CROSS_TENANT": 2,
+        "IDENTITY_FORGERY": 1,
+        "PERMISSION": 2,
+        "PERMISSION_FORGERY": 2,
+        "APPROVAL_MISSING": 1,
+        "APPROVAL_PAYLOAD_MUTATION": 1,
+        "UNKNOWN_TOOL": 2,
+        "LEGITIMATE_READ": 1,
+        "APPROVAL_TARGET_MISMATCH": 2,
+        "APPROVAL_REPLAY": 2,
+        "LEGITIMATE_APPROVED_WRITE": 2,
+        "LEGITIMATE_IDEMPOTENT_REPLAY": 1,
+        "LEGITIMATE_MCP_READ": 2,
+        "SCHEMA": 6,
+        "LEGITIMATE_HIGH_RISK": 2,
+        "BUSINESS_SCOPE": 1,
+        "APPROVAL_REJECTED": 1
+      },
+      "attackTypeSemanticRoots": {
+        "APPROVAL_MISSING": 1,
+        "APPROVAL_PAYLOAD_MUTATION": 1,
+        "APPROVAL_REJECTED": 1,
+        "APPROVAL_REPLAY": 1,
+        "APPROVAL_TARGET_MISMATCH": 1,
+        "BUSINESS_SCOPE": 1,
+        "CROSS_SHOP": 1,
+        "CROSS_TENANT": 1,
+        "IDENTITY_FORGERY": 1,
+        "LEGITIMATE_APPROVED_WRITE": 1,
+        "LEGITIMATE_HIGH_RISK": 1,
+        "LEGITIMATE_IDEMPOTENT_REPLAY": 1,
+        "LEGITIMATE_MCP_READ": 1,
+        "LEGITIMATE_READ": 1,
+        "PERMISSION": 1,
+        "PERMISSION_FORGERY": 2,
+        "SCHEMA": 5,
+        "UNKNOWN_TOOL": 1
+      }
+    },
+    "recovery": {
+      "semanticScenarios": 7,
+      "faultTypeCases": {
+        "LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS": 2,
+        "TIMEOUT_BEFORE_EXTERNAL_ACCEPTANCE": 2,
+        "TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE": 2,
+        "RECOVERY_STATE_UPDATE_FAILURE": 1,
+        "RECONCILIATION_QUERY_TEMPORARY_FAILURE": 2,
+        "RECONCILIATION_QUERY_UNAVAILABLE": 2,
+        "DUPLICATE_RECOVERY_ATTEMPT": 2
+      },
+      "faultPointCases": {
+        "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM": 6,
+        "None": 7
+      },
+      "initialLocalStates": {
+        "EXECUTING": 6,
+        "EXTERNAL_UNKNOWN": 7
+      },
+      "initialExternalStates": {
+        "SUCCEEDED": 11,
+        "NOT_ACCEPTED": 2
+      },
+      "recoveryBudgets": {
+        "3": 12,
+        "2": 1
+      },
+      "concurrentCases": 2,
+      "manualReviewAllowedCases": 2
+    },
+    "idempotency": {
+      "semanticScenarios": 9,
+      "configuredLogicalOperations": 15,
+      "configuredDeliveryAttempts": 37,
+      "deliveryModes": {
+        "SINGLE": 4,
+        "RETRY": 9,
+        "CONCURRENT": 2
+      },
+      "concurrencyWorkers": {
+        "1": 13,
+        "5": 2
+      },
+      "scenarioCases": {
+        "BASELINE_SINGLE_DELIVERY": 2,
+        "SEQUENTIAL_RETRY": 2,
+        "CONCURRENT_RETRY": 2,
+        "SAME_KEY_DIFFERENT_PAYLOAD": 2,
+        "TIMEOUT_AFTER_EXTERNAL_SUCCESS": 2,
+        "EXTERNAL_SUCCESS_LOCAL_FAILURE": 2,
+        "RESPONSE_LOSS_AFTER_LOCAL_CONFIRM": 1,
+        "TIMEOUT_BEFORE_EXTERNAL_SUCCESS": 1,
+        "EXTERNAL_IDEMPOTENT_COMPARISON": 1
+      }
+    }
+  }
+}

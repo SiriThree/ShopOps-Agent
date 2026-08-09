@@ -1,0 +1,282 @@
+{
+  "contractVersion": "stage4-recovery-causal-matrix-v1",
+  "rootCount": 15,
+  "rows": [
+    {
+      "semanticRootId": "recovery:duplicate_reconciliation",
+      "caseCount": 2,
+      "caseIds": [
+        "recovery-val-r8-duplicate-reconciliation",
+        "recovery-test-r8-duplicate-reconciliation"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "R8_CONCURRENT_RECONCILIATION",
+      "faultPoint": null,
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "externalReference",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "CONCURRENT",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "validation"
+    },
+    {
+      "semanticRootId": "recovery:external_success_local_failure",
+      "caseCount": 2,
+      "caseIds": [
+        "recovery-dev-r1-external-success-local-failure",
+        "recovery-test-r1-request-correlation"
+      ],
+      "initialLocalState": "EXECUTING",
+      "faultFamily": "R1_EXTERNAL_SUCCESS_LOCAL_FAILURE",
+      "faultPoint": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "operationRequestId",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "dev"
+    },
+    {
+      "semanticRootId": "recovery:reconciliation_temporary_failure",
+      "caseCount": 2,
+      "caseIds": [
+        "recovery-val-r5-query-temporary-failure",
+        "recovery-test-r5-query-temporary-failure"
+      ],
+      "initialLocalState": "EXECUTING",
+      "faultFamily": "R5_RECONCILIATION_QUERY_TEMPORARY_FAILURE",
+      "faultPoint": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "operationRequestId",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "validation"
+    },
+    {
+      "semanticRootId": "recovery:recovery_budget_exhausted",
+      "caseCount": 2,
+      "caseIds": [
+        "recovery-val-r6-budget-exhausted",
+        "recovery-test-r6-budget-exhausted"
+      ],
+      "initialLocalState": "EXECUTING",
+      "faultFamily": "R6_RECOVERY_BUDGET_EXHAUSTED",
+      "faultPoint": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "operationRequestId",
+      "budgetRegion": "BUDGET_EXHAUSTED",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "NEEDS_MANUAL_ACTION",
+      "expectedOutcomeClass": "MANUAL_REVIEW_REQUIRED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "validation"
+    },
+    {
+      "semanticRootId": "recovery:recovery_state_update_failure",
+      "caseCount": 1,
+      "caseIds": [
+        "recovery-test-state-update-failure"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "R4_RECOVERY_STATE_UPDATE_FAILURE",
+      "faultPoint": null,
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "externalReference",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "test"
+    },
+    {
+      "semanticRootId": "recovery:stage4:budget_exhausted_external_unknown_success",
+      "caseCount": 1,
+      "caseIds": [
+        "stage4-test-budget-exhausted-from-external-unknown-success"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "BUDGET_INITIAL_STATE",
+      "faultPoint": "BEFORE_RECONCILIATION_QUERY",
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "response-lost reference exists but all reconciliation queries are faulted",
+      "budgetRegion": "BUDGET_EXHAUSTED",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "NEEDS_MANUAL_ACTION",
+      "expectedOutcomeClass": "MANUAL_REVIEW_REQUIRED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "test"
+    },
+    {
+      "semanticRootId": "recovery:stage4:budget_exhausted_not_accepted",
+      "caseCount": 1,
+      "caseIds": [
+        "stage4-validation-budget-exhausted-not-accepted"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "BUDGET_EXTERNAL_STATE",
+      "faultPoint": "BEFORE_RECONCILIATION_QUERY",
+      "externalReality": "NOT_ACCEPTED",
+      "recoveryEvidence": "external truth exists but every local query attempt is faulted",
+      "budgetRegion": "BUDGET_EXHAUSTED",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "NEEDS_MANUAL_ACTION",
+      "expectedOutcomeClass": "MANUAL_REVIEW_REQUIRED",
+      "expectedEffectiveSideEffects": 0,
+      "split": "validation"
+    },
+    {
+      "semanticRootId": "recovery:stage4:concurrent_not_accepted",
+      "caseCount": 1,
+      "caseIds": [
+        "stage4-test-concurrent-not-accepted"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "CONCURRENCY_EXTERNAL_STATE",
+      "faultPoint": null,
+      "externalReality": "NOT_ACCEPTED",
+      "recoveryEvidence": "two reconciliation workers race while external system definitively reports NOT_ACCEPTED",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "CONCURRENT",
+      "expectedTerminalState": "FAILED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 0,
+      "split": "test"
+    },
+    {
+      "semanticRootId": "recovery:stage4:concurrent_reconciliation_from_executing",
+      "caseCount": 1,
+      "caseIds": [
+        "stage4-dev-concurrent-reconciliation-from-executing"
+      ],
+      "initialLocalState": "EXECUTING",
+      "faultFamily": "CONCURRENCY_INITIAL_STATE",
+      "faultPoint": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "two reconciliation workers race from the same unresolved EXECUTING logical write",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "CONCURRENT",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "dev"
+    },
+    {
+      "semanticRootId": "recovery:stage4:last_allowed_query_success",
+      "caseCount": 1,
+      "caseIds": [
+        "stage4-test-last-allowed-query-success"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "BUDGET_BOUNDARY",
+      "faultPoint": "BEFORE_RECONCILIATION_QUERY",
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "first query fails; second and last allowed attempt confirms SUCCEEDED",
+      "budgetRegion": "LAST_ALLOWED_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "test"
+    },
+    {
+      "semanticRootId": "recovery:stage4:query_failure_from_external_unknown_success",
+      "caseCount": 1,
+      "caseIds": [
+        "stage4-validation-query-failure-from-external-unknown-success"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "QUERY_FAILURE_INITIAL_STATE",
+      "faultPoint": "BEFORE_RECONCILIATION_QUERY",
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "response-lost external reference exists; first query fails then succeeds",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "validation"
+    },
+    {
+      "semanticRootId": "recovery:stage4:query_failure_then_not_accepted",
+      "caseCount": 1,
+      "caseIds": [
+        "stage4-test-query-failure-then-not-accepted"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "QUERY_FAILURE_THEN_EXTERNAL_FACT",
+      "faultPoint": "BEFORE_RECONCILIATION_QUERY",
+      "externalReality": "NOT_ACCEPTED",
+      "recoveryEvidence": "query fails once, then external query confirms NOT_ACCEPTED",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "FAILED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 0,
+      "split": "test"
+    },
+    {
+      "semanticRootId": "recovery:stage4:state_update_failure_from_executing",
+      "caseCount": 1,
+      "caseIds": [
+        "stage4-test-state-update-failure-from-executing"
+      ],
+      "initialLocalState": "EXECUTING",
+      "faultFamily": "STATE_UPDATE_INITIAL_STATE",
+      "faultPoint": "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM",
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "external accepted; initial local confirm fails; first recovery state update also faults",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "test"
+    },
+    {
+      "semanticRootId": "recovery:timeout_after_external_acceptance",
+      "caseCount": 2,
+      "caseIds": [
+        "recovery-dev-r3-timeout-after-accept",
+        "recovery-test-r3-timeout-after-accept"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "R3_TIMEOUT_AFTER_ACCEPTANCE",
+      "faultPoint": null,
+      "externalReality": "SUCCEEDED",
+      "recoveryEvidence": "externalReference",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "SUCCEEDED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 1,
+      "split": "dev"
+    },
+    {
+      "semanticRootId": "recovery:timeout_before_external_acceptance",
+      "caseCount": 2,
+      "caseIds": [
+        "recovery-dev-r2-timeout-before-accept",
+        "recovery-test-r2-timeout-before-accept"
+      ],
+      "initialLocalState": "EXTERNAL_UNKNOWN",
+      "faultFamily": "R2_TIMEOUT_BEFORE_ACCEPTANCE",
+      "faultPoint": null,
+      "externalReality": "NOT_ACCEPTED",
+      "recoveryEvidence": "operationRequestId",
+      "budgetRegion": "EARLY_SUCCESS",
+      "concurrency": "SINGLE",
+      "expectedTerminalState": "FAILED",
+      "expectedOutcomeClass": "AUTO_CONVERGED",
+      "expectedEffectiveSideEffects": 0,
+      "split": "dev"
+    }
+  ]
+}

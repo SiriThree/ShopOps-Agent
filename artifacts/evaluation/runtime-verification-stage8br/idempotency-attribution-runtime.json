@@ -1,0 +1,30 @@
+{
+  "contractA": {
+    "plannedAttempts": 4,
+    "gatewayReachedAttempts": 4,
+    "authorizationPassedAttempts": 4,
+    "schemaPassedAttempts": 4,
+    "businessScopePassedAttempts": 4,
+    "approvalPassedAttempts": 4,
+    "writeBoundaryReachedAttempts": 4,
+    "preIdempotencyBlockedAttempts": 0,
+    "attributionEligible": true,
+    "result": "PASS"
+  },
+  "contractB": {
+    "source": "IdempotencyPreBoundaryBlockDetectionTest",
+    "approvalPassed": false,
+    "boundaryReached": false,
+    "preIdempotencyBlocked": true,
+    "attributionEligible": false,
+    "reasonCode": "ATTRIBUTION_INVALID_APPROVAL_BLOCK",
+    "result": "PASS"
+  },
+  "contractC": {
+    "source": "IdempotencyPayloadConflictAcrossFreshApprovalTest",
+    "freshApprovalPassed": true,
+    "writeBoundaryReached": true,
+    "payloadMismatchObserved": true,
+    "result": "PASS"
+  }
+}

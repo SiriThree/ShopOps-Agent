@@ -1,0 +1,26 @@
+{
+  "stage": "STAGE8A_GLOBAL_REVIEW_AUDIT",
+  "status": "PASS",
+  "checks": {
+    "newSemanticRootsZero": true,
+    "dedicatedCases338": true,
+    "independentUnits243": true,
+    "heldOutUnits127": true,
+    "reviewEntries110": true,
+    "humanReviewedZero": true,
+    "historicalFlags82": true,
+    "allReviewPending": true,
+    "goldProofMissingZero": true,
+    "unknownGoldZero": true,
+    "invalidFixtureZero": true,
+    "policyMismatchZero": true,
+    "nearUnresolvedZero": true,
+    "globalLeakageZero": true,
+    "parentLeakageZero": true,
+    "bulkTaskClosed": true,
+    "bulkGovernanceClosed": true,
+    "noHeldOutExecution": true,
+    "freezeNotPremature": true
+  },
+  "failed": []
+}

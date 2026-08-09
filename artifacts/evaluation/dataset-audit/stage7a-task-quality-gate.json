@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "before": {
+    "cases": 93,
+    "roots": 52,
+    "testExclusiveRoots": 23
+  },
+  "after": {
+    "cases": 189,
+    "roots": 116,
+    "testExclusiveRoots": 63
+  },
+  "new": {
+    "cases": 96,
+    "roots": 64,
+    "casePerRootRatio": 1.5
+  },
+  "candidateReview": {
+    "proposed": 100,
+    "accepted": 64,
+    "rejected": 36,
+    "revised": 16,
+    "adjudicated": 12,
+    "rejectionTaxonomy": {
+      "REJECTED_NOT_SEMANTICALLY_DISTINCT": 8,
+      "REJECTED_NEAR_DUPLICATE": 4,
+      "REJECTED_UNSUPPORTED_RUNTIME": 6,
+      "REJECTED_NO_FIXTURE": 4,
+      "REJECTED_FIXTURE_INVALID": 2,
+      "REJECTED_GOLD_AMBIGUOUS": 3,
+      "REJECTED_GOLD_NOT_INDEPENDENT": 2,
+      "REJECTED_EVALUATOR_UNOBSERVABLE": 4,
+      "REJECTED_UNREALISTIC_QUERY": 1,
+      "REJECTED_CROSS_SPLIT_INFORMATION_OVERLAP": 2
+    }
+  },
+  "quality": {
+    "schemaErrors": 0,
+    "taskRootLeakage": 0,
+    "globalRootLeakage": 0,
+    "parentLeakage": 0,
+    "exactDuplicates": 0,
+    "normalizedDuplicates": 0,
+    "nearDuplicateCandidates": 783,
+    "nearDuplicateReviewed": 783,
+    "nearDuplicateUnresolved": 0,
+    "goldProofMissing": 0,
+    "goldProofReproductionMismatch": 0,
+    "unknownGoldSource": 0,
+    "goldSelfReference": 0,
+    "unsupportedRuntimeCases": 0,
+    "newHumanReviewedTrue": 0,
+    "heldOutRuntimeExecution": 0
+  },
+  "coverage": {
+    "business": {
+      "ad_anomaly": {
+        "cases": 44,
+        "roots": 29,
+        "testExclusiveRoots": 15
+      },
+      "comment_risk": {
+        "cases": 48,
+        "roots": 28,
+        "testExclusiveRoots": 16
+      },
+      "daily_review": {
+        "cases": 49,
+        "roots": 29,
+        "testExclusiveRoots": 16
+      },
+      "product_optimization": {
+        "cases": 48,
+        "roots": 30,
+        "testExclusiveRoots": 16
+      }
+    },
+    "difficulty": {
+      "EASY": 4,
+      "MEDIUM": 113,
+      "HARD": 72
+    },
+    "language": {
+      "English": 19,
+      "Chinese": 170
+    },
+    "gold": {
+      "LEGACY_MIGRATED": 8,
+      "HAND_AUTHORED": 13,
+      "BUSINESS_FIXTURE_DERIVED": 168
+    },
+    "fixtureSource": {
+      "REAL_SEED_REUSE": 21,
+      "CONTROLLED_SYNTHETIC_FIXTURE": 168
+    },
+    "stateCases": {
+      "CLEAN": 86,
+      "EMPTY_RESULT": 33,
+      "PARTIAL_DATA": 34,
+      "DATE_BOUNDARY": 20,
+      "MISSING_PARAMETER": 7,
+      "AMBIGUOUS": 2,
+      "LOW_DATA_DENSITY": 57,
+      "MEDIUM_DATA_DENSITY": 48,
+      "HIGH_DATA_DENSITY": 43
+    },
+    "stateRoots": {
+      "CLEAN": 60,
+      "EMPTY_RESULT": 20,
+      "PARTIAL_DATA": 20,
+      "DATE_BOUNDARY": 12,
+      "MISSING_PARAMETER": 4,
+      "AMBIGUOUS": 1,
+      "LOW_DATA_DENSITY": 35,
+      "MEDIUM_DATA_DENSITY": 32,
+      "HIGH_DATA_DENSITY": 26
+    }
+  },
+  "manifest": "shopops-admin/src/test/resources/benchmark/v1/benchmark-task-stage7a-scaleup-candidate-manifest.json",
+  "manifestSha256": "5b2637ad20ae3b853c50975e9ca630444d5942ed6f81c0bbafab55905d1a01f4"
+}

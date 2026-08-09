@@ -1,0 +1,7 @@
+{
+  "source": "RecordingRefundExternalSystem",
+  "externalAttemptVsEffectiveEffectSeparated": true,
+  "missingEffectDetection": "PASS",
+  "duplicateEffectDetection": "PASS",
+  "nothingExecutedCannotPass": true
+}

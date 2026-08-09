@@ -1,0 +1,42 @@
+{
+  "contractVersion": "stage5-idempotency-review-v1",
+  "proposed": 14,
+  "accepted": 7,
+  "rejected": 7,
+  "rejectionTaxonomy": {
+    "EVALUATOR_UNOBSERVABLE": 2,
+    "GOLD_AMBIGUOUS": 1,
+    "FAULT_POINT_UNAVAILABLE": 1,
+    "NOT_SEMANTICALLY_DISTINCT": 1,
+    "BELONGS_TO_GOVERNANCE": 1,
+    "UNSUPPORTED_RUNTIME": 1
+  },
+  "criticCorrections": [
+    {
+      "candidate": "workers_10_concurrent_retry",
+      "decision": "REJECT",
+      "reason": "workload intensity is not semantic identity"
+    },
+    {
+      "candidate": "approval_replay_plus_idempotency",
+      "decision": "REJECT",
+      "reason": "primary causal question belongs to Governance"
+    },
+    {
+      "candidate": "different_key_same_business_target",
+      "decision": "REJECT",
+      "reason": "business-level cross-key duplicate contract is not established"
+    },
+    {
+      "candidate": "same_business_payload_different_approval_metadata",
+      "decision": "REJECT_FOR_NOW",
+      "reason": "valuable semantic-hash control, but current benchmark driver cannot legally replay with a fresh approval without contract hardening"
+    }
+  ],
+  "reviewStatus": "MODEL_REVIEWED",
+  "humanReviewEvidenceBacked": 0,
+  "benchmarkDriverGap": {
+    "code": "IDEMPOTENCY_BENCHMARK_DRIVER_GAP",
+    "description": "Current RefundIdempotencyBenchmarkExecutor reuses one consumed approvalId for repeated deliveries. After Phase5 approval consumption, repeated deliveries can be blocked before WriteOperationService. Formal workload must use a fresh payload-bound approval per legal replay or execute at an explicitly scoped lower boundary."
+  }
+}

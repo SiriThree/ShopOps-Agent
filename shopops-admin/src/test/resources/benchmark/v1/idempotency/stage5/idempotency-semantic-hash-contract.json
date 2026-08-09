@@ -1,0 +1,24 @@
+{
+  "contractVersion": "stage5-semantic-hash-audit-v1",
+  "productionMethod": "WriteOperationService.canonicalSemanticInput",
+  "currentIncludedInputFields": [
+    "all top-level input fields except approvalId",
+    "shopId",
+    "orderId",
+    "refundAmount",
+    "operationRequestId",
+    "simulation when present"
+  ],
+  "ignoredExecutionMetadata": [
+    "approvalId"
+  ],
+  "idempotencyKeyFields": [
+    "toolCode",
+    "tenantId",
+    "shopId",
+    "businessObjectId/orderId",
+    "operationRequestId"
+  ],
+  "auditConclusion": "approvalId is excluded from semantic input hash; operationRequestId participates in the key and is also present in current input hash. No Stage5 production change made.",
+  "productionGap": null
+}

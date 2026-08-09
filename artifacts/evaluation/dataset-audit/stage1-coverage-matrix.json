@@ -1,0 +1,149 @@
+{
+  "task": {
+    "scenarioCases": {
+      "daily_review": 7,
+      "comment_risk": 6,
+      "product_optimization": 4,
+      "ad_anomaly": 4
+    },
+    "scenarioSemanticRoots": {
+      "ad_anomaly": 2,
+      "comment_risk": 3,
+      "daily_review": 4,
+      "product_optimization": 3
+    },
+    "difficulty": {
+      "EASY": 4,
+      "MEDIUM": 13,
+      "HARD": 4
+    },
+    "tags": {
+      "TASK": 21,
+      "READ_ONLY": 21,
+      "CLEAN": 9,
+      "MULTI_TOOL": 21,
+      "NATURAL_LANGUAGE_VARIANT": 5,
+      "MISSING_PARAMETER": 7,
+      "HELD_OUT": 6,
+      "AMBIGUOUS": 2
+    },
+    "fixtureDateRanges": {
+      "{\"end\":\"2018-08-01\",\"start\":\"2018-08-01\"}": 2,
+      "null": 7,
+      "{\"end\":\"2018-08-02\",\"start\":\"2018-08-02\"}": 2,
+      "{\"end\":\"2018-08-03\",\"start\":\"2018-08-03\"}": 2,
+      "{\"end\":\"2018-08-07\",\"start\":\"2018-08-07\"}": 3,
+      "{\"end\":\"2018-08-05\",\"start\":\"2018-08-05\"}": 2,
+      "{\"end\":\"2018-08-06\",\"start\":\"2018-08-06\"}": 1,
+      "{\"end\":\"2018-08-04\",\"start\":\"2018-08-04\"}": 2
+    },
+    "shopConcentration": {
+      "1": 21
+    },
+    "explicitNaturalLanguageVariantTags": 5,
+    "rootDerivedAdditionalVariants": 9
+  },
+  "governance": {
+    "negativeCases": 25,
+    "positiveCases": 8,
+    "negativeSemanticRoots": 18,
+    "positiveSemanticRoots": 5,
+    "heldOutPositiveCases": 4,
+    "heldOutNegativeCases": 8,
+    "attackTypeCases": {
+      "CROSS_SHOP": 2,
+      "CROSS_TENANT": 2,
+      "IDENTITY_FORGERY": 1,
+      "PERMISSION": 2,
+      "PERMISSION_FORGERY": 2,
+      "APPROVAL_MISSING": 1,
+      "APPROVAL_PAYLOAD_MUTATION": 1,
+      "UNKNOWN_TOOL": 2,
+      "LEGITIMATE_READ": 1,
+      "APPROVAL_TARGET_MISMATCH": 2,
+      "APPROVAL_REPLAY": 2,
+      "LEGITIMATE_APPROVED_WRITE": 2,
+      "LEGITIMATE_IDEMPOTENT_REPLAY": 1,
+      "LEGITIMATE_MCP_READ": 2,
+      "SCHEMA": 6,
+      "LEGITIMATE_HIGH_RISK": 2,
+      "BUSINESS_SCOPE": 1,
+      "APPROVAL_REJECTED": 1
+    },
+    "attackTypeSemanticRoots": {
+      "APPROVAL_MISSING": 1,
+      "APPROVAL_PAYLOAD_MUTATION": 1,
+      "APPROVAL_REJECTED": 1,
+      "APPROVAL_REPLAY": 1,
+      "APPROVAL_TARGET_MISMATCH": 1,
+      "BUSINESS_SCOPE": 1,
+      "CROSS_SHOP": 1,
+      "CROSS_TENANT": 1,
+      "IDENTITY_FORGERY": 1,
+      "LEGITIMATE_APPROVED_WRITE": 1,
+      "LEGITIMATE_HIGH_RISK": 1,
+      "LEGITIMATE_IDEMPOTENT_REPLAY": 1,
+      "LEGITIMATE_MCP_READ": 1,
+      "LEGITIMATE_READ": 1,
+      "PERMISSION": 1,
+      "PERMISSION_FORGERY": 2,
+      "SCHEMA": 5,
+      "UNKNOWN_TOOL": 1
+    }
+  },
+  "recovery": {
+    "semanticScenarios": 7,
+    "faultTypeCases": {
+      "LOCAL_FAILURE_AFTER_EXTERNAL_SUCCESS": 2,
+      "TIMEOUT_BEFORE_EXTERNAL_ACCEPTANCE": 2,
+      "TIMEOUT_AFTER_EXTERNAL_ACCEPTANCE": 2,
+      "RECOVERY_STATE_UPDATE_FAILURE": 1,
+      "RECONCILIATION_QUERY_TEMPORARY_FAILURE": 2,
+      "RECONCILIATION_QUERY_UNAVAILABLE": 2,
+      "DUPLICATE_RECOVERY_ATTEMPT": 2
+    },
+    "faultPointCases": {
+      "AFTER_EXTERNAL_SUCCESS_BEFORE_LOCAL_CONFIRM": 6,
+      "None": 7
+    },
+    "initialLocalStates": {
+      "EXECUTING": 6,
+      "EXTERNAL_UNKNOWN": 7
+    },
+    "initialExternalStates": {
+      "SUCCEEDED": 11,
+      "NOT_ACCEPTED": 2
+    },
+    "recoveryBudgets": {
+      "3": 12,
+      "2": 1
+    },
+    "concurrentCases": 2,
+    "manualReviewAllowedCases": 2
+  },
+  "idempotency": {
+    "semanticScenarios": 9,
+    "configuredLogicalOperations": 15,
+    "configuredDeliveryAttempts": 37,
+    "deliveryModes": {
+      "SINGLE": 4,
+      "RETRY": 9,
+      "CONCURRENT": 2
+    },
+    "concurrencyWorkers": {
+      "1": 13,
+      "5": 2
+    },
+    "scenarioCases": {
+      "BASELINE_SINGLE_DELIVERY": 2,
+      "SEQUENTIAL_RETRY": 2,
+      "CONCURRENT_RETRY": 2,
+      "SAME_KEY_DIFFERENT_PAYLOAD": 2,
+      "TIMEOUT_AFTER_EXTERNAL_SUCCESS": 2,
+      "EXTERNAL_SUCCESS_LOCAL_FAILURE": 2,
+      "RESPONSE_LOSS_AFTER_LOCAL_CONFIRM": 1,
+      "TIMEOUT_BEFORE_EXTERNAL_SUCCESS": 1,
+      "EXTERNAL_IDEMPOTENT_COMPARISON": 1
+    }
+  }
+}

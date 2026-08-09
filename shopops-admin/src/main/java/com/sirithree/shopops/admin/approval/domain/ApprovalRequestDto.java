@@ -17,6 +17,8 @@ public class ApprovalRequestDto {
     private String title;
     private String reason;
     private String inputSummary;
+    private String inputHash;
+    private String businessObjectId;
     private String status;
     private Long requesterId;
     private String requesterName;
@@ -54,6 +56,10 @@ public class ApprovalRequestDto {
     public void setReason(String reason) { this.reason = reason; }
     public String getInputSummary() { return inputSummary; }
     public void setInputSummary(String inputSummary) { this.inputSummary = inputSummary; }
+    public String getInputHash() { return inputHash; }
+    public void setInputHash(String inputHash) { this.inputHash = inputHash; }
+    public String getBusinessObjectId() { return businessObjectId; }
+    public void setBusinessObjectId(String businessObjectId) { this.businessObjectId = businessObjectId; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public Long getRequesterId() { return requesterId; }

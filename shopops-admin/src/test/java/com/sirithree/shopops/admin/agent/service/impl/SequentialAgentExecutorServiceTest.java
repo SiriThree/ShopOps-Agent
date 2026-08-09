@@ -13,13 +13,17 @@ import com.sirithree.shopops.admin.agent.domain.AgentTaskContext;
 import com.sirithree.shopops.admin.agent.domain.AgentTaskCreateParam;
 import com.sirithree.shopops.admin.agent.domain.DateRangeParam;
 import com.sirithree.shopops.admin.agent.service.StepExecutionRecorder;
+import com.sirithree.shopops.admin.auth.domain.DataScope;
+import com.sirithree.shopops.admin.auth.service.AuthorizationService;
 import com.sirithree.shopops.admin.report.domain.OperationReportDto;
 import com.sirithree.shopops.admin.report.service.OperationReportService;
+import com.sirithree.shopops.admin.tool.domain.ToolInvokeContext;
 import com.sirithree.shopops.admin.tool.domain.ToolInvokeResult;
 import com.sirithree.shopops.admin.tool.service.ToolGatewayService;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -27,11 +31,19 @@ class SequentialAgentExecutorServiceTest {
     private final ToolGatewayService toolGatewayService = mock(ToolGatewayService.class);
     private final OperationReportService operationReportService = mock(OperationReportService.class);
     private final StepExecutionRecorder stepExecutionRecorder = mock(StepExecutionRecorder.class);
+    private final AuthorizationService authorizationService = mock(AuthorizationService.class);
     private final SequentialAgentExecutorService executor = new SequentialAgentExecutorService(
             toolGatewayService,
             operationReportService,
-            stepExecutionRecorder
+            stepExecutionRecorder,
+            authorizationService
     );
+
+    {
+        when(authorizationService.resolve(1L, 1L, 1L))
+                .thenReturn(new AuthorizationService.AuthorizationSnapshot(
+                        List.of(1L), List.of("ADMIN"), Set.of("order:read", "report:generate"), DataScope.ALL_TENANT));
+    }
 
     @Test
     @SuppressWarnings("unchecked")
@@ -69,6 +81,24 @@ class SequentialAgentExecutorServiceTest {
         org.mockito.Mockito.verify(operationReportService)
                 .createDailyReviewReport(eq(1L), eq(1L), eq(10001L), eq(1L), eq("tr_test"), reportDataCaptor.capture());
         assertThat(reportDataCaptor.getValue()).containsEntry("status", "regenerated");
+    }
+
+    @Test
+    void shouldPropagatePermissionsFromTrustedAuthorizationServiceInsteadOfHardCodingThem() {
+        when(authorizationService.resolve(1L, 1L, 1L))
+                .thenReturn(new AuthorizationService.AuthorizationSnapshot(
+                        List.of(1L), List.of("VIEWER"), Set.of("order:read"), DataScope.ASSIGNED_SHOPS));
+        when(toolGatewayService.invoke(any(), eq("order.query_summary"), any()))
+                .thenReturn(ToolInvokeResult.success(Map.of("orderCount", 1), null));
+
+        AgentTaskContext context = context();
+        when(stepExecutionRecorder.ensureStep(eq(context), any(AgentPlanStep.class))).thenReturn(1L);
+        executor.execute(context, plan(new AgentPlanStep(1, "orders", "order.query_summary")));
+
+        ArgumentCaptor<ToolInvokeContext> captor = ArgumentCaptor.forClass(ToolInvokeContext.class);
+        org.mockito.Mockito.verify(toolGatewayService).invoke(captor.capture(), eq("order.query_summary"), any());
+        assertThat(captor.getValue().getPermissions()).containsExactly("order:read");
+        assertThat(captor.getValue().getPermissions()).doesNotContain("report:export", "feishu:write");
     }
 
     private AgentTaskContext context() {

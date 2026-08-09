@@ -1,0 +1,13 @@
+{
+  "source": "JdbcRefundIdempotencyIntegrationTest",
+  "callers": 4,
+  "freshApprovals": 4,
+  "writeBoundaryReached": 4,
+  "writeOperationRows": 1,
+  "distinctIdempotencyKeys": 1,
+  "finalWriteStatus": "SUCCEEDED",
+  "effectiveEffects": 1,
+  "duplicateEffects": 0,
+  "missingEffects": 0,
+  "result": "PASS"
+}
